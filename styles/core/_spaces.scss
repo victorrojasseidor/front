@@ -1,0 +1,15 @@
+//*** Espacios
+.space {
+    display: block;
+    width: 100%;
+    
+    &.__0 {
+        height: .25rem;
+    }
+    
+    @for $var from 1 through option(num-spaces) {
+        &.__#{$var} {
+            height: $var * 1rem * .5;
+        }
+    }
+}

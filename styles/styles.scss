@@ -1,0 +1,67 @@
+//*** styles
+// Google Fonts
+//@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
+
+// Inicialización
+// @import 'theme/config/fonts';
+@import 'core/functions-utils';
+@import 'core/functions-color';
+@import 'theme/config/app';
+@import 'core/media-query';
+@import 'theme/config/variables';
+@import 'theme/config/variables-css';
+@import 'theme/config/fz';
+@import 'core/reset';
+@import 'core/spaces';
+@import 'theme/config/utils';
+// @import 'theme/config/layout'; // beta
+
+
+// Componentes
+@import 'theme/components/404';
+@import 'theme/components/register';
+
+
+/*
+@import 'theme/components/the-content';
+@import 'theme/components/buttons';
+// @import 'theme/components/grids';
+@import 'theme/components/forms';
+@import 'theme/components/menu';
+// @import 'theme/components/menu-responsive';
+@import 'theme/components/modal';
+@import 'theme/components/pagination';
+@import 'theme/components/404';
+@import 'theme/components/rrss';
+@import 'theme/components/texts';
+@import 'theme/components/titles';
+@import 'theme/components/general';
+@import 'theme/components/header';
+@import 'theme/components/footer';
+@import 'theme/components/banner';
+@import 'theme/components/headline';
+@import 'theme/components/pregunta-expertos';
+@import 'theme/components/especialidades';
+@import 'theme/components/acordeon';
+@import 'theme/components/como-comenzar';
+@import 'theme/components/doctores';
+@import 'theme/components/medkube';
+@import 'theme/components/faq';
+@import 'theme/components/migas';
+@import 'theme/components/contacto';
+@import 'theme/components/beneficios';
+@import 'theme/components/login';
+@import 'theme/components/especialistas';
+@import 'theme/components/perfil';
+@import 'theme/components/filter';
+@import 'theme/components/lang-selector';
+@import 'theme/components/tooltips';
+@import 'theme/components/reserva';
+@import 'theme/components/notices';
+@import 'theme/components/videocall';
+@import 'theme/components/media-uploadChange';
+@import 'theme/components/media-upload';
+@import 'theme/components/thums';
+@import 'theme/components/mobile';
+// @import 'theme/components/loader';
+*/

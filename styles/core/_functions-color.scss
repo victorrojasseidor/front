@@ -1,0 +1,32 @@
+//*** Funciones para color HSLA ***
+
+// - Crea un color en formato HSL para CSS en base a variables creadas de un color en formato Hex
+@function vcolor($idColor){
+    @return hsl(var(--color_#{$idColor}_H), var(--color_#{$idColor}_S), var(--color_#{$idColor}_L));
+}
+
+// - Función para oscurecer un color con variables CSS en SCSS
+@function hsl_d($idColor, $percentage) {
+    $color_h: var(--color_#{$idColor}_H);
+    $color_s: var(--color_#{$idColor}_S);
+    $color_l: var(--color_#{$idColor}_L);
+    @return hsl($color_h, $color_s, calc(#{$color_l} - #{$percentage}#{'%'}));
+}
+
+
+// - Función para iluminar un color con variables CSS en SCSS
+@function hsl_l($numColor, $percentage) {
+    $color_h: var(--color_#{$numColor}_H);
+    $color_s: var(--color_#{$numColor}_S);
+    $color_l: var(--color_#{$numColor}_L);
+    @return hsl($color_h, $color_s, calc(#{$color_l} + #{$percentage}#{'%'}));
+}
+
+
+// - Función para dar transparencia a un color con variables CSS en SCSS
+@function hsl_a($numColor, $alpha) {
+    $color_h: var(--color_#{$numColor}_H);
+    $color_s: var(--color_#{$numColor}_S);
+    $color_l: var(--color_#{$numColor}_L);
+    @return hsla($color_h, $color_s, $color_l, $alpha);
+}

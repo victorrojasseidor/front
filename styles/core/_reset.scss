@@ -1,0 +1,64 @@
+//*** Reset
+*, *::after, *::before, *:focus {
+    outline: none;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+html {
+    font-size: inherit;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 ,h6 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+a, input, select, textarea, label, button, svg, svg * {
+    transition: trs(1);
+
+    &::before, &::after {
+        transition: trs(1);
+    }
+}
+
+input, select, textarea, button {
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+textarea {
+    resize: none;
+}
+
+input[type="submit"], button[type="submit"], button {
+    cursor: pointer;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+}
+
+img {
+    height: auto;
+    width: auto;
+    display: block;
+}
+
+ul {
+    list-style: none;
+}
+
+p {
+    line-height: 1.5;
+}

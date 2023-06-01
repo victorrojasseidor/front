@@ -1,0 +1,32 @@
+.flex--container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -1rem;
+    margin-left: -1rem;
+}
+
+.fi--auto {
+    flex: 1;
+}
+
+[class*="fi--"] {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@for $var from 1 through 20 {
+    .fi--#{$var * 5} {
+        width: $var * 5%;
+    }
+}
+
+@each $key, $value in $breakpoints {
+    @include mqi($key){
+        @for $var from 1 through 20 {
+            .mqi-#{$key}--#{$var * 5} {
+                width: $var * 5%;
+                flex: auto;
+            }
+        }
+    }
+}

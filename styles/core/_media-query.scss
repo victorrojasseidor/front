@@ -1,0 +1,19 @@
+//*** Mixins ***
+
+// - Mediaquery: First Mobile
+@mixin mq($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint ) {
+        @media screen and (min-width: map-get($breakpoints, $breakpoint )) {
+            @content;
+        }
+    }
+}
+
+// - Mediaquery: First Desktop
+@mixin mqi($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint ) {
+        @media screen and (max-width: map-get($breakpoints, $breakpoint )) {
+            @content;
+        }
+    }
+}

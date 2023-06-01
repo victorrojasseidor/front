@@ -1,0 +1,85 @@
+// *** Variables para generar clases de utilidad ***
+
+// - Alineación de texto
+.ta--center {
+    text-align: center;
+}
+
+.ta--left {
+    text-align: left;
+}
+
+.ta--right {
+    text-align: right;
+}
+
+// - Transformación de texto
+.tt--upper {
+    text-transform: uppercase;
+}
+
+.tt--lower {
+    text-transform: lowercase;
+}
+
+// - Alineación Flex Eje Primario
+.jc--start {
+    justify-content: flex-start;
+}
+
+.jc--end {
+    justify-content: flex-end;
+}
+
+.jc--center {
+    justify-content: center;
+}
+
+.jc--between {
+    justify-content: space-between;
+}
+
+// - Alineación Flex Eje Secundario
+.ai--start {
+    align-items: flex-start;
+}
+
+.ai--end {
+    align-items: flex-end;
+}
+
+.ai--center {
+    align-items: center;
+}
+
+// - Posicionamiento de caja
+.pos--relative {
+    position: relative;
+}
+
+.flex {
+    display: flex;
+
+    &.__mr {
+
+        > * {
+            margin-right: 1rem;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+// - Genera colores de fondo
+@include generateClass($colorsBasics, bgc);
+@include generateClass($colorsGrey, bgc, 'grey');
+@include generateClass($colorsBrand, bgc, 'brand');
+@include generateClass($colorsMessage, bgc, 'message');
+
+// - Genera colores de texto
+@include generateClass($colorsBasics, color);
+@include generateClass($colorsGrey, color, 'grey');
+@include generateClass($colorsBrand, color, 'brand');
+@include generateClass($colorsMessage, color, 'message');
