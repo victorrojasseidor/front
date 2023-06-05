@@ -1,20 +1,23 @@
-//import Image from 'next/image'
+"use client"
 
-import Register from '@/pages/register';
-import '../../styles/styles.scss';
+import { DataContextProvider } from "@/Context/DataContext";
+import Register from "@/pages/register";
+import "../../styles/styles.scss";
 
 export default function Home() {
+
   return (
-    <main >
-      <h1 >
-        tituloooooooooooooooooooo home 
+    <DataContextProvider>
+    <main>
+      <h1>
+        pagina principal
       </h1>
+
       <div>
-        pagees automatico !!!  
-        
-        <Register/>     
+        <Register />
       </div>
-      
     </main>
-  )
+    </DataContextProvider>
+
+  );
 }
