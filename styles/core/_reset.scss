@@ -23,6 +23,10 @@ h1, h2, h3, h4, h5 ,h6 {
     font-weight: inherit;
 }
 
+h1 {
+    color:aquamarine
+}
+
 a, input, select, textarea, label, button, svg, svg * {
     transition: trs(1);
 
