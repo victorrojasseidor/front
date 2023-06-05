@@ -1,0 +1,98 @@
+{
+  "signup": {
+    "Have an account?": "Have an account?",
+    "Log in": "Log in",
+    "Sign up": "Sign up",
+    "Username": "Username",
+    "Company email": "Company email",
+    "Password": "Password",
+    "Confirm password": "Confirm password ",
+    "I accept": "I accept SEIDOR BPaaS",
+    "SEIDOR BPaaS Terms and Conditions and Privacy Policy": "Terms and Conditions and Privacy Policy",
+    "SIGN UP NOW": "SIGN UP NOW",
+    "The email domain is not corporate": "The email domain is not corporate",
+    "Password validated: contains more than 8 characters between uppercase, lowercase and numbers": "Password validated: contains more than 8 characters between uppercase, lowercase and numbers",
+    "Password confirmed": "Password confirmed",
+    "Create your account in SEIDOR BPaas": "Create your account in SEIDOR BPaas",
+    "We´ve sent a verefication link to": "We´ve sent a verefication link to",
+    "Please enter your email to confirm registration": "Please enter your email to confirm registration"
+  },
+
+  "login": {
+    "Log in": "Log in",
+    "Log in on the Business Process as a service": "Log in on the Business Process as a service",
+    "Company email": "Company email",
+    "Password": "Password",
+    "I forgot my password": "I forgot my password",
+    "The password or email is incorrect": "The password or email is incorrect",
+    "Have not an account?": "Have not an account?",
+    "Sign up": "Sign up"
+  },
+
+  "recover_password": {
+    "Recover password": "Recover password",
+    "Please enter your email. A link will be sent to you to change your password": "Please enter your email. A link will be sent to you to change your password",
+    "Company email": "Company email",
+    "SEND": "SEND",
+    "Have an account?": "Have an account?",
+    "Password validated: contains more than 8 characters between uppercase, lowercase and numbers": "Password validated: contains more than 8 characters between uppercase, lowercase and numbers",
+    "Log in": "Log in",
+    "We´ve sent a verefication link to": "We´ve sent a verefication link to",
+    "Please enter your email to uptdate password": "Please enter your email to confirm registration",
+    "OK": "OK"
+  },
+
+  "update_password": {
+    "Have an account?": "Have an account?",
+    "Log in": "Log in",
+    "Recover password": "Recover password",
+    "Create your new password": "Create your new password",
+    "Company email": "Company email",
+    "Password": "Password",
+    "Confirm password": "Confirm password",
+    "Password validated: contains more than 8 characters between uppercase, lowercase and numbers": "Password validated: contains more than 8 characters between uppercase, lowercase and numbers",
+    "UPDATE": "UPDATE"
+  },
+
+  "profile_start": {
+    "Discover a new way to optimize your financial operations.": "Discover a new way to optimize your financial operations.",
+    "BPaaS: Robots and people work better together": "BPaaS: Robots and people work better together",
+    "Welcome to Seidor BPaaS!": "Welcome to Seidor BPaaS!",
+    "Innovation is the key to efficiency and speed in your financial processes.": "Innovation is the key to efficiency and speed in your financial processes.",
+    "Our robots collaborate to provide you with the best service, so you don't have to worry about a thing.": "Our robots collaborate to provide you with the best service, so you don't have to worry about a thing.",
+    "let's get started": "let's get started",
+    "Fill in the following fields to complete your profile": "Fill in the following fields to complete your profile",
+    "Personal information": "Personal information",
+    "Company": "Company",
+    "Notifications": "Notifications",
+    "Last Name": "Last Name",
+    "Phone number": "Phone number",
+    "Company email": "Company email",
+    "NEXT": "NEXT",
+    "Company name": "Company name",
+    "Add business unit or associated company": "Add business unit or associated company",
+    "ADD NEW": "ADD NEW",
+    "Profile created for the following companies": "Profile created for the following companies",
+    "BACK": "BACK",
+    "Select how you want to be notified": "Select how you want to be notified",
+    "Notifications in Bpass": "Notifications in Bpass",
+    "Email notifications": "Email notifications",
+    "SAVE": "SAVE"
+  },
+
+  "header": {
+    "Edit profile": "Edit profile",
+    "Products": "Products",
+    "Users": "Users",
+    "Dashboard": "Dashboard",
+    "APIS": "APIS",
+    "Schedule": "Schedule",
+    "Support": "Support",
+    "English": "English",
+    "Spanish": "Spanish"
+  ,
+"dev":"deven ingles",
+"buttonLenguaje": "Change Lenguaje"
+}
+
+}

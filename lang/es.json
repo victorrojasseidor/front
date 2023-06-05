@@ -1,0 +1,82 @@
+{
+  "signup": {
+    "Have an account?": "¿Ya tienes una cuenta?",
+    "Log in": "Iniciar sesión",
+    "Sign up": "Regístrate",
+    "Username": "Nombre de usuario",
+    "Company email": "Correo coorportivo",
+    "Password": "Contraseña",
+    "Confirm password ": "Confirmar contraseña",
+    "I accept ": "Acepto los",
+    "SEIDOR BPaaS Terms and Conditions and Privacy Policy": "Términos y Condiciones y la Política de Privacidad de SEIDOR BPaaS",
+    "SIGN UP NOW": "REGÍSTRATE AHORA",
+    "The email domain is not corporate": "El dominio de correo electrónico no es corporativo",
+    "Password validated: contains more than 8 characters between uppercase, lowercase and numbers": "Contraseña validada: contiene más de 8 caracteres entre mayúsculas, minúsculas y números",
+    "Password confirmed": "Contraseña confirmada",
+    "Create your account in SEIDOR BPaas": "Crea tu cuenta en SEIDOR BPaas",
+    "We´ve sent a verefication link to": "Hemos enviado un enlace de verificación a ",
+    "please enter your email to confirm registration": "Por favor ingrese a su correo electrónico para confirmar su registro"
+  },
+
+  "login": {
+    "Log in": "Iniciar sesión",
+    "Log in on the Business Process as a service": "Inicie sesión en Business Process as a service",
+    "Company email": "Correo coorportivo",
+    "Password": "Contraseña",
+    "I forgot my password": "Olvidé mi contraseña",
+    "The password or email is incorrect": "La contraseña o el correo son incorrectos",
+    "Have not an account?": "¿No tienes una cuenta?",
+    "Sign up": "Regístrate"
+  },
+
+  "recover_password": {
+    "Recover password": "Recuperar contraseña",
+    "Please enter your email. A link will be sent to you to change your password": "Por favor coloque su correo electrónico. Se le enviará un link para cambiar su contraseña",
+    "Company email": "Correo coorportivo",
+    "SEND": "ENVIAR",
+    "Have an account?": "¿Ya tienes una cuenta?",
+    "Log in": "Iniciar sesión",
+    "Password": "Contraseña",
+    "Confirm password ": "Confirmar contraseña",
+    "We´ve sent a verefication link to": "Hemos enviado un enlace de verificación a ",
+    "please enter your email to uptdate password": "Por favor ingrese a su correo electrónico para actualizar su contraseña"
+  },
+
+  "profile_start": {
+    "Discover a new way to optimize your financial operations.": "Descubra una nueva forma de optimizar sus operaciones financieras.",
+    "BPaaS: Robots and people work better together": "BPaaS: los robots y las personas trabajan mejor juntos",
+    "Welcome to Seidor BPaaS!": "¡Bienvenido a Seidor BPaaS!",
+    "Innovation is the key to efficiency and speed in your financial processes.": "Innovation is the key to efficiency and speed in your financial processes.",
+    "Our robots collaborate to provide you with the best service, so you don't have to worry about a thing.": "Nuestros robots colaboran para darte el mejor servicio, para que no tengas que preocuparte de nada.",
+    "let's get started": "Empecemos",
+    "Fill in the following fields to complete your profile": "Rellena los siguientes campos para completar tu perfil",
+    "Personal information": "Información personal",
+    "Username": "Nombres",
+    "Last Name": "Apellido",
+    "Phone number": "Número telefónico",
+    "Company email": "Correo coorportivo",
+    "NEXT": "SIGUIENTE",
+    "Company name": "Nombre de la empresa",
+    "Add business unit or associated company": "Agregar unidad de negocio o empresa asociada",
+    "ADD NEW": "AGREGAR NUEVO",
+    "Profile created for the following companies": "Perfil creado para las siguientes empresas",
+    "BACK": "ATRÁS",
+    "Select how you want to be notified": "Selecciona como quieres ser notificado",
+    "Notifications in Bpass": "Notificaciones en Bpass",
+    "Email notifications": "Notificaciones por correo electrónico",
+    "SAVE": "GUARDAR"
+  },
+  "header": {
+    "Edit profile": "Editar perfil",
+    "Products": "Productos",
+    "Users": "Usuarios",
+    "Dashboard": "Dashboard",
+    "APIS": "APIS",
+    "Schedule": "Horario",
+    "Support": "Soporte",
+    "English": "Inglés",
+    "Spanish": "Español"
+  },
+  "dev":"deven ingles",
+  "buttonLenguaje": "Cambiar idioma"
+}
