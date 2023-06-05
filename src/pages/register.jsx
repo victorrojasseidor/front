@@ -5,7 +5,6 @@ import imgRegister from "../../public/img/register.jpg";
 import { useContext } from "react";
 import { DataContext } from "@/Context/DataContext";
 
-
 export default function Register() {
   const {dataClient,t} =useContext(DataContext);
 
