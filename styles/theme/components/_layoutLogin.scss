@@ -1,0 +1,93 @@
+
+/*desktop
+tablet
+mobile
+                border: bd(thin);
+@include fzBody(normal);
+border-radius: brd(1);
+@include fzBody(small);
+  list-style-type: none;
+*/
+
+
+.layoutLogin {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  margin: 1em;
+  height: 120vh;
+
+  &_image {
+           @include media(tablet) {
+        width: 50%;
+    }
+  }
+
+  @include media(tablet) {
+    background-image: url("../../../public/img/register.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-size: 130vh;
+  }
+
+  section {
+    background-color:get-color(white_s1);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+       @include media(tablet) {
+        width: 50%;
+    }
+
+
+    nav {
+      display: flex;
+      justify-content: space-around;
+      justify-self: unset;
+      align-items: center;
+      flex-grow: 0.1;
+
+      ul{
+        display: flex;
+        align-content: flex-end;
+        gap: 0.5em;
+        li{
+          list-style-type: none;
+        }
+       
+    
+        .Question{
+          // background-color: aqua;
+          color:get-color(grey2_s4);
+         
+        }
+
+        .link{
+          a{
+            color:get-color(blue_p1);
+            font-weight: bold;
+          }
+         
+          
+        }
+
+
+      }
+     
+      
+
+
+    }
+
+    .register {
+      flex-grow: 2;
+      padding: 0 1em 0 1em;
+      // background-color:get-color(white_s1)
+  
+      
+    }
+  }
+
+
+
+}

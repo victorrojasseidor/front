@@ -1,4 +1,22 @@
 //*** Reset
+
+$font-path: "/fonts/static/Montserrat-VariableFont_wght.ttf";
+
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('#{$font-path}Montserrat-Regular.ttf') format('truetype');
+  /* Agrega más formatos de fuente si los tienes */
+}
+
+
+
+body{
+  font-family:Arial, Helvetica, sans-serif;
+  
+}
+
+
 *, *::after, *::before, *:focus {
     outline: none;
 }

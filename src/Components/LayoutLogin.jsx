@@ -18,12 +18,12 @@ export default function LayoutLogin({ children }) {
         <nav>
           <Image src={logo} width={120} alt="imgRegister"></Image>
           <ul>
-            <li>
-              <Link href="/register">
+            <li className="Question">
+           
                 {t.signup["Have an account?"]}
-              </Link>
+            
             </li>
-            <li>
+            <li className="link">
               <Link href="/register">
                 {t.signup["Log in"]}
               </Link>
