@@ -6,15 +6,5 @@
     background-position: center center;
     background-size: 70%;
     
-    @include mqi(l){
-        background-size: 80%;
-    }
 
-    @include mqi(m){
-        background-size: 100%;
-    }
-
-    @include mqi(s){
-        background-size: 120%;
-    }
 }

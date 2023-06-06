@@ -72,14 +72,14 @@
     }
 }
 
-// - Genera colores de fondo
-@include generateClass($colorsBasics, bgc);
-@include generateClass($colorsGrey, bgc, 'grey');
-@include generateClass($colorsBrand, bgc, 'brand');
-@include generateClass($colorsMessage, bgc, 'message');
+// // - Genera colores de fondo
+// @include generateClass($colorsBasics, bgc);
+// @include generateClass($colorsGrey, bgc, 'grey');
+// @include generateClass($colorsBrand, bgc, 'brand');
+// @include generateClass($colorsMessage, bgc, 'message');
 
-// - Genera colores de texto
-@include generateClass($colorsBasics, color);
-@include generateClass($colorsGrey, color, 'grey');
-@include generateClass($colorsBrand, color, 'brand');
-@include generateClass($colorsMessage, color, 'message');
+// // - Genera colores de texto
+// @include generateClass($colorsBasics, color);
+// @include generateClass($colorsGrey, color, 'grey');
+// @include generateClass($colorsBrand, color, 'brand');
+// @include generateClass($colorsMessage, color, 'message');

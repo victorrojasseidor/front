@@ -1,19 +1,30 @@
-//*** Mixins ***
+//Breakpoints
+$small: 425px;
+$medium: 768px;
+$large: 1024px;
 
-// - Mediaquery: First Mobile
-@mixin mq($breakpoint) {
-    @if map-has-key($breakpoints, $breakpoint ) {
-        @media screen and (min-width: map-get($breakpoints, $breakpoint )) {
-            @content;
-        }
-    }
-}
+@mixin media($types...) {
+  @each $type in $types {
 
-// - Mediaquery: First Desktop
-@mixin mqi($breakpoint) {
-    @if map-has-key($breakpoints, $breakpoint ) {
-        @media screen and (max-width: map-get($breakpoints, $breakpoint )) {
-            @content;
-        }
+    //only mobile or mobile down
+    @if $type == mobile {
+      @media only screen and (max-width: $medium - 1) {
+        @content;
+      }
     }
+
+    //tablet up
+    @if $type == tablet {
+      @media only screen and (min-width: $medium) {
+        @content;
+      }
+    }
+
+    //desktop up
+    @if $type == desktop {
+      @media only screen and (min-width: $large) {
+        @content;
+      }
+    }
+  }
 }
