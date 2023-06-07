@@ -2,13 +2,11 @@
 
 $font-path: "/fonts/static/Montserrat-VariableFont_wght.ttf";
 
-
 @font-face {
   font-family: 'Montserrat';
   src: url('#{$font-path}Montserrat-Regular.ttf') format('truetype');
   /* Agrega más formatos de fuente si los tienes */
 }
-
 
 
 body{
@@ -42,7 +40,15 @@ h1, h2, h3, h4, h5 ,h6 {
 }
 
 h1 {
-    color:black;
+color:#242331;
+font-style: normal;
+font-weight: 700;
+font-size: 30px;
+line-height: 125%;
+/* identical to box height, or 38px */
+display: flex;
+align-items: center;
+text-align: center; 
 }
 
 a, input, select, textarea, label, button, svg, svg * {

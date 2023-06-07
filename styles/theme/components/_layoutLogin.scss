@@ -2,7 +2,7 @@
 /*desktop
 tablet
 mobile
-                border: bd(thin);
+border: bd(thin);
 @include fzBody(normal);
 border-radius: brd(1);
 @include fzBody(small);
@@ -14,7 +14,7 @@ border-radius: brd(1);
   display: flex;
   flex-direction: row;
   gap: 2em;
-  margin: 1em;
+  margin: 3em 1em ;
   height: 120vh;
 
   &_image {
@@ -45,7 +45,7 @@ border-radius: brd(1);
       justify-content: space-around;
       justify-self: unset;
       align-items: center;
-      flex-grow: 0.1;
+      // flex-grow: 0.1;
 
       ul{
         display: flex;
@@ -79,13 +79,7 @@ border-radius: brd(1);
 
     }
 
-    .register {
-      flex-grow: 2;
-      padding: 0 1em 0 1em;
-      // background-color:get-color(white_s1)
-  
-      
-    }
+ 
   }
 
 

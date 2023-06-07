@@ -1,6 +1,110 @@
-
 .register {
+  // flex-grow: 2;
+  padding: 2em 1em 0 1em;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+   width: 100%;
+   
+
+  div {
+      display: flex;
+    flex-direction: column;
+    color: get-color(black_p2);
+    gap: 0.4em;
+    position: relative;
     
-    // background-color: black;
-    font-size: small;
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      border: 1px solid get-color(forms_s6);
+      border-radius: brd(1);
+      height: 2.2em;
+      color: get-color(blue_p1);
+      padding: 1rem;
+      font-family: Arial, Helvetica, sans-serif;
+
+      &:hover, &:active {
+        border: 2px solid get-color(lilac_p3);
+      }
+
+    }
+
+  svg{
+      position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    top: 60%;
+    right: 1rem; // Ajusta la posición horizontal del icono
+    // transform: translateY(-50%);
+
+       @include media(tablet) {
+        top: 70%;
+        right: 1rem; // Ajusta la posición horizontal del icono
+        transform: translateY(-50%);
+
+    }
+
+    path{
+        fill:get-color(forms_s6)
+       }
+
+    }
+
+
+
+
+
+    label {
+      font-weight: fw(medium);
+      cursor: pointer;
+      color: grey;
+      transition: 0.5s;
+    }
+
+    .errorMessage {
+      color: get-color(t3-red);
+      margin-top: 5px;
+    }
+
+    span:nth-child(3)  {
+        color:get-color(blue_p1);
+        font-size: 14px;
+      }
+    
+
+  }
+}
+
+
+
+.buttonPrimary {
+    margin-top: 1rem;
+  background-color: get-color(blue_p1);
+  color: get-color(white_s1);
+  border-radius: brd(1);
+  padding: 12px 20px;
+  max-width: 400px;
+
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    background-color: get-color(t1-blue);
+    transform: translateY(-2px);
+  }
+
 }

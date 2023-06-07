@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import en from "../../lang/en.json";
 import es from "../../lang/es.json";
 
-export const DataContext = React.createContext();
+export const DataContext = createContext();
 
 export const DataContextProvider = ({ children }) => {
   
@@ -12,6 +12,7 @@ export const DataContextProvider = ({ children }) => {
     years: 27,
     "tilte": "dataclienttt"
   };
+
 
   // lang
   const locale = "en";
@@ -25,10 +26,9 @@ export const DataContextProvider = ({ children }) => {
     <DataContext.Provider
       value={{
         dataClient,t
-             }}
-    >
-      {loading ? children : `Loading...`}
-      {/* { children } */}
+        }}
+    >     
+      { children }
     </DataContext.Provider>
   );
 };
