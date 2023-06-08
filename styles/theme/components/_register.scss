@@ -11,21 +11,18 @@
   width: 100%;
 }
 
-
 .form {
   display: flex;
   flex-direction: column;
   gap: 1em;
-   width: 100%;
-   
+  width: 100%;
 
   div {
-      display: flex;
+    display: flex;
     flex-direction: column;
     color: get-color(black_p2);
     gap: 0.4em;
     position: relative;
-    
 
     input[type="text"],
     input[type="email"],
@@ -37,33 +34,46 @@
       padding: 1rem;
       font-family: Arial, Helvetica, sans-serif;
 
-      &:hover, &:active {
+      &:hover,
+      &:active {
         border: 2px solid get-color(lilac_p3);
       }
-
     }
 
-  svg{
-      position: absolute;
-    display: flex;
-    justify-content: flex-end;
-    top: 60%;
-    right: 1rem; // Ajusta la posición horizontal del icono
-    // transform: translateY(-50%);
 
-       @include media(tablet) {
-        top: 70%;
-        right: 1rem; // Ajusta la posición horizontal del icono
+
+    .iconPassword1, .iconPassword2 {
+      svg {
+        position: absolute;
+        right: 1rem;
+        background-color: aqua;
+    
+
+      path {
+        fill: get-color(forms_s6);
+      }
+    }
+    }
+
+
+    .iconPassword1 {
+      svg {
+        top: 65%;
+         @include media(tablet) {
+          top: 34%;
+    
+          // transform: translateY(-50%);
+        }
+      }
+    }
+
+    .iconPassword2 {
+      top: 34%;    
+      @include media(tablet) {
+        top: 34%;
         transform: translateY(-50%);
-
+      }
     }
-
-    path{
-        fill:get-color(forms_s6)
-       }
-
-    }
-
 
 
 
@@ -80,19 +90,15 @@
       margin-top: 5px;
     }
 
-    span:nth-child(3)  {
-        color:get-color(blue_p1);
-        font-size: 14px;
-      }
-    
-
+    span:nth-child(3) {
+      color: get-color(blue_p1);
+      font-size: 14px;
+    }
   }
 }
 
-
-
 .buttonPrimary {
-    margin-top: 1rem;
+  margin-top: 1rem;
   background-color: get-color(blue_p1);
   color: get-color(white_s1);
   border-radius: brd(1);
@@ -106,5 +112,4 @@
     background-color: get-color(t1-blue);
     transform: translateY(-2px);
   }
-
 }

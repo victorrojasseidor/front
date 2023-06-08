@@ -1,18 +1,18 @@
 // *** Configuración Inicial ***
 
 // - Opciones iniciales
-$optionsInit : (
-    fz-init         : 16px,
-    num-spaces      : 10,
+$optionsInit: (
+  fz-init: 16px,
+  num-spaces: 10
 );
-@function option($var){
-    @return map-get($optionsInit, $var);
+@function option($var) {
+  @return map-get($optionsInit, $var);
 }
 
 // - Atajos Propiedades CSS
-$shortsProps : (
-    color   : color,
-    bgc     : background-color,
+$shortsProps: (
+  color: color,
+  bgc: background-color
 );
 
 // // - Breakoints Media Queries

@@ -1,6 +1,6 @@
 //*** Reset
 
-$font-path: "/fonts/static/Montserrat-VariableFont_wght.ttf";
+$font-path: '/fonts/static/Montserrat-VariableFont_wght.ttf';
 
 @font-face {
   font-family: 'Montserrat';
@@ -8,85 +8,105 @@ $font-path: "/fonts/static/Montserrat-VariableFont_wght.ttf";
   /* Agrega más formatos de fuente si los tienes */
 }
 
-
-body{
-  font-family:Arial, Helvetica, sans-serif;
-  
+body {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-
-*, *::after, *::before, *:focus {
-    outline: none;
+*,
+*::after,
+*::before,
+*:focus {
+  outline: none;
 }
 
-*, *::after, *::before {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    line-height: 1.2;
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
 }
 
 html {
-    font-size: inherit;
+  font-size: inherit;
 }
 
 body {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5 ,h6 {
-    font-size: inherit;
-    font-weight: inherit;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
 }
 
 h1 {
-color:#242331;
-font-style: normal;
-font-weight: 700;
-font-size: 30px;
-line-height: 125%;
-/* identical to box height, or 38px */
-display: flex;
-align-items: center;
-text-align: center; 
+  color: #242331;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 125%;
+  /* identical to box height, or 38px */
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
-a, input, select, textarea, label, button, svg, svg * {
+a,
+input,
+select,
+textarea,
+label,
+button,
+svg,
+svg * {
+  transition: trs(1);
+
+  &::before,
+  &::after {
     transition: trs(1);
-
-    &::before, &::after {
-        transition: trs(1);
-    }
+  }
 }
 
-input, select, textarea, button {
-    font-size: 1rem;
-    font-family: inherit;
+input,
+select,
+textarea,
+button {
+  font-size: 1rem;
+  font-family: inherit;
 }
 
 textarea {
-    resize: none;
+  resize: none;
 }
 
-input[type="submit"], button[type="submit"], button {
-    cursor: pointer;
+input[type='submit'],
+button[type='submit'],
+button {
+  cursor: pointer;
 }
 
 a {
-    display: block;
-    text-decoration: none;
+  display: block;
+  text-decoration: none;
 }
 
 img {
-    height: auto;
-    width: auto;
-    display: block;
+  height: auto;
+  width: auto;
+  display: block;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 p {
-    line-height: 1.5;
+  line-height: 1.5;
 }

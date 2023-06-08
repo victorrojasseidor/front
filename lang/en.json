@@ -7,7 +7,7 @@
     "Company email": "Company email",
     "Password": "Password",
     "Confirm password": "Confirm password ",
-    "I accept": "I accept SEIDOR BPaaS",
+    "I accept": " I accept SEIDOR BPaaS",
     "SEIDOR BPaaS Terms and Conditions and Privacy Policy": "Terms and Conditions and Privacy Policy",
     "SIGN UP NOW": "SIGN UP NOW",
     "The email domain is not corporate": "The email domain is not corporate",
@@ -89,10 +89,8 @@
     "Schedule": "Schedule",
     "Support": "Support",
     "English": "English",
-    "Spanish": "Spanish"
-  ,
-"dev":"deven ingles",
-"buttonLenguaje": "Change Lenguaje"
-}
-
+    "Spanish": "Spanish",
+    "dev": "deven ingles",
+    "buttonLenguaje": "Change Lenguaje"
+  }
 }

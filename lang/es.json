@@ -4,10 +4,10 @@
     "Log in": "Iniciar sesión",
     "Sign up": "Regístrate",
     "Username": "Nombre de usuario",
-    "Company email": "Correo coorportivo",
+    "Company email": "Correo corporativo",
     "Password": "Contraseña",
-    "Confirm password ": "Confirmar contraseña",
-    "I accept ": "Acepto los",
+    "Confirm password": "Confirmar contraseña",
+    "I accept": " Acepto los",
     "SEIDOR BPaaS Terms and Conditions and Privacy Policy": "Términos y Condiciones y la Política de Privacidad de SEIDOR BPaaS",
     "SIGN UP NOW": "REGÍSTRATE AHORA",
     "The email domain is not corporate": "El dominio de correo electrónico no es corporativo",
@@ -77,6 +77,6 @@
     "English": "Inglés",
     "Spanish": "Español"
   },
-  "dev":"deven ingles",
+  "dev": "deven ingles",
   "buttonLenguaje": "Cambiar idioma"
 }

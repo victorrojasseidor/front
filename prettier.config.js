@@ -1,6 +1,7 @@
-module.exports ={
-    semi:true,
-    trailingComma:"all",
-    singleQuote: true,
-    printWidth:100
+module.exports = {
+  semi: true,
+  trailingComma: 'none',
+  jsxSingleQuote: true,
+  printWidth: 500,
+  ignoreComments: true
 }

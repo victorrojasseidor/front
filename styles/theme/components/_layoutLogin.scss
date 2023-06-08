@@ -1,4 +1,3 @@
-
 /*desktop
 tablet
 mobile
@@ -9,36 +8,34 @@ border-radius: brd(1);
   list-style-type: none;
 */
 
-
 .layoutLogin {
   display: flex;
   flex-direction: row;
   gap: 2em;
-  margin: 3em 1em ;
+  margin: 3em 1em;
   height: 120vh;
 
   &_image {
-           @include media(tablet) {
-        width: 50%;
+    @include media(tablet) {
+      width: 50%;
     }
   }
 
   @include media(tablet) {
-    background-image: url("../../../public/img/register.jpg");
+    background-image: url('../../../public/img/register.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-size: 130vh;
   }
 
   section {
-    background-color:get-color(white_s1);
+    background-color: get-color(white_s1);
     display: flex;
     flex-direction: column;
     width: 100%;
-       @include media(tablet) {
-        width: 50%;
+    @include media(tablet) {
+      width: 50%;
     }
-
 
     nav {
       display: flex;
@@ -47,41 +44,26 @@ border-radius: brd(1);
       align-items: center;
       // flex-grow: 0.1;
 
-      ul{
+      ul {
         display: flex;
         align-content: flex-end;
         gap: 0.5em;
-        li{
+        li {
           list-style-type: none;
         }
-       
-    
-        .Question{
+
+        .Question {
           // background-color: aqua;
-          color:get-color(grey2_s4);
-         
+          color: get-color(grey2_s4);
         }
 
-        .link{
-          a{
-            color:get-color(blue_p1);
+        .link {
+          a {
+            color: get-color(blue_p1);
             font-weight: bold;
           }
-         
-          
         }
-
-
       }
-     
-      
-
-
     }
-
- 
   }
-
-
-
 }

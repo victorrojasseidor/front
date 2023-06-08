@@ -2,74 +2,73 @@
 
 // - Alineación de texto
 .ta--center {
-    text-align: center;
+  text-align: center;
 }
 
 .ta--left {
-    text-align: left;
+  text-align: left;
 }
 
 .ta--right {
-    text-align: right;
+  text-align: right;
 }
 
 // - Transformación de texto
 .tt--upper {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .tt--lower {
-    text-transform: lowercase;
+  text-transform: lowercase;
 }
 
 // - Alineación Flex Eje Primario
 .jc--start {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .jc--end {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .jc--center {
-    justify-content: center;
+  justify-content: center;
 }
 
 .jc--between {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 // - Alineación Flex Eje Secundario
 .ai--start {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 
 .ai--end {
-    align-items: flex-end;
+  align-items: flex-end;
 }
 
 .ai--center {
-    align-items: center;
+  align-items: center;
 }
 
 // - Posicionamiento de caja
 .pos--relative {
-    position: relative;
+  position: relative;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 
-    &.__mr {
+  &.__mr {
+    > * {
+      margin-right: 1rem;
 
-        > * {
-            margin-right: 1rem;
-
-            &:last-child {
-                margin-right: 0;
-            }
-        }
+      &:last-child {
+        margin-right: 0;
+      }
     }
+  }
 }
 
 // // - Genera colores de fondo

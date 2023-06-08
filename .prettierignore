@@ -1,0 +1,9 @@
+node_modules
+dist
+build
+out
+*.jpg
+*.png
+*.mp4
+prettier.config.js
+.eslintrc

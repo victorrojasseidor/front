@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { DataContextProvider } from "@/Context/DataContext";
 import LayoutLogin from "@/Components/LayoutLogin";
 import "../../styles/styles.scss";
 import { Formik, Field, ErrorMessage } from "formik";
@@ -7,110 +5,132 @@ import * as Yup from "yup";
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { Form } from "formik";
 
-const SignupSchema = Yup.object().shape({
-  name: Yup.string().required("El nombre es requerido"),
+
+
+
+const validationSchema = Yup.object().shape({
   email: Yup.string()
-    .email("Invalid email")
-    .required("Email is required"),
-  phoneNumber: Yup.string()
-    .matches(/^\d{10}$/, "Phone number must be 10 digits")
-    .required("Phone number is required"),
+    .email('El correo electrónico no es válido.')
+    .required('El correo electrónico es requerido.'),
   password: Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .required("The password is required"),
+    .min(8, 'La contraseña debe tener al menos 8 caracteres.')
+    .required('La contraseña es requerida.'),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required("Password confirmation is required"),
-  corporateEmail: Yup.string()
-    .email("Invalid corporate email")
-    .matches(/^(?!.*@(?:hotmail\.com|gmail\.com|yahoo\.com)$)([\w.%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/, "The email must be from the company")
-    .required("Corporate email is required"),
+    .oneOf([Yup.ref('password'), null], 'Las contraseñas no coinciden.')
+    .required('Debes confirmar la contraseña.'),
+  name: Yup.string().required('Los nombres son requeridos.'),
+  acceptTerms: Yup.boolean()
+    .oneOf([true], 'Debes aceptar los términos y condiciones.')
+    .required('Debes aceptar los términos y condiciones.'),
 });
 
-export default function Login() {
-  const [isChecked, setIsChecked] = useState(false);
-  const [password, setPassword] = useState("");
+const MyForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-
-  // checked
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
-
-  //visualizar contraseña
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
-  //enviar formulario
-
-  const handleSubmit = (values, { setSubmitting }) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-    }, 400);
+  const handleSubmit = (values) => {
+    // Realizar acción cuando el formulario es válido
+    console.log('Formulario válido', values);
   };
+
 
   return (
-    <DataContextProvider>
-      <LayoutLogin>
-        <div className="register">
-          <h1>Log in</h1>
-          <p> Log in on the Business Process as a service</p>
-          <Formik
-            initialValues={{
-              name: "",
-              email: "",
-              
-              password: "",
-              confirmPassword: "",
-              corporateEmail: "",
-            }}
-            validationSchema={SignupSchema}
-            onSubmit={handleSubmit}
-          >
-            {({ isSubmitting }) => (
-              <form className="form">
-                
-                <div>
-                  <label htmlFor="corporateEmail">Company email</label>
-                  <Field type="email" name="corporateEmail" />
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="corporateEmail"
-                    component="div"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="password">Password</label>
-                  <Field type="password" name="password" />
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="password"
-                    component="div"
-                  />
-                </div>
-               
-
-
-                <button
-                  className="buttonPrimary"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  LOG IN
-                </button>
-              </form>
-            )}
-          </Formik>
+    <Formik
+      initialValues={{
+        email: '',
+        password: '',
+        confirmPassword: '',
+        name: '',
+        acceptTerms: false,
+      }}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      <Form>
+        <div>
+          <label htmlFor="email">Correo Electrónico:</label>
+          <Field type="email" id="email" name="email" />
+          <ErrorMessage name="email" component="span" className="error" />
         </div>
-      </LayoutLogin>
-    </DataContextProvider>
+
+        <div>
+          <label htmlFor="password">Contraseña:</label>
+          <div className="password-input">
+            <Field
+              type={showPassword ? 'text' : 'password'}
+              id="password"
+              name="password"
+            />
+            <span
+              className="password-toggle"
+              onClick={togglePasswordVisibility}
+            >
+              <FontAwesomeIcon
+                icon={showPassword ? faEyeSlash : faEye}
+                className="password-icon"
+              />
+            </span>
+          </div>
+          <ErrorMessage name="password" component="span" className="error" />
+        </div>
+
+        <div>
+          <label htmlFor="confirmPassword">Confirmar Contraseña:</label>
+          <div className="password-input">
+            <Field
+              type={showConfirmPassword ? 'text' : 'password'}
+              id="confirmPassword"
+              name="confirmPassword"
+            />
+            <span
+              className="password-toggle"
+              onClick={toggleConfirmPasswordVisibility}
+            >
+              <FontAwesomeIcon
+                icon={showConfirmPassword ? faEyeSlash : faEye}
+                className="password-icon"
+              />
+            </span>
+          </div>
+          <ErrorMessage
+            name="confirmPassword"
+            component="span"
+            className="error"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="name">Nombres:</label>
+          <Field type="text" id="name" name="name" />
+          <ErrorMessage name="name" component="span" className="error" />
+        </div>
+
+        <div>
+          <label>
+            <Field type="checkbox" name="acceptTerms" />
+            Acepto los términos y condiciones
+          </label>
+          <ErrorMessage
+            name="acceptTerms"
+            component="span"
+            className="error"
+          />
+        </div>
+
+        <button type="submit">Enviar</button>
+      </Form>
+    </Formik>
   );
-}
+};
+
+export default MyForm;

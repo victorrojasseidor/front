@@ -1,9 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function Profile() {
-  return (
-    <div className='register'>
-      pagina de profile 
-    </div>
-  )
+  return <div className="register">pagina de profile</div>;
 }

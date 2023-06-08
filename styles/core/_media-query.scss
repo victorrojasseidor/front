@@ -5,7 +5,6 @@ $large: 1024px;
 
 @mixin media($types...) {
   @each $type in $types {
-
     //only mobile or mobile down
     @if $type == mobile {
       @media only screen and (max-width: $medium - 1) {
