@@ -58,40 +58,43 @@ export default function Register () {
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
-            <form className='form'>
+            <form className='formContainer'>
               <div>
+
+                <Field type='text' name='name' placeholder=' ' />
                 <label htmlFor='name'>{t.signup.Username}</label>
-                <Field type='text' name='name' />
                 <ErrorMessage className='errorMessage' name='name' component='div' />
               </div>
+
               <div>
+
+                <Field type='email' name='corporateEmail' placeholder=' ' />
                 <label htmlFor='corporateEmail'> {t.signup['Company email']}</label>
-                <Field type='email' name='corporateEmail' />
                 <ErrorMessage className='errorMessage' name='corporateEmail' component='div' />
               </div>
 
               <div>
-                <label htmlFor='password'>{t.signup.Password}</label>
+
                 <span className='iconPassword' onClick={togglePasswordVisibility}>
                   <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                 </span>
-                <Field type={showPassword ? 'text' : 'password'} id='password' name='password' />
-
+                <Field type={showPassword ? 'text' : 'password'} id='password' name='password' placeholder=' ' />
+                <label htmlFor='password'>{t.signup.Password}</label>
                 <ErrorMessage className='errorMessage' name='password' component='span' />
               </div>
 
               <div>
-                <label htmlFor='confirmPassword'>{t.signup['Confirm password']}</label>
+
                 <span className='iconPassword' onClick={toggleConfirmPasswordVisibility}>
                   <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
                 </span>
-                <Field type={showConfirmPassword ? 'text' : 'password'} id='confirmPassword' name='confirmPassword' />
-
+                <Field type={showConfirmPassword ? 'text' : 'password'} id='confirmPassword' name='confirmPassword' placeholder=' ' />
+                <label htmlFor='confirmPassword' placeholder=''>{t.signup['Confirm password']}</label>
                 <ErrorMessage className='errorMessage' name='confirmPassword' component='span' />
               </div>
 
               <div>
-                <label>
+                <label className='checkbox'>
                   <Field className='checkboxId' type='checkbox' name='acceptTerms' />
 
                   <span>{t.signup['I accept']}</span>

@@ -1,10 +1,10 @@
-"use client"
-import '../../styles/styles.scss';
-import { Inter } from 'next/font/google';
-import Link from 'next/link';
-import { DataContextProvider } from '@/Context/DataContext';
+'use client'
+import '../../styles/styles.scss'
+import { Inter } from 'next/font/google'
+import Link from 'next/link'
+import { DataContextProvider } from '@/Context/DataContext'
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] })
 
 const links = [
   {
@@ -31,11 +31,11 @@ const links = [
     label: 'changepassword',
     route: '/changepassword'
   }
-];
+]
 
-export default function RootLayout({ children }) {
+export default function RootLayout ({ children }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
         <title> Bpass Seidor</title>
       </head>
@@ -57,5 +57,5 @@ export default function RootLayout({ children }) {
       </DataContextProvider>
     </html>
 
-  );
+  )
 }
