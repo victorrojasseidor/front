@@ -42,40 +42,17 @@
 
 
 
-    .iconPassword1, .iconPassword2 {
+    .iconPassword {
+      position: relative;
       svg {
         position: absolute;
         right: 1rem;
-        background-color: aqua;
-    
-
-      path {
+        margin-top: 1rem;
+                  path {
         fill: get-color(forms_s6);
       }
     }
     }
-
-
-    .iconPassword1 {
-      svg {
-        top: 65%;
-         @include media(tablet) {
-          top: 34%;
-    
-          // transform: translateY(-50%);
-        }
-      }
-    }
-
-    .iconPassword2 {
-      top: 34%;    
-      @include media(tablet) {
-        top: 34%;
-        transform: translateY(-50%);
-      }
-    }
-
-
 
 
     label {
