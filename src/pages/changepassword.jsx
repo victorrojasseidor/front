@@ -38,7 +38,7 @@ export default function changePassword () {
         <ul>
           <li className='Question'>Have an account?</li>
           <li className='link'>
-            <Link href='/register'>signup</Link>
+            <Link href='/register'>Sign up</Link>
           </li>
         </ul>
       </nav>

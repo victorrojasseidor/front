@@ -11,8 +11,8 @@ border-radius: brd(1);
 .layoutLogin {
   display: flex;
   flex-direction: row;
-  gap: 2em;
-  margin: 3em 1em;
+  gap: 1em;
+  margin: 1em 1em;
   height: 120vh;
 
   &_image {
@@ -45,10 +45,14 @@ border-radius: brd(1);
       align-items: center;
       // flex-grow: 0.1;
 
+      .iforget{
+        color:get-color(grey2_s4)
+      }
+
       ul {
         display: flex;
         align-content: flex-end;
-        gap: 0.5em;
+        gap: 0.2em;
         li {
           list-style-type: none;
         }

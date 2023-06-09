@@ -37,7 +37,7 @@ export default function Register () {
         <ul>
           <li className='Question'>{t.signup['Have an account?']}</li>
           <li className='link'>
-            <Link href='/register'> {t.signup['Log in']}</Link>
+            <Link href='/login'> {t.signup['Log in']}</Link>
           </li>
         </ul>
       </nav>
