@@ -1,39 +1,40 @@
-import Link from 'next/link'
-import LayoutLogin from '@/Components/LayoutLogin'
-import '../../styles/styles.scss'
-import { Formik, Field, ErrorMessage } from 'formik'
-import React, { useState, useContext } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import Image from 'next/image'
-import logo from '../../public/img/logoseidor.png'
-import { SignupSchemaEN, SignupSchemaES } from '@/helpers/validateForms'
-import { DataContext } from '@/Context/DataContext'
+import Link from "next/link";
+import LayoutLogin from "@/Components/LayoutLogin";
+import "../../styles/styles.scss";
+import { Formik, Field, ErrorMessage } from "formik";
+import React, { useState, useContext } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
+import logo from "../../public/img/logoseidor.png";
+import { SignupSchemaEN, SignupSchemaES } from "@/helpers/validateForms";
+import { DataContext } from "@/Context/DataContext";
+import Modal from "@/Components/Modal";
 
-export default function changePassword () {
+export default function changePassword() {
   // const { t } = useContext(DataContext)
 
   // console.log('t', t)
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
   const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword)
-  }
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const handleSubmit = (values) => {
     // Realizar acción cuando el formulario es válido
-    console.log('Formulario válido', values)
-  }
+    console.log("Formulario válido", values);
+  };
 
   return (
     <LayoutLogin>
-      <nav>
+      <nav className='navRegister'>
         <Image src={logo} width={120} alt='imgRegister' />
         <ul>
           <li className='Question'>Have an account?</li>
@@ -44,15 +45,15 @@ export default function changePassword () {
       </nav>
 
       <div className='register'>
-        <h1> Change my password  </h1>
+        <h1> Change my password </h1>
         <p> Please enter your email. You will be sent a link to change your password</p>
 
         <Formik
           initialValues={{
-            email: '',
-            password: '',
-            confirmPassword: '',
-            name: '',
+            email: "",
+            password: "",
+            confirmPassword: "",
+            name: "",
             acceptTerms: false
           }}
           validationSchema={SignupSchemaEN}
@@ -60,7 +61,6 @@ export default function changePassword () {
         >
           {({ isSubmitting }) => (
             <form className='formContainer'>
-
               <div>
                 <Field type='email' name='corporateEmail' placeholder=' ' />
                 <label htmlFor='corporateEmail'> Company email</label>
@@ -74,6 +74,13 @@ export default function changePassword () {
           )}
         </Formik>
       </div>
+      <Modal>
+        <p>Automation of currency exchange rates for Daily Exchange Rate</p>
+        <p>was successfully configured!</p>
+        
+  
+
+      </Modal>
     </LayoutLogin>
-  )
+  );
 }

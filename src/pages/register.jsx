@@ -32,7 +32,7 @@ export default function Register () {
 
   return (
     <LayoutLogin>
-      <nav>
+      <nav className="navRegister" >
         <Image src={logo} width={120} alt='imgRegister' />
         <ul>
           <li className='Question'>{t.signup['Have an account?']}</li>

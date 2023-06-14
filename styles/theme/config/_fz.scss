@@ -7,7 +7,7 @@
   --fz-heading-5: 1.5rem; // 24px
   --fz-heading-6: 1.25rem; // 20px
 
-  @include mqi(laptop) {
+  @include media(desktop) {
     --fz-heading-1: 1.875rem; // 30px
     --fz-heading-2: 1.6875rem; // 27px
     --fz-heading-3: 1.5rem; // 24px
@@ -16,7 +16,7 @@
     --fz-heading-6: 1.125rem; // 18px
   }
 
-  @include mqi(mobile) {
+  @include media(mobile) {
     --fz-heading-2: 1.375rem; // 22px
   }
 
@@ -26,7 +26,7 @@
   --fz-body-normal: 1.25rem; // 20px
   --fz-body-small: 1rem; // 16px
 
-  @include mqi(laptop) {
+  @include media(tablet) {
     --fz-body-large: 1.25rem; // 20px
     --fz-body-medium: 1.125rem; // 18px
     --fz-body-normal: 1rem; // 16px

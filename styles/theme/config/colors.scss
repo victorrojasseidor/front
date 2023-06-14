@@ -107,13 +107,14 @@ $brdVar: (
   @return map-get($brdVar, $var);
 }
 
-// // - Box shadow
-// $bshVar: (
-//     1 : (0 0 .1875rem rgba(color(0_), .1)), // 0 0 3px
-//     2 : (0 0 .3125rem rgba(color(0_), .1)), // 0 0 5px
-//     3 : (0 .375rem 1.25rem rgba(color(0_), 0.15)), // 0 6px 20px
-//     4 : (0 0 .625rem rgba(color(0_), 0.1)), // 0 0 10px
-// );
-// @function bsh($var){
-//     @return map-get($bshVar, $var);
-// }
+// - Box shadow
+$bshVar: (
+    // 1 : (0 0 .1875rem rgba(color(0_), .1)), // 0 0 3px
+    // 2 : (0 0 .3125rem rgba(color(0_), .1)), // 0 0 5px
+    // 3 : (0 .375rem 1.25rem rgba(color(0_), 0.15)), // 0 6px 20px
+    // 4 : (0 0 .625rem rgba(color(0_), 0.1)), // 0 0 10px
+    1: -1.83697e-16px 3px 10px rgba(0, 0, 0, 0.1)
+);
+@function bsh($var){
+    @return map-get($bshVar, $var);
+}

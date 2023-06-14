@@ -33,7 +33,7 @@ export default function UpdatePassword () {
 
   return (
     <LayoutLogin>
-      <nav>
+      <nav className="navRegister">
         <Image src={logo} width={120} alt='imgRegister' />
         <ul>
           <li className='Question'>Have an account?</li>

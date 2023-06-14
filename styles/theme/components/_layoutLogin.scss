@@ -22,7 +22,7 @@ border-radius: brd(1);
   }
 
   @include media(tablet) {
-    background-image: url('../../../public/img/register.jpg');
+    background-image: url("../../../public/img/register.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-size: 130vh;
@@ -34,25 +34,24 @@ border-radius: brd(1);
     flex-direction: column;
     width: 100%;
     @include media(tablet) {
+      padding:1em ;
       width: 50%;
     }
 
-    nav {
-      margin-top: 1em;
+    .navRegister {
+      margin-top: 0.5em;
       display: flex;
       justify-content: space-around;
       justify-self: unset;
       align-items: center;
       // flex-grow: 0.1;
 
-      .iforget{
-        color:get-color(grey2_s4)
-      }
-
+   
       ul {
         display: flex;
         align-content: flex-end;
         gap: 0.2em;
+
         li {
           list-style-type: none;
         }
@@ -69,6 +68,22 @@ border-radius: brd(1);
           }
         }
       }
+    }
+
+
+    .navLogin {
+      display: flex;
+      flex-direction: column;
+       justify-content: flex-end;
+
+      .iforget{
+        width: 100%;
+        align-self: flex-end;
+        justify-content: flex-end;
+        color: get-color(grey2_s4);
+        margin-bottom: 1em;
+      }
+
     }
   }
 }

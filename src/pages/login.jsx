@@ -31,9 +31,10 @@ export default function Login() {
     console.log("Formulario válido", values);
   };
 
+
   return (
     <LayoutLogin>
-      <nav>
+      <nav className="navRegister">
         <Image src={logo} width={120} alt='imgRegister' />
         <ul>
           <li className='Question'> </li>
@@ -57,6 +58,7 @@ export default function Login() {
           }}
           validationSchema={SignupSchemaEN}
           onSubmit={handleSubmit}
+          validateOnBlur={false}
         >
           {({ isSubmitting }) => (
             <form className='formContainer'>
@@ -79,17 +81,16 @@ export default function Login() {
                 LOG IN
               </button>
 
-              <nav>
+              <nav className="navRegister navLogin ">
                 <ul className='iforget'>
                   <Link href='/changepassword'>
                     <li> I forgot my password</li>
                   </Link>
                 </ul>
-
                 <ul>
                   <li className='Question'>Have an account?</li>
                   <li className='link'>
-                    <Link href='/login'>Sign up</Link>
+                    <Link href='/register'>Sign up</Link>
                   </li>
                 </ul>
               </nav>

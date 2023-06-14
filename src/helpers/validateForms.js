@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 export const SignupSchemaEN = Yup.object().shape({
   name: Yup.string()
     .matches(/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/, 'Your name must not contain numbers or other special characters,allow up to 2 names')
-    .required('El nombre es requerido'),
+    .required('The name is required'),
   phoneNumber: Yup.string()
     .matches(/^\d{10}$/, 'Phone number must be 10 digits')
     .required('Phone number is required'),
