@@ -2,17 +2,17 @@ import Link from 'next/link'
 import LayoutLogin from '@/Components/LayoutLogin'
 import '../../styles/styles.scss'
 import { Formik, Field, ErrorMessage } from 'formik'
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 import logo from '../../public/img/logoseidor.png'
-import { SignupSchemaEN, SignupSchemaES } from '@/helpers/validateForms'
-import { DataContext } from '@/Context/DataContext'
+import { SignupSchemaEN } from '@/helpers/validateForms'
+// import { DataContext } from '@/Context/DataContext'
 
 export default function Register () {
-  const { t, locale } = useContext(DataContext)
-  console.log('t', t)
+  // const { t, locale } = useContext(DataContext)
+  // console.log('t', t)
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -35,16 +35,16 @@ export default function Register () {
       <nav className='navRegister'>
         <Image src={logo} width={120} alt='imgRegister' />
         <ul>
-          <li className='Question'>{t.signup['Have an account?']}</li>
+          <li className='Question'>Have an account?</li>
           <li className='link'>
-            <Link href='/login'> {t.signup['Log in']}</Link>
+            <Link href='/login'> Log in</Link>
           </li>
         </ul>
       </nav>
 
       <div className='register'>
-        <h1> {t.signup['Sign up']}</h1>
-        <p> {t.signup['Create your account in SEIDOR BPaas']}</p>
+        <h1> Sign up</h1>
+        <p> Create your account in SEIDOR BPaas</p>
 
         <Formik
           initialValues={{
@@ -54,14 +54,14 @@ export default function Register () {
             name: '',
             acceptTerms: false
           }}
-          validationSchema={locale === 'es' ? SignupSchemaES : SignupSchemaEN}
+          validationSchema={SignupSchemaEN}
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
             <form className='formContainer'>
               <div>
                 <Field type='text' name='name' placeholder=' ' />
-                <label htmlFor='name'>{t.signup.Username}</label>
+                <label htmlFor='name'>Username</label>
                 <ErrorMessage
                   className='errorMessage'
                   name='name'
@@ -72,8 +72,7 @@ export default function Register () {
               <div>
                 <Field type='email' name='corporateEmail' placeholder=' ' />
                 <label htmlFor='corporateEmail'>
-                  {' '}
-                  {t.signup['Company email']}
+                  Company email
                 </label>
                 <ErrorMessage
                   className='errorMessage'
@@ -95,7 +94,7 @@ export default function Register () {
                   name='password'
                   placeholder=' '
                 />
-                <label htmlFor='password'>{t.signup.Password}</label>
+                <label htmlFor='password'> Password</label>
                 <ErrorMessage
                   className='errorMessage'
                   name='password'
@@ -119,7 +118,7 @@ export default function Register () {
                   placeholder=' '
                 />
                 <label htmlFor='confirmPassword' placeholder=''>
-                  {t.signup['Confirm password']}
+                  Confirm password
                 </label>
                 <ErrorMessage
                   className='errorMessage'
@@ -136,14 +135,8 @@ export default function Register () {
                     name='acceptTerms'
                   />
 
-                  <span>{t.signup['I accept']}</span>
-                  <span>
-                    {' '}
-                    {
-                      t.signup[
-                        'SEIDOR BPaaS Terms and Conditions and Privacy Policy'
-                      ]
-                    }
+                  <span>I accept</span>
+                  <span>   SEIDOR BPaaS Terms and Conditions and Privacy Policy
                   </span>
                 </label>
                 <ErrorMessage
@@ -158,7 +151,7 @@ export default function Register () {
                 type='submit'
                 disabled={isSubmitting}
               >
-                {t.signup['SIGN UP NOW']}
+                SIGN UP NOW'
               </button>
             </form>
           )}
