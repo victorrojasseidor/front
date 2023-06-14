@@ -6,10 +6,10 @@
 }
 
 // - Funcion que genera clases en base a un mapa de variables
-@mixin generateClass($array, $propKey, $category: '') {
+@mixin generateClass($array, $propKey, $category: "") {
   @each $key, $value in $array {
     $prop: map-get($shortsProps, $propKey);
-    @if $category != '' {
+    @if $category != "" {
       .#{$propKey}--#{$category}--#{$key} {
         #{$prop}: var(--color_#{$category}_#{$key});
       }

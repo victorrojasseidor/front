@@ -2,13 +2,12 @@ import Link from 'next/link'
 import LayoutLogin from '@/Components/LayoutLogin'
 import '../../styles/styles.scss'
 import { Formik, Field, ErrorMessage } from 'formik'
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 import logo from '../../public/img/logoseidor.png'
-import { SignupSchemaEN, SignupSchemaES } from '@/helpers/validateForms'
-import { DataContext } from '@/Context/DataContext'
+import { SignupSchemaEN } from '@/helpers/validateForms'
 
 export default function UpdatePassword () {
   // const { t } = useContext(DataContext)
@@ -33,7 +32,7 @@ export default function UpdatePassword () {
 
   return (
     <LayoutLogin>
-      <nav className="navRegister">
+      <nav className='navRegister'>
         <Image src={logo} width={120} alt='imgRegister' />
         <ul>
           <li className='Question'>Have an account?</li>
@@ -44,8 +43,12 @@ export default function UpdatePassword () {
       </nav>
 
       <div className='register'>
-        <h1> Update password  </h1>
-        <p> Please enter your email. You will be sent a link to change your password </p>
+        <h1> Update password </h1>
+        <p>
+          {' '}
+          Please enter your email. You will be sent a link to change your
+          password{' '}
+        </p>
 
         <Formik
           initialValues={{
@@ -60,28 +63,57 @@ export default function UpdatePassword () {
         >
           {({ isSubmitting }) => (
             <form className='formContainer'>
-
               <div>
-
-                <span className='iconPassword' onClick={togglePasswordVisibility}>
+                <span
+                  className='iconPassword'
+                  onClick={togglePasswordVisibility}
+                >
                   <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                 </span>
-                <Field type={showPassword ? 'text' : 'password'} id='password' name='password' placeholder=' ' />
+                <Field
+                  type={showPassword ? 'text' : 'password'}
+                  id='password'
+                  name='password'
+                  placeholder=' '
+                />
                 <label htmlFor='password'>Password</label>
-                <ErrorMessage className='errorMessage' name='password' component='span' />
+                <ErrorMessage
+                  className='errorMessage'
+                  name='password'
+                  component='span'
+                />
               </div>
 
               <div>
-
-                <span className='iconPassword' onClick={toggleConfirmPasswordVisibility}>
-                  <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+                <span
+                  className='iconPassword'
+                  onClick={toggleConfirmPasswordVisibility}
+                >
+                  <FontAwesomeIcon
+                    icon={showConfirmPassword ? faEyeSlash : faEye}
+                  />
                 </span>
-                <Field type={showConfirmPassword ? 'text' : 'password'} id='confirmPassword' name='confirmPassword' placeholder=' ' />
-                <label htmlFor='confirmPassword' placeholder=''>Confirm password</label>
-                <ErrorMessage className='errorMessage' name='confirmPassword' component='span' />
+                <Field
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  id='confirmPassword'
+                  name='confirmPassword'
+                  placeholder=' '
+                />
+                <label htmlFor='confirmPassword' placeholder=''>
+                  Confirm password
+                </label>
+                <ErrorMessage
+                  className='errorMessage'
+                  name='confirmPassword'
+                  component='span'
+                />
               </div>
 
-              <button className='buttonPrimary' type='submit' disabled={isSubmitting}>
+              <button
+                className='buttonPrimary'
+                type='submit'
+                disabled={isSubmitting}
+              >
                 UPDATE
               </button>
             </form>

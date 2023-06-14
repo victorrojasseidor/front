@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState } from 'react';
-import en from '../../lang/en.json';
-import es from '../../lang/es.json';
+import React, { createContext } from 'react'
+import en from '../../lang/en.json'
+import es from '../../lang/es.json'
 
-export const DataContext = createContext();
+export const DataContext = createContext()
 
 export const DataContextProvider = ({ children }) => {
   // data user
@@ -10,14 +10,11 @@ export const DataContextProvider = ({ children }) => {
     name: 'Agustin',
     years: 27,
     tilte: 'dataclienttt'
-  };
+  }
 
   // lang
-  const locale = 'en';
-  const t = locale === 'en' ? en : es;
-
-  // loading
-  const [loading, setLoading] = useState(true);
+  const locale = 'en'
+  const t = locale === 'en' ? en : es
 
   return (
     <DataContext.Provider
@@ -29,5 +26,5 @@ export const DataContextProvider = ({ children }) => {
     >
       {children}
     </DataContext.Provider>
-  );
-};
+  )
+}

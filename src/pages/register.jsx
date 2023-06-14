@@ -32,7 +32,7 @@ export default function Register () {
 
   return (
     <LayoutLogin>
-      <nav className="navRegister" >
+      <nav className='navRegister'>
         <Image src={logo} width={120} alt='imgRegister' />
         <ul>
           <li className='Question'>{t.signup['Have an account?']}</li>
@@ -60,50 +60,104 @@ export default function Register () {
           {({ isSubmitting }) => (
             <form className='formContainer'>
               <div>
-
                 <Field type='text' name='name' placeholder=' ' />
                 <label htmlFor='name'>{t.signup.Username}</label>
-                <ErrorMessage className='errorMessage' name='name' component='div' />
+                <ErrorMessage
+                  className='errorMessage'
+                  name='name'
+                  component='div'
+                />
               </div>
 
               <div>
-
                 <Field type='email' name='corporateEmail' placeholder=' ' />
-                <label htmlFor='corporateEmail'> {t.signup['Company email']}</label>
-                <ErrorMessage className='errorMessage' name='corporateEmail' component='div' />
+                <label htmlFor='corporateEmail'>
+                  {' '}
+                  {t.signup['Company email']}
+                </label>
+                <ErrorMessage
+                  className='errorMessage'
+                  name='corporateEmail'
+                  component='div'
+                />
               </div>
 
               <div>
-
-                <span className='iconPassword' onClick={togglePasswordVisibility}>
+                <span
+                  className='iconPassword'
+                  onClick={togglePasswordVisibility}
+                >
                   <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                 </span>
-                <Field type={showPassword ? 'text' : 'password'} id='password' name='password' placeholder=' ' />
+                <Field
+                  type={showPassword ? 'text' : 'password'}
+                  id='password'
+                  name='password'
+                  placeholder=' '
+                />
                 <label htmlFor='password'>{t.signup.Password}</label>
-                <ErrorMessage className='errorMessage' name='password' component='span' />
+                <ErrorMessage
+                  className='errorMessage'
+                  name='password'
+                  component='span'
+                />
               </div>
 
               <div>
-
-                <span className='iconPassword' onClick={toggleConfirmPasswordVisibility}>
-                  <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+                <span
+                  className='iconPassword'
+                  onClick={toggleConfirmPasswordVisibility}
+                >
+                  <FontAwesomeIcon
+                    icon={showConfirmPassword ? faEyeSlash : faEye}
+                  />
                 </span>
-                <Field type={showConfirmPassword ? 'text' : 'password'} id='confirmPassword' name='confirmPassword' placeholder=' ' />
-                <label htmlFor='confirmPassword' placeholder=''>{t.signup['Confirm password']}</label>
-                <ErrorMessage className='errorMessage' name='confirmPassword' component='span' />
+                <Field
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  id='confirmPassword'
+                  name='confirmPassword'
+                  placeholder=' '
+                />
+                <label htmlFor='confirmPassword' placeholder=''>
+                  {t.signup['Confirm password']}
+                </label>
+                <ErrorMessage
+                  className='errorMessage'
+                  name='confirmPassword'
+                  component='span'
+                />
               </div>
 
               <div>
                 <label className='checkbox'>
-                  <Field className='checkboxId' type='checkbox' name='acceptTerms' />
+                  <Field
+                    className='checkboxId'
+                    type='checkbox'
+                    name='acceptTerms'
+                  />
 
                   <span>{t.signup['I accept']}</span>
-                  <span> {t.signup['SEIDOR BPaaS Terms and Conditions and Privacy Policy']}</span>
+                  <span>
+                    {' '}
+                    {
+                      t.signup[
+                        'SEIDOR BPaaS Terms and Conditions and Privacy Policy'
+                      ]
+                    }
+                  </span>
                 </label>
-                <ErrorMessage className='errorMessage' name='acceptTerms' component='span' />
+                <ErrorMessage
+                  className='errorMessage'
+                  name='acceptTerms'
+                  component='span'
+                />
               </div>
 
-              <button className='buttonPrimary' type='submit' disabled={isSubmitting}>
+              <button
+                className='buttonPrimary'
+                type='submit'
+                disabled={isSubmitting}
+              >
                 {t.signup['SIGN UP NOW']}
               </button>
             </form>

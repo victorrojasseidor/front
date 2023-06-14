@@ -1,7 +1,7 @@
-import React from "react";
-import { DataContextProvider } from "@/Context/DataContext";
+import React from 'react'
+import { DataContextProvider } from '@/Context/DataContext'
 
-export default function LayoutLogin({ children }) {
+export default function LayoutLogin ({ children }) {
   return (
     <DataContextProvider>
       <section className='layoutLogin'>
@@ -9,5 +9,5 @@ export default function LayoutLogin({ children }) {
         <section>{children}</section>
       </section>
     </DataContextProvider>
-  );
+  )
 }

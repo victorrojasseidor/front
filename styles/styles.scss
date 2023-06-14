@@ -4,22 +4,22 @@
 
 // Inicialización
 // @import 'theme/config/fonts';
-@import 'core/functions-utils';
-@import 'core/functions-color';
-@import 'theme/config/app';
-@import 'core/media-query';
+@import "core/functions-utils";
+@import "core/functions-color";
+@import "theme/config/app";
+@import "core/media-query";
 // @import 'theme/config/variables';
 // @import 'theme/config/variables-css';
-@import 'theme/config/colors';
+@import "theme/config/colors";
 // @import 'theme/config/fz';
-@import 'core/reset';
-@import 'core/spaces';
-@import 'theme/config/utils';
+@import "core/reset";
+@import "core/spaces";
+@import "theme/config/utils";
 // @import 'theme/config/layout'; // beta
 
 // Componentes
-@import 'theme/components/404';
-@import 'theme/components/layoutLogin';
-@import 'theme/components/register';
-@import 'theme/components/profile';
-@import 'theme/components/modal';
+@import "theme/components/404";
+@import "theme/components/layoutLogin";
+@import "theme/components/register";
+@import "theme/components/profile";
+@import "theme/components/modal";

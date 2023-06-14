@@ -1,5 +1,6 @@
 'use client'
-import '../../styles/styles.scss'
+// eslint-disable-next-line quotes
+import "../../styles/styles.scss"
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import { DataContextProvider } from '@/Context/DataContext'
@@ -56,6 +57,5 @@ export default function RootLayout ({ children }) {
         </body>
       </DataContextProvider>
     </html>
-
   )
 }

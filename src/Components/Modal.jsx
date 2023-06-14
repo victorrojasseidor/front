@@ -1,17 +1,17 @@
-import React from "react";
-import "../../styles/styles.scss";
-import { FaCheck } from "react-icons/fa";
+import React from 'react'
+import '../../styles/styles.scss'
+import { FaCheck } from 'react-icons/fa'
 
-function Modal({ children }) {
-  const [showModal, setShowModal] = React.useState(false);
+function Modal ({ children }) {
+  const [showModal, setShowModal] = React.useState(false)
 
   const handleOpenModal = () => {
-    setShowModal(true);
-  };
+    setShowModal(true)
+  }
 
   const handleCloseModal = () => {
-    setShowModal(false);
-  };
+    setShowModal(false)
+  }
 
   return (
     <div>
@@ -36,9 +36,9 @@ function Modal({ children }) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-Modal.propTypes = {};
+Modal.propTypes = {}
 
-export default Modal;
+export default Modal

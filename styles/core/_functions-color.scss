@@ -10,7 +10,7 @@
   $color_h: var(--color_#{$idColor}_H);
   $color_s: var(--color_#{$idColor}_S);
   $color_l: var(--color_#{$idColor}_L);
-  @return hsl($color_h, $color_s, calc(#{$color_l} - #{$percentage}#{'%'}));
+  @return hsl($color_h, $color_s, calc(#{$color_l} - #{$percentage}#{"%"}));
 }
 
 // - Función para iluminar un color con variables CSS en SCSS
@@ -18,7 +18,7 @@
   $color_h: var(--color_#{$numColor}_H);
   $color_s: var(--color_#{$numColor}_S);
   $color_l: var(--color_#{$numColor}_L);
-  @return hsl($color_h, $color_s, calc(#{$color_l} + #{$percentage}#{'%'}));
+  @return hsl($color_h, $color_s, calc(#{$color_l} + #{$percentage}#{"%"}));
 }
 
 // - Función para dar transparencia a un color con variables CSS en SCSS

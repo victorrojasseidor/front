@@ -3,7 +3,7 @@
 // - Opciones iniciales
 $optionsInit: (
   fz-init: 16px,
-  num-spaces: 10
+  num-spaces: 10,
 );
 @function option($var) {
   @return map-get($optionsInit, $var);
@@ -12,7 +12,7 @@ $optionsInit: (
 // - Atajos Propiedades CSS
 $shortsProps: (
   color: color,
-  bgc: background-color
+  bgc: background-color,
 );
 
 // // - Breakoints Media Queries
