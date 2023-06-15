@@ -1,9 +1,74 @@
-.profile {
-  background-color: aquamarine;
+.profilestart {
   height: 100vh;
   background-image: src;
   background-image: url("../../../public/img/profilebg.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-size: 100vw;
+  padding: 1em 1em;
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+
+  .discover {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    h3 {
+      color: get-color(blue_p1);
+    }
+
+    p {
+      color: get-color(grey2_s4);
+    }
+
+    img:first-child {
+      width: 40%;
+    }
+  }
+
+
+.welcome {
+  width: 100%;
 }
+
+  nav {
+    display: flex;
+     width: 100%;
+    gap: 2em;
+    // background-color: aquamarine;
+    justify-items: center;
+    align-items: first baseline;
+    justify-content: space-around;
+
+    ul {
+      text-align: center;
+    }
+
+
+    fieldset {
+      display: flex;
+      border-style: none;
+      gap:1em;
+
+  }
+
+  }
+}
+
+
+.btn-tercery{
+  border-style: none;
+   background-color: transparent;
+   border: 1px solid #242331;
+    border-radius: brd(1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 8px 12px 8px;
+    gap: 0.5em;
+    font-weight: 700;
+    
+    }

@@ -10,8 +10,8 @@
 @import "core/media-query";
 // @import 'theme/config/variables';
 // @import 'theme/config/variables-css';
-@import "theme/config/colors";
-// @import 'theme/config/fz';
+@import "theme/config/variable";
+@import 'theme/config/fz';
 @import "core/reset";
 @import "core/spaces";
 @import "theme/config/utils";

@@ -54,7 +54,7 @@ export const SignupSchemaES = Yup.object().shape({
     .email('Correo electrónico corporativo inválido')
     .matches(
       /^(?!.*@(?:hotmail\.com|gmail\.com|yahoo\.com |outlook\.com)$)([\w.%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/,
-      'El correo electrónico debe ser de la empresa'
+      'El correo electrónico debe ser de una la empresa'
     )
     .required('El correo electrónico corporativo es requerido'),
   acceptTerms: Yup.boolean()

@@ -135,7 +135,7 @@ export default function Register () {
                     name='acceptTerms'
                   />
 
-                  <span>I accept</span>
+                  <span> I accept</span>
                   <span>   SEIDOR BPaaS Terms and Conditions and Privacy Policy
                   </span>
                 </label>
@@ -151,7 +151,7 @@ export default function Register () {
                 type='submit'
                 disabled={isSubmitting}
               >
-                SIGN UP NOW'
+                SIGN UP NOW
               </button>
             </form>
           )}

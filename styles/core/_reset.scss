@@ -36,6 +36,7 @@ body {
   overflow-x: hidden;
 }
 
+
 h1,
 h2,
 h3,
@@ -44,19 +45,61 @@ h5,
 h6 {
   font-size: inherit;
   font-weight: inherit;
-}
-
-h1 {
+  display: flex;
+  text-align:start;
   color: #242331;
   font-style: normal;
   font-weight: 700;
-  font-size: 30px;
   line-height: 125%;
-  /* identical to box height, or 38px */
-  display: flex;
-  align-items: center;
-  text-align: center;
 }
+
+
+
+h1 {
+  font-size: 24px;
+    @include media(desktop) {
+    font-size: 30px;
+  }
+}
+
+h2{
+  font-size: 20px;
+  @include media(desktop) {
+  font-size: 24px;
+  }
+}
+
+h3 {
+  font-size: 16px;
+   @include media(desktop) {
+  font-size: 20px;
+  }
+}
+
+h4{
+  font-size: 14px;
+  @include media(desktop) {
+ font-size: 16px;
+ }
+
+}
+
+h5 {
+    font-size: 14px;
+}
+
+
+p{
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 100%;
+@include media(desktop) {
+  font-size: 16px;
+  }
+
+}
+
 
 a,
 input,
