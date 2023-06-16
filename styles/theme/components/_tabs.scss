@@ -1,0 +1,158 @@
+.tabs-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.tab-header {
+  flex-direction: column;
+  // padding-right: 10px;
+  display: flex;
+
+
+  button {
+    display: flex;
+    gap: 0.5em;
+    margin: 0.5rem 0;
+    background: none;
+    border: none;
+    //   font-size: 16px;
+    font-weight: bold;
+     color: get-color(grey2_s4);
+    width: 8rem;
+    border-right-width: 2rem;
+
+    @include media(tablet) {
+        gap: 1em;
+        padding: 1em;
+        width: 10rem;
+    }
+
+    cursor: pointer;
+
+    svg {
+      path {
+        fill: transparent;
+      }
+    }
+
+    &.active {
+      color: get-color(blue_p1);
+      // background-color: #ccc;
+      border-right: 2px solid get-color(lilac_p3);
+    }
+
+    &.complete {
+      svg {
+        path {
+          fill: get-color(blue_p1);
+        }
+      }
+    }
+  }
+}
+
+.tab-content {
+  border: 1px solid get-color(forms_s6);
+
+  padding: 2em;
+  border-radius: brd(1);
+
+  width: 100%;
+  p {
+    color: get-color(grey2_s4);
+  }
+
+  .tabOne {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    
+    h4 {
+      display: flex;
+      justify-self: baseline;
+      align-content: center;
+      justify-content: center;
+      gap: 1em;
+    }
+  }
+}
+
+// .actions {
+//     display: flex;
+//     justify-content: center;
+//     flex-direction: column ;
+// }
+
+
+.phone-field {
+    width: 100%;
+  display: flex;
+  flex-direction: row !important;
+  align-items:center;
+  gap:1em;
+
+  select {
+    /* Estilos generales para el select */
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border:brd(1);
+    border-radius: 4px;
+    background-color:get-color(white_s1);
+    border: 1px solid #e5e5ea;
+    border-radius: 0.3125rem;
+    border-bottom: 2px solid #ddd;
+    margin: 1em 0;
+    cursor: pointer;
+   
+
+    &:focus {
+        outline: none;
+     
+      }
+   
+  
+      &:active,
+      &:hover {
+        transform: translateY(2px);
+        
+        option {
+          background-color: get-color(white_s1);
+        }
+      }
+    }
+          
+      }
+
+
+      .registration-form {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      
+      .registration-form-progress {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      
+        .progress-step {
+          flex: 1;
+          height: 10px;
+          background-color: #ccc;
+      
+          &:not(:last-child) {
+            margin-right: 10px;
+          }
+        }
+      
+        .progress-step.active {
+          background-color: #2ecc71;
+        }
+      }
+      
+      .registration-form-content {
+        margin-bottom: 20px;
+      }
+      
