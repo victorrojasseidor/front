@@ -3,7 +3,7 @@ import { FiUser } from 'react-icons/fi'
 import { Formik, Field, ErrorMessage } from 'formik'
 import React, { useState } from 'react'
 import { countryOptions } from '@/helpers/contry'
-import Steps from './Steps'
+// import Steps from './Steps'
 import { SignupSchemaEN } from '@/helpers/validateForms'
 
 const Tabs = () => {
@@ -104,8 +104,7 @@ const Tabs = () => {
           </div>
         )}
 
-        {activeTab === 1 &&
-          <Steps />}
+        {activeTab === 1 && <div>Contenido de la pestaña 2</div>}
         {activeTab === 2 && <div>Contenido de la pestaña 3</div>}
       </div>
     </div>
