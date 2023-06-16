@@ -7,8 +7,15 @@ export const SignupSchemaEN = Yup.object().shape({
       'Your name must not contain numbers or other special characters,allow up to 2 names'
     )
     .required('The name is required'),
+  lastName: Yup.string()
+    .matches(
+      /^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/,
+      'Your Surnames must not contain numbers or other special characters, allow up to 2 surnames'
+    )
+    .required('Last Name is required'),
   phoneNumber: Yup.string()
-    .matches(/^\d{10}$/, 'Phone number must be 10 digits')
+    .matches(/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/
+      , 'Phone phone must contain numbers')
     .required('Phone number is required'),
   password: Yup.string()
     .matches(
@@ -38,8 +45,16 @@ export const SignupSchemaES = Yup.object().shape({
       'Tu nombre no debe contener números u otros caracteres especiales, permite hasta 2 nombres'
     )
     .required('El nombre es requerido'),
+
+  lastName: Yup.string()
+    .matches(
+      /^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/,
+      'Tus Apellidos no debe contener números u otros caracteres especiales, permite hasta 2 apellidos'
+    )
+    .required('El Apellido es requerido'),
+
   phoneNumber: Yup.string()
-    .matches(/^\d{10}$/, 'El número de teléfono debe tener 10 dígitos')
+    .matches(/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/, 'El número de teléfono debe tener solo números y espacios')
     .required('El número de teléfono es requerido'),
   password: Yup.string()
     .matches(

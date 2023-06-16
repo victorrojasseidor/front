@@ -8,6 +8,7 @@ import es from '../../public/img/spain.svg'
 import Image from 'next/image'
 import { FaExchangeAlt, FaSignOutAlt } from 'react-icons/fa'
 import Link from 'next/link'
+import Tabs from '../Components/Tabs'
 
 export default function Profilestart () {
   const [isSpanish, setIsSpanish] = useState(false)
@@ -48,12 +49,24 @@ export default function Profilestart () {
                 </button>
               </div>
               <button className='btn-tercery'>
-                <Link href='/login'>  <FaSignOutAlt /> </Link>
+                <Link href='/login'>
+                  {' '}
+                  <FaSignOutAlt />{' '}
+                </Link>
               </button>
             </fieldset>
           </nav>
-          <section className='formProfile'>forms</section>
+          <section className='formProfile'>
+            <div>
+              <h2>let's get started</h2>
+              <p>Fill in the following fields to complete your profile</p>
+            </div>
 
+            <div>
+              <Tabs />
+            </div>
+
+          </section>
         </section>
       </section>
     </DataContextProvider>
