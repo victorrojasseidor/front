@@ -110,8 +110,8 @@ const Tabs = () => {
 
         {activeTab === 2 && (
           <div className='notificatión'>
-                      <h3>
-                      <MdPerson />
+            <h3>
+              <MdPerson />
               Notifications
             </h3>
             <p>Select how you want to be notified</p>
