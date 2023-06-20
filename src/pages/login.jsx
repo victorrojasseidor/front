@@ -92,7 +92,7 @@ export default function Login () {
               </div>
 
               <button
-                className='buttonPrimary'
+                className='btn_primary'
                 type='submit'
                 disabled={isSubmitting}
               >

@@ -110,7 +110,7 @@ export default function UpdatePassword () {
               </div>
 
               <button
-                className='buttonPrimary'
+                className='btn_primary'
                 type='submit'
                 disabled={isSubmitting}
               >

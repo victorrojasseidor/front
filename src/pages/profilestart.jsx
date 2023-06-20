@@ -43,12 +43,12 @@ export default function Profilestart () {
 
             <fieldset>
               <div>
-                <button onClick={handleClick} className='btn-tercery'>
+                <button onClick={handleClick} className='btn_icons'>
                   <Image src={isSpanish ? es : en} width={30} alt='imglanguage' />
                   {isSpanish ? 'Español' : 'English'} <FaExchangeAlt />
                 </button>
               </div>
-              <button className='btn-tercery'>
+              <button className='btn_icons'>
                 <Link href='/login'>
                   {' '}
                   <FaSignOutAlt />{' '}

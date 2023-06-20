@@ -30,7 +30,7 @@ function Modal ({ children }) {
             </div>
 
             <div className='actions'>
-              <button className='buttonPrimarySmall'>NEXT</button>
+              <button className='btn_primary small'>NEXT</button>
             </div>
           </div>
         </div>

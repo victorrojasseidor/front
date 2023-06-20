@@ -27,7 +27,6 @@
     input[type="text"],
     input[type="email"],
     input[type="password"] {
-
       padding: 0.5rem 0.5rem;
       margin: 1em 0;
       border: 1px solid get-color(forms_s6);
@@ -104,69 +103,141 @@
   margin-top: 0.5em;
   width: 20px;
   height: 20px;
-}
+  }
 
-.buttonPrimary {
-  margin-top: 2rem;
-  background-color: get-color(blue_p1);
-  color: get-color(white_s1);
-  border-radius: brd(1);
-  padding: 12px 20px;
-  max-width: 500px;
-  font-size: 1rem;
-  border: none;
+//botones 
+
+
+.btn {
   cursor: pointer;
-  &:hover {
-    background-color: get-color(t1-blue);
-    transform: translateY(-2px);
+  
+  &_primary {
+      margin-top: 2rem;
+    border-radius: brd(1);
+    border-style: none;
+    width: auto;
+    background-color: get-color(blue_p1);
+    color: get-color(white_s1);
+    padding: 0.8rem 1.25rem;
+    max-width: 500px;
+    &:hover {
+      background-color: get-color(t1-blue);
+      transform: translateY(-2px);
+      font-size: 1rem;
+    }
+  }
+
+  &_secundary {
+    border-style: none;
+    border-radius: brd(1);
+    background-color: transparent;
+    color: get-color(black_p2);
+    margin: 0.5rem;
+    padding: 0.8em 1.25em;
+    width: auto;
+    border: 1px solid #242331;
+
+    &:hover {
+      background-color: get-color(t1-blue);
+      color: get-color(white_s1);
+      font-size: 1rem;
+      transform: translateY(-2px);
+    }
+
+
+  }
+
+  &_icons {
+    border-style: none;
+    background-color: transparent;
+    border: 1px solid #242331;
+    border-radius: brd(1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 8px 12px 8px;
+    gap: 0.5em;
+    
+    
+    &:hover {
+      background-color: get-color(blue_p1);
+      color: get-color(white_s1);
+      transform: translateY(-2px);
+      font-size: 1rem;
+      svg {
+        path {
+          fill: get-color(white_s1);
+        }
+      }
+    }
+
   }
 }
 
-.buttonPrimarySmall {
+
+
+
+
+
+
+
+
+
+
+//modificador para botones pequeños
+.small {
   margin: 0.5rem;
-  align-items: center;
-  background-color: get-color(blue_p1);
-  color: get-color(white_s1);
-  border-radius: brd(1);
-  padding: 10px 30px;
-  width: auto;
+  padding: 0.625rem 2rem;
   max-width: 300px;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  &:hover {
-    background-color: get-color(t1-blue);
-    transform: translateY(-2px);
-  }
+  max-width: 200px;
+
 }
 
-.inactive {
-  background-color: get-color(grey1_s3);
-  &:hover {
-    background-color: get-color(grey1_s3);
-  }
-}
-
-.btn-tercery {
+.smallBack {
+  margin: 0.5rem;
+  padding: 0.625rem 2rem;
+  max-width: 300px;
   border-style: none;
+  // border-radius: brd(1);
   background-color: transparent;
-  border: 1px solid #242331;
-  border-radius: brd(1);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 12px 8px 12px 8px;
-  gap: 0.5em;
-  font-weight: 700;
-  cursor: pointer;
+  color: get-color(black_p2);
+  // margin: 0.5rem;
+  // padding: 0.8em 1.25em;
+  // width: auto;
+  // max-width: 300px;
+  border: 1px solid get-color(blue_p1);
+  color:get-color(blue_p1);
+
+
+
+
   &:hover {
     background-color: get-color(t1-blue);
     color: get-color(white_s1);
     transform: translateY(-2px);
-    svg {
-      path {
-        fill: get-color(white_s1);
-      }
-    }
   }
 }
+
+
+.black{
+  background-color: get-color(black_p2);
+  color: get-color(white_s1);
+  &:hover {
+    background-color: get-color(t1-blue);
+    color: get-color(white_s1);
+    font-size: 1rem;
+    transform: translateY(-2px);
+  }
+
+}
+
+
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+

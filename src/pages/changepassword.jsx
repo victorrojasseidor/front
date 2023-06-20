@@ -76,7 +76,7 @@ export default function changePassword () {
               </div>
 
               <button
-                className='buttonPrimary'
+                className='btn_primary'
                 type='submit'
                 disabled={isSubmitting}
               >

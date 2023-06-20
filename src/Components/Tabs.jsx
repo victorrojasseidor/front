@@ -1,10 +1,11 @@
 import { FaCheck } from 'react-icons/fa'
-import { FiUser } from 'react-icons/fi'
 import { Formik, Field, ErrorMessage } from 'formik'
 import React, { useState } from 'react'
 import { countryOptions } from '@/helpers/contry'
 // import Steps from './Steps'
 import { SignupSchemaEN } from '@/helpers/validateForms'
+import Company from './Company'
+import { MdPerson } from 'react-icons/md'
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState(0)
@@ -37,10 +38,11 @@ const Tabs = () => {
       <div className='tab-content'>
         {activeTab === 0 && (
           <div className='tabOne'>
-            <h4>
-              <FiUser />
-              Personal information
-            </h4>
+            <h3>
+              {/* <FiUser /> */}
+              <MdPerson />
+              Personal informations
+            </h3>
 
             <div>
               <Formik
@@ -93,7 +95,7 @@ const Tabs = () => {
                     </div>
 
                     <div className='actions'>
-                      <button className='buttonPrimarySmall' type='submit' disabled={isSubmitting}>
+                      <button className='btn_primary small' type='submit' disabled={isSubmitting}>
                         NEXT
                       </button>
                     </div>
@@ -104,8 +106,37 @@ const Tabs = () => {
           </div>
         )}
 
-        {activeTab === 1 && <div>Contenido de la pestaña 2</div>}
-        {activeTab === 2 && <div>Contenido de la pestaña 3</div>}
+        {activeTab === 1 && <Company />}
+
+        {activeTab === 2 && (
+          <div className='notificatión'>
+                      <h3>
+                      <MdPerson />
+              Notifications
+            </h3>
+            <p>Select how you want to be notified</p>
+            <ul>
+              <div>
+                <input type='checkbox' className='checkboxId' />
+                <label className='checkbox'> Notifications in Bpass</label>
+              </div>
+
+              <div>
+                <input type='checkbox' className='checkboxId' />
+                <label className='checkbox'> Email notifications</label>
+              </div>
+            </ul>
+            <div className='actionsButtons'>
+              <button className='btn_primary smallBack' type='submit'>
+                BACK
+              </button>
+              <button className='btn_primary small' type='submit'>
+                NEXT
+              </button>
+              <div />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

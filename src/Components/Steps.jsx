@@ -13,7 +13,7 @@ const Steps = () => {
   }
 
   return (
-    <div className='registration-form'>
+    <div className='registration-formSteps'>
       <div className='registration-form-progress'>
         <div className={`${'progress-step'} ${currentStep >= 1 && 'active'}`} />
         <div className={`${'progress-step'} ${currentStep >= 2 && 'active'}`} />
