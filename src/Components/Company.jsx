@@ -1,4 +1,4 @@
-import { FiUser, FiTrash2 } from 'react-icons/fi'
+import { FiTrash2 } from 'react-icons/fi'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import React, { useState } from 'react'
 import { MdPerson } from 'react-icons/md'
