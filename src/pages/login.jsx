@@ -8,25 +8,24 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 import logo from '../../public/img/logoseidor.png'
 import { SignupSchemaEN } from '@/helpers/validateForms'
+// import { useRouter } from 'next/navigation'
 
 export default function Login () {
-  // const { t } = useContext(DataContext)
-
-  // console.log('t', t)
+  // const router = useRouter()
 
   const [showPassword, setShowPassword] = useState(false)
-  // const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
 
-  // const toggleConfirmPasswordVisibility = () => {
-  //   setShowConfirmPassword(!showConfirmPassword)
-  // }
-
   const handleSubmit = (values) => {
-    // Realizar acción cuando el formulario es válido
+    // values.preventDefault()
+    // // Realizar cualquier acción adicional que desees
+    // // ...
+    // // Navegar a una nueva página utilizando router.push()
+    // router.push('/profilestart')
+
     console.log('Formulario válido', values)
   }
 
@@ -91,13 +90,15 @@ export default function Login () {
                 />
               </div>
 
-              <button
-                className='btn_primary'
-                type='submit'
-                disabled={isSubmitting}
-              >
-                LOG IN
-              </button>
+              <Link href='/profilestart' className='containerButton'>
+                <button
+                  className='btn_primary'
+                  type='submit'
+                  disabled={isSubmitting}
+                > LOG IN
+
+                </button>
+              </Link>
 
               <nav className='navRegister navLogin '>
                 <ul className='iforget'>

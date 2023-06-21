@@ -105,6 +105,21 @@
   height: 20px;
   }
 
+  .containerButton {
+          display: flex;
+      justify-content:center;
+      align-content: center;
+      justify-items: center;
+      button {
+        max-width: 500px;
+        width: 100%;
+        
+      }
+    
+
+
+  }
+
 //botones 
 
 
@@ -120,6 +135,10 @@
     color: get-color(white_s1);
     padding: 0.8rem 1.25rem;
     max-width: 500px;
+    a{
+      color:get-color(white_s1);
+    }
+   
     &:hover {
       background-color: get-color(t1-blue);
       transform: translateY(-2px);
