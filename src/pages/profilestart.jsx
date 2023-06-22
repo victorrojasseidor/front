@@ -3,12 +3,13 @@ import React, { useState } from 'react'
 import '../../styles/styles.scss'
 import logo from '../../public/img/logoseidor.png'
 import imgProfilestart from '../../public/img/profilestart.png'
-import en from '../../public/img/eeuu.svg'
-import es from '../../public/img/spain.svg'
+import en from '../../public/icons/eeuu.svg'
+import es from '../../public/icons/spain.svg'
 import Image from 'next/image'
-import { FaExchangeAlt, FaSignOutAlt } from 'react-icons/fa'
+// import { FaExchangeAlt, FaSignOutAlt } from 'react-icons/fa'
 import Link from 'next/link'
 import Tabs from '../Components/Tabs'
+import ImageSvg from '@/helpers/ImageSVG'
 
 export default function Profilestart () {
   const [isSpanish, setIsSpanish] = useState(false)
@@ -40,18 +41,17 @@ export default function Profilestart () {
                 <p>BPaaS: Robots and people work better together</p>
               </li>
             </ul>
-
             <fieldset>
               <div>
+
                 <button onClick={handleClick} className='btn_icons'>
                   <Image src={isSpanish ? es : en} width={30} alt='imglanguage' />
-                  {isSpanish ? 'Español' : 'English'} <FaExchangeAlt />
+                  {isSpanish ? 'Español' : 'English'} <ImageSvg name='Change' />
                 </button>
               </div>
               <button className='btn_icons'>
                 <Link href='/login'>
-                  {' '}
-                  <FaSignOutAlt />{' '}
+                  <ImageSvg name='SignOut' />
                 </Link>
               </button>
             </fieldset>
@@ -65,7 +65,6 @@ export default function Profilestart () {
             <div>
               <Tabs />
             </div>
-
           </section>
         </section>
       </section>

@@ -118,3 +118,39 @@ $bshVar: (
 @function bsh($var) {
   @return map-get($bshVar, $var);
 }
+
+//gradiente 
+
+
+@mixin borderGradient($startColor, $endColor) {
+  background: linear-gradient(to right, $startColor, $endColor);
+  position: relative;
+  overflow: hidden;
+  -webkit-border-radius: 10;
+  -moz-border-radius: 15;
+  border-radius: 17px;
+  
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3px; // Ancho del "borde" simulado
+    background: linear-gradient(to bottom, $startColor, $endColor);
+    border-radius: 10px;
+  }
+
+  &:before {
+    left: 0;
+  }
+
+  &:after {
+    right: 0;
+  }
+}
+
+
+
+
+

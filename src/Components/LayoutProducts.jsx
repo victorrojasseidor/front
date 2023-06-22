@@ -1,34 +1,76 @@
 import { useState } from 'react'
-import { FiMenu } from 'react-icons/fi'
-import { IoClose } from 'react-icons/io5'
+import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
 import '../../styles/styles.scss'
+import Image from 'next/image'
+import robot from '../../public/img/robot.png'
 
 const LayoutProducts = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  // const [isOpen, setIsOpen] = useState(false)
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen)
+  // // const toggleMenu = () => {
+  // //   setIsOpen(!isOpen)
+  // // }
+
+  const [selectedOption, setSelectedOption] = useState('')
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value)
   }
+
+  // select
 
   return (
     <div className='menu'>
-      <button className='menuButton' onClick={toggleMenu}>
+      <div className='menu_Account'>
+        <ImageSvg name='Robot' />
+        <div className='gradientSelect'>
+          <select value={selectedOption} onChange={handleSelectChange}>
+            <option value=''>Innovativa S.A.C</option>
+            <option value='opcion1'>Opción 1</option>
+            <option value='opcion2'>Opción 2</option>
+            <option value='opcion3'>Opción 3</option>
+          </select>
+        </div>
+
+        <h5>SEIDOR PERÚ S.A</h5>
+        <button>
+          <ImageSvg name='Edit' />
+          <h5> Edit profile</h5>
+        </button>
+      </div>
+
+      {/* <button className='menuButton' onClick={toggleMenu}>
         {isOpen ? <IoClose /> : <FiMenu />}
-      </button>
-      <nav className={`'menuItems' ${isOpen ? 'open' : ''}`}>
+      </button> */}
+
+      <nav>
         <ul>
           <li>
-            <Link href='/'>Products</Link>
+            <ImageSvg name='Products' />
+            <Link href='/Products'>Products</Link>
           </li>
           <li>
-            <Link href='/acerca'>Users</Link>
+            <ImageSvg name='Users' />
+            <Link href='/Users'>Users</Link>
           </li>
           <li>
-            <Link href='/servicios'>Dashboard</Link>
+            <ImageSvg name='Dashboard' />
+            <Link href='/Dashboard'>Dashboard</Link>
           </li>
           <li>
-            <Link href='/contacto'>APIS</Link>
+            <ImageSvg name='APIS' />
+            <Link href='/APIS'>APIS</Link>
+          </li>
+
+          <li>
+            <ImageSvg name='Schedule' />
+            <Link href='/Schedule'>Schedule </Link>
+          </li>
+
+          <li>
+            <ImageSvg name='Support' />
+            <Link href='/Support'>Support </Link>
           </li>
         </ul>
       </nav>
