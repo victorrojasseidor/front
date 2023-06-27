@@ -168,17 +168,20 @@
 
   &_icons {
     border-style: none;
-    background-color: transparent;
-    border: 1px solid #242331;
-    border-radius: brd(1);
+    background-color: get-color(white_s1);
+    // border: 1px solid #242331;
+    border-radius: brd(2);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 12px 8px 12px 8px;
+    padding: 1rem;
     gap: 0.5em;
-    
-    
+    box-shadow:bsh(1);
+    color:get-color(black_p2);
+    height: 3rem;
+
+
     &:hover {
       background-color: get-color(blue_p1);
       color: get-color(white_s1);

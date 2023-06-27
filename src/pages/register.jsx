@@ -3,12 +3,11 @@ import LayoutLogin from '@/Components/LayoutLogin'
 import '../../styles/styles.scss'
 import { Formik, Field, ErrorMessage } from 'formik'
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 import logo from '../../public/img/logoseidor.png'
 import { SignupSchemaEN } from '@/helpers/validateForms'
 // import { DataContext } from '@/Context/DataContext'
+import ImageSvg from '@/helpers/ImageSVG'
 
 export default function Register () {
   // const { t, locale } = useContext(DataContext)
@@ -86,7 +85,7 @@ export default function Register () {
                   className='iconPassword'
                   onClick={togglePasswordVisibility}
                 >
-                  <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
                 </span>
                 <Field
                   type={showPassword ? 'text' : 'password'}
@@ -107,9 +106,8 @@ export default function Register () {
                   className='iconPassword'
                   onClick={toggleConfirmPasswordVisibility}
                 >
-                  <FontAwesomeIcon
-                    icon={showConfirmPassword ? faEyeSlash : faEye}
-                  />
+
+                  <ImageSvg name={showConfirmPassword ? 'ShowPassword' : 'ClosePassword'} />
                 </span>
                 <Field
                   type={showConfirmPassword ? 'text' : 'password'}

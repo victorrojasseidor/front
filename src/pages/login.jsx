@@ -3,8 +3,7 @@ import LayoutLogin from '@/Components/LayoutLogin'
 import '../../styles/styles.scss'
 import { Formik, Field, ErrorMessage } from 'formik'
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import ImageSvg from '@/helpers/ImageSVG'
 import Image from 'next/image'
 import logo from '../../public/img/logoseidor.png'
 import { SignupSchemaEN } from '@/helpers/validateForms'
@@ -74,7 +73,7 @@ export default function Login () {
                   className='iconPassword'
                   onClick={togglePasswordVisibility}
                 >
-                  <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
                 </span>
                 <Field
                   type={showPassword ? 'text' : 'password'}
