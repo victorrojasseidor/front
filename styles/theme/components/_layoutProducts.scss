@@ -205,8 +205,11 @@
 .header {
   display: flex;
   // align-items: flex-end;
-  justify-content: flex-end;
+ 
   padding: 1em;
+  @include media(tablet) {
+    justify-content: flex-end;
+  }
  
 
 

@@ -2,6 +2,8 @@ import "../../styles/styles.scss";
 import LayoutProducts from "@/Components/LayoutProducts";
 import ImageSvg from "@/helpers/ImageSVG";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import LimitedParagraph from "@/helpers/limitParagraf";
 
 export default function Products() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -9,26 +11,22 @@ export default function Products() {
   const [selectedFilter, setSelectedFilter] = useState(null);
 
   const products = [
-    { id: 1, name: "Manzana", type: "Fruta" },
-    { id: 2, name: "Banana", type: "Fruta" },
-    { id: 3, name: "Naranja", type: "Fruta" },
-    { id: 4, name: "Pera", type: "Fruta" },
-    { id: 5, name: "Zanahoria", type: "Verdura" },
-    { id: 6, name: "Tomate", type: "Verdura" },
-    { id: 7, name: "Papa", type: "Verdura" },
-    { id: 8, name: "Pollo", type: "Carne" },
-    { id: 9, name: "Res", type: "Carne" },
-    { id: 10, name: "Salmón", type: "Pescado" },
-  ];
-  
-
-  const productsBank = [
-    { id: 1, name: "rrency Exchange rates automation", type: "not hired", contry: "Perú", instances: 210, descripction: "Download the daily bank statement of any bank without token", status: " 5 set up 5 hours ago" },
-    { id: 2, name: "Patters", type: "Fruta", type: "NOT HIRED", contry: "Perú", instances: 80, descripction: "Download the daily bank statement of any bank without token" },
-    { id: 3, name: "Number Verification API", type: "Fruta" },
-    { id: 4, name: "Downlaod automated Bank Statements", type: "Fruta" },
-    { id: 5, name: "Exchange Rates Data API", type: "Verdura" },
-    { id: 6, name: "Real-Time  Weather Data API", type: "Verdura" },
+    // { id: 1, name: "Manzana", type: "Fruta" },
+    // { id: 2, name: "Banana", type: "Fruta" },
+    // { id: 3, name: "Naranja", type: "Fruta" },
+    // { id: 4, name: "Pera", type: "Fruta" },
+    // { id: 5, name: "Zanahoria", type: "Verdura" },
+    // { id: 6, name: "Tomate", type: "Verdura" },
+    // { id: 7, name: "Papa", type: "Verdura" },
+    // { id: 8, name: "Pollo", type: "Carne" },
+    // { id: 9, name: "Res", type: "Carne" },
+    // { id: 10, name: "Salmón", type: "Pescado" },
+    { id: 1, name: "Downlaod automated Bank Statements", status: "Configured", contry: "Perú", update: " ", enabled: " ", expires: "4 days", description: "Download the daily bank statement of any bank without token" },
+    { id: 2, name: "Currency Exchange rates automation", status: "Earring", contry: "Perú", update: " ", enabled: "3 months", expires: " ", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
+    { id: 3, name: "Pattern", status: "Configured", contry: "Perú", update: " ", enabled: " ", expires: "4 days", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
+    { id: 4, name: "Pattern IOP", status: "Not hired", contry: "Perú", update: " ", enabled: "3 months", expires: " ", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
+    { id: 5, name: "Exchange Rates Data API", status: "Not hired", contry: "Perú", update: " ", enabled: "3 months", expires: " ", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
+    { id: 6, name: "Real-Time  Weather Data API", status: "Not hired", contry: "Perú", update: " ", enabled: "3 months", expires: " ", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
   ];
 
   useEffect(() => {
@@ -36,7 +34,7 @@ export default function Products() {
       let results = products;
 
       if (selectedFilter) {
-        results = results.filter((product) => product.type.toLowerCase().includes(selectedFilter.toLowerCase()));
+        results = results.filter((product) => product.status.toLowerCase().includes(selectedFilter.toLowerCase()));
       }
 
       if (searchQuery) {
@@ -67,7 +65,6 @@ export default function Products() {
       <div className="products">
         <h2>Products</h2>
         <p>
-          {" "}
           Welcome, <span> Innovativa S.A.C 👋 </span>{" "}
         </p>
 
@@ -76,11 +73,14 @@ export default function Products() {
             <button onClick={() => handleFilter(null)} className={selectedFilter === null ? "active" : ""}>
               All
             </button>
-            <button onClick={() => handleFilter("Fruta")} className={selectedFilter === "Fruta" ? "active" : ""}>
-              Hired
+            <button onClick={() => handleFilter("Configured")} className={selectedFilter === "Configured" ? "active" : ""}>
+              Configured
             </button>
-            <button onClick={() => handleFilter("Verdura")} className={selectedFilter === "Verdura" ? "active" : ""}>
-              No hired
+            <button onClick={() => handleFilter("Earring")} className={selectedFilter === "Earring" ? "active" : ""}>
+              Earring
+            </button>
+            <button onClick={() => handleFilter("Not hired")} className={selectedFilter === "Not hired" ? "active" : ""}>
+              Not hired
             </button>
           </div>
           <div className="searchButton">
@@ -90,14 +90,43 @@ export default function Products() {
             </button>
           </div>
         </div>
+
         {searchResults.length > 0 ? (
-          <ul>
-            {searchResults.map((product) => (
-              <li key={product.id}>
-                {product.name} - {product.type}
-              </li>
-            ))}
-          </ul>
+          <div className="products_cards">
+              <p> {selectedFilter}</p>
+              <ul>
+                {searchResults.map((product) => (
+                  <li key={product.id} className="card" >
+                    <div >
+                    <ImageSvg name="Products" />
+                      <Link href="/product">
+                                              
+                          <h5> {product.name}</h5>
+                      </Link>
+                    </div>
+
+                    <div>
+                      <link rel="stylesheet" href="" />
+                    </div>
+                    
+                      <div>{product.status} <ImageSvg name="Schedule" /> <span></span></div>
+                    
+                      <div>
+                        <LimitedParagraph text={product.description} limit={80} />
+                      </div>
+                  
+
+                    <div>
+                      <Link href="/dhdhhd">viwe more</Link>
+                      <Link href="/dhdhhd">
+                        <button>Free trial</button>
+                      </Link>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          
         ) : (
           <p>No se encontraron resultados.</p>
         )}
