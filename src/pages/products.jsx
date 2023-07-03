@@ -4,7 +4,7 @@ import ImageSvg from "@/helpers/ImageSVG";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import LimitedParagraph from "@/helpers/limitParagraf";
-import { HiMenuAlt1 } from "react-icons/hi";
+
 
 export default function Products() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,6 +19,8 @@ export default function Products() {
     { id: 5, name: "Exchange Rates Data API", status: "Not hired", contry: "Perú", time:{ update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
     { id: 6, name: "Real-Time  Weather Data API", status: "Not hired", contry: "Perú", time: {update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
   ];
+
+
 
   useEffect(() => {
     const filterResults = () => {
@@ -52,17 +54,47 @@ export default function Products() {
   };
 
 
-  const renderSelectedFilter = (status,time) => {
+  const renderSelectedFilter = (status, time) => {
+     
     if (status === "Configured") {
+
       return <span>Expires in {time.expires} ago</span>;
     } else if (status === "Earring") {
+
       return <span>Enabled {time.enabled} ago</span>;
     } else if (status === "Not hired") {
+
       return <span>Updated {time.update} ago</span>;
     } else {
+ 
       return <span>---</span>;
     }
+  
+ 
   };
+
+
+  const renderButtons = (status) => {
+     
+    if (status === "Configured") {
+
+      return <span> </span>;
+    } else if (status === "Earring") {
+
+      return <Link href="/dhdhhd">
+      <button className='btn_primary'>Configurations</button>
+    </Link>;
+    } else if (status === "Not hired") {
+
+      return <button className='btn_secundary'>Free trial</button>;
+    } else {
+ 
+      return <span> </span>;
+    }
+  
+ 
+  };
+
 
 
   return (
@@ -101,21 +133,21 @@ export default function Products() {
             <p> {selectedFilter}</p>
             <ul>
               {searchResults.map((product) => (
-                <li key={product.id} className={`card ${product.status === "configured" ? 'earring' : ''}`}>
-                  <div>
-                    <span>
+                <li key={product.id} className={ "card" + (product.status=="Configured" ? ' configured' : '') + (product.status=="Earring" ? ' earring' : '')} >
+                  <div >
+                    <span >
                       <ImageSvg name="Products" />
                     </span>
                     <Link href="/product">
                       <h4> {product.name}</h4>
                     </Link>
                   </div>
-                  <div>
+                  <div >
                     <p>{product.status}</p>
                     <span>
-                      <ImageSvg name="Schedule" />
+                      <ImageSvg name="Time" />
                       {renderSelectedFilter(product.status,product.time)}
-                     
+                  
                     </span>
                   </div>
 
@@ -124,10 +156,9 @@ export default function Products() {
                   </div>
 
                   <div>
-                    <Link href="/dhdhhd">viwe more</Link>
-                    <Link href="/dhdhhd">
-                      <button>Free trial</button>
-                    </Link>
+                    <Link href="/dhdhhd"> <p> View more
+                      </p></Link>
+                      {renderButtons(product.status)}
                   </div>
                 </li>
               ))}

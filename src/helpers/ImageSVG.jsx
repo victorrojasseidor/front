@@ -9,6 +9,7 @@ import { GiProcessor } from 'react-icons/gi'
 import { AiOutlineInbox, AiOutlineSchedule } from 'react-icons/ai'
 import { FaExchangeAlt, FaSignOutAlt, FaEye, FaEyeSlash,FaSearch } from 'react-icons/fa'
 import { BiSupport } from 'react-icons/bi'
+import { CgTimer } from 'react-icons/cg';
 
 
 
@@ -34,6 +35,7 @@ const ImageSvg = ({ name }) => {
     ShowPassword: <FaEye />,
     ClosePassword: <FaEyeSlash />,
     Search: <FaSearch />,
+    Time: <CgTimer/>,
 
     // menú icons
     Products: <AiOutlineInbox />,

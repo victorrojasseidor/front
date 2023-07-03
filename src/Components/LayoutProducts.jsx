@@ -10,7 +10,7 @@ const LayoutProducts = ({ children }) => {
   // abrir y cerrar menu lateral
   const [isMenuOpen, setMenuOpen] = useState(true)
 
-  console.log('menu', isMenuOpen)
+  // console.log('menu', isMenuOpen)
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen)
