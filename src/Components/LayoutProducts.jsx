@@ -79,6 +79,10 @@ const LayoutProducts = ({ children }) => {
               <ImageSvg name='Support' />
               <Link href='/Support'>Support </Link>
             </li>
+            
+ 
+          
+            
           </ul>
         </nav>
 
@@ -87,12 +91,16 @@ const LayoutProducts = ({ children }) => {
         </div>
       </section>
 
-      <section className='Section_Headers'>
-        <Headers />
+    <section className='menu_children'>
+    <section className='Section_Headers'>
+            <Headers />
 
-        {children}
 
-      </section>
+    </section>
+    {children}
+    </section>
+     
+
     </section>
   )
 }

@@ -26,7 +26,11 @@ export default function Headers () {
 
           <button onClick={handleClick} className='btn_icons'>
             <Image src={isSpanish ? IconES : IconEN} width={30} alt='imglanguage' />
-            {isSpanish ? 'EN' : 'ES'} <ImageSvg name='Change' />
+            <h5>
+              {isSpanish ? 'EN' : 'ES'} 
+            </h5>
+            
+            <ImageSvg name='Change' />
           </button>
 
         </li>

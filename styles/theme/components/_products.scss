@@ -129,15 +129,17 @@
   gap: 0.5em;
   background-color: get-color(white_s1);
   flex-direction: column;
-  max-width: 300px;
+  max-width: 20rem;
   padding: 1em 1em;
   box-shadow:bsh(2);
   border-radius: brd(2);
 
-  @include media(desktop) {
-  max-width: 350px;
+  @include media(tablet) {
+    width: auto;
 
-}
+    
+  }
+
   div{
     display: flex;
     justify-content: row;
