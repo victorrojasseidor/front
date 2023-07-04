@@ -6,6 +6,7 @@ import { countryOptions } from '@/helpers/contry'
 import { SignupSchemaEN } from '@/helpers/validateForms'
 import Company from './Company'
 import { MdPerson } from 'react-icons/md'
+import Link from 'next/link'
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState(0)
@@ -130,9 +131,15 @@ const Tabs = () => {
               <button className='btn_primary smallBack' type='submit'>
                 BACK
               </button>
+
+              
               <button className='btn_primary small' type='submit'>
-                NEXT
-              </button>
+              
+               <Link href='/products'>  NEXT  </Link>
+               </button>
+              
+               
+            
               <div />
             </div>
           </div>
