@@ -19,7 +19,7 @@ import { CgTimer } from 'react-icons/cg';
 
 import Iconspain from '../../public/icons/spain.svg'
 import Iconeeuu from '../../public/icons/eeuu.svg'
-import Iconrobot from '../../public/img/robot.png'
+import Iconrobot from '../../public/img/robot.PNG'
 
 
 const ImageSvg = ({ name }) => {
