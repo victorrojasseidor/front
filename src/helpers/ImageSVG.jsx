@@ -13,13 +13,11 @@ import { CgTimer } from 'react-icons/cg';
 
 
 
-
-
 // icons of bpass
 
 import Iconspain from '../../public/icons/spain.svg'
 import Iconeeuu from '../../public/icons/eeuu.svg'
-import Iconrobot from '../../public/img/robot.PNG'
+// import Iconrobot from '../../public/img/robot.PNG'
 
 
 const ImageSvg = ({ name }) => {
@@ -50,7 +48,7 @@ const ImageSvg = ({ name }) => {
     // imgs svg
     Spain: <Image src={Iconspain} width={100} alt='Spain' />,
     EEUU: <Image src={Iconeeuu} width={100} alt='Spain' />,
-    Robot: <Image src={Iconrobot} width={100} alt='Robot' />
+    // Robot: <Image src={Iconrobot} width={100} alt='Robot' />
   }
 
   return icons[name] ? icons[name] : 'x'

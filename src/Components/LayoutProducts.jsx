@@ -5,6 +5,7 @@ import '../../styles/styles.scss'
 import Headers from './Headers'
 import logo from '../../public/img/logoseidor.png'
 import Image from 'next/image'
+import perfil from '../../public/img/perfil.jpg'
 
 const LayoutProducts = ({ children }) => {
   // abrir y cerrar menu lateral
@@ -29,7 +30,7 @@ const LayoutProducts = ({ children }) => {
 
         <div className='menu_Account'>
           <div className='imgPerfil'>
-            <ImageSvg name='Robot' />
+             <Image src={perfil} width={100} alt='Robot' />
             <button onClick={toggleMenu}>
               <ImageSvg name={isMenuOpen ? 'CloseMenu' : 'OpenMenu'} />
             </button>
