@@ -135,7 +135,7 @@ const Tabs = () => {
               
               <button className='btn_primary small' type='submit'>
               
-               <Link href='/products'>  NEXT  </Link>
+               <Link href='/product'>  NEXT  </Link>
                </button>
               
                

@@ -1,12 +1,7 @@
 .products {
   // background-color: aqua;
-  margin: 0em 1em 0 0;
+  // margin: 0em 1em 0 0;
 
-  p {
-    span {
-      color: get-color(blue_p1);
-    }
-  }
 
   &_filterSearch {
     display: flex;

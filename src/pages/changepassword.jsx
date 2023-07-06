@@ -86,13 +86,13 @@ export default function changePassword () {
           )}
         </Formik>
 
-        <h4> modal example </h4>
+        {/* <h4> modal example </h4> */}
       </div>
-      <Modal>
+      {/* <Modal>
         <p>Automation of currency exchange rates for Daily Exchange Rate</p>
         <p>was successfully configured!</p>
 
-      </Modal>
+      </Modal> */}
     </LayoutLogin>
   )
 }
