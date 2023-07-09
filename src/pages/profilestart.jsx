@@ -54,7 +54,7 @@ export default function Profilestart () {
                   <ImageSvg name='SignOut' />
                 </Link>
               </button>
-            </fieldset>
+            </fieldset> 
           </nav>
           <section className='formProfile'>
             <div>

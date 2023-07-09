@@ -212,19 +212,34 @@
   
 }
 
-
-  
   
   
   
 &_children {
+  width: 100%;
   padding-top: 1rem;
+  gap:1em;
+
+  margin: 0em 1em 0 0;
+ 
+
+  .childrenTilte{
+   
+    p {
+      span {
+        color: get-color(blue_p1);
+      }
+    }
+
+  }
  }
   
   
   
 }
 }
+
+
 
 
 

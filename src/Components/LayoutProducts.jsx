@@ -95,11 +95,18 @@ const LayoutProducts = ({ children }) => {
       </section>
 
     <section className='menu_children'>
-    <section className='Section_Headers'>
-            <Headers />
+    <div className='Section_Headers'>
+     <Headers />
 
+    </div>
+    
+    <div className='childrenTilte' >
+    <h2>Products</h2>
+        <p>
+          Welcome, <span> Innovativa S.A.C 👋 </span>{" "}
+        </p>
+    </div>
 
-    </section>
     {children}
     </section>
      
