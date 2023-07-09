@@ -21,12 +21,12 @@
     max-width: 200px;
     // padding: 1em 1em;
     background-color: get-color(white_s1);
-    border-radius: 0px 20px 20px 0px;
+    border-radius: 0px 30px 30px 0px;
     box-shadow: bsh(2);
     align-items: center;
     height: fit-content;
     padding-bottom: 2em ;
-
+ 
   
    &_Account {
 
@@ -38,6 +38,10 @@
     gap:0.5em;
     position: relative;
   
+      p{
+         font-size: small;
+    }
+
   
    
     .imgPerfil{
@@ -74,7 +78,7 @@
 
       img{
         
-        width: 100px;
+        width: 80px;
                 border-radius: brd(f);
   
       }
@@ -95,11 +99,13 @@
     padding: 1em;
      display: flex;
     flex-direction: column;
+
+  
     ul{
    
       display: flex;
       flex-direction: column;
-      gap: 1em;
+      gap: 0.5em;
       justify-content: center;
          
      
@@ -143,7 +149,7 @@
             height: 100%;
             background-color: get-color(blue_p1); /* Cambia este color al que desees */
           }
-        }
+        } 
   
   
         
@@ -178,6 +184,8 @@
 
      h5 {
       display: none;
+      font-weight: 300;
+       
      }
 
     .imgPerfil{
@@ -188,6 +196,12 @@
   }
   select{
     font-size: smaller;
+    width: 40px;
+    padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+ 
     
   }
 

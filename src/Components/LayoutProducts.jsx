@@ -45,7 +45,9 @@ const LayoutProducts = ({ children }) => {
             </select>
           </div>
 
-          <h5>SEIDOR PERÚ S.A</h5>
+          <h5>
+          <p>SEIDOR PERÚ S.A</p>
+            </h5>
           <button>
             <ImageSvg name='Edit' />
             <h5> Edit profile</h5>
