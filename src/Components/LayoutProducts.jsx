@@ -58,7 +58,7 @@ const LayoutProducts = ({ children }) => {
           <ul>
             <li>
               <ImageSvg name='Products' />
-              <Link href='/Products'>Products</Link>
+              <Link href='/product'>Products</Link>
             </li>
             <li>
               <ImageSvg name='Users' />
@@ -90,7 +90,7 @@ const LayoutProducts = ({ children }) => {
         </nav>
 
         <div className='menu_logo'>
-          <Image src={logo} width={isMenuOpen ? 100 : 70} alt='logo' />
+          <Image src={logo} width={isMenuOpen ? 100 : 70} alt='logo' priority={true} />
         </div>
       </section>
 

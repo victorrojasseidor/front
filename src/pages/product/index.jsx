@@ -4,6 +4,7 @@ import ImageSvg from "@/helpers/ImageSVG";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import LimitedParagraph from "@/helpers/limitParagraf";
+import { useRouter } from 'next/router';
 
 
 export default function Products() {
@@ -19,6 +20,14 @@ export default function Products() {
     { id: 5, name: "Exchange Rates Data API", status: "Not hired", contry: "Perú", time:{ update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
     { id: 6, name: "Real-Time  Weather Data API", status: "Not hired", contry: "Perú", time: {update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
   ];
+
+  const router = useRouter();
+
+
+  // const handleClick = (productId) => {
+  //   console.log("🍌",productId);
+  //   router.push('/product/[id]', `/product/${productId}`);
+  // };
 
 
   useEffect(() => {
@@ -126,13 +135,17 @@ export default function Products() {
             <ul>
               {searchResults.map((product) => (
                 <li key={product.id} className={ "card" + (product.status=="Configured" ? ' configured' : '') + (product.status=="Earring" ? ' earring' : '')} >
-                  <div >
+                                  
+                  <div  >
                     <span >
                       <ImageSvg name="Products" />
                     </span>
-                    <Link href="/product">
-                      <h4> {product.name}</h4>
-                    </Link>
+                 
+                    <Link href={`/product/${product.id}`}>
+                
+                      <h4  > {product.name}</h4>
+                  
+                      </Link>
                   </div>
                   <div >
                     <p>{product.status}</p>

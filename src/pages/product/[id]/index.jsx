@@ -1,28 +1,48 @@
 import React from 'react'
 import { useRouter } from 'next/router';
 import LayoutProducts from '@/Components/LayoutProducts';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import FreeTrial from '@/Components/FreeTrial';
+import { dataProducts } from '@/helpers/products';
+import BackButton from '@/Components/BackButton';
 
 
+//🍎, 🍌, 🍇
 
-export default function productView({title,}) {
-
+export default function productId() {
+    
   const router = useRouter();
-  const { id } = router.query;
-    // const {id} = param
+  const { productId } = router.query;
+  // console.log("🍎",productId);
 
-    const [activeTab, setActiveTab] = useState(0)
+  const [product, setProduct] = useState(null);
+  const [activeTab, setActiveTab] = useState(0)
 
+
+  // useEffect(() => {
+  //   const selectedProduct = dataProducts.find((p) => p.id === parseInt(productId));
+  //   setProduct(selectedProduct);
+  // }, [productId]);
+
+
+
+  // if (!product) {
+  //   return <div>Cargando...</div>;
+  // }
+
+
+
+    //tabs
     const handleTabClick = (index) => {
       setActiveTab(index)
     }
-    
 
 
   return (
     <LayoutProducts>
       <section className='idProduct'>
+
+      <BackButton/>
      <h2> Currency Exchange rates automation </h2> 
       <div className='idProduct_container'>
     

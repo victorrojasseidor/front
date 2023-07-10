@@ -2,8 +2,8 @@ import React from 'react'
 import '../../styles/styles.scss'
 import { FaCheck } from 'react-icons/fa'
 
-function Modal ({ children }) {
-  const [showModal, setShowModal] = React.useState(false)
+function Modal ({ children,open}) {
+  const [showModal, setShowModal] = React.useState(open)
 
   const handleOpenModal = () => {
     setShowModal(true)
@@ -17,7 +17,6 @@ function Modal ({ children }) {
     <div>
       <h1>My modal </h1>
       <button onClick={handleOpenModal}>Open Modal</button>
-
       {showModal && (
         <div className='modal'>
           <div className='content'>
@@ -30,7 +29,8 @@ function Modal ({ children }) {
             </div>
 
             <div className='actions'>
-              <button className='btn_primary small'>NEXT</button>
+              
+              <button className='btn_primary small' onClick={handleCloseModal} >NEXT</button>
             </div>
           </div>
         </div>
