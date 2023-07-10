@@ -1,0 +1,9 @@
+
+export const dataProducts = [
+    { id: 1, name: "Downlaod automated Bank Statements", status: "Configured", contry: "Perú", time:{update: " ", enabled: " ", expires: "4 days"}, description: "Download the daily bank statement of any bank without token" },
+    { id: 2, name: "Currency Exchange rates automation", status: "Earring", contry: "Perú",time:{ update: " ", enabled: "3 months", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
+    { id: 3, name: "Pattern", status: "Configured", contry: "Perú",time: { update: " ", enabled: " ", expires: "4 days"}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
+    { id: 4, name: "Pattern IOP", status: "Not hired", contry: "Perú",time: {update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
+    { id: 5, name: "Exchange Rates Data API", status: "Not hired", contry: "Perú", time:{ update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
+    { id: 6, name: "Real-Time  Weather Data API", status: "Not hired", contry: "Perú", time: {update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
+  ];
