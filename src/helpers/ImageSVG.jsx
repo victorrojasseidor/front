@@ -10,6 +10,9 @@ import { AiOutlineInbox, AiOutlineSchedule } from 'react-icons/ai'
 import { FaExchangeAlt, FaSignOutAlt, FaEye, FaEyeSlash,FaSearch } from 'react-icons/fa'
 import { BiSupport } from 'react-icons/bi'
 import { CgTimer } from 'react-icons/cg';
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import { FcMultipleInputs, FcDebt, FcLock,FcAcceptDatabase} from 'react-icons/fc';
+
 
 
 
@@ -34,6 +37,7 @@ const ImageSvg = ({ name }) => {
     ClosePassword: <FaEyeSlash />,
     Search: <FaSearch />,
     Time: <CgTimer/>,
+    Back:    <IoMdArrowRoundBack/>,
 
     // menú icons
     Products: <AiOutlineInbox />,
@@ -45,6 +49,11 @@ const ImageSvg = ({ name }) => {
     OpenMenu: <FiChevronsRight />,
     CloseMenu: <FiChevronsLeft />,
 
+    //icons crurrency
+    Benefit1: <FcMultipleInputs />,
+    Benefit2: <FcDebt />,
+    Benefit3: <FcAcceptDatabase />,
+    Benefit4: <FcLock />,
     // imgs svg
     Spain: <Image src={Iconspain} width={100} alt='Spain' />,
     EEUU: <Image src={Iconeeuu} width={100} alt='Spain' />,

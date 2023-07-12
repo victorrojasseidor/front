@@ -163,6 +163,14 @@
         
       }
 
+      h4{
+     
+        &:hover{
+          
+          color:get-color(lilac_p3);
+        }
+      }
+
     }
 
 
@@ -294,4 +302,17 @@
 }
 
 
+.back{
+  padding: 0.5em 0 0.5em 0 ;
+  width: 100%;
+  color:get-color(grey2_s4);
+  button{
+    border-style: none;
+    background-color: transparent;
+    display: flex;
+    gap:1em;
+
+
+  }
+}
 

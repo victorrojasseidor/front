@@ -52,7 +52,7 @@
 
 .tab-content {
   border: 1px solid get-color(forms_s6);
-  padding: 2em;
+  padding: 1em;
   border-radius: brd(1);
 
   width: 100%;
@@ -195,6 +195,125 @@ ul{
 
 
 }
+
+
+
+
+//tabs vertiacals
+
+
+.verticalTabs {
+  display: flex;
+
+  height: 100%;
+  width: 100%;
+  font-size: 1.2rem;
+  flex-direction: column;
+    cursor: pointer;
+    @include media(tablet) {
+      flex-direction: row;
+    }
+
+  
+  .tabHeader {
+    display: flex;
+    flex-direction: row;
+     height: 100%;
+    padding: 0.5em;
+    
+    p{
+      color:get-color(grey1_s3);
+    }
+
+    @include media(tablet) {
+       flex-direction: column;
+    }
+
+    button {
+      display: flex;
+      background: none;
+      border: none;
+      width: 5rem;
+        
+      
+    
+      h4{
+        color:get-color(grey2_s4);
+        font-size: medium;
+        padding-left: 1em;
+      }
+    
+  
+      @include media(tablet) {
+        gap: 1em;
+        padding: 0.25em;
+        width: 8rem;
+      }
+
+      &.activeVT {
+        h4{
+          color:get-color(black_p2);
+          font-weight: 600;
+          padding-bottom: 0.5em ;
+          border-bottom: 2px solid get-color(forms_s6);
+
+            
+      @include media(tablet) {
+        padding-bottom: none ;
+        border-bottom: none  ;
+      }
+        }
+       
+              
+      }
+    
+  
+      &.complete {
+        h4{
+          color:get-color(black_p2);
+          font-weight: 600;
+        }
+     
+      
+      }
+    }
+
+ 
+
+  
+
+  }
+ 
+
+
+
+  
+  .tabContent {
+    padding: 0.5em;
+      width: 100%;
+    p {
+      color: get-color(grey2_s4);
+    }
+  
+    .tabOne {
+        display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  
+      h4 {
+        display: flex;
+        justify-self: baseline;
+        align-content: center;
+        justify-content: center;
+        gap: 1em;
+      }
+    }
+  }
+}
+
+
+
 
 
 

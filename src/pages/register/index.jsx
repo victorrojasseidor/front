@@ -25,7 +25,7 @@ export default function Register () {
 
   const handleSubmit = (values) => {
     // Realizar acción cuando el formulario es válido
-    console.log('Formulario válido', values)
+    console.log('Formulario válido', values);
   }
 
   return (

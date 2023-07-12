@@ -7,29 +7,27 @@ import { dataProducts } from '@/helpers/products';
 import BackButton from '@/Components/BackButton';
 
 
+
 //🍎, 🍌, 🍇
 
 export default function productId() {
-    
-  const router = useRouter();
-  const { productId } = router.query;
-  // console.log("🍎",productId);
-
   const [product, setProduct] = useState(null);
   const [activeTab, setActiveTab] = useState(0)
+  const router = useRouter();
+  const { id } = router.query;
 
 
-  // useEffect(() => {
-  //   const selectedProduct = dataProducts.find((p) => p.id === parseInt(productId));
-  //   setProduct(selectedProduct);
-  // }, [productId]);
+  useEffect(() => {
+      const selectedProduct = dataProducts.find((p) => p.id === parseInt(id));
+        setProduct(selectedProduct);
+    }, [id]);
+
+  console.log("🍎",product);
 
 
-
-  // if (!product) {
-  //   return <div>Cargando...</div>;
-  // }
-
+  if (!product) { 
+    return <div>Cargando...</div>;
+  }
 
 
     //tabs
@@ -38,12 +36,16 @@ export default function productId() {
     }
 
 
+
+
+
+
   return (
     <LayoutProducts>
       <section className='idProduct'>
 
       <BackButton/>
-     <h2> Currency Exchange rates automation </h2> 
+     <h2> {product.name} </h2> 
       <div className='idProduct_container'>
     
       <div className='tabs-container'>
@@ -72,11 +74,8 @@ export default function productId() {
       <div className='tab-content'>
         {activeTab === 0 && (
           <div className='tabOne'>
-            <h3>
-       
-              Personal informations
-            </h3>
-
+        
+             {product.documentation}
             <div>
             
             </div>
