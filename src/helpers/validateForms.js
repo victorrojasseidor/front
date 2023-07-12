@@ -26,7 +26,7 @@ export const SignupSchemaEN = Yup.object().shape({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
     .required('Password confirmation is required'),
-  corporateEmail: Yup.string()
+    corporateEmail: Yup.string()
     .email('Invalid corporate email')
     .matches(
       /^(?!.*@(?:hotmail\.com|gmail\.com|yahoo\.com |outlook\.com)$)([\w.%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/,
@@ -65,7 +65,7 @@ export const SignupSchemaES = Yup.object().shape({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Las contraseñas deben coincidir')
     .required('La confirmación de contraseña es requerida'),
-  corporateEmail: Yup.string()
+    corporateEmail: Yup.string()
     .email('Correo electrónico corporativo inválido')
     .matches(
       /^(?!.*@(?:hotmail\.com|gmail\.com|yahoo\.com |outlook\.com)$)([\w.%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/,

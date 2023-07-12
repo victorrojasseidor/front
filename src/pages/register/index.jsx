@@ -2,15 +2,17 @@ import Link from 'next/link'
 import LayoutLogin from '@/Components/LayoutLogin'
 import '../../../styles/styles.scss'
 import { Formik, Field, ErrorMessage } from 'formik'
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import Image from 'next/image'
 import logo from '../../../public/img/logoseidor.png'
 import { SignupSchemaEN } from '@/helpers/validateForms'
 import ImageSvg from '@/helpers/ImageSVG'
+import axios from 'axios';
 // import { DataContext } from '@/Context/DataContext'
 export default function Register () {
   // const { t, locale } = useContext(DataContext)
   // console.log('t', t)
+
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -24,9 +26,41 @@ export default function Register () {
   }
 
   const handleSubmit = (values) => {
-    // Realizar acción cuando el formulario es válido
-    console.log('Formulario válido', values);
-  }
+
+    console.log("values",values);
+    // try {
+
+    //   if (!isValid) {
+    //     console.log("no válido");
+    //     return;
+    //   }
+     
+  
+    //   // const response = await axios.post('/api/auth/signup', values);
+    //   // console.log(response.data);
+    // } catch (error) {
+    //   console.error(error);
+    //   // setErrors({ submit: 'Error al registrar al usuario' });
+    //   setSubmitting(false);
+    // }
+  
+    
+  };
+
+
+  // useEffect(() => {
+  //   const formValues = {
+  //         name: 'natalia',
+  //           corporateEmail: 'natalia@seidor.es',
+  //           password: 'Ninoska12$',
+  //           confirmPassword: 'Ninoska12$',
+  //           acceptTerms: false
+  //   };
+
+  //   handleSubmit(formValues, true);
+  // }, []);
+
+
 
   return (
     <LayoutLogin>
@@ -46,19 +80,22 @@ export default function Register () {
 
         <Formik
           initialValues={{
-            email: '',
+            name: '',
+            corporateEmail: '',
             password: '',
             confirmPassword: '',
-            name: '',
             acceptTerms: false
           }}
           validationSchema={SignupSchemaEN}
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
+          onSubmit={ (values) => {
+            handleSubmit(values);
+        }}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting}) => (
             <form className='formContainer'>
               <div>
-                <Field type='text' name='name' placeholder=' ' />
+                <Field type='text' id='name' name='name' placeholder=' ' />
                 <label htmlFor='name'>Username</label>
                 <ErrorMessage
                   className='errorMessage'
@@ -68,7 +105,7 @@ export default function Register () {
               </div>
 
               <div>
-                <Field type='email' name='corporateEmail' placeholder=' ' />
+                <Field type='email' name='corporateEmail' id='corporateEmail' placeholder=' ' />
                 <label htmlFor='corporateEmail'>
                   Company email
                 </label>
@@ -128,6 +165,7 @@ export default function Register () {
                 <label className='checkbox'>
                   <Field
                     className='checkboxId'
+                    id='acceptTerms'
                     type='checkbox'
                     name='acceptTerms'
                   />
