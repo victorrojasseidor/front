@@ -37,9 +37,6 @@ export default function productId() {
 
 
 
-
-
-
   return (
     <LayoutProducts>
       <section className='idProduct'>
@@ -89,7 +86,7 @@ export default function productId() {
         }
 
         {activeTab === 2 && (
-          <div className='notificatión'>
+          <div className='ApiConfiCurency'>
             <h3>
        
               Notifications
@@ -99,15 +96,11 @@ export default function productId() {
           </div>
         )}
          {activeTab === 3 && (
-          <div className='notificatión'>
-            <h3>
-       
-              tab 4
-            </h3>
-        
-           
-           
-          </div>
+          <div >
+         
+         {product.configuration}
+                   
+        </div>
         )}
       </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import DocCurrency from '@/Components/CompProducts/Currency/DocCurrency';
+import ConfigCurrency from '@/Components/CompProducts/ConfigCurrency';
 
 export const dataProducts = [
   { 
@@ -32,7 +33,7 @@ export const dataProducts = [
     documentation: <DocCurrency />,
     freeTrial: 'fretrial 2',
     apiConfiguration:'apiconfiguration 2',
-    configuration:'configuration id 2'
+    configuration:<ConfigCurrency/>, 
   },
   { 
     id: 3, 

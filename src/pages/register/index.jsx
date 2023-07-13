@@ -7,7 +7,6 @@ import Image from 'next/image'
 import logo from '../../../public/img/logoseidor.png'
 import { SignupSchemaEN } from '@/helpers/validateForms'
 import ImageSvg from '@/helpers/ImageSVG'
-import axios from 'axios';
 // import { DataContext } from '@/Context/DataContext'
 export default function Register () {
   // const { t, locale } = useContext(DataContext)

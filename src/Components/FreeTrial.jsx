@@ -7,16 +7,8 @@ import { SignupSchemaEN } from "@/helpers/validateForms";
 import ImageSvg from "@/helpers/ImageSVG";
 
 function FreeTrial(props) {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
+ 
 
   const handleSubmit = (values) => {
     // Realizar acción cuando el formulario es válido
@@ -25,13 +17,14 @@ function FreeTrial(props) {
 
   return (
     <div className="freetrial">
-     
       <div className="freetrial_description">
-        <p> The fastest and 
-           <span> safest  </span> 
-            way to have the exchange rate registered in your ERP 
-           <span> every day </span>.
-            </p>
+        <p>
+          {" "}
+          The fastest and
+          <span> safest </span>
+          way to have the exchange rate registered in your ERP
+          <span> every day </span>.
+        </p>
         <p>An expert will contact you</p>
 
         <Image src={imgfree} width={200} alt="imgfreetrial" />
@@ -39,19 +32,18 @@ function FreeTrial(props) {
       <div className="freetrial_contact">
         <Formik
           initialValues={{
-            corporateEmail: 'menagenmurriagui@seidor.com',
+            corporateEmail: "menagenmurriagui@seidor.com",
             password: "",
             confirmPassword: "",
             name: "I am interested Currency Exchange rates automation",
             acceptTerms: false,
-            phoneNumber: "982 354 738" 
-                  }}
+            phoneNumber: "982 354 738",
+          }}
           validationSchema={SignupSchemaEN}
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
             <form className="formContainer">
-          
               <div>
                 <Field type="email" name="corporateEmail" placeholder=" " />
                 <label htmlFor="corporateEmail">Company email</label>
@@ -59,40 +51,28 @@ function FreeTrial(props) {
               </div>
 
               <div>
-                <Field type='text' name='title' placeholder=' '  value='I am interested Currency Exchange rates automation'/>
-                <label htmlFor='title'> Title </label>
-                <ErrorMessage
-                  className='errorMessage'
-                  name='title'
-                  component='div'
-                />
+                <Field type="text" name="title" placeholder=" " value="I am interested Currency Exchange rates automation" />
+                <label htmlFor="title"> Title </label>
+                <ErrorMessage className="errorMessage" name="title" component="div" />
               </div>
 
               <div>
-                        <Field type='text' id='phoneNumber' name='phoneNumber' placeholder=' '  value={ "972 354 278"}/>
-                        <label htmlFor='phoneNumber'>Phone Number</label>
-                        <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
-                      </div>
-
-                      <div>
-
-                <Field type='text' name='name' placeholder=''  value=' I am ....'/>
-                <label htmlFor='name'> Message</label>
-                <ErrorMessage
-                  className='errorMessage'
-                  name='message'
-                  component='div'
-                />
+                <Field type="text" id="phoneNumber" name="phoneNumber" placeholder=" " value={"972 354 278"} />
+                <label htmlFor="phoneNumber">Phone Number</label>
+                <ErrorMessage className="errorMessage" name="phoneNumber" component="div" />
               </div>
-             
-              
-<div className="send">
-<button className="btn_primary small" type="submit" disabled={isSubmitting}>
-               SEND
-              </button>
-</div>
-              
 
+              <div>
+                <Field type="text" name="name" placeholder="" value=" I am ...." />
+                <label htmlFor="name"> Message</label>
+                <ErrorMessage className="errorMessage" name="message" component="div" />
+              </div>
+
+              <div className="send">
+                <button className="btn_primary small" type="submit" disabled={isSubmitting}>
+                  SEND
+                </button>
+              </div>
             </form>
           )}
         </Formik>
