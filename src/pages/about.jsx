@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { fetchNoTokenPost } from '@/helpers/fetch'; 
 
 function MyPage() {
   const [data, setData] = useState(null);
@@ -9,29 +10,38 @@ function MyPage() {
 
     const { username, email, password } = event.target.elements;
 
-    console.log(username.value, email.value, password.value );
-  
+   
+    const dataRegister={
+      "oResults": {
+        "sUserName": username.value,
+        "sEmail":  email.value,
+        "sPassword": password.value
+      }
+    }
+    
 
     try {
-      const response = await fetch(
-        "https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/General/?Accion=RegistrarUsuarioInit",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            "oResults": {
-              "sUserName": username.value,
-              "sEmail":  email.value,
-              "sPassword": password.value
-            }
-          }),
-          headers: {
-            "saplicacion": "BPAS",
-            "x-api-key": "LkzMK8wEA38Qdzc22Y0nhaNMU0IYGokq66tOPqf9",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("res", response);
+      // const response = await fetch(
+      //   "https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/General/?Accion=RegistrarUsuarioInit",
+      //   {
+      //     method: "POST",
+      //     body: JSON.stringify({
+      //       "oResults": {
+      //         "sUserName": username.value,
+      //         "sEmail":  email.value,
+      //         "sPassword": password.value
+      //       }
+      //     }),
+      //     headers: {
+      //       "saplicacion": process.env.NEXT_PUBLIC_X_SAPLICACION,
+      //       "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY,
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
+     
+    const response= await fetchNoTokenPost("RegistrarUsuarioInit",dataRegister)
+    console.log("res", response);
 
       if (response.ok) {
         const data = await response.json();
