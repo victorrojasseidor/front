@@ -21,25 +21,6 @@ function MyPage() {
     
 
     try {
-      // const response = await fetch(
-      //   "https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/General/?Accion=RegistrarUsuarioInit",
-      //   {
-      //     method: "POST",
-      //     body: JSON.stringify({
-      //       "oResults": {
-      //         "sUserName": username.value,
-      //         "sEmail":  email.value,
-      //         "sPassword": password.value
-      //       }
-      //     }),
-      //     headers: {
-      //       "saplicacion": process.env.NEXT_PUBLIC_X_SAPLICACION,
-      //       "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY,
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
-     
     const response= await fetchNoTokenPost("RegistrarUsuarioInit",dataRegister)
     console.log("res", response);
 
@@ -72,3 +53,5 @@ function MyPage() {
 }
 
 export default MyPage;
+
+

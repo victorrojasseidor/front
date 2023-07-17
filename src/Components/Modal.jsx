@@ -1,9 +1,12 @@
 import React from 'react'
 import '../../styles/styles.scss'
 import { FaCheck } from 'react-icons/fa'
+import Link from 'next/link';
 
-function Modal ({ children,open}) {
+
+function Modal ({ children,open, path="/login"}) {
   const [showModal, setShowModal] = React.useState(open)
+  // const router = useRouter();
 
   const handleOpenModal = () => {
     setShowModal(true)
@@ -13,24 +16,34 @@ function Modal ({ children,open}) {
     setShowModal(false)
   }
 
+  // const handleNext = () => {
+  //   handleCloseModal();
+  //   // router.push('/login'); // Redirecciona a la página 'login'
+  //   window.location.href = '/login'; // Redirecciona a la página 'login'
+  // };
+
+  
+
   return (
     <div>
-      <h1>My modal </h1>
-      <button onClick={handleOpenModal}>Open Modal</button>
-      {showModal && (
+         {showModal && (
         <div className='modal'>
           <div className='content'>
             <div className='close'>
               <button onClick={handleCloseModal}> X </button>
             </div>
             <div className='message'>
-              <FaCheck /> {/* Utiliza el icono de check */}
+              <FaCheck /> 
               <div>{children}</div>
             </div>
 
             <div className='actions'>
               
-              <button className='btn_primary small' onClick={handleCloseModal} >NEXT</button>
+              {/* <button className='btn_primary small' onClick={handleNext} >NEXT</button> */}
+              <Link href={path} passHref>
+                {/* <a className='btn_primary small'>NEXT</a> */}
+                <div className='btn_primary small'>NEXT</div>
+              </Link>
             </div>
           </div>
         </div>

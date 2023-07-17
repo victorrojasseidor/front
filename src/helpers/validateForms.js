@@ -46,16 +46,16 @@ export const SignupSchemaES = Yup.object().shape({
     )
     .required('El nombre es requerido'),
 
-  lastName: Yup.string()
-    .matches(
-      /^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/,
-      'Tus Apellidos no debe contener números u otros caracteres especiales, permite hasta 2 apellidos'
-    )
-    .required('El Apellido es requerido'),
+  // lastName: Yup.string()
+  //   .matches(
+  //     /^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/,
+  //     'Tus Apellidos no debe contener números u otros caracteres especiales, permite hasta 2 apellidos'
+  //   )
+  //   .required('El Apellido es requerido'),
 
-  phoneNumber: Yup.string()
-    .matches(/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/, 'El número de teléfono debe tener solo números y espacios')
-    .required('El número de teléfono es requerido'),
+  // phoneNumber: Yup.string()
+  //   .matches(/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/, 'El número de teléfono debe tener solo números y espacios')
+  //   .required('El número de teléfono es requerido'),
   password: Yup.string()
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,

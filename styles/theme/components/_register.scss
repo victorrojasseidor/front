@@ -86,17 +86,27 @@
       }
     }
 
-    .errorMessage {
-      color: get-color(t3-red);
-      // margin-top: 5px;
-      font-size: small;
-    }
+
 
     span:nth-child(3) {
       color: get-color(blue_p1);
       font-size: 14px;
     }
   }
+
+  .contentError{
+    margin:1rem 0 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+}
+
+.errorMessage {
+  color: get-color(t3-red) !important;
+  // margin-top: 5px;
+  font-size: small;
 }
 
 .checkboxId {
