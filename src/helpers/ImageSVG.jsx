@@ -12,6 +12,7 @@ import { BiSupport } from 'react-icons/bi'
 import { CgTimer } from 'react-icons/cg';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { FcMultipleInputs, FcDebt, FcLock,FcAcceptDatabase} from 'react-icons/fc';
+import { BsCheckCircle } from 'react-icons/bs';
 
 
 
@@ -30,7 +31,7 @@ const ImageSvg = ({ name }) => {
     Menu: <FiMenu />,
     Close: <IoClose />,
     Notifications: <IoNotificationsOutline />,
-
+    Check: <BsCheckCircle />,
     Change: <FaExchangeAlt />,
     SignOut: <FaSignOutAlt />,
     ShowPassword: <FaEye />,

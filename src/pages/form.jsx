@@ -8,19 +8,11 @@ import ImageSvg from '@/helpers/ImageSVG';
 import LayoutLogin from '@/Components/LayoutLogin'
 import Link from 'next/link'
 import '../../styles/styles.scss'
+import { fetchNoTokenPost } from '@/helpers/fetch';
 
 
-// const SignupSchema = Yup.object().shape({
-//   firstName: Yup.string()
-//     .min(2, 'Too Short!')
-//     .max(50, 'Too Long!')
-//     .required('Required'),
-//   lastName: Yup.string()
-//     .min(2, 'Too Short!')
-//     .max(50, 'Too Long!')
-//     .required('Required'),
-//   email: Yup.string().email('Invalid email').required('Required'),
-// });
+
+
 
 const ValidationSchemaExample = () => {
 
@@ -34,6 +26,26 @@ const ValidationSchemaExample = () => {
     const toggleConfirmPasswordVisibility = () => {
       setShowConfirmPassword(!showConfirmPassword)
     }
+
+
+
+    async function handleSubmit(values) {
+      let dataRegister = {
+        oResults: {
+          sUserName: values.name,
+          sEmail: values.corporateEmail,
+          sPassword: values.confirmPassword,
+        },
+      };
+       
+            let response = await fetchNoTokenPost("RegistrarUsuarioInit", dataRegister);
+            console.log("resServidorcode", response);
+       
+        };
+      
+    
+
+
 
   return (
 
@@ -72,6 +84,8 @@ const ValidationSchemaExample = () => {
       onSubmit={values => {
         // same shape as initial values
         console.log(values);
+        handleSubmit(values);
+
       }}
     >
       {({ errors, touched }) => (

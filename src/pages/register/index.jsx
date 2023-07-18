@@ -5,11 +5,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import logo from "../../../public/img/logoseidor.png";
-import { SignupSchemaEN } from "@/helpers/validateForms";
+import { validateForm } from "@/helpers/validateForms";
 import ImageSvg from "@/helpers/ImageSVG";
 // import { DataContext } from '@/Context/DataContext'
 import { fetchNoTokenPost } from "@/helpers/fetch";
 import Modal from "@/Components/Modal";
+
 
 export default function Register() {
   // const { t, locale } = useContext(DataContext)
@@ -22,7 +23,7 @@ export default function Register() {
   const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true);
   const [ShowM, setShowM] = useState(false);
   // const [infoModal,setInfomodal]= useState(null);
-
+  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -40,101 +41,54 @@ export default function Register() {
       },
     };
 
+
     try {
-      let response = await fetchNoTokenPost("RegistrarUsuarioInit", dataRegister);
-      // const responseData = await response.json();
-      const responseData = await response.json();
-      console.log("res", responseData);
-      console.log("res", responseData, responseData.oAuditResponse.iCode);
+      let responseData = await fetchNoTokenPost("RegistrarUsuarioInit", dataRegister && dataRegister);
+        //  const responseData = await response.json();
+      
+      console.log("resServidorcode",responseData);
 
-      if (responseData.oAuditResponse && responseData.oAuditResponse.hasOwnProperty("iCode") && responseData.oAuditResponse.iCode === 1) {
-        // const data = await response.json();
+      if (responseData.oAuditResponse?.iCode === 1) {
         setData(dataRegister);
-        // console.log(" correct",responseData, setShowM);
+        setShowM(true);
         setStatus(null);
-        setShowM(true); // Mostrar el modal
-        resetForm();
+        setTimeout(() => {
+          resetForm();
+        }, 10000);
 
-        // setError(null);
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
         setShowM(false);
         setStatus(errorMessage);
-
         setSubmitting(false);
         setEmailFieldEnabled(true);
+        setTimeout(() => {
+          resetForm();
+        }, 100000);
+      
       }
     } catch (error) {
       console.error("error", error);
-      // setStatus("service error");
-      setStatus("service error");
+        setStatus("Service error");
+      setTimeout(() => {
+        resetForm();
+      }, 60000);
+    
     }
   }
 
   useEffect(() => {
+
     if (ShowM) {
       // Lógica para mostrar el modal
       // ...
       console.log("data", data);
       setTimeout(() => {
         setShowM(false);
-      }, 100000); // Cerrar el modal después de 10 segundos
+      }, 500000); // Cerrar el modal después de 50 segundos
     }
   }, [ShowM]);
 
-  const validateForm = (values) => {
-    const errors = {};
-
-    if (!values.name) {
-      errors.name = "The name is required";
-    } else if (!/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.name)) {
-      errors.name = "Your name must not contain numbers or other special characters,allow up to 2 names";
-    }
-
-    // if (!values.lastName) {
-    //   errors.lastName = 'Last Name is required';
-    // } else if (!/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
-    //   errors.lastName = 'Your Surnames must not contain numbers or other special characters, allow up to 2 surnames';
-    // }
-
-    if (values.lastName && values.lastName.trim() !== "" && !/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
-      errors.lastName = "Your Surnames must not contain numbers or other special characters, allow up to 2 surnames";
-    }
-
-    if (!values.corporateEmail) {
-      errors.corporateEmail = "Corporate email is required";
-    } else if (!/^(?!.*@(?:hotmail\.com|yahoo\.com |outlook\.com)$)([\w.%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/.test(values.corporateEmail)) {
-      errors.corporateEmail = "The email must be from the company";
-    }
-
-    // if (!values.phoneNumber) {
-    //   errors.phoneNumber = 'Phone number is required';
-    // } else if (!/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(values.phoneNumber)) {
-    //   errors.phoneNumber = 'Phone phone must contain numbers';
-    // }
-
-    if (values.phoneNumber && !/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(values.phoneNumber)) {
-      errors.phoneNumber = "Phone phone must contain numbers";
-    }
-
-    if (!values.password) {
-      errors.password = "Password is required";
-    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(values.password)) {
-      errors.password = "The password must have more than 8 characters between uppercase";
-    }
-
-    if (!values.confirmPassword) {
-      errors.confirmPassword = "Password confirmation is required";
-    } else if (values.password !== values.confirmPassword) {
-      errors.confirmPassword = "Passwords do not match";
-    }
-
-    if (!values.acceptTerms) {
-      errors.acceptTerms = "You must accept the terms and conditions.";
-    }
-
-    return errors;
-  };
 
   return (
     <LayoutLogin>
@@ -162,10 +116,9 @@ export default function Register() {
           }}
           // validationSchema={SignupSchemaEN}
           validateOnChange
-          validate={validateForm}
+          validate={validateForm }
           onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
             // same shape as initial values
-            console.log(values);
             handleSubmit(values, { setSubmitting, setStatus, resetForm });
           }}
           enableReinitialize={true}
@@ -228,12 +181,18 @@ export default function Register() {
 
         {ShowM && data && (
           <Modal open={true}>
-            <div className="contentError">
+             <ImageSvg name='Check' />
+            <div className=" ">
               <p> We´ve sent a verefication link to</p>
               <h2> {data.oResults.sEmail} </h2>
               <p>Please enter your email to confirm registration</p>
               
             </div>
+              {/* <div className='actions'>
+                <Link href=" " passHref>
+                 <div className='btn_primary small' >NEXT</div>
+              </Link>
+            </div>  */}
           </Modal>
         )}
       </div>

@@ -1,10 +1,7 @@
 import '../../styles/styles.scss'
-import { FaCheck } from 'react-icons/fa'
 import Link from 'next/link';
 import React, { useEffect } from 'react';
-
-
-function Modal ({ children,open, path="/login"}) {
+function Modal ({ children,open}) {
   const [showModal, setShowModal] = React.useState(open)
   // const router = useRouter();
 
@@ -25,20 +22,12 @@ function Modal ({ children,open, path="/login"}) {
             <div className='close'>
               <button onClick={handleCloseModal}> X </button>
             </div>
-            <div className='message'>
-              <FaCheck /> 
-              <div>{children}</div>
-              
-            </div>
 
-            <div className='actions'>
-              
-              {/* <button className='btn_primary small' onClick={handleNext} >NEXT</button> */}
-              <Link href={path} passHref>
-                {/* <a className='btn_primary small'>NEXT</a> */}
-                <div className='btn_primary small'>NEXT</div>
-              </Link>
-            </div>
+            <div className='message'>
+          
+              {children}
+             </div>
+                 
           </div>
         </div>
       )}

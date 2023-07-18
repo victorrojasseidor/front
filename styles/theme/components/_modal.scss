@@ -58,11 +58,18 @@
       gap: 1em;
       justify-content: center;
       align-items: center;
-
+      flex-direction: column;
+      p,h2 {
+        // text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
       svg {
         fill: get-color(lilac_p3);
         height: 2rem;
+        width: 4rem;
       }
 
       p:nth-child(2) {
