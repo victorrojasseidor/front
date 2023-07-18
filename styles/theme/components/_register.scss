@@ -81,7 +81,7 @@
         right: 1rem;
         margin-top: 2rem;
         path {
-          fill: get-color(forms_s6);
+          fill: get-color(grey1_s3);
         }
       }
     }
@@ -99,7 +99,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 0.5em;
 
+   h2 {
+    color:get-color(lilac_p3);
+    }
+   p{
+    color:get-color(black_p2) !important;
+   }
   }
 }
 

@@ -1,7 +1,7 @@
-import React from 'react'
 import '../../styles/styles.scss'
 import { FaCheck } from 'react-icons/fa'
 import Link from 'next/link';
+import React, { useEffect } from 'react';
 
 
 function Modal ({ children,open, path="/login"}) {
@@ -16,13 +16,6 @@ function Modal ({ children,open, path="/login"}) {
     setShowModal(false)
   }
 
-  // const handleNext = () => {
-  //   handleCloseModal();
-  //   // router.push('/login'); // Redirecciona a la página 'login'
-  //   window.location.href = '/login'; // Redirecciona a la página 'login'
-  // };
-
-  
 
   return (
     <div>
@@ -35,6 +28,7 @@ function Modal ({ children,open, path="/login"}) {
             <div className='message'>
               <FaCheck /> 
               <div>{children}</div>
+              
             </div>
 
             <div className='actions'>

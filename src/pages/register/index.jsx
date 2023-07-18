@@ -20,8 +20,9 @@ export default function Register() {
   const [data, setData] = useState(null);
   // const [error, setError] = useState(null);
   const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true);
-  const [ShowM,setShowM] = useState(false);
-  
+  const [ShowM, setShowM] = useState(false);
+  // const [infoModal,setInfomodal]= useState(null);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -31,7 +32,6 @@ export default function Register() {
   };
 
   async function handleSubmit(values, { setSubmitting, setStatus, resetForm }) {
-    
     let dataRegister = {
       oResults: {
         sUserName: values.name,
@@ -40,44 +40,47 @@ export default function Register() {
       },
     };
 
-
     try {
-      let response= await fetchNoTokenPost("RegistrarUsuarioInit", dataRegister);
+      let response = await fetchNoTokenPost("RegistrarUsuarioInit", dataRegister);
       // const responseData = await response.json();
       const responseData = await response.json();
       console.log("res", responseData);
-      console.log("res", responseData,responseData.oAuditResponse.iCode);
+      console.log("res", responseData, responseData.oAuditResponse.iCode);
 
-      if (
-        responseData.oAuditResponse &&
-        responseData.oAuditResponse.hasOwnProperty("iCode") &&
-        responseData.oAuditResponse.iCode === 1
-        ) {
+      if (responseData.oAuditResponse && responseData.oAuditResponse.hasOwnProperty("iCode") && responseData.oAuditResponse.iCode === 1) {
         // const data = await response.json();
-        setData(responseData);
-        console.log(" correct",responseData, setShowM);
+        setData(dataRegister);
+        // console.log(" correct",responseData, setShowM);
         setStatus(null);
         setShowM(true); // Mostrar el modal
         resetForm();
 
         // setError(null);
       } else {
-        const errorMessage = responseData.oAuditResponse
-        ? responseData.oAuditResponse.sMessage
-        : "Error en el envío del formulario";
-      setStatus(errorMessage);
-      setSubmitting(false);
-      setEmailFieldEnabled(true); 
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
+        setShowM(false);
+        setStatus(errorMessage);
+
+        setSubmitting(false);
+        setEmailFieldEnabled(true);
       }
     } catch (error) {
-      console.error("error",error);
-      setStatus("Error al realizar la solicitud");
-      
+      console.error("error", error);
+      // setStatus("service error");
+      setStatus("service error");
     }
   }
- 
 
-
+  useEffect(() => {
+    if (ShowM) {
+      // Lógica para mostrar el modal
+      // ...
+      console.log("data", data);
+      setTimeout(() => {
+        setShowM(false);
+      }, 100000); // Cerrar el modal después de 10 segundos
+    }
+  }, [ShowM]);
 
   const validateForm = (values) => {
     const errors = {};
@@ -160,25 +163,23 @@ export default function Register() {
           // validationSchema={SignupSchemaEN}
           validateOnChange
           validate={validateForm}
-          onSubmit={(values, { setSubmitting, setStatus, resetForm}) => {
+          onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
             // same shape as initial values
             console.log(values);
-            handleSubmit(values,{ setSubmitting, setStatus, resetForm});
+            handleSubmit(values, { setSubmitting, setStatus, resetForm });
           }}
           enableReinitialize={true}
         >
           {({ isValid, isSubmitting, status }) => (
             <Form className="formContainer">
               <div>
-                <Field type="text" id="name" name="name" placeholder=" " autoComplete="off" disabled={isSubmitting}  />
+                <Field type="text" id="name" name="name" placeholder=" " autoComplete="off" disabled={isSubmitting} />
                 <label htmlFor="name">Name</label>
                 <ErrorMessage className="errorMessage" name="name" component="span" />
               </div>
 
               <div>
-                <Field type="email" name="corporateEmail" id="corporateEmail" placeholder=" " 
-                disabled={!isEmailFieldEnabled || isSubmitting}
-                />
+                <Field type="email" name="corporateEmail" id="corporateEmail" placeholder=" " disabled={!isEmailFieldEnabled || isSubmitting} />
                 <label htmlFor="corporateEmail">Company email</label>
                 <ErrorMessage className="errorMessage" name="corporateEmail" component="span" />
               </div>
@@ -196,7 +197,7 @@ export default function Register() {
                 <span className="iconPassword" onClick={toggleConfirmPasswordVisibility}>
                   <ImageSvg name={showConfirmPassword ? "ShowPassword" : "ClosePassword"} />
                 </span>
-                <Field type={showConfirmPassword ? "text" : "password"} id="confirmPassword" name="confirmPassword" placeholder=" " disabled={isSubmitting}/>
+                <Field type={showConfirmPassword ? "text" : "password"} id="confirmPassword" name="confirmPassword" placeholder=" " disabled={isSubmitting} />
                 <label htmlFor="confirmPassword" placeholder="">
                   Confirm password
                 </label>
@@ -213,25 +214,28 @@ export default function Register() {
                 <ErrorMessage className="errorMessage" name="acceptTerms" component="span" />
               </div>
 
-              <button  type="submit" 
-              disabled={isSubmitting || !isEmailFieldEnabled}
-              className={isValid ?'btn_primary': "btn_primary disabled"}  onClick={() => setEmailFieldEnabled(true)}>
-                    {isSubmitting ? 'Send...' : 'Sign Up Now'}
-               
+              <button type="submit" disabled={isSubmitting || !isEmailFieldEnabled} className={isValid ? "btn_primary" : "btn_primary disabled"} onClick={() => setEmailFieldEnabled(true)}>
+                {isSubmitting ? "Send..." : "Sign Up Now"}
               </button>
 
               <div className="contentError">
-                 <div className="errorMessage">
-                 {status}
-                 </div>
+                <div className="errorMessage">{status}</div>
                 {/* {data?.oAuditResponse.sMessage !== "OK" && <div className="errorMessage">{data?.oAuditResponse.sMessage}</div>} */}
               </div>
-
             </Form>
           )}
         </Formik>
 
-        {setShowM && <Modal open={true} >Verified email</Modal>}
+        {ShowM && data && (
+          <Modal open={true}>
+            <div className="contentError">
+              <p> We´ve sent a verefication link to</p>
+              <h2> {data.oResults.sEmail} </h2>
+              <p>Please enter your email to confirm registration</p>
+              
+            </div>
+          </Modal>
+        )}
       </div>
     </LayoutLogin>
   );
