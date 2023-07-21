@@ -55,7 +55,7 @@
       padding: 1em 1em;
       border-radius: brd(1);
       background-color: get-color(bone_s2);
-      gap: 1em;
+      gap: 2em;
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -66,18 +66,33 @@
         justify-content: center;
       }
 
+      span{
+        color:get-color(lilac_p3);
+        font-weight: 500;
+        font-size: medium;
+
+      }
+    
+      div{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        
+      }
+
       svg {
         fill: get-color(lilac_p3);
         height: 2rem;
         width: 4rem;
       }
 
-      p:nth-child(2) {
-        padding-top: 1em;
-        font-size: larger;
-        font-weight: 500;
-        color: get-color(blue_p1);
-      }
+      // p:nth-child(2) {
+      //   padding-top: 1em;
+      //   font-size: larger;
+      //   font-weight: 500;
+      //   color: get-color(blue_p1);
+      // }
+
     }
 
     .actions {

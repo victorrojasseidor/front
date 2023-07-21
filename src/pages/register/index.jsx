@@ -5,7 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import logo from "../../../public/img/logoseidor.png";
-import { validateForm } from "@/helpers/validateForms";
+import { validateFormRegister } from "@/helpers/validateForms";
 import ImageSvg from "@/helpers/ImageSVG";
 // import { DataContext } from '@/Context/DataContext'
 import { fetchNoTokenPost } from "@/helpers/fetch";
@@ -43,7 +43,7 @@ export default function Register() {
 
 
     try {
-      let responseData = await fetchNoTokenPost("RegistrarUsuarioInit", dataRegister && dataRegister);
+      let responseData = await fetchNoTokenPost("dev/General/?Accion=RegistrarUsuarioInit", dataRegister && dataRegister);
         //  const responseData = await response.json();
       
       console.log("resServidorcode",responseData);
@@ -116,7 +116,7 @@ export default function Register() {
           }}
           // validationSchema={SignupSchemaEN}
           validateOnChange
-          validate={validateForm }
+          validate={validateFormRegister}
           onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
             // same shape as initial values
             handleSubmit(values, { setSubmitting, setStatus, resetForm });
@@ -173,7 +173,6 @@ export default function Register() {
 
               <div className="contentError">
                 <div className="errorMessage">{status}</div>
-                {/* {data?.oAuditResponse.sMessage !== "OK" && <div className="errorMessage">{data?.oAuditResponse.sMessage}</div>} */}
               </div>
             </Form>
           )}

@@ -1,31 +1,120 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
 import Modal from "@/Components/Modal";
 import Login from "..";
-import Link from "next/link";
 import ImageSvg from "@/helpers/ImageSVG";
+import { useRouter } from "next/router";
+import { fetchConTokenPost } from "@/helpers/fetch";
+// import { CircularProgress } from '@mui/material';
+import { PuffLoader } from "react-spinners";
 
 function LoginConfirmed(props) {
-  console.log("login confirmed");
+  const router = useRouter();
+
+  // Capturar el valor del token desde la ruta actual
+  const [isOpen, setIsOpen] = useState(true);
+  const [isEmail, setIsEmail] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isconfirmed, setIsconfirmed] = useState(false);
+  const [error, setError] = useState(null);
+
+  async function handleSubmit(email, token) {
+    let body = {
+      oResults: {
+        sEmail: email,
+      },
+    };
+
+    try {
+      let responseData = await fetchConTokenPost("dev/General/?Accion=RegistrarUsuarioPendConf", body, token);
+
+      console.log("💻", responseData.oAuditResponse);
+
+      if (responseData.oAuditResponse.iCode == 29 || responseData.oAuditResponse.iCode == 1) {
+        setIsconfirmed(true);
+        setError(null);
+        setTimeout(() => {
+          setIsOpen(false);
+        }, 10000);
+      
+      } else {
+        let message = responseData?.oAuditResponse.sMessage;
+        // const mensajeAntesDeComa = message.substring(0, message.indexOf(","));
+        setError(message);
+        refresToken (token);
+
+
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      throw new Error("Hubo un error en la operación asincrónica.");
+    }
+  }
+
+ const  refresToken = async (token) => {
+  let bodyToken = {
+    oResults: {
+    
+    }}
+    const resp=  await fetchConTokenPost("dev/General/?Accion=RefreshToken", bodyToken, token);
+    console.log("respuestaresfres",resp);
+    return resp;
+ }
+
+
+
+  if (isOpen) {
+    setTimeout(() => {
+      const tok = router.query.token;
+      const correo = router.query.correo;
+      if (correo && tok) {
+        setIsLoading(false);
+        setIsEmail(correo);
+      }
+
+      handleSubmit(correo, tok);
+    }, 1000);
+  }
+
+  if (isLoading) {
+    return (
+      <section className="sectionloanding">
+        <div>
+          {/* <p>Loading...</p> */}
+          <PuffLoader color="#3C2CD1" />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section>
       <Login />
-      <Modal open={true}>
-      <ImageSvg name='Check' />
-        <div>verified Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit quis laudantium, nihil placeat nemo eum recusandae dolorem quibusdam eligendi dolor reiciendis iusto quia fugiat ipsum architecto sapiente optio accusamus animi.</div>
-        <div className="actions">
-          <Link href=" " passHref>
-          <div className="btn_primary small" >NEXT</div>
-          </Link>
-        </div>
+      <Modal open={isOpen}>
+        {isconfirmed ? (
+          <div>
+            <ImageSvg name="Check" />
+
+            <p>Your email</p>
+            <h2>{isEmail}</h2>
+            <p>
+              was verified <span>&nbsp;successfully</span>
+            </p>
+
+            <div className="actions">
+              <button className="btn_primary small" onClick={() => setIsOpen(false)}>
+                NEXT
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <ImageSvg name="ErrorMessage" />
+            <p className="errorMessage">{error}</p>
+          </div>
+        )}
       </Modal>
     </section>
   );
 }
-
-// index.propTypes = {
-
-// }
 
 export default LoginConfirmed;

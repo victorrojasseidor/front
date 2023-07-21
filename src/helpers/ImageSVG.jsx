@@ -8,12 +8,11 @@ import { MdOutlineDashboard, MdModeEditOutline } from 'react-icons/md'
 import { GiProcessor } from 'react-icons/gi'
 import { AiOutlineInbox, AiOutlineSchedule } from 'react-icons/ai'
 import { FaExchangeAlt, FaSignOutAlt, FaEye, FaEyeSlash,FaSearch } from 'react-icons/fa'
-import { BiSupport } from 'react-icons/bi'
+import { BiSupport,BiSolidError } from 'react-icons/bi'
 import { CgTimer } from 'react-icons/cg';
-import { IoMdArrowRoundBack } from 'react-icons/io';
+import { IoMdArrowRoundBack, IoMdCloseCircle } from 'react-icons/io';
 import { FcMultipleInputs, FcDebt, FcLock,FcAcceptDatabase} from 'react-icons/fc';
 import { BsCheckCircle } from 'react-icons/bs';
-
 
 
 
@@ -49,6 +48,7 @@ const ImageSvg = ({ name }) => {
     Support: <BiSupport />,
     OpenMenu: <FiChevronsRight />,
     CloseMenu: <FiChevronsLeft />,
+    ErrorMessage: <IoMdCloseCircle size={48} color="red" />,
 
     //icons crurrency
     Benefit1: <FcMultipleInputs />,

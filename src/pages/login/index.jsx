@@ -1,32 +1,69 @@
 import Link from 'next/link'
 import LayoutLogin from '@/Components/LayoutLogin'
 import '../../../styles/styles.scss'
-import { Formik, Field, ErrorMessage } from 'formik'
+import { Formik, Field, ErrorMessage,Form } from 'formik'
 import React, { useState } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import Image from 'next/image'
 import logo from '../../../public/img/logoseidor.png'
-import { SignupSchemaEN } from '@/helpers/validateForms'
-// import { useRouter } from 'next/navigation'
+import { validateFormLogin } from '@/helpers/validateForms'
+import { fetchNoTokenPost } from '@/helpers/fetch'
+import { useRouter } from 'next/navigation'
 
 export default function Login () {
-  // const router = useRouter()
-
   const [showPassword, setShowPassword] = useState(false)
-
+  const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
 
-  const handleSubmit = (values) => {
-    // values.preventDefault()
-    // // Realizar cualquier acción adicional que desees
-    // // ...
-    // // Navegar a una nueva página utilizando router.push()
-    // router.push('/profilestart')
+  const router = useRouter()
 
-    console.log('Formulario válido', values)
+  async function handleSubmit(values, { setSubmitting, setStatus, resetForm }) {
+    let dataRegister = {
+      oResults: {
+        sEmail: values.corporateEmail,
+        sPassword: values.password,
+      },
+    };
+ 
+
+    try {
+      let responseData = await fetchNoTokenPost("dev/BPasS/?Accion=ConsultaUsuario", dataRegister && dataRegister);
+           
+      if (responseData.oAuditResponse?.iCode === 1) {
+        router.push('/profilestart'); 
+        setStatus(null);
+        setTimeout(() => {
+          resetForm();
+        }, 10000);
+
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
+       
+        // if(responseData.oAuditResponse?.iCode === 32){
+        //   setStatus("The user does not exist, register to access");
+        // }else{
+        //   setStatus(errorMessage);
+        // }
+
+        setStatus(errorMessage);
+        setSubmitting(false);
+        setEmailFieldEnabled(true);
+        setTimeout(() => {
+          resetForm();
+        }, 200000);
+      
+      }
+    } catch (error) {
+      console.error("error", error);
+        setStatus("Service error");
+      setTimeout(() => {
+        resetForm();
+      }, 60000);
+        }
   }
+
 
   return (
     <LayoutLogin>
@@ -46,60 +83,48 @@ export default function Login () {
 
         <Formik
           initialValues={{
-            email: '',
+            corporateEmail: '',
             password: '',
-            confirmPassword: '',
-            name: '',
-            acceptTerms: false
           }}
-          validationSchema={SignupSchemaEN}
-          onSubmit={handleSubmit}
-          validateOnBlur={false}
+          validateOnChange
+          validate={validateFormLogin}
+          onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
+            console.log(values);
+                    handleSubmit(values, { setSubmitting, setStatus, resetForm });
+          }}
+          enableReinitialize={true}
         >
-          {({ isSubmitting }) => (
-            <form className='formContainer'>
-              <div>
-                <Field type='email' name='corporateEmail' placeholder=' ' />
-                <label htmlFor='corporateEmail'> Company email</label>
-                <ErrorMessage
-                  className='errorMessage'
-                  name='corporateEmail'
-                  component='div'
-                />
+          {({ isValid, isSubmitting, status }) => (
+            <Form className='formContainer'>
+             <div>
+                <Field type="email" name="corporateEmail" id="corporateEmail" placeholder=" " disabled={!isEmailFieldEnabled || isSubmitting} />
+                <label htmlFor="corporateEmail">Company email</label>
+                <ErrorMessage className="errorMessage" name="corporateEmail" component="span" />
               </div>
 
               <div>
-                <span
-                  className='iconPassword'
-                  onClick={togglePasswordVisibility}
-                >
-                  <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
+                <span className="iconPassword" onClick={togglePasswordVisibility}>
+                  <ImageSvg name={showPassword ? "ShowPassword" : "ClosePassword"} />
                 </span>
-                <Field
-                  type={showPassword ? 'text' : 'password'}
-                  id='password'
-                  name='password'
-                  placeholder=' '
-                />
-                <label htmlFor='password'>Password</label>
-                <ErrorMessage
-                  className='errorMessage'
-                  name='password'
-                  component='span'
-                />
+                <Field type={showPassword ? "text" : "password"} id="password" name="password" placeholder=" " disabled={isSubmitting} />
+                <label htmlFor="password"> Password</label>
+                <ErrorMessage className="errorMessage" name="password" component="span" />
               </div>
 
-              <Link href='/profilestart' className='containerButton'>
-                <button
-                  className='btn_primary'
-                  type='submit'
-                  disabled={isSubmitting}
-                > LOG IN
+              {/* <Link href='/profilestart' className='containerButton'> */}
+                
+              <button type="submit" disabled={isSubmitting || !isEmailFieldEnabled} className={isValid ? "btn_primary" : "btn_primary disabled"} onClick={() => setEmailFieldEnabled(true)}>
+                {isSubmitting ? "Login..." : "Login in"}
+              </button> 
+              {/* </Link> */}
 
-                </button>
-              </Link>
-
-              <nav className='navRegister navLogin '>
+              <div className="contentError">
+                <div className="errorMessage">{status}</div>
+                </div>
+             </Form>
+          )}
+        </Formik>
+        <nav className='navRegister navLogin '>
                 <ul className='iforget'>
                   <Link href='/changepassword'>
                     <li> I forgot my password</li>
@@ -112,9 +137,7 @@ export default function Login () {
                   </li>
                 </ul>
               </nav>
-            </form>
-          )}
-        </Formik>
+              
       </div>
     </LayoutLogin>
   )

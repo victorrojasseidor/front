@@ -69,10 +69,18 @@ border-radius: brd(1);
       }
     }
 
-    .navLogin {
+   
+    }
+  }
+
+
+ .navLogin {
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      width: 100%;
+
+    }
 
       .iforget {
         width: 100%;
@@ -81,6 +89,3 @@ border-radius: brd(1);
         color: get-color(grey2_s4);
         margin-bottom: 1em;
       }
-    }
-  }
-}
