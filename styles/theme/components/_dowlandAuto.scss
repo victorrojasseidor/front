@@ -1,0 +1,50 @@
+.downlaodAutomated{
+    width: 100%;
+   padding: 1em;
+
+    &_emails{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        
+        justify-content: center;
+        align-items: center;
+        .emaildiv{
+           
+            width: 100%;
+            display:flex;
+            
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            @include media(tablet) {
+                flex-direction: row;
+                gap: 1em;
+            
+              }
+        }
+    }
+
+    
+}
+
+.emailsFormContainer{
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+background-color: aqua;
+form{
+    flex: 1;
+}
+}
+
+.inputnew{
+    width: auto;
+    @include media(tablet) {
+        width: 20rem !important;
+    
+      }
+}
+
