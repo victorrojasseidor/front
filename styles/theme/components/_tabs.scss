@@ -314,6 +314,72 @@ ul{
 
 
 
+//progress barr stpeos 
 
+.containerProgress {
+  // width: x;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  //  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+  .progressBar {
+    width: 100%;
+    height: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
 
+    .progressBarFill {
+      height: 100%;
+      background-color:get-color(blue_p1);
+      transition: width 0.3s;
+    }
+  }
+
+  .step {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+
+    &.active {
+      color: #4caf50;
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input,
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+
+    &.previous {
+      background-color: #ccc;
+      margin-right: 10px;
+    }
+  }
+}

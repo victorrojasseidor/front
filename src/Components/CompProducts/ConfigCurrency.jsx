@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { useState } from "react";
 
 import { Formik, Field, ErrorMessage } from "formik";
-import { SignupSchemaEN } from "@/helpers/validateForms";
+import { validateFormRegister } from '@/helpers/validateForms';
 import { countryOptions } from '@/helpers/contry';
 
 
@@ -59,7 +59,7 @@ function ConfigCurrency(props) {
                   countryCode: countryOptions[0], // Valor inicial de Perú
                   phoneNumber: ''
                 }}
-                validationSchema={SignupSchemaEN}
+                validationSchema={validateFormRegister}
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (

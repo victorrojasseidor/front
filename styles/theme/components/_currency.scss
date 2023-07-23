@@ -11,23 +11,20 @@
     }
 
     .description {
+      display: flex;
+      flex-direction: column;
+      @include media(tablet) {
+        flex-direction: row;
 
-        display: flex;
-        flex-direction:column;
-        @include media(tablet) {
-            flex-direction: row;
+        p {
+          font-size: large;
+          display: inline-block;
+          padding: 1em;
+          width: 30%;
+        }
+      }
 
-            p {
-              font-size: large;
-                display: inline-block;
-                padding: 1em;
-                width: 30%;
-           
-              }
-          }
-     
       .videoPlayer {
-    
         display: flex;
         justify-content: center;
         align-items: center;
@@ -40,78 +37,56 @@
           margin: 0.5em;
         }
       }
-
-
     }
   }
 
   &_benefits {
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
 
     h6 {
-        font-size: medium;
+      font-size: medium;
     }
 
-   div{
-    display: flex;
-     flex-direction: column;
-    gap:1em;
-    // flex-wrap: wrap;
-    padding: 0.5em;
-  
-   
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      // flex-wrap: wrap;
+      padding: 0.5em;
 
-    ul{
-      
+      ul {
         padding: 0.5em;
         display: flex;
         align-items: center;
         flex-direction: column;
-     
-      
-        li{
-            text-align: center;
-            margin-bottom: 5px;
-            list-style-type:disc ;
-          
-            display: inline-block;
-            align-items: center;
-            
-           
 
+        li {
+          text-align: center;
+          margin-bottom: 5px;
+          list-style-type: disc;
+
+          display: inline-block;
+          align-items: center;
         }
 
         svg {
-            height: 40px;
-        width: 40px;
-        margin: auto;
+          height: 40px;
+          width: 40px;
+          margin: auto;
         }
-        button{
+        button {
           background-color: transparent;
           border-style: none;
-          color:get-color(lilac_p3);
+          color: get-color(lilac_p3);
         }
-    }
+      }
 
-   
-
-    @include media(tablet) {
-  
-      
+      @include media(tablet) {
         display: grid;
         grid-template-columns: 1fr 1fr;
+      }
     }
-
-
-   }
-
   }
 }
-
-
-
-
-

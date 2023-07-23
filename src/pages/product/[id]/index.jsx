@@ -22,7 +22,7 @@ export default function productId() {
         setProduct(selectedProduct);
     }, [id]);
 
-  console.log("🍎",product);
+  // console.log("🍎",product);
 
 
   if (!product) { 

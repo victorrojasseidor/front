@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import imgfree from "../../public/img/freetrial.png";
 import Image from "next/image";
 import { Formik, Field, ErrorMessage } from "formik";
-import { SignupSchemaEN } from "@/helpers/validateForms";
+import { validateFormRegister } from "@/helpers/validateForms";
 import ImageSvg from "@/helpers/ImageSVG";
 
 function FreeTrial(props) {
@@ -39,7 +39,7 @@ function FreeTrial(props) {
             acceptTerms: false,
             phoneNumber: "982 354 738",
           }}
-          validationSchema={SignupSchemaEN}
+          validationSchema={validateFormRegister}
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (

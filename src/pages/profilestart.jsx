@@ -8,8 +8,9 @@ import es from '../../public/icons/spain.svg'
 import Image from 'next/image'
 // import { FaExchangeAlt, FaSignOutAlt } from 'react-icons/fa'
 import Link from 'next/link'
-import Tabs from '../Components/Tabs'
+// import Tabs from '../Components/Tabs'
 import ImageSvg from '@/helpers/ImageSVG'
+import ProgressRegister from '@/Components/progressRegister'
 
 export default function Profilestart () {
   const [isSpanish, setIsSpanish] = useState(false)
@@ -63,7 +64,8 @@ export default function Profilestart () {
             </div>
 
             <div>
-              <Tabs />
+              {/* <Tabs /> */}
+              <ProgressRegister/>
             </div>
           </section>
         </section>

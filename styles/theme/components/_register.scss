@@ -123,7 +123,7 @@
   }
 
   .containerButton {
-          display: flex;
+      display: flex;
       justify-content:center;
       align-content: center;
       justify-items: center;
@@ -186,6 +186,8 @@
 
   }
 
+
+
   &_icons {
     border-style: none;
     background-color: get-color(white_s1);
@@ -215,6 +217,25 @@
     }
 
   }
+
+  &_black{
+    display: flex;
+    width: auto;
+padding: 0.8rem 1.25rem;
+justify-content: center;
+align-items: center;
+gap: 8px;
+border-radius: brd(2);
+background: get-color(black_p2);
+color:get-color(white_s1);
+&:focus, &:hover{ 
+    background-color: get-color(white_s1);
+    color:get-color(black_p2);
+
+}
+}
+
+
 }
 
 
