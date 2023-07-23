@@ -9,17 +9,18 @@
         
         justify-content: center;
         align-items: center;
-        .emaildiv{
+        .emailBox{
            
             width: 100%;
             display:flex;
             
             flex-direction: column;
             justify-content: center;
-            align-items: center;
+          
             @include media(tablet) {
                 flex-direction: row;
                 gap: 1em;
+                align-items: center;
             
               }
         }
@@ -34,17 +35,61 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-direction: column;
-background-color: aqua;
+
 form{
     flex: 1;
 }
 }
-
-.inputnew{
-    width: auto;
-    @include media(tablet) {
-        width: 20rem !important;
-    
-      }
+p{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    // justify-content: center;
+    // align-items: center;
+    gap:0.25em;
+    white-space: nowrap;
 }
+
+.listEmails{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    
+   
+ ul{
+   
+    display: flex;
+    justify-content: center;
+      flex-direction: column;
+   
+      border-radius: 10px;
+      border: 2px solid var(--s-2-pink, #EFECFF);
+      background: var(--s-1-white, #FFF);
+     
+      li {
+        // background-color: aqua;
+        display: flex;
+        justify-content: space-between;
+     
+        padding: 0.5em 1em;
+ 
+      }
+      button{
+        background-color: transparent;
+        border-style: none;
+        
+        svg {
+           color:get-color(blue_p1)
+        }
+      }
+
+
+
+ }
+    
+}
+
+
+
 

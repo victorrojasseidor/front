@@ -10,7 +10,7 @@ import ImageSvg from "@/helpers/ImageSVG";
 // import { DataContext } from '@/Context/DataContext'
 import { fetchNoTokenPost } from "@/helpers/fetch";
 import Modal from "@/Components/Modal";
-
+import Button from "@/Components/Atoms/Buttons";
 
 export default function Register() {
   // const { t, locale } = useContext(DataContext)
@@ -23,7 +23,7 @@ export default function Register() {
   const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true);
   const [ShowM, setShowM] = useState(false);
   // const [infoModal,setInfomodal]= useState(null);
-  
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -41,12 +41,11 @@ export default function Register() {
       },
     };
 
-
     try {
       let responseData = await fetchNoTokenPost("dev/General/?Accion=RegistrarUsuarioInit", dataRegister && dataRegister);
-        //  const responseData = await response.json();
-      
-      console.log("resServidorcode",responseData);
+      //  const responseData = await response.json();
+
+      console.log("resServidorcode", responseData);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setData(dataRegister);
@@ -55,7 +54,6 @@ export default function Register() {
         setTimeout(() => {
           resetForm();
         }, 10000);
-
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
         setShowM(false);
@@ -65,20 +63,17 @@ export default function Register() {
         setTimeout(() => {
           resetForm();
         }, 100000);
-      
       }
     } catch (error) {
       console.error("error", error);
-        setStatus("Service error");
+      setStatus("Service error");
       setTimeout(() => {
         resetForm();
       }, 60000);
-    
     }
   }
 
   useEffect(() => {
-
     if (ShowM) {
       // Lógica para mostrar el modal
       // ...
@@ -88,7 +83,6 @@ export default function Register() {
       }, 500000); // Cerrar el modal después de 50 segundos
     }
   }, [ShowM]);
-
 
   return (
     <LayoutLogin>
@@ -124,20 +118,20 @@ export default function Register() {
           enableReinitialize={true}
         >
           {({ isValid, isSubmitting, status }) => (
-            <Form className="formContainer">
-              <div>
+            <Form className="form-container">
+              <div className="input-box">
                 <Field type="text" id="name" name="name" placeholder=" " autoComplete="off" disabled={isSubmitting} />
                 <label htmlFor="name">Name</label>
                 <ErrorMessage className="errorMessage" name="name" component="span" />
               </div>
 
-              <div>
+              <div className="input-box">
                 <Field type="email" name="corporateEmail" id="corporateEmail" placeholder=" " disabled={!isEmailFieldEnabled || isSubmitting} />
                 <label htmlFor="corporateEmail">Company email</label>
                 <ErrorMessage className="errorMessage" name="corporateEmail" component="span" />
               </div>
 
-              <div>
+              <div className="input-box">
                 <span className="iconPassword" onClick={togglePasswordVisibility}>
                   <ImageSvg name={showPassword ? "ShowPassword" : "ClosePassword"} />
                 </span>
@@ -146,7 +140,7 @@ export default function Register() {
                 <ErrorMessage className="errorMessage" name="password" component="span" />
               </div>
 
-              <div>
+              <div className="input-box">
                 <span className="iconPassword" onClick={toggleConfirmPasswordVisibility}>
                   <ImageSvg name={showConfirmPassword ? "ShowPassword" : "ClosePassword"} />
                 </span>
@@ -157,7 +151,7 @@ export default function Register() {
                 <ErrorMessage className="errorMessage" name="confirmPassword" component="span" />
               </div>
 
-              <div>
+              <div className="input-box">
                 <label className="checkbox">
                   <Field className="checkboxId" id="acceptTerms" type="checkbox" name="acceptTerms" disabled={isSubmitting} />
 
@@ -167,9 +161,11 @@ export default function Register() {
                 <ErrorMessage className="errorMessage" name="acceptTerms" component="span" />
               </div>
 
-              <button type="submit" disabled={isSubmitting || !isEmailFieldEnabled} className={isValid ? "btn_primary" : "btn_primary disabled"} onClick={() => setEmailFieldEnabled(true)}>
+              {/* <button type="submit" disabled={isSubmitting || !isEmailFieldEnabled} className={isValid ? "btn_primary" : "btn_primary disabled"} onClick={() => setEmailFieldEnabled(true)}>
                 {isSubmitting ? "Send..." : "Sign Up Now"}
-              </button>
+              </button> */}
+
+              <Button className={isValid ? "btn_primary" : "btn_primary disabled"} onClick={() => setEmailFieldEnabled(true)} label={isSubmitting ? "Send..." : "Sign Up Now"} disabled={isSubmitting || !isEmailFieldEnabled} />
 
               <div className="contentError">
                 <div className="errorMessage">{status}</div>
@@ -180,14 +176,13 @@ export default function Register() {
 
         {ShowM && data && (
           <Modal open={true}>
-             <ImageSvg name='Check' />
+            <ImageSvg name="Check" />
             <div className=" ">
               <p> We´ve sent a verefication link to</p>
               <h2> {data.oResults.sEmail} </h2>
               <p>Please enter your email to confirm registration</p>
-              
             </div>
-              {/* <div className='actions'>
+            {/* <div className='actions'>
                 <Link href=" " passHref>
                  <div className='btn_primary small' >NEXT</div>
               </Link>

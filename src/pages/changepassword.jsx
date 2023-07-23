@@ -64,8 +64,8 @@ export default function changePassword () {
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
-            <form className='formContainer'>
-              <div>
+            <form className='form-container'>
+              <div className="input-box">
                 <Field type='email' name='corporateEmail' placeholder=' ' />
                 <label htmlFor='corporateEmail'> Company email</label>
                 <ErrorMessage

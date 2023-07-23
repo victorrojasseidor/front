@@ -58,7 +58,7 @@ const Tabs = () => {
                 onSubmit={handleSubmit}
               >
                 {({ isSubmitting }) => (
-                  <form className='formContainer'>
+                  <form className='form-container'>
                     <div>
                       <Field type='text' name='name' placeholder=' ' />
                       <label htmlFor='name'>Username</label>

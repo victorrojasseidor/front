@@ -61,7 +61,7 @@ const ProgressRegister = () => {
               <div>
                 <h4> Personal information</h4>
 
-                <form className="formContainer">
+                <form className="form-container">
                   <div>
                     <Field type="text" name="name" placeholder=" " />
                     <label htmlFor="name">Username</label>

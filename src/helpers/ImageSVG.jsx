@@ -13,6 +13,7 @@ import { CgTimer } from 'react-icons/cg';
 import { IoMdArrowRoundBack, IoMdCloseCircle } from 'react-icons/io';
 import { FcMultipleInputs, FcDebt, FcLock,FcAcceptDatabase} from 'react-icons/fc';
 import { BsCheckCircle } from 'react-icons/bs';
+import { FiTrash2 } from 'react-icons/fi'
 
 
 
@@ -38,6 +39,7 @@ const ImageSvg = ({ name }) => {
     Search: <FaSearch />,
     Time: <CgTimer/>,
     Back:    <IoMdArrowRoundBack/>,
+    Delete: <FiTrash2/>,
 
     // menú icons
     Products: <AiOutlineInbox />,

@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import ImageSvg from "@/helpers/ImageSVG";
+  
 
-export default function EmailsForm() {
+export default function EmailsForm({setHaveEmails}) {
   const [email, setEmail] = useState("");
   const [emails, setEmails] = useState([]);
   const [error, setError] = useState("");
@@ -9,6 +11,7 @@ export default function EmailsForm() {
   const handleChange = (e) => {
     setEmail(e.target.value);
     setError("");
+    
   };
 
   const handleAddEmails = () => {
@@ -16,7 +19,7 @@ export default function EmailsForm() {
     const validEmails = [];
     const invalidEmails = [];
 
-    emailList.forEach((singleEmail) => {
+    emailList?.forEach((singleEmail) => {
       const trimmedEmail = singleEmail.trim();
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@ñ]+$/i;
 
@@ -31,7 +34,11 @@ export default function EmailsForm() {
 
     setEmails([...emails, ...validEmails]);
     setEmail("");
-    setError(invalidEmails.length > 0 ? `Los siguientes correos electrónicos no son válidos: ${invalidEmails.join(", ")}` : "");
+   
+    setError(invalidEmails.length > 0 ? `The following emails are invalid: ${invalidEmails.join(", ")}` : "");
+    setTimeout(function() {
+      setError("");
+    }, 10000);
   };
 
   const handleDelete = (index) => {
@@ -43,23 +50,24 @@ export default function EmailsForm() {
   const handleSendEmails = () => {
     // Aquí puedes realizar la lógica para enviar los correos electrónicos al servidor
     console.log("Correos electrónicos enviados:", emails);
+    setHaveEmails(emails);
   };
 
   return (
     <div className="emailsFormContainer">
       
-      <form className="formContainer" onSubmit={(e) => e.preventDefault()}>
-        <div className=" emaildiv"> 
-
+      <form className="form-container" onSubmit={(e) => e.preventDefault()}>
+        <div className="emailBox"> 
        
-        <div>
-          <input
-          className="inputnew"
-            type="text"
+        <div className="input-box">
+          
+            <textarea
             value={email}
             onChange={handleChange}
-            placeholder=" "
+            placeholder=''
             // placeholder="Introduce uno o varios correos electrónicos separados por espacios, comas o puntos y comas"
+            rows={4} // Adjust the number of visible rows as needed
+            cols={40} // Adjust the number of visible columns as needed
           />
           <label htmlFor=""> Add emails </label>
         </div>
@@ -72,22 +80,23 @@ export default function EmailsForm() {
         </div>
      
      
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="errorMessage">{error}</p>}
 
       </form>
       {emails.length > 0 && (
-        <div>
-          <p>Added Emails</p>
-          <ul>
+        <div className="listEmails">
+          <p>Added Emails:</p>
+          
+          <ul className="ListEmails">
             {emails?.map((email, index) => (
               <li key={index}>
-                {email} <button onClick={() => handleDelete(index)}>Delete</button>
+                {email} <button  onClick={() => handleDelete(index)}> <ImageSvg name="Delete" /></button>
               </li>
             ))}
           </ul>
         </div>
       )}
-      {emails.length > 0 && <button onClick={handleSendEmails}>Enviar Correos Electrónicos</button>}
+      {emails.length > 0 && <button  className="btn_primary" onClick={handleSendEmails}>Save and continue</button>}
     </div>
   );
 }

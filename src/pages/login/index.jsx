@@ -95,14 +95,14 @@ export default function Login () {
           enableReinitialize={true}
         >
           {({ isValid, isSubmitting, status }) => (
-            <Form className='formContainer'>
-             <div>
+            <Form className='form-container'>
+             <div className="input-box">
                 <Field type="email" name="corporateEmail" id="corporateEmail" placeholder=" " disabled={!isEmailFieldEnabled || isSubmitting} />
                 <label htmlFor="corporateEmail">Company email</label>
                 <ErrorMessage className="errorMessage" name="corporateEmail" component="span" />
               </div>
 
-              <div>
+              <div className="input-box">
                 <span className="iconPassword" onClick={togglePasswordVisibility}>
                   <ImageSvg name={showPassword ? "ShowPassword" : "ClosePassword"} />
                 </span>

@@ -43,26 +43,26 @@ function FreeTrial(props) {
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
-            <form className="formContainer">
-              <div>
+            <form className="form-container">
+              <div className="input-box">
                 <Field type="email" name="corporateEmail" placeholder=" " />
                 <label htmlFor="corporateEmail">Company email</label>
                 <ErrorMessage className="errorMessage" name="corporateEmail" component="div" />
               </div>
 
-              <div>
+              <div className="input-box">
                 <Field type="text" name="title" placeholder=" " value="I am interested Currency Exchange rates automation" />
                 <label htmlFor="title"> Title </label>
                 <ErrorMessage className="errorMessage" name="title" component="div" />
               </div>
 
-              <div>
+              <div className="input-box">
                 <Field type="text" id="phoneNumber" name="phoneNumber" placeholder=" " value={"972 354 278"} />
                 <label htmlFor="phoneNumber">Phone Number</label>
                 <ErrorMessage className="errorMessage" name="phoneNumber" component="div" />
               </div>
 
-              <div>
+              <div className="input-box">
                 <Field type="text" name="name" placeholder="" value=" I am ...." />
                 <label htmlFor="name"> Message</label>
                 <ErrorMessage className="errorMessage" name="message" component="div" />

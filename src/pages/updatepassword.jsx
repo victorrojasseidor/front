@@ -62,8 +62,8 @@ export default function UpdatePassword () {
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
-            <form className='formContainer'>
-              <div>
+            <form className='form-container'>
+              <div className="input-box">
                 <span
                   className='iconPassword'
                   onClick={togglePasswordVisibility}
@@ -84,7 +84,7 @@ export default function UpdatePassword () {
                 />
               </div>
 
-              <div>
+              <div className="input-box">
                 <span
                   className='iconPassword'
                   onClick={toggleConfirmPasswordVisibility}

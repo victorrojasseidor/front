@@ -71,14 +71,122 @@
   }
 }
 
-// // - Genera colores de fondo
-// @include generateClass($colorsBasics, bgc);
-// @include generateClass($colorsGrey, bgc, 'grey');
-// @include generateClass($colorsBrand, bgc, 'brand');
-// @include generateClass($colorsMessage, bgc, 'message');
+.form-container {
+  display: flex;
+  flex-direction: column;
+  // gap: 1em;
+  width: 100%;
 
-// // - Genera colores de texto
-// @include generateClass($colorsBasics, color);
-// @include generateClass($colorsGrey, color, 'grey');
-// @include generateClass($colorsBrand, color, 'brand');
-// @include generateClass($colorsMessage, color, 'message');
+  
+
+  .contentError {
+    margin: 1rem 0 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+
+    h2 {
+      color: get-color(lilac_p3);
+    }
+    p {
+      color: get-color(black_p2) !important;
+    }
+  }
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  color: get-color(black_p2);
+  position: relative;
+  justify-content: baseline;
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    padding: 0.5rem 0.5rem;
+    margin: 1em 0;
+    border: 1px solid get-color(forms_s6);
+    border-radius: brd(1);
+    height: 3em;
+    color: get-color(blue_p1);
+
+    @include media(tablet) {
+      padding: 1rem 1rem;
+    }
+    font-family: Arial, Helvetica, sans-serif;
+
+    &:hover,
+    &:active {
+      border: 2px solid get-color(lilac_p3);
+    }
+  }
+
+  input[type="checkbox"] {
+    background-color: aqua;
+  }
+
+  textarea {
+    height: 4em;
+  }
+
+  label:not(.checkbox) {
+    font-weight: fw(medium);
+    cursor: pointer;
+    transition: 0.5s;
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    color: get-color(grey1_s3);
+    transform: translateY(10px);
+    transition: transform 0.5s, color 0.3s;
+  }
+
+  input:focus + label,
+  textarea:focus + label,
+  textarea:not(:placeholder-shown) + label,
+  input:not(:placeholder-shown) + label {
+    display: inline-block;
+    transform: translateY(-30px) scale(0.9);
+    transform-origin: left top;
+    /* medio*/
+    top: 2.4rem; //0
+    left: 1rem; //0
+    color: get-color(black_p2);
+    background-color: get-color(white_s1);
+    font-size: small;
+  }
+
+  .iconPassword {
+    position: relative;
+    svg {
+      position: absolute;
+      right: 1rem;
+      margin-top: 2rem;
+      path {
+        fill: get-color(grey1_s3);
+      }
+    }
+  }
+
+  span:nth-child(3) {
+    color: get-color(blue_p1);
+    font-size: 14px;
+  }
+}
+
+.errorMessage {
+  color: get-color(t3-red) !important;
+  // margin-top: 5px;
+  font-size: small;
+}
+
+
+// BEM 
+// bloque:     container-emails  o por ejemplo " card-image" "carrusel"
+ // elemneto si es que tiene  ejemplo div  :  contanier-emails__title
+ // si tengo tipos de titulos(ejemplo  un titulo grande)  contanier-emails__title--big  
+
+ //atomos dising 
