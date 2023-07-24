@@ -1,4 +1,4 @@
-export const countryOptions = [
+const countryOptions = [
   { value: '+51', label: 'Perú (+51)' },
   { value: '+54', label: 'Argentina (+54)' },
   { value: '+61', label: 'Australia (+61)' },
@@ -48,3 +48,27 @@ export const countryOptions = [
   { value: '+1', label: 'United States (+1)' },
   { value: '+58', label: 'Venezuela (+58)' }
 ]
+
+
+
+const countries = [
+  { label: 'Perú', value: 'Perú' },
+  { label: 'Argentina', value: 'Argentina' },
+
+  { label: 'Brazil', value: 'Brazil' },
+  { label: 'Canada', value: 'Canada' },
+  { label: 'France', value: 'France' },
+  { label: 'Germany', value: 'Germany' },
+  { label: 'India', value: 'India' },
+  { label: 'Italy', value: 'Italy' },
+  { label: 'Japan', value: 'Japan' },
+  { label: 'Mexico', value: 'Mexico' },
+  { label: 'Spain', value: 'Spain' },
+  { label: 'United Kingdom', value: 'United Kingdom' },
+  { label: 'United States', value: 'United States' },
+];
+
+export {
+  countries, countryOptions
+
+};

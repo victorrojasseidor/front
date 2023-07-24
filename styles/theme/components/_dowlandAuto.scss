@@ -1,95 +1,176 @@
-.downlaodAutomated{
-    width: 100%;
-   padding: 1em;
+.config-Automated {
+  width: 100%;
+  //  padding: 1em;
 
-    &_emails{
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        
-        justify-content: center;
+  &--emails {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    .emailBox {
+      width: 100%;
+      display: flex;
+
+      flex-direction: column;
+      justify-content: center;
+
+      @include media(tablet) {
+        flex-direction: row;
+        gap: 1em;
         align-items: center;
-        .emailBox{
-           
-            width: 100%;
-            display:flex;
-            
-            flex-direction: column;
-            justify-content: center;
-          
-            @include media(tablet) {
-                flex-direction: row;
-                gap: 1em;
-                align-items: center;
-            
-              }
+      }
+    }
+  }
+
+  &--tables {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    flex-direction: column;
+
+    .container-status{
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      flex-direction: row;
+      .status-config {
+        ul {
+          display: flex;
+          flex-direction: column;
+          justify-content: first baseline;
+    
+          li {
+            display: flex;
+            gap: 1em;
+            justify-content: space-between;
+    
+            .Active {
+              color: get-color(blue_p1);
+            }
+          }
         }
+      }
+    
+      .box-emails {
+        // flex: 1;
+        height: 5rem;
+        border-left: 1.5px solid get-color(forms_s6);
+        padding-left: 1rem;
+    
+        .card--emails {
+          display: flex;
+          align-items: flex-start;
+          flex-direction: row;
+      
+    
+          div {
+            max-width: 22rem; // Establece el ancho máximo del contenedor
+            overflow: hidden; // Oculta el contenido que desborda del ancho máximo
+            display: inline-block; // Asegura que el contenedor tome solo el ancho que necesita
+            white-space: nowrap; // Evita que el contenido se envuelva a la siguiente línea
+            text-overflow: ellipsis; // Evita que el contenido se envuelva a la siguiente línea
+            color: get-color(grey1_s3);
+          }
+        }
+        svg {
+          color: get-color(blue_p1);
+        }
+      }
     }
 
-    
-}
-
-.emailsFormContainer{
-width: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-
-form{
-    flex: 1;
-}
-}
-p{
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    // justify-content: center;
-    // align-items: center;
-    gap:0.25em;
-    white-space: nowrap;
-}
-
-.listEmails{
-    display: flex;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-    
-   
- ul{
-   
-    display: flex;
-    justify-content: center;
-      flex-direction: column;
-   
-      border-radius: 10px;
-      border: 2px solid var(--s-2-pink, #EFECFF);
-      background: var(--s-1-white, #FFF);
+    .contaniner-tables{
      
-      li {
-        // background-color: aqua;
+      .box-search{
         display: flex;
-        justify-content: space-between;
-     
-        padding: 0.5em 1em;
- 
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
       }
-      button{
-        background-color: transparent;
-        border-style: none;
+
+      .boards{
+      
         
-        svg {
-           color:get-color(blue_p1)
+        .tableContainer {
+          overflow-x: auto;
+          margin-top: 20px;
+        }
+        
+        .dataTable {
+          width: 100%;
+          border-collapse: collapse;
+          th,
+          td {
+            border: 1px solid #ccc;
+            padding: 8px;
+          }
+          th {
+            background-color: #f2f2f2;
+          }
         }
       }
 
+    }
+ 
 
+ 
 
- }
-    
+  }
+
+ 
 }
 
+.emailsFormContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
+  form {
+    flex: 1;
+  }
+}
+p {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  // justify-content: center;
+  // align-items: center;
+  gap: 0.25em;
+  white-space: nowrap;
+}
 
+.listEmails {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
 
+  ul {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    border-radius: 10px;
+    border: 2px solid var(--s-2-pink, #efecff);
+    background: var(--s-1-white, #fff);
+
+    li {
+      // background-color: aqua;
+      display: flex;
+      justify-content: space-between;
+
+      padding: 0.5em 1em;
+    }
+    button {
+      background-color: transparent;
+      border-style: none;
+
+      svg {
+        color: get-color(blue_p1);
+      }
+    }
+  }
+}

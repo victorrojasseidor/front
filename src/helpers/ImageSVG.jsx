@@ -14,7 +14,7 @@ import { IoMdArrowRoundBack, IoMdCloseCircle } from 'react-icons/io';
 import { FcMultipleInputs, FcDebt, FcLock,FcAcceptDatabase} from 'react-icons/fc';
 import { BsCheckCircle } from 'react-icons/bs';
 import { FiTrash2 } from 'react-icons/fi'
-
+import { TiPencil } from 'react-icons/ti'
 
 
 // icons of bpass
@@ -27,7 +27,7 @@ import Iconeeuu from '../../public/icons/eeuu.svg'
 const ImageSvg = ({ name }) => {
   const icons = {
     // crud
-    Edit: <MdModeEditOutline />,
+    Edit: <TiPencil/>,
     Menu: <FiMenu />,
     Close: <IoClose />,
     Notifications: <IoNotificationsOutline />,
