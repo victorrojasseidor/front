@@ -86,8 +86,14 @@
 
 .filterButtons {
   // margin-bottom: 1rem;
-  display: flex;
+ 
+
+  @include media(tablet) {
+    display: flex;
   align-items: center;
+
+    
+  }
   
 
   button {
@@ -167,7 +173,10 @@
      
         &:hover{
           
-          color:get-color(lilac_p3);
+    
+          background-color: get-color(pink_s5);
+         
+          
         }
       }
 
@@ -222,15 +231,10 @@
            
       }
      
- 
-
-    }
+   }
   
 
   }
-
-  
-
 
 }
 

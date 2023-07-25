@@ -6,8 +6,13 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 
 export default function Headers () {
-  const [isSpanish, setIsSpanish] = useState(false)
+  const [isSpanish, setIsSpanish] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
   const handleClick = () => {
     setIsSpanish(!isSpanish)
     // Aquí puedes realizar acciones adicionales según el idioma seleccionado
@@ -16,12 +21,22 @@ export default function Headers () {
   return (
     <nav className='header'>
       <ul>
+      <li>
+        <button className='btn_icons' onClick={toggleMenu} >
+          <ImageSvg name={isOpen ? "MenuClose":"MenuOpen"} />
+        </button>
+     
+        </li>
+
+
         <li>
           <button className='btn_icons'>
             <ImageSvg name='Notifications' />
           </button>
 
         </li>
+
+
         <li>
 
           <button onClick={handleClick} className='btn_icons'>

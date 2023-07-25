@@ -33,13 +33,15 @@ const countryData = [
   // Agrega más países y sus bancos aquí...
 ];
 
-const FormularioAgregado = ({ onAgregar }) => {
+
+const FormularioAgregado = ({ onAgregar, initialVal, onSubmit }) => {
   const [countryOptions, setCountryOptions] = useState([]);
   const [bankOptions, setBankOptions] = useState([]);
   const [country, setCountry] = useState(null);
 
+
   useEffect(() => {
-    // Cargar las opciones del país en el estado usando useEffect
+        // Cargar las opciones del país en el estado usando useEffect
     setCountryOptions(countryData.map((country) => ({ value: country.value, label: country.label })));
   }, []);
 
@@ -53,20 +55,38 @@ const FormularioAgregado = ({ onAgregar }) => {
     }
   }, [country]);
 
+  
+
+  console.log("camposeditables", initialVal);
+
   return (
     <div>
-      <h2>Agregar Nuevo Registro</h2>
+      <h2>{initialVal? "Editar Registro" : "Agregar Nuevo Registro"}</h2>
       <Formik
-        initialValues={{
+        initialValues={initialVal? 
+          {
+            name: 'editar',
+            principalUser: "editar",
+            bank: null,
+            country: null,
+            state: 'Active',
+          }:
+         {
           name: '',
           principalUser: '',
           bank: null,
           country: null,
-          state: 'activo', // Valor inicial predeterminado para el estado
+          state: 'Active',
         }}
         onSubmit={(values, { resetForm }) => {
-          onAgregar(values);
-          console.log("valores",values);
+          if (initialVal) {
+            // Si initialValues existe, significa que estamos editando
+            // En este caso, llamamos a la función onSubmit y pasamos los valores editados
+            onSubmit(values);
+          } else {
+            // Si no hay initialValues, estamos agregando un nuevo registro
+            onAgregar(values);
+          }
           resetForm();
         }}
       >
@@ -119,11 +139,11 @@ const FormularioAgregado = ({ onAgregar }) => {
               <label>State: </label>
               <div>
                 <label>
-                  <Field type="radio" name="state" value="activo" />
+                  <Field type="radio" name="state" value="Active" />
                   Activo
                 </label>
                 <label>
-                  <Field type="radio" name="state" value="desactivado" />
+                  <Field type="radio" name="state" value="Disabled" />
                   Desactivado
                 </label>
               </div>

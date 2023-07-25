@@ -44,6 +44,15 @@
         transform: translateY(-2px);
       }
     }
+    &_crud{
+      border-style: none;
+      background-color: transparent;
+      padding: 0.25em;
+      display: flex;
+      justify-content: center;
+      color:get-color(blue_p1);
+
+    }
   
     &_icons {
       border-style: none;
@@ -60,16 +69,12 @@
       color: get-color(black_p2);
       height: 3rem;
   
-      &:hover {
+      &:hover ,   &:active {
         background-color: get-color(blue_p1);
         color: get-color(white_s1);
         transform: translateY(-2px);
         font-size: 1rem;
-        svg {
-          path {
-            fill: get-color(white_s1);
-          }
-        }
+    
       }
     }
   

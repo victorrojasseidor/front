@@ -5,6 +5,8 @@ import FormularioAgregado from "./formaddConfigDowland";
 
 export default function ConfigDowland() {
   const [haveEmails, setHaveEmails] = useState(true);
+  const [initialEdit, setIinitialEdit] = useState(null);
+  const [isEditing, setIsEditing] = useState(null);
 
   const [data, setData] = useState([
     // Datos ficticios iniciales
@@ -14,7 +16,7 @@ export default function ConfigDowland() {
       principalUser: 'user1',
       bank: { value: 'bank7', label: 'Banco 7' },
       country:{ value: 'EUU', label: 'Banco 7' },
-      state: 'Active',
+      state: 'Disabled',
     },
     {
       id: 2,
@@ -26,6 +28,7 @@ export default function ConfigDowland() {
     },
   ]);
 
+
   const handleAgregar = (values) => {
     const newRow = {
       id: data.length + 1,
@@ -34,15 +37,31 @@ export default function ConfigDowland() {
     setData((prevData) => [...prevData, newRow]);
   };
 
-  const handleEditar = (id, values) => {
-    setData((prevData) =>
-      prevData.map((row) => (row.id === id ? { ...row, ...values } : row))
-    );
+
+
+  const handleEdit = (user) => {
+    console.log("handledit",user);
+    setIinitialEdit(user);
+
+     setIsEditing(true);
   };
 
+  console.log("user",initialEdit);
+
   const handleEliminar = (id) => {
+    
     setData((prevData) => prevData.filter((row) => row.id !== id));
   };
+
+  const handleUpdate = (updatedRecord) => {
+    // Actualiza el estado 'data' con el registro editado
+    setData((prevData) =>
+      prevData.map((row) => (row.id === updatedRecord.id ? updatedRecord : row))
+    );
+    setCurrentRecord(null);
+    setIsEditing(false);
+  };
+
 
   return (
     <section className="config-Automated">
@@ -72,7 +91,10 @@ export default function ConfigDowland() {
                   nespinozabar@gmail.com , nataliaespin@gmail.com,
                   absibdjbdd@gmail.com, estimatipns@hdid.com ....show more
                 </div>
+                <button  className="btn_crud">
                 <ImageSvg name="Edit" />
+                </button>
+                
               </div>
             </div>
           </div>
@@ -104,15 +126,20 @@ export default function ConfigDowland() {
                         <td>{row.country.value}</td>
                         <td>{row.state}</td>
                         <td>
-                          <button onClick={() => handleEditar(row.id, row)}>Edit</button>
-                          <button onClick={() => handleEliminar(row.id)}>Delete</button>
+                        <button className="btn_crud" onClick={() => handleEdit(row)}>   <ImageSvg name="Edit" /> </button>
+                        <button  className="btn_crud" onClick={() => handleEliminar(row.id)}> <ImageSvg name="Delete" /></button>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              <FormularioAgregado onAgregar={handleAgregar} />
+              <FormularioAgregado
+             onAgregar={handleAgregar}
+             
+             initialVal={isEditing?initialEdit:null}
+              onSubmit={handleUpdate} // Pasa la función handleUpdate para la edición
+            />
             </div>
           </div>
         </div>

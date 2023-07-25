@@ -15,6 +15,7 @@ import { FcMultipleInputs, FcDebt, FcLock,FcAcceptDatabase} from 'react-icons/fc
 import { BsCheckCircle } from 'react-icons/bs';
 import { FiTrash2 } from 'react-icons/fi'
 import { TiPencil } from 'react-icons/ti'
+import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 
 
 // icons of bpass
@@ -42,6 +43,8 @@ const ImageSvg = ({ name }) => {
     Delete: <FiTrash2/>,
 
     // menú icons
+    MenuOpen: <RiMenu3Line/>,
+    MenuClose: <RiCloseLine/>,
     Products: <AiOutlineInbox />,
     Users: <HiOutlineUsers />,
     Dashboard: <MdOutlineDashboard />,
