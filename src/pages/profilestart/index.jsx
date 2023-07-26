@@ -18,32 +18,28 @@ export default function Profilestart ( ) {
   const router = useRouter()
   
 
- // Utiliza el estado para almacenar los datos recibidos de la API
-
-
- 
-
-
-//  useEffect(() => {
-   
-    
-   
-  
-
-
-//   }, [ ]);
-
-  
-
-  setTimeout(() => {
-    const localStorageData = JSON.parse(localStorage.getItem('user'));
-    setUser(localStorageData);
-    if(localStorageData){
+  useEffect(() => {
+    // Define la función que comprueba y actualiza los datos del localStorage
+    // const checkLocalStorage = () => {
+      const localStorageData = JSON.parse(localStorage.getItem('user'));
+      setUser(localStorageData);
+      if (localStorageData) {
         setIsLoading(false);
-    }
-  }, 1000);
+      }
+    // };
 
- console.log("usuarioenlocalprofile",user);
+    // // Ejecuta checkLocalStorage inicialmente
+    // checkLocalStorage();
+
+    // // Establece un intervalo para ejecutar checkLocalStorage cada 1000 ms (1 segundo)
+    // const intervalId = setInterval(checkLocalStorage, 1000);
+
+    // // Limpia el intervalo cuando el componente se desmonte para evitar fugas de memoria
+    // return () => clearInterval(intervalId);
+  }, []);
+
+
+  
 
   const handleLogout = () => {
   // Simulación de cierre de sesión.
@@ -109,7 +105,7 @@ const handleClick = () => {
           </nav>
           <section className='formProfile'>
             <div>
-              <h2>let's get started</h2>
+              <h3>let's get started</h3>
               <p>Fill in the following fields to complete your profile</p>
             </div>
 
@@ -125,18 +121,18 @@ const handleClick = () => {
 }
 
 
-export async function getStaticProps() {
-  let apiData = {};
+// export async function getStaticProps() {
+//   let apiData = {};
 
-  // Verificar si estamos en el navegador (cliente) antes de intentar acceder a localStorage
-  if (typeof window !== 'undefined') {
-    const localStorageData = localStorage.getItem('user');
-    apiData = JSON.parse(localStorageData) || {};
-  }
+//   // Verificar si estamos en el navegador (cliente) antes de intentar acceder a localStorage
+//   if (typeof window !== 'undefined') {
+//     const localStorageData = localStorage.getItem('user');
+//     apiData = JSON.parse(localStorageData) || {};
+//   }
 
-  return {
-    props: {
-      apiData,
-    },
-  };
-}
+//   return {
+//     props: {
+//       apiData,
+//     },
+//   };
+// }

@@ -56,7 +56,7 @@ export default function productId() {
          
           <h4>Free Trial</h4>
         </button>
-        <button className={activeTab === 2 ? 'active' : ''} onClick={() => handleTabClick(2)}>
+        <button className={activeTab === 2 ? 'active' : ''} onClick={() => handleTabClick(2)} style={{ display: 'none' }} >
        
           <h4> API Configuration </h4>
         </button>

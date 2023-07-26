@@ -3,7 +3,7 @@ const countryOptions = [
   { value: '+54', label: 'Argentina (+54)' },
   { value: '+61', label: 'Australia (+61)' },
   { value: '+55', label: 'Brazil (+55)' },
-  { value: '+1', label: 'Canada (+1)' },
+  // { value: '+1', label: 'Canada (+1)' },//eliminé porque generaba valor de keys
   { value: '+56', label: 'Chile (+56)' },
   { value: '+86', label: 'China (+86)' },
   { value: '+57', label: 'Colombia (+57)' },

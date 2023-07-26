@@ -31,20 +31,33 @@
     flex-direction: column;
 
     .container-status{
+
+     
       display: flex;
       justify-content: center;
       gap: 1em;
-      flex-direction: row;
+      flex-direction: column;
+
+      @include media(tablet) {
+        flex-direction: row;
+      }
+
       .status-config {
         ul {
           display: flex;
           flex-direction: column;
           justify-content: first baseline;
     
+    
           li {
             display: flex;
             gap: 1em;
-            justify-content: space-between;
+            justify-content: center;
+            @include media(tablet) {
+            
+              justify-content: space-between;
+            }
+
     
             .Active {
               color: get-color(blue_p1);
@@ -80,13 +93,16 @@
       }
     }
 
+
+
     .contaniner-tables{
-     
+    
+
       .box-search{
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-around;
+        justify-content:space-between;
       }
 
       .boards{
@@ -95,29 +111,110 @@
         .tableContainer {
           overflow-x: auto;
           margin-top: 20px;
+          padding: 0 1rem;
+  
+          // background-color: get-color(bone_s2);
+          border-radius: brd(1);
+          border: 1px solid get-color(forms_s6); 
+          box-shadow: bsh(2);
         }
         
         .dataTable {
           width: 100%;
           border-collapse: collapse;
+          
+
+          thead{
+            background-color:transparent;
+            border-style: none;
+            border-bottom: 1.5px dotted #ccc; 
+            border-spacing: 8px; 
+            cursor: none;
+          th{
+            padding: 0.5rem;
+          }
+            
+          }
+        
+           tbody{
+            tr{
+              cursor: pointer;
+  
+              &:hover{
+                background-color:get-color(pink_s5);
+              }
+          }
           th,
           td {
             border: 1px solid #ccc;
-            padding: 8px;
+            padding: 0.5rem;
+            
+          
           }
           th {
-            background-color: #f2f2f2;
+            // background-color: #f2f2f2;
+            border-style: none;
+           
+          }
+          
+          td{
+         
+            text-align: center;
+    
+            border-style:none;
+          
+            color:get-color(grey2_s4)
+          
+          }
+
+          .active{
+            background-color: get-color(pink_s5);
+          }
+
+         
+          
+
+          }
+
+          .box-actions{
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+
           }
         }
+
       }
 
-    }
- 
 
+    
+    }
  
 
   }
 
+ 
+}
+
+
+.status-active {
+
+    background-color:get-color(t5-green);
+    padding: 0.25rem 0.5rem;
+    border-radius: brd(2);
+    color:get-color(black_p2);
+
+ 
+ 
+}
+.status-disabled {
+  
+    background-color:get-color(t3-red);
+    padding: 0.25rem 0.5rem;
+    border-radius: brd(2);
+    color:get-color(black_p2);
+   
+  
  
 }
 

@@ -7,7 +7,6 @@ import { fetchConTokenPost } from "@/helpers/fetch";
 import Loading from "@/Components/Atoms/Loading";
 
 
-
 function LoginConfirmed(props) {
   const router = useRouter();
 

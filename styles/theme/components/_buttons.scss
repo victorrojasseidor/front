@@ -82,13 +82,22 @@
       display: flex;
       width: auto;
       border-style: none;
-      padding: 0.8rem 1.25rem;
+      padding: 0.5em 1.25em;
       justify-content: center;
       align-items: center;
-      gap: 1em;
+     font-size: smaller;
+      // max-width: 200px;
       border-radius: brd(2);
       background: get-color(black_p2);
       color: get-color(white_s1);
+      @include media(tablet) {
+        font-size:medium;
+        padding: 0.8rem 1.25rem;
+        gap: 1em;
+       
+      }
+  
+
       &:focus,
       &:hover {
         background-color: get-color(white_s1);
@@ -96,6 +105,8 @@
         border: 1px solid get-color(black_p2);
       }
     }
+   
+   
   }
   
   //modificador para botones pequeños
@@ -114,10 +125,7 @@
     // border-radius: brd(1);
     background-color: transparent;
     color: get-color(black_p2);
-    // margin: 0.5rem;
-    // padding: 0.8em 1.25em;
-    // width: auto;
-    // max-width: 300px;
+  
     border: 1px solid get-color(blue_p1);
     color: get-color(blue_p1);
   
@@ -129,14 +137,16 @@
   }
   
   .black {
+ 
     background-color: get-color(black_p2);
-    color: get-color(white_s1);
+      color: get-color(white_s1);
     &:hover {
       background-color: get-color(t1-blue);
       color: get-color(white_s1);
       font-size: 1rem;
       transform: translateY(-2px);
     }
+    
   }
   
   .disabled {

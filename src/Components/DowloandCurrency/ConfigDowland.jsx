@@ -100,8 +100,8 @@ export default function ConfigDowland() {
           </div>
           <div className="contaniner-tables">
             <div className="box-search">
-              <h2>List Bank Credential</h2>
-              <div>Search</div>
+              <h3>List Bank Credential</h3>
+              {/* <div>Search</div> */}
               <button className="btn_black">+ Add Bank</button>
             </div>
             <div className="boards">
@@ -121,11 +121,15 @@ export default function ConfigDowland() {
                     {data?.map((row) => (
                       <tr key={row.id}>
                         <td>{row.name}</td>
-                        <td>{row.principalUser}</td>
-                        <td>{row.bank.value}</td>
+                        <td >{row.principalUser}</td>
+                        <td >{row.bank.value}</td>
                         <td>{row.country.value}</td>
-                        <td>{row.state}</td>
-                        <td>
+                        <td >
+                          <span className={row.state === 'Active' ? "status-active" : 'status-disabled'}>
+                          {row.state}
+                            </span>
+                          </td>
+                        <td className="box-actions">
                         <button className="btn_crud" onClick={() => handleEdit(row)}>   <ImageSvg name="Edit" /> </button>
                         <button  className="btn_crud" onClick={() => handleEliminar(row.id)}> <ImageSvg name="Delete" /></button>
                         </td>

@@ -110,7 +110,7 @@ const Tabs = () => {
         {activeTab === 1 && <Company />}
 
         {activeTab === 2 && (
-          <div className='notificatión'>
+          <div className='container-notificatión'>
             <h3>
               <MdPerson />
               Notifications
@@ -127,6 +127,7 @@ const Tabs = () => {
                 <label className='checkbox'> Email notifications</label>
               </div>
             </ul>
+            
             <div className='actionsButtons'>
               <button className='btn_primary smallBack' type='submit'>
                 BACK

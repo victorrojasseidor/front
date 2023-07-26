@@ -74,3 +74,33 @@ export const validateFormLogin= (values) => {
 
   return errors;
 };
+
+
+export const validateFormprofilestart= (values) => {
+  const errors = {};
+
+  if (!values.lastName) {
+    errors.lastName = 'Last Name is required';
+  } else if (!/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
+    errors.lastName = 'Your Surnames must not contain numbers or other special characters, allow up to 2 surnames';
+  }
+
+  if (values.lastName && values.lastName.trim() !== "" && !/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
+    errors.lastName = "Your Surnames must not contain numbers or other special characters, allow up to 2 surnames";
+  }
+
+
+  if (!values.phoneNumber) {
+    errors.phoneNumber = 'Phone number is required';
+  } else if (!/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(values.phoneNumber)) {
+    errors.phoneNumber = 'Phone phone must contain numbers';
+  }
+
+  if (values.phoneNumber && !/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(values.phoneNumber)) {
+    errors.phoneNumber = "Phone phone must contain numbers";
+  }
+
+
+
+  return errors;
+};
