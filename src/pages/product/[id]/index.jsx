@@ -6,10 +6,6 @@ import FreeTrial from '@/Components/FreeTrial';
 import { dataProducts } from '@/helpers/products';
 import BackButton from '@/Components/BackButton';
 
-
-
-//🍎, 🍌, 🍇
-
 export default function productId() {
   const [product, setProduct] = useState(null);
   const [activeTab, setActiveTab] = useState(0)
@@ -22,8 +18,7 @@ export default function productId() {
         setProduct(selectedProduct);
     }, [id]);
 
-  // console.log("🍎",product);
-
+  
 
   if (!product) { 
     return <div>Cargando...</div>;

@@ -5,8 +5,16 @@ const baseApiUrl ='https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/';
                  //  https://mrr0pbymh4.execute-api.us-east-2.amazonaws.com/prd/?Accion=DeleteFilterEstandarSimple
                  //  https://mrr0pbymh4.execute-api.us-east-2.amazonaws.com/prd/?Accion=ActualizarEstandarSimple
 
+const CORS_PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+// const API_URL = 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/BPasS/?Accion=ConsultaUsuario';
+
+
+
+
+
+
 const fetchNoTokenPost = async (endpoint, data) => {
-  const url = `${baseApiUrl}${endpoint}`;
+  const url = `${CORS_PROXY_URL}${baseApiUrl}${endpoint}`;
 
   
   try {
@@ -34,7 +42,7 @@ const fetchNoTokenPost = async (endpoint, data) => {
 };
 
 const fetchConTokenPost = async (endpoint, data, tok) => {
-  const url = `${baseApiUrl}${endpoint}`;
+  const url = `${CORS_PROXY_URL}${baseApiUrl}${endpoint}`;
   console.log("token",`SSd=${tok}`);
 
   try {
