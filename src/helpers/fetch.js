@@ -1,21 +1,13 @@
 
 const baseApiUrl ='https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/';
 
-                  // https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/BPasS/?Accion=ConsultaUsuario
-                 //  https://mrr0pbymh4.execute-api.us-east-2.amazonaws.com/prd/?Accion=DeleteFilterEstandarSimple
-                 //  https://mrr0pbymh4.execute-api.us-east-2.amazonaws.com/prd/?Accion=ActualizarEstandarSimple
-
-const CORS_PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
-// const API_URL = 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/BPasS/?Accion=ConsultaUsuario';
-
-
-
-
+//cors 
+// const CORS_PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
 
 const fetchNoTokenPost = async (endpoint, data) => {
-  const url = `${CORS_PROXY_URL}${baseApiUrl}${endpoint}`;
-
+  // const url = `${CORS_PROXY_URL}${baseApiUrl}${endpoint}`;
+  const url = `${baseApiUrl}${endpoint}`;
   
   try {
     const response = await fetch(url, {
@@ -26,8 +18,8 @@ const fetchNoTokenPost = async (endpoint, data) => {
         "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY,
         "Content-Type": "application/json",
         //configurations to proxy: 
-        "origin": "https://bpass-ja335w0fd-ninoska2000.vercel.app", // Agrega el origin requerido
-        "x-requested-with": "XMLHttpRequest",
+        // "origin": "https://bpass-ja335w0fd-ninoska2000.vercel.app", // Agrega el origin requerido
+        // "x-requested-with": "XMLHttpRequest",
       },
     });
   
@@ -45,7 +37,7 @@ const fetchNoTokenPost = async (endpoint, data) => {
 };
 
 const fetchConTokenPost = async (endpoint, data, tok) => {
-  const url = `${CORS_PROXY_URL}${baseApiUrl}${endpoint}`;
+  const url = `${baseApiUrl}${endpoint}`;
   console.log("token",`SSd=${tok}`);
 
   try {
@@ -58,8 +50,8 @@ const fetchConTokenPost = async (endpoint, data, tok) => {
         "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY,
         "Content-Type": "application/json",
            //configurations to proxy: 
-           "origin": "https://bpass-ja335w0fd-ninoska2000.vercel.app", // Agrega el origin requerido
-           "x-requested-with": "XMLHttpRequest",
+          //  "origin": "https://bpass-ja335w0fd-ninoska2000.vercel.app", // Agrega el origin requerido
+          //  "x-requested-with": "XMLHttpRequest",
       },
     });
 
