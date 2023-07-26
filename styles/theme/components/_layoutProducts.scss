@@ -176,6 +176,11 @@
      
 
       .childrenTilte {
+       padding:1em 0 0 1em;
+        @include media(tablet) {
+          padding: 0rem;
+        }
+
         p {
           span {
             color: get-color(blue_p1);

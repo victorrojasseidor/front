@@ -1,11 +1,13 @@
-// pages/signup.js
+
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "../../styles/styles.scss";
 import { validateFormRegister } from "@/helpers/validateForms"; // Import the custom validation function
 import { countryOptions } from "@/helpers/contry";
-const ProgressRegister = () => {
+
+const ProgressRegister = ({userData}) => {
   const [step, setStep] = useState(1);
+  const [user, setUser] = useState(userData);
 
   const handleNextStep = () => {
     // You don't need to call validateFormRegister here since Formik automatically performs validation before submitting.
@@ -31,6 +33,8 @@ const ProgressRegister = () => {
     const updatedOptions = options.filter((_, i) => i !== index);
     setOptions(updatedOptions);
   };
+
+  console.log("user en progres",user);
 
   return (
     <div className="containerProgress">

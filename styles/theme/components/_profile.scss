@@ -21,14 +21,28 @@
     
     }
 
+    .box-descriptions {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap:1em;
+    
+      h3 {
+        color: get-color(blue_p1);
+        flex: 1;
+      }
+    
+      div {
+        color: get-color(grey2_s4);
+      
+        display: flex;
+     
+      }
 
-    h3 {
-      color: get-color(blue_p1);
+     
     }
 
-    p {
-      color: get-color(grey2_s4);
-    }
+   
 
     img:first-child {
       width: 40%;

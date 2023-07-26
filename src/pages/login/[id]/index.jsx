@@ -4,8 +4,9 @@ import Login from "..";
 import ImageSvg from "@/helpers/ImageSVG";
 import { useRouter } from "next/router";
 import { fetchConTokenPost } from "@/helpers/fetch";
-// import { CircularProgress } from '@mui/material';
-import { PuffLoader } from "react-spinners";
+import Loading from "@/Components/Atoms/Loading";
+
+
 
 function LoginConfirmed(props) {
   const router = useRouter();
@@ -77,12 +78,7 @@ function LoginConfirmed(props) {
 
   if (isLoading) {
     return (
-      <section className="sectionloanding">
-        <div>
-          {/* <p>Loading...</p> */}
-          <PuffLoader color="#3C2CD1" />
-        </div>
-      </section>
+      <Loading/>
     );
   }
 

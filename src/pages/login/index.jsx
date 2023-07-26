@@ -32,12 +32,29 @@ export default function Login () {
       let responseData = await fetchNoTokenPost("dev/BPasS/?Accion=ConsultaUsuario", dataRegister && dataRegister);
            
       if (responseData.oAuditResponse?.iCode === 1) {
-        router.push('/profilestart'); 
+          
+               
         setStatus(null);
+
+        const userData = responseData.oResults;
+        // console.log("datadel usuario en login",userData);
+        setUser(userData);
+      
+        // Guardar la información del usuario en el local storage.
+        localStorage.setItem('user', JSON.stringify(userData));
+
+        if(responseData.oResults.iEstado==28){
+          router.push('/profilestart'); 
+        }else{
+          router.push('/product'); 
+        }
+
+
+        //reseteo formulario 
         setTimeout(() => {
           resetForm();
         }, 10000);
-
+     
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
        
@@ -63,6 +80,30 @@ export default function Login () {
       }, 60000);
         }
   }
+
+// detectar que usuario ingresón
+const [user, setUser] = useState(null);
+
+// useEffect(() => {
+  
+//   // Ejemplo de cómo guardar la información del usuario en el local storage (se mantendrá después de recargar la página):
+//   const savedUser = localStorage.getItem('user');
+//   if (savedUser) {
+//     setUser(JSON.parse(savedUser));
+//   }
+// }, []);
+
+
+// const handleLogin = () => {
+//   // Simulación de inicio de sesión exitoso.
+//   const user = { id: 1, username: 'exampleUser' };
+//   setUser(user);
+
+//   // Guardar la información del usuario en el local storage.
+//   localStorage.setItem('user', JSON.stringify(user));
+// };
+
+
 
 
   return (

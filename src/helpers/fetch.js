@@ -8,7 +8,6 @@ const baseApiUrl ='https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/';
 const fetchNoTokenPost = async (endpoint, data) => {
   const url = `${baseApiUrl}${endpoint}`;
 
-  // console.log(url,"🔥", data,"🔥",process.env.NEXT_PUBLIC_X_SAPLICACION,process.env.NEXT_PUBLIC_X_API_KEY);
   
   try {
     const response = await fetch(url, {
@@ -26,7 +25,6 @@ const fetchNoTokenPost = async (endpoint, data) => {
     }
   
     const responseData = await response.json();
-    console.log("resfecth", responseData);
   
     return responseData;
   } catch (error) {
