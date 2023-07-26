@@ -40,8 +40,8 @@ function LoginConfirmed(props) {
         let message = responseData?.oAuditResponse.sMessage;
         // const mensajeAntesDeComa = message.substring(0, message.indexOf(","));
         setError(message);
-        refresToken (token);
-
+        let refresh= await refresToken(token);
+        return refresh;
 
       }
     } catch (error) {
@@ -49,16 +49,6 @@ function LoginConfirmed(props) {
       throw new Error("Hubo un error en la operación asincrónica.");
     }
   }
-
- const  refresToken = async (token) => {
-  let bodyToken = {
-    oResults: {
-    
-    }}
-    const resp=  await fetchConTokenPost("dev/General/?Accion=RefreshToken", bodyToken, token);
-    console.log("respuestaresfres",resp);
-    return resp;
- }
 
 
 

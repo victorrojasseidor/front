@@ -4,6 +4,8 @@ import "../../styles/styles.scss";
 import { countryOptions } from "@/helpers/contry";
 import { validateFormprofilestart } from "@/helpers/validateForms";
 import { useRouter } from 'next/navigation'
+import { fetchConTokenPost } from "@/helpers/fetch";
+import { refresToken } from "@/helpers/auth";
 
 const ProgressRegister = ({ userData }) => {
   const [step, setStep] = useState(1);
@@ -22,13 +24,78 @@ const ProgressRegister = ({ userData }) => {
   };
 
   //enviar formulario
-  const handleSumbit = (values, { setSubmitting }) => {
-    setFormValues(values);
-    // Logic to submit the form data
-    console.log("values", values);
-    setSubmitting(false);
-    router.push('/product'); 
-  };
+  async function handleSumbit (values, { setSubmitting,setStatus }){
+
+    const oEmpresaSelect = values.companies.map((companyId) => {
+      const company = user.oEmpresa.find((option) => option.id_empresa === companyId);
+      return {
+        iIdEmpresa: company.id_empresa,
+        sRucEmpresa: company.ruc_empresa,
+      };
+    });
+
+    // console.log(oEmpresa);
+
+    let body = {
+      oResults: {
+        sEmail: user.sCorreo,
+        sUserName: user.sUserName,
+        sLastName: values.lastName,
+      sCodePhone: values.countryCode.value,
+      sPhone: values.phoneNumber,
+      bCodeNotEmail: true,
+      bCodeNotBpas: true,
+      oEmpresa: oEmpresaSelect
+        
+      },
+    };
+
+  
+    
+    
+    // // Logic to submit the form data
+    // console.log("values", values);
+    console.log("❤️", body);
+
+    // setSubmitting(false);
+  
+    const tok= user.sToken ;
+    console.log(user,tok);
+
+    try {
+      let responseData = await fetchConTokenPost("dev/BPasS/?Accion=RegistrarUsuarioEnd", body, tok);
+
+      console.log(responseData.oAuditResponse);
+
+      if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1 ) {
+        // setIsconfirmed(true);
+        setStatus(null);
+      router.push('/product'); 
+      
+      } else if(responseData.oAuditResponse.iCode == 27){
+       
+        let refresh= await refresToken(tok);
+        console.log("💻",refresh );
+
+      }
+      
+      
+      else {
+        let message = responseData?.oAuditResponse.sMessage;
+        setStatus(message);
+        setSubmitting(false);
+
+      }
+
+
+    } catch (error) {
+      console.error("Error:", error);
+      throw new Error("Hubo un error en la operación asincrónica.");
+    }
+  }
+
+
+  
 
 
 
@@ -53,12 +120,13 @@ const ProgressRegister = ({ userData }) => {
           companies: [],
         }}
         validate={validateFormprofilestart} // Use the custom validation function here
-        onSubmit={(values, { setSubmitting }) => {
-          handleSumbit(values, { setSubmitting })
+        onSubmit={(values, { setSubmitting,setStatus }) => {
+          setFormValues(values);
+          handleSumbit(values, { setSubmitting,setStatus})
                 }}
         enableReinitialize={true}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting,status , values, setFieldValue  }) => (
           <Form className="form-container">
             {step === 1 && (
               <div>
@@ -122,26 +190,47 @@ const ProgressRegister = ({ userData }) => {
                   <div>
                     <p>Profile to company:</p>
                   </div>
+                  {/* <FieldArray name="companies">
+            {({ push, remove }) => (
+              <div className="companies">
+                {user.oEmpresa.map((option) => (
+                  <div className="box-companies" key={option.id_empresa}>
+                    <div className="card">
+                      <span className="initial">{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
+                    </div>
+                    <Field type="checkbox" className="checkboxId" name={`companies`} value={option.id_empresa} />
+                    <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
+                  </div>
+                ))}
+              </div>
+            )}
+          </FieldArray> */}
 
-                  <FieldArray name="companies">
-                    {({ push, remove }) => (
-                      <div className="companies">
-                        {user.oEmpresa.map((option) => (
-                          <div className="box-companies" key={option.id_empresa}>
-                            <div className="card">
-                              <span className="initial">{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
-                            </div>
-                            <Field type="checkbox" className="checkboxId" name={`companies[${option.razon_social_empresa}]`} />
-                            <label htmlFor={`companies[${option.razon_social_empresa}]`}>{option.razon_social_empresa}</label>
-                            <Field type="hidden" name={`companies.${option.id_empresa}.id_empresa`} value={option.id_empresa} />
-                            <Field type="hidden" name={`companies.${option.id_empresa}.razon_social_empresa`} value={option.razon_social_empresa} />
-                          </div>
-                        ))}
-
-                      
-                      </div>
-                    )}
-                  </FieldArray>
+<div className="companies">
+            {user.oEmpresa.map((option) => (
+              <div className="box-companies" key={option.id_empresa}>
+                <div className="card">
+                  <span className="initial">{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
+                </div>
+                <input
+                  type="checkbox"
+                  className="checkboxId"
+                  checked={values.companies.includes(option.id_empresa)} // Marca el checkbox si el valor está incluido en companies
+                  onChange={(e) => {
+                    const checkedCompanyId = option.id_empresa;
+                    if (e.target.checked) {
+                      // Agregar el ID de la empresa al array companies
+                      setFieldValue('companies', [...values.companies, checkedCompanyId]);
+                    } else {
+                      // Remover el ID de la empresa del array companies
+                      setFieldValue('companies', values.companies.filter((id) => id !== checkedCompanyId));
+                    }
+                  }}
+                />
+                <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
+              </div>
+            ))}
+          </div>
                 </div>
 
                 <div className="box-buttons">
@@ -179,6 +268,11 @@ const ProgressRegister = ({ userData }) => {
                     Submit
                   </button>
                 </div>
+
+                <div className="contentError">
+                <div className="errorMessage">{status}</div>
+                </div>
+
               </div>
             )}
           </Form>
