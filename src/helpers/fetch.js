@@ -25,6 +25,9 @@ const fetchNoTokenPost = async (endpoint, data) => {
         "saplicacion": process.env.NEXT_PUBLIC_X_SAPLICACION,
         "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY,
         "Content-Type": "application/json",
+        //configurations to proxy: 
+        "origin": "https://bpass-ja335w0fd-ninoska2000.vercel.app", // Agrega el origin requerido
+        "x-requested-with": "XMLHttpRequest",
       },
     });
   
@@ -54,6 +57,9 @@ const fetchConTokenPost = async (endpoint, data, tok) => {
         "saplicacion": process.env.NEXT_PUBLIC_X_SAPLICACION,
         "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY,
         "Content-Type": "application/json",
+           //configurations to proxy: 
+           "origin": "https://bpass-ja335w0fd-ninoska2000.vercel.app", // Agrega el origin requerido
+           "x-requested-with": "XMLHttpRequest",
       },
     });
 
