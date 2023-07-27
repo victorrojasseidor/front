@@ -7,13 +7,9 @@ import { Formik, Field, ErrorMessage } from 'formik'
 import React, { useState } from 'react'
 import Image from 'next/image'
 import logo from '../../public/img/logoseidor.png'
-import { SignupSchemaEN } from '@/helpers/validateForms'
-import Modal from '@/Components/Modal'
 
 export default function changePassword () {
-  // const { t } = useContext(DataContext)
 
-  // console.log('t', t)
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
@@ -23,9 +19,9 @@ export default function changePassword () {
     setShowPassword(!showPassword)
   }
 
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword)
-  }
+  // const toggleConfirmPasswordVisibility = () => {
+  //   setShowConfirmPassword(!showConfirmPassword)
+  // }
 
   const handleSubmit = (values) => {
     // Realizar acción cuando el formulario es válido

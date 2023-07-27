@@ -1,18 +1,12 @@
 import '../../styles/styles.scss'
-import Link from 'next/link';
-import React, { useEffect } from 'react';
-function Modal ({ children,open}) {
-  const [showModal, setShowModal] = React.useState(open)
-  // const router = useRouter();
+import React, {useState} from 'react';
 
-  const handleOpenModal = () => {
-    setShowModal(true)
-  }
-
+function Modal ({ children}) {
+  const [showModal, setShowModal] = useState(true)
+ 
   const handleCloseModal = () => {
     setShowModal(false)
   }
-
 
   return (
     <div>

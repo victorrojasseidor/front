@@ -183,7 +183,7 @@ const ProgressRegister = ({ userData }) => {
                 <div>
                   <div>
                     <p>
-                      Company name: <span>{user.jCompany.razon_social_company}</span>
+                    Corporate: <span>{user.jCompany.razon_social_company}</span>
                     </p>
                   </div>
 

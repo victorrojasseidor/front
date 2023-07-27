@@ -11,9 +11,11 @@ border-radius: brd(1);
 .layoutLogin {
   display: flex;
   flex-direction: row;
-  gap: 1em;
   margin: 1em 1em;
   height: 120vh;
+
+   
+  
 
   &_image {
     @include media(tablet) {
@@ -22,10 +24,11 @@ border-radius: brd(1);
   }
 
   @include media(tablet) {
-    background-image: url("../../../public/img/register.jpg");
+    background-image: url("../../../public/img/register.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-size: 130vh;
+    gap:1em;
   }
 
   section {
@@ -45,6 +48,15 @@ border-radius: brd(1);
       justify-self: unset;
       align-items: center;
       // flex-grow: 0.1;
+
+      // img{
+      //   width: 4rem;
+      //   height: 4rem;
+      // }
+      img{
+        height: 70px;
+        width: auto;
+      }
 
       ul {
         display: flex;

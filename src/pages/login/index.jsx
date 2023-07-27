@@ -16,7 +16,7 @@ export default function Login () {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
-  //pruba nuevo repo
+  //pruba nuevo repo 2
 
   const router = useRouter()
 
@@ -121,7 +121,7 @@ const [user, setUser] = useState(null);
 
       <div className='register'>
         <h1> Log in </h1>
-        <p> Log in on the Business Process as a service </p>
+        <p> Log in Digital Employees </p>
 
         <Formik
           initialValues={{
@@ -153,13 +153,11 @@ const [user, setUser] = useState(null);
                 <ErrorMessage className="errorMessage" name="password" component="span" />
               </div>
 
-              {/* <Link href='/profilestart' className='containerButton'> */}
                 
               <button type="submit" disabled={isSubmitting || !isEmailFieldEnabled} className={isValid ? "btn_primary" : "btn_primary disabled"} onClick={() => setEmailFieldEnabled(true)}>
-                {isSubmitting ? "Login..." : "Login in"}
+                {isSubmitting ? "Log in..." : "Log in "}
               </button> 
-              {/* </Link> */}
-
+           
               <div className="contentError">
                 <div className="errorMessage">{status}</div>
                 </div>

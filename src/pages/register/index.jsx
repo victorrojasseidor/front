@@ -87,7 +87,7 @@ export default function Register() {
   return (
     <LayoutLogin>
       <nav className="navRegister">
-        <Image src={logo} width={120} alt="imgRegister" />
+        <Image src={logo} width={120} alt="logoRegister" />
         <ul>
           <li className="Question">Have an account?</li>
           <li className="link">
@@ -98,7 +98,7 @@ export default function Register() {
 
       <div className="register">
         <h1> Sign up</h1>
-        <p> Create your account in SEIDOR BPaas</p>
+        <p> Create your Account in ARI SEIDOR</p>
 
         <Formik
           initialValues={{
@@ -156,15 +156,12 @@ export default function Register() {
                   <Field className="checkboxId" id="acceptTerms" type="checkbox" name="acceptTerms" disabled={isSubmitting} />
 
                   <span> I accept</span>
-                  <span> SEIDOR BPaaS Terms and Conditions and Privacy Policy</span>
+                  <span> ARI SEIDOR Terms and Conditions and Privacy Policy</span>
                 </label>
                 <ErrorMessage className="errorMessage" name="acceptTerms" component="span" />
               </div>
 
-              {/* <button type="submit" disabled={isSubmitting || !isEmailFieldEnabled} className={isValid ? "btn_primary" : "btn_primary disabled"} onClick={() => setEmailFieldEnabled(true)}>
-                {isSubmitting ? "Send..." : "Sign Up Now"}
-              </button> */}
-
+            
               <Button className={isValid ? "btn_primary" : "btn_primary disabled"} onClick={() => setEmailFieldEnabled(true)} label={isSubmitting ? "Send..." : "Sign Up Now"} disabled={isSubmitting || !isEmailFieldEnabled} />
 
               <div className="contentError">
@@ -175,18 +172,14 @@ export default function Register() {
         </Formik>
 
         {ShowM && data && (
-          <Modal open={true}>
+          <Modal >
             <ImageSvg name="Check" />
-            <div className=" ">
-              <p> We´ve sent a verefication link to</p>
+            <div >
+              <p> We´ve sent a verification link to</p>
               <h2> {data.oResults.sEmail} </h2>
               <p>Please enter your email to confirm registration</p>
             </div>
-            {/* <div className='actions'>
-                <Link href=" " passHref>
-                 <div className='btn_primary small' >NEXT</div>
-              </Link>
-            </div>  */}
+           
           </Modal>
         )}
       </div>

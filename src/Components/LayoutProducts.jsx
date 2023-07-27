@@ -107,7 +107,7 @@ const LayoutProducts = ({ children }) => {
           <ul>
             <li>
               <ImageSvg name="Products" />
-              <Link href="/product">Products</Link>
+              <Link href="/product">Digital employees</Link>
             </li>
             <li>
               <ImageSvg name="Users" />

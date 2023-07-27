@@ -12,11 +12,11 @@ function LoginConfirmed(props) {
   const router = useRouter();
 
   // Capturar el valor del token desde la ruta actual
-  const [isOpen, setIsOpen] = useState(true);
   const [isEmail, setIsEmail] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isconfirmed, setIsconfirmed] = useState(false);
   const [error, setError] = useState(null);
+  const [show, setShow] = useState(true);
 
   async function handleSubmit(email, token) {
     let body = {
@@ -34,7 +34,7 @@ function LoginConfirmed(props) {
         setIsconfirmed(true);
         setError(null);
         setTimeout(() => {
-          setIsOpen(false);
+          setShow(false);
         }, 10000);
       
       } else {
@@ -51,9 +51,7 @@ function LoginConfirmed(props) {
     }
   }
 
-
-
-  if (isOpen) {
+  if (show) {
     setTimeout(() => {
       const tok = router.query.token;
       const correo = router.query.correo;
@@ -72,10 +70,15 @@ function LoginConfirmed(props) {
     );
   }
 
+  const handleCloseModal = () => {
+    setShow(!show)
+  }
+
+
   return (
     <section>
       <Login />
-      <Modal open={isOpen}>
+      { show && <Modal >
         {isconfirmed ? (
           <div>
             <ImageSvg name="Check" />
@@ -87,7 +90,7 @@ function LoginConfirmed(props) {
             </p>
 
             <div className="actions">
-              <button className="btn_primary small" onClick={() => setIsOpen(false)}>
+              <button className="btn_primary small" onClick={handleCloseModal}>
                 NEXT
               </button>
             </div>
@@ -99,6 +102,8 @@ function LoginConfirmed(props) {
           </div>
         )}
       </Modal>
+      }
+      
     </section>
   );
 }
