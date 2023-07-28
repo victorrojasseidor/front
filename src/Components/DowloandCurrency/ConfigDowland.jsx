@@ -4,7 +4,7 @@ import ImageSvg from "@/helpers/ImageSVG";
 import FormularioAgregado from "./formaddConfigDowland";
 
 export default function ConfigDowland() {
-  const [haveEmails, setHaveEmails] = useState(true);
+  const [haveEmails, setHaveEmails] = useState(false);//hay correos ?
   const [initialEdit, setIinitialEdit] = useState(null);
   const [isEditing, setIsEditing] = useState(null);
 
@@ -36,7 +36,6 @@ export default function ConfigDowland() {
     };
     setData((prevData) => [...prevData, newRow]);
   };
-
 
 
   const handleEdit = (user) => {
