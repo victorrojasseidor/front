@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
-import "../../styles/styles.scss";
 import { countryOptions } from "@/helpers/contry";
 import { validateFormprofilestart } from "@/helpers/validateForms";
 import { useRouter } from 'next/navigation'
 import { fetchConTokenPost } from "@/helpers/fetch";
 import { refresToken } from "@/helpers/auth";
+import { useAuth } from "@/Context/DataContext";
 
 const ProgressRegister = ({ userData }) => {
   const [step, setStep] = useState(1);
@@ -13,6 +13,8 @@ const ProgressRegister = ({ userData }) => {
   const [formValues, setFormValues] = useState({}); // Nuevo estado para almacenar los datos del formulario
 
   const router = useRouter()
+  const { session, setSession,logout } = useAuth();
+  console.log("😍lprofilestar", session);
   
   //steps funciones
   const handleNextStep = () => {
@@ -51,10 +53,6 @@ const ProgressRegister = ({ userData }) => {
     };
 
   
-    
-    
-    // // Logic to submit the form data
-    // console.log("values", values);
     console.log("❤️", body);
 
     // setSubmitting(false);
@@ -64,19 +62,18 @@ const ProgressRegister = ({ userData }) => {
 
     try {
       let responseData = await fetchConTokenPost("dev/BPasS/?Accion=RegistrarUsuarioEnd", body, tok);
-
-      console.log(responseData.oAuditResponse);
-
+    
       if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1 ) {
         // setIsconfirmed(true);
         setStatus(null);
+        console.log("💻",responseData );
+
       router.push('/product'); 
       
       } else if(responseData.oAuditResponse.iCode == 27){
        
         let refresh= await refresToken(tok);
-        console.log("💻",refresh );
-
+        
       }
       
       
@@ -93,10 +90,6 @@ const ProgressRegister = ({ userData }) => {
       throw new Error("Hubo un error en la operación asincrónica.");
     }
   }
-
-
-  
-
 
 
   //add companies

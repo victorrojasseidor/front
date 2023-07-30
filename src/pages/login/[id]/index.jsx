@@ -28,7 +28,7 @@ function LoginConfirmed(props) {
     try {
       let responseData = await fetchConTokenPost("dev/General/?Accion=RegistrarUsuarioPendConf", body, token);
 
-      console.log("💻", responseData.oAuditResponse);
+      // console.log("💻", responseData.oAuditResponse);
 
       if (responseData.oAuditResponse.iCode == 29 || responseData.oAuditResponse.iCode == 1) {
         setIsconfirmed(true);

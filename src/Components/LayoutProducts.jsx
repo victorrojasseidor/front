@@ -1,82 +1,92 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import ImageSvg from "@/helpers/ImageSVG";
 import Link from "next/link";
-import "../../styles/styles.scss";
+// import "../../styles/_styles.scss";
 import logo from "../../public/img/logoseidor.png";
 import Image from "next/image";
 import perfil from "../../public/img/perfil.jpg";
 import IconEN from "../../public/icons/eeuu.svg";
 import IconES from "../../public/icons/spain.svg";
 import { BsDisplay } from "react-icons/bs";
+// import { DataContextProvider } from "@/Context/DataContext";
+
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/Context/DataContext";
 
 const LayoutProducts = ({ children }) => {
   const [isMenuLateralOpen, setMenuLateralOpen] = useState(true);
   const [isSpanish, setIsSpanish] = useState(false);
   const [isOpenMobile, setIsOpenMobile] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [margen,setMargen]=useState("0rem");
+  const [margen, setMargen] = useState("0rem");
 
   const toggleMenu = () => {
     setMenuLateralOpen(!isMenuLateralOpen);
-  
   };
 
+  const { session, setSession, logout, empresa, setEmpresa } = useAuth();
+  console.log("😍empresalayout", empresa);
 
+const handleSelectChange = (event) => {
+  const selectedValue = event.target.value;
+  localStorage.removeItem("selectedEmpresa");
+  localStorage.setItem("selectedEmpresa", selectedValue)
+  setEmpresa(selectedValue);
+ 
+};
 
-
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const handleSelectChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  
+// Guardar la empresa seleccionada en el localStorage cuando cambie
+// useEffect(() => {
+//   localStorage.setItem("selectedEmpresa", empresa);
+// }, [empresa]);
 
   const toggleMenuMobile = () => {
     setIsOpenMobile(!isOpenMobile);
-    console.log("aplatstaste");
   };
 
- //detectar que la pantalla estpa en modo 
+  //detectar que la pantalla estpa en modo
   const checkScreenWidth = () => {
     setIsMobile(window.innerWidth <= 768);
-
   };
-  console.log("margen", margen);
 
   useEffect(() => {
-    if(isMobile){
+    if (isMobile) {
       setMargen("0rem");
-    }else{
-      if(isMenuLateralOpen){
+    } else {
+      if (isMenuLateralOpen) {
         setMargen("13rem");
-      }else {
+      } else {
         setMargen("7rem");
-      
+      }
     }
-  }
 
     checkScreenWidth();
-    window.addEventListener('resize', checkScreenWidth);
+    window.addEventListener("resize", checkScreenWidth);
 
     return () => {
-      window.removeEventListener('resize', checkScreenWidth);
+      window.removeEventListener("resize", checkScreenWidth);
     };
-
-   
-  }, [isMobile,isMenuLateralOpen]);
-
-
+  }, [isMobile, isMenuLateralOpen]);
 
   const handleClickLanguaje = () => {
     setIsSpanish(!isSpanish);
     // Aquí puedes realizar acciones adicionales según el idioma seleccionado
   };
-//style={{ display: isMobile ? 'none' : 'block'}}
-  // select
+
+  const router = useRouter();
+
+  const handleLogout = () => {
+    console.log("log out");
+    setSession(null);
+    localStorage.removeItem("session");
+    // router.push("/login");
+  };
+
+ 
+
   return (
     <section className="layoutProducts">
-      <section className={`menu ${isMenuLateralOpen ? " " : "menu-close "}`}  style={{ top: isMobile ? '58px' : '6px',marginLeft:isMobile ? '0,5rem' : '0rem' ,display: isMobile ? (isOpenMobile ? 'block' : 'none') : 'block' }} >
+      <section className={`menu ${isMenuLateralOpen ? " " : "menu-close "}`} style={{ top: isMobile ? "58px" : "6px", marginLeft: isMobile ? "0,5rem" : "0rem", display: isMobile ? (isOpenMobile ? "block" : "none") : "block" }}>
         <div className="menu_Account">
           <div className="imgPerfil">
             <Image src={perfil} width={100} alt="Robot" />
@@ -86,16 +96,18 @@ const LayoutProducts = ({ children }) => {
           </div>
 
           <div className="gradientSelect">
-            <select value={selectedOption} onChange={handleSelectChange}>
-              <option value="">Innovativa S.A.C</option>
-              <option value="opcion1">Opción 1</option>
-              <option value="opcion2">Opción 2</option>
-              <option value="opcion3">Opción 3</option>
+            <select value={empresa} onChange={handleSelectChange}>
+              {/* <option value="">Seleccione una empresa</option> */}
+              {session.oEmpresa.map((empres) => (
+                <option key={empres.id_empresa} value={empres.razon_social_empresa}>
+                  {empres.razon_social_empresa}
+                </option>
+              ))}
             </select>
           </div>
 
           <h5>
-            <p>SEIDOR PERÚ S.A</p>
+            <p>{session?.jCompany.razon_social_company}</p>
           </h5>
           <button>
             <ImageSvg name="Edit" />
@@ -139,7 +151,7 @@ const LayoutProducts = ({ children }) => {
         </div>
       </section>
 
-      <section className="menu_children" style={{ marginLeft:margen}}>
+      <section className="menu_children" style={{ marginLeft: margen }}>
         <nav className="menu-header">
           <ul>
             <li className="hamburgerMenu">
@@ -167,10 +179,8 @@ const LayoutProducts = ({ children }) => {
               </button>
             </li>
             <li>
-              <button className="btn_icons">
-                <Link href="/login">
-                  <ImageSvg name="SignOut" />
-                </Link>
+              <button className="btn_icons" onClick={handleLogout}>
+                <ImageSvg name="SignOut" />
               </button>
             </li>
           </ul>

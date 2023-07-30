@@ -3,7 +3,7 @@ import IconEN from '../../public/icons/eeuu.svg'
 import IconES from '../../public/icons/spain.svg'
 import ImageSvg from '@/helpers/ImageSVG'
 import React, { useState } from 'react'
-import Link from 'next/link'
+
 
 export default function Headers () {
   const [isSpanish, setIsSpanish] = useState(false);
@@ -17,6 +17,19 @@ export default function Headers () {
     setIsSpanish(!isSpanish)
     // Aquí puedes realizar acciones adicionales según el idioma seleccionado
   }
+
+  const handleLogout = () => {
+    // setSession(null);
+    console.log("log out")
+    if(!session){
+      // router.push('/login'); 
+    }
+
+    
+
+  };
+
+  
 
   return (
     <nav className='header'>
@@ -50,10 +63,10 @@ export default function Headers () {
 
         </li>
         <li>
-          <button className='btn_icons'>
-            <Link href='/login'>
+          <button className='btn_icons'  onClick={handleLogout}>
+         
               <ImageSvg name='SignOut' />
-            </Link>
+     
           </button>
         </li>
       </ul>

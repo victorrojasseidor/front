@@ -1,6 +1,5 @@
 import { DataContextProvider } from '@/Context/DataContext'
 import React, { useState,useEffect } from 'react'
-import '../../../styles/styles.scss'
 import logo from '../../../public/img/logoseidor.png'
 import imgProfilestart from '../../../public/img/profilestart.png'
 import en from '../../../public/icons/eeuu.svg'
@@ -8,52 +7,46 @@ import es from '../../../public/icons/spain.svg'
 import Image from 'next/image'
 import ImageSvg from '@/helpers/ImageSVG'
 import ProgressRegister from '@/Components/progressRegister'
-import { useRouter } from 'next/navigation'
 import Loading from '@/Components/Atoms/Loading'
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/Context/DataContext";
 
 export default function Profilestart ( ) {
   const [isSpanish, setIsSpanish] = useState(false)
   const [user, setUser] = useState({ });
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter()
-  
+
+  const { session, setSession,logout } = useAuth();
+  console.log("😍lprofilestar", session);
 
   useEffect(() => {
-    // Define la función que comprueba y actualiza los datos del localStorage
-    // const checkLocalStorage = () => {
-      const localStorageData = JSON.parse(localStorage.getItem('user'));
+         const localStorageData = JSON.parse(localStorage.getItem('user'));
       setUser(localStorageData);
       if (localStorageData) {
         setIsLoading(false);
       }
-    // };
 
-    // // Ejecuta checkLocalStorage inicialmente
-    // checkLocalStorage();
-
-    // // Establece un intervalo para ejecutar checkLocalStorage cada 1000 ms (1 segundo)
-    // const intervalId = setInterval(checkLocalStorage, 1000);
-
-    // // Limpia el intervalo cuando el componente se desmonte para evitar fugas de memoria
-    // return () => clearInterval(intervalId);
   }, []);
 
+  const router = useRouter();
 
-  
-
-  const handleLogout = () => {
-  // Simulación de cierre de sesión.
-  // setUser(null);
-
-  // Eliminar la información del usuario del local storage al cerrar sesión.
-  localStorage.removeItem('user');
-  router.push('/login'); 
-};
+  useEffect(() => {
+    if (!session) {
+      router.push("/login");
+    }
+  }, [session]); 
 
 const handleClick = () => {
     setIsSpanish(!isSpanish)
     // Aquí puedes realizar acciones adicionales según el idioma seleccionado
   }
+
+
+  const handleLogout = () => {
+    logout();
+  };
+
+
 
   if (isLoading) {
     return (
@@ -111,7 +104,7 @@ const handleClick = () => {
 
             <div>
               {/* <Tabs /> */}
-              <ProgressRegister userData={user}/>
+              <ProgressRegister userData={session}/>
             </div>
           </section>
         </section>

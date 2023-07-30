@@ -1,20 +1,19 @@
 import Link from "next/link";
 import LayoutLogin from "@/Components/LayoutLogin";
-import "../../../styles/styles.scss";
+// import "../../../styles/_styles.scss";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import logo from "../../../public/img/logoseidor.png";
 import { validateFormRegister } from "@/helpers/validateForms";
 import ImageSvg from "@/helpers/ImageSVG";
-// import { DataContext } from '@/Context/DataContext'
+
 import { fetchNoTokenPost } from "@/helpers/fetch";
 import Modal from "@/Components/Modal";
 import Button from "@/Components/Atoms/Buttons";
 
 export default function Register() {
-  // const { t, locale } = useContext(DataContext)
-  // console.log('t', t)
+
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);

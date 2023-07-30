@@ -384,9 +384,9 @@ justify-items: center;
   flex-direction: column;
   
   .companies{
-    
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap:1rem;
   }
   .box-companies{

@@ -1,16 +1,21 @@
-import "../../../styles/styles.scss";
+// import "../../../styles/styles.scss";
 import LayoutProducts from "@/Components/LayoutProducts";
 import ImageSvg from "@/helpers/ImageSVG";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import LimitedParagraph from "@/helpers/limitParagraf";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/Context/DataContext";
 
 
 export default function Products() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState(null);
+
+  const {session,setSession,empresa}=useAuth();
+  console.log("😍userproducts",session);
+  const router = useRouter();
 
   const products = [
     { id: 1, name: "Downlaod automated Bank Statements", status: "Configured", contry: "Perú", time:{update: " ", enabled: " ", expires: "4 days"}, description: "Download the daily bank statement of any bank without token" },
@@ -21,13 +26,11 @@ export default function Products() {
     { id: 6, name: "Real-Time  Weather Data API", status: "Not hired", contry: "Perú", time: {update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
   ];
 
-  const router = useRouter();
-
-
-  // const handleClick = (productId) => {
-  //   console.log("🍌",productId);
-  //   router.push('/product/[id]', `/product/${productId}`);
-  // };
+  useEffect(() => {
+    if (!session) {
+      router.push("/login");
+    }
+  }, [session]); 
 
 
   useEffect(() => {

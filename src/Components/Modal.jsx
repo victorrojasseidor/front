@@ -1,4 +1,4 @@
-import '../../styles/styles.scss'
+// import '../../styles/_styles.scss'
 import React, {useState} from 'react';
 
 function Modal ({ children}) {
