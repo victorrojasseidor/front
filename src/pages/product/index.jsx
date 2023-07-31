@@ -6,50 +6,98 @@ import Link from "next/link";
 import LimitedParagraph from "@/helpers/limitParagraf";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/Context/DataContext";
+import { fetchConTokenPost } from "@/helpers/fetch";
 
-
-export default function Products() {
+export default function Products( ) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState(null);
+  const [product,setProduct]=useState({});
 
   const {session,setSession,empresa}=useAuth();
-  console.log("😍userproducts",session);
+  
+
+  // console.log("😍data",products );
+  console.log("😍producti",product );
+
   const router = useRouter();
-
-  const products = [
-    { id: 1, name: "Downlaod automated Bank Statements", status: "Configured", contry: "Perú", time:{update: " ", enabled: " ", expires: "4 days"}, description: "Download the daily bank statement of any bank without token" },
-    { id: 2, name: "Currency Exchange rates automation", status: "Earring", contry: "Perú",time:{ update: " ", enabled: "3 months", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
-    { id: 3, name: "Pattern", status: "Configured", contry: "Perú",time: { update: " ", enabled: " ", expires: "4 days"}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
-    { id: 4, name: "Pattern IOP", status: "Not hired", contry: "Perú",time: {update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
-    { id: 5, name: "Exchange Rates Data API", status: "Not hired", contry: "Perú", time:{ update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
-    { id: 6, name: "Real-Time  Weather Data API", status: "Not hired", contry: "Perú", time: {update: "3 months ", enabled: "", expires: " "}, description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus risus at tortor ullamcorper, nec consequat mauris gravida. Nunc at odio at velit convallis vulputate" },
-  ];
-
   useEffect(() => {
     if (!session) {
       router.push("/login");
     }
+   
+    setTimeout(() => {
+      getProducts();
+    }, 100);
+    
   }, [session]); 
 
 
-  useEffect(() => {
-    const filterResults = () => {
-      let results = products;
 
-      if (selectedFilter) {
-        results = results.filter((product) => product.status.toLowerCase().includes(selectedFilter.toLowerCase()));
-      }
 
-      if (searchQuery) {
-        results = results.filter((product) => product.name.toLowerCase().includes(searchQuery.toLowerCase()));
-      }
 
-      setSearchResults(results);
+  async function getProducts() {
+    let body = {
+      oResults: {
+        iIdEmpresa: empresa.id_empresa,
+        iIdPais: 1
+      },
     };
 
-    filterResults();
-  }, [searchQuery, selectedFilter]);
+    try {
+      let token=session.sToken;
+    
+      let responseData = await fetchConTokenPost("dev/BPasS/?Accion=ConsultaProductoEmpresa", body, token);
+         
+
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const data= responseData.oResults;
+        setProduct(data);
+        console.log("produ",data);
+
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
+      console.log("errok, ",errorMessage);
+        // setStatus(errorMessage);
+
+      }
+    } catch (error) {
+      console.error("error", error);
+      // setStatus("Service error");
+
+    }
+  }
+
+
+
+  useEffect(() => {
+    if (product) {
+      const filterResults = () => {
+        let results = product;
+        console.log("res", results);
+  
+        if (selectedFilter) {
+          results = results.filter((product) => product.sDescStatus.toLowerCase().includes(selectedFilter.toLowerCase()));
+        }
+  
+        if (searchQuery) {
+          results = results.filter((product) => product.sName.toLowerCase().includes(searchQuery.toLowerCase()));
+        }
+  
+        setSearchResults(results);
+      };
+  
+      filterResults();
+    }
+  }, [searchQuery, selectedFilter, product]);
+  
+ 
+  
+  
+  
+  
+  
+  
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -69,13 +117,13 @@ export default function Products() {
      
     if (status === "Configured") {
 
-      return <span>Expires in {time.expires} ago</span>;
-    } else if (status === "Earring") {
+      return <span>Expires in {time.SExpires} ago</span>;
+    } else if (status === "Pendiente") {
 
-      return <span>Enabled {time.enabled} ago</span>;
+      return <span>{time.sEnabled}</span>;
     } else if (status === "Not hired") {
 
-      return <span>Updated {time.update} ago</span>;
+      return <span>Updated {time.sUpdate} ago</span>;
     } else {
  
       return <span>---</span>;
@@ -84,14 +132,14 @@ export default function Products() {
  
   };
 
-  const renderButtons = (status) => {
-     
+  const renderButtons = (data) => {
+     let status = data.sDescStatus
     if (status === "Configured") {
 
       return <span> </span>;
     } else if (status === "Earring") {
 
-      return <Link href="/dhdhhd">
+      return <Link href={`/product/${data.iId}`}>
       <button className='btn_primary'>Configurations</button>
     </Link>;
     } else if (status === "Not hired") {
@@ -117,7 +165,7 @@ export default function Products() {
             <button onClick={() => handleFilter("Configured")} className={selectedFilter === "Configured" ? "active" : ""}>
               Configured
             </button>
-            <button onClick={() => handleFilter("Earring")} className={selectedFilter === "Earring" ? "active" : ""}>
+            <button onClick={() => handleFilter("Pendiente")} className={selectedFilter === "Pendiente" ? "active" : ""}>
               Earring
             </button>
             <button onClick={() => handleFilter("Not hired")} className={selectedFilter === "Not hired" ? "active" : ""}>
@@ -137,36 +185,36 @@ export default function Products() {
             <p> {selectedFilter}</p>
             <ul>
               {searchResults.map((product) => (
-                <li key={product.id} className={ "card" + (product.status=="Configured" ? ' configured' : '') + (product.status=="Earring" ? ' earring' : '')} >
+                <li key={product.iId} className={ "card" + (product.sDescStatus=="Configured" ? ' configured' : '') + (product.sDescStatus=="Pendiente" ? ' earring' : '')} >
                                   
                   <div  >
                     <span >
                       <ImageSvg name="Products" />
                     </span>
                  
-                    <Link href={`/product/${product.id}`}>
+                    <Link href={`/product/${product.iId}`}>
                 
-                      <h4  > {product.name}</h4>
+                      <h5 > {product.sName}</h5>
                   
                       </Link>
                   </div>
                   <div >
-                    <p>{product.status}</p>
+                    <p>{product.sDescStatus}</p>
                     <span>
                       <ImageSvg name="Time" />
-                      {renderSelectedFilter(product.status,product.time)}
+                      {renderSelectedFilter(product.sDescStatus,product.jTime)}
                   
                     </span>
                   </div>
 
                   <div>
-                    <LimitedParagraph text={product.description} limit={80} />
+                    <LimitedParagraph text={product.sDescription} limit={40} />
                   </div>
 
                   <div>
-                    <Link href="/dhdhhd"> <p> View more
+                    <Link  href={`/product/${product.iId}`}> <p> View more
                       </p></Link>
-                      {renderButtons(product.status)}
+                      {renderButtons(product)}
                   </div>
                 </li>
               ))}
@@ -179,3 +227,4 @@ export default function Products() {
     </LayoutProducts>
   );
 }
+

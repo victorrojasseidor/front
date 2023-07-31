@@ -24,10 +24,15 @@
     
         .tab-header{
           display: flex;
+          justify-content: center;
+          align-items: center;
           flex-direction: row;
           margin-bottom:0;
           button {
             margin-bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 1em 1em 0.5em 1em;
            align-items: center;
             &.active {
@@ -40,7 +45,9 @@
                     color:get-color(blue_p1);
                     font-weight: 600;
                 }
+               
               }
+
           }
  }   
  
@@ -54,9 +61,9 @@
 
 
 .freetrial {
-  
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 0.5em;
 
     &_description{

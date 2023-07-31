@@ -5,10 +5,28 @@
   &--emails {
     display: flex;
     width: 100%;
-    flex-direction: column;
-
+    // flex-direction: column;
+flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    font-size: smaller;
+   
+
+    .description{
+      display: flex;
+      padding: 0.5rem;
+      width: 100%;
+      margin: 0;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      @include media(tablet) {
+        font-size: medium;
+        
+      }
+ 
+    }
     .emailBox {
       width: 100%;
       display: flex;

@@ -76,7 +76,7 @@ export const DataContextProvider = ({ children }) => {
       setEmpresa(storedEmpresa);
     } else {
       // Si no hay empresa seleccionada en el localStorage, seleccionar la primera por defecto si existe
-      const defaultEmpresa = session?.oEmpresa[0]?.razon_social_empresa;
+      const defaultEmpresa = session?.oEmpresa[0];
       if (defaultEmpresa) {
         setEmpresa(defaultEmpresa);
         localStorage.setItem("selectedEmpresa", defaultEmpresa);

@@ -25,20 +25,28 @@ const LayoutProducts = ({ children }) => {
   };
 
   const { session, setSession, logout, empresa, setEmpresa } = useAuth();
-  console.log("😍empresalayout", empresa);
 
-const handleSelectChange = (event) => {
-  const selectedValue = event.target.value;
-  localStorage.removeItem("selectedEmpresa");
-  localStorage.setItem("selectedEmpresa", selectedValue)
-  setEmpresa(selectedValue);
- 
-};
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+    
+    // Buscar la empresa seleccionada en el array oEmpresa por su razón social
+    const selectedEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue);
+    
+    // Verificar si se encontró la empresa
+    if (selectedEmpresa) {
+      // Guardar tanto la razón social como el ID en el almacenamiento local
+      localStorage.removeItem("selectedEmpresa");
+      localStorage.setItem("selectedEmpresa", JSON.stringify(selectedEmpresa));
+      
+      // Actualizar el estado 'empresa' con el objeto que contiene la razón social y el ID
+      setEmpresa({ 
+        id_empresa:selectedEmpresa.id_empresa,
+        razon_social_empresa:selectedEmpresa.razon_social_empresa,
+        ruc_empresa:selectedEmpresa.ruc_empresa});
+    }
+  };
 
-// Guardar la empresa seleccionada en el localStorage cuando cambie
-// useEffect(() => {
-//   localStorage.setItem("selectedEmpresa", empresa);
-// }, [empresa]);
+
 
   const toggleMenuMobile = () => {
     setIsOpenMobile(!isOpenMobile);
@@ -73,16 +81,27 @@ const handleSelectChange = (event) => {
     // Aquí puedes realizar acciones adicionales según el idioma seleccionado
   };
 
-  const router = useRouter();
+
 
   const handleLogout = () => {
     console.log("log out");
     setSession(null);
     localStorage.removeItem("session");
+    localStorage.removeItem("selectedEmpresa");
     // router.push("/login");
   };
 
- 
+  const router = useRouter();
+  useEffect(() => {
+    if (!session) {
+      router.push("/login");
+    }
+   
+    // setTimeout(() => {
+    //   getProducts();
+    // }, 100);
+    
+  }, [session]); 
 
   return (
     <section className="layoutProducts">
@@ -98,7 +117,7 @@ const handleSelectChange = (event) => {
           <div className="gradientSelect">
             <select value={empresa} onChange={handleSelectChange}>
               {/* <option value="">Seleccione una empresa</option> */}
-              {session.oEmpresa.map((empres) => (
+              {session?.oEmpresa.map((empres) => (
                 <option key={empres.id_empresa} value={empres.razon_social_empresa}>
                   {empres.razon_social_empresa}
                 </option>
@@ -189,7 +208,7 @@ const handleSelectChange = (event) => {
         <div className="childrenTilte">
           <h2>Products</h2>
           <p>
-            Welcome, <span> Innovativa S.A.C 👋 </span>{" "}
+            Welcome, <span> {empresa?.razon_social_empresa} 👋 </span>{" "}
           </p>
         </div>
 

@@ -8,7 +8,7 @@ import Loading from "@/Components/Atoms/Loading";
 import { refresToken } from "@/helpers/auth";
 
 
-function LoginConfirmed(props) {
+function LoginConfirmed( ) {
   const router = useRouter();
 
   // Capturar el valor del token desde la ruta actual

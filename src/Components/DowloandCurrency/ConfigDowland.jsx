@@ -149,9 +149,12 @@ export default function ConfigDowland() {
       ) : (
         <div className="config-Automated--emails">
           <h3> Register emails</h3>
-          <p>
-            Add the emails to notify to <br /> <b> Download automated Bank Statements </b>
-          </p>
+          <div className="description">
+            
+            Add the emails to notify to  <b> Download automated Bank Statements </b>
+            
+          
+          </div>
           <EmailsForm setHaveEmails={setHaveEmails} />
         </div>
       )}
