@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import LayoutLogin from '@/Components/LayoutLogin'
-import '../../../styles/styles.scss'
 import { Formik, Field, ErrorMessage } from 'formik'
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
