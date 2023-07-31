@@ -23,8 +23,7 @@ export default function ConfigDowland() {
     console.log("values",values);
     let body = {
       oResults: {
-        iIdEmpresa: 1,
-        iIdEmpresa: 1,
+        iIdEmpresa:5,
         sName:values.name ,
         iIdPais: 1,
         iBanco:values.bank.id,
@@ -110,7 +109,7 @@ export default function ConfigDowland() {
   async function getDataConfigured() {
     let body = {
       oResults: {
-        iIdExtBanc: 1,
+        iIdExtBanc:5,
         iIdPais: 1,
       },
     };
