@@ -16,7 +16,6 @@ export default function Products( ) {
 
   const {session,setSession,empresa}=useAuth();
   
-
   // console.log("😍data",products );
   console.log("😍producti",product );
 
@@ -30,10 +29,7 @@ export default function Products( ) {
       getProducts();
     }, 100);
     
-  }, [session]); 
-
-
-
+  }, [session,product]); 
 
 
   async function getProducts() {
@@ -43,6 +39,8 @@ export default function Products( ) {
         iIdPais: 1
       },
     };
+
+    console.log("bodyconsultarproducto",body);
 
     try {
       let token=session.sToken;
@@ -67,7 +65,6 @@ export default function Products( ) {
 
     }
   }
-
 
 
   useEffect(() => {
@@ -221,7 +218,7 @@ export default function Products( ) {
             </ul>
           </div>
         ) : (
-          <p>No se encontraron resultados.</p>
+          <p>No results found</p>
         )}
       </div>
     </LayoutProducts>

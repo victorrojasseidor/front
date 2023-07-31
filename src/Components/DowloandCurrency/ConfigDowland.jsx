@@ -1,33 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EmailsForm from "./EmailsForm";
 import ImageSvg from "@/helpers/ImageSVG";
-import FormularioAgregado from "./formaddConfigDowland";
+import AddCredentials from "./AddCredentials";
+import { useAuth } from "@/Context/DataContext";
+import { fetchConTokenPost } from "@/helpers/fetch";
 
 export default function ConfigDowland() {
-  const [haveEmails, setHaveEmails] = useState(false);//hay correos ?
+  const [haveEmails, setHaveEmails] = useState(true); //hay correos ?
   const [initialEdit, setIinitialEdit] = useState(null);
   const [isEditing, setIsEditing] = useState(null);
+  const [emails, setEmails] = useState([]);
+  const [data, setData] = useState(null);
 
-  const [data, setData] = useState([
-    // Datos ficticios iniciales
-    {
-      id: 1,
-      name: 'John Doe',
-      principalUser: 'user1',
-      bank: { value: 'bank7', label: 'Banco 7' },
-      country:{ value: 'EUU', label: 'Banco 7' },
-      state: 'Disabled',
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      principalUser: 'user2',
-      bank: { value: 'bank7', label: 'Banco 7' },
-      country: { value: 'canada', label: 'Banco 7' },
-      state: 'Active',
-    },
-  ]);
-
+  const { session, setSession, empresa } = useAuth();
+  console.log(session);
 
   const handleAgregar = (values) => {
     const newRow = {
@@ -37,34 +23,73 @@ export default function ConfigDowland() {
     setData((prevData) => [...prevData, newRow]);
   };
 
-
   const handleEdit = (user) => {
-    console.log("handledit",user);
+    console.log("handledit", user);
     setIinitialEdit(user);
 
-     setIsEditing(true);
+    setIsEditing(true);
   };
 
-  console.log("user",initialEdit);
+  // console.log("user",initialEdit);
 
   const handleEliminar = (id) => {
-    
     setData((prevData) => prevData.filter((row) => row.id !== id));
   };
 
   const handleUpdate = (updatedRecord) => {
     // Actualiza el estado 'data' con el registro editado
-    setData((prevData) =>
-      prevData.map((row) => (row.id === updatedRecord.id ? updatedRecord : row))
-    );
+    setData((prevData) => prevData.map((row) => (row.id === updatedRecord.id ? updatedRecord : row)));
     setCurrentRecord(null);
     setIsEditing(false);
   };
 
+  useEffect(() => {
+    if (session) {
+      setTimeout(() => {
+        getDataConfigured();
+      }, 100);
+    }
+  }, [session]);
+
+  async function getDataConfigured() {
+    let body = {
+      oResults: {
+        iIdExtBanc: 1,
+        iIdPais: 1,
+      },
+    };
+
+    console.log("bodyconsultarproducto", body);
+
+    try {
+      let token = session.sToken;
+
+      let responseData = await fetchConTokenPost("dev/BPasS/?Accion=GetExtBancario", body, token);
+      console.log("data", responseData);
+
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const data = responseData.oResults;
+        setData(data);
+        // setEmails(oCorreoEB);
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
+        console.log("errok, ", errorMessage);
+        // setStatus(errorMessage);
+      }
+    } catch (error) {
+      console.error("error", error);
+      // setStatus("Service error");
+    }
+  }
+
+  useEffect(() => {
+    if (data) {
+    }
+  }, [data]);
 
   return (
     <section className="config-Automated">
-      {haveEmails ? (
+      {haveEmails && data?.oCorreoEB.length >= 3 ? (
         <div className="config-Automated--tables">
           <div className="container-status">
             <div className="status-config">
@@ -84,16 +109,16 @@ export default function ConfigDowland() {
               </ul>
             </div>
             <div className="box-emails">
-              <h5>Correos notificactions</h5>
+              <h5>Emails for notifications</h5>
               <div className="card--emails">
                 <div>
-                  nespinozabar@gmail.com , nataliaespin@gmail.com,
-                  absibdjbdd@gmail.com, estimatipns@hdid.com ....show more
+                  {data?.oCorreoEB.map((email) => (
+                    <p key={email.correo_cc}>{email.correo_cc}</p>
+                  ))}
                 </div>
-                <button  className="btn_crud">
-                <ImageSvg name="Edit" />
+                <button className="btn_crud" onClick={() => setHaveEmails(false)}>
+                  <ImageSvg name="Edit" />
                 </button>
-                
               </div>
             </div>
           </div>
@@ -117,32 +142,37 @@ export default function ConfigDowland() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.map((row) => (
-                      <tr key={row.id}>
-                        <td>{row.name}</td>
-                        <td >{row.principalUser}</td>
-                        <td >{row.bank.value}</td>
-                        <td>{row.country.value}</td>
-                        <td >
-                          <span className={row.state === 'Active' ? "status-active" : 'status-disabled'}>
-                          {row.state}
-                            </span>
-                          </td>
+                    {data?.oListBancoCredendicial?.map((row) => (
+                      <tr key={row.id_banco_credencial}>
+                        <td>{row.nombre}</td>
+                        <td>{row.usuario}</td>
+                        <td>{row.id_banco}</td>
+                        <td>{"Perú"}</td>
+                        { console.log(row.estado_c)}
+                        <td>
+                          <span className={row.estado_c == "23" ? "status-active" : "status-disabled"}>{row.estado_c == "23" ? "Active" : "Disabled"}</span>
+                        </td>
                         <td className="box-actions">
-                        <button className="btn_crud" onClick={() => handleEdit(row)}>   <ImageSvg name="Edit" /> </button>
-                        <button  className="btn_crud" onClick={() => handleEliminar(row.id)}> <ImageSvg name="Delete" /></button>
+                          <button className="btn_crud" onClick={() => handleEdit(row)}>
+                            {" "}
+                            <ImageSvg name="Edit" />{" "}
+                          </button>
+                          <button className="btn_crud" onClick={() => handleEliminar(row.id_banco_credencial)}>
+                            {" "}
+                            <ImageSvg name="Delete" />
+                          </button>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              <FormularioAgregado
-             onAgregar={handleAgregar}
-             
-             initialVal={isEditing?initialEdit:null}
-              onSubmit={handleUpdate} // Pasa la función handleUpdate para la edición
-            />
+              <AddCredentials
+                onAgregar={handleAgregar}
+                dataUser={data}
+                initialVal={isEditing ? initialEdit : null}
+                onSubmit={handleUpdate} // Pasa la función handleUpdate para la edición
+              />
             </div>
           </div>
         </div>
@@ -150,12 +180,9 @@ export default function ConfigDowland() {
         <div className="config-Automated--emails">
           <h3> Register emails</h3>
           <div className="description">
-            
-            Add the emails to notify to  <b> Download automated Bank Statements </b>
-            
-          
+            Add the emails to notify to <b> Download automated Bank Statements </b>
           </div>
-          <EmailsForm setHaveEmails={setHaveEmails} />
+          <EmailsForm setHaveEmails={setHaveEmails} idproduct={1} />
         </div>
       )}
     </section>

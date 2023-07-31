@@ -1,19 +1,26 @@
 import React from "react";
 import { useState } from "react";
 import ImageSvg from "@/helpers/ImageSVG";
-  
+import { useAuth } from "@/Context/DataContext";
+import { fetchConTokenPost } from "@/helpers/fetch";
+// import { refresToken } from "@/helpers/auth";
 
-export default function EmailsForm({setHaveEmails}) {
+
+export default function EmailsForm({setHaveEmails,idproduct}) {
   const [email, setEmail] = useState("");
   const [emails, setEmails] = useState([]);
   const [error, setError] = useState("");
 
+  const {session,setSession,empresa}=useAuth();
   const handleChange = (e) => {
     setEmail(e.target.value);
     setError("");
     
   };
 
+
+
+  
   const handleAddEmails = () => {
     const emailList = email.split(/[ ,;]+/); // Expresión regular para separar por espacios, comas y puntos y comas
     const validEmails = [];
@@ -47,11 +54,55 @@ export default function EmailsForm({setHaveEmails}) {
     setEmails(updatedEmails);
   };
 
-  const handleSendEmails = () => {
-    // Aquí puedes realizar la lógica para enviar los correos electrónicos al servidor
-    console.log("Correos electrónicos enviados:", emails);
-    setHaveEmails(emails);
-  };
+  // const handleSendEmails = () => {
+  //   // Aquí puedes realizar la lógica para enviar los correos electrónicos al servidor
+  //   console.log("Correos electrónicos enviados:", emails);
+  //   sendEmails
+  //   setHaveEmails(emails);
+
+  // };
+
+  async function handleSendEmails() {
+
+    const listEmails = emails?.map(correo => {
+      return { "sCorreo": correo };
+    });
+
+    console.log("Correos electrónicos enviados:", listEmails);
+
+    let body = {
+      oResults: {
+        iIdExtBanc:1,
+        iIdPais: 1,
+        oCorreo:listEmails
+
+      },
+    };
+
+    try {
+      let token=session?.sToken;
+    
+      let responseData = await fetchConTokenPost("dev/BPasS/?Accion=RegistrarCorreoExtBancario", body, token);
+      console.log("emailsrespon",responseData);
+
+      if (responseData.oAuditResponse?.iCode === 1) {
+        // const data= responseData.oResults;
+        setHaveEmails(true);
+
+      } 
+      else {
+      const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
+      console.log("errok, ",errorMessage);
+      // let refresh= await refresToken(token);
+      // return refresh;
+      }
+    } catch (error) {
+      console.error("error", error);
+
+    }
+  }
+
+
 
   return (
     <div className="emailsFormContainer">
