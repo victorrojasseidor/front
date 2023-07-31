@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Link from 'next/link'
 import LayoutLogin from '@/Components/LayoutLogin'
-import '../../../styles/styles.scss'
 import { Formik, Field, ErrorMessage } from 'formik'
 import React, { useState } from 'react'
 import Image from 'next/image'
