@@ -8,8 +8,6 @@ import Image from 'next/image'
 import logo from '../../../public/img/logoseidor.png'
 
 export default function changePassword () {
-
-
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -60,7 +58,7 @@ export default function changePassword () {
         >
           {({ isSubmitting }) => (
             <form className='form-container'>
-              <div className="input-box">
+              <div className='input-box'>
                 <Field type='email' name='corporateEmail' placeholder=' ' />
                 <label htmlFor='corporateEmail'> Company email</label>
                 <ErrorMessage

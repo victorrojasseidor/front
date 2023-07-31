@@ -62,7 +62,7 @@ export default function UpdatePassword () {
         >
           {({ isSubmitting }) => (
             <form className='form-container'>
-              <div className="input-box">
+              <div className='input-box'>
                 <span
                   className='iconPassword'
                   onClick={togglePasswordVisibility}
@@ -83,7 +83,7 @@ export default function UpdatePassword () {
                 />
               </div>
 
-              <div className="input-box">
+              <div className='input-box'>
                 <span
                   className='iconPassword'
                   onClick={toggleConfirmPasswordVisibility}

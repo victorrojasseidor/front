@@ -1,11 +1,10 @@
-
-export const validateFormRegister= (values) => {
-  const errors = {};
+export const validateFormRegister = (values) => {
+  const errors = {}
 
   if (!values.name) {
-    errors.name = "The name is required";
+    errors.name = 'The name is required'
   } else if (!/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.name)) {
-    errors.name = "Your name must not contain numbers or other special characters,allow up to 2 names";
+    errors.name = 'Your name must not contain numbers or other special characters,allow up to 2 names'
   }
 
   // if (!values.lastName) {
@@ -14,14 +13,14 @@ export const validateFormRegister= (values) => {
   //   errors.lastName = 'Your Surnames must not contain numbers or other special characters, allow up to 2 surnames';
   // }
 
-  if (values.lastName && values.lastName.trim() !== "" && !/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
-    errors.lastName = "Your Surnames must not contain numbers or other special characters, allow up to 2 surnames";
+  if (values.lastName && values.lastName.trim() !== '' && !/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
+    errors.lastName = 'Your Surnames must not contain numbers or other special characters, allow up to 2 surnames'
   }
 
   if (!values.corporateEmail) {
-    errors.corporateEmail = "Corporate email is required";
+    errors.corporateEmail = 'Corporate email is required'
   } else if (!/^(?!.*@(?:hotmail\.com|yahoo\.com |outlook\.com)$)([\w.%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/.test(values.corporateEmail)) {
-    errors.corporateEmail = "The email must be from the company";
+    errors.corporateEmail = 'The email must be from the company'
   }
 
   // if (!values.phoneNumber) {
@@ -31,76 +30,68 @@ export const validateFormRegister= (values) => {
   // }
 
   if (values.phoneNumber && !/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(values.phoneNumber)) {
-    errors.phoneNumber = "Phone phone must contain numbers";
+    errors.phoneNumber = 'Phone phone must contain numbers'
   }
 
   if (!values.password) {
-    errors.password = "Password is required";
+    errors.password = 'Password is required'
   } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(values.password)) {
-    errors.password = "The password must have more than 8 characters between uppercase";
+    errors.password = 'The password must have more than 8 characters between uppercase'
   }
 
   if (!values.confirmPassword) {
-    errors.confirmPassword = "Password confirmation is required";
+    errors.confirmPassword = 'Password confirmation is required'
   } else if (values.password !== values.confirmPassword) {
-    errors.confirmPassword = "Passwords do not match";
+    errors.confirmPassword = 'Passwords do not match'
   }
 
   if (!values.acceptTerms) {
-    errors.acceptTerms = "You must accept the terms and conditions.";
+    errors.acceptTerms = 'You must accept the terms and conditions.'
   }
 
-  return errors;
-};
+  return errors
+}
 
-export const validateFormLogin= (values) => {
-  const errors = {};
+export const validateFormLogin = (values) => {
+  const errors = {}
 
- 
   if (!values.corporateEmail) {
-    errors.corporateEmail = "Corporate email is required";
+    errors.corporateEmail = 'Corporate email is required'
   } else if (!/^(?!.*@(?:hotmail\.com|yahoo\.com |outlook\.com)$)([\w.%+-]+@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})$/.test(values.corporateEmail)) {
-    errors.corporateEmail = "The email must be from the company";
+    errors.corporateEmail = 'The email must be from the company'
   }
 
-  
   if (!values.password) {
-    errors.password = "Password is required";
+    errors.password = 'Password is required'
   } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(values.password)) {
-    errors.password = "The password must have more than 8 characters between uppercase";
+    errors.password = 'The password must have more than 8 characters between uppercase'
   }
- 
 
+  return errors
+}
 
-  return errors;
-};
-
-
-export const validateFormprofilestart= (values) => {
-  const errors = {};
+export const validateFormprofilestart = (values) => {
+  const errors = {}
 
   if (!values.lastName) {
-    errors.lastName = 'Last Name is required';
+    errors.lastName = 'Last Name is required'
   } else if (!/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
-    errors.lastName = 'Your Surnames must not contain numbers or other special characters, allow up to 2 surnames';
+    errors.lastName = 'Your Surnames must not contain numbers or other special characters, allow up to 2 surnames'
   }
 
-  if (values.lastName && values.lastName.trim() !== "" && !/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
-    errors.lastName = "Your Surnames must not contain numbers or other special characters, allow up to 2 surnames";
+  if (values.lastName && values.lastName.trim() !== '' && !/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
+    errors.lastName = 'Your Surnames must not contain numbers or other special characters, allow up to 2 surnames'
   }
-
 
   if (!values.phoneNumber) {
-    errors.phoneNumber = 'Phone number is required';
+    errors.phoneNumber = 'Phone number is required'
   } else if (!/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(values.phoneNumber)) {
-    errors.phoneNumber = 'Phone phone must contain numbers';
+    errors.phoneNumber = 'Phone phone must contain numbers'
   }
 
   if (values.phoneNumber && !/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(values.phoneNumber)) {
-    errors.phoneNumber = "Phone phone must contain numbers";
+    errors.phoneNumber = 'Phone phone must contain numbers'
   }
 
-
-
-  return errors;
-};
+  return errors
+}

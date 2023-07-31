@@ -49,8 +49,6 @@ const countryOptions = [
   { value: '+58', label: 'Venezuela (+58)' }
 ]
 
-
-
 const countries = [
   { label: 'Perú', value: 'Perú' },
   { label: 'Argentina', value: 'Argentina' },
@@ -65,10 +63,10 @@ const countries = [
   { label: 'Mexico', value: 'Mexico' },
   { label: 'Spain', value: 'Spain' },
   { label: 'United Kingdom', value: 'United Kingdom' },
-  { label: 'United States', value: 'United States' },
-];
+  { label: 'United States', value: 'United States' }
+]
 
 export {
   countries, countryOptions
 
-};
+}
