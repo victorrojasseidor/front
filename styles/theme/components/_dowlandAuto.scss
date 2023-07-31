@@ -289,3 +289,41 @@ p {
     }
   }
 }
+
+.Form-listCredential{
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  h2{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+.state-box{
+  display: flex;
+  gap: 1rem;
+  .content{
+    display: flex;
+    width: 100%;
+    gap:1rem;
+    justify-content: space-around;
+  }
+}
+
+.country-box,.bank-box{
+padding: 1rem 0rem;
+}
+
+.submit-box{
+  width: 100%;
+  display:flex;
+  justify-content:space-around;
+  align-items: center;
+  align-content: center;
+}
+
+}

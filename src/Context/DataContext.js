@@ -25,8 +25,7 @@ export const DataContextProvider = ({ children }) => {
   const [session, setSession] = useState(null);
   const [empresa, setEmpresa] = useState("");
 
-  console.log("empresa",empresa);
-
+  // console.log("empresa",empresa);
  
   // lang
   const locale = 'en';
@@ -71,7 +70,7 @@ export const DataContextProvider = ({ children }) => {
 
   useEffect(() => {
     const storedEmpresa = localStorage.getItem("selectedEmpresa");
-    console.log("empresanelelocal",storedEmpresa);
+    // console.log("empresanelelocal",storedEmpresa);
     if (storedEmpresa) {
       setEmpresa(storedEmpresa);
     } else {

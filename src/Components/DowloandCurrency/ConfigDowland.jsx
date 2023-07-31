@@ -4,6 +4,8 @@ import ImageSvg from "@/helpers/ImageSVG";
 import AddCredentials from "./AddCredentials";
 import { useAuth } from "@/Context/DataContext";
 import { fetchConTokenPost } from "@/helpers/fetch";
+import Loading from "../Atoms/Loading";
+import RefreshToken from "../RefresToken";
 
 export default function ConfigDowland() {
   const [haveEmails, setHaveEmails] = useState(true); //hay correos ?
@@ -11,18 +13,75 @@ export default function ConfigDowland() {
   const [isEditing, setIsEditing] = useState(null);
   const [emails, setEmails] = useState([]);
   const [data, setData] = useState(null);
+  const [modalToken, SetModalToken] = useState(false);
+  const [showForm, SetShowForm] = useState(false);
 
   const { session, setSession, empresa } = useAuth();
-  console.log(session);
 
-  const handleAgregar = (values) => {
-    const newRow = {
-      id: data.length + 1,
-      ...values,
+
+  async function handleAgregar(values) {
+    console.log("values",values);
+    let body = {
+      oResults: {
+        iIdEmpresa: 1,
+        iIdEmpresa: 1,
+        sName:values.name ,
+        iIdPais: 1,
+        iBanco:values.bank.id,
+        sPassword: "123456789",
+        sCredencial: "Credencial",
+        sCredencial2: "Credencial2",
+        sCredencial3: "Credencial3",
+        sCredencial4: "Credencial4",
+        bCodeEnabled: values.state==="Active"?true:false
+      },
     };
-    setData((prevData) => [...prevData, newRow]);
-  };
 
+    console.log("bodyconsultarproducto", body);
+
+    try {
+      let token = session.sToken;
+
+      let responseData = await fetchConTokenPost("dev/BPasS/?Accion=RegistrarExtBancario", body, token);
+
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const data = responseData.oResults;
+        SetModalToken(false);
+        SetShowForm(false);
+      //   const newRow = {
+      //         id: data.length + 1,
+      //         ...body,
+      //       };
+      // setData((prevData) => [...prevData, newRow]);
+
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
+        console.log("errok, ", errorMessage);
+        SetModalToken(true);
+        SetShowForm(true);
+    
+      }
+    } catch (error) {
+      console.error("error", error);
+      SetModalToken(true);
+      SetShowForm(true);
+      // setStatus("Service error");
+    }
+  }
+
+
+  
+  // const handleAgregar = (values) => {
+  //  console.log(values) ;
+
+  //   const newRow = {
+  //     id: dataprev.length + 1,
+  //     ...values,
+  //   };
+  //   setDataprev((prevData) => [...prevData, newRow]);
+  // };
+
+ 
   const handleEdit = (user) => {
     console.log("handledit", user);
     setIinitialEdit(user);
@@ -30,25 +89,22 @@ export default function ConfigDowland() {
     setIsEditing(true);
   };
 
-  // console.log("user",initialEdit);
 
-  const handleEliminar = (id) => {
-    setData((prevData) => prevData.filter((row) => row.id !== id));
-  };
+  // const handleEliminar = (id) => {
+  //   setData((prevData) => prevData.filter((row) => row.id !== id));
+  // };
 
-  const handleUpdate = (updatedRecord) => {
-    // Actualiza el estado 'data' con el registro editado
-    setData((prevData) => prevData.map((row) => (row.id === updatedRecord.id ? updatedRecord : row)));
-    setCurrentRecord(null);
-    setIsEditing(false);
-  };
+  // const handleUpdate = (updatedRecord) => {
+  //   // Actualiza el estado 'data' con el registro editado
+  //   setData((prevData) => prevData.map((row) => (row.id === updatedRecord.id ? updatedRecord : row)));
+  //   setCurrentRecord(null);
+  //   setIsEditing(false);
+  // };
 
   useEffect(() => {
     if (session) {
-      setTimeout(() => {
-        getDataConfigured();
-      }, 100);
-    }
+         getDataConfigured();
+        }
   }, [session]);
 
   async function getDataConfigured() {
@@ -59,33 +115,45 @@ export default function ConfigDowland() {
       },
     };
 
-    console.log("bodyconsultarproducto", body);
-
     try {
       let token = session.sToken;
 
       let responseData = await fetchConTokenPost("dev/BPasS/?Accion=GetExtBancario", body, token);
-      console.log("data", responseData);
-
+      
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setData(data);
-        // setEmails(oCorreoEB);
+        SetModalToken(false);
+
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
         console.log("errok, ", errorMessage);
+        
+        SetModalToken(true);
         // setStatus(errorMessage);
       }
     } catch (error) {
       console.error("error", error);
+      
+      SetModalToken(true);
       // setStatus("Service error");
     }
   }
 
-  useEffect(() => {
-    if (data) {
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (!data) {
+  //     return (
+  //     <Loading/>
+  //     )
+  //   }
+  // }, [data]);
+
+  const toggleForm = () => {
+    SetShowForm(!showForm);
+  };
+ 
+
+
 
   return (
     <section className="config-Automated">
@@ -126,7 +194,7 @@ export default function ConfigDowland() {
             <div className="box-search">
               <h3>List Bank Credential</h3>
               {/* <div>Search</div> */}
-              <button className="btn_black">+ Add Bank</button>
+              <button className="btn_black" onClick={toggleForm}>{showForm? 'Close Form list' : 'Add list Bank'}</button>
             </div>
             <div className="boards">
               <div className="tableContainer">
@@ -148,16 +216,15 @@ export default function ConfigDowland() {
                         <td>{row.usuario}</td>
                         <td>{row.id_banco}</td>
                         <td>{"Perú"}</td>
-                        { console.log(row.estado_c)}
-                        <td>
+                          <td>
                           <span className={row.estado_c == "23" ? "status-active" : "status-disabled"}>{row.estado_c == "23" ? "Active" : "Disabled"}</span>
                         </td>
                         <td className="box-actions">
-                          <button className="btn_crud" onClick={() => handleEdit(row)}>
+                          <button className="btn_crud" style={{display:'none'}} onClick={() => handleEdit(row)}>
                             {" "}
                             <ImageSvg name="Edit" />{" "}
                           </button>
-                          <button className="btn_crud" onClick={() => handleEliminar(row.id_banco_credencial)}>
+                          <button className="btn_crud"  style={{display:'none'}} onClick={() => handleEliminar(row.id_banco_credencial)}>
                             {" "}
                             <ImageSvg name="Delete" />
                           </button>
@@ -167,12 +234,15 @@ export default function ConfigDowland() {
                   </tbody>
                 </table>
               </div>
-              <AddCredentials
+              { showForm && ( <AddCredentials
                 onAgregar={handleAgregar}
                 dataUser={data}
                 initialVal={isEditing ? initialEdit : null}
-                onSubmit={handleUpdate} // Pasa la función handleUpdate para la edición
-              />
+                // onSubmit={handleUpdate} // Pasa la función handleUpdate para la edición
+              />)
+                
+              }
+              
             </div>
           </div>
         </div>
@@ -185,6 +255,9 @@ export default function ConfigDowland() {
           <EmailsForm setHaveEmails={setHaveEmails} idproduct={1} />
         </div>
       )}
+      <div>
+      <div>{modalToken && session && <RefreshToken tok={session?.sToken} />}</div>
+      </div>
     </section>
   );
 }
