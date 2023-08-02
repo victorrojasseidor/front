@@ -24,6 +24,7 @@ export const DataContextProvider = ({ children }) => {
   // State para almacenar los datos del usuario
   const [session, setSession] = useState(null)
   const [empresa, setEmpresa] = useState('')
+  const [modalToken, setModalToken] = useState(false)
 
   // console.log("empresa",empresa);
 
@@ -94,6 +95,8 @@ export const DataContextProvider = ({ children }) => {
         logout,
         empresa,
         setEmpresa,
+        modalToken,
+        setModalToken,
         t
       }}
     >

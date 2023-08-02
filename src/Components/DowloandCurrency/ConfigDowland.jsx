@@ -1,75 +1,69 @@
-import React, { useState, useEffect } from "react";
-import EmailsForm from "./EmailsForm";
-import ImageSvg from "@/helpers/ImageSVG";
-import AddCredentials from "./AddCredentials";
-import { useAuth } from "@/Context/DataContext";
-import { fetchConTokenPost } from "@/helpers/fetch";
-import Loading from "../Atoms/Loading";
-import RefreshToken from "../RefresToken";
+/* eslint-disable eqeqeq */
+/* eslint-disable multiline-ternary */
+import React, { useState, useEffect } from 'react'
+import EmailsForm from './EmailsForm'
+import ImageSvg from '@/helpers/ImageSVG'
+import AddCredentials from './AddCredentials'
+import { useAuth } from '@/Context/DataContext'
+import { fetchConTokenPost } from '@/helpers/fetch'
 
-export default function ConfigDowland() {
-  const [haveEmails, setHaveEmails] = useState(true); //hay correos ?
-  const [initialEdit, setIinitialEdit] = useState(null);
-  const [isEditing, setIsEditing] = useState(null);
-  const [emails, setEmails] = useState([]);
-  const [data, setData] = useState(null);
-  const [modalToken, SetModalToken] = useState(false);
-  const [showForm, SetShowForm] = useState(false);
+export default function ConfigDowland () {
+  const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
+  const [initialEdit, setIinitialEdit] = useState(null)
+  const [isEditing, setIsEditing] = useState(null)
+  const [emails, setEmails] = useState([])
+  const [data, setData] = useState(null)
+  const [showForm, setShowForm] = useState(false)
 
-  const { session, setSession, empresa } = useAuth();
+  const { session, setSession, empresa, setModalToken } = useAuth()
 
-
-  async function handleAgregar(values) {
-    console.log("values",values);
-    let body = {
+  async function handleAgregar (values) {
+    console.log('values', values)
+    const body = {
       oResults: {
-        iIdEmpresa:5,
-        sName:values.name ,
+        iIdEmpresa: 5,
+        sName: values.name,
         iIdPais: 1,
-        iBanco:values.bank.id,
-        sPassword: "123456789",
-        sCredencial: "Credencial",
-        sCredencial2: "Credencial2",
-        sCredencial3: "Credencial3",
-        sCredencial4: "Credencial4",
-        bCodeEnabled: values.state==="Active"?true:false
-      },
-    };
+        iBanco: values.bank.id,
+        sPassword: '123456789',
+        sCredencial: 'Credencial',
+        sCredencial2: 'Credencial2',
+        sCredencial3: 'Credencial3',
+        sCredencial4: 'Credencial4',
+        bCodeEnabled: values.state === 'Active'
+      }
+    }
 
-    console.log("bodyconsultarproducto", body);
+    console.log('bodyconsultarproducto', body)
 
     try {
-      let token = session.sToken;
+      const token = session.sToken
 
-      let responseData = await fetchConTokenPost("dev/BPasS/?Accion=RegistrarExtBancario", body, token);
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarExtBancario', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
-        const data = responseData.oResults;
-        SetModalToken(false);
-        SetShowForm(false);
-      //   const newRow = {
-      //         id: data.length + 1,
-      //         ...body,
-      //       };
-      // setData((prevData) => [...prevData, newRow]);
-
+        const data = responseData.oResults
+        setModalToken(false)
+        setShowForm(false)
+        //   const newRow = {
+        //         id: data.length + 1,
+        //         ...body,
+        //       };
+        // setData((prevData) => [...prevData, newRow]);
       } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
-        console.log("errok, ", errorMessage);
-        SetModalToken(true);
-        SetShowForm(true);
-    
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        console.log('errok, ', errorMessage)
+        setModalToken(true)
+        setShowForm(true)
       }
     } catch (error) {
-      console.error("error", error);
-      SetModalToken(true);
-      SetShowForm(true);
+      console.error('error', error)
+      setModalToken(true)
+      setShowForm(true)
       // setStatus("Service error");
     }
   }
 
-
-  
   // const handleAgregar = (values) => {
   //  console.log(values) ;
 
@@ -80,14 +74,12 @@ export default function ConfigDowland() {
   //   setDataprev((prevData) => [...prevData, newRow]);
   // };
 
- 
   const handleEdit = (user) => {
-    console.log("handledit", user);
-    setIinitialEdit(user);
+    console.log('handledit', user)
+    setIinitialEdit(user)
 
-    setIsEditing(true);
-  };
-
+    setIsEditing(true)
+  }
 
   // const handleEliminar = (id) => {
   //   setData((prevData) => prevData.filter((row) => row.id !== id));
@@ -102,39 +94,38 @@ export default function ConfigDowland() {
 
   useEffect(() => {
     if (session) {
-         getDataConfigured();
-        }
-  }, [session]);
+      getDataConfigured()
+    }
+  }, [session])
 
-  async function getDataConfigured() {
-    let body = {
+  async function getDataConfigured () {
+    const body = {
       oResults: {
-        iIdExtBanc:5,
-        iIdPais: 1,
-      },
-    };
+        iIdExtBanc: 5,
+        iIdPais: 1
+      }
+    }
 
     try {
-      let token = session.sToken;
+      const token = session.sToken
 
-      let responseData = await fetchConTokenPost("dev/BPasS/?Accion=GetExtBancario", body, token);
-      
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+
       if (responseData.oAuditResponse?.iCode === 1) {
-        const data = responseData.oResults;
-        setData(data);
-        SetModalToken(false);
-
+        const data = responseData.oResults
+        setData(data)
+        setModalToken(false)
       } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : "Error in sending the form";
-        console.log("errok, ", errorMessage);
-        
-        SetModalToken(true);
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        console.log('errok, ', errorMessage)
+
+        setModalToken(true)
         // setStatus(errorMessage);
       }
     } catch (error) {
-      console.error("error", error);
-      
-      SetModalToken(true);
+      console.error('error', error)
+
+      setModalToken(true)
       // setStatus("Service error");
     }
   }
@@ -148,18 +139,15 @@ export default function ConfigDowland() {
   // }, [data]);
 
   const toggleForm = () => {
-    SetShowForm(!showForm);
-  };
- 
-
-
+    setShowForm(!showForm)
+  }
 
   return (
-    <section className="config-Automated">
-      {haveEmails && data?.oCorreoEB.length >= 3 ? (
-        <div className="config-Automated--tables">
-          <div className="container-status">
-            <div className="status-config">
+    <section className='config-Automated'>
+      {haveEmails && data?.oCorreoEB.length >= 1 ? (
+        <div className='config-Automated--tables'>
+          <div className='container-status'>
+            <div className='status-config'>
               <ul>
                 <li>
                   <p>Start service :</p>
@@ -171,33 +159,33 @@ export default function ConfigDowland() {
                 </li>
                 <li>
                   <p>State :</p>
-                  <p className="Active">Active</p>
+                  <p className='Active'>Active</p>
                 </li>
               </ul>
             </div>
-            <div className="box-emails">
+            <div className='box-emails'>
               <h5>Emails for notifications</h5>
-              <div className="card--emails">
+              <div className='card--emails'>
                 <div>
                   {data?.oCorreoEB.map((email) => (
                     <p key={email.correo_cc}>{email.correo_cc}</p>
                   ))}
                 </div>
-                <button className="btn_crud" onClick={() => setHaveEmails(false)}>
-                  <ImageSvg name="Edit" />
+                <button className='btn_crud' onClick={() => setHaveEmails(false)}>
+                  <ImageSvg name='Edit' />
                 </button>
               </div>
             </div>
           </div>
-          <div className="contaniner-tables">
-            <div className="box-search">
+          <div className='contaniner-tables'>
+            <div className='box-search'>
               <h3>List Bank Credential</h3>
               {/* <div>Search</div> */}
-              <button className="btn_black" onClick={toggleForm}>{showForm? 'Close Form list' : 'Add list Bank'}</button>
+              <button className='btn_black' onClick={toggleForm}>{showForm ? 'Close Form list' : 'Add list Bank'}</button>
             </div>
-            <div className="boards">
-              <div className="tableContainer">
-                <table className="dataTable">
+            <div className='boards'>
+              <div className='tableContainer'>
+                <table className='dataTable'>
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -214,18 +202,18 @@ export default function ConfigDowland() {
                         <td>{row.nombre}</td>
                         <td>{row.usuario}</td>
                         <td>{row.id_banco}</td>
-                        <td>{"Perú"}</td>
-                          <td>
-                          <span className={row.estado_c == "23" ? "status-active" : "status-disabled"}>{row.estado_c == "23" ? "Active" : "Disabled"}</span>
+                        <td>Perú</td>
+                        <td>
+                          <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
                         </td>
-                        <td className="box-actions">
-                          <button className="btn_crud" style={{display:'none'}} onClick={() => handleEdit(row)}>
-                            {" "}
-                            <ImageSvg name="Edit" />{" "}
+                        <td className='box-actions'>
+                          <button className='btn_crud' style={{ display: 'none' }} onClick={() => handleEdit(row)}>
+                            {' '}
+                            <ImageSvg name='Edit' />{' '}
                           </button>
-                          <button className="btn_crud"  style={{display:'none'}} onClick={() => handleEliminar(row.id_banco_credencial)}>
-                            {" "}
-                            <ImageSvg name="Delete" />
+                          <button className='btn_crud' style={{ display: 'none' }} onClick={() => handleEliminar(row.id_banco_credencial)}>
+                            {' '}
+                            <ImageSvg name='Delete' />
                           </button>
                         </td>
                       </tr>
@@ -233,30 +221,24 @@ export default function ConfigDowland() {
                   </tbody>
                 </table>
               </div>
-              { showForm && ( <AddCredentials
+              {showForm && (<AddCredentials
                 onAgregar={handleAgregar}
                 dataUser={data}
                 initialVal={isEditing ? initialEdit : null}
-                // onSubmit={handleUpdate} // Pasa la función handleUpdate para la edición
-              />)
-                
-              }
-              
+                            />)}
             </div>
           </div>
         </div>
       ) : (
-        <div className="config-Automated--emails">
+        <div className='config-Automated--emails'>
           <h3> Register emails</h3>
-          <div className="description">
+          <div className='description'>
             Add the emails to notify to <b> Download automated Bank Statements </b>
           </div>
           <EmailsForm setHaveEmails={setHaveEmails} idproduct={1} />
         </div>
       )}
-      <div>
-      <div>{modalToken && session && <RefreshToken tok={session?.sToken} />}</div>
-      </div>
+      <div />
     </section>
-  );
+  )
 }

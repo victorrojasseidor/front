@@ -53,7 +53,9 @@
 .tab-content {
   border: 1px solid get-color(forms_s6);
   padding: 1em;
-  border-radius: brd(1);
+  // border-radius: brd(1);
+  border-radius: 0 0 10px 10px;
+  min-height: 58.5vh;
 
   width: 100%;
   p {
@@ -273,6 +275,7 @@
   
   .tabContent {
     padding: 0.5em;
+   
       width: 100%;
     p {
       color: get-color(grey2_s4);

@@ -1,5 +1,5 @@
-import { DataContextProvider } from '@/Context/DataContext'
-import React, { useState,useEffect } from 'react'
+import { DataContextProvider, useAuth } from '@/Context/DataContext'
+import React, { useState, useEffect } from 'react'
 import logo from '../../../public/img/logoseidor.png'
 import imgProfilestart from '../../../public/img/profilestart.png'
 import en from '../../../public/icons/eeuu.svg'
@@ -8,52 +8,46 @@ import Image from 'next/image'
 import ImageSvg from '@/helpers/ImageSVG'
 import ProgressRegister from '@/Components/progressRegister'
 import Loading from '@/Components/Atoms/Loading'
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/Context/DataContext";
+import { useRouter } from 'next/navigation'
 
-export default function Profilestart ( ) {
+export default function Profilestart () {
   const [isSpanish, setIsSpanish] = useState(false)
-  const [user, setUser] = useState({ });
-  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState({ })
+  const [isLoading, setIsLoading] = useState(true)
 
-  const { session, setSession,logout } = useAuth();
-  console.log("😍lprofilestar", session);
+  const { session, setSession, logout } = useAuth()
+  console.log('😍lprofilestar', session)
 
   useEffect(() => {
-         const localStorageData = JSON.parse(localStorage.getItem('user'));
-      setUser(localStorageData);
-      if (localStorageData) {
-        setIsLoading(false);
-      }
+    const localStorageData = JSON.parse(localStorage.getItem('user'))
+    setUser(localStorageData)
+    if (localStorageData) {
+      setIsLoading(false)
+    }
+  }, [])
 
-  }, []);
-
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
     if (!session) {
-      router.push("/login");
+      router.push('/login')
     }
-  }, [session]); 
+  }, [session])
 
-const handleClick = () => {
+  const handleClick = () => {
     setIsSpanish(!isSpanish)
     // Aquí puedes realizar acciones adicionales según el idioma seleccionado
   }
 
-
   const handleLogout = () => {
-    logout();
-  };
-
-
+    logout()
+  }
 
   if (isLoading) {
     return (
-      <Loading/>
-    );
+      <Loading />
+    )
   }
-
 
   return (
     <DataContextProvider>
@@ -61,13 +55,14 @@ const handleClick = () => {
         <section className='discover'>
           <Image src={logo} width={1000} alt='imgRegister' />
           <div className='box-descriptions'>
-          <h3>Discover a new way to optimize your financial operations.</h3>
-          <div> 
-            Innovation is the key to efficiency and speed in your financial processes.
-          Our robots collaborate to provide you with the best service, so you don't have to worry about a thing.</div>
+            <h3>Discover a new way to optimize your financial operations.</h3>
+            <div>
+              Innovation is the key to efficiency and speed in your financial processes.
+              Our robots collaborate to provide you with the best service, so you don't have to worry about a thing.
+            </div>
 
           </div>
-         
+
           <Image src={imgProfilestart} width={280} alt='imgProfilestart' />
         </section>
 
@@ -89,12 +84,12 @@ const handleClick = () => {
                   {isSpanish ? 'Español' : 'English'} <ImageSvg name='Change' />
                 </button>
               </div>
-              <button className='btn_icons'  onClick={handleLogout}>
-              
-                  <ImageSvg name='SignOut' />
-               
+              <button className='btn_icons' onClick={handleLogout}>
+
+                <ImageSvg name='SignOut' />
+
               </button>
-            </fieldset> 
+            </fieldset>
           </nav>
           <section className='formProfile'>
             <div>
@@ -104,7 +99,7 @@ const handleClick = () => {
 
             <div>
               {/* <Tabs /> */}
-              <ProgressRegister userData={session}/>
+              <ProgressRegister userData={session} />
             </div>
           </section>
         </section>
@@ -112,20 +107,3 @@ const handleClick = () => {
     </DataContextProvider>
   )
 }
-
-
-// export async function getStaticProps() {
-//   let apiData = {};
-
-//   // Verificar si estamos en el navegador (cliente) antes de intentar acceder a localStorage
-//   if (typeof window !== 'undefined') {
-//     const localStorageData = localStorage.getItem('user');
-//     apiData = JSON.parse(localStorageData) || {};
-//   }
-
-//   return {
-//     props: {
-//       apiData,
-//     },
-//   };
-// }

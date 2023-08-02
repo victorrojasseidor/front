@@ -1,111 +1,108 @@
-import React, { useEffect, useState } from "react";
-import Modal from "@/Components/Modal";
-import Login from "..";
-import ImageSvg from "@/helpers/ImageSVG";
-import { useRouter } from "next/router";
-import { fetchConTokenPost } from "@/helpers/fetch";
-import Loading from "@/Components/Atoms/Loading";
-import { refresToken } from "@/helpers/auth";
+import React, { useEffect, useState } from 'react'
+import Modal from '@/Components/Modal'
+import Login from '..'
+import ImageSvg from '@/helpers/ImageSVG'
+import { useRouter } from 'next/router'
+import { fetchConTokenPost } from '@/helpers/fetch'
+import Loading from '@/Components/Atoms/Loading'
+import { refresToken } from '@/helpers/auth'
 
-
-function LoginConfirmed( ) {
-  const router = useRouter();
+function LoginConfirmed () {
+  const router = useRouter()
 
   // Capturar el valor del token desde la ruta actual
-  const [isEmail, setIsEmail] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isconfirmed, setIsconfirmed] = useState(false);
-  const [error, setError] = useState(null);
-  const [show, setShow] = useState(true);
+  const [isEmail, setIsEmail] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isconfirmed, setIsconfirmed] = useState(false)
+  const [error, setError] = useState(null)
+  const [show, setShow] = useState(true)
 
-  async function handleSubmit(email, token) {
-    let body = {
+  async function handleSubmit (email, token) {
+    const body = {
       oResults: {
-        sEmail: email,
-      },
-    };
+        sEmail: email
+      }
+    }
 
     try {
-      let responseData = await fetchConTokenPost("dev/General/?Accion=RegistrarUsuarioPendConf", body, token);
+      const responseData = await fetchConTokenPost('dev/General/?Accion=RegistrarUsuarioPendConf', body, token)
 
       // console.log("💻", responseData.oAuditResponse);
 
       if (responseData.oAuditResponse.iCode == 29 || responseData.oAuditResponse.iCode == 1) {
-        setIsconfirmed(true);
-        setError(null);
+        setIsconfirmed(true)
+        setError(null)
         setTimeout(() => {
-          setShow(false);
-        }, 10000);
-      
+          setShow(false)
+        }, 10000)
       } else {
-        let message = responseData?.oAuditResponse.sMessage;
+        const message = responseData?.oAuditResponse.sMessage
         // const mensajeAntesDeComa = message.substring(0, message.indexOf(","));
-        setError(message);
-        let refresh= await refresToken(token);
-        return refresh;
-
+        setError(message)
+        const refresh = await refresToken(token)
+        return refresh
       }
     } catch (error) {
-      console.error("Error:", error);
-      throw new Error("Hubo un error en la operación asincrónica.");
+      console.error('Error:', error)
+      throw new Error('Hubo un error en la operación asincrónica.')
     }
   }
 
   if (show) {
     setTimeout(() => {
-      const tok = router.query.token;
-      const correo = router.query.correo;
+      const tok = router.query.token
+      const correo = router.query.correo
       if (correo && tok) {
-        setIsLoading(false);
-        setIsEmail(correo);
+        setIsLoading(false)
+        setIsEmail(correo)
       }
 
-      handleSubmit(correo, tok);
-    }, 1000);
+      handleSubmit(correo, tok)
+    }, 1000)
   }
 
   if (isLoading) {
     return (
-      <Loading/>
-    );
+      <Loading />
+    )
   }
 
   const handleCloseModal = () => {
     setShow(!show)
   }
 
-
   return (
     <section>
       <Login />
-      { show && <Modal >
-        {isconfirmed ? (
-          <div>
-            <ImageSvg name="Check" />
+      {show && <Modal close={() => setShow(false)}>
+        {isconfirmed
+          ? (
+            <div>
+              <ImageSvg name='Check' />
 
-            <p>Your email</p>
-            <h2>{isEmail}</h2>
-            <p>
-              was verified <span>&nbsp;successfully</span>
-            </p>
+              <p>Your email</p>
+              <h2>{isEmail}</h2>
+              <p>
+                was verified <span>&nbsp;successfully</span>
+              </p>
 
-            <div className="actions">
-              <button className="btn_primary small" onClick={handleCloseModal}>
-                NEXT
-              </button>
+              <div className='actions'>
+                <button className='btn_primary small' onClick={handleCloseModal}>
+                  NEXT
+                </button>
+              </div>
             </div>
-          </div>
-        ) : (
-          <div>
-            <ImageSvg name="ErrorMessage" />
-            <p className="errorMessage">{error}</p>
-          </div>
-        )}
-      </Modal>
-      }
-      
+            )
+          : (
+            <div>
+              <ImageSvg name='ErrorMessage' />
+              <p className='errorMessage'>{error}</p>
+            </div>
+            )}
+               </Modal>}
+
     </section>
-  );
+  )
 }
 
-export default LoginConfirmed;
+export default LoginConfirmed

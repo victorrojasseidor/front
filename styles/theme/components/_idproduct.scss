@@ -16,7 +16,7 @@
         width: 100%;
         background-color: get-color(white_s1);
         border-radius: brd(1);
-        box-shadow: bsh(2);
+        // box-shadow: bsh(2);
         h4{
             color:get-color(grey2_s4);
             font-weight: 500;
@@ -62,17 +62,26 @@
 
 .freetrial {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.5em;
+    // flex-direction: row; 
+    flex-wrap: wrap;  
+    width: 100%;
+   
+    @include media(desktop) {
+      flex-direction: row;   
+      gap: 1em;
+ 
+  
+      
+    }
 
     &_description{
-        // background-color: aqua;
         display: flex;
         align-items: center;
         flex-direction: column;
+        justify-content: center;
         gap:1em;
-      flex:1.5;
+      flex:1;
+      // width: 30%;
       span{
         color:get-color(lilac_p3);
       }
@@ -81,18 +90,28 @@
         text-align: center;
 
       }
+      img{
+        height: 6rem;
+        @include media(desktop) {
+          height: 10rem;
+          
+          
+        }
+      }
 
     }
 
     &_contact{
    
         flex:2;
+        width: 100%;
 
    
     }
 
     .send{
       display: flex;
+      width: 100%;
       align-items: center;
 
     }

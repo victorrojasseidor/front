@@ -16,7 +16,24 @@ async function refresToken (token) {
   }
 }
 
+async function getProducts (idEmpresa, token) {
+  const body = {
+    oResults: {
+      iIdEmpresa: idEmpresa,
+      iIdPais: 1
+    }
+  }
+
+  try {
+    const resp = await fetchConTokenPost('dev/BPasS/?Accion=ConsultaProductoEmpresa', body, token)
+    return resp
+  } catch (error) {
+    console.error('Error:', error)
+    throw new Error('Hubo un error en la operación asincrónica de token')
+  }
+}
+
 export {
-  refresToken
+  refresToken, getProducts
 
 }

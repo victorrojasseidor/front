@@ -1,86 +1,152 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import imgfree from "../../public/img/freetrial.png";
-import Image from "next/image";
-import { Formik, Field, ErrorMessage } from "formik";
-import { validateFormRegister } from "@/helpers/validateForms";
-import ImageSvg from "@/helpers/ImageSVG";
+import React, { useState, useEffect } from 'react'
+import imgfree from '../../public/img/freetrial.png'
+import Image from 'next/image'
+import { Formik, Field, ErrorMessage, Form } from 'formik'
+// import { validateFormRegister } from '@/helpers/validateForms'
+import { useAuth } from '@/Context/DataContext'
+import RefreshToken from './RefresToken'
+import { fetchConTokenPost } from '@/helpers/fetch'
+import Modal from './Modal'
 
-function FreeTrial(props) {
+function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
+  const [error, SetError] = useState(null)
+  const [confirm, SetConfirm] = useState(false)
+  const { session, setSession, empresa, setModalToken, modalToken } = useAuth()
 
- 
+  const productName = nameProduct || 'Downlaod automated Bank Statements'
 
-  const handleSubmit = (values) => {
-    // Realizar acción cuando el formulario es válido
-    console.log("Formulario válido", values);
-  };
+  // send frretrial
+  async function handleSubmit (values, { setSubmitting }) {
+    const body = {
+      oResults: {
+
+        sProd: 'EXT_BANC',
+        iIdProdEnv: 1,
+        sCorreo: values.corporateEmail,
+        sTitle: values.title,
+        sPhoneNumber: values.phoneNumber,
+        sMessage: values.message
+
+      }
+    }
+    console.log('values', body)
+
+    try {
+      const token = session?.sToken
+
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=SolicitarProducto', body, token)
+      console.log('fretrialsend', responseData)
+
+      if (responseData.oAuditResponse?.iCode === 1) {
+        // const data= responseData.oResults;
+        SetError(null)
+        SetConfirm(true)
+        setModalToken(false)
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        console.log('errok, ', errorMessage)
+
+        setModalToken(true)
+        SetConfirm(false)
+        SetError(errorMessage)
+      }
+    } catch (error) {
+      console.error('error', error)
+      SetConfirm(false)
+      SetError(error)
+      setSubmitting(false)
+      setModalToken(true)
+    }
+  }
+
+  console.log('confirm', confirm)
+  console.log('modalToken', modalToken)
 
   return (
-    <div className="freetrial">
-      <div className="freetrial_description">
-        <p>
-          {" "}
+    <div className='freetrial'>
+      <div className='freetrial_description'>
+        <div>
           The fastest and
           <span> safest </span>
           way to have the exchange rate registered in your ERP
-          <span> every day </span>.
-        </p>
+          <span> every day </span>
+
+        </div>
         <p>An expert will contact you</p>
 
-        <Image src={imgfree} width={200} alt="imgfreetrial" />
+        <Image src={imgfree} width={900} alt='imgfreetrial' />
       </div>
-      <div className="freetrial_contact">
+      <div className='freetrial_contact'>
         <Formik
           initialValues={{
-            corporateEmail: "menagenmurriagui@seidor.com",
-            password: "",
-            confirmPassword: "",
-            name: "I am interested Currency Exchange rates automation",
-            acceptTerms: false,
-            phoneNumber: "982 354 738",
+            corporateEmail: session.sCorreo,
+            title: `I am interested in ${productName}`,
+            phoneNumber: session.sPhoneNumber ? session.sPhoneNumber : 9,
+            message: ''
+
           }}
-          validationSchema={validateFormRegister}
+          // validationSchema={validateFormRegister}
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
-            <form className="form-container">
-              <div className="input-box">
-                <Field type="email" name="corporateEmail" placeholder=" " />
-                <label htmlFor="corporateEmail">Company email</label>
-                <ErrorMessage className="errorMessage" name="corporateEmail" component="div" />
+            <Form className='form-container'>
+              <div className='input-box'>
+                <Field type='email' name='corporateEmail' placeholder='' readOnly />
+                <label htmlFor='corporateEmail'>Company email</label>
+                <ErrorMessage className='errorMessage' name='corporateEmail' component='div' />
               </div>
 
-              <div className="input-box">
-                <Field type="text" name="title" placeholder=" " value="I am interested Currency Exchange rates automation" />
-                <label htmlFor="title"> Title </label>
-                <ErrorMessage className="errorMessage" name="title" component="div" />
+              <div className='input-box'>
+                <Field type='text' name='title' placeholder='' readOnly />
+                <label htmlFor='title'> Title </label>
+                <ErrorMessage className='errorMessage' name='title' component='div' />
               </div>
 
-              <div className="input-box">
-                <Field type="text" id="phoneNumber" name="phoneNumber" placeholder=" " value={"972 354 278"} />
-                <label htmlFor="phoneNumber">Phone Number</label>
-                <ErrorMessage className="errorMessage" name="phoneNumber" component="div" />
+              <div className='input-box'>
+                <Field type='tel' id='phoneNumber' name='phoneNumber' placeholder='' />
+                <label htmlFor='phoneNumber'>Phone Number</label>
+                <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
               </div>
 
-              <div className="input-box">
-                <Field type="text" name="name" placeholder="" value=" I am ...." />
-                <label htmlFor="name"> Message</label>
-                <ErrorMessage className="errorMessage" name="message" component="div" />
+              <div className='input-box'>
+
+                <textarea
+              // value={email}
+              // onChange={handleChange}
+                  placeholder=''
+                  rows={4}
+                  cols={40}
+                />
+                <label htmlFor='message'> Message</label>
+                <ErrorMessage className='errorMessage' name='message' component='div' />
               </div>
 
-              <div className="send">
-                <button className="btn_primary small" type="submit" disabled={isSubmitting}>
+              <div className='containerButton'>
+                <button className='btn_primary ' type='submit' disabled={isSubmitting}>
                   SEND
                 </button>
               </div>
-            </form>
+            </Form>
           )}
         </Formik>
+        {error && <p className='errorMessage'>{error} </p>}
+
+        {confirm && (
+          <Modal close={() => SetConfirm(false)}>
+            <div>
+              <h2>
+                Your request was sent successfully
+              </h2>
+
+              <p> We will contact you soon </p>
+            </div>
+          </Modal>
+        )}
+
       </div>
+
     </div>
-  );
+  )
 }
 
-FreeTrial.propTypes = {};
-
-export default FreeTrial;
+export default FreeTrial

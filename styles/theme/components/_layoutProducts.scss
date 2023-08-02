@@ -1,9 +1,21 @@
 .layoutProducts {
-  background-color: get-color(bg-cles);
+  /*background-color: get-color(bg-cles);*/
   display: flex;
   flex-direction: row;
-  gap: 2em;
-  height: 300vh;
+
+  height: 150vh;  
+  // // background-color: get-color(bg-cles);
+  background-image: src;
+  background-image: url("../../../public/img/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover,250vh;
+  @include media(tablet) {
+    gap: 2em; 
+
+
+    
+  }
+
 
   .menu {
     max-width: 200px;
@@ -12,15 +24,12 @@
     box-shadow: bsh(2);
     align-items: center;
     height: fit-content;
-    padding-bottom: 2em;
+    padding-bottom: 1em;
     position: fixed;
     left: 6px; /* Puedes ajustar este valor según tu diseño */
     z-index: 9999;
-    
-    // @include media(tablet) {
-    
-      
-    // }
+
+
 
     &_Account {
       padding: 1em;
@@ -60,7 +69,7 @@
       }
 
       img {
-        width: 80px;
+        width: 70px;
         border-radius: brd(f);
       }
 
@@ -75,7 +84,7 @@
     }
 
     &_nav {
-      padding: 1em;
+      padding: 0.5em 1em;
       display: flex;
       flex-direction: column;
 
@@ -93,6 +102,8 @@
           align-items: flex-start;
           color: get-color(grey2_s4);
           position: relative;
+          font-size: small;
+          
           svg {
             width: 20px;
             height: 20px;
@@ -104,10 +115,11 @@
           }
 
           &:focus,
-          &:hover {
+          &:hover ,.active{
             color: get-color(blue_p1);
             background-color: get-color(pink_s5);
             border-radius: brd(1);
+            font-weight: bold;
 
             a {
               color: get-color(blue_p1);
@@ -122,16 +134,47 @@
               height: 100%;
               background-color: get-color(blue_p1); /* Cambia este color al que desees */
             }
+           
+
+
+
+
           }
         }
       }
     }
+
+    .active{
+      color: get-color(blue_p1);
+      background-color: get-color(pink_s5);
+      border-radius: brd(1);
+      
+      a {
+        color: get-color(blue_p1);
+        font-weight:600;
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2px; /* Cambia este valor según el ancho del borde que desees */
+        height: 100%;
+        background-color: get-color(blue_p1); /* Cambia este color al que desees */
+      }
+    }
+
+
 
     &_logo {
       display: flex;
       justify-content: center;
       align-items: center;
       // padding: 1em;
+      img {
+        width: 70px;
+      }
     }
 
     &.menu-close {
@@ -234,3 +277,30 @@
   }
 }
 
+
+.perfil-select{
+  display: inline-block;
+  // background-image: linear-gradient(to left, get-color(blue_p1), get-color(t2-ligthBlue));
+  // border-radius: brd(2);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+  padding: 0.1em;
+  select {
+    height: 37px;
+    border: 1px solid transparent;
+    // border-radius: 8px;
+    padding: 0.3em;
+    color: get-color(black_p2);
+    font-weight: 500;
+    font-size: 0.8rem;
+    border-bottom: 1px solid get-color(grey1_s3);;
+   
+    option{
+      font-size: 1rem;
+      color: get-color(blue_p1);
+    }
+    
+  }
+}
