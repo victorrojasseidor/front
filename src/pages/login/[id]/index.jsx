@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Modal from '@/Components/Modal'
 import Login from '..'
 import ImageSvg from '@/helpers/ImageSVG'
@@ -99,7 +99,7 @@ function LoginConfirmed () {
               <p className='errorMessage'>{error}</p>
             </div>
             )}
-               </Modal>}
+      </Modal>}
 
     </section>
   )
