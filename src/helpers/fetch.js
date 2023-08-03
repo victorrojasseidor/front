@@ -36,7 +36,6 @@ const fetchNoTokenPost = async (endpoint, data) => {
 
 const fetchConTokenPost = async (endpoint, data, tok) => {
   const url = `${baseApiUrl}${endpoint}`
-  console.log('token', `SSd=${tok}`)
 
   try {
     const response = await fetch(url, {

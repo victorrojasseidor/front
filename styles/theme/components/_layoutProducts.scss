@@ -4,9 +4,9 @@
   flex-direction: row;
 
   height: 150vh;  
-  // // background-color: get-color(bg-cles);
+   background-color: get-color(bg-cles);
   background-image: src;
-  background-image: url("../../../public/img/bg.jpg");
+  // background-image: url("../../../public/img/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover,250vh;
   @include media(tablet) {
