@@ -5,7 +5,7 @@ import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
 // import { refresToken } from "@/helpers/auth";
 
-export default function EmailsForm ({ setHaveEmails, idproduct }) {
+export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
   const [email, setEmail] = useState('')
   const [emails, setEmails] = useState([])
   const [error, setError] = useState('')
@@ -43,6 +43,8 @@ export default function EmailsForm ({ setHaveEmails, idproduct }) {
     }, 10000)
   }
 
+  console.log('dataEmails', dataEmails)
+
   const handleDelete = (index) => {
     const updatedEmails = [...emails]
     updatedEmails.splice(index, 1)
@@ -66,7 +68,7 @@ export default function EmailsForm ({ setHaveEmails, idproduct }) {
 
     const body = {
       oResults: {
-        iIdExtBanc: 1,
+        iIdExtBanc: idproduct,
         iIdPais: 1,
         oCorreo: listEmails
 

@@ -45,8 +45,9 @@ export default function Products () {
         setModalToken(false)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('errok, ', errorMessage)
         setModalToken(true)
+        console.log('errok, ', errorMessage)
+
         // setStatus(errorMessage);
       }
     } catch (error) {

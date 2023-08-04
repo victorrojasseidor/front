@@ -6,6 +6,7 @@ import ImageSvg from '@/helpers/ImageSVG'
 import AddCredentials from './AddCredentials'
 import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
+import { useRouter } from 'next/router'
 
 export default function ConfigDowland () {
   const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
@@ -14,6 +15,9 @@ export default function ConfigDowland () {
   const [emails, setEmails] = useState([])
   const [data, setData] = useState(null)
   const [showForm, setShowForm] = useState(false)
+
+  const router = useRouter()
+  const { id } = router.query
 
   const { session, setSession, empresa, setModalToken } = useAuth()
 
@@ -34,7 +38,7 @@ export default function ConfigDowland () {
       }
     }
 
-    console.log('bodyconsultarproducto', body)
+    // console.log('bodyconsultarproducto', body);
 
     try {
       const token = session.sToken
@@ -43,6 +47,7 @@ export default function ConfigDowland () {
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
+        console.log('data', data)
         setModalToken(false)
         setShowForm(false)
         //   const newRow = {
@@ -114,6 +119,8 @@ export default function ConfigDowland () {
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setData(data)
+        console.log('data', data)
+
         setModalToken(false)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
@@ -235,7 +242,7 @@ export default function ConfigDowland () {
           <div className='description'>
             Add the emails to notify to <b> Download automated Bank Statements </b>
           </div>
-          <EmailsForm setHaveEmails={setHaveEmails} idproduct={1} />
+          <EmailsForm setHaveEmails={setHaveEmails} idproduct={id} dataEmails={data?.oCorreoEB} />
         </div>
       )}
       <div />

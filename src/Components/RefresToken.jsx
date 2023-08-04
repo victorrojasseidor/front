@@ -6,9 +6,10 @@ import { useAuth } from '@/Context/DataContext'
 function RefreshToken () {
   const [token, setToken] = useState(null)
   // const [showModal, setShowModal] = useState(true);
-  // console.log("resfres",tok);
 
   const { session, setModalToken, modalToken } = useAuth()
+
+  console.log('resfresmodla', modalToken)
 
   const handleConfirmRefresh = async () => {
     try {
