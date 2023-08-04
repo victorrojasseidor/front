@@ -6,7 +6,7 @@ import FreeTrial from '@/Components/FreeTrial'
 import BackButton from '@/Components/BackButton'
 import { getProducts } from '@/helpers/auth'
 import { useAuth } from '@/Context/DataContext'
-import { componentsProduct } from '@/helpers/componentsProduct'
+import { componentsProduct } from '@/Components/CompProducts/componentsProduct'
 
 export default function productId () {
   const [product, setProduct] = useState(null)
