@@ -30,8 +30,7 @@ flex-wrap: wrap;
     .emailBox {
       width: 100%;
       display: flex;
-
-      flex-direction: column;
+       flex-direction: column;
       justify-content: center;
 
       @include media(tablet) {
@@ -86,7 +85,7 @@ flex-wrap: wrap;
     
       .box-emails {
         // flex: 1;
-        height: 5rem;
+        // height: 5rem;
         border-left: 1.5px solid get-color(forms_s6);
         padding-left: 1rem;
     
@@ -96,18 +95,28 @@ flex-wrap: wrap;
           flex-direction: row;
       
     
-          div {
-            max-width: 22rem; // Establece el ancho máximo del contenedor
-            overflow: hidden; // Oculta el contenido que desborda del ancho máximo
-            display: inline-block; // Asegura que el contenedor tome solo el ancho que necesita
-            white-space: nowrap; // Evita que el contenido se envuelva a la siguiente línea
-            text-overflow: ellipsis; // Evita que el contenido se envuelva a la siguiente línea
+          .emails {
+          max-width: 23rem; 
+         
+           overflow: hidden; // Oculta el contenido que desborda del ancho máximo
+          display: inline-block; // Asegura que el contenedor tome solo el ancho que necesita
+          white-space: nowrap; // Evita que el contenido se envuelva a la siguiente línea
+           text-overflow: ellipsis;
+            gap:1rem;
+            // Evita que el contenido se envuelva a la siguiente línea
             color: get-color(grey1_s3);
+
+            p{
+              padding-left: 0.25rem;
+            
+            }
           }
         }
         svg {
           color: get-color(blue_p1);
         }
+
+
       }
     }
 

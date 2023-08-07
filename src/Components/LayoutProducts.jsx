@@ -25,8 +25,6 @@ const LayoutProducts = ({ children }) => {
 
   const { session, setSession, empresa, setEmpresa, modalToken } = useAuth()
 
-  console.log('modaltokenloyput', modalToken)
-
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value
 

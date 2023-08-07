@@ -1,23 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
-
-// import { refresToken } from "@/helpers/auth";
+import Modal from '@/Components/Modal'
 
 export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
   const [email, setEmail] = useState('')
   const [emails, setEmails] = useState([])
   const [error, setError] = useState('')
+  const [modalConfirmation, setModalConfirmation] = useState(false)
 
   const { session, setSession, empresa, setModalToken } = useAuth()
   const handleChange = (e) => {
     setEmail(e.target.value)
     setError('')
   }
+  console.log('dataEmails', dataEmails);
+
+  useEffect(() => {
+    if (dataEmails) {
+      const arrayDeCorreos = dataEmails.map(item => item.correo)
+      setEmails(arrayDeCorreos)
+      console.log('arraycorreso', arrayDeCorreos)
+    }
+  }, [dataEmails])
 
   const handleAddEmails = () => {
-    const emailList = email.split(/[ ,;]+/) // Expresión regular para separar por espacios, comas y puntos y comas
+    const emailList = email.split(/[ ,;\n]+/) // Expresión regular para separar por espacios, comas, puntos y comas y saltos de línea
     const validEmails = []
     const invalidEmails = []
 
@@ -43,7 +52,6 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
     }, 10000)
   }
 
-  console.log('dataEmails', dataEmails)
 
   const handleDelete = (index) => {
     const updatedEmails = [...emails]
@@ -51,27 +59,16 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
     setEmails(updatedEmails)
   }
 
-  // const handleSendEmails = () => {
-  //   // Aquí puedes realizar la lógica para enviar los correos electrónicos al servidor
-  //   console.log("Correos electrónicos enviados:", emails);
-  //   sendEmails
-  //   setHaveEmails(emails);
-
-  // };
-
   async function handleSendEmails () {
     const listEmails = emails?.map(correo => {
       return { sCorreo: correo }
     })
-
-    console.log('Correos electrónicos enviados:', listEmails)
 
     const body = {
       oResults: {
         iIdExtBanc: idproduct,
         iIdPais: 1,
         oCorreo: listEmails
-
       }
     }
 
@@ -83,22 +80,36 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
 
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data= responseData.oResults;
-        setHaveEmails(true)
+        setModalConfirmation(true)
         setModalToken(false)
-      } else {
+        setTimeout(function () {
+          setHaveEmails(true)
+        }, 1000)
+        } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errok, ', errorMessage)
         setModalToken(true)
+        setModalConfirmation(false)
       }
     } catch (error) {
       console.error('error', error)
-      setModalToken(true)
+      // setModalToken(true)
+      setModalConfirmation(false)
     }
   }
 
   return (
     <div className='emailsFormContainer'>
 
+      {modalConfirmation && (
+        <Modal close={() => setModalConfirmation(false)}>
+          <div>
+            <h2>
+              Successful email registration
+            </h2>
+          </div>
+        </Modal>
+      )}
       <form className='form-container' onSubmit={(e) => e.preventDefault()}>
         <div className='emailBox'>
 
@@ -139,6 +150,8 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
         </div>
       )}
       {emails.length > 0 && <button className='btn_primary' onClick={handleSendEmails}>Save and continue</button>}
+
     </div>
+
   )
 }

@@ -12,7 +12,7 @@ export default function ConfigDowland () {
   const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
-  const [emails, setEmails] = useState([])
+  // const [emails, setEmails] = useState([])
   const [data, setData] = useState(null)
   const [showForm, setShowForm] = useState(false)
 
@@ -38,7 +38,7 @@ export default function ConfigDowland () {
       }
     }
 
-    // console.log('bodyconsultarproducto', body);
+
 
     try {
       const token = session.sToken
@@ -50,11 +50,7 @@ export default function ConfigDowland () {
         console.log('data', data)
         setModalToken(false)
         setShowForm(false)
-        //   const newRow = {
-        //         id: data.length + 1,
-        //         ...body,
-        //       };
-        // setData((prevData) => [...prevData, newRow]);
+
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errok, ', errorMessage)
@@ -69,15 +65,6 @@ export default function ConfigDowland () {
     }
   }
 
-  // const handleAgregar = (values) => {
-  //  console.log(values) ;
-
-  //   const newRow = {
-  //     id: dataprev.length + 1,
-  //     ...values,
-  //   };
-  //   setDataprev((prevData) => [...prevData, newRow]);
-  // };
 
   const handleEdit = (user) => {
     console.log('handledit', user)
@@ -101,12 +88,14 @@ export default function ConfigDowland () {
     if (session) {
       getDataConfigured()
     }
-  }, [session])
+  }, [session,haveEmails])
+
+  console.log('dat', data)
 
   async function getDataConfigured () {
     const body = {
       oResults: {
-        iIdExtBanc: 5,
+        iIdExtBanc: id,
         iIdPais: 1
       }
     }
@@ -115,11 +104,11 @@ export default function ConfigDowland () {
       const token = session.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      console.log('data', responseData)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setData(data)
-        console.log('data', data)
 
         setModalToken(false)
       } else {
@@ -132,7 +121,7 @@ export default function ConfigDowland () {
     } catch (error) {
       console.error('error', error)
 
-      setModalToken(true)
+      // setModalToken(true)
       // setStatus("Service error");
     }
   }
@@ -151,7 +140,7 @@ export default function ConfigDowland () {
 
   return (
     <section className='config-Automated'>
-      {haveEmails && data?.oCorreoEB.length >= 1 ? (
+      {haveEmails && data?.oCorreoEB?.length >= 1 ? (
         <div className='config-Automated--tables'>
           <div className='container-status'>
             <div className='status-config'>
@@ -173,7 +162,7 @@ export default function ConfigDowland () {
             <div className='box-emails'>
               <h5>Emails for notifications</h5>
               <div className='card--emails'>
-                <div>
+                <div className='emails'>
                   {data?.oCorreoEB.map((email) => (
                     <p key={email.correo_cc}>{email.correo_cc}</p>
                   ))}
