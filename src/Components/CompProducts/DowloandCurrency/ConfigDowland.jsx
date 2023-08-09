@@ -25,7 +25,7 @@ export default function ConfigDowland () {
   const { session, empresa, setModalToken } = useAuth()
 
   async function handleAgregar (values) {
-    console.log('values', values);
+    console.log('values', values)
     const body = {
       oResults: {
         iIdEmpresa: empresa?.id_empresa,
@@ -47,14 +47,12 @@ export default function ConfigDowland () {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarExtBancario', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
-        const data = responseData.oResults
-        
+        // const data = responseData.oResults
         setTimeout(() => {
-          setDataList(data)
-        setModalToken(false)
-        setShowForm(false)
-        }, 1000);
-      
+          // setDataList(data)
+          setModalToken(false)
+          setShowForm(false)
+        }, 1000)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errok, ', errorMessage)
@@ -80,7 +78,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [session, haveEmails, datalistAdd,])
+  }, [session, haveEmails, showForm, showModalDelete])
 
   async function getExtrBanc () {
     const body = {
@@ -144,8 +142,6 @@ export default function ConfigDowland () {
       console.error('Error en la solicitud de eliminación', error)
     }
   }
-
-  console.log('showModalDelete', data?.oListBancoCredendicial)
 
   return (
     <section className='config-Automated'>

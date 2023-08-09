@@ -7,7 +7,6 @@ const AddCredentials = ({ onAgregar, initialVal, onSubmit, dataUser }) => {
   const [bankOptions, setBankOptions] = useState([])
   const [country, setCountry] = useState(null)
 
-
   const countryData = dataUser?.oPaisBanco
 
   useEffect(() => {

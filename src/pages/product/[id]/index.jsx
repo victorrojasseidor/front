@@ -13,13 +13,10 @@ export default function productId () {
   const [activeTab, setActiveTab] = useState(0)
   const [component, setComponent] = useState(null)
   const router = useRouter()
-  const id = router.query.iId;
-  const iIdProdEnv = router.query.iIdProdEnv;
-  // const { id } = router.query
+  const id = router.query.iId
+  const iIdProdEnv = router.query.iIdProdEnv
 
   const { session, empresa, setModalToken } = useAuth()
-
-  console.log('sesión', id,iIdProdEnv );
 
   useEffect(() => {
     const selectComponentes = componentsProduct.find((p) => p.iId === parseInt(id))
@@ -30,7 +27,6 @@ export default function productId () {
     getDataProduct()
   }, [id])
 
-  
   const handleTabClick = (index) => {
     setActiveTab(index)
   }
@@ -43,9 +39,9 @@ export default function productId () {
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
-        const data = responseData.oResults;
-        const selectedProduct = data.find((p) => p.iIdProdEnv === parseInt(iIdProdEnv));
-        console.log("data",data);
+        const data = responseData.oResults
+        const selectedProduct = data.find((p) => p.iIdProdEnv === parseInt(iIdProdEnv))
+        console.log('data', data)
         setProduct(selectedProduct)
         // setProduct(data)
       } else {

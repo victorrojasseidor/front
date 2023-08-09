@@ -17,7 +17,6 @@ export default function Products () {
 
   const { session, empresa, setModalToken } = useAuth()
 
-
   const router = useRouter()
   useEffect(() => {
     if (!session) {
@@ -47,7 +46,7 @@ export default function Products () {
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         setModalToken(true)
-        console.log('errok, ', errorMessage)
+        console.log('error, ', errorMessage)
 
         // setStatus(errorMessage);
       }
