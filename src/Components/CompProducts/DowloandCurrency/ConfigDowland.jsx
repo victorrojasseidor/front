@@ -13,7 +13,6 @@ export default function ConfigDowland () {
   const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
-  const [datalistAdd, setDataList] = useState([])
   const [data, setData] = useState(null)
   const [showForm, setShowForm] = useState(false)
   const [showModalDelete, setShowModalDelete] = useState(false)
@@ -61,17 +60,62 @@ export default function ConfigDowland () {
       }
     } catch (error) {
       console.error('error', error)
-      setModalToken(true)
+      // setModalToken(true)
       setShowForm(true)
       // setStatus("Service error");
     }
   }
 
-  const handleEdit = (user) => {
-    console.log('handledit', user)
-    setIinitialEdit(user)
-
+  const handleEdit = (dataEdit) => {
+    // console.log('handledit', dataEdit)
+    setShowForm(true)
+    setIinitialEdit(dataEdit)
     setIsEditing(true)
+  }
+
+  // editar
+
+  async function handleEditListBank (values) {
+    console.log('valueseditando', values)
+
+    const body = {
+      oResults: {
+        // iIdExtBanc: 1,
+        // iIdBancoCredencial: 1,
+        iIdEmpresa: empresa?.id_empresa,
+        sName: values.name,
+        iIdPais: 1,
+        iBanco: values.bank.id,
+        sPassword: values.password,
+        sCredencial: values.principalCredential,
+        sCredencial2: values.credential2,
+        sCredencial3: values.credential3,
+        sCredencial4: values.credential4,
+        bCodeEnabled: values.state === 'Active'
+      }
+    }
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarCuentaExtBancario', body, token)
+      console.log('response', responseData)
+      if (responseData.oAuditResponse?.iCode === 1) {
+      // const data = responseData.oResults
+        setModalToken(false)
+        setTimeout(() => {
+          setShowForm(false)
+        }, 1000)
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        console.log('errorsolicitudUpdate, ', errorMessage)
+        setModalToken(true)
+        setShowForm(true)
+      }
+    } catch (error) {
+      console.error('error', error)
+      // setModalToken(true)
+      setShowForm(true)
+    }
   }
 
   useEffect(() => {
@@ -95,7 +139,6 @@ export default function ConfigDowland () {
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setData(data)
-
         setModalToken(false)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
@@ -106,9 +149,6 @@ export default function ConfigDowland () {
       }
     } catch (error) {
       console.error('error', error)
-
-      // setModalToken(true)
-      // setStatus("Service error");
     }
   }
 
@@ -130,13 +170,15 @@ export default function ConfigDowland () {
       const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarBancoCredencialExtBancario', body, token)
       console.log('res', response)
       if (response.oAuditResponse?.iCode === 1) {
-        setDataList(response.oResults)
+        setModalToken(false)
         setShowModalDelete(false)
         setTimeout(() => {
           setShowModalDelete(false)
         }, 1000)
       } else {
-        console.log('Error al eliminar la credencial')
+        const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
+        console.log('errok, ', errorMessage)
+        setModalToken(true)
       }
     } catch (error) {
       console.error('Error en la solicitud de eliminación', error)
@@ -249,7 +291,7 @@ export default function ConfigDowland () {
                   </tbody>
                 </table>
               </div>
-              {showForm && <AddCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} />}
+              {showForm && <AddCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} />}
             </div>
 
           </div>

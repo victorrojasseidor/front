@@ -321,6 +321,7 @@ p {
     align-items: center;
     justify-content: center;
   }
+
 .state-box{
   display: flex;
   gap: 1rem;
@@ -329,6 +330,10 @@ p {
     width: 100%;
     gap:1rem;
     justify-content: space-around;
+    label{
+      display: flex;
+      gap:1rem;
+    }
   }
 }
 
@@ -342,6 +347,9 @@ padding: 1rem 0rem;
   justify-content:space-around;
   align-items: center;
   align-content: center;
+  button{
+    width: 100%;
+  }
 }
 
 }

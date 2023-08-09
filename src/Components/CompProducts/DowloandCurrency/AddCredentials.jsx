@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
 
-const AddCredentials = ({ onAgregar, initialVal, onSubmit, dataUser }) => {
+const AddCredentials = ({ onAgregar, initialVal, onSubmit, dataUser, handleEditListBank }) => {
   const [countryOptions, setCountryOptions] = useState([])
   const [bankOptions, setBankOptions] = useState([])
   const [country, setCountry] = useState(null)
 
   const countryData = dataUser?.oPaisBanco
+
+  console.log('initialvalues', initialVal)
 
   useEffect(() => {
     // Cargar las opciones del país en el estado usando useEffect
@@ -27,12 +29,12 @@ const AddCredentials = ({ onAgregar, initialVal, onSubmit, dataUser }) => {
   // console.log("camposeditables", initialVal);
 
   const initialValues = {
-    name: initialVal?.name || '', // Usamos los valores iniciales si están disponibles
+    name: initialVal?.nombre || '', // Usamos los valores iniciales si están disponibles
     password: initialVal?.password || '',
-    principalCredential: initialVal?.principalCredential || '',
-    credential2: initialVal?.credential2 || '',
-    credential3: initialVal?.credential3 || '',
-    credential4: initialVal?.credential4 || '',
+    principalCredential: initialVal?.usuario || '',
+    credential2: initialVal?.usuario_a || '',
+    credential3: initialVal?.usuario_b || '',
+    credential4: initialVal?.usuario_c || '',
     bank: initialVal?.bank || null,
     country: initialVal?.country || null,
     state: initialVal?.state || 'Active'
@@ -47,7 +49,7 @@ const AddCredentials = ({ onAgregar, initialVal, onSubmit, dataUser }) => {
           if (initialVal) {
             // Si initialValues existe, significa que estamos editando
             // En este caso, llamamos a la función onSubmit y pasamos los valores editados
-            onSubmit(values)
+            handleEditListBank(values)
           } else {
             // Si no hay initialValues, estamos agregando un nuevo registro
             onAgregar(values)
@@ -135,8 +137,9 @@ const AddCredentials = ({ onAgregar, initialVal, onSubmit, dataUser }) => {
             </div>
             <div className='submit-box'>
               <button type='submit' className='btn_primary'>
-                Add
+                {initialVal ? 'Update' : 'Add'}
               </button>
+
             </div>
 
           </Form>

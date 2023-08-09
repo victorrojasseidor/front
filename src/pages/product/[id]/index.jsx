@@ -41,7 +41,7 @@ export default function productId () {
         setModalToken(false)
         const data = responseData.oResults
         const selectedProduct = data.find((p) => p.iIdProdEnv === parseInt(iIdProdEnv))
-        console.log('data', data)
+        // console.log('data', data)
         setProduct(selectedProduct)
         // setProduct(data)
       } else {
