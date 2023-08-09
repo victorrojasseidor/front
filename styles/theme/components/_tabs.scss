@@ -52,7 +52,7 @@
 
 .tab-content {
   border: 1px solid get-color(forms_s6);
-  padding: 1em;
+  padding: 1em 1em 2em 1em;
   // border-radius: brd(1);
   border-radius: 0 0 10px 10px;
   min-height: 58.5vh;
@@ -343,14 +343,16 @@
     }
   }
 
-  .box-buttons{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    width: 100%;
-  }
+
  
+}
+
+.box-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
 }
 
 .container-notificatión{

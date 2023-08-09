@@ -93,11 +93,9 @@ flex-wrap: wrap;
           display: flex;
           align-items: flex-start;
           flex-direction: row;
-      
-    
+          
           .emails {
           max-width: 23rem; 
-         
            overflow: hidden; // Oculta el contenido que desborda del ancho máximo
           display: inline-block; // Asegura que el contenedor tome solo el ancho que necesita
           white-space: nowrap; // Evita que el contenido se envuelva a la siguiente línea
@@ -143,7 +141,7 @@ flex-wrap: wrap;
           // background-color: get-color(bone_s2);
           border-radius: brd(1);
           border: 1px solid get-color(forms_s6); 
-          box-shadow: bsh(2);
+          box-shadow: bsh(1);
         }
         
         .dataTable {
@@ -166,10 +164,11 @@ flex-wrap: wrap;
            tbody{
             tr{
               cursor: pointer;
+            
   
               &:hover{
                 background-color:get-color(pink_s5);
-              }
+                       }
           }
           th,
           td {
@@ -199,7 +198,6 @@ flex-wrap: wrap;
           }
 
          
-          
 
           }
 
@@ -207,6 +205,17 @@ flex-wrap: wrap;
             display:flex;
             flex-direction: row;
             justify-content: center;
+            
+            background-color: get-color(white_s1);
+            
+            button{
+              color:get-color(grey2_s4);
+
+              &:hover, &:focus{
+                color:get-color(blue_p1);
+              }
+ 
+            }
 
           }
         }

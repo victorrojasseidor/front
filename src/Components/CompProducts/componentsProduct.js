@@ -5,21 +5,21 @@ import ConfigDowland from '@/Components/CompProducts/DowloandCurrency/ConfigDowl
 
 export const componentsProduct = [
   {
-    iIdProdEnv: 5,
+    iId: 1,
     sName: 'Downlaod automated Bank Statements',
     documentation: 'documentación 1',
     apiConfiguration: 'apiconfiguration Dowland',
     configuration: <ConfigDowland /> ? <ConfigDowland /> : 'configuration id 1'
   },
   {
-    iIdProdEnv: 4,
+    iId: 4,
     sName: 'Currency Exchange rates automation',
     documentation: <DocCurrency />,
     apiConfiguration: 'apiconfiguration currency',
     configuration: <ConfigCurrency />
   },
   {
-    iIdProdEnv: 3,
+    iId: 3,
     sName: 'Pattern',
     documentation: 'documentation 3',
     freeTrial: 'fretrial 3',

@@ -13,15 +13,16 @@ export default function productId () {
   const [activeTab, setActiveTab] = useState(0)
   const [component, setComponent] = useState(null)
   const router = useRouter()
-  const { id } = router.query
+  const id = router.query.iId;
+  const iIdProdEnv = router.query.iIdProdEnv;
+  // const { id } = router.query
 
   const { session, empresa, setModalToken } = useAuth()
 
-  console.log('sesión', session, id)
+  console.log('sesión', id,iIdProdEnv );
 
   useEffect(() => {
-    const selectComponentes = componentsProduct.find((p) => p.iIdProdEnv === parseInt(id))
-    console.log('selectComponentes', selectComponentes)
+    const selectComponentes = componentsProduct.find((p) => p.iId === parseInt(id))
     setComponent(selectComponentes)
   }, [id])
 
@@ -29,13 +30,7 @@ export default function productId () {
     getDataProduct()
   }, [id])
 
-  // if (!product) {
-  // //   getDataProduct()
-  // //   setModalToken(true)
-  // //   return <div>Cargando...</div>
-  // // }
-
-  // tabs
+  
   const handleTabClick = (index) => {
     setActiveTab(index)
   }
@@ -48,9 +43,9 @@ export default function productId () {
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
-        const data = responseData.oResults
-        const selectedProduct = data.find((p) => p.iIdProdEnv === parseInt(id))
-        console.log('selelcionado', selectedProduct)
+        const data = responseData.oResults;
+        const selectedProduct = data.find((p) => p.iIdProdEnv === parseInt(iIdProdEnv));
+        console.log("data",data);
         setProduct(selectedProduct)
         // setProduct(data)
       } else {
@@ -76,7 +71,7 @@ export default function productId () {
             <section className='idProduct'>
 
               <BackButton />
-              <h2> {product?.sName} </h2>
+              <h4> {product?.sName} </h4>
               <div className='idProduct_container'>
 
                 <div className='tabs-container'>
@@ -105,7 +100,7 @@ export default function productId () {
                   <div className='tab-content'>
                     {activeTab === 0 && (
                       <div className='tabOne'>
-                        <FreeTrial iIdProd={id} />
+                        <FreeTrial iIdProd={iIdProdEnv} />
                         {/* {product.documentation} */}
                         <div />
                       </div>

@@ -10,7 +10,7 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
   const [error, setError] = useState('')
   const [modalConfirmation, setModalConfirmation] = useState(false)
 
-  const { session, setSession, empresa, setModalToken } = useAuth()
+  const { session, setModalToken } = useAuth()
   const handleChange = (e) => {
     setEmail(e.target.value)
     setError('')

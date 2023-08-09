@@ -17,6 +17,7 @@ export default function Products () {
 
   const { session, empresa, setModalToken } = useAuth()
 
+
   const router = useRouter()
   useEffect(() => {
     if (!session) {
@@ -155,7 +156,7 @@ export default function Products () {
                       <span>
                         <ImageSvg name='Products' />
                       </span>
-                      <Link href={`/product/${product.iIdProdEnv}`}>
+                      <Link href={`/product/product?iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}`}>
                         <h5> {product.sName}</h5>
                       </Link>
                     </div>

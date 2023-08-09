@@ -7,38 +7,39 @@ import AddCredentials from './AddCredentials'
 import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
+import Modal from '@/Components/Modal'
 
 export default function ConfigDowland () {
   const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
-  // const [emails, setEmails] = useState([])
+  const [datalistAdd, setDataList] = useState([])
   const [data, setData] = useState(null)
   const [showForm, setShowForm] = useState(false)
+  const [showModalDelete, setShowModalDelete] = useState(false)
 
   const router = useRouter()
-  const { id } = router.query
+  // const id = router.query.iId
+  const iIdProdEnv = router.query.iIdProdEnv
 
-  const { session, setSession, empresa, setModalToken } = useAuth()
+  const { session, empresa, setModalToken } = useAuth()
 
   async function handleAgregar (values) {
-    console.log('values', values)
+    console.log('values', values);
     const body = {
       oResults: {
-        iIdEmpresa: 5,
+        iIdEmpresa: empresa?.id_empresa,
         sName: values.name,
         iIdPais: 1,
         iBanco: values.bank.id,
-        sPassword: '123456789',
-        sCredencial: 'Credencial',
-        sCredencial2: 'Credencial2',
-        sCredencial3: 'Credencial3',
-        sCredencial4: 'Credencial4',
+        sPassword: values.password,
+        sCredencial: values.principalCredential,
+        sCredencial2: values.credential2,
+        sCredencial3: values.credential3,
+        sCredencial4: values.credential4,
         bCodeEnabled: values.state === 'Active'
       }
     }
-
-
 
     try {
       const token = session.sToken
@@ -47,10 +48,13 @@ export default function ConfigDowland () {
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
-        console.log('data', data)
+        
+        setTimeout(() => {
+          setDataList(data)
         setModalToken(false)
         setShowForm(false)
-
+        }, 1000);
+      
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errok, ', errorMessage)
@@ -65,7 +69,6 @@ export default function ConfigDowland () {
     }
   }
 
-
   const handleEdit = (user) => {
     console.log('handledit', user)
     setIinitialEdit(user)
@@ -73,29 +76,16 @@ export default function ConfigDowland () {
     setIsEditing(true)
   }
 
-  // const handleEliminar = (id) => {
-  //   setData((prevData) => prevData.filter((row) => row.id !== id));
-  // };
-
-  // const handleUpdate = (updatedRecord) => {
-  //   // Actualiza el estado 'data' con el registro editado
-  //   setData((prevData) => prevData.map((row) => (row.id === updatedRecord.id ? updatedRecord : row)));
-  //   setCurrentRecord(null);
-  //   setIsEditing(false);
-  // };
-
   useEffect(() => {
     if (session) {
-      getDataConfigured()
+      getExtrBanc()
     }
-  }, [session,haveEmails])
+  }, [session, haveEmails, datalistAdd,])
 
-  console.log('dat', data)
-
-  async function getDataConfigured () {
+  async function getExtrBanc () {
     const body = {
       oResults: {
-        iIdExtBanc: id,
+        iIdExtBanc: iIdProdEnv,
         iIdPais: 1
       }
     }
@@ -104,8 +94,6 @@ export default function ConfigDowland () {
       const token = session.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
-      console.log('data', responseData)
-
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setData(data)
@@ -126,17 +114,38 @@ export default function ConfigDowland () {
     }
   }
 
-  // useEffect(() => {
-  //   if (!data) {
-  //     return (
-  //     <Loading/>
-  //     )
-  //   }
-  // }, [data]);
-
   const toggleForm = () => {
     setShowForm(!showForm)
   }
+  // funcio+on de eliminar
+
+  const handleDeleteBancoCredential = async (idbankcred) => {
+    const token = session.sToken
+    const body = {
+      oResults: {
+        iIdExtBanc: iIdProdEnv,
+        iIdBancoCredencial: idbankcred
+
+      }
+    }
+    try {
+      const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarBancoCredencialExtBancario', body, token)
+      console.log('res', response)
+      if (response.oAuditResponse?.iCode === 1) {
+        setDataList(response.oResults)
+        setShowModalDelete(false)
+        setTimeout(() => {
+          setShowModalDelete(false)
+        }, 1000)
+      } else {
+        console.log('Error al eliminar la credencial')
+      }
+    } catch (error) {
+      console.error('Error en la solicitud de eliminación', error)
+    }
+  }
+
+  console.log('showModalDelete', data?.oListBancoCredendicial)
 
   return (
     <section className='config-Automated'>
@@ -177,7 +186,9 @@ export default function ConfigDowland () {
             <div className='box-search'>
               <h3>List Bank Credential</h3>
               {/* <div>Search</div> */}
-              <button className='btn_black' onClick={toggleForm}>{showForm ? 'Close Form list' : 'Add list Bank'}</button>
+              <button className='btn_black' onClick={toggleForm}>
+                {showForm ? 'Close Form list' : 'Add list Bank'}
+              </button>
             </div>
             <div className='boards'>
               <div className='tableContainer'>
@@ -203,26 +214,48 @@ export default function ConfigDowland () {
                           <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
                         </td>
                         <td className='box-actions'>
-                          <button className='btn_crud' style={{ display: 'none' }} onClick={() => handleEdit(row)}>
+                          <button className='btn_crud' onClick={() => handleEdit(row)}>
                             {' '}
                             <ImageSvg name='Edit' />{' '}
                           </button>
-                          <button className='btn_crud' style={{ display: 'none' }} onClick={() => handleEliminar(row.id_banco_credencial)}>
+                          <button className='btn_crud' onClick={() => setShowModalDelete(true)}>
                             {' '}
                             <ImageSvg name='Delete' />
                           </button>
+
                         </td>
+                        {showModalDelete && (
+                          <Modal close={() => {
+                            setShowModalDelete(false)
+                          }}
+                          >
+                            <div>
+                              <h3>Do you want to delete this credential bank list?</h3>
+                              <div className='box-buttons'>
+                                <button type='button' className='btn_primary small' onClick={() => handleDeleteBancoCredential(row.id_banco_credencial)}>
+                                  YES
+                                </button>
+                                <button
+                                  type='button'
+                                  className='btn_secundary small'
+                                  onClick={() => {
+                                    setShowModalDelete(false)
+                                  }}
+                                >
+                                  NOT
+                                </button>
+                              </div>
+                            </div>
+                          </Modal>
+                        )}
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              {showForm && (<AddCredentials
-                onAgregar={handleAgregar}
-                dataUser={data}
-                initialVal={isEditing ? initialEdit : null}
-                            />)}
+              {showForm && <AddCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} />}
             </div>
+
           </div>
         </div>
       ) : (
@@ -231,7 +264,7 @@ export default function ConfigDowland () {
           <div className='description'>
             Add the emails to notify to <b> Download automated Bank Statements </b>
           </div>
-          <EmailsForm setHaveEmails={setHaveEmails} idproduct={id} dataEmails={data?.oCorreoEB} />
+          <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
         </div>
       )}
       <div />

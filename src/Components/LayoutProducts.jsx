@@ -201,7 +201,7 @@ const LayoutProducts = ({ children }) => {
         </nav>
 
         <div className='childrenTilte'>
-          <h2>Products</h2>
+          <h3>Digital employees</h3>
           <p>
             Welcome, <span> {empresa?.razon_social_empresa} 👋 </span>{' '}
           </p>

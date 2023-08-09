@@ -1,145 +1,133 @@
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
-import { countryOptions } from "@/helpers/contry";
-import { validateFormprofilestart } from "@/helpers/validateForms";
+import React, { useState } from 'react'
+import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'
+import { countryOptions } from '@/helpers/contry'
+import { validateFormprofilestart } from '@/helpers/validateForms'
 import { useRouter } from 'next/navigation'
-import { fetchConTokenPost } from "@/helpers/fetch";
-import { refresToken } from "@/helpers/auth";
-import { useAuth } from "@/Context/DataContext";
+import { fetchConTokenPost } from '@/helpers/fetch'
+import { refresToken } from '@/helpers/auth'
+import { useAuth } from '@/Context/DataContext'
 
 const ProgressRegister = ({ userData }) => {
-  const [step, setStep] = useState(1);
-  const [user, setUser] = useState(userData);
-  const [formValues, setFormValues] = useState({}); // Nuevo estado para almacenar los datos del formulario
+  const [step, setStep] = useState(1)
+  const [user, setUser] = useState(userData)
+  const [formValues, setFormValues] = useState({}) // Nuevo estado para almacenar los datos del formulario
 
   const router = useRouter()
-  const { session, setSession,logout } = useAuth();
-  console.log("😍lprofilestar", session);
-  
-  //steps funciones
+  const { session, setSession, logout } = useAuth()
+  console.log('😍lprofilestar', session)
+
+  // steps funciones
   const handleNextStep = () => {
-    setStep(step + 1);
-  };
+    setStep(step + 1)
+  }
 
   const handlePreviousStep = () => {
-    setStep(step - 1);
-  };
+    setStep(step - 1)
+  }
 
-  //enviar formulario
-  async function handleSumbit (values, { setSubmitting,setStatus }){
-
+  // enviar formulario
+  async function handleSumbit (values, { setSubmitting, setStatus }) {
     const oEmpresaSelect = values.companies.map((companyId) => {
-      const company = user.oEmpresa.find((option) => option.id_empresa === companyId);
+      const company = user.oEmpresa.find((option) => option.id_empresa === companyId)
       return {
         iIdEmpresa: company.id_empresa,
-        sRucEmpresa: company.ruc_empresa,
-      };
-    });
+        sRucEmpresa: company.ruc_empresa
+      }
+    })
 
     // console.log(oEmpresa);
 
-    let body = {
+    const body = {
       oResults: {
         sEmail: user.sCorreo,
         sUserName: user.sUserName,
         sLastName: values.lastName,
-      sCodePhone: values.countryCode.value,
-      sPhone: values.phoneNumber,
-      bCodeNotEmail: true,
-      bCodeNotBpas: true,
-      oEmpresa: oEmpresaSelect
-        
-      },
-    };
+        sCodePhone: values.countryCode.value,
+        sPhone: values.phoneNumber,
+        bCodeNotEmail: true,
+        bCodeNotBpas: true,
+        oEmpresa: oEmpresaSelect
 
-  
-    console.log("❤️", body);
+      }
+    }
+
+    console.log('❤️', body)
 
     // setSubmitting(false);
-  
-    const tok= user.sToken ;
-    console.log(user,tok);
+
+    const tok = user.sToken
+    console.log(user, tok)
 
     try {
-      let responseData = await fetchConTokenPost("dev/BPasS/?Accion=RegistrarUsuarioEnd", body, tok);
-    
-      if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1 ) {
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarUsuarioEnd', body, tok)
+
+      if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1) {
         // setIsconfirmed(true);
-        setStatus(null);
-        console.log("💻",responseData );
+        setStatus(null)
+        console.log('💻', responseData)
 
-      router.push('/product'); 
-      
-      } else if(responseData.oAuditResponse.iCode == 27){
-       
-        let refresh= await refresToken(tok);
-        
+        router.push('/product')
+      } else if (responseData.oAuditResponse.iCode == 27) {
+        const refresh = await refresToken(tok)
+      } else {
+        const message = responseData?.oAuditResponse.sMessage
+        setStatus(message)
+        setSubmitting(false)
       }
-      
-      
-      else {
-        let message = responseData?.oAuditResponse.sMessage;
-        setStatus(message);
-        setSubmitting(false);
-
-      }
-
-
     } catch (error) {
-      console.error("Error:", error);
-      throw new Error("Hubo un error en la operación asincrónica.");
+      console.error('Error:', error)
+      throw new Error('Hubo un error en la operación asincrónica.')
     }
   }
 
-
-  //add companies
+  // add companies
 
   return (
-    <div className="containerProgress">
-      <div className="progressBar">
+    <div className='containerProgress'>
+      <div className='progressBar'>
         <div
-          className="progressBarFill"
+          className='progressBarFill'
           style={{ width: `${(step - 1) * 50}%` }} // 50% per step
         />
       </div>
-      <div className="step">Step {step}</div>
+      <div className='step'>Step {step}</div>
       <Formik
         initialValues={{
-          lastName: "",
+          lastName: '',
           countryCode: countryOptions[0], // Valor inicial de Perú
-          phoneNumber: "",
+          phoneNumber: '',
           notificationsInBpass: true,
           emailNotifications: true,
-          companies: [],
+          companies: []
         }}
         validate={validateFormprofilestart} // Use the custom validation function here
-        onSubmit={(values, { setSubmitting,setStatus }) => {
-          setFormValues(values);
-          handleSumbit(values, { setSubmitting,setStatus})
-                }}
-        enableReinitialize={true}
+        onSubmit={(values, { setSubmitting, setStatus }) => {
+          setFormValues(values)
+          handleSumbit(values, { setSubmitting, setStatus })
+        }}
+        enableReinitialize
       >
-        {({ isSubmitting,status , values, setFieldValue  }) => (
-          <Form className="form-container">
+        {({ isSubmitting, status, values, setFieldValue }) => (
+          <Form className='form-container'>
             {step === 1 && (
               <div>
                 <h4> Personal information</h4>
 
                 <div>
-                  <div className="input-box">
-                    <Field type="text" name="name" placeholder=" " value={user?.sUserName || ""} readOnly />
-                    <label htmlFor="name">Username</label>
+                  <div className='input-box'>
+                    <Field type='text' name='name' placeholder=' ' value={user?.sUserName || ''} readOnly />
+                    <label htmlFor='name'>Username</label>
                   </div>
 
-                  <div className="input-box">
-                    <Field type="text" name="lastName" placeholder=" " />
-                    <label htmlFor="lastName">Last Name</label>
-                    <ErrorMessage className="errorMessage" name="lastName" component="div" />
+                  <div className='input-box'>
+                    <Field type='text' name='lastName' placeholder=' ' />
+                    <label htmlFor='lastName'>Last Name</label>
+                    <ErrorMessage className='errorMessage' name='lastName' component='div' />
                   </div>
 
-                  <div className="phone-field">
+                  <div className='phone-field'>
                     <div>
-                      <Field as="select" id="countryCode" name="countryCode">
+                      <Field as='select' id='countryCode' name='countryCode'>
                         {countryOptions.map((option) => (
                           <option key={option.value} value={option.value}>
                             {option.label}
@@ -148,20 +136,20 @@ const ProgressRegister = ({ userData }) => {
                       </Field>
                     </div>
 
-                    <div className="input-box">
-                      <Field type="text" id="phoneNumber" name="phoneNumber" placeholder=" " />
-                      <label htmlFor="phoneNumber">Phone Number</label>
-                      <ErrorMessage className="errorMessage" name="phoneNumber" component="div" />
+                    <div className='input-box'>
+                      <Field type='text' id='phoneNumber' name='phoneNumber' placeholder=' ' />
+                      <label htmlFor='phoneNumber'>Phone Number</label>
+                      <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
                     </div>
                   </div>
 
-                  <div className="input-box">
-                    <Field type="email" name="corporateEmail" placeholder=" " value={user?.sCorreo || ""} readOnly />
-                    <label htmlFor="corporateEmail">Company email</label>
+                  <div className='input-box'>
+                    <Field type='email' name='corporateEmail' placeholder=' ' value={user?.sCorreo || ''} readOnly />
+                    <label htmlFor='corporateEmail'>Company email</label>
                   </div>
 
-                  <div className="box-buttons">
-                    <button className="btn_primary small" type="submit" onClick={handleNextStep}>
+                  <div className='box-buttons'>
+                    <button className='btn_primary small' type='submit' onClick={handleNextStep}>
                       NEXT
                     </button>
                   </div>
@@ -170,13 +158,13 @@ const ProgressRegister = ({ userData }) => {
             )}
 
             {step === 2 && (
-              <div className="companies-container">
+              <div className='companies-container'>
                 <h4> Company profile </h4>
 
                 <div>
                   <div>
                     <p>
-                    Corporate: <span>{user.jCompany.razon_social_company}</span>
+                      Corporate: <span>{user.jCompany.razon_social_company}</span>
                     </p>
                   </div>
 
@@ -199,38 +187,38 @@ const ProgressRegister = ({ userData }) => {
             )}
           </FieldArray> */}
 
-<div className="companies">
-            {user.oEmpresa.map((option) => (
-              <div className="box-companies" key={option.id_empresa}>
-                <div className="card">
-                  <span className="initial">{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
-                </div>
-                <input
-                  type="checkbox"
-                  className="checkboxId"
-                  checked={values.companies.includes(option.id_empresa)} // Marca el checkbox si el valor está incluido en companies
-                  onChange={(e) => {
-                    const checkedCompanyId = option.id_empresa;
-                    if (e.target.checked) {
-                      // Agregar el ID de la empresa al array companies
-                      setFieldValue('companies', [...values.companies, checkedCompanyId]);
-                    } else {
-                      // Remover el ID de la empresa del array companies
-                      setFieldValue('companies', values.companies.filter((id) => id !== checkedCompanyId));
-                    }
-                  }}
-                />
-                <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
-              </div>
-            ))}
-          </div>
+                  <div className='companies'>
+                    {user.oEmpresa.map((option) => (
+                      <div className='box-companies' key={option.id_empresa}>
+                        <div className='card'>
+                          <span className='initial'>{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
+                        </div>
+                        <input
+                          type='checkbox'
+                          className='checkboxId'
+                          checked={values.companies.includes(option.id_empresa)} // Marca el checkbox si el valor está incluido en companies
+                          onChange={(e) => {
+                            const checkedCompanyId = option.id_empresa
+                            if (e.target.checked) {
+                              // Agregar el ID de la empresa al array companies
+                              setFieldValue('companies', [...values.companies, checkedCompanyId])
+                            } else {
+                              // Remover el ID de la empresa del array companies
+                              setFieldValue('companies', values.companies.filter((id) => id !== checkedCompanyId))
+                            }
+                          }}
+                        />
+                        <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="box-buttons">
-                  <button type="button" className="btn_secundary" onClick={handlePreviousStep}>
+                <div className='box-buttons'>
+                  <button type='button' className='btn_secundary' onClick={handlePreviousStep}>
                     Previous
                   </button>
-                  <button type="button" className="btn_primary small" onClick={handleNextStep}>
+                  <button type='button' className='btn_primary small' onClick={handleNextStep}>
                     Next
                   </button>
                 </div>
@@ -238,32 +226,32 @@ const ProgressRegister = ({ userData }) => {
             )}
 
             {step === 3 && (
-              <div className="container-notificatión">
+              <div className='container-notificatión'>
                 <h3>Notifications</h3>
                 <p>Select how you want to be notified</p>
                 <ul>
-                  <div className="box-notification">
-                    <Field type="checkbox" className="checkboxId" name="notificationsInBpass" />
-                    <label htmlFor="notificationsInBpass">Notifications in Bpass</label>
+                  <div className='box-notification'>
+                    <Field type='checkbox' className='checkboxId' name='notificationsInBpass' />
+                    <label htmlFor='notificationsInBpass'>Notifications in Bpass</label>
                   </div>
 
-                  <div className="box-notification">
-                    <Field type="checkbox" className="checkboxId" name="emailNotifications" />
-                    <label htmlFor="emailNotifications">Email notifications</label>
+                  <div className='box-notification'>
+                    <Field type='checkbox' className='checkboxId' name='emailNotifications' />
+                    <label htmlFor='emailNotifications'>Email notifications</label>
                   </div>
                 </ul>
 
-                <div className="box-buttons">
-                  <button type="button" className="btn_secundary small" onClick={handlePreviousStep}>
+                <div className='box-buttons'>
+                  <button type='button' className='btn_secundary small' onClick={handlePreviousStep}>
                     Previous
                   </button>
-                  <button type="submit" className="btn_primary small" disabled={isSubmitting}>
+                  <button type='submit' className='btn_primary small' disabled={isSubmitting}>
                     Submit
                   </button>
                 </div>
 
-                <div className="contentError">
-                <div className="errorMessage">{status}</div>
+                <div className='contentError'>
+                  <div className='errorMessage'>{status}</div>
                 </div>
 
               </div>
@@ -272,7 +260,7 @@ const ProgressRegister = ({ userData }) => {
         )}
       </Formik>
     </div>
-  );
-};
+  )
+}
 
-export default ProgressRegister;
+export default ProgressRegister

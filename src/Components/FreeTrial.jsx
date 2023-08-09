@@ -4,14 +4,13 @@ import Image from 'next/image'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 // import { validateFormRegister } from '@/helpers/validateForms'
 import { useAuth } from '@/Context/DataContext'
-import RefreshToken from './RefresToken'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import Modal from './Modal'
 
 function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
   const [error, SetError] = useState(null)
   const [confirm, SetConfirm] = useState(false)
-  const { session, setSession, empresa, setModalToken, modalToken } = useAuth()
+  const { session, setModalToken } = useAuth()
 
   const productName = nameProduct || 'Downlaod automated Bank Statements'
 
@@ -21,7 +20,7 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
       oResults: {
 
         sProd: 'EXT_BANC',
-        iIdProdEnv: 1,
+        iIdProdEnv: iIdProd,
         sCorreo: values.corporateEmail,
         sTitle: values.title,
         sPhoneNumber: values.phoneNumber,
@@ -29,15 +28,12 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
 
       }
     }
-    console.log('values', body)
 
     try {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=SolicitarProducto', body, token)
-      console.log('fretrialsend', responseData)
-
-      if (responseData.oAuditResponse?.iCode === 1) {
+        if (responseData.oAuditResponse?.iCode === 1) {
         // const data= responseData.oResults;
         SetError(null)
         SetConfirm(true)
@@ -55,12 +51,10 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
       SetConfirm(false)
       SetError(error)
       setSubmitting(false)
-      setModalToken(true)
     }
   }
 
-  console.log('confirm', confirm)
-  console.log('modalToken', modalToken)
+
 
   return (
     <div className='freetrial'>
