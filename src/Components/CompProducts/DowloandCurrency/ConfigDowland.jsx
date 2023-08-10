@@ -70,6 +70,7 @@ export default function ConfigDowland () {
     // console.log('handledit', dataEdit)
     setShowForm(true)
     setIinitialEdit(dataEdit)
+    console.log('dataEdit', dataEdit);
     setIsEditing(true)
   }
 
@@ -80,9 +81,10 @@ export default function ConfigDowland () {
 
     const body = {
       oResults: {
-        // iIdExtBanc: 1,
-        // iIdBancoCredencial: 1,
+
         iIdEmpresa: empresa?.id_empresa,
+        iIdCredencial: initialEdit?.id_credenciales,
+        iIdBancoCredencial: initialEdit?.id_banco_credencial,
         sName: values.name,
         iIdPais: 1,
         iBanco: values.bank.id,
@@ -95,26 +97,33 @@ export default function ConfigDowland () {
       }
     }
 
+    console.log("body",body);
+
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarCuentaExtBancario', body, token)
-      console.log('response', responseData)
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarExtBancario', body, token)
+      console.log('response', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
       // const data = responseData.oResults
         setModalToken(false)
+        setShowForm(false)
+        setIsEditing(false)
         setTimeout(() => {
+          setIinitialEdit(null)
           setShowForm(false)
-        }, 1000)
+          }, 2000)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errorsolicitudUpdate, ', errorMessage)
         setModalToken(true)
         setShowForm(true)
+        setIsEditing(true);
       }
     } catch (error) {
       console.error('error', error)
       // setModalToken(true)
       setShowForm(true)
+      setIsEditing(true);
     }
   }
 
@@ -122,7 +131,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [session, haveEmails, showForm, showModalDelete])
+  }, [session, haveEmails, showForm, showModalDelete,isEditing])
 
   async function getExtrBanc () {
     const body = {
@@ -138,6 +147,7 @@ export default function ConfigDowland () {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
+        console.log("getextract",data)
         setData(data)
         setModalToken(false)
       } else {

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
 
-const AddCredentials = ({ onAgregar, initialVal, onSubmit, dataUser, handleEditListBank }) => {
+const AddCredentials = ({ onAgregar, initialVal, dataUser, handleEditListBank }) => {
   const [countryOptions, setCountryOptions] = useState([])
   const [bankOptions, setBankOptions] = useState([])
   const [country, setCountry] = useState(null)
 
   const countryData = dataUser?.oPaisBanco
 
-  console.log('initialvalues', initialVal)
+  console.log('initialvalues', initialVal);
 
   useEffect(() => {
     // Cargar las opciones del país en el estado usando useEffect
