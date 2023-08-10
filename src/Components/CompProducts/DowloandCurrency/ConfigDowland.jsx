@@ -16,6 +16,7 @@ export default function ConfigDowland () {
   const [data, setData] = useState(null)
   const [showForm, setShowForm] = useState(false)
   const [showModalDelete, setShowModalDelete] = useState(false)
+  const [requestError, setRequestError] = useState('')
 
   const router = useRouter()
   // const id = router.query.iId
@@ -51,10 +52,12 @@ export default function ConfigDowland () {
           // setDataList(data)
           setModalToken(false)
           setShowForm(false)
+          setRequestError(null)
         }, 1000)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errok, ', errorMessage)
+        setRequestError(errorMessage)
         setModalToken(true)
         setShowForm(true)
       }
@@ -62,6 +65,7 @@ export default function ConfigDowland () {
       console.error('error', error)
       // setModalToken(true)
       setShowForm(true)
+      setRequestError(error)
       // setStatus("Service error");
     }
   }
@@ -70,25 +74,22 @@ export default function ConfigDowland () {
     // console.log('handledit', dataEdit)
     setShowForm(true)
     setIinitialEdit(dataEdit)
-    console.log('dataEdit', dataEdit);
     setIsEditing(true)
   }
-
-  // editar
 
   async function handleEditListBank (values) {
     console.log('valueseditando', values)
 
     const body = {
       oResults: {
-
         iIdEmpresa: empresa?.id_empresa,
         iIdCredencial: initialEdit?.id_credenciales,
         iIdBancoCredencial: initialEdit?.id_banco_credencial,
         sName: values.name,
         iIdPais: 1,
         iBanco: values.bank.id,
-        sPassword: values.password,
+        // ...(values.password && { sPassword: values.password }),
+        sPassword: values.password ? values.password : initialEdit.password,
         sCredencial: values.principalCredential,
         sCredencial2: values.credential2,
         sCredencial3: values.credential3,
@@ -97,12 +98,12 @@ export default function ConfigDowland () {
       }
     }
 
-    console.log("body",body);
+    console.log('body', body)
 
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarExtBancario', body, token)
-      console.log('response', responseData);
+      console.log('response', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
       // const data = responseData.oResults
         setModalToken(false)
@@ -110,20 +111,23 @@ export default function ConfigDowland () {
         setIsEditing(false)
         setTimeout(() => {
           setIinitialEdit(null)
+          setRequestError(null)
           setShowForm(false)
-          }, 2000)
+        }, 2000)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errorsolicitudUpdate, ', errorMessage)
-        setModalToken(true)
+        // setModalToken(true)
+        setRequestError(errorMessage)
         setShowForm(true)
-        setIsEditing(true);
+        setIsEditing(true)
       }
     } catch (error) {
       console.error('error', error)
       // setModalToken(true)
       setShowForm(true)
-      setIsEditing(true);
+      setIsEditing(true)
+      setRequestError(error)
     }
   }
 
@@ -131,7 +135,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [session, haveEmails, showForm, showModalDelete,isEditing])
+  }, [session, haveEmails, showForm, showModalDelete, isEditing])
 
   async function getExtrBanc () {
     const body = {
@@ -147,14 +151,14 @@ export default function ConfigDowland () {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
-        console.log("getextract",data)
+        console.log('getextract', data)
         setData(data)
         setModalToken(false)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errok, ', errorMessage)
+        // setModalToken(true)
 
-        setModalToken(true)
         // setStatus(errorMessage);
       }
     } catch (error) {
@@ -234,7 +238,7 @@ export default function ConfigDowland () {
             <div className='box-search'>
               <h3>List Bank Credential</h3>
               {/* <div>Search</div> */}
-              <button className='btn_black' onClick={toggleForm}>
+              <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
                 {showForm ? 'Close Form list' : 'Add list Bank'}
               </button>
             </div>
@@ -301,10 +305,13 @@ export default function ConfigDowland () {
                   </tbody>
                 </table>
               </div>
-              {showForm && <AddCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} />}
+              {showForm && <AddCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
             </div>
 
+            {requestError && <div className='errorMessage'> {requestError}</div>}
+
           </div>
+
         </div>
       ) : (
         <div className='config-Automated--emails'>

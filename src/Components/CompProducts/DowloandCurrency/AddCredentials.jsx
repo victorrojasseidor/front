@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
+import { validateFormAddListBank } from '@/helpers/validateForms'
 
-const AddCredentials = ({ onAgregar, initialVal, dataUser, handleEditListBank }) => {
+const AddCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, handleEditListBank, setShowForm }) => {
   const [countryOptions, setCountryOptions] = useState([])
   const [bankOptions, setBankOptions] = useState([])
   const [country, setCountry] = useState(null)
 
   const countryData = dataUser?.oPaisBanco
 
-  console.log('initialvalues', initialVal);
 
   useEffect(() => {
     // Cargar las opciones del país en el estado usando useEffect
@@ -30,7 +30,8 @@ const AddCredentials = ({ onAgregar, initialVal, dataUser, handleEditListBank })
 
   const initialValues = {
     name: initialVal?.nombre || '', // Usamos los valores iniciales si están disponibles
-    password: initialVal?.password || '',
+    // password: initialVal?.password || '',
+    password: '', // parq ue no se vea el passwoard
     principalCredential: initialVal?.usuario || '',
     credential2: initialVal?.usuario_a || '',
     credential3: initialVal?.usuario_b || '',
@@ -45,29 +46,28 @@ const AddCredentials = ({ onAgregar, initialVal, dataUser, handleEditListBank })
       <h2 className='box'>{initialVal ? 'Edit record' : 'Add New Bank Credential'}</h2>
       <Formik
         initialValues={initialValues}
+        // validate={initialVal === null ? validateFormAddListBank : undefined}
+        // validate={validateFormAddListBank}
+        validate={(values) => validateFormAddListBank(values, initialValues)} 
         onSubmit={(values, { resetForm }) => {
           if (initialVal) {
-            // Si initialValues existe, significa que estamos editando
-            // En este caso, llamamos a la función onSubmit y pasamos los valores editados
             handleEditListBank(values)
           } else {
-            // Si no hay initialValues, estamos agregando un nuevo registro
             onAgregar(values)
           }
           resetForm()
         }}
       >
-        {({ values, setFieldValue }) => (
+        {({ values, isValid, setFieldValue }) => (
           <Form className='form-container'>
             <div className='input-box'>
               <Field type='text' name='name' placeholder=' ' />
               <label htmlFor='name'>Name</label>
               <ErrorMessage name='name' component='span' className='errorMessage' />
             </div>
-
             <div className='input-box'>
               <Field type='password' name='password' placeholder=' ' />
-              <label htmlFor='password'>Password</label>
+              <label htmlFor='password'>{initialVal ? 'Update old password' : 'Password'}</label>
               <ErrorMessage name='password' component='span' className='errorMessage' />
             </div>
             <div className='input-box'>
@@ -136,7 +136,12 @@ const AddCredentials = ({ onAgregar, initialVal, dataUser, handleEditListBank })
               </div>
             </div>
             <div className='submit-box'>
-              <button type='submit' className='btn_primary'>
+
+              <button type='submit' className='btn_secundary small' onClick={() => { setIinitialEdit(null); setShowForm(false) }}>
+                close
+              </button>
+
+              <button type='submit' className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>
                 {initialVal ? 'Update' : 'Add'}
               </button>
 

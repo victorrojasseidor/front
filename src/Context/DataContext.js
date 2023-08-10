@@ -25,7 +25,7 @@ export const DataContextProvider = ({ children }) => {
   const [session, setSession] = useState(null)
   const [empresa, setEmpresa] = useState('')
   const [modalToken, setModalToken] = useState(false)
-
+ 
   // console.log("empresa",empresa);
 
   // lang
@@ -97,6 +97,7 @@ export const DataContextProvider = ({ children }) => {
         setEmpresa,
         modalToken,
         setModalToken,
+ 
         t
       }}
     >

@@ -106,6 +106,7 @@ export default function productId () {
                       <div>
 
                         {component?.configuration}
+                
 
                       </div>
                     )}
@@ -135,7 +136,7 @@ export default function productId () {
             </section>)
           : <p>
             loading .....
-          </p>
+            </p>
 
       }
 
