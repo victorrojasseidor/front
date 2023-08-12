@@ -4,9 +4,8 @@ import ImageSvg from '@/helpers/ImageSVG'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import LimitedParagraph from '@/helpers/limitParagraf'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
-import Loading from '@/Components/Atoms/Loading'
 import { getProducts } from '@/helpers/auth'
 
 export default function Products () {
@@ -21,52 +20,50 @@ export default function Products () {
   useEffect(() => {
     if (!session) {
       router.push('/login')
+    } else {
+      getProductscard()
     }
-
-    // getProducts();
-
-    if (!product) {
-      return <Loading />
-    }
-  }, [session, product])
-
-  useEffect(() => {
-    getProductscard()
-  }, [])
+  }, [session, empresa])
 
   async function getProductscard () {
     try {
       const token = session.sToken
       const idEmpresa = empresa.id_empresa
       const responseData = await getProducts(idEmpresa, token)
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setProduct(data)
         setModalToken(false)
-      } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+      } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
-        console.log('error, ', errorMessage)
-
-        // setStatus(errorMessage);
+      } else {
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        console.log('error', errorMessage)
       }
     } catch (error) {
       console.error('error', error)
       setModalToken(true)
-      // setStatus("Service error");
     }
   }
 
   useEffect(() => {
-    if (product) {
+    if (product && product.length > 0) { // Added check for product length
       const filterResults = () => {
         let results = product
         if (selectedFilter) {
-          results = results.filter((product) => product.sDescStatus.toLowerCase().includes(selectedFilter.toLowerCase()))
+          results = results.filter(
+            (product) =>
+              product.sDescStatus.toLowerCase().includes(selectedFilter.toLowerCase())
+          )
         }
 
         if (searchQuery) {
-          results = results.filter((product) => product.sName.toLowerCase().includes(searchQuery.toLowerCase()))
+          results = results.filter((product) =>
+            product.sName.toLowerCase().includes(searchQuery.toLowerCase())
+          )
         }
 
         setSearchResults(results)
@@ -102,17 +99,22 @@ export default function Products () {
   }
 
   const renderButtons = (data) => {
+    const handleLink = () => {
+      router.push(`/product/product?iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}`)
+    }
+
     const status = data.sDescStatus
     if (status === 'Configured') {
       return <span> </span>
     } else if (status === 'Earring') {
       return (
-        <Link href={`/product/${data.iId}`}>
-          <button className='btn_primary'>Configurations</button>
-        </Link>
+        <button className='btn_primary' onClick={handleLink}>
+          Configurations
+
+        </button>
       )
     } else if (status === 'Not hired') {
-      return <button className='btn_secundary'>Free trial</button>
+      return <button className='btn_secundary' onClick={handleLink}>Free trial</button>
     } else {
       return <span> </span>
     }
@@ -150,7 +152,7 @@ export default function Products () {
               <p> {selectedFilter}</p>
               <ul>
                 {searchResults.map((product) => (
-                  <li key={product.iId} className={'card' + (product.sDescStatus == 'Configured' ? ' configured' : '') + (product.sDescStatus == 'Pendiente' ? ' earring' : '')}>
+                  <li key={product.iId} className={`card ${product.sDescStatus === 'Configured' ? 'configured' : ''} ${product.sDescStatus === 'Pendiente' ? 'earring' : ''}`}>
                     <div>
                       <span>
                         <ImageSvg name='Products' />
@@ -172,11 +174,11 @@ export default function Products () {
                     </div>
 
                     <div>
-                      <Link href={`/product/${product.iId}`}>
-                        {' '}
+                      <Link href={`/product/product?iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}`}>
                         <p> View more</p>
                       </Link>
                       {renderButtons(product)}
+
                     </div>
                   </li>
                 ))}
@@ -187,7 +189,6 @@ export default function Products () {
             <p>No results found</p>
             )}
       </div>
-
     </LayoutProducts>
   )
 }

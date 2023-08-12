@@ -26,8 +26,7 @@ export const DataContextProvider = ({ children }) => {
   const [empresa, setEmpresa] = useState('')
   const [modalToken, setModalToken] = useState(false)
  
-  // console.log("empresa",empresa);
-
+  
   // lang
   const locale = 'en'
   const t = locale === 'en' ? en : es

@@ -10,23 +10,53 @@ const AddCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, hand
 
   const countryData = dataUser?.oPaisBanco
 
+ 
+  // useEffect(() => {
+  //   // Cargar las opciones del país en el estado usando useEffect
+  //   setCountryOptions(countryData.map((country) => ({ value: country.value, label: country.label })))
+
+  //   // Si hay un valor preseleccionado en initialValues.country, seleccionar el país
+  //   if (initialVal.country) {
+  //     const selectedCountryData = countryData.find((c) => c.value === initialVal.country)
+  //     setCountry(selectedCountryData)
+  //   } else {
+  //     setCountry(countryData[0])
+  //   }
+
+  //   // Cargar las opciones de banco según el país seleccionado
+  //   if (country) {
+  //     const selectedCountryData = countryData.find((c) => c.value === country.value)
+  //     setBankOptions(selectedCountryData.banks)
+  //   } else {
+  //     setBankOptions([])
+  //   }
+  // }, [countryData, country])
+
+
+
+
 
   useEffect(() => {
     // Cargar las opciones del país en el estado usando useEffect
-    setCountryOptions(countryData.map((country) => ({ value: country.value, label: country.label })))
-  }, [])
+    setCountryOptions(countryData.map((country) => ({ value: country.value, label: country.label })));
+  
+    // Si hay un valor preseleccionado en initialValues.country o no estás en modo de edición, seleccionar el país
+    if (initialVal && initialVal.country) {
+      const selectedCountryData = countryData.find((c) => c.value === initialVal.country);
+      setCountry(selectedCountryData);
+    } else {
+      setCountry(countryData[0]); // Seleccionar el primer país por defecto
+    }
 
-  useEffect(() => {
     // Cargar las opciones de banco según el país seleccionado
     if (country) {
-      const selectedCountryData = countryData.find((c) => c.value === country.value)
-      setBankOptions(selectedCountryData.banks)
+      const selectedCountryData = countryData.find((c) => c.value === country.value);
+      setBankOptions(selectedCountryData.banks);
     } else {
-      setBankOptions([])
+      setBankOptions([]);
     }
-  }, [country])
-
-  // console.log("camposeditables", initialVal);
+  }, [countryData, initialVal, country]);
+  
 
   const initialValues = {
     name: initialVal?.nombre || '', // Usamos los valores iniciales si están disponibles
@@ -38,7 +68,8 @@ const AddCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, hand
     credential4: initialVal?.usuario_c || '',
     bank: initialVal?.bank || null,
     country: initialVal?.country || null,
-    state: initialVal?.state || 'Active'
+    state: initialVal && initialVal.estado_c == '23' ? 'Active' : (initialVal ? 'Disabled' : 'Active')
+
   }
 
   return (
@@ -48,7 +79,7 @@ const AddCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, hand
         initialValues={initialValues}
         // validate={initialVal === null ? validateFormAddListBank : undefined}
         // validate={validateFormAddListBank}
-        validate={(values) => validateFormAddListBank(values, initialValues)} 
+        validate={(values) => validateFormAddListBank(values, initialValues)}
         onSubmit={(values, { resetForm }) => {
           if (initialVal) {
             handleEditListBank(values)
@@ -98,7 +129,8 @@ const AddCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, hand
                 name='country'
                 placeholder='Select a country'
                 isClearable
-                value={country}
+                value={countryOptions[0]}
+                // value={country}
                 onChange={(selectedOption) => {
                   setCountry(selectedOption)
                   setFieldValue('country', selectedOption)
@@ -114,7 +146,7 @@ const AddCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, hand
                 name='bank'
                 placeholder='Select a bank'
                 isClearable
-                value={values.bank}
+                value={values.bank || (initialVal && bankOptions.find(option => option.id === initialVal.id_banco))}
                 onChange={(selectedOption) => {
                   setFieldValue('bank', selectedOption)
                 }}

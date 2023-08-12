@@ -78,7 +78,7 @@ export default function ConfigDowland () {
   }
 
   async function handleEditListBank (values) {
-    console.log('valueseditando', values)
+    // console.log('valueseditando', values)
 
     const body = {
       oResults: {
@@ -87,9 +87,9 @@ export default function ConfigDowland () {
         iIdBancoCredencial: initialEdit?.id_banco_credencial,
         sName: values.name,
         iIdPais: 1,
-        iBanco: values.bank.id,
-        // ...(values.password && { sPassword: values.password }),
-        sPassword: values.password ? values.password : initialEdit.password,
+        iBanco: values.bank ? values.bank.id : (initialEdit ? initialEdit.id_banco: null),
+        ...(values.password && { sPassword: values.password }),
+        // sPassword: values.password ? values.password : initialEdit.password,
         sCredencial: values.principalCredential,
         sCredencial2: values.credential2,
         sCredencial3: values.credential3,
@@ -98,12 +98,12 @@ export default function ConfigDowland () {
       }
     }
 
-    console.log('body', body)
+    console.log('body', body, empresa)
 
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarExtBancario', body, token)
-      console.log('response', responseData)
+      // console.log('response', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
       // const data = responseData.oResults
         setModalToken(false)
@@ -114,11 +114,16 @@ export default function ConfigDowland () {
           setRequestError(null)
           setShowForm(false)
         }, 2000)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errorsolicitudUpdate, ', errorMessage)
-        // setModalToken(true)
         setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null) // Limpiar el mensaje después de 3 segundos
+        }, 5000)
+
         setShowForm(true)
         setIsEditing(true)
       }
@@ -127,7 +132,7 @@ export default function ConfigDowland () {
       // setModalToken(true)
       setShowForm(true)
       setIsEditing(true)
-      setRequestError(error)
+      setRequestError(null)
     }
   }
 
@@ -151,12 +156,13 @@ export default function ConfigDowland () {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
-        console.log('getextract', data)
         setData(data)
         setModalToken(false)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('errok, ', errorMessage)
+        console.log('error, ', errorMessage)
         // setModalToken(true)
 
         // setStatus(errorMessage);
@@ -260,7 +266,7 @@ export default function ConfigDowland () {
                       <tr key={row.id_banco_credencial}>
                         <td>{row.nombre}</td>
                         <td>{row.usuario}</td>
-                        <td>{row.id_banco}</td>
+                        <td>{row.nombre_banco}</td>
                         <td>Perú</td>
                         <td>
                           <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
@@ -308,7 +314,12 @@ export default function ConfigDowland () {
               {showForm && <AddCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
             </div>
 
-            {requestError && <div className='errorMessage'> {requestError}</div>}
+            {requestError && <div className='errorMessage'> {
+
+            requestError
+
+            }
+            </div>}
 
           </div>
 

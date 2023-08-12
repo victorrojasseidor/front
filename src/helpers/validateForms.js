@@ -106,18 +106,21 @@ export const validateFormAddListBank = (values, initialValues) => {
   if (!values.principalCredential) {
     errors.principalCredential = 'Principal Credential is required'
   }
+  
+  if (!initialValues) {
+    if (!values.bank) {
+      errors.bank = 'Bank is required'
+    }
 
-  if (!values.bank) {
-    errors.bank = 'Bank is required'
+    if (!values.country) {
+      errors.country = 'Country is required'
+    }
+
+    if (!values.password) {
+      errors.password = 'Password is required'
+    }
   }
 
-  if (!values.country) {
-    errors.country = 'Country is required'
-  }
-
-  if (!initialValues && !values.password) {
-    errors.password = 'Password is required'
-  }
 
   return errors
 }
