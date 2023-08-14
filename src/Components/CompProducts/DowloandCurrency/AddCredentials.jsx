@@ -34,8 +34,6 @@ const AddCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, hand
 
 
 
-
-
   useEffect(() => {
     // Cargar las opciones del país en el estado usando useEffect
     setCountryOptions(countryData.map((country) => ({ value: country.value, label: country.label })));

@@ -11,11 +11,8 @@ border-radius: brd(1);
 .layoutLogin {
   display: flex;
   flex-direction: row;
-  margin: 1em 1em;
-  height: 120vh;
-
-   
-  
+  margin: 0em 1em;
+  height: 100vh;
 
   &_image {
     @include media(tablet) {
@@ -27,8 +24,12 @@ border-radius: brd(1);
     background-image: url("../../../public/img/register.png");
     background-repeat: no-repeat;
     background-size: cover;
-    background-size: 130vh;
-    gap:1em;
+    // background-size: 130vh;
+    gap: 1em;
+  }
+  @include media(desktop) {
+    background-size: 140vh;
+    // height: 108vh;
   }
 
   section {
@@ -53,7 +54,7 @@ border-radius: brd(1);
       //   width: 4rem;
       //   height: 4rem;
       // }
-      img{
+      img {
         height: 70px;
         width: auto;
       }
@@ -80,24 +81,20 @@ border-radius: brd(1);
         }
       }
     }
-
-   
-    }
   }
+}
 
+.navLogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+}
 
- .navLogin {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      width: 100%;
-
-    }
-
-      .iforget {
-        width: 100%;
-        align-self: flex-end;
-        justify-content: flex-end;
-        color: get-color(grey2_s4);
-        margin-bottom: 1em;
-      }
+.iforget {
+  width: 100%;
+  align-self: flex-end;
+  justify-content: flex-end;
+  color: get-color(grey2_s4);
+  margin-bottom: 1em;
+}

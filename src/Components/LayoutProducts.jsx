@@ -3,6 +3,7 @@ import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
 // import "../../styles/_styles.scss";
 import logo from '../../public/img/logoseidor.png'
+import carita from '../../public/img/carita.png'
 import Image from 'next/image'
 import perfil from '../../public/img/perfil.jpg'
 import IconEN from '../../public/icons/eeuu.svg'
@@ -24,6 +25,7 @@ const LayoutProducts = ({ children }) => {
   }
 
   const { session, setSession, empresa, setEmpresa, modalToken } = useAuth()
+console.log("sesión",session);
 
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value
@@ -60,9 +62,9 @@ const LayoutProducts = ({ children }) => {
       setMargen('0rem')
     } else {
       if (isMenuLateralOpen) {
-        setMargen('13rem')
+        setMargen('12.5rem')
       } else {
-        setMargen('7rem')
+        setMargen('6rem')
       }
     }
 
@@ -100,7 +102,7 @@ const LayoutProducts = ({ children }) => {
 
   return (
     <section className='layoutProducts'>
-      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ top: isMobile ? '58px' : '6px', marginLeft: isMobile ? '0,5rem' : '0rem', display: isMobile ? (isOpenMobile ? 'block' : 'none') : 'block' }}>
+      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ top: isMobile ? '58px' : '0px', marginLeft: isMobile ? '0,5rem' : '0rem', display: isMobile ? (isOpenMobile ? 'block' : 'none') : 'block' }}>
         <div className='menu_Account'>
           <div className='imgPerfil'>
             <Image src={perfil} width={100} alt='Robot' />
@@ -108,20 +110,16 @@ const LayoutProducts = ({ children }) => {
               <ImageSvg name={isMenuLateralOpen ? 'CloseMenu' : 'OpenMenu'} />
             </button>
           </div>
-
-          <div className='perfil-select'>
-            <select value={empresa} onChange={handleSelectChange}>
-              {/* <option value="">Seleccione una empresa</option> */}
-              {session?.oEmpresa.map((empres) => (
-                <option key={empres.id_empresa} value={empres.razon_social_empresa}>
-                  {empres.razon_social_empresa}
-                </option>
-              ))}
-            </select>
-          </div>
-
+          {/* <p className='username'>
+              {session?.sUserName}              
+              </p> */}
+        
           <h5>
-            <p>{session?.jCompany.razon_social_company}</p>
+            <div className='box-correo'>
+                <p className='company'>{session?.jCompany.razon_social_company}</p>
+            <p>{session?.sCorreo}</p>
+            </div>
+            
           </h5>
           {/* <button>
             <ImageSvg name='Edit' />
@@ -141,14 +139,14 @@ const LayoutProducts = ({ children }) => {
             </li>
             <li>
               <ImageSvg name='Dashboard' />
-              <Link href='/Dashboard'>Dashboard</Link>
+              <Link href='/Reporting'>Reporting</Link>
             </li>
-            <li>
+            <li style={{ display: 'none' }}>
               <ImageSvg name='APIS' />
               <Link href='/APIS'>APIS</Link>
             </li>
 
-            <li>
+            <li style={{ display: 'none' }}>
               <ImageSvg name='Schedule' />
               <Link href='/Schedule'>Schedule </Link>
             </li>
@@ -158,6 +156,28 @@ const LayoutProducts = ({ children }) => {
               <Link href='/Support'>Support </Link>
             </li>
           </ul>
+
+          <div className='menu_navIcons'>
+                 <li>
+              <button className='btn_icons'>
+                <ImageSvg name='Notifications' />
+              </button>
+            </li>
+
+            <li>
+              <button onClick={handleClickLanguaje} className='btn_icons languaje'>
+                <Image src={isSpanish ? IconES : IconEN} width={30} alt='imglanguage' />
+                <h5>{isSpanish ? 'EN' : 'ES'}</h5>
+                {/* <ImageSvg name='Change' /> */}
+              </button>
+            </li>
+            <li>
+              <button onClick={handleLogout} className='btn_icons'>
+                <ImageSvg name='SignOut' />
+              </button>
+            </li>
+          </div>
+
         </nav>
 
         <div className='menu_logo'>
@@ -177,8 +197,7 @@ const LayoutProducts = ({ children }) => {
           <ImageSvg name={isMenuOpen? "MenuOpen":"MenuClose"} />
         </button> */}
             </li>
-
-            <li>
+            {/* <li>
               <button className='btn_icons'>
                 <ImageSvg name='Notifications' />
               </button>
@@ -188,7 +207,6 @@ const LayoutProducts = ({ children }) => {
               <button onClick={handleClickLanguaje} className='btn_icons'>
                 <Image src={isSpanish ? IconES : IconEN} width={30} alt='imglanguage' />
                 <h5>{isSpanish ? 'EN' : 'ES'}</h5>
-
                 <ImageSvg name='Change' />
               </button>
             </li>
@@ -196,18 +214,36 @@ const LayoutProducts = ({ children }) => {
               <button className='btn_icons' onClick={handleLogout}>
                 <ImageSvg name='SignOut' />
               </button>
-            </li>
+            </li> */}
           </ul>
         </nav>
 
         <div className='childrenTilte'>
           <h3>Digital employees</h3>
+          
+          <div className='perfil-select'>
           <p>
-            Welcome, <span> {empresa?.razon_social_empresa} 👋 </span>{' '}
-          </p>
-        </div>
+            Welcome, 👋
 
-        {children}
+            <Image src={carita} width={20} alt='carita' />
+         
+                             </p>
+            <select value={empresa} onChange={handleSelectChange}>
+              {/* <option value="">Seleccione una empresa</option> */}
+              {session?.oEmpresa.map((empres) => (
+                <option key={empres.id_empresa} value={empres.razon_social_empresa}>
+                  {empres.razon_social_empresa}
+                </option>
+              ))}
+            </select>
+            
+          </div>
+        </div>
+   <section className='children'>
+   {children}
+   </section>
+        
+
       </section>
       <div>{modalToken && session && <RefreshToken />}</div>
     </section>

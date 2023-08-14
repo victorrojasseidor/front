@@ -2,7 +2,6 @@
   /*background-color: get-color(bg-cles);*/
   display: flex;
   flex-direction: row;
-
   height: 150vh;  
   //  background-color: get-color(bg-cles);
   background-image: src;
@@ -10,7 +9,7 @@
   background-repeat: no-repeat;
   background-size: cover,250vh;
   @include media(tablet) {
-    gap: 2em; 
+    // gap: 2em; 
 
 
     
@@ -20,13 +19,13 @@
   .menu {
     max-width: 200px;
     background-color: get-color(white_s1);
-    border-radius: 0px 30px 30px 0px;
+    border-radius: 0px 0px 30px 0px;
     box-shadow: bsh(2);
     align-items: center;
     height: fit-content;
-    padding-bottom: 1em;
+    padding-bottom: 1.5rem;
     position: fixed;
-    left: 6px; /* Puedes ajustar este valor según tu diseño */
+    // left: 6px; /* Puedes ajustar este valor según tu diseño */
     z-index: 9999;
 
 
@@ -42,6 +41,20 @@
 
       p {
         font-size: small;
+      }
+      .box-correo{
+        display: flex;
+        flex-direction: column;
+        font-size: 0.5rem;
+        
+        .company{
+          color:get-color(blue_p1);
+          font-weight: 600px;
+          font-size: 0.8rem;
+        }
+
+
+
       }
 
       .imgPerfil {
@@ -144,6 +157,25 @@
       }
     }
 
+    &_navIcons{
+      padding: 1rem 0rem;
+      // background-color: aqua;
+      border-top: 1px solid get-color(forms_s6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap:0.25rem;
+      li{
+        list-style: none;
+
+      }
+
+      
+     
+
+    }
+
     .active{
       color: get-color(blue_p1);
       background-color: get-color(pink_s5);
@@ -198,14 +230,22 @@
           right: -30px;
         }
       }
-      select {
-        font-size: smaller;
-        width: 40px;
-        padding: 0;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+      .languaje{
+             width: 10px;
       }
+      
+     .btn_icons{
+      border:1px solid get-color(white_s1);
+     }
+
+      // select {
+      //   font-size: smaller;
+      //   width: 40px;
+      //   padding: 0;
+      //   overflow: hidden;
+      //   white-space: nowrap;
+      //   text-overflow: ellipsis;
+      // }
 
       img {
         width: 60px;
@@ -214,23 +254,47 @@
 
     &_children {
       width: 100%;
-      padding: 0.5rem;
+      // padding: 0.5rem;
       gap: 1em;
+ 
+
+
      
 
       .childrenTilte {
-       padding:1em 0 0 1em;
-        @include media(tablet) {
-          padding: 0rem;
-        }
+      //  padding:rem ;
+       width: 100%;
+       display: flex;
+       justify-content:space-evenly;
+       flex-direction: row;
+       align-items: center;
+       gap:1rem;
+      //  background-color: aqua;
+      
+      
+          // padding: 0.5rem 1rem;
+          backdrop-filter: blur(4px);
+          background-color: rgba(255, 255, 255, 0.5); 
+          position: fixed;
+   
 
         p {
           span {
             color: get-color(blue_p1);
           }
         }
+       
       }
+
+      .children{
+        padding: 4rem 1rem 1rem 1rem;
+        
+     
+      }
+      
     }
+
+
   }
 }
 
@@ -240,6 +304,8 @@
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;
+  position: fixed;
+  z-index: 999;
 
   .hamburgerMenu {
     display: block;
@@ -282,20 +348,22 @@
   display: inline-block;
   // background-image: linear-gradient(to left, get-color(blue_p1), get-color(t2-ligthBlue));
   // border-radius: brd(2);
-  height: 40px;
+  // height: 40px;
   display: flex;
   align-items: center;
-  max-width: 200px;
-  padding: 0.1em;
+  max-width: 350px;
+  // padding: 0.5em;
+  
   select {
-    height: 37px;
+    // height: 37px;
     border: 1px solid transparent;
+    background-color: transparent;
     // border-radius: 8px;
     padding: 0.3em;
-    color: get-color(black_p2);
-    font-weight: 500;
-    font-size: 0.8rem;
-    border-bottom: 1px solid get-color(grey1_s3);;
+    color: get-color(blue_p1);
+    font-weight: 550;
+    font-size: 1rem;
+    // border-bottom: 1px solid get-color(grey1_s3);;
    
     option{
       font-size: 1rem;
@@ -304,3 +372,4 @@
     
   }
 }
+

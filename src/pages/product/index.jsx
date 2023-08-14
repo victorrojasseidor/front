@@ -49,6 +49,8 @@ export default function Products () {
     }
   }
 
+  console.log('product', product)
+
   useEffect(() => {
     if (product && product.length > 0) { // Added check for product length
       const filterResults = () => {
@@ -89,7 +91,7 @@ export default function Products () {
   const renderSelectedFilter = (status, time) => {
     if (status === 'Configured') {
       return <span>Expires in {time.SExpires} ago</span>
-    } else if (status === 'Pendiente') {
+    } else if (status === 'Pending') {
       return <span>{time.sEnabled}</span>
     } else if (status === 'Not hired') {
       return <span>Updated {time.sUpdate} ago</span>
@@ -106,11 +108,10 @@ export default function Products () {
     const status = data.sDescStatus
     if (status === 'Configured') {
       return <span> </span>
-    } else if (status === 'Earring') {
+    } else if (status === 'Pending') {
       return (
         <button className='btn_primary' onClick={handleLink}>
           Configurations
-
         </button>
       )
     } else if (status === 'Not hired') {
@@ -131,8 +132,8 @@ export default function Products () {
             <button onClick={() => handleFilter('Configured')} className={selectedFilter === 'Configured' ? 'active' : ''}>
               Configured
             </button>
-            <button onClick={() => handleFilter('Pendiente')} className={selectedFilter === 'Pendiente' ? 'active' : ''}>
-              Earring
+            <button onClick={() => handleFilter('Pending')} className={selectedFilter === 'Pending' ? 'active' : ''}>
+              Pending
             </button>
             <button onClick={() => handleFilter('Not hired')} className={selectedFilter === 'Not hired' ? 'active' : ''}>
               Not hired
@@ -152,7 +153,7 @@ export default function Products () {
               <p> {selectedFilter}</p>
               <ul>
                 {searchResults.map((product) => (
-                  <li key={product.iId} className={`card ${product.sDescStatus === 'Configured' ? 'configured' : ''} ${product.sDescStatus === 'Pendiente' ? 'earring' : ''}`}>
+                  <li key={product.iId} className={`card ${product.sDescStatus === 'Configured' ? 'configured' : ''} ${product.sDescStatus === 'Pending' || product.sDescStatus === 'Earring' ? 'pending' : ''}`}>
                     <div>
                       <span>
                         <ImageSvg name='Products' />
@@ -182,6 +183,99 @@ export default function Products () {
                     </div>
                   </li>
                 ))}
+
+                {/*productos añadidos por el momento*/}
+
+                <li className='card'>
+                  <div>
+                    <span>
+                      <ImageSvg name='Products' />
+                    </span>
+                    <Link href='#'>
+                      <h5> Pattern</h5>
+                    </Link>
+                  </div>
+                  <div>
+                    <p>Not hired</p>
+                    <span>
+                      <ImageSvg name='Time' />
+                      <span> Update 3 months</span>
+                    </span>
+                  </div>
+
+                  <div>
+                    <LimitedParagraph text='Create your list of patterns, you can add more than one' limit={40} />
+                  </div>
+
+                  <div>
+                    <Link href='/product'>
+                      <p> View more</p>
+                    </Link>
+
+                    <button className='btn_secundary'>Free trial</button>
+                  </div>
+                </li>
+
+                <li className='card'>
+                  <div>
+                    <span>
+                      <ImageSvg name='Products' />
+                    </span>
+                    <Link href='#'>
+                      <h5> Currency Exchange rates automation</h5>
+                    </Link>
+                  </div>
+                  <div>
+                    <p>Not hired</p>
+                    <span>
+                      <ImageSvg name='Time' />
+                      <span> Update 1 months</span>
+                    </span>
+                  </div>
+
+                  <div>
+                    <LimitedParagraph text='Settings for Daily exchange rate' limit={40} />
+                  </div>
+
+                  <div>
+                    <Link href='/product'>
+                      <p> View more</p>
+                    </Link>
+
+                    <button className='btn_secundary'>Free trial</button>
+                  </div>
+                </li>
+
+                <li className='card'>
+                  <div>
+                    <span>
+                      <ImageSvg name='Products' />
+                    </span>
+                    <Link href='#'>
+                      <h5>Invoice register</h5>
+                    </Link>
+                  </div>
+                  <div>
+                    <p>Not hired</p>
+                    <span>
+                      <ImageSvg name='Time' />
+                      <span> Update 1 months</span>
+                    </span>
+                  </div>
+
+                  <div>
+                    <LimitedParagraph text='Settings for Daily exchange rate' limit={40} />
+                  </div>
+
+                  <div>
+                    <Link href='/product'>
+                      <p> View more</p>
+                    </Link>
+
+                    <button className='btn_secundary'>Free trial</button>
+                  </div>
+                </li>
+
               </ul>
             </div>
             )

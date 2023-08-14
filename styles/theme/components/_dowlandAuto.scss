@@ -95,14 +95,17 @@ flex-wrap: wrap;
           flex-direction: row;
           
           .emails {
-          max-width: 23rem; 
-           overflow: hidden; // Oculta el contenido que desborda del ancho máximo
-          display: inline-block; // Asegura que el contenedor tome solo el ancho que necesita
-          white-space: nowrap; // Evita que el contenido se envuelva a la siguiente línea
-           text-overflow: ellipsis;
-            gap:1rem;
-            // Evita que el contenido se envuelva a la siguiente línea
-            color: get-color(grey1_s3);
+          // max-width: 20rem; 
+          display: flex;
+          flex-wrap: wrap;
+         
+          //  overflow: hidden; // Oculta el contenido que desborda del ancho máximo
+          // display: inline-block; // Asegura que el contenedor tome solo el ancho que necesita
+          // white-space: nowrap; // Evita que el contenido se envuelva a la siguiente línea
+          //  text-overflow: ellipsis;
+          //   gap:1rem;
+          //   // Evita que el contenido se envuelva a la siguiente línea
+          //   color: get-color(grey1_s3);
 
             p{
               padding-left: 0.25rem;
@@ -285,7 +288,6 @@ p {
     display: flex;
     justify-content: center;
     flex-direction: column;
-
     border-radius: 10px;
     border: 2px solid var(--s-2-pink, #efecff);
     background: var(--s-1-white, #fff);

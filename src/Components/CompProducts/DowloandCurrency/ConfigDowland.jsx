@@ -1,4 +1,3 @@
-/* eslint-disable eqeqeq */
 /* eslint-disable multiline-ternary */
 import React, { useState, useEffect } from 'react'
 import EmailsForm from './EmailsForm'
@@ -7,6 +6,7 @@ import AddCredentials from './AddCredentials'
 import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
+// import { useRouter } from 'next/navigation'
 import Modal from '@/Components/Modal'
 
 export default function ConfigDowland () {
@@ -87,7 +87,7 @@ export default function ConfigDowland () {
         iIdBancoCredencial: initialEdit?.id_banco_credencial,
         sName: values.name,
         iIdPais: 1,
-        iBanco: values.bank ? values.bank.id : (initialEdit ? initialEdit.id_banco: null),
+        iBanco: values.bank ? values.bank.id : (initialEdit ? initialEdit.id_banco : null),
         ...(values.password && { sPassword: values.password }),
         // sPassword: values.password ? values.password : initialEdit.password,
         sCredencial: values.principalCredential,
@@ -205,6 +205,11 @@ export default function ConfigDowland () {
     }
   }
 
+  const handleAcount = (row) => {
+    console.log('domwla', row)
+    // router.push('/configura/row')
+  }
+
   return (
     <section className='config-Automated'>
       {haveEmails && data?.oCorreoEB?.length >= 1 ? (
@@ -230,13 +235,16 @@ export default function ConfigDowland () {
               <h5>Emails for notifications</h5>
               <div className='card--emails'>
                 <div className='emails'>
-                  {data?.oCorreoEB.map((email) => (
+                  {data?.oCorreoEB.slice(0, 4).map((email) => (
                     <p key={email.correo_cc}>{email.correo_cc}</p>
                   ))}
+                  <span>
+                    <button className='btn_crud' onClick={() => setHaveEmails(false)}>
+                      <ImageSvg name='Edit' />
+                    </button>
+                  </span>
                 </div>
-                <button className='btn_crud' onClick={() => setHaveEmails(false)}>
-                  <ImageSvg name='Edit' />
-                </button>
+
               </div>
             </div>
           </div>
@@ -263,7 +271,7 @@ export default function ConfigDowland () {
                   </thead>
                   <tbody>
                     {data?.oListBancoCredendicial?.map((row) => (
-                      <tr key={row.id_banco_credencial}>
+                      <tr key={row.id_banco_credencial} onClick={() => handleAcount(row)}>
                         <td>{row.nombre}</td>
                         <td>{row.usuario}</td>
                         <td>{row.nombre_banco}</td>
@@ -319,7 +327,7 @@ export default function ConfigDowland () {
             requestError
 
             }
-            </div>}
+                             </div>}
 
           </div>
 
