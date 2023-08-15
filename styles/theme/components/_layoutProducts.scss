@@ -11,7 +11,6 @@
   @include media(tablet) {
     // gap: 2em; 
 
-
     
   }
 
@@ -257,11 +256,10 @@
       // padding: 0.5rem;
       gap: 1em;
  
-
-
-     
+   
 
       .childrenTilte {
+       
       //  padding:rem ;
        width: 100%;
        display: flex;
@@ -276,6 +274,7 @@
           backdrop-filter: blur(4px);
           background-color: rgba(255, 255, 255, 0.5); 
           position: fixed;
+          z-index:99;
    
 
         p {
