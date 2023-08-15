@@ -8,6 +8,7 @@
   background-image: url("../../../public/img/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover,250vh;
+
   @include media(tablet) {
     // gap: 2em; 
 
@@ -18,7 +19,7 @@
   .menu {
     max-width: 200px;
     background-color: get-color(white_s1);
-    border-radius: 0px 0px 30px 0px;
+    border-radius: 0px 0px 0px 0px;
     box-shadow: bsh(2);
     align-items: center;
     height: fit-content;
@@ -26,6 +27,9 @@
     position: fixed;
     // left: 6px; /* Puedes ajustar este valor según tu diseño */
     z-index: 9999;
+    height: 100vh; 
+    gap:4rem;
+
 
 
 
@@ -37,6 +41,7 @@
       align-items: center;
       gap: 0.5em;
       position: relative;
+
 
       p {
         font-size: small;
