@@ -25,7 +25,6 @@ const LayoutProducts = ({ children }) => {
   }
 
   const { session, setSession, empresa, setEmpresa, modalToken } = useAuth()
-console.log("sesión",session);
 
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value
@@ -111,15 +110,15 @@ console.log("sesión",session);
             </button>
           </div>
           {/* <p className='username'>
-              {session?.sUserName}              
+              {session?.sUserName}
               </p> */}
-        
+
           <h5>
             <div className='box-correo'>
-                <p className='company'>{session?.jCompany.razon_social_company}</p>
-            <p>{session?.sCorreo}</p>
+              <p className='company'>{session?.jCompany.razon_social_company}</p>
+              <p>{session?.sCorreo}</p>
             </div>
-            
+
           </h5>
           {/* <button>
             <ImageSvg name='Edit' />
@@ -158,7 +157,7 @@ console.log("sesión",session);
           </ul>
 
           <div className='menu_navIcons'>
-                 <li>
+            <li>
               <button className='btn_icons'>
                 <ImageSvg name='Notifications' />
               </button>
@@ -220,14 +219,14 @@ console.log("sesión",session);
 
         <div className='childrenTilte'>
           <h3>Digital employees</h3>
-          
-          <div className='perfil-select'>
-          <p>
-            Welcome, 👋
 
-            <Image src={carita} width={20} alt='carita' />
-         
-                             </p>
+          <div className='perfil-select'>
+            <p>
+              Welcome, 👋
+
+              <Image src={carita} width={20} alt='carita' />
+
+            </p>
             <select value={empresa} onChange={handleSelectChange}>
               {/* <option value="">Seleccione una empresa</option> */}
               {session?.oEmpresa.map((empres) => (
@@ -236,13 +235,12 @@ console.log("sesión",session);
                 </option>
               ))}
             </select>
-            
+
           </div>
         </div>
-   <section className='children'>
-   {children}
-   </section>
-        
+        <section className='children'>
+          {children}
+        </section>
 
       </section>
       <div>{modalToken && session && <RefreshToken />}</div>
