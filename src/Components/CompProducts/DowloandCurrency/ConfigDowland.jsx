@@ -8,6 +8,7 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
 // import { useRouter } from 'next/navigation'
 import Modal from '@/Components/Modal'
+import CryptoJS from 'crypto-js'
 
 export default function ConfigDowland () {
   const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
@@ -21,6 +22,7 @@ export default function ConfigDowland () {
   const router = useRouter()
   // const id = router.query.iId
   const iIdProdEnv = router.query.iIdProdEnv
+  const iId = router.query.iId
 
   const { session, empresa, setModalToken } = useAuth()
 
@@ -98,8 +100,6 @@ export default function ConfigDowland () {
       }
     }
 
-    console.log('body', body, empresa)
-
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarExtBancario', body, token)
@@ -140,7 +140,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [session, haveEmails, showForm, showModalDelete, isEditing])
+  }, [session])
 
   async function getExtrBanc () {
     const body = {
@@ -207,7 +207,7 @@ export default function ConfigDowland () {
 
   const handleAcount = (row) => {
     console.log('domwla', row)
-    // router.push('/configura/row')
+    router.push(`/product/configura/config?iIdProdEnv=${iIdProdEnv}&iId=${iId}&idbancoCredential=${row.id_banco_credencial}`)
   }
 
   return (

@@ -28,8 +28,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children }) 
     setActiveTab(index)
   }
 
-  console.log('layout config', id, iIdProdEnv, product)
-
   async function getDataProduct () {
     try {
       const token = session.sToken
@@ -67,7 +65,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children }) 
                 <button className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}>
                   <h4> Configuration </h4>
                 </button>
-                <button className={activeTab === 2 ? 'active' : ''} style={{display: "none"}} onClick={() => handleTabClick(2)}>
+                <button className={activeTab === 2 ? 'active' : ''} style={{ display: 'none' }} onClick={() => handleTabClick(2)}>
                   <h4> API Configuration </h4>
                 </button>
                 <button className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>

@@ -271,8 +271,10 @@
        flex-wrap: wrap;
        align-items: center;
        gap:0rem;
-            backdrop-filter: blur(4px);
-          background-color: rgba(255, 255, 255, 0.5); 
+       backdrop-filter: blur(10px);
+    background-color: #efecffcf;
+    width: 100%;
+           
           position: fixed;
           z-index:99;
 
@@ -281,6 +283,8 @@
             width: 100%;
             gap: 3rem;
             padding: 0rem 2rem;
+            backdrop-filter: blur(20px);
+            background-color: rgba(255, 255, 255, 0.5); 
           }
    
 
@@ -294,8 +298,11 @@
 
       .title{
         
+        padding:0.5rem;
+      
         @include media(tablet) {
           margin-right: auto;
+
         }
       
       }
@@ -313,7 +320,6 @@
 }
 
 .menu-header {
-  // align-items: flex-end;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -344,9 +350,8 @@
   }
 
   ul {
-    // position: fixed;
     align-items: flex-start;
-    // background-color: aqua;
+
     display: flex;
     flex-direction: row;
     gap: 0.5em;
@@ -359,15 +364,19 @@
 
 
 .perfil-select{
-     // background-image: linear-gradient(to left, get-color(blue_p1), get-color(t2-ligthBlue));
-  // border-radius: brd(2);
-  // height: 40px;
+
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: flex-start;
   max-width: 33em;
-  // padding: 0.5em;
+
+  padding: 0 1rem;
+
+  @include media(tablet) {
+    padding: 0 1rem 0 0;
+  }
+
   
   select {
     // height: 37px;
@@ -378,12 +387,14 @@
     padding: 0.3em;
     color: get-color(blue_p1);
     font-weight: 550;
-    font-size: 1rem;
-    // border-bottom: 1px solid get-color(grey1_s3);;
-   
+    font-size: 0.8rem;
+
     option{
       font-size: 1rem;
       color: get-color(blue_p1);
+    }
+    @include media(tablet) {
+      margin: 1em 0;
     }
     
   }
