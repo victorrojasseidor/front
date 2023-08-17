@@ -264,22 +264,24 @@
    
 
       .childrenTilte {
-       
-      //  padding:rem ;
-       width: 100%;
+    
        display: flex;
-       justify-content:space-evenly;
+       justify-content:center;
        flex-direction: row;
+       flex-wrap: wrap;
        align-items: center;
-       gap:1rem;
-      //  background-color: aqua;
-      
-      
-          // padding: 0.5rem 1rem;
-          backdrop-filter: blur(4px);
+       gap:0rem;
+            backdrop-filter: blur(4px);
           background-color: rgba(255, 255, 255, 0.5); 
           position: fixed;
           z-index:99;
+
+          @include media(tablet) {
+            justify-content: space-between;
+            width: 100%;
+            gap: 3rem;
+            padding: 0rem 2rem;
+          }
    
 
         p {
@@ -290,8 +292,16 @@
        
       }
 
+      .title{
+        
+        @include media(tablet) {
+          margin-right: auto;
+        }
+      
+      }
+
       .children{
-        padding: 4rem 1rem 1rem 1rem;
+        padding: 4rem 2rem 1rem 2rem;
         
      
       }
@@ -349,17 +359,19 @@
 
 
 .perfil-select{
-  display: inline-block;
-  // background-image: linear-gradient(to left, get-color(blue_p1), get-color(t2-ligthBlue));
+     // background-image: linear-gradient(to left, get-color(blue_p1), get-color(t2-ligthBlue));
   // border-radius: brd(2);
   // height: 40px;
   display: flex;
+  width: 100%;
   align-items: center;
-  max-width: 350px;
+  justify-content: flex-start;
+  max-width: 33em;
   // padding: 0.5em;
   
   select {
     // height: 37px;
+    width: auto;
     border: 1px solid transparent;
     background-color: transparent;
     // border-radius: 8px;

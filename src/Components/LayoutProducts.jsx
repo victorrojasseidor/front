@@ -219,8 +219,10 @@ console.log("sesión",session);
         </nav>
 
         <div className='childrenTilte'>
-          <h3>Digital employees</h3>
+           <div className='title'>
+           <h3>Digital employees</h3>
           
+            </div >
           <div className='perfil-select'>
           <p>
             Welcome, 👋

@@ -150,6 +150,7 @@ export default function Products () {
         {searchResults.length > 0
           ? (
             <div className='products_cards'>
+              <h5> Finanzas & Administración </h5>
               <p> {selectedFilter}</p>
               <ul>
                 {searchResults.map((product) => (
@@ -185,6 +186,8 @@ export default function Products () {
                 ))}
 
                 {/*productos añadidos por el momento*/}
+                
+
 
                 <li className='card'>
                   <div>
