@@ -4,10 +4,12 @@ import { useRouter } from 'next/router'
 import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import ImageSvg from '@/helpers/ImageSVG'
+import Link from 'next/link'
+import Modal from '@/Components/Modal'
+import AddAccounts from '@/Components/CompProducts/DowloandCurrency/AddAccounts'
 
-export default function index () {
+export default function Account () {
   const [data, setData] = useState(null)
-  const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
   const [showForm, setShowForm] = useState(false)
@@ -20,15 +22,13 @@ export default function index () {
   const iId = router.query.iId
   const idbancoCredential = router.query.idbancoCredential
 
-  console.log('data', data?.nombre)
-
   const { session, empresa, setModalToken } = useAuth()
 
   useEffect(() => {
     if (session) {
       getExtrBancAccount()
     }
-  }, [])
+  }, [session,initialEdit,showForm,showModalDelete])
 
   async function getExtrBancAccount () {
     const body = {
@@ -43,7 +43,7 @@ export default function index () {
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
-        const data = responseData.oResults.oListBancoCredendicial
+        const data = responseData.oResults.oListBancoCredendicial;
         const filterData = data.filter(account => account.id_banco_credencial == idbancoCredential)
         setData(filterData[0])
         setModalToken(false)
@@ -58,17 +58,152 @@ export default function index () {
     }
   }
 
+  const handleDeleteAccount = async (row) => {
+    const token = session.sToken
+    const body = {
+      oResults: {
+        iIdExtBanc: row.id_banco_credencial,
+        iIdEBConfCuentas: row.id_eb_conf_cuentas
+      }
+    }
+
+    try {
+      const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarCuentaExtBancario', body, token)
+      if (response.oAuditResponse?.iCode === 1) {
+        setModalToken(false)
+        setShowModalDelete(false)
+        setTimeout(() => {
+          setShowModalDelete(false)
+        }, 1000)
+      } else if (response.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else {
+        const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
+        console.log('errok, ', errorMessage)
+        setModalToken(true)
+      }
+    } catch (error) {
+      console.error('Error en la solicitud de eliminación', error)
+    }
+  }
+
+  async function handleAgregar (values) {
+       const body = {
+      oResults: {
+        iIdExtBanc: parseInt(iIdProdEnv),
+        iIdBancoCredencial: parseInt(idbancoCredential),
+        iIdTipoArchivo: values.TypeFile?.value,
+        sEmpresa: values.Company,
+        sEmpresaDescripcion: values.DesCompany,
+        sRuc: values.Ruc,
+        sCuenta: values.Account,
+        sCuentaDescripcion: values.DesAccount,
+        sMoneda: values.Coin,
+        sMonedaDescripcion: values.DesCoin
+        // bCodeEnabled: values.state === 'Active'
+      }
+    }
+
+  
+    try {
+      const token = session.sToken
+
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCuentaExtBancario', body, token)
+
+      if (responseData.oAuditResponse?.iCode === 1) {
+         setTimeout(() => {
+          setModalToken(false)
+          setShowForm(false)
+          setRequestError(null)
+        }, 1000)
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        console.log('errok, ', errorMessage)
+        setRequestError(errorMessage)
+        setModalToken(true)
+        setShowForm(true)
+      }
+    } catch (error) {
+      console.error('error', error)
+      // setModalToken(true)
+      setShowForm(true)
+      setRequestError(error)
+      // setStatus("Service error");
+    }
+  }
+
+  const handleEdit = (dataEdit) => {
+    // console.log('handledit', dataEdit)
+    setShowForm(true)
+    setIinitialEdit(dataEdit)
+    setIsEditing(true)
+  }
+
+  async function handleEditListBank (values) {
+    // console.log('valueseditando', values)
+
+    const body = {
+      oResults: {
+        iIdExtBanc: parseInt(iIdProdEnv),
+        iIdBancoCredencial: parseInt(idbancoCredential),
+        iIdTipoArchivo: values.TypeFile?.value,
+        sEmpresa: values?.Company,
+        sEmpresaDescripcion: values.DesCompany,
+        sRuc: values.Ruc,
+        sCuenta: values.Account,
+        sCuentaDescripcion: values.DesAccount,
+        sMoneda: values.Coin,
+        sMonedaDescripcion: values.DesCoin
+      }
+    }
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarCuentaExtBancario', body, token)
+      console.log('responseactualizar', responseData)
+      if (responseData.oAuditResponse?.iCode === 1) {
+      // const data = responseData.oResults
+        setModalToken(false)
+        setShowForm(false)
+        setIsEditing(false)
+        setTimeout(() => {
+          setIinitialEdit(null)
+          setRequestError(null)
+          setShowForm(false)
+        }, 2000)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        console.log('errorsolicitudUpdate, ', errorMessage)
+        setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null) // Limpiar el mensaje después de 3 segundos
+        }, 5000)
+
+        setShowForm(true)
+        setIsEditing(true)
+      }
+    } catch (error) {
+      console.error('error', error)
+      // setModalToken(true)
+      setShowForm(true)
+      setIsEditing(true)
+      setRequestError(null)
+    }
+  }
+
   const toggleForm = () => {
     setShowForm(!showForm)
   }
 
   return (
-    <LayoutConfig id={iId} iIdProdEnv={iIdProdEnv} defaultTab={1}>
-
+    <LayoutConfig id={iId} iIdProdEnv={iIdProdEnv} defaultTab={1} NameAcount={data?.nombre}>
       <section className='config-Automated'>
         <div className='config-Automated--tables'>
           <div className='container-status'>
             <div className='status-config'>
+
               <ul>
                 <li>
                   <p>Name:</p>
@@ -103,33 +238,42 @@ export default function index () {
           </div>
           <div className='contaniner-tables'>
             <div className='box-search'>
-              <h3>List Bank Credential </h3>
+              <h3>Accounts </h3>
               <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
-                {showForm ? 'Close Form list' : 'Add list Bank'}
+                {showForm ? 'Close Form list' : 'Add list Account'}
               </button>
             </div>
             <div className='boards'>
               <div className='tableContainer'>
-                <table className='dataTable'>
+                <table className='dataTable Account'>
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Principal user</th>
-                      <th>Bank</th>
-                      <th>Country</th>
+                      <th>Account</th>
+                      <th>Account Description</th>
+                      <th>Company</th>
+                      <th>Company Description</th>
+                      <th>Ruc</th>
+                      <th>File</th>
+                      <th>Currency</th>
+                      <th>Description currency</th>
                       <th>State</th>
                       <th>Actions</th>
+
                     </tr>
                   </thead>
                   <tbody>
-                    {/* {data?.oListBancoCredendicial?.map((row) => (
-                      <tr key={row.id_banco_credencial} onClick={() => handleAcount(row)}>
-                        <td>{row.nombre}</td>
-                        <td>{row.usuario}</td>
-                        <td>{row.nombre_banco}</td>
-                        <td>Perú</td>
+                    {data?.oListCuentas?.map((row) => (
+                      <tr key={row.id_eb_conf_cuentas}>
+                        <td>{row.cuenta}</td>
+                        <td>{row.descripcion_cuenta}</td>
+                        <td>{row.empresa}</td>
+                        <td>{row.descripcion_empresa}</td>
+                        <td>{row.ruc}</td>
+                        <td>{row.id_tipo_archivo}</td>
+                        <td>{row.moneda}</td>
+                        <td>{row.descripcion_moneda}</td>
                         <td>
-                          <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
+                          <span className={row.estado == '23' ? 'status-active' : 'status-disabled'}>{row.estado == '23' ? 'Active' : 'Disabled'}</span>
                         </td>
                         <td className='box-actions'>
                           <button className='btn_crud' onClick={() => handleEdit(row)}>
@@ -148,9 +292,9 @@ export default function index () {
                           }}
                           >
                             <div>
-                              <h3>Do you want to delete this credential bank list?</h3>
+                              <h3>Delete this account?</h3>
                               <div className='box-buttons'>
-                                <button type='button' className='btn_primary small' onClick={() => handleDeleteBancoCredential(row.id_banco_credencial)}>
+                                <button type='button' className='btn_primary small' onClick={() => handleDeleteAccount(row)}>
                                   YES
                                 </button>
                                 <button
@@ -167,11 +311,11 @@ export default function index () {
                           </Modal>
                         )}
                       </tr>
-                    ))} */}
+                    ))}
                   </tbody>
                 </table>
               </div>
-              {/* {showForm && <AddCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />} */}
+              {showForm && <AddAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm}/>}
             </div>
 
             {requestError && <div className='errorMessage'> {

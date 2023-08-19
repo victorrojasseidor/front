@@ -18,12 +18,13 @@ export default function Products () {
 
   const router = useRouter()
   useEffect(() => {
-    if (!session) {
-      router.push('/login')
-    } else {
-      getProductscard()
-    }
+    getProductscard()
+  
   }, [session, empresa])
+  
+  if (!session) {
+    router.push('/login')
+  }
 
   async function getProductscard () {
     try {
@@ -100,22 +101,24 @@ export default function Products () {
     }
   }
 
-  const renderButtons = (data) => {
-    const handleLink = () => {
-      router.push(`/product/product?iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}`)
-    }
+ 
 
+  const renderButtons = (data) => {
+    const handleLink = (ruta) => {
+      router.push(ruta)
+    }
+    
     const status = data.sDescStatus
     if (status === 'Configured') {
       return <span> </span>
     } else if (status === 'Pending') {
       return (
-        <button className='btn_primary' onClick={handleLink}>
+        <button className='btn_primary' onClick={handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}`)}>
           Configurations
         </button>
       )
     } else if (status === 'Not hired') {
-      return <button className='btn_secundary' onClick={handleLink}>Free trial</button>
+      return <button className='btn_secundary' onClick={handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}`)}>Free trial</button>
     } else {
       return <span> </span>
     }
@@ -159,9 +162,11 @@ export default function Products () {
                       <span>
                         <ImageSvg name='Products' />
                       </span>
-                      <Link href={`/product/product?iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}`}>
-                        <h5> {product.sName}</h5>
+
+                      <Link href={`/product/product?type=documentation&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}`}>
+                                       <h5> {product.sName}</h5>
                       </Link>
+
                     </div>
                     <div>
                       <p>{product.sDescStatus}</p>
@@ -176,7 +181,8 @@ export default function Products () {
                     </div>
 
                     <div>
-                      <Link href={`/product/product?iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}`}>
+
+                      <Link href={`/product/product?type=documentation&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}`}>
                         <p> View more</p>
                       </Link>
                       {renderButtons(product)}
@@ -185,9 +191,7 @@ export default function Products () {
                   </li>
                 ))}
 
-                {/*productos añadidos por el momento*/}
-                
-
+                {/* productos añadidos por el momento */}
 
                 <li className='card'>
                   <div>

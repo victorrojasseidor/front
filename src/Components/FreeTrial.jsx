@@ -15,7 +15,7 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
   const productName = nameProduct || 'Downlaod automated Bank Statements'
 
   // send frretrial
-  async function handleSubmit (values, { setSubmitting }) {
+  async function handleSubmit (values, { setSubmitting, resetForm }) {
     const body = {
       oResults: {
 
@@ -28,21 +28,28 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
 
       }
     }
+    console.log('bodeyfretrial', body)
 
     try {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=SolicitarProducto', body, token)
-        if (responseData.oAuditResponse?.iCode === 1) {
+      if (responseData.oAuditResponse?.iCode === 1) {
         // const data= responseData.oResults;
         SetError(null)
-        SetConfirm(true)
         setModalToken(false)
+              SetConfirm(true)
+  
+        
+        setTimeout(() => {
+          resetForm()
+          window.location.reload();
+        }, 1000)// Adjust the delay time as needed
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errok, ', errorMessage)
-
         setModalToken(true)
+        setSubmitting(false)
         SetConfirm(false)
         SetError(errorMessage)
       }
@@ -54,7 +61,12 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
     }
   }
 
-
+  // const initialFormValues = {
+  //   corporateEmail: session.sCorreo,
+  //   title: `Estoy interesado en ${productName}`,
+  //   phoneNumber: session.sPhoneNumber ? session.sPhoneNumber : '51',
+  //   message: ''
+  // };
 
   return (
     <div className='freetrial'>
@@ -75,7 +87,7 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
           initialValues={{
             corporateEmail: session.sCorreo,
             title: `I am interested in ${productName}`,
-            phoneNumber: session.sPhoneNumber ? session.sPhoneNumber : 9,
+            phoneNumber: session.sPhoneNumber ? session.sPhoneNumber : 51,
             message: ''
 
           }}
@@ -126,7 +138,7 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
         {error && <p className='errorMessage'>{error} </p>}
 
         {confirm && (
-          <Modal close={() => SetConfirm(false)}>
+          <Modal close={() => { SetConfirm(false) }}>
             <div>
               <h2>
                 Your request was sent successfully

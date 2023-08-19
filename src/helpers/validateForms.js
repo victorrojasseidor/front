@@ -124,3 +124,47 @@ export const validateFormAddListBank = (values, initialValues) => {
 
   return errors
 }
+
+
+export const validateFormAddAccount = (values, initialValues) => {
+  const errors = {}
+
+  if (!values.Company) {
+    errors.Company = 'Company is required'
+  }
+
+
+  if (!values.Ruc) {
+    errors.Ruc = 'Ruc is required'
+  }
+
+  if (!values.Coin) {
+    errors.Coin = 'Coin is required'
+  }
+
+  if (!values.TypeFile) {
+    errors.TypeFile = 'Type of file is required'
+  }
+
+  if (!values.Account) {
+    errors.Account = 'Account is required'
+  }
+
+
+  // if (!initialValues) {
+  //   if (!values.bank) {
+  //     errors.bank = 'Bank is required'
+  //   }
+
+  //   if (!values.country) {
+  //     errors.country = 'Country is required'
+  //   }
+
+  //   if (!values.password) {
+  //     errors.password = 'Password is required'
+  //   }
+  // }
+
+
+  return errors
+}

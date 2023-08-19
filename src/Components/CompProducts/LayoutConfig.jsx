@@ -6,8 +6,10 @@ import BackButton from '@/Components/BackButton'
 import { getProducts } from '@/helpers/auth'
 import { useAuth } from '@/Context/DataContext'
 import { componentsProduct } from '@/Components/CompProducts/componentsProduct'
+import Link from 'next/link'
+import ImageSvg from '@/helpers/ImageSVG'
 
-export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children }) {
+export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, NameAcount }) {
   const [product, setProduct] = useState(null)
   const [activeTab, setActiveTab] = useState(defaultTab || 0)
   const [component, setComponent] = useState(null)
@@ -54,23 +56,57 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children }) 
     <LayoutProducts>
       {product &&
         <section className='idProduct'>
-          <BackButton />
-          <h4> {product?.sName} </h4>
+          {/* <BackButton /> */}
+
+          <div className='navegación'>
+            <Link href='/product'>
+              <ImageSvg name='Products' />
+            </Link>
+
+            <ImageSvg name='Navegación' />
+
+            <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
+              <p>  {product?.sName}</p>
+            </Link>
+
+            <p>
+              {NameAcount ? <span> <ImageSvg name='Navegación' /> {NameAcount} </span> : ''}
+            </p>
+
+          </div>
+
+          {/* <h4> {product?.sName} </h4> */}
           <div className='idProduct_container'>
             <div className='tabs-container'>
               <div className='tab-header'>
-                <button className={activeTab === 0 ? 'active ' : ''} onClick={() => handleTabClick(0)}>
-                  <h4>Free Trial</h4>
-                </button>
-                <button className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}>
-                  <h4> Configuration </h4>
-                </button>
-                <button className={activeTab === 2 ? 'active' : ''} style={{ display: 'none' }} onClick={() => handleTabClick(2)}>
-                  <h4> API Configuration </h4>
-                </button>
-                <button className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
-                  <h4> Documentation </h4>
-                </button>
+                <Link href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
+                  <button className={activeTab === 0 ? 'active ' : ''} onClick={() => handleTabClick(0)}>
+                    {/* <h4>Free Trial</h4> */}
+
+                    <h4> Free Trial</h4>
+
+                  </button>
+                </Link>
+
+                <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
+                  <button className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}>
+                    <h4> Configuration</h4>
+                  </button>
+                </Link>
+
+                <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
+                  <button className={activeTab === 2 ? 'active' : ''} style={{ display: 'none' }} onClick={() => handleTabClick(2)}>
+                    <h4> API Configuration</h4>
+
+                  </button>
+                </Link>
+                <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
+                  <button className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
+
+                    <h4> Documentation</h4>
+
+                  </button>
+                </Link>
               </div>
               <div className='tab-content'>
                 {activeTab === 0 && (

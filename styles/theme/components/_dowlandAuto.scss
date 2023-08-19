@@ -147,11 +147,13 @@ flex-wrap: wrap;
           box-shadow: bsh(1);
         }
         
+        
+
+
         .dataTable {
           width: 100%;
           border-collapse: collapse;
           
-
           thead{
             background-color:transparent;
             border-style: none;
@@ -222,6 +224,20 @@ flex-wrap: wrap;
 
           }
         }
+
+        .Account{
+
+          tbody{
+            tr{
+              cursor: none;
+            
+  
+              &:hover{
+                background-color:transparent;
+                       }
+          }
+        }
+      }
 
       }
 

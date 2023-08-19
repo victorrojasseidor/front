@@ -27,7 +27,7 @@ export default function ConfigDowland () {
   const { session, empresa, setModalToken } = useAuth()
 
   async function handleAgregar (values) {
-    console.log('values', values)
+    console.log('values',iIdProdEnv, values);
     const body = {
       oResults: {
         iIdEmpresa: empresa?.id_empresa,
@@ -47,7 +47,7 @@ export default function ConfigDowland () {
       const token = session.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarExtBancario', body, token)
-
+    
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
         setTimeout(() => {
@@ -140,7 +140,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [session])
+  }, [session,haveEmails,initialEdit,showForm])
 
   async function getExtrBanc () {
     const body = {
@@ -149,6 +149,7 @@ export default function ConfigDowland () {
         iIdPais: 1
       }
     }
+
 
     try {
       const token = session.sToken
@@ -271,12 +272,12 @@ export default function ConfigDowland () {
                   </thead>
                   <tbody>
                     {data?.oListBancoCredendicial?.map((row) => (
-                      <tr key={row.id_banco_credencial} onClick={() => handleAcount(row)}>
-                        <td>{row.nombre}</td>
-                        <td>{row.usuario}</td>
-                        <td>{row.nombre_banco}</td>
-                        <td>Perú</td>
-                        <td>
+                      <tr key={row.id_banco_credencial}>
+                        <td onClick={() => handleAcount(row)}>{row.nombre}</td>
+                        <td onClick={() => handleAcount(row)}>{row.usuario}</td>
+                        <td onClick={() => handleAcount(row)}>{row.nombre_banco}</td>
+                        <td onClick={() => handleAcount(row)}>Perú</td>
+                        <td onClick={() => handleAcount(row)}>
                           <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
                         </td>
                         <td className='box-actions'>

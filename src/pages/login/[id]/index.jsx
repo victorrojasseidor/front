@@ -99,7 +99,7 @@ function LoginConfirmed () {
               <p className='errorMessage'>{error}</p>
             </div>
             )}
-      </Modal>}
+               </Modal>}
 
     </section>
   )
