@@ -9,7 +9,6 @@ import perfil from '../../public/img/perfil.jpg'
 import IconEN from '../../public/icons/eeuu.svg'
 import IconES from '../../public/icons/spain.svg'
 import RefreshToken from './RefresToken'
-
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
 
@@ -26,26 +25,64 @@ const LayoutProducts = ({ children }) => {
 
   const { session, setSession, empresa, setEmpresa, modalToken } = useAuth()
 
+  // const handleSelectChange = (event) => {
+  //   const selectedValue = event.target.value
+
+  //   // Buscar la empresa seleccionada en el array oEmpresa por su razón social
+  //   const selectedEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
+  //   const dataEmpresa = {
+  //     id_empresa: selectedEmpresa.id_empresa,
+  //     razon_social_empresa: selectedEmpresa.razon_social_empresa,
+  //     ruc_empresa: selectedEmpresa.ruc_empresa
+  //   }
+  //   // Verificar si se encontró la empresa
+  //   if (selectedEmpresa) {
+  //     // Guardar tanto la razón social como el ID en el almacenamiento local
+  //     localStorage.removeItem('selectedEmpresa')
+
+  //     localStorage.setItem('selectedEmpresa', JSON.stringify(dataEmpresa))
+
+  //     // Actualizar el estado 'empresa' con el objeto que contiene la razón social y el ID
+  //     setEmpresa(dataEmpresa)
+  //   }
+  // }
+
   const handleSelectChange = (event) => {
-    const selectedValue = event.target.value
-
-    // Buscar la empresa seleccionada en el array oEmpresa por su razón social
-    const selectedEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
-
-    // Verificar si se encontró la empresa
-    if (selectedEmpresa) {
-      // Guardar tanto la razón social como el ID en el almacenamiento local
-      localStorage.removeItem('selectedEmpresa')
-      localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
-
-      // Actualizar el estado 'empresa' con el objeto que contiene la razón social y el ID
-      setEmpresa({
-        id_empresa: selectedEmpresa.id_empresa,
-        razon_social_empresa: selectedEmpresa.razon_social_empresa,
-        ruc_empresa: selectedEmpresa.ruc_empresa
-      })
+    const selectedValue = event.target.value;
+    const DataEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue);
+  
+    if (DataEmpresa) {
+      const selectedEmpresa = {
+        id_empresa: DataEmpresa.id_empresa,
+        razon_social_empresa: DataEmpresa.razon_social_empresa,
+        ruc_empresa: DataEmpresa.ruc_empresa
+      };
+  
+      // Guardar la empresa seleccionada en el localStorage antes de redirigir
+      localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa));
+  
+      // Actualizar el estado de la empresa
+      setEmpresa(selectedEmpresa);
+  
+      // Realizar la redirección
+      router.push('/product');
     }
-  }
+  };
+  
+
+  useEffect(() => {
+    // Obtener la empresa seleccionada del localStorage
+    const savedEmpresaJSON = localStorage.getItem('selectedEmpresa')
+
+    if (savedEmpresaJSON) {
+      try {
+        const savedEmpresa = JSON.parse(savedEmpresaJSON)
+        setEmpresa(savedEmpresa)
+      } catch (error) {
+        console.error('Error parsing savedEmpresa JSON:', error)
+      }
+    }
+  }, [])
 
   const toggleMenuMobile = () => {
     setIsOpenMobile(!isOpenMobile)
@@ -230,7 +267,7 @@ const LayoutProducts = ({ children }) => {
               <Image src={carita} width={20} alt='carita' />
 
             </p>
-            <select value={empresa} onChange={handleSelectChange}>
+            <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChange}>
               {/* <option value="">Seleccione una empresa</option> */}
               {session?.oEmpresa.map((empres) => (
                 <option key={empres.id_empresa} value={empres.razon_social_empresa}>
@@ -245,6 +282,7 @@ const LayoutProducts = ({ children }) => {
 
         <section className='children'>
           {children}
+
         </section>
 
       </section>

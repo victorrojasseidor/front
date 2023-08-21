@@ -1,4 +1,3 @@
-// import "../../../styles/styles.scss";
 import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import React, { useState, useEffect } from 'react'
@@ -19,9 +18,8 @@ export default function Products () {
   const router = useRouter()
   useEffect(() => {
     getProductscard()
-  
   }, [session, empresa])
-  
+
   if (!session) {
     router.push('/login')
   }
@@ -50,7 +48,7 @@ export default function Products () {
     }
   }
 
-  console.log('product', product)
+  console.log('products', product)
 
   useEffect(() => {
     if (product && product.length > 0) { // Added check for product length
@@ -90,35 +88,41 @@ export default function Products () {
   }
 
   const renderSelectedFilter = (status, time) => {
-    if (status === 'Configured') {
-      return <span>Expires in {time.SExpires} ago</span>
-    } else if (status === 'Pending') {
+    const renderStatus = status
+    if (renderStatus === 23) {
+      /* si está configurado */
+      return <span>{time.SExpires}</span>
+    } else if (renderStatus === 28) {
+      /* si está pendiente de configurar */
       return <span>{time.sEnabled}</span>
-    } else if (status === 'Not hired') {
-      return <span>Updated {time.sUpdate} ago</span>
+    } else if (renderStatus === 27) {
+      /* si está pendiente de solicitud */
+      return <span>{time.sNoAprob}</span>
+    } else if (renderStatus === 31) {
+      /* si no ha sido solicitado, estado free trial */
+      return <span>{time.sUpdate}</span>
     } else {
       return <span>---</span>
     }
   }
 
- 
-
   const renderButtons = (data) => {
     const handleLink = (ruta) => {
       router.push(ruta)
     }
-    
-    const status = data.sDescStatus
-    if (status === 'Configured') {
-      return <span> </span>
-    } else if (status === 'Pending') {
+
+    const status = data.iCodeStatus
+    if (status === 23 || status === 28) {
       return (
-        <button className='btn_primary' onClick={handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}`)}>
-          Configurations
+        <button
+          className='btn_primary'
+          onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}`)}
+        >
+          {data.sDescStatus || 'Configure'}
         </button>
       )
-    } else if (status === 'Not hired') {
-      return <button className='btn_secundary' onClick={handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}`)}>Free trial</button>
+    } else if (status === 27 || status === 31) {
+      return <button className='btn_secundary' onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}`)}>Free trial</button>
     } else {
       return <span> </span>
     }
@@ -127,6 +131,8 @@ export default function Products () {
   return (
     <LayoutProducts>
       <div className='products'>
+        <div> Digital employes to  {empresa?.razon_social_empresa}</div>
+
         <div className='products_filterSearch'>
           <div className='filterButtons'>
             <button onClick={() => handleFilter(null)} className={selectedFilter === null ? 'active' : ''}>
@@ -143,7 +149,7 @@ export default function Products () {
             </button>
           </div>
           <div className='searchButton'>
-            <input type='text' placeholder='Search...' value={searchQuery} onChange={handleInputChange} />
+            <input type='text' placeholder='Search...' value={searchQuery} onChange={() => handleInputChange} />
             <button onClick={handleSearch}>
               <ImageSvg name='Search' />
             </button>
@@ -163,16 +169,14 @@ export default function Products () {
                         <ImageSvg name='Products' />
                       </span>
 
-                      <Link href={`/product/product?type=documentation&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}`}>
-                                       <h5> {product.sName}</h5>
-                      </Link>
+                      <h5> {product.sName}</h5>
 
                     </div>
                     <div>
                       <p>{product.sDescStatus}</p>
                       <span>
                         <ImageSvg name='Time' />
-                        {renderSelectedFilter(product.sDescStatus, product.jTime)}
+                        {renderSelectedFilter(product.iCodeStatus, product.jTime)}
                       </span>
                     </div>
 
@@ -182,7 +186,7 @@ export default function Products () {
 
                     <div>
 
-                      <Link href={`/product/product?type=documentation&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}`}>
+                      <Link href={`/product/product?type=documentation&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}`}>
                         <p> View more</p>
                       </Link>
                       {renderButtons(product)}

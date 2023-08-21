@@ -12,6 +12,7 @@ export default function productId() {
   const iId = router.query.iId;
   const iIdProdEnv = router.query.iIdProdEnv;
   const type = router.query.type;
+  const pStatus=router.query.pStatus;
 
   const { session, empresa, setModalToken } = useAuth();
 
@@ -23,13 +24,12 @@ export default function productId() {
     setActiveTab(getTypeValueTab(type));
   }, [iId, type,iIdProdEnv]); // Se ejecutará cuando cambie iId o type
 
-console.log("activeTab",activeTab);
 
   function getTypeValueTab(typeTab) {
     switch (typeTab) {
       case 'freetrial':
         return 0;
-      case 'configuration':
+      case 'configuration' & pStatus=== 28:
         return 1;
       case 'apiconfiguration':
         return 2;

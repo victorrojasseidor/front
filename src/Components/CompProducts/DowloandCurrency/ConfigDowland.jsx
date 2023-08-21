@@ -27,7 +27,7 @@ export default function ConfigDowland () {
   const { session, empresa, setModalToken } = useAuth()
 
   async function handleAgregar (values) {
-    console.log('values',iIdProdEnv, values);
+
     const body = {
       oResults: {
         iIdEmpresa: empresa?.id_empresa,
@@ -42,6 +42,9 @@ export default function ConfigDowland () {
         bCodeEnabled: values.state === 'Active'
       }
     }
+
+    console.log("empresa",empresa);
+    console.log("bodyAgregar",body);
 
     try {
       const token = session.sToken
@@ -140,7 +143,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [session,haveEmails,initialEdit,showForm])
+  }, [session,haveEmails,initialEdit,showForm,empresa,showModalDelete])
 
   async function getExtrBanc () {
     const body = {
@@ -154,7 +157,9 @@ export default function ConfigDowland () {
     try {
       const token = session.sToken
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token);
+      console.log("getestractosbancrios",responseData);
+      
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setData(data)
@@ -165,7 +170,6 @@ export default function ConfigDowland () {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('error, ', errorMessage)
         // setModalToken(true)
-
         // setStatus(errorMessage);
       }
     } catch (error) {
@@ -176,6 +180,7 @@ export default function ConfigDowland () {
   const toggleForm = () => {
     setShowForm(!showForm)
   }
+
   // funcio+on de eliminar
 
   const handleDeleteBancoCredential = async (idbankcred) => {

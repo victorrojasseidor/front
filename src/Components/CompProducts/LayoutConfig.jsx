@@ -26,16 +26,39 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
     getDataProduct()
   }, [id])
 
+  // const handleTabClick = (index) => {
+  //   setActiveTab(index)
+
+  // }
+
   const handleTabClick = (index) => {
-    setActiveTab(index)
+    if (index === 0) {
+      if (product.iCodeStatus === 27 || product.iCodeStatus === 31) {
+        setActiveTab(index)
+      }
+    } else if (index === 1) {
+      // Lógica para el tab 1
+      // Si iCodeStatus es 28 o 23, se activa el tab 1
+      if (product.iCodeStatus === 28 || product.iCodeStatus === 23) {
+        setActiveTab(index)
+      }
+    } else if (index === 2) {
+      // Lógica para el tab 2
+      // Si iCodeStatus es igual a un valor específico, se activa el tab 2
+      setActiveTab(index)
+    } else {
+      setActiveTab(index)
+    }
   }
+  // Y así sucesivamente para cada tab restante
+
+  console.log('selectedProduct', product?.iCodeStatus)
 
   async function getDataProduct () {
     try {
       const token = session.sToken
       const idEmpresa = empresa.id_empresa
       const responseData = await getProducts(idEmpresa, token)
-
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults
@@ -88,19 +111,24 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                   </button>
                 </Link>
 
-                <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
-                  <button className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}>
+                <Link 
+                href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}`}>
+                  <button 
+                  style={{
+                  display: product.iCodeStatus === 23 || product.iCodeStatus === 28 ? "block" : "none"
+                 }}
+                  className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}>
                     <h4> Configuration</h4>
                   </button>
                 </Link>
 
-                <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
+                <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}`}>
                   <button className={activeTab === 2 ? 'active' : ''} style={{ display: 'none' }} onClick={() => handleTabClick(2)}>
                     <h4> API Configuration</h4>
 
                   </button>
                 </Link>
-                <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
+                <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}`}>
                   <button className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
 
                     <h4> Documentation</h4>
