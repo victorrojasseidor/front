@@ -145,15 +145,16 @@ export default function Account () {
     const body = {
       oResults: {
         iIdExtBanc: parseInt(iIdProdEnv),
+        iIdEBConfCuentas: initialEdit.id_eb_conf_cuentas,
         iIdBancoCredencial: parseInt(idbancoCredential),
         iIdTipoArchivo: values.TypeFile?.value,
         sEmpresa: values?.Company,
-        sEmpresaDescripcion: values.DesCompany,
+        sEmpresaDescripcion: values?.DesCompany,
         sRuc: values.Ruc,
-        sCuenta: values.Account,
-        sCuentaDescripcion: values.DesAccount,
-        sMoneda: values.Coin,
-        sMonedaDescripcion: values.DesCoin
+        sCuenta: values?.Account,
+        sCuentaDescripcion: values?.DesAccount,
+        sMoneda: values?.Coin,
+        sMonedaDescripcion: values?.DesCoin
       }
     }
 

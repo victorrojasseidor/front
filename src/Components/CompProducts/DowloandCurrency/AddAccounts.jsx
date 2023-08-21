@@ -6,9 +6,8 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
 import { validateFormAddAccount } from '@/helpers/validateForms'
 
-const AddAccounts = ({ onAgregar, initialVal, setIinitialEdit, dataUser, handleEditListBank, setShowForm,showForm }) => {
- 
-    const [fileTypeOptions, setFileTypeOptions] = useState(null)
+const AddAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListBank, setShowForm, showForm }) => {
+  const [fileTypeOptions, setFileTypeOptions] = useState(null)
 
   const router = useRouter()
   // const id = router.query.iId
@@ -20,9 +19,8 @@ const AddAccounts = ({ onAgregar, initialVal, setIinitialEdit, dataUser, handleE
     if (session) {
       getExtrBancToFile()
     }
-  }, [session, iIdProdEnv,showForm])
+  }, [session, iIdProdEnv, showForm])
 
-  console.log('dataEXtract', fileTypeOptions)
 
   async function getExtrBancToFile () {
     const body = {
@@ -83,6 +81,10 @@ const AddAccounts = ({ onAgregar, initialVal, setIinitialEdit, dataUser, handleE
     state: initialVal && initialVal.estado == '23' ? 'Active' : (initialVal ? 'Disabled' : 'Active')
   }
 
+  console.log('fileoptions', fileTypeOptions);
+  console.log("initial",initialVal);
+//   console.log('slectfile', fileTypeOptions &  initialVal & fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo))
+
   return (
     <div className='Form-listCredential'>
       <h2 className='box'>{initialVal ? 'Edit record' : 'Add account'}</h2>
@@ -138,7 +140,6 @@ const AddAccounts = ({ onAgregar, initialVal, setIinitialEdit, dataUser, handleE
               <ErrorMessage name='DesCoin' component='span' className='errorMessage' />
             </div>
 
-
             <div className='bank-box'>
               <label htmlFor='bank'>Type of file</label>
               <Select
@@ -146,12 +147,13 @@ const AddAccounts = ({ onAgregar, initialVal, setIinitialEdit, dataUser, handleE
                 name='TypeFile'
                 placeholder='Select a type of file'
                 isClearable
-                // value={values.value || (initialVal && fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo))}
+                value={values.TypeFile}
+                // value={values.TypeFile || initialVal & fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo)}
                 onChange={(selectedOption) => {
                   setFieldValue('TypeFile', selectedOption)
                 }}
               />
-            </div> 
+            </div>
 
             <div className='state-box'>
               <label>State: </label>
