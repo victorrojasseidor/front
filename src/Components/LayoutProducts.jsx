@@ -25,62 +25,41 @@ const LayoutProducts = ({ children }) => {
 
   const { session, setSession, empresa, setEmpresa, modalToken } = useAuth()
 
-  // const handleSelectChange = (event) => {
-  //   const selectedValue = event.target.value
-
-  //   // Buscar la empresa seleccionada en el array oEmpresa por su razón social
-  //   const selectedEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
-  //   const dataEmpresa = {
-  //     id_empresa: selectedEmpresa.id_empresa,
-  //     razon_social_empresa: selectedEmpresa.razon_social_empresa,
-  //     ruc_empresa: selectedEmpresa.ruc_empresa
-  //   }
-  //   // Verificar si se encontró la empresa
-  //   if (selectedEmpresa) {
-  //     // Guardar tanto la razón social como el ID en el almacenamiento local
-  //     localStorage.removeItem('selectedEmpresa')
-
-  //     localStorage.setItem('selectedEmpresa', JSON.stringify(dataEmpresa))
-
-  //     // Actualizar el estado 'empresa' con el objeto que contiene la razón social y el ID
-  //     setEmpresa(dataEmpresa)
-  //   }
-  // }
-
   const handleSelectChange = (event) => {
-    const selectedValue = event.target.value;
-    const DataEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue);
-  
+    const selectedValue = event.target.value
+    const DataEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
+
     if (DataEmpresa) {
       const selectedEmpresa = {
         id_empresa: DataEmpresa.id_empresa,
         razon_social_empresa: DataEmpresa.razon_social_empresa,
         ruc_empresa: DataEmpresa.ruc_empresa
-      };
-  
-      // Guardar la empresa seleccionada en el localStorage antes de redirigir
-      localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa));
-  
+      }
+      localStorage.removeItem('selectedEmpresa')
+      // Guardar la empresa seleccionada en el localStorage
+      localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
+
       // Actualizar el estado de la empresa
-      setEmpresa(selectedEmpresa);
-  
+      setEmpresa(selectedEmpresa)
+
       // Realizar la redirección
-      router.push('/product');
+      router.push('/product')
     }
-  };
-  
+  }
+
+  const savedEmpresaJSON = localStorage.getItem('selectedEmpresa')
 
   useEffect(() => {
-    // Obtener la empresa seleccionada del localStorage
-    const savedEmpresaJSON = localStorage.getItem('selectedEmpresa')
-
     if (savedEmpresaJSON) {
       try {
         const savedEmpresa = JSON.parse(savedEmpresaJSON)
+        console.log('savedEmpresa', savedEmpresa)
         setEmpresa(savedEmpresa)
       } catch (error) {
         console.error('Error parsing savedEmpresa JSON:', error)
       }
+    } else if (!empresa && session?.oEmpresa.length > 0) {
+      setEmpresa(session.oEmpresa[0])
     }
   }, [])
 
@@ -130,10 +109,6 @@ const LayoutProducts = ({ children }) => {
     if (!session) {
       router.push('/login')
     }
-
-    // setTimeout(() => {
-    //   getProducts();
-    // }, 100);
   }, [session])
 
   return (

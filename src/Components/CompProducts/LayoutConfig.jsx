@@ -24,7 +24,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
 
   useEffect(() => {
     getDataProduct()
-  }, [id])
+  }, [id, empresa, session])
 
   // const handleTabClick = (index) => {
   //   setActiveTab(index)
@@ -52,12 +52,11 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   }
   // Y así sucesivamente para cada tab restante
 
-  console.log('selectedProduct', product?.iCodeStatus)
-
   async function getDataProduct () {
     try {
       const token = session.sToken
       const idEmpresa = empresa.id_empresa
+      console.log('layput product', idEmpresa)
       const responseData = await getProducts(idEmpresa, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -111,13 +110,15 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                   </button>
                 </Link>
 
-                <Link 
-                href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}`}>
-                  <button 
-                  style={{
-                  display: product.iCodeStatus === 23 || product.iCodeStatus === 28 ? "block" : "none"
-                 }}
-                  className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}>
+                <Link
+                  href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}`}
+                >
+                  <button
+                    style={{
+                      display: product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'block' : 'none'
+                    }}
+                    className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}
+                  >
                     <h4> Configuration</h4>
                   </button>
                 </Link>

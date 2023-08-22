@@ -25,8 +25,7 @@ export const DataContextProvider = ({ children }) => {
   const [session, setSession] = useState(null)
   const [empresa, setEmpresa] = useState('')
   const [modalToken, setModalToken] = useState(false)
- 
-  
+
   // lang
   const locale = 'en'
   const t = locale === 'en' ? en : es
@@ -38,6 +37,7 @@ export const DataContextProvider = ({ children }) => {
     setSession(null)
     // eslint-disable-next-line no-undef
     localStorage.removeItem('session')
+    localStorage.removeItem('selectedEmpresa')
     router.push('/login')
   }
 
@@ -54,35 +54,10 @@ export const DataContextProvider = ({ children }) => {
     // Almacenar la información de sesión en localStorage cuando cambie el estado
     if (session) {
       localStorage.setItem('session', JSON.stringify(session))
-      // setEmpresa(session?.oEmpresa[0].razon_social_empresa);
     } else {
       localStorage.removeItem('session')
     }
-
-    // Guardar la empresa seleccionada en localStorage cuando cambie el estado
-    if (empresa) {
-      localStorage.setItem('selectedEmpresa', empresa)
-    } else {
-      localStorage.removeItem('selectedEmpresa')
-    }
   }, [session, empresa])
-
-  // empresa
-
-  useEffect(() => {
-    const storedEmpresa = localStorage.getItem('selectedEmpresa')
-    // console.log("empresanelelocal",storedEmpresa);
-    if (storedEmpresa) {
-      setEmpresa(storedEmpresa)
-    } else {
-      // Si no hay empresa seleccionada en el localStorage, seleccionar la primera por defecto si existe
-      const defaultEmpresa = session?.oEmpresa[0]
-      if (defaultEmpresa) {
-        setEmpresa(defaultEmpresa)
-        localStorage.setItem('selectedEmpresa', defaultEmpresa)
-      }
-    }
-  }, [session])
 
   return (
     <DataContext.Provider
@@ -96,7 +71,7 @@ export const DataContextProvider = ({ children }) => {
         setEmpresa,
         modalToken,
         setModalToken,
- 
+
         t
       }}
     >

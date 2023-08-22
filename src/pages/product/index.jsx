@@ -28,7 +28,9 @@ export default function Products () {
     try {
       const token = session.sToken
       const idEmpresa = empresa.id_empresa
+      console.log('idEmpresaProduct', idEmpresa)
       const responseData = await getProducts(idEmpresa, token)
+      console.log(responseData)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
