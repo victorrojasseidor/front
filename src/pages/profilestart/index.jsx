@@ -43,12 +43,6 @@ export default function Profilestart () {
     logout()
   }
 
-  if (isLoading) {
-    return (
-      <Loading />
-    )
-  }
-
   return (
     <DataContextProvider>
       <section className='profilestart'>

@@ -13,7 +13,7 @@ const ProgressRegister = ({ userData }) => {
   const [formValues, setFormValues] = useState({}) // Nuevo estado para almacenar los datos del formulario
 
   const router = useRouter()
-  const { session, setSession, logout } = useAuth()
+  const { session, setSession, logout, setModalToken } = useAuth()
   console.log('😍lprofilestar', session)
 
   // steps funciones
@@ -51,9 +51,7 @@ const ProgressRegister = ({ userData }) => {
       }
     }
 
-    console.log('❤️', body)
-
-    // setSubmitting(false);
+    console.log('❤️body', body)
 
     const tok = user.sToken
     console.log(user, tok)
@@ -63,19 +61,21 @@ const ProgressRegister = ({ userData }) => {
 
       if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1) {
         // setIsconfirmed(true);
+        router.push('/product')
         setStatus(null)
         console.log('💻', responseData)
-
-        router.push('/product')
-      } else if (responseData.oAuditResponse.iCode == 27) {
-        const refresh = await refresToken(tok)
+        setModalToken(false)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
       } else {
         const message = responseData?.oAuditResponse.sMessage
         setStatus(message)
         setSubmitting(false)
+        setModalToken(false)
       }
     } catch (error) {
       console.error('Error:', error)
+
       throw new Error('Hubo un error en la operación asincrónica.')
     }
   }
