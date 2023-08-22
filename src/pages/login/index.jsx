@@ -13,7 +13,6 @@ import { useAuth } from '@/Context/DataContext'
 
 export default function Login () {
   const { session, setSession } = useAuth()
-  console.log('😍userlogin', session)
 
   const [showPassword, setShowPassword] = useState(false)
   const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true)

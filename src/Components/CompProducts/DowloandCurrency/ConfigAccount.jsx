@@ -5,7 +5,7 @@ import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import ImageSvg from '@/helpers/ImageSVG'
 import Modal from '@/Components/Modal'
-import AddAccounts from '@/Components/CompProducts/DowloandCurrency/AddAccounts'
+import FormAccounts from '@/Components/CompProducts/DowloandCurrency/FormAccounts'
 
 export default function ConfigAccount () {
   const [data, setData] = useState(null)
@@ -27,7 +27,7 @@ export default function ConfigAccount () {
     if (session) {
       getExtrBancAccount()
     }
-  }, [session,initialEdit,showForm,showModalDelete,empresa])
+  }, [session, initialEdit, showForm, showModalDelete, empresa])
 
   async function getExtrBancAccount () {
     const body = {
@@ -42,7 +42,7 @@ export default function ConfigAccount () {
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
-        const data = responseData.oResults.oListBancoCredendicial;
+        const data = responseData.oResults.oListBancoCredendicial
         const filterData = data.filter(account => account.id_banco_credencial == idbancoCredential)
         setData(filterData[0])
         setModalToken(false)
@@ -87,7 +87,7 @@ export default function ConfigAccount () {
   }
 
   async function handleAgregar (values) {
-       const body = {
+    const body = {
       oResults: {
         iIdExtBanc: parseInt(iIdProdEnv),
         iIdBancoCredencial: parseInt(idbancoCredential),
@@ -103,14 +103,13 @@ export default function ConfigAccount () {
       }
     }
 
-  
     try {
       const token = session.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCuentaExtBancario', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
-         setTimeout(() => {
+        setTimeout(() => {
           setModalToken(false)
           setShowForm(false)
           setRequestError(null)
@@ -223,7 +222,7 @@ export default function ConfigAccount () {
               <h5> Principal Credencial</h5>
               <div className='card--emails'>
                 <div className='emails'>
-                    {data?.nombre_banco}
+                  {data?.usuario}
                   {/* {data?.oCorreoEB.slice(0, 4).map((email) => (
                     <p key={email.correo_cc}>{email.correo_cc}</p>
                   ))} */}
@@ -316,14 +315,14 @@ export default function ConfigAccount () {
                   </tbody>
                 </table>
               </div>
-              {showForm && <AddAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm}/>}
+              {showForm && <FormAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm} />}
             </div>
 
             {requestError && <div className='errorMessage'> {
             requestError
 
             }
-            </div>}
+                             </div>}
 
           </div>
 

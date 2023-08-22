@@ -2,13 +2,11 @@
 import React, { useState, useEffect } from 'react'
 import EmailsForm from './EmailsForm'
 import ImageSvg from '@/helpers/ImageSVG'
-import AddCredentials from './AddCredentials'
+import FormCredentials from './FormCredentials'
 import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
-// import { useRouter } from 'next/navigation'
 import Modal from '@/Components/Modal'
-import CryptoJS from 'crypto-js'
 
 export default function ConfigDowland () {
   const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
@@ -26,8 +24,9 @@ export default function ConfigDowland () {
 
   const { session, empresa, setModalToken } = useAuth()
 
-  async function handleAgregar (values) {
+  console.log('sesión', session)
 
+  async function handleAgregar (values) {
     const body = {
       oResults: {
         iIdEmpresa: empresa?.id_empresa,
@@ -43,14 +42,14 @@ export default function ConfigDowland () {
       }
     }
 
-    console.log("empresa",empresa);
-    console.log("bodyAgregar",body);
+    console.log('bodyAgregar', body, session)
+    console.log('empresaenCredential', empresa)
 
     try {
       const token = session.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarExtBancario', body, token)
-    
+
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
         setTimeout(() => {
@@ -143,7 +142,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [session,haveEmails,initialEdit,showForm,empresa,showModalDelete])
+  }, [session, haveEmails, initialEdit, showForm, empresa, showModalDelete])
 
   async function getExtrBanc () {
     const body = {
@@ -153,13 +152,12 @@ export default function ConfigDowland () {
       }
     }
 
-
     try {
       const token = session.sToken
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token);
-      console.log("getestractosbancrios",responseData);
-      
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      console.log('getestractosbancrios', responseData)
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setData(data)
@@ -325,7 +323,7 @@ export default function ConfigDowland () {
                   </tbody>
                 </table>
               </div>
-              {showForm && <AddCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
+              {showForm && <FormCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
             </div>
 
             {requestError && <div className='errorMessage'> {

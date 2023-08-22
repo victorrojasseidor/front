@@ -284,6 +284,8 @@ flex-wrap: wrap;
     flex: 1;
   }
 }
+
+
 p {
   display: inline-flex;
   justify-content: center;
@@ -326,8 +328,58 @@ p {
   }
 }
 
+.formCredential{
+
+ 
+  .GroupForm{
+    display: flex;
+    flex-direction: column;
+     
+    /* Ajusta el ancho según tus necesidades */
+    @include media(tablet) {
+        display: grid;
+     grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+     grid-template-rows: repeat(3, 1fr); /* Tres filas de igual tamaño */
+     grid-gap: 1rem; /* Espacio entre elementos */
+     
+   }
+   }
+
+   .content{
+ 
+    .group{
+      display: flex;
+      flex-direction: column;
+  
+      @include media(tablet) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+      
+       }
+    
+    }
+   }
+  
+
+}
+
+.subtitle{
+  padding-top: 1rem;
+  .sub{
+   color:get-color(black_p2);
+   
+  }
+  .description{
+    color:get-color(grey2_s4)
+  }
+ }
+
+
+
+
 .Form-listCredential{
-  padding: 2rem 1rem;
+  padding: 0rem 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -339,6 +391,8 @@ p {
     align-items: center;
     justify-content: center;
   }
+
+
 
 .state-box{
   display: flex;
@@ -356,7 +410,11 @@ p {
 }
 
 .country-box,.bank-box{
-padding: 1rem 0rem;
+  padding: 1rem 0rem;
+@include media(tablet) {
+  padding: 0rem 0rem;
+
+ }
 }
 
 .submit-box{

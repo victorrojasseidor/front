@@ -32,7 +32,6 @@ function RefreshToken () {
         <Modal close={() => setModalToken(false)}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <h2>Your session is about to expire!</h2>
-
             <div>Please confirm to refresh your token and continue.</div>
             <button className='btn_primary' onClick={handleConfirmRefresh}>Confirm</button>
           </div>
