@@ -14,8 +14,8 @@ export default function ConfigDowland () {
   const [isEditing, setIsEditing] = useState(null)
   const [data, setData] = useState(null)
   const [showForm, setShowForm] = useState(false)
-  const [showModalDelete, setShowModalDelete] = useState(false)
   const [requestError, setRequestError] = useState('')
+  const [selectedRowToDelete, setSelectedRowToDelete] = useState(null)
 
   const router = useRouter()
   const iIdProdEnv = router.query.iIdProdEnv
@@ -76,6 +76,13 @@ export default function ConfigDowland () {
     setShowForm(true)
     setIinitialEdit(dataEdit)
     setIsEditing(true)
+  }
+
+  const handleDeleteConfirmation = async () => {
+    if (selectedRowToDelete) {
+      await handleDeleteBancoCredential(selectedRowToDelete.id_banco_credencial)
+      setSelectedRowToDelete(null)
+    }
   }
 
   async function handleEditListBank (values) {
@@ -139,7 +146,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [session, haveEmails, initialEdit, showForm, empresa, showModalDelete])
+  }, [session, haveEmails, initialEdit, showForm, empresa, selectedRowToDelete])
 
   async function getExtrBanc () {
     const body = {
@@ -192,9 +199,7 @@ export default function ConfigDowland () {
       console.log('res', response)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
-        setShowModalDelete(false)
         setTimeout(() => {
-          setShowModalDelete(false)
         }, 1000)
       } else {
         const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
@@ -285,36 +290,17 @@ export default function ConfigDowland () {
                             {' '}
                             <ImageSvg name='Edit' />{' '}
                           </button>
-                          <button className='btn_crud' onClick={() => setShowModalDelete(true)}>
-                            {' '}
+                          <button
+                            className='btn_crud' onClick={() => {
+                              setSelectedRowToDelete(row)
+                            }}
+                          >
+
                             <ImageSvg name='Delete' />
                           </button>
 
                         </td>
-                        {showModalDelete && (
-                          <Modal close={() => {
-                            setShowModalDelete(false)
-                          }}
-                          >
-                            <div>
-                              <h3>Do you want to delete this credential bank list?</h3>
-                              <div className='box-buttons'>
-                                <button type='button' className='btn_primary small' onClick={() => handleDeleteBancoCredential(row.id_banco_credencial)}>
-                                  YES
-                                </button>
-                                <button
-                                  type='button'
-                                  className='btn_secundary small'
-                                  onClick={() => {
-                                    setShowModalDelete(false)
-                                  }}
-                                >
-                                  NOT
-                                </button>
-                              </div>
-                            </div>
-                          </Modal>
-                        )}
+
                       </tr>
                     ))}
                   </tbody>
@@ -322,6 +308,28 @@ export default function ConfigDowland () {
               </div>
               {showForm && <FormCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
             </div>
+            {selectedRowToDelete && (
+              <Modal close={() => {
+                setSelectedRowToDelete(null)
+              }}
+              >
+                <div>
+                  <h3>Do you want to delete this credential bank list?</h3>
+                  <div className='box-buttons'>
+                    <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
+                      YES
+                    </button>
+                    <button
+                      type='button'
+                      className='btn_secundary small'
+                      onClick={() => setSelectedRowToDelete(null)}
+                    >
+                      NOT
+                    </button>
+                  </div>
+                </div>
+              </Modal>
+            )}
 
             {requestError && <div className='errorMessage'> {
 

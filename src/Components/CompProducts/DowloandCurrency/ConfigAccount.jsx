@@ -15,6 +15,7 @@ export default function ConfigAccount () {
   const [showModalDelete, setShowModalDelete] = useState(false)
   const [requestError, setRequestError] = useState('')
   const [showcomponent, setShowComponentAccounts] = useState(null)
+  const [selectedRowToDelete, setSelectedRowToDelete] = useState(null)
 
   const router = useRouter()
   const iIdProdEnv = router.query.iIdProdEnv
@@ -27,7 +28,7 @@ export default function ConfigAccount () {
     if (session) {
       getExtrBancAccount()
     }
-  }, [session, initialEdit, showForm, showModalDelete, empresa])
+  }, [session, initialEdit, showForm, selectedRowToDelete, empresa])
 
   async function getExtrBancAccount () {
     const body = {
@@ -60,12 +61,19 @@ export default function ConfigAccount () {
     }
   }
 
-  const handleDeleteAccount = async (row) => {
+  const handleDeleteConfirmation = async () => {
+    if (selectedRowToDelete) {
+      await handleDeleteAccount(selectedRowToDelete.id_eb_conf_cuentas)
+      setSelectedRowToDelete(null)
+    }
+  }
+
+  const handleDeleteAccount = async (idAccount) => {
     const token = session.sToken
     const body = {
       oResults: {
         iIdExtBanc: iIdProdEnv,
-        iIdEBConfCuentas: row.id_eb_conf_cuentas
+        iIdEBConfCuentas: idAccount
       }
     }
 
@@ -200,6 +208,8 @@ export default function ConfigAccount () {
     setShowForm(!showForm)
   }
 
+  console.log('dataEstracto', data)
+
   return (
     <LayoutConfig id={iId} iIdProdEnv={iIdProdEnv} defaultTab={1} NameAcount={data?.nombre}>
       <section className='config-Automated'>
@@ -253,20 +263,8 @@ export default function ConfigAccount () {
 
               </ul>
               {/* <h5> Principal Credencial</h5> */}
-              <div className='card--emails'>
-                <div className='emails'>
-                  {/* {data?.usuario} */}
-                  {/* {data?.oCorreoEB.slice(0, 4).map((email) => (
-                    <p key={email.correo_cc}>{email.correo_cc}</p>
-                  ))} */}
-                  {/* <span>
-                    <button className='btn_crud'>
-                      <ImageSvg name='Edit' />
-                    </button>
-                  </span> */}
-                </div>
+              <div className='card--emails' />
 
-              </div>
             </div>
           </div>
           <div className='contaniner-tables'>
@@ -313,36 +311,13 @@ export default function ConfigAccount () {
                             {' '}
                             <ImageSvg name='Edit' />{' '}
                           </button>
-                          <button className='btn_crud' onClick={() => setShowModalDelete(true)}>
+                          <button className='btn_crud' onClick={() => setSelectedRowToDelete(row)}>
                             {' '}
                             <ImageSvg name='Delete' />
                           </button>
 
                         </td>
-                        {showModalDelete && (
-                          <Modal close={() => {
-                            setShowModalDelete(false)
-                          }}
-                          >
-                            <div>
-                              <h3>Delete this account?</h3>
-                              <div className='box-buttons'>
-                                <button type='button' className='btn_primary small' onClick={() => handleDeleteAccount(row)}>
-                                  YES
-                                </button>
-                                <button
-                                  type='button'
-                                  className='btn_secundary small'
-                                  onClick={() => {
-                                    setShowModalDelete(false)
-                                  }}
-                                >
-                                  NOT
-                                </button>
-                              </div>
-                            </div>
-                          </Modal>
-                        )}
+
                       </tr>
                     ))}
                   </tbody>
@@ -358,6 +333,28 @@ export default function ConfigAccount () {
                              </div>}
 
           </div>
+          {selectedRowToDelete && (
+            <Modal close={() => {
+              setSelectedRowToDelete(null)
+            }}
+            >
+              <div>
+                <h3>Delete this account?</h3>
+                <div className='box-buttons'>
+                  <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
+                    YES
+                  </button>
+                  <button
+                    type='button'
+                    className='btn_secundary small'
+                    onClick={() => setSelectedRowToDelete(null)}
+                  >
+                    NOT
+                  </button>
+                </div>
+              </div>
+            </Modal>
+          )}
 
         </div>
 

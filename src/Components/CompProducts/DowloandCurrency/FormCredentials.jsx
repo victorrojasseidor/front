@@ -55,8 +55,6 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
     }
   }, [bankOptions, initialVal])
 
-  console.log('showcomponent')
-
   return (
     <ModalForm
       close={() => {

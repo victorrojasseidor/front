@@ -197,18 +197,20 @@ const LayoutProducts = ({ children }) => {
       </section>
 
       <section className='menu_children' style={{ marginLeft: margen }}>
-        <nav className='menu-header'>
-          <ul>
-            <li className='hamburgerMenu'>
-              <button className='btn_icons hamburger' onClick={toggleMenuMobile}>
-                <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
-              </button>
 
-              {/* <button className='btn_icons' onClick={toggleMenuMobile} >
+        <div className='childrenTilte'>
+          <nav className='menu-header'>
+            <ul>
+              <li className='hamburgerMenu'>
+                <button className='btn_icons hamburger' onClick={toggleMenuMobile}>
+                  <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
+                </button>
+
+                {/* <button className='btn_icons' onClick={toggleMenuMobile} >
           <ImageSvg name={isMenuOpen? "MenuOpen":"MenuClose"} />
         </button> */}
-            </li>
-            {/* <li>
+              </li>
+              {/* <li>
               <button className='btn_icons'>
                 <ImageSvg name='Notifications' />
               </button>
@@ -226,10 +228,8 @@ const LayoutProducts = ({ children }) => {
                 <ImageSvg name='SignOut' />
               </button>
             </li> */}
-          </ul>
-        </nav>
-
-        <div className='childrenTilte'>
+            </ul>
+          </nav>
           <div className='title'>
             <h3>Digital employees</h3>
 
