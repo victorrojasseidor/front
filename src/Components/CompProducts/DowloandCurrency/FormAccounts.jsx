@@ -8,7 +8,7 @@ import { validateFormAddAccount } from '@/helpers/validateForms'
 import Modal from '@/Components/Modal'
 import ModalForm from '@/Components/Atoms/ModalForm'
 
-const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListBank, setShowForm, showForm }) => {
+const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAccount, setShowForm, showForm }) => {
   const [fileTypeOptions, setFileTypeOptions] = useState(null)
   const [modalForm, setModalForm] = useState(true)
 
@@ -83,9 +83,9 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListBa
     state: initialVal && initialVal.estado == '23' ? 'Active' : (initialVal ? 'Disabled' : 'Active')
   }
 
-  console.log('fileoptions', fileTypeOptions)
-  console.log('initial', initialVal)
-  //   console.log('slectfile', fileTypeOptions &  initialVal & fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo))
+  // console.log('fileoptions', fileTypeOptions)
+  // console.log('initial', initialVal)
+  // //   console.log('slectfile', fileTypeOptions &  initialVal & fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo))
 
   return (
     <ModalForm close={() => { setIinitialEdit(null); setShowForm(false) }}>
@@ -96,7 +96,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListBa
           validate={(values) => validateFormAddAccount(values, initialValues)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
-              handleEditListBank(values)
+              handleEditListAccount(values)
             } else {
               onAgregar(values)
             }

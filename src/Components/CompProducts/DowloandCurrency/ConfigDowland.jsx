@@ -18,13 +18,10 @@ export default function ConfigDowland () {
   const [requestError, setRequestError] = useState('')
 
   const router = useRouter()
-  // const id = router.query.iId
   const iIdProdEnv = router.query.iIdProdEnv
   const iId = router.query.iId
 
   const { session, empresa, setModalToken } = useAuth()
-
-  console.log('sesión', session)
 
   async function handleAgregar (values) {
     const body = {

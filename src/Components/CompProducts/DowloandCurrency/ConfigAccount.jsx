@@ -16,7 +16,6 @@ export default function ConfigAccount () {
   const [requestError, setRequestError] = useState('')
 
   const router = useRouter()
-  // const id = router.query.iId
   const iIdProdEnv = router.query.iIdProdEnv
   const iId = router.query.iId
   const idbancoCredential = router.query.idbancoCredential
@@ -61,7 +60,7 @@ export default function ConfigAccount () {
     const token = session.sToken
     const body = {
       oResults: {
-        iIdExtBanc: row.id_banco_credencial,
+        iIdExtBanc: iIdProdEnv,
         iIdEBConfCuentas: row.id_eb_conf_cuentas
       }
     }
@@ -98,8 +97,8 @@ export default function ConfigAccount () {
         sCuenta: values.Account,
         sCuentaDescripcion: values.DesAccount,
         sMoneda: values.Coin,
-        sMonedaDescripcion: values.DesCoin
-        // bCodeEnabled: values.state === 'Active'
+        sMonedaDescripcion: values.DesCoin,
+        bCodeEnabled: values.state === 'Active'
       }
     }
 
@@ -137,7 +136,7 @@ export default function ConfigAccount () {
     setIsEditing(true)
   }
 
-  async function handleEditListBank (values) {
+  async function handleEditListAccount (values) {
     // console.log('valueseditando', values)
 
     const body = {
@@ -145,14 +144,15 @@ export default function ConfigAccount () {
         iIdExtBanc: parseInt(iIdProdEnv),
         iIdEBConfCuentas: initialEdit.id_eb_conf_cuentas,
         iIdBancoCredencial: parseInt(idbancoCredential),
-        iIdTipoArchivo: values.TypeFile?.value,
+        iIdTipoArchivo: values.TypeFile.value ? values.TypeFile.value : initialEdit.id_tipo_archivo,
         sEmpresa: values?.Company,
         sEmpresaDescripcion: values?.DesCompany,
         sRuc: values.Ruc,
         sCuenta: values?.Account,
         sCuentaDescripcion: values?.DesAccount,
         sMoneda: values?.Coin,
-        sMonedaDescripcion: values?.DesCoin
+        sMonedaDescripcion: values?.DesCoin,
+        bCodeEnabled: values?.state === 'Active'
       }
     }
 
@@ -200,18 +200,19 @@ export default function ConfigAccount () {
     <LayoutConfig id={iId} iIdProdEnv={iIdProdEnv} defaultTab={1} NameAcount={data?.nombre}>
       <section className='config-Automated'>
         <div className='config-Automated--tables'>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <h5> {data?.nombre}</h5>
+          </div>
           <div className='container-status'>
-            <div className='status-config'>
 
+            <div className='status-config'>
               <ul>
                 <li>
-                  <p>Name:</p>
-                  <p> {data?.nombre}</p>
+                  <p>Country :</p>
+                  <p>{data?.country ? data.country : 'Perú'}
+                  </p>
                 </li>
-                <li>
-                  <p>Bank :</p>
-                  <p>{data?.nombre_banco}</p>
-                </li>
+
                 <li>
                   <p>State :</p>
                   <p className='Active'>{data?.estado_c == 23 ? 'Active' : 'Disabled'}</p>
@@ -219,10 +220,38 @@ export default function ConfigAccount () {
               </ul>
             </div>
             <div className='box-emails'>
-              <h5> Principal Credencial</h5>
+              <ul>
+                <li>
+                  <p>Bank :</p>
+                  <p>{data?.nombre_banco}</p>
+                </li>
+
+                <li>
+                  <p>Credentials :</p>
+                  <p>
+                    <span>
+                      {data?.usuario}
+                    </span>
+                    <span>
+                      {data?.usuario_a}
+
+                    </span>
+                    <span>
+                      {data?.usuario_b}
+                    </span>
+                    <span>
+                      {data?.usuario_c}
+
+                    </span>
+                  </p>
+
+                </li>
+
+              </ul>
+              {/* <h5> Principal Credencial</h5> */}
               <div className='card--emails'>
                 <div className='emails'>
-                  {data?.usuario}
+                  {/* {data?.usuario} */}
                   {/* {data?.oCorreoEB.slice(0, 4).map((email) => (
                     <p key={email.correo_cc}>{email.correo_cc}</p>
                   ))} */}
@@ -315,14 +344,14 @@ export default function ConfigAccount () {
                   </tbody>
                 </table>
               </div>
-              {showForm && <FormAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm} />}
+              {showForm && <FormAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListAccount={handleEditListAccount} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm} />}
             </div>
 
             {requestError && <div className='errorMessage'> {
             requestError
 
             }
-                             </div>}
+            </div>}
 
           </div>
 

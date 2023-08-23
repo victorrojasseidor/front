@@ -8,29 +8,9 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
   const [countryOptions, setCountryOptions] = useState([])
   const [bankOptions, setBankOptions] = useState([])
   const [country, setCountry] = useState(null)
+  const [showcomponent, setShowComponent] = useState(null)
 
   const countryData = dataUser?.oPaisBanco
-
-  // useEffect(() => {
-  //   // Cargar las opciones del país en el estado usando useEffect
-  //   setCountryOptions(countryData.map((country) => ({ value: country.value, label: country.label })))
-
-  //   // Si hay un valor preseleccionado en initialValues.country, seleccionar el país
-  //   if (initialVal.country) {
-  //     const selectedCountryData = countryData.find((c) => c.value === initialVal.country)
-  //     setCountry(selectedCountryData)
-  //   } else {
-  //     setCountry(countryData[0])
-  //   }
-
-  //   // Cargar las opciones de banco según el país seleccionado
-  //   if (country) {
-  //     const selectedCountryData = countryData.find((c) => c.value === country.value)
-  //     setBankOptions(selectedCountryData.banks)
-  //   } else {
-  //     setBankOptions([])
-  //   }
-  // }, [countryData, country])
 
   useEffect(() => {
     // Cargar las opciones del país en el estado usando useEffect
@@ -55,7 +35,6 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
 
   const initialValues = {
     name: initialVal?.nombre || '', // Usamos los valores iniciales si están disponibles
-    // password: initialVal?.password || '',
     password: '', // parq ue no se vea el passwoard
     principalCredential: initialVal?.usuario || '',
     credential2: initialVal?.usuario_a || '',
@@ -63,18 +42,34 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
     credential4: initialVal?.usuario_c || '',
     bank: initialVal?.bank || null,
     country: initialVal?.country || null,
-    state: initialVal && initialVal.estado_c == '23' ? 'Active' : (initialVal ? 'Disabled' : 'Active')
-
+    state: initialVal && initialVal.estado_c == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
   }
 
+  useEffect(() => {
+    if (initialVal && bankOptions) {
+      const bankinintial = bankOptions.find((option) => option.id === initialVal.id_banco)
+      console.log('bankinintial', bankinintial?.jConfCredencial)
+      if (bankinintial) {
+        setShowComponent(bankinintial?.jConfCredencial)
+      }
+    }
+  }, [bankOptions, initialVal])
+
+  console.log('showcomponent')
+
   return (
-    <ModalForm close={() => { setIinitialEdit(null); setShowForm(false) }}>
+    <ModalForm
+      close={() => {
+        setIinitialEdit(null)
+        setShowForm(false)
+      }}
+    >
       <div className='Form-listCredential'>
         <h2 className='box'>{initialVal ? 'Edit record' : 'Add New Bank Credential'}</h2>
         <Formik
           initialValues={initialValues}
-        // validate={initialVal === null ? validateFormAddListBank : undefined}
-        // validate={validateFormAddListBank}
+          // validate={initialVal === null ? validateFormAddListBank : undefined}
+          // validate={validateFormAddListBank}
           validate={(values) => validateFormAddListBank(values, initialValues)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
@@ -87,18 +82,15 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
         >
           {({ values, isValid, setFieldValue }) => (
             <Form className='form-container formCredential'>
-
               <div className='content'>
                 <div className='subtitle'>
                   <h5 className='sub'> 1. Register your bank </h5>
-                  <p className='description'>
-                    Add all your accounts to automate
-                  </p>
+                  <p className='description'>Add all your accounts to automate</p>
                 </div>
                 <div className='group'>
                   <div className='input-box'>
                     <Field type='text' name='name' placeholder=' ' />
-                    <label htmlFor='name'>Name</label>
+                    <label htmlFor='name'>Name of Bank Credential</label>
                     <ErrorMessage name='name' component='span' className='errorMessage' />
                   </div>
 
@@ -110,7 +102,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                       placeholder='Select a country'
                       isClearable
                       value={countryOptions[0]}
-               // value={country}
+                      // value={country}
                       onChange={(selectedOption) => {
                         setCountry(selectedOption)
                         setFieldValue('country', selectedOption)
@@ -126,8 +118,9 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                       name='bank'
                       placeholder='Select a bank'
                       isClearable
-                      value={values.bank || (initialVal && bankOptions.find(option => option.id === initialVal.id_banco))}
+                      value={values.bank || (initialVal && bankOptions.find((option) => option.id === initialVal.id_banco))}
                       onChange={(selectedOption) => {
+                        setShowComponent(selectedOption.jConfCredencial)
                         setFieldValue('bank', selectedOption)
                       }}
                       isDisabled={!country}
@@ -144,44 +137,47 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 2. Add  Credential </h5>
-                  <p className='description'>
-                    Register your credentials
-                  </p>
+                  <h5 className='sub'> 2. Add Credential </h5>
+                  <p className='description'>Register your credentials</p>
                 </div>
 
                 <div className='group'>
 
-                  <div className='input-box'>
-                    <Field type='text' name='principalCredential' placeholder=' ' />
-                    <label htmlFor='principalCredential'>Principal Credential</label>
-                    <ErrorMessage name='principalCredential' component='span' className='errorMessage' />
-                  </div>
-                  <div className='input-box'>
-                    <Field type='text' name='credential2' placeholder=' ' />
-                    <label htmlFor='credential2'>Credential 2</label>
-                    <ErrorMessage name='credential2' component='span' className='errorMessage' />
-                  </div>
-                  <div className='input-box'>
-                    <Field type='text' name='credential3' placeholder=' ' />
-                    <label htmlFor='credential3'>Credential 3</label>
-                    <ErrorMessage name='credential3' component='span' className='errorMessage' />
-                  </div>
-                  <div className='input-box'>
-                    <Field type='text' name='credential4' placeholder=' ' />
-                    <label htmlFor='credential4'>Credential 4</label>
-                    <ErrorMessage name='credential4' component='span' className='errorMessage' />
-                  </div>
-                </div>
+                  {showcomponent?.bCredencial1 &&
+                    <div className='input-box'>
+                      <Field type='text' name='principalCredential' placeholder=' ' />
+                      <label htmlFor='principalCredential'>{showcomponent?.sCredencial1}</label>
+                      <ErrorMessage name='principalCredential' component='span' className='errorMessage' />
+                    </div>}
 
+                  {showcomponent?.bCredencial2 &&
+                    <div className='input-box'>
+                      <Field type='text' name='credential2' placeholder=' ' />
+                      <label htmlFor='credential2'>{showcomponent?.sCredencial2}</label>
+                      <ErrorMessage name='credential2' component='span' className='errorMessage' />
+                    </div>}
+
+                  {showcomponent?.bCredencial3 &&
+                    <div className='input-box'>
+                      <Field type='text' name='credential3' placeholder=' ' />
+                      <label htmlFor='credential3'>{showcomponent?.sCredencial3}</label>
+                      <ErrorMessage name='credential3' component='span' className='errorMessage' />
+                    </div>}
+
+                  {showcomponent?.bCredencial4 &&
+                    <div className='input-box'>
+                      <Field type='text' name='credential4' placeholder=' ' />
+                      <label htmlFor='credential4'>{showcomponent?.sCredencial4}</label>
+                      <ErrorMessage name='credential4' component='span' className='errorMessage' />
+                    </div>}
+
+                </div>
               </div>
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 3. State  </h5>
-                  <p className='description'>
-                    Activate or deactivate your credential bank
-                  </p>
+                  <h5 className='sub'> 3. State </h5>
+                  <p className='description'>Activate or deactivate your credential bank</p>
                 </div>
                 <div className='state-box'>
                   <label>State: </label>
@@ -196,20 +192,23 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                     </label>
                   </div>
                 </div>
-
               </div>
               <div className='submit-box'>
-
-                <button type='submit' className='btn_secundary small' onClick={() => { setIinitialEdit(null); setShowForm(false) }}>
+                <button
+                  type='submit'
+                  className='btn_secundary small'
+                  onClick={() => {
+                    setIinitialEdit(null)
+                    setShowForm(false)
+                  }}
+                >
                   close
                 </button>
 
                 <button type='submit' className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>
                   {initialVal ? 'Update' : 'Add'}
                 </button>
-
               </div>
-
             </Form>
           )}
         </Formik>
