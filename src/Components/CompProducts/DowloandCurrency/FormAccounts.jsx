@@ -5,12 +5,10 @@ import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
 import { validateFormAddAccount } from '@/helpers/validateForms'
-import Modal from '@/Components/Modal'
 import ModalForm from '@/Components/Atoms/ModalForm'
 
-const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAccount, setShowForm, showForm }) => {
+const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAccount, setShowForm, showForm, showcomponent }) => {
   const [fileTypeOptions, setFileTypeOptions] = useState(null)
-  const [modalForm, setModalForm] = useState(true)
 
   const router = useRouter()
   // const id = router.query.iId
@@ -22,6 +20,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     if (session) {
       getExtrBancToFile()
     }
+    console.log('componentAccounts', showcomponent)
   }, [session, iIdProdEnv, showForm])
 
   async function getExtrBancToFile () {
@@ -37,6 +36,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults.oTipoArchivo
+        // console.log('getextractos', responseData.oResults)
         setFileTypeOptions(data.map((file) => ({ value: file.id_tipo_archivo, label: file.nombre })))
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 27) {
@@ -50,27 +50,6 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     }
   }
 
-  //   useEffect(() => {
-  //     // Cargar las opciones del país en el estado usando useEffect
-  //     setCountryOptions(countryData.map((country) => ({ value: country.value, label: country.label })));
-
-  //     // Si hay un valor preseleccionado en initialValues.country o no estás en modo de edición, seleccionar el país
-  //     if (initialVal && initialVal.country) {
-  //       const selectedCountryData = countryData.find((c) => c.value === initialVal.country);
-  //       setCountry(selectedCountryData);
-  //     } else {
-  //       setCountry(countryData[0]); // Seleccionar el primer país por defecto
-  //     }
-
-  //     // Cargar las opciones de banco según el país seleccionado
-  //     if (country) {
-  //       const selectedCountryData = countryData.find((c) => c.value === country.value);
-  //       setBankOptions(selectedCountryData.banks);
-  //     } else {
-  //       setBankOptions([]);
-  //     }
-  //   }, [countryData, initialVal, country]);
-
   const initialValues = {
     Account: initialVal?.cuenta || '',
     DesAccount: initialVal?.descripcion_cuenta || '', // Usamos los valores iniciales si están disponibles
@@ -82,10 +61,6 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     TypeFile: initialVal?.id_tipo_archivo || null,
     state: initialVal && initialVal.estado == '23' ? 'Active' : (initialVal ? 'Disabled' : 'Active')
   }
-
-  // console.log('fileoptions', fileTypeOptions)
-  // console.log('initial', initialVal)
-  // //   console.log('slectfile', fileTypeOptions &  initialVal & fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo))
 
   return (
     <ModalForm close={() => { setIinitialEdit(null); setShowForm(false) }}>
@@ -111,93 +86,104 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                   <h5 className='sub'> 1. Register your Account </h5>
 
                 </div>
-                <div className='group'>
-                  <div className='input-box'>
-                    <Field type='text' name='Account' placeholder=' ' />
-                    <label htmlFor='Account'>Account</label>
-                    <ErrorMessage name='Account' component='span' className='errorMessage' />
-                  </div>
 
-                  <div className='input-box'>
-                    <Field type='text' name='DesAccount' placeholder=' ' />
-                    <label htmlFor='DesAccount'>Account description</label>
-                    <ErrorMessage name='DesAccount' component='span' className='errorMessage' />
-                  </div>
+                <div className='group'>
+                  {showcomponent?.bAccount &&
+                    <div className='input-box'>
+                      <Field type='text' name='Account' placeholder=' ' />
+                      <label htmlFor='Account'>{showcomponent.sAccount}</label>
+                      <ErrorMessage name='Account' component='span' className='errorMessage' />
+                    </div>}
+                  {showcomponent?.bAccountDescription &&
+                    <div className='input-box'>
+                      <Field type='text' name='DesAccount' placeholder=' ' />
+                      <label htmlFor='DesAccount'>{showcomponent.sAccountDescription}</label>
+                      <ErrorMessage name='DesAccount' component='span' className='errorMessage' />
+                    </div>}
                 </div>
               </div>
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 1. Register company </h5>
+                  <h5 className='sub'> 2. Register company </h5>
                   {/* <p className='description'>
                   Add all your accounts to automate
                   </p> */}
                 </div>
                 <div className='group'>
-                  <div className='input-box'>
-                    <Field type='text' name='Company' placeholder=' ' />
-                    <label htmlFor='Company'>Company</label>
-                    <ErrorMessage name='Company' component='span' className='errorMessage' />
-                  </div>
-                  <div className='input-box'>
-                    <Field type='text' name='DesCompany' placeholder=' ' />
-                    <label htmlFor='DesCompany'> Company description</label>
-                    <ErrorMessage name='DesCompany' component='span' className='errorMessage' />
-                  </div>
+                  {showcomponent?.bCompany &&
+                    <div className='input-box'>
+                      <Field type='text' name='Company' placeholder=' ' />
+                      <label htmlFor='Company'>{showcomponent.sCompany}</label>
+                      <ErrorMessage name='Company' component='span' className='errorMessage' />
+                    </div>}
+                  {showcomponent?.bCompanyDescription &&
+                    <div className='input-box'>
+                      <Field type='text' name='DesCompany' placeholder=' ' />
+                      <label htmlFor='DesCompany'> {showcomponent.sCompanyDescription}</label>
+                      <ErrorMessage name='DesCompany' component='span' className='errorMessage' />
+                    </div>}
+                  {showcomponent?.bRuc &&
+                    <div className='input-box'>
+
+                      <Field type='number' name='Ruc' placeholder=' ' />
+                      <label htmlFor='Ruc'>{showcomponent.sRuc}</label>
+                      <ErrorMessage name='Ruc' component='span' className='errorMessage' />
+                    </div>}
+
                 </div>
               </div>
 
               <div className='content'>
                 <div className='subtitle'>
                   <h5 className='sub'> 3. Register coin </h5>
-                  <p className='description'>
+                  {/* <p className='description'>
                     Add all your accounts to automate
-                  </p>
+                  </p> */}
                 </div>
                 <div className='group'>
-                  <div className='input-box'>
-                    <Field type='text' name='Coin' placeholder=' ' />
-                    <label htmlFor='Coin'>Coin</label>
-                    <ErrorMessage name='Coin' component='span' className='errorMessage' />
-                  </div>
-
-                  <div className='input-box'>
-                    <Field type='text' name='DesCoin' placeholder=' ' />
-                    <label htmlFor='DesCoin'>Coin description</label>
-                    <ErrorMessage name='DesCoin' component='span' className='errorMessage' />
-                  </div>
+                  {showcomponent?.bCoin &&
+                    <div className='input-box'>
+                      <Field type='text' name='Coin' placeholder=' ' />
+                      <label htmlFor='Coin'>{showcomponent.sCoin}</label>
+                      <ErrorMessage name='Coin' component='span' className='errorMessage' />
+                    </div>}
+                  {showcomponent?.bCoinDescription &&
+                    <div className='input-box'>
+                      <Field type='text' name='DesCoin' placeholder=' ' />
+                      <label htmlFor='DesCoin'>{showcomponent.sCoinDescription}</label>
+                      <ErrorMessage name='DesCoin' component='span' className='errorMessage' />
+                    </div>}
                 </div>
 
               </div>
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 3. How do you want to get the information? </h5>
+                  <h5 className='sub'> 3.How do you want recibir tu information? </h5>
                   {/* <p className='description'>
                   Add all your accounts to automate
                   </p> */}
                 </div>
                 <div className='group'>
-                  <div className='input-box'>
-                    <Field type='number' name='Ruc' placeholder=' ' />
-                    <label htmlFor='Ruc'>RUC</label>
-                    <ErrorMessage name='Ruc' component='span' className='errorMessage' />
-                  </div>
 
-                  <div className='bank-box'>
-                    <label htmlFor='bank'>Type of file</label>
-                    <Select
-                      options={fileTypeOptions}
-                      name='TypeFile'
-                      placeholder='Select a type of file'
-                      isClearable
-                      value={values.TypeFile}
+                  {showcomponent?.bType &&
+
+                    <div className='bank-box'>
+                      <label htmlFor='bank'>{showcomponent.sType}</label>
+                      <Select
+                        options={fileTypeOptions}
+                        name='TypeFile'
+                        placeholder='Select a type of file'
+                        isClearable
+                        value={values.TypeFile}
                 // value={values.TypeFile || initialVal & fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo)}
-                      onChange={(selectedOption) => {
-                        setFieldValue('TypeFile', selectedOption)
-                      }}
-                    />
-                  </div>
+                        onChange={(selectedOption) => {
+                          setFieldValue('TypeFile', selectedOption)
+                        }}
+                      />
+                    </div>}
+
                 </div>
               </div>
 

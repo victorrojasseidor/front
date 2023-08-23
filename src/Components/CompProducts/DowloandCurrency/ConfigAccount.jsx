@@ -14,6 +14,7 @@ export default function ConfigAccount () {
   const [showForm, setShowForm] = useState(false)
   const [showModalDelete, setShowModalDelete] = useState(false)
   const [requestError, setRequestError] = useState('')
+  const [showcomponent, setShowComponentAccounts] = useState(null)
 
   const router = useRouter()
   const iIdProdEnv = router.query.iIdProdEnv
@@ -44,6 +45,9 @@ export default function ConfigAccount () {
         const data = responseData.oResults.oListBancoCredendicial
         const filterData = data.filter(account => account.id_banco_credencial == idbancoCredential)
         setData(filterData[0])
+        const filterOptionsBanks = responseData.oResults.oPaisBanco[0].banks
+        const filterBank = filterOptionsBanks.filter(account => account.id == filterData[0].id_banco)
+        setShowComponentAccounts(filterBank[0].jConfCuenta)
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
@@ -298,7 +302,7 @@ export default function ConfigAccount () {
                         <td>{row.empresa}</td>
                         <td>{row.descripcion_empresa}</td>
                         <td>{row.ruc}</td>
-                        <td>{row.id_tipo_archivo}</td>
+                        <td>{row.nombre_tipo_archivo}</td>
                         <td>{row.moneda}</td>
                         <td>{row.descripcion_moneda}</td>
                         <td>
@@ -344,14 +348,14 @@ export default function ConfigAccount () {
                   </tbody>
                 </table>
               </div>
-              {showForm && <FormAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListAccount={handleEditListAccount} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm} />}
+              {showForm && <FormAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListAccount={handleEditListAccount} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm} showcomponent={showcomponent} />}
             </div>
 
             {requestError && <div className='errorMessage'> {
             requestError
 
             }
-            </div>}
+                             </div>}
 
           </div>
 

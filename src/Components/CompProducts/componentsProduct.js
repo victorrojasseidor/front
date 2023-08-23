@@ -2,12 +2,13 @@ import React from 'react'
 import DocCurrency from '@/Components/CompProducts/Currency/DocCurrency'
 import ConfigCurrency from '@/Components/CompProducts/ConfigCurrency'
 import ConfigDowland from '@/Components/CompProducts/DowloandCurrency/ConfigDowland'
+import DocDowland from './DowloandCurrency/DocDowland'
 
 export const componentsProduct = [
   {
     iId: 1,
     sName: 'Downlaod automated Bank Statements',
-    documentation: 'documentación 1',
+    documentation: <DocDowland />,
     apiConfiguration: 'apiconfiguration Dowland',
     configuration: <ConfigDowland /> ? <ConfigDowland /> : 'configuration id 1'
   },
