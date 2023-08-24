@@ -21,7 +21,24 @@ export default function ConfigDowland () {
   const iIdProdEnv = router.query.iIdProdEnv
   const iId = router.query.iId
 
-  const { session, empresa, setModalToken } = useAuth()
+  const { session, empresa, setModalToken, logout } = useAuth()
+
+  async function handleCommonCodes (response) {
+    if (response.oAuditResponse?.iCode === 27) {
+      setModalToken(true)
+    } else if (response.oAuditResponse?.iCode === 4) {
+      await logout()
+    } else {
+      const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
+      console.log('errok, ', errorMessage)
+      setModalToken(false)
+      setRequestError(errorMessage)
+      setTimeout(() => {
+        setRequestError(null) // Limpiar el mensaje después de 3 segundos
+      }, 5000)
+    }
+  };
+
 
   async function handleAgregar (values) {
     const body = {
@@ -39,8 +56,6 @@ export default function ConfigDowland () {
       }
     }
 
-    console.log('bodyAgregar', body, session)
-    console.log('empresaenCredential', empresa)
 
     try {
       const token = session.sToken
@@ -56,10 +71,7 @@ export default function ConfigDowland () {
           setRequestError(null)
         }, 1000)
       } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('errok, ', errorMessage)
-        setRequestError(errorMessage)
-        setModalToken(true)
+        await handleCommonCodes(responseData)
         setShowForm(true)
       }
     } catch (error) {
@@ -86,8 +98,6 @@ export default function ConfigDowland () {
   }
 
   async function handleEditListBank (values) {
-    // console.log('valueseditando', values)
-
     const body = {
       oResults: {
         iIdEmpresa: empresa?.id_empresa,
@@ -120,16 +130,9 @@ export default function ConfigDowland () {
           setRequestError(null)
           setShowForm(false)
         }, 2000)
-      } else if (responseData.oAuditResponse?.iCode === 27) {
-        setModalToken(true)
+     
       } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('errorsolicitudUpdate, ', errorMessage)
-        setRequestError(errorMessage)
-        setTimeout(() => {
-          setRequestError(null) // Limpiar el mensaje después de 3 segundos
-        }, 5000)
-
+        await handleCommonCodes(responseData)
         setShowForm(true)
         setIsEditing(true)
       }
@@ -161,18 +164,14 @@ export default function ConfigDowland () {
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
       console.log('getestractosbancrios', responseData)
-
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setData(data)
         setModalToken(false)
-      } else if (responseData.oAuditResponse?.iCode === 27) {
-        setModalToken(true)
+     
       } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('error, ', errorMessage)
-        // setModalToken(true)
-        // setStatus(errorMessage);
+        await handleCommonCodes(responseData)
+     
       }
     } catch (error) {
       console.error('error', error)
@@ -202,9 +201,7 @@ export default function ConfigDowland () {
         setTimeout(() => {
         }, 1000)
       } else {
-        const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
-        console.log('errok, ', errorMessage)
-        setModalToken(true)
+        await handleCommonCodes(response)
       }
     } catch (error) {
       console.error('Error en la solicitud de eliminación', error)
@@ -332,7 +329,6 @@ export default function ConfigDowland () {
             )}
 
             {requestError && <div className='errorMessage'> {
-
             requestError
 
             }

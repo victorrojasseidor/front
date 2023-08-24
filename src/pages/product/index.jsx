@@ -6,14 +6,16 @@ import LimitedParagraph from '@/helpers/limitParagraf'
 import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
 import { getProducts } from '@/helpers/auth'
+import { BiFontSize } from 'react-icons/bi'
+
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [selectedFilter, setSelectedFilter] = useState(null)
   const [product, setProduct] = useState({})
-
-  const { session, empresa, setModalToken } = useAuth()
+  const [requestError, setRequestError] = useState('')
+  const { session, empresa, setModalToken, logout } = useAuth()
 
   const router = useRouter()
   useEffect(() => {
@@ -38,6 +40,8 @@ export default function Products () {
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
       } else {
         const errorMessage = responseData.oAuditResponse
           ? responseData.oAuditResponse.sMessage
@@ -49,8 +53,6 @@ export default function Products () {
       setModalToken(true)
     }
   }
-
-  console.log('products', product)
 
   useEffect(() => {
     if (product && product.length > 0) { // Added check for product length
@@ -133,7 +135,15 @@ export default function Products () {
   return (
     <LayoutProducts>
       <div className='products'>
-        <div> Digital employes to  {empresa?.razon_social_empresa}</div>
+        <div className='navegación'>
+        <Link href='/product'>
+              <ImageSvg name='Products' />
+            </Link>
+          Digital employes 
+          <span>
+            {empresa?.razon_social_empresa}
+          </span>
+        </div>
 
         <div className='products_filterSearch'>
           <div className='filterButtons'>

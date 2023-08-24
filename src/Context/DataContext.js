@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import en from '../../lang/en.json'
 import es from '../../lang/es.json'
 import { useRouter } from 'next/navigation'
+import { fetchConTokenPost } from '@/helpers/fetch'
 
 const DataContext = createContext()
 
@@ -29,17 +30,30 @@ export const DataContextProvider = ({ children }) => {
   // lang
   const locale = 'en'
   const t = locale === 'en' ? en : es
-
-  // Logout
   const router = useRouter()
-  const logout = () => {
-    // Eliminar la información de sesión tanto del estado global como de localStorage
-    setSession(null)
-    // eslint-disable-next-line no-undef
-    localStorage.removeItem('session')
-    localStorage.removeItem('selectedEmpresa')
-    router.push('/login')
+  // Logout
+
+  async function logout () {
+ 
+    try {
+      const token = session.sToken
+      const body = {
+        oResults: {}
+      }
+      const response = await fetchConTokenPost('dev/BPasS/??Accion=SalidaUsuario', body, token);
+      console.log("response",response);
+      if (response.oAuditResponse?.iCode === 1 || response.oAuditResponse?.iCode === 4 || response.oAuditResponse?.iCode === 9) {
+        setSession(null)
+        localStorage.removeItem('session')
+        localStorage.removeItem('selectedEmpresa')
+        router.push('/login')
+        console.log(" logoutincontext")
+      }
+    } catch (error) {
+      console.error('error en logout del servicio', error)
+    }
   }
+
 
   useEffect(() => {
     // Restaurar la información de sesión desde localStorage cuando se monte el componente

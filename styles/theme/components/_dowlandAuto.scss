@@ -354,7 +354,8 @@ p {
       @include media(tablet) {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-gap: 1rem;
+        // grid-gap: 1rem;
+        grid-column-gap: 2rem;
       
        }
     

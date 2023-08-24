@@ -113,7 +113,7 @@ const LayoutProducts = ({ children }) => {
 
   return (
     <section className='layoutProducts'>
-      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ top: isMobile ? '43px' : '0px', marginLeft: isMobile ? '0,5rem' : '0rem', borderRadius: isMobile ? '0 10px 10px 0' : '0px', display: isMobile ? (isOpenMobile ? 'block' : 'none') : 'block' }}>
+      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ top: isMobile ? '65px' : '0px', marginLeft: isMobile ? '0,5rem' : '0rem', borderRadius: isMobile ? '0 10px 10px 0' : '0px', display: isMobile ? (isOpenMobile ? 'block' : 'none') : 'block' }}>
         <div className='menu_Account'>
           <div className='imgPerfil'>
             <Image src={perfil} width={100} alt='Robot' />
@@ -237,7 +237,8 @@ const LayoutProducts = ({ children }) => {
 
           <div className='perfil-select'>
             <p>
-              Welcome, 👋
+              <span className='welcomeSpan'> Welcome, 👋
+                </span> 
 
               <Image src={carita} width={20} alt='carita' />
 

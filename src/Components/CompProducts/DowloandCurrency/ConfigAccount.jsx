@@ -12,7 +12,7 @@ export default function ConfigAccount () {
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
   const [showForm, setShowForm] = useState(false)
-  const [showModalDelete, setShowModalDelete] = useState(false)
+  // const [showModalDelete, setShowModalDelete] = useState(false)
   const [requestError, setRequestError] = useState('')
   const [showcomponent, setShowComponentAccounts] = useState(null)
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null)
@@ -22,13 +22,29 @@ export default function ConfigAccount () {
   const iId = router.query.iId
   const idbancoCredential = router.query.idbancoCredential
 
-  const { session, empresa, setModalToken } = useAuth()
+  const { session, empresa, setModalToken, logout } = useAuth()
 
   useEffect(() => {
     if (session) {
       getExtrBancAccount()
     }
   }, [session, initialEdit, showForm, selectedRowToDelete, empresa])
+
+  async function handleCommonCodes (response) {
+    if (response.oAuditResponse?.iCode === 27) {
+      setModalToken(true)
+    } else if (response.oAuditResponse?.iCode === 4) {
+      await logout()
+    } else {
+      const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
+      console.log('errok, ', errorMessage)
+      setModalToken(false)
+      setRequestError(errorMessage)
+      setTimeout(() => {
+        setRequestError(null) // Limpiar el mensaje después de 3 segundos
+      }, 5000)
+    }
+  };
 
   async function getExtrBancAccount () {
     const body = {
@@ -50,11 +66,8 @@ export default function ConfigAccount () {
         const filterBank = filterOptionsBanks.filter(account => account.id == filterData[0].id_banco)
         setShowComponentAccounts(filterBank[0].jConfCuenta)
         setModalToken(false)
-      } else if (responseData.oAuditResponse?.iCode === 27) {
-        setModalToken(true)
       } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('error, ', errorMessage)
+        await handleCommonCodes(responseData)
       }
     } catch (error) {
       console.error('error', error)
@@ -81,16 +94,9 @@ export default function ConfigAccount () {
       const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarCuentaExtBancario', body, token)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
-        setShowModalDelete(false)
-        setTimeout(() => {
-          setShowModalDelete(false)
-        }, 1000)
-      } else if (response.oAuditResponse?.iCode === 27) {
-        setModalToken(true)
+        setSelectedRowToDelete(null);
       } else {
-        const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
-        console.log('errok, ', errorMessage)
-        setModalToken(true)
+        await handleCommonCodes(response)
       }
     } catch (error) {
       console.error('Error en la solicitud de eliminación', error)
@@ -126,18 +132,14 @@ export default function ConfigAccount () {
           setRequestError(null)
         }, 1000)
       } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('errok, ', errorMessage)
-        setRequestError(errorMessage)
-        setModalToken(true)
+        await handleCommonCodes(responseData)
         setShowForm(true)
       }
     } catch (error) {
       console.error('error', error)
-      // setModalToken(true)
       setShowForm(true)
       setRequestError(error)
-      // setStatus("Service error");
+
     }
   }
 
@@ -182,16 +184,8 @@ export default function ConfigAccount () {
           setRequestError(null)
           setShowForm(false)
         }, 2000)
-      } else if (responseData.oAuditResponse?.iCode === 27) {
-        setModalToken(true)
       } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('errorsolicitudUpdate, ', errorMessage)
-        setRequestError(errorMessage)
-        setTimeout(() => {
-          setRequestError(null) // Limpiar el mensaje después de 3 segundos
-        }, 5000)
-
+        await handleCommonCodes(responseData)
         setShowForm(true)
         setIsEditing(true)
       }
@@ -208,7 +202,6 @@ export default function ConfigAccount () {
     setShowForm(!showForm)
   }
 
-  console.log('dataEstracto', data)
 
   return (
     <LayoutConfig id={iId} iIdProdEnv={iIdProdEnv} defaultTab={1} NameAcount={data?.nombre}>

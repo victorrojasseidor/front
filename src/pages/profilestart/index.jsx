@@ -9,21 +9,18 @@ import ImageSvg from '@/helpers/ImageSVG'
 import ProgressRegister from '@/Components/progressRegister'
 import Loading from '@/Components/Atoms/Loading'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function Profilestart () {
   const [isSpanish, setIsSpanish] = useState(false)
-  const [user, setUser] = useState({ })
-  const [isLoading, setIsLoading] = useState(true)
+  const [user, setUser] = useState({})
 
-  const { session, setSession, logout } = useAuth()
-  console.log('😍lprofilestar', session)
+  const { session, logout } = useAuth()
+  console.log('😍profilestar', session)
 
   useEffect(() => {
     const localStorageData = JSON.parse(localStorage.getItem('user'))
     setUser(localStorageData)
-    if (localStorageData) {
-      setIsLoading(false)
-    }
   }, [])
 
   const router = useRouter()
@@ -40,6 +37,7 @@ export default function Profilestart () {
   }
 
   const handleLogout = () => {
+    console.log("logout");
     logout()
   }
 
@@ -50,11 +48,7 @@ export default function Profilestart () {
           <Image src={logo} width={1000} alt='imgRegister' />
           <div className='box-descriptions'>
             <h3>Discover a new way to optimize your financial operations.</h3>
-            <div>
-              Innovation is the key to efficiency and speed in your financial processes.
-              Our robots collaborate to provide you with the best service, so you don't have to worry about a thing.
-            </div>
-
+            <div>Innovation is the key to efficiency and speed in your financial processes. Our robots collaborate to provide you with the best service, so you don't have to worry about a thing.</div>
           </div>
 
           <Image src={imgProfilestart} width={280} alt='imgProfilestart' />
@@ -72,17 +66,21 @@ export default function Profilestart () {
             </ul>
             <fieldset>
               <div>
-
                 <button onClick={handleClick} className='btn_icons'>
                   <Image src={isSpanish ? es : en} width={30} alt='imglanguage' />
-                  {isSpanish ? 'Español' : 'English'} <ImageSvg name='Change' />
+                  {isSpanish ? 'Es' : 'En'} <ImageSvg name='Change' />
                 </button>
               </div>
               <button className='btn_icons' onClick={handleLogout}>
-
                 <ImageSvg name='SignOut' />
-
               </button>
+              {session &&
+                <Link href='/product'>
+                  <button className='btn_icons'>
+                    <ImageSvg name='Products' />
+                  </button>
+                </Link>}
+
             </fieldset>
           </nav>
           <section className='formProfile'>

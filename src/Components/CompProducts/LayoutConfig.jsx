@@ -83,7 +83,11 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
           <div className='navegación'>
             <Link href='/product'>
               <ImageSvg name='Products' />
+              <p>
+            {empresa?.razon_social_empresa}
+            </p>
             </Link>
+            
 
             <ImageSvg name='Navegación' />
 
