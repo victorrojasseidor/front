@@ -39,7 +39,7 @@ const DocDowland = () => {
 
   return (
     <div className='verticalTabs '>
-     
+
 
       <div className='tabContent '>
         {activeTab === 0 && (

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
-// import "../../styles/_styles.scss";
 import logo from '../../public/img/logoseidor.png'
 import carita from '../../public/img/carita.png'
 import Image from 'next/image'
