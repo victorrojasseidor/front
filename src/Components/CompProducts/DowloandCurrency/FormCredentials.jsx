@@ -200,7 +200,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                     setShowForm(false)
                   }}
                 >
-                  close
+                  Close
                 </button>
 
                 <button type='submit' className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>

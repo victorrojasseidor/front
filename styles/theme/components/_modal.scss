@@ -170,7 +170,25 @@
     @include media(tablet) {
       width: 80vw;
       height: 98vh;
-      overflow:hidden; 
+      // overflow: overlay;
+      overflow: auto;
+    }
+    /* Personalización de las barras de desplazamiento */
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+      max-height: 5rem;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color:get-color(pink_s5);
+      border-radius: 5px;
+      &:hover {
+        background-color:get-color(blue_p1); /* Cambio de color al pasar el cursor */
+      }
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
     }
   }
 }
