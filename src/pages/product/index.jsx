@@ -6,8 +6,6 @@ import LimitedParagraph from '@/helpers/limitParagraf'
 import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
 import { getProducts } from '@/helpers/auth'
-import { BiFontSize } from 'react-icons/bi'
-
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -38,6 +36,7 @@ export default function Products () {
         const data = responseData.oResults
         setProduct(data)
         setModalToken(false)
+        setRequestError(null)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
       } else if (responseData.oAuditResponse?.iCode === 4) {
@@ -46,23 +45,64 @@ export default function Products () {
         const errorMessage = responseData.oAuditResponse
           ? responseData.oAuditResponse.sMessage
           : 'Error in sending the form'
+
+        setRequestError(errorMessage)
         console.log('error', errorMessage)
       }
     } catch (error) {
       console.error('error', error)
       setModalToken(true)
+      setRequestError(error)
     }
   }
 
+  // useEffect(() => {
+  //   if (product && product.length > 0) { // Added check for product length
+  //     const filterResults = () => {
+  //       let results = product
+  //       console.log('selectedFilter', selectedFilter)
+
+  //       if (selectedFilter === 25) {
+  //         results = results.filter(
+  //           (product) =>
+  //             product.iCodeStatus === 27 || product.iCodeStatus === 28
+  //         )
+  //       } else {
+  //         results = results.filter(
+  //           (product) =>
+  //             product.iCodeStatus === selectedFilter
+  //         )
+  //       }
+
+  //       if (searchQuery) {
+  //         results = results.filter((product) =>
+  //           product.sName.toLowerCase().includes(searchQuery.toLowerCase())
+  //         )
+  //       }
+
+  //       setSearchResults(results)
+  //     }
+
+  //     filterResults()
+  //   }
+  // }, [searchQuery, selectedFilter, product])
   useEffect(() => {
-    if (product && product.length > 0) { // Added check for product length
+    if (product && product.length > 0) {
       const filterResults = () => {
         let results = product
-        if (selectedFilter) {
-          results = results.filter(
-            (product) =>
-              product.sDescStatus.toLowerCase().includes(selectedFilter.toLowerCase())
-          )
+
+        if (selectedFilter !== null) {
+          if (selectedFilter === 25) {
+            results = results.filter(
+              (product) =>
+                product.iCodeStatus === 27 || product.iCodeStatus === 28
+            )
+          } else {
+            results = results.filter(
+              (product) =>
+                product.iCodeStatus === selectedFilter
+            )
+          }
         }
 
         if (searchQuery) {
@@ -77,6 +117,8 @@ export default function Products () {
       filterResults()
     }
   }, [searchQuery, selectedFilter, product])
+
+  console.log('result', searchResults)
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value)
@@ -136,10 +178,10 @@ export default function Products () {
     <LayoutProducts>
       <div className='products'>
         <div className='navegación'>
-        <Link href='/product'>
-              <ImageSvg name='Products' />
-            </Link>
-          Digital employes 
+          <Link href='/product'>
+            <ImageSvg name='Products' />
+          </Link>
+          Digital employes
           <span>
             {empresa?.razon_social_empresa}
           </span>
@@ -150,13 +192,13 @@ export default function Products () {
             <button onClick={() => handleFilter(null)} className={selectedFilter === null ? 'active' : ''}>
               All
             </button>
-            <button onClick={() => handleFilter('Configured')} className={selectedFilter === 'Configured' ? 'active' : ''}>
+            <button onClick={() => handleFilter(23)} className={selectedFilter === 23 ? 'active' : ''}>
               Configured
             </button>
-            <button onClick={() => handleFilter('Pending')} className={selectedFilter === 'Pending' ? 'active' : ''}>
+            <button onClick={() => handleFilter(25)} className={selectedFilter === 25 || selectedFilter === 27 || selectedFilter === 28 ? 'active' : ''}>
               Pending
             </button>
-            <button onClick={() => handleFilter('Not hired')} className={selectedFilter === 'Not hired' ? 'active' : ''}>
+            <button onClick={() => handleFilter(31)} className={selectedFilter === 31 ? 'active' : ''}>
               Not hired
             </button>
           </div>
@@ -171,8 +213,10 @@ export default function Products () {
         {searchResults.length > 0
           ? (
             <div className='products_cards'>
-              <h5> Finanzas & Administración </h5>
-              <p> {selectedFilter}</p>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <h5> Finanzas & Administración </h5>
+              </div>
+              {/* <p> {selectedFilter}</p> */}
               <ul>
                 {searchResults.map((product) => (
                   <li key={product.iId} className={`card ${product.sDescStatus === 'Configured' ? 'configured' : ''} ${product.sDescStatus === 'Pending' || product.sDescStatus === 'Earring' ? 'pending' : ''}`}>
@@ -209,7 +253,7 @@ export default function Products () {
 
                 {/* productos añadidos por el momento */}
 
-                <li className='card'>
+                <li className='card' style={{ display: selectedFilter == 31 || !selectedFilter ? 'block' : 'none' }}>
                   <div>
                     <span>
                       <ImageSvg name='Products' />
@@ -239,7 +283,7 @@ export default function Products () {
                   </div>
                 </li>
 
-                <li className='card'>
+                {/* <li className='card'>
                   <div>
                     <span>
                       <ImageSvg name='Products' />
@@ -267,9 +311,9 @@ export default function Products () {
 
                     <button className='btn_secundary'>Free trial</button>
                   </div>
-                </li>
+                </li> */}
 
-                <li className='card'>
+                <li className='card' style={{ display: selectedFilter == 31 || !selectedFilter ? 'block' : 'none' }}>
                   <div>
                     <span>
                       <ImageSvg name='Products' />
@@ -306,6 +350,9 @@ export default function Products () {
             <p>No results found</p>
             )}
       </div>
+      {requestError && <div className='errorMessage'>
+        {requestError}
+      </div>}
     </LayoutProducts>
   )
 }

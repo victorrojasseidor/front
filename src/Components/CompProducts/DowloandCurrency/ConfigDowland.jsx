@@ -256,7 +256,7 @@ export default function ConfigDowland () {
               <h3>List Bank Credential</h3>
               {/* <div>Search</div> */}
               <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
-                {showForm ? 'Close Form list' : 'Add list Bank'}
+                {showForm ? 'Close Form' : '+ Add credential'}
               </button>
             </div>
             <div className='boards'>

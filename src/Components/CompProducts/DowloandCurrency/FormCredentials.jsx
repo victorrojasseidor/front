@@ -63,7 +63,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
       }}
     >
       <div className='Form-listCredential'>
-        <h2 className='box'>{initialVal ? 'Edit record' : 'Add New Bank Credential'}</h2>
+        <h2 className='box'>{initialVal ? 'Edit credential' : 'Add credential'}</h2>
         <Formik
           initialValues={initialValues}
           // validate={initialVal === null ? validateFormAddListBank : undefined}
