@@ -202,6 +202,7 @@ export default function ConfigAccount () {
     setShowForm(!showForm)
   }
 
+  console.log("data",data);
 
   return (
     <LayoutConfig id={iId} iIdProdEnv={iIdProdEnv} defaultTab={1} NameAcount={data?.nombre}>
@@ -232,7 +233,7 @@ export default function ConfigAccount () {
                   <p>Bank :</p>
                   <p>{data?.nombre_banco}</p>
                 </li>
-
+            
                 <li>
                   <p>Credentials :</p>
                   <p>
@@ -264,7 +265,7 @@ export default function ConfigAccount () {
             <div className='box-search'>
               <h3>Accounts </h3>
               <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
-                {showForm ? 'Close Form list' : 'Add list Account'}
+                {showForm ? 'Close Form list' : '+ Add Account'}
               </button>
             </div>
             <div className='boards'>

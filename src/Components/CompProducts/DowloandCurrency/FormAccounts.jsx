@@ -20,8 +20,8 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     if (session) {
       getExtrBancToFile()
     }
-    console.log('componentAccounts', showcomponent)
-  }, [session, iIdProdEnv, showForm])
+   
+  }, [session, iIdProdEnv, showForm , initialVal])
 
   async function getExtrBancToFile () {
     const body = {
@@ -32,7 +32,6 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     }
     try {
       const token = session.sToken
-
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults.oTipoArchivo
@@ -50,6 +49,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     }
   }
 
+
   const initialValues = {
     Account: initialVal?.cuenta || '',
     DesAccount: initialVal?.descripcion_cuenta || '', // Usamos los valores iniciales si están disponibles
@@ -58,7 +58,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     Ruc: initialVal?.ruc || '',
     Coin: initialVal?.moneda || '',
     DesCoin: initialVal?.descripcion_moneda || '',
-    TypeFile: initialVal?.id_tipo_archivo || null,
+    TypeFile: null,
     state: initialVal && initialVal.estado == '23' ? 'Active' : (initialVal ? 'Disabled' : 'Active')
   }
 
@@ -160,7 +160,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 3.How do you want recibir tu information? </h5>
+                  <h5 className='sub'> 4.How do you want recibir tu information? </h5>
                   {/* <p className='description'>
                   Add all your accounts to automate
                   </p> */}
@@ -176,8 +176,12 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                         name='TypeFile'
                         placeholder='Select a type of file'
                         isClearable
-                        value={values.TypeFile}
-                // value={values.TypeFile || initialVal & fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo)}
+                        // value={(initialVal && fileTypeOptions && TypeFile===null )?fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo) : values.TypeFile}
+                        value={
+                          (initialVal && fileTypeOptions && !values.TypeFile )
+                            ? fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo)
+                            : values.TypeFile
+                        }
                         onChange={(selectedOption) => {
                           setFieldValue('TypeFile', selectedOption)
                         }}
@@ -189,7 +193,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 4. State  </h5>
+                  <h5 className='sub'> 5. State  </h5>
                   <p className='description'>
                     Activate or deactivate your Account
                   </p>

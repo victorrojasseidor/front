@@ -39,18 +39,7 @@ const DocDowland = () => {
 
   return (
     <div className='verticalTabs '>
-      <div className='tabHeader'>
-        <p> Contains: </p>
-        <button className={activeTab === 0 ? 'activeVT complete' : ''} onClick={() => handleTabClick(0)}>
-          <h4>Features</h4>
-        </button>
-        <button className={activeTab === 1 ? 'activeVT' : ''} onClick={() => handleTabClick(1)}>
-          <h4> Scope</h4>
-        </button>
-        <button className={activeTab === 2 ? 'activeVT' : ''} onClick={() => handleTabClick(2)}>
-          <h4> Warranty </h4>
-        </button>
-      </div>
+     
 
       <div className='tabContent '>
         {activeTab === 0 && (
@@ -59,11 +48,11 @@ const DocDowland = () => {
               <div className='description docDowland'>
                 <div>
                   <div className='videoPlayer'>
-                    <div>
-                      <p>
-
-                        Automatic download of , <span> bank statements </span>
-                      </p>
+                    <div className='title'>
+                      
+                    <span>
+                        Automatic download of bank statements </span>
+                      
                     </div>
                     <YouTube videoId={videoId} opts={opts} onReady={onReady} onEnd={onEnd} />
                   </div>
@@ -127,6 +116,18 @@ const DocDowland = () => {
             -------------
           </div>
         )}
+      </div>
+      <div className='tabHeader'>
+        <p> Contains: </p>
+        <button className={activeTab === 0 ? 'activeVT complete' : ''} onClick={() => handleTabClick(0)}>
+          <h4>Features</h4>
+        </button>
+        <button className={activeTab === 1 ? 'activeVT' : ''} onClick={() => handleTabClick(1)}>
+          <h4> Scope</h4>
+        </button>
+        <button className={activeTab === 2 ? 'activeVT' : ''} onClick={() => handleTabClick(2)}>
+          <h4> Warranty </h4>
+        </button>
       </div>
     </div>
   )
