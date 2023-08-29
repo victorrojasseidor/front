@@ -11,12 +11,13 @@ import RefreshToken from './RefresToken'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
 
-const LayoutProducts = ({ children }) => {
+const LayoutProducts = ({ children, menu }) => {
   const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
   const [isSpanish, setIsSpanish] = useState(false)
   const [isOpenMobile, setIsOpenMobile] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [margen, setMargen] = useState('0rem')
+  const [titlePage, setTitlePage] = useState('')
 
   const toggleMenu = () => {
     setMenuLateralOpen(!isMenuLateralOpen)
@@ -110,6 +111,17 @@ const LayoutProducts = ({ children }) => {
     }
   }, [session])
 
+  useEffect(() => {
+    if ((menu == 'Product')) {
+      setTitlePage('Digital Product')
+    } else if ((menu =='Reporting')) {
+      setTitlePage(`Reporting to ${session?.jCompany.razon_social_company}`)
+    } else if ((menu == 'Support')) {
+      setTitlePage('Support')
+    }
+  }, [menu])
+
+
   return (
     <section className='layoutProducts'>
       <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ top: isMobile ? '65px' : '0px', marginLeft: isMobile ? '0,5rem' : '0rem', borderRadius: isMobile ? '0 10px 10px 0' : '0px', display: isMobile ? (isOpenMobile ? 'block' : 'none') : 'block' }}>
@@ -129,7 +141,6 @@ const LayoutProducts = ({ children }) => {
               <p className='company'>{session?.jCompany.razon_social_company}</p>
               <p>{session?.sCorreo}</p>
             </div>
-
           </h5>
           {/* <button>
             <ImageSvg name='Edit' />
@@ -139,17 +150,17 @@ const LayoutProducts = ({ children }) => {
 
         <nav className='menu_nav'>
           <ul>
-            <li className='active'>
+            <li className={menu === 'Product' ? 'active' : ''}>
               <ImageSvg name='Products' />
               <Link href='/product'>Digital employees</Link>
             </li>
-            <li>
+            <li className={menu === 'Profile' ? 'active' : ''}>
               <ImageSvg name='Users' />
               <Link href='/profilestart'>Profile</Link>
             </li>
-            <li>
+            <li className={menu === 'Reporting' ? 'active' : ''}>
               <ImageSvg name='Dashboard' />
-              <Link href='/Reporting'>Reporting</Link>
+              <Link href='/reporting'>Reporting</Link>
             </li>
             <li style={{ display: 'none' }}>
               <ImageSvg name='APIS' />
@@ -161,7 +172,7 @@ const LayoutProducts = ({ children }) => {
               <Link href='/Schedule'>Schedule </Link>
             </li>
 
-            <li>
+            <li className={menu === 'Support' ? 'active' : ''}>
               <ImageSvg name='Support' />
               <Link href='/Support'>Support </Link>
             </li>
@@ -187,7 +198,6 @@ const LayoutProducts = ({ children }) => {
               </button>
             </li>
           </div>
-
         </nav>
 
         <div className='menu_logo'>
@@ -196,7 +206,6 @@ const LayoutProducts = ({ children }) => {
       </section>
 
       <section className='menu_children' style={{ marginLeft: margen }}>
-
         <div className='childrenTilte'>
           <nav className='menu-header'>
             <ul>
@@ -230,17 +239,14 @@ const LayoutProducts = ({ children }) => {
             </ul>
           </nav>
           <div className='title'>
-            <h3>Digital employees</h3>
-
+            <h3>{titlePage}</h3>
           </div>
 
           <div className='perfil-select'>
             <p>
-              <span className='welcomeSpan'> Welcome, 👋
-                </span> 
+              <span className='welcomeSpan'> Welcome, 👋</span>
 
               <Image src={carita} width={20} alt='carita' />
-
             </p>
             <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChange}>
               {/* <option value="">Seleccione una empresa</option> */}
@@ -250,16 +256,10 @@ const LayoutProducts = ({ children }) => {
                 </option>
               ))}
             </select>
-
           </div>
-
         </div>
 
-        <section className='children'>
-          {children}
-
-        </section>
-
+        <section className='children'>{children}</section>
       </section>
 
       <div>{modalToken && session && <RefreshToken />}</div>

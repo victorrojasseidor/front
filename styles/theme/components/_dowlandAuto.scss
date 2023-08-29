@@ -123,128 +123,7 @@ flex-wrap: wrap;
 
 
 
-    .contaniner-tables{
     
-
-      .box-search{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content:space-between;
-      }
-
-      .boards{
-      
-        
-        .tableContainer {
-          overflow-x: auto;
-          margin-top: 1rem;
-          padding: 2rem 1rem;
-  
-          // background-color: get-color(bone_s2);
-          border-radius: brd(1);
-          border: 1px solid get-color(forms_s6); 
-          box-shadow: bsh(1);
-        }
-        
-        
-
-
-        .dataTable {
-          width: 100%;
-          border-collapse: collapse;
-          
-          thead{
-            background-color:transparent;
-            border-style: none;
-            border-bottom: 1.5px dotted #ccc; 
-            border-spacing: 8px; 
-            cursor: none;
-          th{
-            padding: 0.5rem;
-          }
-            
-          }
-        
-           tbody{
-            
-            tr{
-              cursor: pointer;
-            
-  
-              &:hover{
-                background-color:get-color(pink_s5);
-                       }
-          }
-          th,
-          td {
-            border: 1px solid #ccc;
-            padding: 0.5rem;
-            
-          
-          }
-          th {
-            // background-color: #f2f2f2;
-            border-style: none;
-           
-          }
-          
-          td{
-         
-            text-align: center;
-    
-            border-style:none;
-          
-            color:get-color(grey2_s4)
-          
-          }
-
-          .active{
-            background-color: get-color(pink_s5);
-          }
-
-         
-
-          }
-
-          .box-actions{
-            display:flex;
-            flex-direction: row;
-            justify-content: center;
-            
-            background-color: get-color(white_s1);
-            
-            button{
-              color:get-color(grey2_s4);
-
-              &:hover, &:focus{
-                color:get-color(blue_p1);
-              }
- 
-            }
-
-          }
-        }
-
-        .Account{
-
-          tbody{
-            tr{
-              cursor: none;
-            
-  
-              &:hover{
-                background-color:transparent;
-                       }
-          }
-        }
-      }
-
-      }
-
-
-    
-    }
  
 
   }
@@ -252,6 +131,146 @@ flex-wrap: wrap;
  
 }
 
+.contaniner-tables{
+
+
+  .box-search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+  }
+
+  .boards{
+    background-color: get-color(white_s1);
+  
+    
+    .tableContainer {
+      overflow-x: hidden;
+      margin-top: 1rem;
+      padding: 2rem 1rem;
+      overflow: auto;
+      // background-color: get-color(bone_s2);
+      border-radius: brd(1);
+      border: 1px solid get-color(forms_s6); 
+      box-shadow: bsh(1);
+
+      // @include media(tablet) {
+          
+      // }
+      /* Personalización de las barras de desplazamiento */
+      &::-webkit-scrollbar {
+        width: 0.5rem;
+        max-height: 5rem;
+      }
+    
+      &::-webkit-scrollbar-thumb {
+        background-color:get-color(pink_s5);
+        border-radius: 5px;
+        &:hover {
+          background-color:get-color(blue_p1); /* Cambio de color al pasar el cursor */
+        }
+      }
+    }
+    
+    
+
+
+    .dataTable {
+      width: 100%;
+      border-collapse: collapse;
+      
+      thead{
+        background-color:transparent;
+        border-style: none;
+        border-bottom: 1.5px dotted #ccc; 
+        border-spacing: 8px; 
+        cursor: none;
+      th{
+        padding: 0.5rem;
+      }
+        
+      }
+    
+       tbody{
+        
+        tr{
+          cursor: pointer;
+        
+
+          &:hover{
+            background-color:get-color(pink_s5);
+                   }
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        
+      
+      }
+      th {
+        // background-color: #f2f2f2;
+        border-style: none;
+       
+      }
+      
+      td{
+     
+        text-align: center;
+
+        border-style:none;
+      
+        color:get-color(grey2_s4)
+      
+      }
+
+      .active{
+        background-color: get-color(pink_s5);
+      }
+
+     
+
+      }
+
+      .box-actions{
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        
+        background-color: get-color(white_s1);
+        
+        button{
+          color:get-color(grey2_s4);
+
+          &:hover, &:focus{
+            color:get-color(blue_p1);
+          }
+
+        }
+
+      }
+    }
+
+    .Account{
+
+      tbody{
+        tr{
+          cursor: none;
+        
+
+          &:hover{
+            background-color:transparent;
+                   }
+      }
+    }
+  }
+
+  }
+
+
+
+}
 
 .status-active {
 

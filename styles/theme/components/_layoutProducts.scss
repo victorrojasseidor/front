@@ -285,13 +285,13 @@
       .title {
         padding: 0.5rem;
 
-        h3{
-          color:get-color(white_s1);
-          @include media(tablet) {
+        // h3{
+        //   color:get-color(white_s1);
+        //   @include media(tablet) {
         
-            color:get-color(black_p2)
-          }
-        }
+        //     color:get-color(black_p2)
+        //   }
+        // }
         
 
         @include media(tablet) {
@@ -407,8 +407,8 @@
   // padding-left: 0.5rem;
   gap: 0.25rem;
   align-items: center;
-
   width: 100%;
+ 
   svg {
     color: get-color(grey1_s3);
     // font-size: 1rem;

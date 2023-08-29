@@ -75,19 +75,16 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   }
 
   return (
-    <LayoutProducts>
+    <LayoutProducts menu='Product'>
       {product &&
         <section className='idProduct'>
-          {/* <BackButton /> */}
-
-          <div className='navegación'>
+            <div className='navegación'>
             <Link href='/product'>
               <ImageSvg name='Products' />
               <p>
-            {empresa?.razon_social_empresa}
-            </p>
+                {empresa?.razon_social_empresa}
+              </p>
             </Link>
-            
 
             <ImageSvg name='Navegación' />
 

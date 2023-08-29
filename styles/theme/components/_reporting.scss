@@ -1,0 +1,82 @@
+.reporting{
+    // background-color: aqua;
+    .description{
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0rem !important;
+        
+        .maybe {
+            padding: 0rem;
+            color:get-color(grey2_s4);
+        }
+       
+    }
+
+    
+}
+
+.balance{
+    // h3{
+    //     color:get-color(black_p2);
+    //     @include media(tablet) {
+    //         color:get-color(black_p2);
+    //       }
+  
+    // }
+       
+    
+
+    .spanReporting{
+        font-size: 0.8rem;
+        text-rendering: geometricPrecision;
+    }
+    .box_title{
+      
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        // background-color: aqua;
+        padding-bottom: 0px;
+        border-bottom: 1px solid get-color(forms_s6);
+    }
+
+    .box-filters{
+        display: flex;
+  align-items: center;
+  gap:1rem;
+  flex-wrap: wrap;
+
+
+  
+    margin-top: 20px;
+
+    .empresa,
+    .date {
+      margin-right: 20px;
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+
+    }
+  
+
+      select,
+      input[type="date"] {
+
+        outline: none;
+        padding: 0.5rem 1rem;
+    margin: 0.5em 0;
+    border: 1px solid get-color(forms_s6);
+    border-radius: brd(1);
+    height: 3em;
+    color: get-color(black_p2);
+      }
+   
+   
+}
+}
+
+

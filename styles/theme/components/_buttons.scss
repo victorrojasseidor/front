@@ -131,10 +131,8 @@
     border-style: none;
     // border-radius: brd(1);
     background-color: transparent;
+      border: 1px solid get-color(black_p2);
     color: get-color(black_p2);
-  
-    border: 1px solid get-color(blue_p1);
-    color: get-color(blue_p1);
   
     &:hover {
       background-color: get-color(t1-blue);

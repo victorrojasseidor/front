@@ -174,8 +174,10 @@ export default function Products () {
     }
   }
 
+  
+
   return (
-    <LayoutProducts>
+    <LayoutProducts menu={'Product'}>
       <div className='products'>
         <div className='navegación'>
           <Link href='/product'>
