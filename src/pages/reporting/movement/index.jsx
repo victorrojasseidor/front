@@ -97,6 +97,9 @@ const Movement = () => {
                     <th>Type</th>
                     <th>Import</th>
                     <th>Date</th>
+                    <th>Refrence</th>
+                    <th>UTC</th>
+                    <th>RUc</th>
                   </tr>
                 </thead>
                 <tbody>

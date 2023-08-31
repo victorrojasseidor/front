@@ -38,14 +38,7 @@ const Balance = () => {
         </div> */}
 
         <div className='box-filters'>
-          <div className='empresa'>
-            <label htmlFor='empresa'>Company</label>
-            <select id='empresa'>
-              <option value='Empresa A'>Empresa A</option>
-              <option value='Empresa B'>Empresa B</option>
-              <option value='Empresa C'>Empresa C</option>
-            </select>
-          </div>
+
           <div className='date'>
             <label htmlFor='fecha-inicial'>Start date:</label>
             <input type='date' id='fecha-inicial' defaultValue={defaultStartDate} />
@@ -55,6 +48,38 @@ const Balance = () => {
             <input type='date' id='fecha-final' defaultValue={today} max={today} placeholder='hdhd' />
 
           </div>
+          <div className='empresa'>
+            <label htmlFor='empresa'>Company</label>
+            <select id='empresa'>
+              <option value='Empresa A'>Empresa A</option>
+              <option value='Empresa B'>Empresa B</option>
+              <option value='Empresa C'>Empresa C</option>
+            </select>
+          </div>
+
+          <div className='empresa'>
+            <label htmlFor='empresa'>Bank</label>
+            <select id='empresa'>
+              <option value='Empresa A'>All</option>
+              <option value='Empresa B'>Bank 1</option>
+              <option value='Empresa C'>Bank 2</option>
+            </select>
+          </div>
+
+          <div className='empresa'>
+            <label htmlFor='empresa'>Account</label>
+            <select id='empresa'>
+              <option value='Empresa A'>All</option>
+              <option value='Empresa B'>Account 1</option>
+              <option value='Empresa C'>Account 2</option>
+            </select>
+          </div>
+
+          <div className='box-buttons'>
+            <button className='btn_black smallBack'>Apply  </button>
+            <button className='btn_black smallBack'>Clear </button>
+          </div>
+
         </div>
 
         <div className='contaniner-tables'>

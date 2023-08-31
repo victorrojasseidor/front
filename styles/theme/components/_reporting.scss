@@ -41,6 +41,7 @@
         // background-color: aqua;
         padding-bottom: 0px;
         border-bottom: 1px solid get-color(forms_s6);
+        
     }
 
     .box-filters{
@@ -50,8 +51,14 @@
   flex-wrap: wrap;
 
 
+
   
     margin-top: 20px;
+
+    @include media(desktop) {
+        flex-wrap: nowrap;
+      }
+
 
     .empresa,
     .date {
@@ -76,6 +83,14 @@
       }
    
    
+}
+
+.box-buttons{
+    display: flex;
+
+    flex-direction: row;
+    width: 25%;
+    // background-color: aquamarine  ;
 }
 }
 

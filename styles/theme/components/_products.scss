@@ -23,7 +23,17 @@
     flex-direction: column;
       flex-wrap: wrap;
     justify-content: flex-start;
-    gap:1em;
+    gap:2em;
+
+    // ul{
+    //   flex-wrap: wrap;
+    // flex-direction: initial;
+    // display: flex;
+    // gap:1em;
+ 
+    // justify-content: space-around;
+    // }
+
   ul{
     display: grid;
       gap: 1em;
@@ -38,7 +48,7 @@
       grid-template-columns: repeat(3, 1fr);
   }
 
-    }
+}
 
  
 

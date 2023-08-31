@@ -45,9 +45,11 @@ export default function Products () {
         const errorMessage = responseData.oAuditResponse
           ? responseData.oAuditResponse.sMessage
           : 'Error in sending the form'
-
         setRequestError(errorMessage)
         console.log('error', errorMessage)
+        setTimeout(() => {
+          setRequestError(errorMessage)
+        }, 2000)
       }
     } catch (error) {
       console.error('error', error)
@@ -174,10 +176,8 @@ export default function Products () {
     }
   }
 
-  
-
   return (
-    <LayoutProducts menu={'Product'}>
+    <LayoutProducts menu='Product'>
       <div className='products'>
         <div className='navegación'>
           <Link href='/product'>
