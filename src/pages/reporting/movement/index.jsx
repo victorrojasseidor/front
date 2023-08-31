@@ -3,7 +3,7 @@ import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
 
-const Balance = () => {
+const Movement = () => {
   const today = new Date().toISOString().substr(0, 10) // Fecha de hoy en formato YYYY-MM-DD
   const defaultStartDate = '2023-01-01'
 
@@ -22,7 +22,7 @@ const Balance = () => {
           <ImageSvg name='Navegación' />
 
           <Link href='#'>
-            <p> Balance Report </p>
+            <p>Movement report </p>
           </Link>
 
         </div>
@@ -39,8 +39,9 @@ const Balance = () => {
 
         <div className='box-filters'>
           <div className='empresa'>
-            <label htmlFor='empresa'>Company</label>
+            <label htmlFor='empresa'>Company:</label>
             <select id='empresa'>
+              <option value='todos'> Todos</option>
               <option value='Empresa A'>Empresa A</option>
               <option value='Empresa B'>Empresa B</option>
               <option value='Empresa C'>Empresa C</option>
@@ -53,13 +54,32 @@ const Balance = () => {
           <div className='date'>
             <label htmlFor='fecha-final'>End date:</label>
             <input type='date' id='fecha-final' defaultValue={today} max={today} placeholder='hdhd' />
-
           </div>
+          <div className='empresa'>
+            <label htmlFor='empresa'>Type:</label>
+            <select id='empresa'>
+              <option value='Empresa A'>Ingreso</option>
+              <option value='Empresa B'>Egreso</option>
+
+            </select>
+          </div>
+
+          <div className='empresa'>
+            <label htmlFor='empresa' style={{ color: 'white' }}> bbbb</label>
+            <div className='searchButton searchReporting'>
+
+              <input type='text' placeholder='Buscar descripción...' />
+              <button>
+                <ImageSvg name='Search' />
+              </button>
+            </div>
+          </div>
+
         </div>
 
         <div className='contaniner-tables'>
           <div className='box-search'>
-            <h3>Balance Report </h3>
+            <h3>Movement report </h3>
             <button className='btn_black smallBack'>Export Report</button>
           </div>
           <div className='boards'>
@@ -72,9 +92,11 @@ const Balance = () => {
                     <th>Bank</th>
                     <th>Account</th>
                     <th>Currency</th>
-                    <th>Balance</th>
+                    <th>Currency description</th>
+                    <th>#Operation</th>
+                    <th>Type</th>
+                    <th>Import</th>
                     <th>Date</th>
-
                   </tr>
                 </thead>
                 <tbody>
@@ -84,6 +106,11 @@ const Balance = () => {
                     <td>Banco</td>
                     <td>194-23044-223</td>
                     <td>PEN</td>
+                    <td>descr moneda</td>
+                    <td>
+                      4125677373
+                    </td>
+                    <td> egreso</td>
                     <td>1000</td>
                     <td>1/08/2023</td>
 
@@ -101,4 +128,4 @@ const Balance = () => {
   )
 }
 
-export default Balance
+export default Movement
