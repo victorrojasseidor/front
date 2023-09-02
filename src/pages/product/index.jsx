@@ -48,8 +48,8 @@ export default function Products () {
         setRequestError(errorMessage)
         console.log('error', errorMessage)
         setTimeout(() => {
-          setRequestError(errorMessage)
-        }, 2000)
+          setRequestError(null)
+        }, 1000)
       }
     } catch (error) {
       console.error('error', error)
@@ -354,7 +354,7 @@ export default function Products () {
       </div>
       {requestError && <div className='errorMessage'>
         {requestError}
-      </div>}
+                       </div>}
     </LayoutProducts>
   )
 }
