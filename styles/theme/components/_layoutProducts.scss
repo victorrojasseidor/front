@@ -3,20 +3,24 @@
   display: flex;
   flex-direction: row;
   height: 200vh;
+  width: 100vw;
+
   //  background-color: get-color(bg-cles);
   background-image: src;
-  background-image: url("../../../public/img/bg.jpg");
+  background-image: url("../../../public/img/fondo.png");
   background-repeat: no-repeat;
-  background-size: cover, 250vh;
+  
+  
 
   @include media(tablet) {
-    // gap: 2em;
-    height: 150vh;
+    height: 120vh;
+    width: 100%;
+    background-size: 120%, auto;
   }
 
   .menu {
-    max-width: 200px;
-    background-color: get-color(white_s1);
+    max-width: 12.5rem;
+    background-color: get-color(pink_s5);
     border-radius: 0px 0px 0px 0px;
     box-shadow: bsh(2);
     align-items: center;
@@ -25,8 +29,16 @@
     position: fixed;
     // left: 6px; /* Puedes ajustar este valor según tu diseño */
     z-index: 9999;
-    height: 100vh;
+    height: 120vh;
     gap: 4rem;
+ 
+    @include media(tablet) {
+      // background-color:transparent;
+         backdrop-filter: blur(20px);
+         background-color: rgba(255, 255, 255, 0.288);
+      
+     }
+
 
     &_Account {
       padding: 1em;
@@ -95,6 +107,13 @@
       padding: 0.5em 1em;
       display: flex;
       flex-direction: column;
+      gap: 0.5rem;
+      @include media(tablet) {
+        gap: 1rem;
+       }
+
+
+
 
       ul {
         display: flex;
@@ -148,19 +167,31 @@
       }
     }
 
-    &_navIcons {
-      padding: 1rem 0rem;
-      // background-color: aqua;
+    .liner {
+      // margin: 0.5rem 0 0.5rem 0 ;
       border-top: 1px solid get-color(forms_s6);
+    }
+
+    &_navIcons {
+      // padding: 1rem 0rem;
+      // background-color: aqua;
+      // border-top: 1px solid get-color(forms_s6);
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-direction: column;
-      gap: 0.25rem;
+      gap: 1rem;
       li {
         list-style: none;
       }
+      // height: 10vh;
+      // //  background-color: get-color(bg-cles);
+      // background-image: src;
+      // background-image: url("../../../public/img/debajo.png");
+      // background-repeat: no-repeat;
+      // background-size: cover, 10vh;
     }
+
+   
 
     .active {
       color: get-color(blue_p1);
@@ -184,6 +215,7 @@
     }
 
     &_logo {
+      padding-top: 2rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -222,17 +254,12 @@
         border: 1px solid get-color(white_s1);
       }
 
-      // select {
-      //   font-size: smaller;
-      //   width: 40px;
-      //   padding: 0;
-      //   overflow: hidden;
-      //   white-space: nowrap;
-      //   text-overflow: ellipsis;
-      // }
+  
 
-      img {
-        width: 60px;
+      .imgPerfil {
+        img {
+          width: 60px;
+        }
       }
     }
 
@@ -245,24 +272,24 @@
         display: flex;
         justify-content: center;
         flex-direction: row;
-        // flex-wrap: wrap;
         align-items: center;
-        gap: 0.5rem;
-        //  backdrop-filter: blur(10px);
         background-color: get-color(blue_p1);
         color: get-color(white_s1);
         position: fixed;
         z-index: 99;
-        padding: 0.5rem 1rem;
         width: 100%;
-        
+        justify-content:space-around;
+        align-items:center;
+
+
         @include media(tablet) {
-          justify-content: space-between;
-          width: 100%;
-          padding: 0rem 1rem;
-          backdrop-filter: blur(20px);
-          background-color: rgba(255, 255, 255, 0.5);
-          width: 100%;
+          display: none;
+          // justify-content:flex-start;
+          // width: 100%;
+          // padding: 0rem 1rem;
+          // backdrop-filter: blur(20px);
+          // background-color: rgba(255, 255, 255, 0.5);
+          // width: 100%;
         }
 
         p {
@@ -271,39 +298,68 @@
           }
         }
       }
-      
-      
 
-      .welcomeSpan{
+      .welcomeSpan {
         display: none;
-         @include media(desktop) {
-        
+        @include media(desktop) {
           display: block;
-         }
-       }
-
-      .title {
-        padding: 0.5rem;
-
-        // h3{
-        //   color:get-color(white_s1);
-        //   @include media(tablet) {
-        
-        //     color:get-color(black_p2)
-        //   }
-        // }
-        
-
-        @include media(tablet) {
-          margin-right: auto;
-          color:get-color(black_p2)
         }
       }
 
-      .children {
-        padding: 7rem 2rem 1rem 2rem;
+
+      .logo-oscuro{
+        display: block;
+        img{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+     
         @include media(tablet) {
-          padding: 4rem 2rem 1rem 2rem;
+          display: none;
+        }
+       
+
+      }
+
+
+
+
+      .titleMenu {
+        display: flex;
+        flex-direction: column;
+        gap:0.5rem;
+        align-items: center;
+    
+        justify-content: flex-end;
+        h3{
+          color: get-color(white_s1);
+          @include media(tablet) {
+       
+            color: get-color(black_p2);
+          }
+         
+        }
+       
+       
+
+        .company{
+          display: block;
+          font-size: 0.8rem;
+          text-align: start;
+          
+          @include media(tablet) {
+            display: none;
+          }
+        }
+       
+        }
+       
+
+      .children {
+        padding: 6rem 2rem;
+        @include media(tablet) {
+          padding: 1rem 2rem;
         }
       }
     }
@@ -370,23 +426,19 @@
     padding: 0.5em;
     font-weight: 550;
     font-size: 0.8rem;
-    border: none; 
-   
+    border: none;
+
     option {
       appearance: none;
       font-size: 1rem;
       color: get-color(grey2_s4);
       padding: 1rem;
-   
-
     }
 
-    &:focus{
-   
-        outline: none;
-        background-color: get-color(white_s1);
-       box-shadow: bsh(1);
-      
+    &:focus {
+      outline: none;
+      background-color: get-color(white_s1);
+      box-shadow: bsh(1);
     }
     @include media(tablet) {
       width: auto;
@@ -398,36 +450,4 @@
   }
 }
 
-.navegación {
-  color: get-color(grey1_s3);
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: row;
-  flex-wrap: wrap;
-  // padding-left: 0.5rem;
-  gap: 0.25rem;
-  align-items: center;
-  width: 100%;
- 
-  svg {
-    color: get-color(grey1_s3);
-    // font-size: 1rem;
-    &:hover,
-    & :focus {
-      color: get-color(blue_p1);
-    }
-  }
-  a,
-  p,
-  span {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    &:hover,
-    & :focus {
-      color: get-color(blue_p1);
-    }
-  }
-}
+

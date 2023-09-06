@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import LayoutProducts from '@/Components/LayoutProducts'
 import FreeTrial from '@/Components/FreeTrial'
-import BackButton from '@/Components/BackButton'
 import { getProducts } from '@/helpers/auth'
 import { useAuth } from '@/Context/DataContext'
 import { componentsProduct } from '@/Components/CompProducts/componentsProduct'
 import Link from 'next/link'
 import ImageSvg from '@/helpers/ImageSVG'
+import NavigationPages from '../NavigationPages'
 
 export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, NameAcount }) {
   const [product, setProduct] = useState(null)
@@ -76,29 +76,32 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
 
   return (
     <LayoutProducts menu='Product'>
+
+      <NavigationPages title='Digital employees'>
+
+        <Link href='/product'>
+          <ImageSvg name='Products' />
+          <p>
+            {empresa?.razon_social_empresa}
+          </p>
+        </Link>
+
+        <ImageSvg name='Navegación' />
+
+        <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
+          {NameAcount? <p> {product?.sName} </p> :   <span>  {product?.sName}</span>
+          }
+         
+        </Link>
+
+        <span>
+          {NameAcount ? <span> <ImageSvg name='Navegación' /> {NameAcount} </span> : ''}
+        </span>
+
+      </NavigationPages>
       {product &&
         <section className='idProduct'>
-            <div className='navegación'>
-            <Link href='/product'>
-              <ImageSvg name='Products' />
-              <p>
-                {empresa?.razon_social_empresa}
-              </p>
-            </Link>
 
-            <ImageSvg name='Navegación' />
-
-            <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
-              <p>  {product?.sName}</p>
-            </Link>
-
-            <p>
-              {NameAcount ? <span> <ImageSvg name='Navegación' /> {NameAcount} </span> : ''}
-            </p>
-
-          </div>
-
-          {/* <h4> {product?.sName} </h4> */}
           <div className='idProduct_container'>
             <div className='tabs-container'>
               <div className='tab-header'>

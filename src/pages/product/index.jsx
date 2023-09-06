@@ -6,6 +6,7 @@ import LimitedParagraph from '@/helpers/limitParagraf'
 import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
 import { getProducts } from '@/helpers/auth'
+import NavigationPages from '@/Components/NavigationPages'
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -13,12 +14,13 @@ export default function Products () {
   const [selectedFilter, setSelectedFilter] = useState(null)
   const [product, setProduct] = useState({})
   const [requestError, setRequestError] = useState('')
-  const { session, empresa, setModalToken, logout } = useAuth()
+
+  const { session, empresa, setModalToken, logout, setEmpresa } = useAuth()
 
   const router = useRouter()
   useEffect(() => {
     getProductscard()
-  }, [session, empresa])
+  }, [session, empresa,setEmpresa])
 
   if (!session) {
     router.push('/login')
@@ -57,6 +59,44 @@ export default function Products () {
       setRequestError(error)
     }
   }
+
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value
+    const DataEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
+
+    if (DataEmpresa) {
+      const selectedEmpresa = {
+        id_empresa: DataEmpresa.id_empresa,
+        razon_social_empresa: DataEmpresa.razon_social_empresa,
+        ruc_empresa: DataEmpresa.ruc_empresa
+      }
+      localStorage.removeItem('selectedEmpresa')
+      // Guardar la empresa seleccionada en el localStorage
+      localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
+
+      // Actualizar el estado de la empresa
+      setEmpresa(selectedEmpresa)
+
+      // Realizar la redirección
+      router.push('/product')
+    }
+  }
+
+  const savedEmpresaJSON = localStorage.getItem('selectedEmpresa')
+
+  useEffect(() => {
+    if (savedEmpresaJSON) {
+      try {
+        const savedEmpresa = JSON.parse(savedEmpresaJSON)
+        console.log('savedEmpresa', savedEmpresa)
+        setEmpresa(savedEmpresa)
+      } catch (error) {
+        console.error('Error parsing savedEmpresa JSON:', error)
+      }
+    } else if (!empresa && session?.oEmpresa.length > 0) {
+      setEmpresa(session.oEmpresa[0])
+    }
+  }, [])
 
   // useEffect(() => {
   //   if (product && product.length > 0) { // Added check for product length
@@ -179,14 +219,28 @@ export default function Products () {
   return (
     <LayoutProducts menu='Product'>
       <div className='products'>
-        <div className='navegación'>
-          <Link href='/product'>
-            <ImageSvg name='Products' />
-          </Link>
-          Digital employes
-          <span>
-            {empresa?.razon_social_empresa}
-          </span>
+        <NavigationPages title='Digital employees'>
+          <div>
+            <Link href='/product'>
+              <ImageSvg name='Products' />
+            </Link>
+          </div>
+        </NavigationPages>
+
+        <div className='perfil-select'>
+          <p>
+            <span className='welcomeSpan'> Welcome 👋, Digital employees to company: </span>
+
+            {/* <Image src={carita} width={20} alt='carita' /> */}
+          </p>
+          <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChange}>
+            {/* <option value="">Seleccione una empresa</option> */}
+            {session?.oEmpresa.map((empres) => (
+              <option key={empres.id_empresa} value={empres.razon_social_empresa}>
+                {empres.razon_social_empresa}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className='products_filterSearch'>
@@ -216,7 +270,8 @@ export default function Products () {
           ? (
             <div className='products_cards'>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <h5> Finanzas & Administración </h5>
+                <h5> Finanzas & Administración to {empresa?.razon_social_empresa}</h5>
+
               </div>
               {/* <p> {selectedFilter}</p> */}
               <ul>

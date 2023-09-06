@@ -2,6 +2,7 @@ import React from 'react'
 import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
+import NavigationPages from '@/Components/NavigationPages'
 
 const Movement = () => {
   const today = new Date().toISOString().substr(0, 10) // Fecha de hoy en formato YYYY-MM-DD
@@ -9,33 +10,24 @@ const Movement = () => {
 
   return (
     <LayoutProducts menu='Reporting'>
+      <NavigationPages title='Digital employees'>
+
+        <Link href='/reporting'>
+          <ImageSvg name='Dashboard' />
+          <p>
+            Reporting
+          </p>
+        </Link>
+
+        <ImageSvg name='Navegación' />
+
+        <Link href='#'>
+          <span>Movement report </span>
+        </Link>
+
+      </NavigationPages>
+
       <div className='balance'>
-        <div className='navegación'>
-          <Link href='/reporting'>
-            <ImageSvg name='Dashboard' />
-            <p>
-              Reporting
-              {/* {empresa?.razon_social_empresa} */}
-            </p>
-          </Link>
-
-          <ImageSvg name='Navegación' />
-
-          <Link href='#'>
-            <p>Movement report </p>
-          </Link>
-
-        </div>
-
-        {/* <p className='spanReporting'>Reporting</p> */}
-        {/* <div className='box_title'>
-          <div className='title'>
-            <h3>Balance Report</h3>
-          </div>
-          <div>
-            <button className='btn_black smallBack'>Export Report</button>
-          </div>
-        </div> */}
 
         <div className='box-filters'>
           <div className='empresa'>

@@ -10,6 +10,8 @@ import IconES from '../../public/icons/spain.svg'
 import RefreshToken from './RefresToken'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
+import Cloud from './Atoms/Cloud'
+import logoOscuro from '../../public/img/logoOscuro.png'
 
 const LayoutProducts = ({ children, menu }) => {
   const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
@@ -24,44 +26,6 @@ const LayoutProducts = ({ children, menu }) => {
   }
 
   const { session, setSession, empresa, setEmpresa, modalToken } = useAuth()
-
-  const handleSelectChange = (event) => {
-    const selectedValue = event.target.value
-    const DataEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
-
-    if (DataEmpresa) {
-      const selectedEmpresa = {
-        id_empresa: DataEmpresa.id_empresa,
-        razon_social_empresa: DataEmpresa.razon_social_empresa,
-        ruc_empresa: DataEmpresa.ruc_empresa
-      }
-      localStorage.removeItem('selectedEmpresa')
-      // Guardar la empresa seleccionada en el localStorage
-      localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
-
-      // Actualizar el estado de la empresa
-      setEmpresa(selectedEmpresa)
-
-      // Realizar la redirección
-      router.push('/product')
-    }
-  }
-
-  const savedEmpresaJSON = localStorage.getItem('selectedEmpresa')
-
-  useEffect(() => {
-    if (savedEmpresaJSON) {
-      try {
-        const savedEmpresa = JSON.parse(savedEmpresaJSON)
-        console.log('savedEmpresa', savedEmpresa)
-        setEmpresa(savedEmpresa)
-      } catch (error) {
-        console.error('Error parsing savedEmpresa JSON:', error)
-      }
-    } else if (!empresa && session?.oEmpresa.length > 0) {
-      setEmpresa(session.oEmpresa[0])
-    }
-  }, [])
 
   const toggleMenuMobile = () => {
     setIsOpenMobile(!isOpenMobile)
@@ -114,27 +78,23 @@ const LayoutProducts = ({ children, menu }) => {
   useEffect(() => {
     if ((menu == 'Product')) {
       setTitlePage('Digital Product')
-    } else if ((menu =='Reporting')) {
+    } else if ((menu == 'Reporting')) {
       setTitlePage(`Reporting to ${session?.jCompany.razon_social_company}`)
     } else if ((menu == 'Support')) {
       setTitlePage('Support')
     }
   }, [menu])
 
-
   return (
     <section className='layoutProducts'>
       <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ top: isMobile ? '65px' : '0px', marginLeft: isMobile ? '0,5rem' : '0rem', borderRadius: isMobile ? '0 10px 10px 0' : '0px', display: isMobile ? (isOpenMobile ? 'block' : 'none') : 'block' }}>
         <div className='menu_Account'>
           <div className='imgPerfil'>
-            <Image src={perfil} width={100} alt='Robot' />
+            <Image src={perfil} width={isMenuLateralOpen ? 100 : 80} alt='Robot' />
             <button onClick={toggleMenu}>
               <ImageSvg name={isMenuLateralOpen ? 'CloseMenu' : 'OpenMenu'} />
             </button>
           </div>
-          {/* <p className='username'>
-              {session?.sUserName}
-              </p> */}
 
           <h5>
             <div className='box-correo'>
@@ -142,10 +102,7 @@ const LayoutProducts = ({ children, menu }) => {
               <p>{session?.sCorreo}</p>
             </div>
           </h5>
-          {/* <button>
-            <ImageSvg name='Edit' />
-            <h5> Edit profile</h5>
-          </button> */}
+
         </div>
 
         <nav className='menu_nav'>
@@ -154,10 +111,7 @@ const LayoutProducts = ({ children, menu }) => {
               <ImageSvg name='Products' />
               <Link href='/product'>Digital employees</Link>
             </li>
-            <li className={menu === 'Profile' ? 'active' : ''}>
-              <ImageSvg name='Users' />
-              <Link href='/profilestart'>Profile</Link>
-            </li>
+
             <li className={menu === 'Reporting' ? 'active' : ''}>
               <ImageSvg name='Dashboard' />
               <Link href='/reporting'>Reporting</Link>
@@ -172,37 +126,52 @@ const LayoutProducts = ({ children, menu }) => {
               <Link href='/Schedule'>Schedule </Link>
             </li>
 
+          </ul>
+
+          <div className='liner' />
+
+          <ul>
+
+            <li className={menu === 'Profile' ? 'active' : ''}>
+              <ImageSvg name='Users' />
+              <Link href='/profilestart'>Profile</Link>
+            </li>
+
             <li className={menu === 'Support' ? 'active' : ''}>
               <ImageSvg name='Support' />
               <Link href='/Support'>Support </Link>
             </li>
+
           </ul>
 
-          <div className='menu_navIcons'>
+          <div className='menu_logo'>
+            <Image src={logo} width={isMenuLateralOpen ? 100 : 80} alt='logo' priority />
+          </div>
+
+          <div className='menu_navIcons' style={{ flexDirection: isMenuLateralOpen ? 'row' : 'column' }}>
             <li>
-              <button className='btn_icons'>
-                <ImageSvg name='Notifications' />
-              </button>
+
+              <Cloud imgButton='Notifications' cloudText='Notifications' />
             </li>
 
             <li>
-              <button onClick={handleClickLanguaje} className='btn_icons languaje'>
-                <Image src={isSpanish ? IconES : IconEN} width={30} alt='imglanguage' />
-                <h5>{isSpanish ? 'EN' : 'ES'}</h5>
+              <button onClick={handleClickLanguaje} className='btn_circle '>
+                <Image src={isSpanish ? IconES : IconEN} width={isMenuLateralOpen ? '20px' : '10px'} alt='imglanguage' />
+                {/* <p>{isSpanish ? 'Es' : 'En'}</p> */}
                 {/* <ImageSvg name='Change' /> */}
+
               </button>
+
             </li>
+
             <li>
-              <button onClick={handleLogout} className='btn_icons'>
-                <ImageSvg name='SignOut' />
-              </button>
+              <Cloud imgButton='SignOut' cloudText='Sign Out' onClick={handleLogout} />
             </li>
+
           </div>
+
         </nav>
 
-        <div className='menu_logo'>
-          <Image src={logo} width={isMenuLateralOpen ? 100 : 80} alt='logo' priority />
-        </div>
       </section>
 
       <section className='menu_children' style={{ marginLeft: margen }}>
@@ -213,50 +182,26 @@ const LayoutProducts = ({ children, menu }) => {
                 <button className='btn_icons hamburger' onClick={toggleMenuMobile}>
                   <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
                 </button>
-
-                {/* <button className='btn_icons' onClick={toggleMenuMobile} >
-          <ImageSvg name={isMenuOpen? "MenuOpen":"MenuClose"} />
-        </button> */}
               </li>
-              {/* <li>
-              <button className='btn_icons'>
-                <ImageSvg name='Notifications' />
-              </button>
-            </li>
-
-            <li>
-              <button onClick={handleClickLanguaje} className='btn_icons'>
-                <Image src={isSpanish ? IconES : IconEN} width={30} alt='imglanguage' />
-                <h5>{isSpanish ? 'EN' : 'ES'}</h5>
-                <ImageSvg name='Change' />
-              </button>
-            </li>
-            <li>
-              <button className='btn_icons' onClick={handleLogout}>
-                <ImageSvg name='SignOut' />
-              </button>
-            </li> */}
             </ul>
           </nav>
-          <div className='title'>
-            <h3>{titlePage}</h3>
+
+          <div className='titleMenu'>
+            <div>
+              <h3>{titlePage}</h3>
+            </div>
+            <div className='company'>
+
+              {session?.jCompany.razon_social_company}
+
+            </div>
+
           </div>
 
-          <div className='perfil-select'>
-            <p>
-              <span className='welcomeSpan'> Welcome, 👋</span>
-
-              <Image src={carita} width={20} alt='carita' />
-            </p>
-            <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChange}>
-              {/* <option value="">Seleccione una empresa</option> */}
-              {session?.oEmpresa.map((empres) => (
-                <option key={empres.id_empresa} value={empres.razon_social_empresa}>
-                  {empres.razon_social_empresa}
-                </option>
-              ))}
-            </select>
+          <div className='logo-oscuro'>
+            <Image src={logoOscuro} width='100' alt='logoOscuro' priority />
           </div>
+
         </div>
 
         <section className='children'>{children}</section>
