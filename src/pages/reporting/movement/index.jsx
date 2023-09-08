@@ -1,5 +1,5 @@
 import React from 'react'
-import LayoutProducts from '@/Components/LayoutProducts'
+import LayouReport from '@/Components/CompProducts/report/LayoutReport'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
 import NavigationPages from '@/Components/NavigationPages'
@@ -9,23 +9,8 @@ const Movement = () => {
   const defaultStartDate = '2023-01-01'
 
   return (
-    <LayoutProducts menu='Reporting'>
-      <NavigationPages title='Digital employees'>
-
-        <Link href='/reporting'>
-          <ImageSvg name='Dashboard' />
-          <p>
-            Reporting
-          </p>
-        </Link>
-
-        <ImageSvg name='Navegación' />
-
-        <Link href='#'>
-          <span>Movement report </span>
-        </Link>
-
-      </NavigationPages>
+    <LayouReport defaultTab={1} >
+     
 
       <div className='balance'>
 
@@ -119,7 +104,7 @@ const Movement = () => {
         </div>
 
       </div>
-    </LayoutProducts>
+    </LayouReport>
   )
 }
 

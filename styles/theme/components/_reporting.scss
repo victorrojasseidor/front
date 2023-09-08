@@ -14,10 +14,46 @@
        
     }
 
+    &-list{
+        display: flex;
+        justify-content:flex-start !important;
+       
+    }
+   
+  
     
 }
 
+
+   
+.layoutReporting {
+    &-company{
+        padding: 1rem 0rem;
+        
+          p{
+              color:get-color(grey2_s4);
+              display: flex;
+              justify-content: flex-start;
+              align-items:last baseline;
+         
+          }
+          span{
+              font-weight: 600;
+          }
+      }
+}
+
+
+
+
+
+
+
 .balance{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
     // h3{
     //     color:get-color(black_p2);
     //     @include media(tablet) {
@@ -32,17 +68,83 @@
         font-size: 0.8rem;
         text-rendering: geometricPrecision;
     }
-    .box_title{
-      
-        display: flex;
+
+    .box_company{
+         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-between;
         // background-color: aqua;
         padding-bottom: 0px;
-        border-bottom: 1px solid get-color(forms_s6);
+        // border-bottom: 1px solid get-color(forms_s6);
         
     }
+
+
+   
+
+    
+    
+    
+    
+    
+    
+    .box-select{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        
+        label{
+            color:get-color(black_p2);
+        
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height:1.8rem;  
+        }
+
+       
+
+        
+    }
+   
+    .btn-select{
+        background-color: get-color(white_s1);
+        padding: 0.5rem 1rem ;
+        margin-top:0rem;
+        gap:1rem;
+        display: flex;
+        justify-content: center;
+        border-radius: brd(1);
+        border-bottom: none;
+        border: 1px solid var(--grey-grey-30, #EAEEF4);
+        color:get-color(black_p2);
+        transition:none !important;
+        
+
+      
+
+        &:-webkit-autofill{
+            color: get-color(blue_p1);
+            
+        }
+
+        option{
+            background-color: aqua;
+            gap:1rem;
+            padding: 1rem;
+        }
+
+
+
+
+    }
+
+
+
+
+
 
     .box-filters{
         display: flex;
@@ -92,11 +194,14 @@
     width: 25%;
     // background-color: aquamarine  ;
 }
-}
+    }
 
 .searchReporting{
     height: 3rem;
     color:get-color(black_p2)
 }
+
+
+
 
 

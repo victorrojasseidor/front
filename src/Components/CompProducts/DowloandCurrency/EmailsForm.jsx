@@ -143,7 +143,7 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
           <ul className='ListEmails'>
             {emails?.map((email, index) => (
               <li key={index}>
-                {email} <button onClick={() => handleDelete(index)}> <ImageSvg name='Delete' /></button>
+                {email} <button  className="btn_crud"onClick={() => handleDelete(index)}> <ImageSvg name='Delete' /></button>
               </li>
             ))}
           </ul>

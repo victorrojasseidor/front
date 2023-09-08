@@ -136,7 +136,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 3. Register coin </h5>
+                  <h5 className='sub'> 3. Register currency </h5>
                   {/* <p className='description'>
                     Add all your accounts to automate
                   </p> */}

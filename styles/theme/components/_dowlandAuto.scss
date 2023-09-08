@@ -240,14 +240,7 @@ flex-wrap: wrap;
         
         background-color: get-color(white_s1);
         
-        button{
-          color:get-color(grey2_s4);
-
-          &:hover, &:focus{
-            color:get-color(blue_p1);
-          }
-
-        }
+       
 
       }
     }

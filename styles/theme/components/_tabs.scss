@@ -1,12 +1,13 @@
-.tabs-container {
-  display: flex;
-  flex-direction: row;
-}
+// .tabs-container {
+//   display: flex;
+//   flex-direction: row;
+// }
 
 .tab-header {
   flex-direction: column;
   // padding-right: 10px;
   display: flex;
+  background-color: transparent;
 
   button {
     display: flex;
@@ -47,11 +48,12 @@
         }
       }
     }
+
   }
 }
 
 .tab-content {
-  border: 1px solid get-color(forms_s6);
+  border-top: 1px solid get-color(forms_s6);
   padding: 1em 1em 2em 1em;
   // border-radius: brd(1);
   border-radius: 0 0 10px 10px;
@@ -78,6 +80,164 @@
     }
   }
 }
+
+
+
+
+.horizontalTabs{
+  width: 100%; 
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: get-color(white_s1);
+  border-radius: brd(1);
+ 
+  h4{
+      color:get-color(grey2_s4);
+      font-weight: 500;
+  }
+
+  .tab-header{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom:0;
+    button {
+      margin-bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1em 1em 0.5em 1em;
+     align-items: center;
+      &.active {
+          margin-bottom: 0;
+          color: get-color(blue_p1);
+          // background-color: #ccc;
+          border-right: none;
+          border-bottom: 2px solid get-color(lilac_p3);
+          h4{
+              color:get-color(blue_p1);
+              font-weight: 600;
+          }
+         
+        }
+
+    }
+}   
+
+}
+
+.verticalTabs {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  font-size: 1.2rem;
+  flex-direction: column;
+    cursor: pointer;
+    @include media(tablet) {
+      flex-direction: row;
+    }
+
+  
+  .tabHeader {
+    display: flex;
+    flex-direction: row;
+     height: 100%;
+    padding: 0.5em;
+    
+    p{
+      color:get-color(grey1_s3);
+    }
+
+    @include media(tablet) {
+       flex-direction: column;
+    }
+
+    button {
+      display: flex;
+      background: none;
+      border: none;
+      width: 5rem;
+        
+      
+    
+      h4{
+        color:get-color(grey2_s4);
+        font-size: medium;
+        padding-left: 1em;
+      }
+    
+  
+      @include media(tablet) {
+        gap: 1em;
+        padding: 0.25em;
+        width: 8rem;
+      }
+
+      &.activeVT {
+        h4{
+          color:get-color(black_p2);
+          font-weight: 600;
+          padding-bottom: 0.5em ;
+          border-bottom: 2px solid get-color(forms_s6);
+
+            
+      @include media(tablet) {
+        padding-bottom: none ;
+        border-bottom: none  ;
+      }
+        }
+       
+              
+      }
+    
+  
+      &.complete {
+        h4{
+          color:get-color(black_p2);
+          font-weight: 600;
+        }
+     
+      
+      }
+    }
+
+ 
+
+  
+
+  }
+ 
+
+
+
+  
+  .tabContent {
+    padding: 0.5em;
+   
+      width: 100%;
+    p {
+      color: get-color(grey2_s4);
+    }
+  
+    .tabOne {
+        display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  
+      h4 {
+        display: flex;
+        justify-self: baseline;
+        align-content: center;
+        justify-content: center;
+        gap: 1em;
+      }
+    }
+  }
+}
+
 
 .phone-field {
   width: 100%;
@@ -187,116 +347,7 @@
 //tabs vertiacals
 
 
-.verticalTabs {
-  display: flex;
 
-  height: 100%;
-  width: 100%;
-  font-size: 1.2rem;
-  flex-direction: column;
-    cursor: pointer;
-    @include media(tablet) {
-      flex-direction: row;
-    }
-
-  
-  .tabHeader {
-    display: flex;
-    flex-direction: row;
-     height: 100%;
-    padding: 0.5em;
-    
-    p{
-      color:get-color(grey1_s3);
-    }
-
-    @include media(tablet) {
-       flex-direction: column;
-    }
-
-    button {
-      display: flex;
-      background: none;
-      border: none;
-      width: 5rem;
-        
-      
-    
-      h4{
-        color:get-color(grey2_s4);
-        font-size: medium;
-        padding-left: 1em;
-      }
-    
-  
-      @include media(tablet) {
-        gap: 1em;
-        padding: 0.25em;
-        width: 8rem;
-      }
-
-      &.activeVT {
-        h4{
-          color:get-color(black_p2);
-          font-weight: 600;
-          padding-bottom: 0.5em ;
-          border-bottom: 2px solid get-color(forms_s6);
-
-            
-      @include media(tablet) {
-        padding-bottom: none ;
-        border-bottom: none  ;
-      }
-        }
-       
-              
-      }
-    
-  
-      &.complete {
-        h4{
-          color:get-color(black_p2);
-          font-weight: 600;
-        }
-     
-      
-      }
-    }
-
- 
-
-  
-
-  }
- 
-
-
-
-  
-  .tabContent {
-    padding: 0.5em;
-   
-      width: 100%;
-    p {
-      color: get-color(grey2_s4);
-    }
-  
-    .tabOne {
-        display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-  
-      h4 {
-        display: flex;
-        justify-self: baseline;
-        align-content: center;
-        justify-content: center;
-        gap: 1em;
-      }
-    }
-  }
-}
 
 
 

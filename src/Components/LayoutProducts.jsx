@@ -108,22 +108,43 @@ const LayoutProducts = ({ children, menu }) => {
         <nav className='menu_nav'>
           <ul>
             <li className={menu === 'Product' ? 'active' : ''}>
+             
+              <Link href='/product'>
               <ImageSvg name='Products' />
-              <Link href='/product'>Digital employees</Link>
+                <h5>
+                Digital employees
+                </h5>
+              
+                </Link>
             </li>
 
             <li className={menu === 'Reporting' ? 'active' : ''}>
+              
+              <Link href='/reporting'>
               <ImageSvg name='Dashboard' />
-              <Link href='/reporting'>Reporting</Link>
+              <h5> Reporting
+                </h5>  
+                
+                </Link>
+
             </li>
             <li style={{ display: 'none' }}>
+              
+              <Link href='/APIS'>
               <ImageSvg name='APIS' />
-              <Link href='/APIS'>APIS</Link>
+                <h5>
+
+                APIS
+                  </h5>
+                </Link>
             </li>
 
             <li style={{ display: 'none' }}>
-              <ImageSvg name='Schedule' />
-              <Link href='/Schedule'>Schedule </Link>
+            <Link href='/Schedule'> 
+            <ImageSvg name='Schedule' />
+              <h5>
+              Schedule 
+                </h5> </Link>
             </li>
 
           </ul>
@@ -133,13 +154,19 @@ const LayoutProducts = ({ children, menu }) => {
           <ul>
 
             <li className={menu === 'Profile' ? 'active' : ''}>
-              <ImageSvg name='Users' />
-              <Link href='/profilestart'>Profile</Link>
+            <Link href='/profilestart'>
+               <ImageSvg name='Users' />
+              <h5>
+              Profile
+                </h5>
+              </Link>
             </li>
 
             <li className={menu === 'Support' ? 'active' : ''}>
-              <ImageSvg name='Support' />
-              <Link href='/Support'>Support </Link>
+             
+              <Link href='/Support'>
+              <ImageSvg name='Support' /> <h5> Support
+                </h5> </Link>
             </li>
 
           </ul>

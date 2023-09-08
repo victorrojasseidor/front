@@ -103,7 +103,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
         <section className='idProduct'>
 
           <div className='idProduct_container'>
-            <div className='tabs-container'>
+            <div className='horizontalTabs'>
               <div className='tab-header'>
                 <Link href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
                   <button className={activeTab === 0 ? 'active ' : ''} onClick={() => handleTabClick(0)}>

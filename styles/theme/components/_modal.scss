@@ -119,22 +119,22 @@
   display: flex;
   justify-content: flex-end;
 
-  button {
-    background-color: get-color(pink_s5);
-    // border-color: get-color(pink_s5);
-    border-style: none;
-    border-radius: brd(f);
-    color: get-color(lilac_p3);
-    font-weight: 700;
-    height: 40px;
-    width: 40px;
-    &:focus,
-    &:hover {
-      border-color: get-color(lilac_p3);
-      background-color: get-color(white_s1);
-      border: 1px solid get-color(lilac_p3);
-    }
-  }
+  // button {
+  //   background-color: get-color(pink_s5);
+  //   // border-color: get-color(pink_s5);
+  //   border-style: none;
+  //   border-radius: brd(f);
+  //   color: get-color(lilac_p3);
+  //   font-weight: 700;
+  //   height: 40px;
+  //   width: 40px;
+  //   &:focus,
+  //   &:hover {
+  //     border-color: get-color(lilac_p3);
+  //     background-color: get-color(white_s1);
+  //     border: 1px solid get-color(lilac_p3);
+  //   }
+  // }
 }
 
 

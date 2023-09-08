@@ -3,43 +3,46 @@ import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
 import NavigationPages from '@/Components/NavigationPages'
+import LayouReport from '@/Components/CompProducts/report/LayoutReport'
+import { useAuth } from '@/Context/DataContext'
 
 const Balance = () => {
+  const { session, empresa, setModalToken, logout, setEmpresa } = useAuth()
+
   const today = new Date().toISOString().substr(0, 10) // Fecha de hoy en formato YYYY-MM-DD
   const defaultStartDate = '2023-01-01'
 
   return (
-    <LayoutProducts menu='Reporting'>
-      <NavigationPages title='Digital employees'>
+    <LayouReport defaultTab={0}>
 
-<Link href='/reporting'>
-  <ImageSvg name='Dashboard' />
-  <p>
-    Reporting
-  </p>
-</Link>
-
-<ImageSvg name='Navegación' />
-
-<Link href='#'>
-  <span>Balance Report </span>
-</Link>
-
-</NavigationPages>
       <div className='balance'>
+
+        <div className='layoutReporting-company'>
+          <h5>
+            Balance report To  {session?.jCompany.razon_social_company}
+          </h5>
+          <p>
+            If you want to view the complete information, use the  <span> export option
+                                                                   </span>
+          </p>
+        </div>
+
+        <div className='box_company'>
+
+          <div className='box-select'>
+            <label htmlFor='empresa'>Company</label>
+            <select id='empresa' className='btn-select'>
+              <option value='Empresa A'>Empresa A</option>
+              <option value='Empresa B'>Empresa B</option>
+              <option value='Empresa C'>Empresa C</option>
+            </select>
+          </div>
+
         
 
-        {/* <p className='spanReporting'>Reporting</p> */}
-        {/* <div className='box_title'>
-          <div className='title'>
-            <h3>Balance Report</h3>
-          </div>
-          <div>
-            <button className='btn_black smallBack'>Export Report</button>
-          </div>
-        </div> */}
+        </div>
 
-        <div className='box-filters'>
+        {/* <div className='box-filters'>
 
           <div className='date'>
             <label htmlFor='fecha-inicial'>Start date:</label>
@@ -49,14 +52,6 @@ const Balance = () => {
             <label htmlFor='fecha-final'>End date:</label>
             <input type='date' id='fecha-final' defaultValue={today} max={today} placeholder='hdhd' />
 
-          </div>
-          <div className='empresa'>
-            <label htmlFor='empresa'>Company</label>
-            <select id='empresa'>
-              <option value='Empresa A'>Empresa A</option>
-              <option value='Empresa B'>Empresa B</option>
-              <option value='Empresa C'>Empresa C</option>
-            </select>
           </div>
 
           <div className='empresa'>
@@ -121,10 +116,14 @@ const Balance = () => {
             </div>
 
           </div>
+        </div> */}
+
+        <div>
+          <button className='btn_black smallBack'>Export Report</button>
         </div>
 
       </div>
-    </LayoutProducts>
+    </LayouReport>
   )
 }
 

@@ -22,12 +22,15 @@ import { RiMenu3Line, RiCloseLine } from 'react-icons/ri'
 
 import Iconspain from '../../public/icons/spain.svg'
 import Iconeeuu from '../../public/icons/eeuu.svg'
+import editSVG from'../../public/img/edit.svg'
+import deleteSVG from'../../public/img/delete.svg'
 // import Iconrobot from '../../public/img/robot.PNG'
 
 const ImageSvg = ({ name }) => {
   const icons = {
     // crud
-    Edit: <TiPencil />,
+    // Edit: <TiPencil />,
+    Edit: <Image src={editSVG} width={80} alt='Spain' />,
     Menu: <FiMenu />,
     Close: <IoClose />,
     Notifications: <IoNotificationsOutline />,
@@ -39,7 +42,8 @@ const ImageSvg = ({ name }) => {
     Search: <FaSearch />,
     Time: <CgTimer />,
     Back: <IoMdArrowRoundBack />,
-    Delete: <FiTrash2 />,
+    Delete: <Image src={deleteSVG} width={80} alt='Spain' />,
+    // Delete: <FiTrash2 />,
 
     // menú icons
     MenuOpen: <RiMenu3Line />,

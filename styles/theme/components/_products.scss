@@ -276,12 +276,15 @@
   // border-bottom: 1px solid get-color(forms_s6);
 
    .buttons{
-    width: 15%;
+    display: none;
+    @include media(tablet) {
+            width: 15%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
     gap:0.5rem;
+    }
   }
 
   .titlePage{
