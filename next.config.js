@@ -7,7 +7,7 @@ const nextConfig = {
     ignoreDuringBuilds: true
   },
   reactStrictMode: true,
-  async headers () {
+  async headers() {
     return [
       {
         source: '/api/:path*',
@@ -18,12 +18,15 @@ const nextConfig = {
         ]
       }
     ]
-  }
+  },
 
-  // i18n: {
-  //     locales: ['en', 'es'], // Lista de idiomas disponibles
-  //     defaultLocale: 'en', // Idioma por defecto
-  //   }
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      jquery: 'jquery',
+    };
+    return config;
+  },
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;

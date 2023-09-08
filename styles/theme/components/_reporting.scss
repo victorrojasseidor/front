@@ -45,10 +45,6 @@
 
 
 
-
-
-
-
 .balance{
     width: 100%;
     display: flex;
@@ -69,7 +65,7 @@
         text-rendering: geometricPrecision;
     }
 
-    .box_company{
+    .box-company{
          display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -77,73 +73,11 @@
         // background-color: aqua;
         padding-bottom: 0px;
         // border-bottom: 1px solid get-color(forms_s6);
+        label {
+            top: -4px;
+        }
         
     }
-
-
-   
-
-    
-    
-    
-    
-    
-    
-    .box-select{
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        
-        label{
-            color:get-color(black_p2);
-        
-            font-size: 1rem;
-            font-style: normal;
-            font-weight: 700;
-            line-height:1.8rem;  
-        }
-
-       
-
-        
-    }
-   
-    .btn-select{
-        background-color: get-color(white_s1);
-        padding: 0.5rem 1rem ;
-        margin-top:0rem;
-        gap:1rem;
-        display: flex;
-        justify-content: center;
-        border-radius: brd(1);
-        border-bottom: none;
-        border: 1px solid var(--grey-grey-30, #EAEEF4);
-        color:get-color(black_p2);
-        transition:none !important;
-        
-
-      
-
-        &:-webkit-autofill{
-            color: get-color(blue_p1);
-            
-        }
-
-        option{
-            background-color: aqua;
-            gap:1rem;
-            padding: 1rem;
-        }
-
-
-
-
-    }
-
-
-
-
 
 
     .box-filters{
@@ -151,8 +85,6 @@
   align-items: center;
   gap:1rem;
   flex-wrap: wrap;
-
-
 
   
     margin-top: 20px;
@@ -162,27 +94,10 @@
       }
 
 
-    .empresa,
-    .date {
-      margin-right: 20px;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-
-    }
+   
   
 
-      select,
-      input[type="date"] {
-
-        outline: none;
-        padding: 0.5rem 1rem;
-    margin: 0.5em 0;
-    border: 1px solid get-color(forms_s6);
-    border-radius: brd(1);
-    height: 3em;
-    color: get-color(black_p2);
-      }
+      
    
    
 }
@@ -200,7 +115,6 @@
     height: 3rem;
     color:get-color(black_p2)
 }
-
 
 
 
