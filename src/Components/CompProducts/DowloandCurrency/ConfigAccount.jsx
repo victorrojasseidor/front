@@ -94,7 +94,7 @@ export default function ConfigAccount () {
       const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarCuentaExtBancario', body, token)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
-        setSelectedRowToDelete(null);
+        setSelectedRowToDelete(null)
       } else {
         await handleCommonCodes(response)
       }
@@ -139,7 +139,6 @@ export default function ConfigAccount () {
       console.error('error', error)
       setShowForm(true)
       setRequestError(error)
-
     }
   }
 
@@ -202,7 +201,7 @@ export default function ConfigAccount () {
     setShowForm(!showForm)
   }
 
-  console.log("data",data);
+  console.log('data', data)
 
   return (
     <LayoutConfig id={iId} iIdProdEnv={iIdProdEnv} defaultTab={1} NameAcount={data?.nombre}>
@@ -233,7 +232,7 @@ export default function ConfigAccount () {
                   <p>Bank :</p>
                   <p>{data?.nombre_banco}</p>
                 </li>
-            
+
                 <li>
                   <p>Credentials :</p>
                   <p>
@@ -324,7 +323,7 @@ export default function ConfigAccount () {
             requestError
 
             }
-                             </div>}
+            </div>}
 
           </div>
           {selectedRowToDelete && (

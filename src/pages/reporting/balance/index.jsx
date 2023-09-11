@@ -11,10 +11,17 @@ import MenuItem from '@mui/material/MenuItem'
 import FormHelperText from '@mui/material/FormHelperText'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import DateRange from '@/Components/Atoms/DateRange'
+
+import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
+import { fetchConTokenPost } from '@/helpers/fetch'
+import dayjs from 'dayjs'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 const Balance = () => {
-  const { session, empresa, setModalToken, logout, setEmpresa } = useAuth()
+  const { session, empresa, setModalToken, logout } = useAuth()
 
   // Funciones para manejar los cambios en las fechas de inicio y final
 
@@ -22,6 +29,22 @@ const Balance = () => {
   const [selectedBank, setSelectedBank] = useState('')
   const [selectedAccount, setSelectedAccount] = useState('')
   const [accountOptions, setAccountOptions] = useState([]) // Para almacenar las opciones de cuenta
+  const [requestError, setRequestError] = useState('')
+  const [balances, setBalances] = useState(null)
+
+  // Fecha de inicio establecida en "01/01/2023"
+  const [startDate, setStartDate] = useState(dayjs('01/01/2023', 'DD/MM/YYYY').format('DD/MM/YYYY'))
+
+  // Fecha de finalización establecida en un día antes de la fecha actual
+  const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'))
+
+  const handleStartDateChange = (newValue) => {
+    setStartDate(newValue.format('DD/MM/YYYY'))
+  }
+
+  const handleEndDateChange = (newValue) => {
+    setEndDate(newValue.format('DD/MM/YYYY'))
+  }
 
   const handleCompanyChange = (event) => {
     setSelectedCompany(event.target.value)
@@ -37,6 +60,70 @@ const Balance = () => {
 
   const handleAccountChange = (event) => {
     setSelectedAccount(event.target.value)
+  }
+
+  const router = useRouter()
+
+  useEffect(() => {
+    getBalances()
+  }, [session, requestError])
+
+  if (!session) {
+    router.push('/login')
+  }
+
+  console.log('startDate', startDate)
+  console.log('endDate', endDate)
+  console.log('selectedCompany', selectedCompany)
+  console.log('balances', balances)
+
+  async function getBalances () {
+    const body = {
+      oResults: {
+        sFechaDesde: '05/01/2023',
+        sFechaHasta: '06/09/2023'
+        // oIdEmpresa: [],
+        // oIdTipo: [],
+        // oIdBanco: [],
+        // oCuenta: []
+
+      }
+    }
+
+    try {
+      const token = session.sToken
+
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetInitMovimientos', body, token)
+
+      console.log('responseBalances', responseData)
+
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const data = responseData.oResults
+        setBalances(data)
+        setModalToken(false)
+        setRequestError(null)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        setRequestError(errorMessage)
+        console.log('error', errorMessage)
+        setTimeout(() => {
+          setRequestError(null)
+        }, 1000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setModalToken(true)
+      setRequestError(error)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 1000)
+    }
   }
 
   // Define las opciones de cuenta según el banco seleccionado
@@ -81,7 +168,13 @@ const Balance = () => {
               </MenuItem>
               <MenuItem value='compania1'>Compañía 1</MenuItem>
               <MenuItem value='compania2'>Compañía 2</MenuItem>
+
               {/* Agrega más opciones de compañía según tus necesidades */}
+              {session?.oEmpresa.map((company) => (
+                <MenuItem key={company.id_company} value={company.id_company}>
+                  {company.razon_social_company || company.razon_social_empresa}
+                </MenuItem>
+              ))}
             </Select>
             <FormHelperText>Select a company</FormHelperText>
           </FormControl>
@@ -89,7 +182,24 @@ const Balance = () => {
 
         <div className='box-filter'>
 
-          <DateRange />
+          <div className='box-dates'>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['DatePicker', 'DatePicker']}>
+                <DatePicker
+                  label='From'
+                  value={dayjs(startDate, 'DD/MM/YYYY')}
+                  onChange={handleStartDateChange}
+                  format='DD/MM/YYYY'
+                />
+                <DatePicker
+                  label='To'
+                  value={dayjs(endDate, 'DD/MM/YYYY')}
+                  onChange={handleEndDateChange}
+                  format='DD/MM/YYYY'
+                />
+              </DemoContainer>
+            </LocalizationProvider>
+          </div>
 
           {selectedCompany && (
             <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -144,6 +254,7 @@ const Balance = () => {
             </FormControl>
           )}
         </div>
+
         <div />
 
         {/* ... Otras partes de tu componente */}
@@ -156,30 +267,59 @@ const Balance = () => {
         </div>
         <div className='boards'>
           <div className='tableContainer'>
+
             <table className='dataTable Account'>
+
               <thead>
                 <tr>
-                  <th>Group</th>
                   <th>Company</th>
                   <th>Bank</th>
-                  <th>Account</th>
-                  <th>Currency</th>
-                  <th>Balance</th>
-                  <th>Date</th>
+                  <th>Cuenta</th>
+                  <th>Tipo</th>
+                  <th>Moneda</th>
+                  <th>saldo</th>
+                  <th>fecha</th>
                 </tr>
               </thead>
               <tbody>
-                <tr key='jdjjd'>
-                  <td>Seidor</td>
-                  <td>Innovativa</td>
-                  <td>Banco</td>
-                  <td>194-23044-223</td>
-                  <td>PEN</td>
-                  <td>1000</td>
-                  <td>1/08/2023</td>
-                </tr>
+
+                <td>
+                  {balances?.oEmpresa.map((row, index) => (
+
+                    <tr key={row.id_empresa}>
+                      {row.razon_social_empresa}
+                    </tr>
+                  ))}
+
+                </td>
+
+                <td>
+                  {balances?.oBanco.map((bankRow, bankIndex) => (
+                    <tr key={bankRow.id_banco}>
+                      {bankRow.nombre}
+                    </tr>
+                  ))}
+                </td>
+
+                <td>
+                  {balances?.oCuenta.map((rowtipo, index) => (
+                    <tr key={index}>
+                      {rowtipo.cuenta}
+                    </tr>
+                  ))}
+                </td>
+
+                <td>
+                  {balances?.oTipo.map((rowtipo) => (
+                    <tr key={rowtipo.id_tipo}>
+                      {rowtipo.descripcion}
+                    </tr>
+                  ))}
+                </td>
+
               </tbody>
             </table>
+
           </div>
         </div>
       </div>
