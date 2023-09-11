@@ -70,26 +70,24 @@ const Balance = () => {
 
         <div className='box-company'>
           <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id='company-label'>Compañía</InputLabel>
+            <InputLabel id='company-label'>Company</InputLabel>
             <Select
               labelId='company-label'
               value={selectedCompany}
               onChange={handleCompanyChange}
             >
               <MenuItem value=''>
-                <em>Selecciona una compañía</em>
+                <em>Select a company</em>
               </MenuItem>
               <MenuItem value='compania1'>Compañía 1</MenuItem>
               <MenuItem value='compania2'>Compañía 2</MenuItem>
               {/* Agrega más opciones de compañía según tus necesidades */}
             </Select>
-            <FormHelperText>Selecciona una compañía</FormHelperText>
+            <FormHelperText>Select a company</FormHelperText>
           </FormControl>
         </div>
 
         <div className='box-filter'>
-
-          <p> aqui valas fechas </p>
 
           <DateRange />
 

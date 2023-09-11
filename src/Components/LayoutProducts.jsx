@@ -68,6 +68,11 @@ const LayoutProducts = ({ children, menu }) => {
     // router.push("/login");
   }
 
+  const handleClick = () => {
+    // Redirige al usuario a la URL deseada
+    window.location.href = 'https://seidor.mensajea.chat/'
+  }
+
   const router = useRouter()
   useEffect(() => {
     if (!session) {
@@ -108,43 +113,55 @@ const LayoutProducts = ({ children, menu }) => {
         <nav className='menu_nav'>
           <ul>
             <li className={menu === 'Product' ? 'active' : ''}>
-             
+
               <Link href='/product'>
-              <ImageSvg name='Products' />
+                <ImageSvg name='Products' />
                 <h5>
-                Digital employees
+                  Digital employees
                 </h5>
-              
-                </Link>
+
+              </Link>
             </li>
 
             <li className={menu === 'Reporting' ? 'active' : ''}>
-              
+
               <Link href='/reporting'>
-              <ImageSvg name='Dashboard' />
-              <h5> Reporting
-                </h5>  
-                
-                </Link>
+                <ImageSvg name='Dashboard' />
+                <h5> Reporting
+                </h5>
+
+              </Link>
 
             </li>
+            <li className={menu === 'chatbot' ? 'active' : ''}>
+
+              {/* <Link href='https://seidor.mensajea.chat/'>
+                <ImageSvg name='ChatBot' />
+                <h5>
+                  Chatbot
+                </h5>
+
+              </Link> */}
+            </li>
+
             <li style={{ display: 'none' }}>
-              
+
               <Link href='/APIS'>
-              <ImageSvg name='APIS' />
+                <ImageSvg name='APIS' />
                 <h5>
 
-                APIS
-                  </h5>
-                </Link>
+                  APIS
+                </h5>
+              </Link>
             </li>
 
             <li style={{ display: 'none' }}>
-            <Link href='/Schedule'> 
-            <ImageSvg name='Schedule' />
-              <h5>
-              Schedule 
-                </h5> </Link>
+              <Link href='/Schedule'>
+                <ImageSvg name='Schedule' />
+                <h5>
+                  Schedule
+                </h5>
+              </Link>
             </li>
 
           </ul>
@@ -154,19 +171,20 @@ const LayoutProducts = ({ children, menu }) => {
           <ul>
 
             <li className={menu === 'Profile' ? 'active' : ''}>
-            <Link href='/profilestart'>
-               <ImageSvg name='Users' />
-              <h5>
-              Profile
+              <Link href='/profilestart'>
+                <ImageSvg name='Users' />
+                <h5>
+                  Profile
                 </h5>
               </Link>
             </li>
 
             <li className={menu === 'Support' ? 'active' : ''}>
-             
+
               <Link href='/Support'>
-              <ImageSvg name='Support' /> <h5> Support
-                </h5> </Link>
+                <ImageSvg name='Support' /> <h5> Support
+                </h5>
+              </Link>
             </li>
 
           </ul>
@@ -176,20 +194,24 @@ const LayoutProducts = ({ children, menu }) => {
           </div>
 
           <div className='menu_navIcons' style={{ flexDirection: isMenuLateralOpen ? 'row' : 'column' }}>
-            <li>
+            {/* <li>
 
               <Cloud imgButton='Notifications' cloudText='Notifications' />
-            </li>
+            </li> */}
 
             <li>
+              <Cloud imgButton='ChatBot' cloudText='ChatBot' onClick={handleClick} />
+            </li>
+
+            {/* <li>
               <button onClick={handleClickLanguaje} className='btn_circle '>
                 <Image src={isSpanish ? IconES : IconEN} width={isMenuLateralOpen ? '20px' : '10px'} alt='imglanguage' />
-                {/* <p>{isSpanish ? 'Es' : 'En'}</p> */}
-                {/* <ImageSvg name='Change' /> */}
+                <p>{isSpanish ? 'Es' : 'En'}</p>
+               <ImageSvg name='Change' />
 
               </button>
 
-            </li>
+            </li> */}
 
             <li>
               <Cloud imgButton='SignOut' cloudText='Sign Out' onClick={handleLogout} />

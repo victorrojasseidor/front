@@ -132,18 +132,25 @@
       align-items: center;
       flex-direction: column;
       color:get-color(grey2_s4);
+      img{
+        width: 25px;
+      }
    
       &:hover,
       &:active {
         border: 2px solid get-color(pink_s5);
         font-size: 1rem;
-        background-color: get-color(blue_p1);
+        background-color: get-color(black_p2);
         color:get-color(white_s1);
     
         svg {
           color: get-color(white_s1);
           font-size: 1.2rem;
+          
         }
+       
+
+       
       }
   }
 
