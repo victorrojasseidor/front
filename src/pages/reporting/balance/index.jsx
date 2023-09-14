@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import LayoutProducts from '@/Components/LayoutProducts'
-import ImageSvg from '@/helpers/ImageSVG'
-import Link from 'next/link'
-import NavigationPages from '@/Components/NavigationPages'
 import LayouReport from '@/Components/CompProducts/report/LayoutReport'
 import { useAuth } from '@/Context/DataContext'
-import Button from '@mui/material/Button'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormHelperText from '@mui/material/FormHelperText'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-
-import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import dayjs from 'dayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
@@ -21,82 +14,82 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 const Balance = () => {
-  const { session, empresa, setModalToken, logout } = useAuth()
-
-  // Funciones para manejar los cambios en las fechas de inicio y final
-
-  const [selectedCompany, setSelectedCompany] = useState('')
-  const [selectedBank, setSelectedBank] = useState('')
-  const [selectedAccount, setSelectedAccount] = useState('')
-  const [accountOptions, setAccountOptions] = useState([]) // Para almacenar las opciones de cuenta
-  const [requestError, setRequestError] = useState('')
+  const { session, setModalToken, logout } = useAuth()
+  const [startDate, setStartDate] = useState(dayjs('01/01/2023', 'DD/MM/YYYY').format('DD/MM/YYYY'))
+  const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'))
+  const [dataInitialSelect, setInitialDataselect] = useState([])
+  const [filteredBank, setFilteredBank] = useState(null) // Cambié el nombre a filteredBank
+  const [filteredAccounts, setFilteredAccounts] = useState(null) // Estado para cuentas filtradas
+  const [selectedCompany, setSelectedCompany] = useState(null)
+  const [selectedBank, setSelectedBank] = useState(null)
+  const [selectedAccount, setSelectedAccount] = useState(null)
+  const [requestError, setRequestError] = useState()
   const [balances, setBalances] = useState(null)
 
-  // Fecha de inicio establecida en "01/01/2023"
-  const [startDate, setStartDate] = useState(dayjs('01/01/2023', 'DD/MM/YYYY').format('DD/MM/YYYY'))
-
-  // Fecha de finalización establecida en un día antes de la fecha actual
-  const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'))
-
-  const handleStartDateChange = (newValue) => {
-    setStartDate(newValue.format('DD/MM/YYYY'))
-  }
-
-  const handleEndDateChange = (newValue) => {
-    setEndDate(newValue.format('DD/MM/YYYY'))
-  }
-
-  const handleCompanyChange = (event) => {
-    setSelectedCompany(event.target.value)
-    setSelectedBank('') // Reset bank selection when company changes
-    setSelectedAccount('') // Reset account selection when company changes
-  }
-
-  const handleBankChange = (event) => {
-    console.log('selectedBank', event.target.value)
-    setSelectedBank(event.target.value)
-    setSelectedAccount('') // Reset account selection when bank changes
-  }
-
-  const handleAccountChange = (event) => {
-    setSelectedAccount(event.target.value)
-  }
-
-  const router = useRouter()
+  useEffect(() => {
+    getBalancesInitial()
+  }, [selectedCompany, startDate, endDate, selectedCompany, selectedBank, selectedAccount])
 
   useEffect(() => {
-    getBalances()
-  }, [session, requestError])
+    if (dataInitialSelect) {
+      getBalancesReport()
+    }
+  }, [dataInitialSelect, startDate, endDate, selectedCompany, selectedBank, selectedAccount])
 
-  if (!session) {
-    router.push('/login')
-  }
-
-  console.log('startDate', startDate)
-  console.log('endDate', endDate)
-  console.log('selectedCompany', selectedCompany)
-  console.log('balances', balances)
-
-  async function getBalances () {
+  console.log(session)
+  async function getBalancesInitial () {
     const body = {
-      oResults: {
-        sFechaDesde: '05/01/2023',
-        sFechaHasta: '06/09/2023'
-        // oIdEmpresa: [],
-        // oIdTipo: [],
-        // oIdBanco: [],
-        // oCuenta: []
-
-      }
+      oResults: {}
     }
 
     try {
       const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetInitSaldos', body, token)
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetInitMovimientos', body, token)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const dataInit = responseData.oResults
+        setInitialDataselect(dataInit)
+        setModalToken(false)
+        setRequestError(null)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null)
+        }, 2000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setModalToken(true)
+      setRequestError(error)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 1000)
+    }
+  }
 
-      console.log('responseBalances', responseData)
+  async function getBalancesReport () {
+    const body = {
+      oResults: {
+        sFechaDesde: startDate,
+        sFechaHasta: endDate,
+        oIdEmpresa: selectedCompany ? [selectedCompany] : [],
+        oIdBanco: selectedBank ? [selectedBank] : [],
+        oCuenta: selectedAccount ? [selectedAccount] : []
+      }
+    }
+    console.log('body', body)
 
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetReporteSaldos', body, token)
+      console.log('GetReporteSaldos', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setBalances(data)
@@ -111,14 +104,12 @@ const Balance = () => {
           ? responseData.oAuditResponse.sMessage
           : 'Error in sending the form'
         setRequestError(errorMessage)
-        console.log('error', errorMessage)
         setTimeout(() => {
           setRequestError(null)
         }, 1000)
       }
     } catch (error) {
       console.error('error', error)
-      setModalToken(true)
       setRequestError(error)
       setTimeout(() => {
         setRequestError(null)
@@ -126,23 +117,70 @@ const Balance = () => {
     }
   }
 
-  // Define las opciones de cuenta según el banco seleccionado
-  const renderAccountOptions = () => {
-    if (selectedBank === 'banco1') {
-      return ['cuenta1', 'cuenta2'] // Agrega más opciones de cuenta para Banco 1
-    }
-    if (selectedBank === 'banco2') {
-      return ['cuentaA', 'cuentaB'] // Agrega más opciones de cuenta para Banco 2
-    }
-    return [] // Devuelve una lista vacía si no hay opciones para el banco seleccionado
+  const handleStartDateChange = (newValue) => {
+    setStartDate(newValue.format('DD/MM/YYYY'))
   }
 
-  // Actualiza las opciones de cuenta cuando cambia el banco
-  useEffect(() => {
-    setAccountOptions(renderAccountOptions())
-  }, [selectedBank])
+  const handleEndDateChange = (newValue) => {
+    setEndDate(newValue.format('DD/MM/YYYY'))
+  }
 
-  console.log('selectedCompany', selectedCompany)
+  const handleCompanyChange = (event) => {
+    const selectCompanyValue = event.target.value
+    setSelectedCompany(selectCompanyValue)
+    if (selectCompanyValue === '') {
+      setFilteredBank([])
+    } else {
+      const BankForSelectedCompany = balances.oSaldos.filter(
+        (bank) => bank.id_empresa === selectCompanyValue
+      )
+
+      const seenIds = new Set()
+      const uniqueBanks = []
+
+      BankForSelectedCompany.forEach((bank) => {
+        if (!seenIds.has(bank.id_banco)) {
+          seenIds.add(bank.id_banco)
+          uniqueBanks.push({ id_banco: bank.id_banco, nombre_banco: bank.nombre_banco })
+        }
+      })
+      setFilteredBank(uniqueBanks)
+    }
+    setSelectedBank('') // Restablece la selección de banco
+    setSelectedAccount('') // Restablece la selección de cuenta
+  }
+
+  const handleBankChange = (event) => {
+    const selectedBankValue = event.target.value
+    setSelectedBank(selectedBankValue)
+    if (selectedBankValue === '') {
+      setFilteredAccounts([])
+    } else {
+      const accountsForSelectedBank = balances.oSaldos.filter(
+        (bank) => bank.id_banco === selectedBankValue)
+
+      const seenIds = new Set()
+      const uniqueBanks = []
+
+      accountsForSelectedBank.forEach((report) => {
+        if (!seenIds.has(report.desc_cuenta_conf_cuenta)) {
+          seenIds.add(report.desc_cuenta_conf_cuenta)
+          uniqueBanks.push({ cuenta_conf_cuenta: report.cuenta_conf_cuenta, desc_cuenta_conf_cuenta: report.desc_cuenta_conf_cuenta, desc_cuenta: report.desc_cuenta })
+        }
+      })
+
+      setFilteredAccounts(uniqueBanks)
+    }
+    setSelectedAccount('') // Restablece la selección de cuenta
+  }
+
+  const handleAccountChange = (event) => {
+    setSelectedAccount(event.target.value)
+  }
+
+  // console.log('selectedCompany', selectedCompany)
+  // console.log('dataInitialSelect', dataInitialSelect)
+  console.log('filteredBank', filteredBank)
 
   return (
     <LayouReport defaultTab={0}>
@@ -150,178 +188,145 @@ const Balance = () => {
         <div className='layoutReporting-company'>
           <h5>Balance report To {session?.jCompany.razon_social_company}</h5>
           <p>
-            If you want to view the complete information, use the{' '}
-            <span>export option</span>
+            If you want to view the complete information, use the <span>export option</span>
           </p>
         </div>
-
-        <div className='box-company'>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id='company-label'>Company</InputLabel>
-            <Select
-              labelId='company-label'
-              value={selectedCompany}
-              onChange={handleCompanyChange}
-            >
-              <MenuItem value=''>
-                <em>Select a company</em>
-              </MenuItem>
-              <MenuItem value='compania1'>Compañía 1</MenuItem>
-              <MenuItem value='compania2'>Compañía 2</MenuItem>
-
-              {/* Agrega más opciones de compañía según tus necesidades */}
-              {session?.oEmpresa.map((company) => (
-                <MenuItem key={company.id_company} value={company.id_company}>
-                  {company.razon_social_company || company.razon_social_empresa}
-                </MenuItem>
-              ))}
-            </Select>
-            <FormHelperText>Select a company</FormHelperText>
-          </FormControl>
-        </div>
-
-        <div className='box-filter'>
-
-          <div className='box-dates'>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={['DatePicker', 'DatePicker']}>
-                <DatePicker
-                  label='From'
-                  value={dayjs(startDate, 'DD/MM/YYYY')}
-                  onChange={handleStartDateChange}
-                  format='DD/MM/YYYY'
-                />
-                <DatePicker
-                  label='To'
-                  value={dayjs(endDate, 'DD/MM/YYYY')}
-                  onChange={handleEndDateChange}
-                  format='DD/MM/YYYY'
-                />
-              </DemoContainer>
-            </LocalizationProvider>
-          </div>
-
-          {selectedCompany && (
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id='bank-label'>Banco</InputLabel>
-              <Select
-                labelId='bank-label'
-                value={selectedBank}
-                onChange={handleBankChange}
-              >
-                <MenuItem value=''>
-                  <em>Selecciona un banco</em>
-                </MenuItem>
-                {selectedCompany === 'compania1' && (
-                  <>
-                    <MenuItem value='banco1'>Banco 1</MenuItem>
-                    <MenuItem value='banco2'>Banco 2</MenuItem>
-                    {/* Agrega más opciones de banco para Compañía 1 */}
-                  </>
-                )}
-                {selectedCompany === 'compania2' && (
-                  <>
-                    <MenuItem value='bancoA'>Banco A</MenuItem>
-                    <MenuItem value='bancoB'>Banco B</MenuItem>
-                    {/* Agrega más opciones de banco para Compañía 2 */}
-                  </>
-                )}
-                {/* Agrega más bloques condicionales para otras compañías */}
-              </Select>
-              <FormHelperText>Selecciona un banco</FormHelperText>
-            </FormControl>
-          )}
-
-          {selectedBank && (
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id='account-label'>Cuenta</InputLabel>
-              <Select
-                labelId='account-label'
-                value={selectedAccount}
-                onChange={handleAccountChange}
-              >
-                <MenuItem value=''>
-                  <em>Selecciona una cuenta</em>
-                </MenuItem>
-                {accountOptions.map((account) => (
-                  <MenuItem key={account} value={account}>
-                    <div> varias cuenats </div>
+        {dataInitialSelect && (
+          <div>
+            <div className='box-company'>
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='company-label'>Company</InputLabel>
+                <Select
+                  labelId='company-label'
+                  value={selectedCompany}
+                  onChange={handleCompanyChange}
+                >
+                  <MenuItem value=''>
+                    <em>All companys</em>
                   </MenuItem>
-                ))}
-                {/* Renderiza las opciones de cuenta según el banco seleccionado */}
-              </Select>
-              <FormHelperText>Selecciona una cuenta</FormHelperText>
-            </FormControl>
-          )}
-        </div>
+                  {dataInitialSelect.oEmpresa?.map((comp) => (
+                    <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
+                      <div> {comp.razon_social_empresa}</div>
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>Select a company</FormHelperText>
+              </FormControl>
+            </div>
 
-        <div />
+            <div className='box-filter'>
+              <div className='box-dates'>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DatePicker', 'DatePicker']}>
+                    <DatePicker
+                      label='From'
+                      value={dayjs(startDate, 'DD/MM/YYYY')}
+                      onChange={handleStartDateChange}
+                      format='DD/MM/YYYY'
+                    />
+                    <DatePicker
+                      label='To'
+                      value={dayjs(endDate, 'DD/MM/YYYY')}
+                      onChange={handleEndDateChange}
+                      format='DD/MM/YYYY'
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </div>
 
-        {/* ... Otras partes de tu componente */}
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='bank-label'>Bank</InputLabel>
+                <Select
+                  labelId='bank-label'
+                  value={selectedBank}
+                  onChange={handleBankChange}
+                >
+                  <MenuItem value=''>
+                    <em>All Banks</em>
+                  </MenuItem>
+                  {filteredBank && filteredBank.map((report) => (
+                    <MenuItem key={report.id_banco} value={report.id_banco}>
+                      <div> {report.nombre_banco} </div>
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>Select a bank</FormHelperText>
+              </FormControl>
+
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='account-label'>Account</InputLabel>
+                <Select
+                  labelId='account-label'
+                  value={selectedAccount}
+                  onChange={handleAccountChange}
+                >
+
+                  <MenuItem value=''>
+                    <em>All Accounts</em>
+                  </MenuItem>
+                  {selectedBank && filteredAccounts.map((account) => (
+                    <MenuItem key={account.cuenta_conf_cuenta} value={account.cuenta_conf_cuenta}>
+                      <div> {account.desc_cuenta_conf_cuenta} </div>
+                    </MenuItem>
+                  ))}
+
+                </Select>
+                <FormHelperText>Select an account</FormHelperText>
+              </FormControl>
+
+            </div>
+          </div>
+        )}
+
       </div>
 
-      <div className='contaniner-tables'>
-        <div className='box-search'>
-          <h3>Balance Report </h3>
-          <button className='btn_black smallBack'>Export Report</button>
-        </div>
-        <div className='boards'>
-          <div className='tableContainer'>
-
-            <table className='dataTable Account'>
-
-              <thead>
-                <tr>
-                  <th>Company</th>
-                  <th>Bank</th>
-                  <th>Cuenta</th>
-                  <th>Tipo</th>
-                  <th>Moneda</th>
-                  <th>saldo</th>
-                  <th>fecha</th>
-                </tr>
-              </thead>
-              <tbody>
-
-                <td>
-                  {balances?.oEmpresa.map((row, index) => (
-
-                    <tr key={row.id_empresa}>
-                      {row.razon_social_empresa}
-                    </tr>
-                  ))}
-
-                </td>
-
-                <td>
-                  {balances?.oBanco.map((bankRow, bankIndex) => (
-                    <tr key={bankRow.id_banco}>
-                      {bankRow.nombre}
-                    </tr>
-                  ))}
-                </td>
-
-                <td>
-                  {balances?.oCuenta.map((rowtipo, index) => (
-                    <tr key={index}>
-                      {rowtipo.cuenta}
-                    </tr>
-                  ))}
-                </td>
-
-                <td>
-                  {balances?.oTipo.map((rowtipo) => (
-                    <tr key={rowtipo.id_tipo}>
-                      {rowtipo.descripcion}
-                    </tr>
-                  ))}
-                </td>
-
-              </tbody>
-            </table>
-
+      {balances && (
+        <div className='contaniner-tables'>
+          <div className='box-search'>
+            <h3>Balance Report </h3>
+            <button className='btn_black smallBack'>Export Report</button>
+          </div>
+          <div className='boards'>
+            <div className='tableContainer'>
+              <table className='dataTable Account'>
+                <thead>
+                  <tr>
+                    <th>Company</th>
+                    <th>Bank</th>
+                    <th>Account</th>
+                    <th>Currency</th>
+                    <th>Balance</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {balances.oSaldos.length > 0
+                    ? (
+                        balances.oSaldos.map((row) => (
+                          <tr key={row.id_saldos}>
+                            <td>{row.razon_social_empresa}</td>
+                            <td>{row.nombre_banco}</td>
+                            <td>{row.desc_cuenta_conf_cuenta}</td>
+                            <td>{row.moneda}</td>
+                            <td>{row.saldo}</td>
+                            <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
+                          </tr>
+                        ))
+                      )
+                    : (
+                      <tr>
+                        <td colSpan='6'>No hay Datos</td>
+                      </tr>
+                      )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
+      )}
+
+      <div>
+        {requestError && <div className='errorMessage'> {requestError} </div>}
       </div>
     </LayouReport>
   )

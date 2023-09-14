@@ -47,79 +47,7 @@ flex-wrap: wrap;
     gap: 1em;
     flex-direction: column;
 
-    .container-status{
-
-     
-      display: flex;
-      justify-content: center;
-      gap: 1em;
-      flex-direction: column;
-
-      @include media(tablet) {
-        flex-direction: row;
-      }
-
-      .status-config {
-        ul {
-          display: flex;
-          flex-direction: column;
-          justify-content: first baseline;
-    
-    
-          li {
-            display: flex;
-            gap: 1em;
-            justify-content: center;
-            @include media(tablet) {
-            
-              justify-content: space-between;
-            }
-
-    
-            .Active {
-              color: get-color(blue_p1);
-            }
-          }
-        }
-      }
-    
-      .box-emails {
-        // flex: 1;
-        // height: 5rem;
-        border-left: 1.5px solid get-color(forms_s6);
-        padding-left: 1rem;
-    
-        .card--emails {
-          display: flex;
-          align-items: flex-start;
-          flex-direction: row;
-          
-          .emails {
-          // max-width: 20rem; 
-          display: flex;
-          flex-wrap: wrap;
-         
-          //  overflow: hidden; // Oculta el contenido que desborda del ancho máximo
-          // display: inline-block; // Asegura que el contenedor tome solo el ancho que necesita
-          // white-space: nowrap; // Evita que el contenido se envuelva a la siguiente línea
-          //  text-overflow: ellipsis;
-          //   gap:1rem;
-          //   // Evita que el contenido se envuelva a la siguiente línea
-          //   color: get-color(grey1_s3);
-
-            p{
-              padding-left: 0.25rem;
-            
-            }
-          }
-        }
-        svg {
-          color: get-color(blue_p1);
-        }
-
-
-      }
-    }
+   
 
 
 
@@ -130,6 +58,89 @@ flex-wrap: wrap;
 
  
 }
+
+
+.container-status{ 
+
+  width: 100%;   
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  flex-direction: column;
+  align-items: center;
+
+  
+
+  .status-config {
+    ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: first baseline;
+
+
+      li {
+        display: flex;
+        gap: 1em;
+        justify-content: center;
+        @include media(tablet) {
+        
+          justify-content: space-between;
+        }
+
+
+        .Active {
+          color: get-color(blue_p1);
+        }
+      }
+    }
+  }
+
+  .box-emails {
+
+    border-left: 1.5px solid get-color(forms_s6);
+    padding-left: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .card--emails {
+      display: flex;
+      align-items: flex-start;
+      
+      flex-direction: row;
+      
+      .emails {
+      // max-width: 20rem; 
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+     
+      //  overflow: hidden; // Oculta el contenido que desborda del ancho máximo
+      // display: inline-block; // Asegura que el contenedor tome solo el ancho que necesita
+      // white-space: nowrap; // Evita que el contenido se envuelva a la siguiente línea
+      //  text-overflow: ellipsis;
+      //   gap:1rem;
+      //   // Evita que el contenido se envuelva a la siguiente línea
+      //   color: get-color(grey1_s3);
+
+        p{
+          padding-left: 0.25rem;
+        
+        }
+      }
+    }
+    svg {
+      color: get-color(blue_p1);
+    }
+
+
+  }
+}
+
+
+
+
 
 .contaniner-tables{
 
@@ -249,7 +260,7 @@ flex-wrap: wrap;
 
       tbody{
         tr{
-          cursor: none;
+          cursor:auto;
         
 
           &:hover{

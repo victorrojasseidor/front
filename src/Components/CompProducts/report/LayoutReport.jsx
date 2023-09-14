@@ -34,8 +34,6 @@ const LayouReport = ({ defaultTab, children }) => {
     setActiveTab(index)
   }
 
-  console.log(session)
-
   return (
     <LayoutProducts menu='Reporting'>
       <NavigationPages title='Digital employees'>

@@ -15,7 +15,6 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
     setEmail(e.target.value)
     setError('')
   }
-  console.log('dataEmails', dataEmails);
 
   useEffect(() => {
     if (dataEmails) {
@@ -52,7 +51,6 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
     }, 10000)
   }
 
-
   const handleDelete = (index) => {
     const updatedEmails = [...emails]
     updatedEmails.splice(index, 1)
@@ -85,7 +83,7 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
         setTimeout(function () {
           setHaveEmails(true)
         }, 1000)
-        } else {
+      } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errok, ', errorMessage)
         setModalToken(true)
@@ -104,9 +102,9 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
       {modalConfirmation && (
         <Modal close={() => setModalConfirmation(false)}>
           <div>
-            <h2>
+            <h3>
               Successful email registration
-            </h2>
+            </h3>
           </div>
         </Modal>
       )}
@@ -143,7 +141,7 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
           <ul className='ListEmails'>
             {emails?.map((email, index) => (
               <li key={index}>
-                {email} <button  className="btn_crud"onClick={() => handleDelete(index)}> <ImageSvg name='Delete' /></button>
+                {email} <button className='btn_crud' onClick={() => handleDelete(index)}> <ImageSvg name='Delete' /></button>
               </li>
             ))}
           </ul>

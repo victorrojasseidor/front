@@ -26,11 +26,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
     getDataProduct()
   }, [id, empresa, session])
 
-  // const handleTabClick = (index) => {
-  //   setActiveTab(index)
-
-  // }
-
   const handleTabClick = (index) => {
     if (index === 0) {
       if (product.iCodeStatus === 27 || product.iCodeStatus === 31) {
@@ -89,9 +84,8 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
         <ImageSvg name='Navegación' />
 
         <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
-          {NameAcount? <p> {product?.sName} </p> :   <span>  {product?.sName}</span>
-          }
-         
+          {NameAcount ? <p> {product?.sName} </p> : <span>  {product?.sName}</span>}
+
         </Link>
 
         <span>
