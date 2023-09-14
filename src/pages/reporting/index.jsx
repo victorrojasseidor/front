@@ -18,9 +18,6 @@ function index (props) {
           </p>
         </Link>
 
-    
-      
-
       </NavigationPages>
       <section className='reporting'>
         <div className='products_cards'>
@@ -75,34 +72,6 @@ function index (props) {
 
               <div>
                 <Link href='/reporting/movement'>
-                  <p> View reporting</p>
-                </Link>
-
-              </div>
-            </li>
-
-            <li className='card configured'>
-              <div>
-                <span>
-                  <ImageSvg name='Dashboard' />
-                </span>
-                <Link href='/reporting/report'>
-                  <h4> Movement and  balance reports </h4>
-                </Link>
-              </div>
-              <div />
-              <div className='description'>
-                <p>
-                  Made by Digital Employes:
-                </p>
-                <span className='maybe'>
-                  <LimitedParagraph text='Download the daily bank statement' limit={40} />
-                </span>
-
-              </div>
-
-              <div>
-                <Link href='/reporting/report'>
                   <p> View reporting</p>
                 </Link>
 

@@ -33,6 +33,7 @@ export default function Login () {
 
     try {
       const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
+      console.log(responseData)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setStatus(null)
@@ -97,7 +98,6 @@ export default function Login () {
           validateOnChange
           validate={validateFormLogin}
           onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
-            console.log(values)
             handleSubmit(values, { setSubmitting, setStatus, resetForm })
           }}
           enableReinitialize

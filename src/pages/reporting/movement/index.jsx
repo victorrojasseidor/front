@@ -1,111 +1,390 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import LayouReport from '@/Components/CompProducts/report/LayoutReport'
-import ImageSvg from '@/helpers/ImageSVG'
-import Link from 'next/link'
-import NavigationPages from '@/Components/NavigationPages'
+import { useAuth } from '@/Context/DataContext'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormHelperText from '@mui/material/FormHelperText'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import { fetchConTokenPost } from '@/helpers/fetch'
+import dayjs from 'dayjs'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 const Movement = () => {
-  const today = new Date().toISOString().substr(0, 10) // Fecha de hoy en formato YYYY-MM-DD
-  const defaultStartDate = '2023-01-01'
+  const { session, setModalToken, logout } = useAuth()
+  const [startDate, setStartDate] = useState(dayjs('01/01/2023', 'DD/MM/YYYY').format('DD/MM/YYYY'))
+  const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'))
+  const [dataInitialSelect, setInitialDataselect] = useState([])
+  const [filteredBank, setFilteredBank] = useState(null) // Cambié el nombre a filteredBank
+  const [filteredAccounts, setFilteredAccounts] = useState(null) // Estado para cuentas filtradas
+  const [selectedCompany, setSelectedCompany] = useState('')
+  const [selectedBank, setSelectedBank] = useState('')
+  const [selectedtype, setSelectedType] = useState('')
+  const [selectedAccount, setSelectedAccount] = useState('')
+  const [requestError, setRequestError] = useState()
+  const [movement, setMovement] = useState(null)
+
+  useEffect(() => {
+    getMovementInitial()
+  }, [selectedCompany, startDate, endDate, selectedCompany, selectedBank, selectedAccount, selectedtype])
+
+  useEffect(() => {
+    if (dataInitialSelect) {
+      getMovementReport()
+    }
+  }, [dataInitialSelect, startDate, endDate, selectedCompany, selectedBank, selectedAccount, filteredBank, filteredAccounts, selectedtype])
+
+  async function getMovementInitial () {
+    const body = {
+      oResults: {}
+    }
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetInitMovimientos', body, token)
+      console.log('initmovrment', responseData)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const dataInit = responseData.oResults
+        setInitialDataselect(dataInit)
+        setModalToken(false)
+        setRequestError(null)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null)
+        }, 2000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setModalToken(true)
+      setRequestError(error)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 1000)
+    }
+  }
+
+  async function getMovementReport () {
+    const body = {
+      oResults: {
+        sFechaDesde: startDate,
+        sFechaHasta: endDate,
+        oIdEmpresa: selectedCompany ? [selectedCompany] : [],
+        oIdTipo: selectedtype ? [selectedtype] : [],
+        oIdBanco: selectedBank ? [selectedBank] : [],
+        oCuenta: selectedAccount ? [selectedAccount] : []
+      }
+    }
+    console.log('body', body)
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetReporteMovimientos', body, token)
+      console.log('GetReporteSaldos', responseData)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const data = responseData.oResults
+        setMovement(data)
+        setModalToken(false)
+        setRequestError(null)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null)
+        }, 1000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setRequestError(error)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 1000)
+    }
+  }
+
+  const handleStartDateChange = (newValue) => {
+    setStartDate(newValue.format('DD/MM/YYYY'))
+  }
+
+  const handleEndDateChange = (newValue) => {
+    setEndDate(newValue.format('DD/MM/YYYY'))
+  }
+
+  const handleTypeChange = (event) => {
+    const selecttypeValue = event.target.value
+    setSelectedType(selecttypeValue)
+  }
+
+  const handleCompanyChange = (event) => {
+    const selectCompanyValue = event.target.value
+    setSelectedCompany(selectCompanyValue)
+    if (selectCompanyValue === '') {
+      setFilteredBank([])
+      setFilteredAccounts([])
+    } else {
+      const BankForSelectedCompany = movement.oConfCuentaMov.filter(
+        (bank) => bank.id_empresa === selectCompanyValue
+      )
+
+      const seenIds = new Set()
+      const uniqueBanks = []
+
+      BankForSelectedCompany.forEach((bank) => {
+        if (!seenIds.has(bank.id_banco)) {
+          seenIds.add(bank.id_banco)
+          uniqueBanks.push({ id_banco: bank.id_banco, nombre_banco: bank.nombre_banco })
+        }
+      })
+      setFilteredBank(uniqueBanks)
+    }
+    setSelectedType('')
+    setSelectedBank('') // Restablece la selección de banco
+    setSelectedAccount('') // Restablece la selección de cuenta
+  }
+
+  const handleBankChange = (event) => {
+    const selectedBankValue = event.target.value
+    setSelectedBank(selectedBankValue)
+    if (selectedBankValue === '') {
+      setFilteredAccounts([])
+    } else {
+      console.log('movement.oSaldos', movement.oConfCuentaMov)
+      const accountsForSelectedBank = movement.oConfCuentaMov.filter(
+        (bank) => bank.id_banco === selectedBankValue)
+      console.log('accountsForSelectedBank', accountsForSelectedBank)
+      const seenIds = new Set()
+      const uniqueBanks = []
+
+      accountsForSelectedBank.forEach((report) => {
+        if (!seenIds.has(report.desc_cuenta_conf_cuenta)) {
+          seenIds.add(report.desc_cuenta_conf_cuenta)
+          uniqueBanks.push({ cuenta_conf_cuenta: report.cuenta_conf_cuenta, desc_cuenta_conf_cuenta: report.desc_cuenta_conf_cuenta, desc_cuenta: report.desc_cuenta })
+        }
+      })
+
+      setFilteredAccounts(uniqueBanks)
+    }
+    setSelectedAccount('')
+  }
+
+  const handleAccountChange = (event) => {
+    setSelectedAccount(event.target.value)
+  }
+
+  const handleClearFilters = () => {
+    setSelectedCompany('')
+    setSelectedType('')
+    setSelectedBank('')
+    setSelectedAccount('')
+  }
+
+  const hasAppliedFilters = () => {
+    return (
+      selectedCompany !== '' ||
+      selectedtype !== '' ||
+      selectedBank !== '' ||
+      selectedAccount !== ''
+    )
+  }
 
   return (
-    <LayouReport defaultTab={1} >
-     
-
+    <LayouReport defaultTab={1}>
       <div className='balance'>
+        <div className='layoutReporting-company'>
+          <h5>Movement report To {session?.jCompany.razon_social_company}</h5>
+          <p>
+            If you want to view the complete information, use the <span>export option</span>
+          </p>
+        </div>
+        {dataInitialSelect && (
+          <div className='container-filters'>
+            <div className='box-filter'>
 
-        <div className='box-filters'>
-          <div className='empresa'>
-            <label htmlFor='empresa'>Company:</label>
-            <select id='empresa'>
-              <option value='todos'> Todos</option>
-              <option value='Empresa A'>Empresa A</option>
-              <option value='Empresa B'>Empresa B</option>
-              <option value='Empresa C'>Empresa C</option>
-            </select>
-          </div>
-          <div className='date'>
-            <label htmlFor='fecha-inicial'>Start date:</label>
-            <input type='date' id='fecha-inicial' defaultValue={defaultStartDate} />
-          </div>
-          <div className='date'>
-            <label htmlFor='fecha-final'>End date:</label>
-            <input type='date' id='fecha-final' defaultValue={today} max={today} placeholder='hdhd' />
-          </div>
-          <div className='empresa'>
-            <label htmlFor='empresa'>Type:</label>
-            <select id='empresa'>
-              <option value='Empresa A'>Ingreso</option>
-              <option value='Empresa B'>Egreso</option>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DatePicker', 'DatePicker']}>
+                  <DatePicker
+                    label='From'
+                    value={dayjs(startDate, 'DD/MM/YYYY')}
+                    onChange={handleStartDateChange}
+                    format='DD/MM/YYYY'
+                  />
 
-            </select>
-          </div>
+                  <DatePicker
+                    label='To'
+                    value={dayjs(endDate, 'DD/MM/YYYY')}
+                    onChange={handleEndDateChange}
+                    format='DD/MM/YYYY'
+                  />
 
-          <div className='empresa'>
-            <label htmlFor='empresa' style={{ color: 'white' }}> bbbb</label>
-            <div className='searchButton searchReporting'>
+                </DemoContainer>
 
-              <input type='text' placeholder='Buscar descripción...' />
-              <button>
-                <ImageSvg name='Search' />
-              </button>
+              </LocalizationProvider>
+
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='company-label'>Company</InputLabel>
+                <Select
+                  labelId='company-label'
+                  value={selectedCompany}
+                  onChange={handleCompanyChange}
+                >
+                  <MenuItem value=''>
+                    <em>All Companys</em>
+                  </MenuItem>
+                  {dataInitialSelect.oEmpresa?.map((comp) => (
+                    <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
+                      <div> {comp.razon_social_empresa}</div>
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>Select a company</FormHelperText>
+              </FormControl>
+
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='company-label'>Type</InputLabel>
+                <Select
+                  labelId='type-label'
+                  value={selectedtype}
+                  onChange={handleTypeChange}
+                >
+                  <MenuItem value=''>
+                    <em>All Companys</em>
+                  </MenuItem>
+                  {dataInitialSelect.oTipo?.map((comp) => (
+                    <MenuItem key={comp.id_tipo} value={comp.id_tipo}>
+                      <div> {comp.descripcion}</div>
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>Select a type </FormHelperText>
+              </FormControl>
+
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='bank-label'>Bank</InputLabel>
+                <Select
+                  labelId='bank-label'
+                  value={selectedBank}
+                  onChange={handleBankChange}
+                >
+                  <MenuItem value=''>
+                    <em>All Banks</em>
+                  </MenuItem>
+                  {filteredBank && filteredBank.map((report) => (
+                    <MenuItem key={report.id_banco} value={report.id_banco}>
+                      <div> {report.nombre_banco} </div>
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>Select a bank</FormHelperText>
+              </FormControl>
+
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='account-label'>Account</InputLabel>
+                <Select
+                  labelId='account-label'
+                  value={selectedAccount}
+                  onChange={handleAccountChange}
+                >
+
+                  <MenuItem value=''>
+                    <em>All Accounts</em>
+                  </MenuItem>
+                  {selectedBank && filteredAccounts.map((account) => (
+                    <MenuItem key={account.cuenta_conf_cuenta} value={account.cuenta_conf_cuenta}>
+                      <div> {account.desc_cuenta_conf_cuenta} </div>
+                    </MenuItem>
+                  ))}
+
+                </Select>
+                <FormHelperText>Select an account</FormHelperText>
+              </FormControl>
+
+              <div className='box-clear'>
+                <button className={`btn_black ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
+                  Clear Filters
+                </button>
+              </div>
+
             </div>
           </div>
+        )}
 
-        </div>
+      </div>
 
+      {movement && (
         <div className='contaniner-tables'>
-          <div className='box-search'>
-            <h3>Movement report </h3>
-            <button className='btn_black smallBack'>Export Report</button>
-          </div>
           <div className='boards'>
             <div className='tableContainer'>
+              <div className='box-search'>
+                <h3>Movement Report </h3>
+                <button className='btn_black smallBack'>Export Report</button>
+              </div>
               <table className='dataTable Account'>
                 <thead>
                   <tr>
-                    <th>Group</th>
                     <th>Company</th>
                     <th>Bank</th>
                     <th>Account</th>
                     <th>Currency</th>
-                    <th>Currency description</th>
-                    <th>#Operation</th>
-                    <th>Type</th>
-                    <th>Import</th>
-                    <th>Date</th>
-                    <th>Refrence</th>
+                    <th>type </th>
+                    <th>Operation No.</th>
+                    <th>amount</th>
+                    <th>Reference</th>
                     <th>UTC</th>
-                    <th>RUc</th>
+                    <th>RUC</th>
+                    <th>Date</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr key='jdjjd'>
-                    <td>Seidor</td>
-                    <td>Innovativa</td>
-                    <td>Banco</td>
-                    <td>194-23044-223</td>
-                    <td>PEN</td>
-                    <td>descr moneda</td>
-                    <td>
-                      4125677373
-                    </td>
-                    <td> egreso</td>
-                    <td>1000</td>
-                    <td>1/08/2023</td>
-
-                  </tr>
-
+                  {movement.oConfCuentaMov.length > 0
+                    ? (
+                        movement.oConfCuentaMov.map((row) => (
+                          <tr key={row.id_movimientos}>
+                            <td>{row.razon_social_empresa}</td>
+                            <td>{row.nombre_banco}</td>
+                            <td>{row.desc_cuenta_conf_cuenta}</td>
+                            <td>{row.moneda}</td>
+                            <td style={{ color: row.id_tipo === 1 ? '#008f39' : '#FF0000' }}>{row.descripcion_tipo}</td>
+                            <td>{row.operacion}</td>
+                            <td>{row.importe}</td>
+                            <td>{row.referencia}</td>
+                            <td>{row.utc}</td>
+                            <td>{row.ruc}</td>
+                            <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
+                          </tr>
+                        ))
+                      )
+                    : (
+                      <tr>
+                        <td colSpan='6'>No hay Datos</td>
+                      </tr>
+                      )}
                 </tbody>
               </table>
             </div>
-
           </div>
         </div>
+      )}
 
+      <div>
+        {requestError && <div className='errorMessage'> {requestError} </div>}
       </div>
     </LayouReport>
   )
 }
-
 export default Movement

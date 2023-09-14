@@ -20,9 +20,9 @@ const Balance = () => {
   const [dataInitialSelect, setInitialDataselect] = useState([])
   const [filteredBank, setFilteredBank] = useState(null) // Cambié el nombre a filteredBank
   const [filteredAccounts, setFilteredAccounts] = useState(null) // Estado para cuentas filtradas
-  const [selectedCompany, setSelectedCompany] = useState(null)
-  const [selectedBank, setSelectedBank] = useState(null)
-  const [selectedAccount, setSelectedAccount] = useState(null)
+  const [selectedCompany, setSelectedCompany] = useState('')
+  const [selectedBank, setSelectedBank] = useState('')
+  const [selectedAccount, setSelectedAccount] = useState('')
   const [requestError, setRequestError] = useState()
   const [balances, setBalances] = useState(null)
 
@@ -34,9 +34,8 @@ const Balance = () => {
     if (dataInitialSelect) {
       getBalancesReport()
     }
-  }, [dataInitialSelect, startDate, endDate, selectedCompany, selectedBank, selectedAccount])
+  }, [dataInitialSelect, startDate, endDate, selectedCompany, selectedBank, selectedAccount, filteredBank, filteredAccounts])
 
-  console.log(session)
   async function getBalancesInitial () {
     const body = {
       oResults: {}
@@ -84,12 +83,10 @@ const Balance = () => {
         oCuenta: selectedAccount ? [selectedAccount] : []
       }
     }
-    console.log('body', body)
 
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetReporteSaldos', body, token)
-      console.log('GetReporteSaldos', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setBalances(data)
@@ -130,6 +127,7 @@ const Balance = () => {
     setSelectedCompany(selectCompanyValue)
     if (selectCompanyValue === '') {
       setFilteredBank([])
+      setFilteredAccounts([])
     } else {
       const BankForSelectedCompany = balances.oSaldos.filter(
         (bank) => bank.id_empresa === selectCompanyValue
@@ -178,9 +176,20 @@ const Balance = () => {
     setSelectedAccount(event.target.value)
   }
 
-  // console.log('selectedCompany', selectedCompany)
-  // console.log('dataInitialSelect', dataInitialSelect)
-  console.log('filteredBank', filteredBank)
+  const handleClearFilters = () => {
+    setSelectedCompany('')
+
+    setSelectedBank('')
+    setSelectedAccount('')
+  }
+
+  const hasAppliedFilters = () => {
+    return (
+      selectedCompany !== '' ||
+      selectedBank !== '' ||
+      selectedAccount !== ''
+    )
+  }
 
   return (
     <LayouReport defaultTab={0}>
@@ -192,8 +201,29 @@ const Balance = () => {
           </p>
         </div>
         {dataInitialSelect && (
-          <div>
-            <div className='box-company'>
+          <div className='container-filters'>
+            <div className='box-filter'>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={['DatePicker', 'DatePicker']}>
+                  <DatePicker
+                    label='From'
+                    value={dayjs(startDate, 'DD/MM/YYYY')}
+                    onChange={handleStartDateChange}
+                    format='DD/MM/YYYY'
+                  />
+
+                  <DatePicker
+                    label='To'
+                    value={dayjs(endDate, 'DD/MM/YYYY')}
+                    onChange={handleEndDateChange}
+                    format='DD/MM/YYYY'
+                  />
+
+                </DemoContainer>
+
+              </LocalizationProvider>
+
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id='company-label'>Company</InputLabel>
                 <Select
@@ -202,7 +232,7 @@ const Balance = () => {
                   onChange={handleCompanyChange}
                 >
                   <MenuItem value=''>
-                    <em>All companys</em>
+                    <em>All Companys</em>
                   </MenuItem>
                   {dataInitialSelect.oEmpresa?.map((comp) => (
                     <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
@@ -212,27 +242,6 @@ const Balance = () => {
                 </Select>
                 <FormHelperText>Select a company</FormHelperText>
               </FormControl>
-            </div>
-
-            <div className='box-filter'>
-              <div className='box-dates'>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DemoContainer components={['DatePicker', 'DatePicker']}>
-                    <DatePicker
-                      label='From'
-                      value={dayjs(startDate, 'DD/MM/YYYY')}
-                      onChange={handleStartDateChange}
-                      format='DD/MM/YYYY'
-                    />
-                    <DatePicker
-                      label='To'
-                      value={dayjs(endDate, 'DD/MM/YYYY')}
-                      onChange={handleEndDateChange}
-                      format='DD/MM/YYYY'
-                    />
-                  </DemoContainer>
-                </LocalizationProvider>
-              </div>
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id='bank-label'>Bank</InputLabel>
@@ -274,6 +283,12 @@ const Balance = () => {
                 <FormHelperText>Select an account</FormHelperText>
               </FormControl>
 
+              <div className='box-clear'>
+                <button className={`btn_black ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
+                  Clear Filters
+                </button>
+              </div>
+
             </div>
           </div>
         )}
@@ -282,12 +297,12 @@ const Balance = () => {
 
       {balances && (
         <div className='contaniner-tables'>
-          <div className='box-search'>
-            <h3>Balance Report </h3>
-            <button className='btn_black smallBack'>Export Report</button>
-          </div>
           <div className='boards'>
             <div className='tableContainer'>
+              <div className='box-search'>
+                <h3>Balance Report </h3>
+                <button className='btn_black smallBack'>Export Report</button>
+              </div>
               <table className='dataTable Account'>
                 <thead>
                   <tr>
