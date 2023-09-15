@@ -14,6 +14,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import Typography from '@mui/material/Typography'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
+import * as XLSX from 'xlsx'
+import ImageSvg from '@/helpers/ImageSVG'
 
 const Balance = () => {
   const { session, setModalToken, logout } = useAuth()
@@ -217,6 +219,26 @@ const Balance = () => {
     return formattedNumber
   }
 
+  const exportToExcel = () => {
+    if (balances && balances.oSaldos.length > 0) {
+      const filteredData = balances.oSaldos.map((row) => ({
+        Company: row.razon_social_empresa,
+        Bank: row.nombre_banco,
+        Account: row.desc_cuenta_conf_cuenta,
+        Currency: row.moneda,
+        Balance: row.saldo,
+        Date: dayjs(row.fecha).format('DD/MM/YYYY')
+      }))
+
+      if (filteredData.length > 0) {
+        const ws = XLSX.utils.json_to_sheet(filteredData)
+        const wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, ws, 'Balance Report')
+        XLSX.writeFile(wb, 'balance_report.xlsx')
+      }
+    }
+  }
+
   return (
     <LayouReport defaultTab={0}>
       <div className='balance'>
@@ -337,7 +359,9 @@ const Balance = () => {
             <div className='tableContainer'>
               <div className='box-search'>
                 <h3>Balance Report </h3>
-                <button className='btn_black smallBack'>Export Report</button>
+                <button className='btn_black ' onClick={exportToExcel}>
+                  <ImageSvg name='Download' /> Export to Excel
+                </button>
               </div>
               <table className='dataTable Account'>
                 <thead>

@@ -14,6 +14,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import Typography from '@mui/material/Typography'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
+import * as XLSX from 'xlsx'
+import ImageSvg from '@/helpers/ImageSVG'
 
 const Movement = () => {
   const { session, setModalToken, logout } = useAuth()
@@ -230,6 +232,33 @@ const Movement = () => {
     return formattedNumber
   }
 
+  const exportToExcel = () => {
+    if (movement && movement.oConfCuentaMov.length > 0) {
+      const filteredData = movement.oConfCuentaMov.map((row) => ({
+        Company: row.razon_social_empresa,
+        Bank: row.nombre_banco,
+        Account: row.desc_cuenta_conf_cuenta,
+        Currency: row.moneda,
+        Descripcion: row.descripcion,
+        Type: row.descripcion_tipo,
+        Operation_No: row.operacion,
+        Amount: formatNumberToCurrency(row.importe),
+        Reference: row.referencia,
+        UTC: row.utc,
+        RUC: row.ruc,
+        Date: dayjs(row.fecha).format('DD/MM/YYYY')
+
+      }))
+
+      if (filteredData.length > 0) {
+        const ws = XLSX.utils.json_to_sheet(filteredData)
+        const wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, ws, 'Movement Report')
+        XLSX.writeFile(wb, 'movement_report.xlsx')
+      }
+    }
+  }
+
   return (
     <LayouReport defaultTab={1}>
       <div className='balance'>
@@ -368,7 +397,9 @@ const Movement = () => {
             <div className='tableContainer'>
               <div className='box-search'>
                 <h3>Movement Report </h3>
-                <button className='btn_black smallBack'>Export Report</button>
+                <button className='btn_black ' onClick={exportToExcel}>
+                  <ImageSvg name='Download' /> Export to Excel
+                </button>
               </div>
               <table className='dataTable Account'>
                 <thead>

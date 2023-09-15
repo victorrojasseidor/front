@@ -37,7 +37,7 @@ export default function Profilestart () {
   }
 
   const handleLogout = () => {
-    console.log("logout");
+    console.log('logout')
     logout()
   }
 
