@@ -60,7 +60,7 @@ const ImageSvg = ({ name }) => {
     Dashboard: <MdOutlineDashboard />,
     APIS: <GiProcessor />,
     Schedule: <AiOutlineSchedule />,
-    // ChatBot: <FaWeixin size={30} />,
+    ChatBot: <FaWeixin size={30} />,
     Support: <BiSupport />,
     OpenMenu: <FiChevronsRight />,
     CloseMenu: <FiChevronsLeft />,
@@ -74,8 +74,8 @@ const ImageSvg = ({ name }) => {
     Benefit4: <FcLock />,
     // imgs svg
     Spain: <Image src={Iconspain} width={100} alt='Spain' />,
-    EEUU: <Image src={Iconeeuu} width={100} alt='Spain' />,
-    ChatBot: <Image src={IconoChatbot} width={25} alt='ChatBot' />
+    EEUU: <Image src={Iconeeuu} width={100} alt='Spain' />
+    // ChatBot: <Image src={IconoChatbot} width={25} alt='ChatBot' />
     // Robot: <Image src={Iconrobot} width={100} alt='Robot' />
 
   }

@@ -135,13 +135,13 @@ const LayoutProducts = ({ children, menu }) => {
             </li>
             <li className={menu === 'chatbot' ? 'active' : ''}>
 
-              {/* <Link href='https://seidor.mensajea.chat/'>
+              <Link href='https://seidor.mensajea.chat/'>
                 <ImageSvg name='ChatBot' />
                 <h5>
                   Chatbot
                 </h5>
 
-              </Link> */}
+              </Link>
             </li>
 
             <li style={{ display: 'none' }}>
@@ -183,7 +183,7 @@ const LayoutProducts = ({ children, menu }) => {
 
               <Link href='/Support'>
                 <ImageSvg name='Support' /> <h5> Support
-                </h5>
+                                            </h5>
               </Link>
             </li>
 
