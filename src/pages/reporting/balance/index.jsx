@@ -8,9 +8,8 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import dayjs from 'dayjs'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 const Balance = () => {
@@ -223,6 +222,36 @@ const Balance = () => {
             <div className='box-filter'>
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label='From'
+                  value={dayjs(startDate, 'DD/MM/YYYY')}
+                  slotProps={{
+                    textField: {
+                      helperText: 'Date start'
+                    }
+
+                  }}
+                  onChange={handleStartDateChange}
+                  format='DD/MM/YYYY'
+                />
+              </LocalizationProvider>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label='To'
+                  value={dayjs(endDate, 'DD/MM/YYYY')}
+                  slotProps={{
+                    textField: {
+                      helperText: 'Date end'
+                    }
+
+                  }}
+                  onChange={handleEndDateChange}
+                  format='DD/MM/YYYY'
+                />
+              </LocalizationProvider>
+
+              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={['DatePicker', 'DatePicker']}>
                   <DatePicker
                     label='From'
@@ -240,7 +269,7 @@ const Balance = () => {
 
                 </DemoContainer>
 
-              </LocalizationProvider>
+              </LocalizationProvider> */}
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id='company-label'>Company</InputLabel>
