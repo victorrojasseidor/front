@@ -15,7 +15,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 const Balance = () => {
   const { session, setModalToken, logout } = useAuth()
-  const [startDate, setStartDate] = useState(dayjs('01/01/2023', 'DD/MM/YYYY').format('DD/MM/YYYY'))
+  const [startDate, setStartDate] = useState(dayjs().startOf('month').format('DD/MM/YYYY'))
   const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'))
   const [dataInitialSelect, setInitialDataselect] = useState([])
   const [filteredBank, setFilteredBank] = useState(null) // Cambié el nombre a filteredBank
@@ -191,6 +191,24 @@ const Balance = () => {
     )
   }
 
+  function formatNumberToCurrency (number) {
+    // Divide el número en parte entera y decimal
+    const parts = number.toFixed(2).toString().split('.')
+    const integerPart = parts[0]
+    const decimalPart = parts[1]
+
+    // Agrega comas como separadores de miles a la parte entera
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+    // Si el número original no tenía decimales, agrega ".00"
+    const formattedDecimal = decimalPart === '00' ? '.00' : `.${decimalPart}`
+
+    // Combina la parte entera y la parte decimal formateadas
+    const formattedNumber = formattedInteger + formattedDecimal
+
+    return formattedNumber
+  }
+
   return (
     <LayouReport defaultTab={0}>
       <div className='balance'>
@@ -314,16 +332,16 @@ const Balance = () => {
                     <th>Date</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className='rowTable'>
                   {balances.oSaldos.length > 0
                     ? (
                         balances.oSaldos.map((row) => (
                           <tr key={row.id_saldos}>
                             <td>{row.razon_social_empresa}</td>
                             <td>{row.nombre_banco}</td>
-                            <td>{row.desc_cuenta_conf_cuenta}</td>
+                            <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
                             <td>{row.moneda}</td>
-                            <td>{row.saldo}</td>
+                            <td className='importe'>{formatNumberToCurrency(row.saldo)}</td>
                             <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
                           </tr>
                         ))

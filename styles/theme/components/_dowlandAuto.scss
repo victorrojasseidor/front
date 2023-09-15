@@ -203,7 +203,7 @@ width: 100%;
         
       th{
         padding: 0.5rem;
-       text-align: start;
+       text-align: center;
       }
         
       }
@@ -222,8 +222,8 @@ width: 100%;
       td {
         border: 1px solid #ccc;
         padding: 0.5rem;
-       
-        
+        width: auto;
+             
       
       }
       th {
@@ -234,9 +234,7 @@ width: 100%;
       
       td{
      
-        text-align: start;
-
-
+        text-align: center;
         border-style:none;
       
         color:get-color(grey2_s4)
@@ -360,8 +358,6 @@ p {
 }
 
 .formCredential{
-
- 
   .GroupForm{
     display: flex;
     flex-direction: column;

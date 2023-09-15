@@ -6,7 +6,7 @@ import '../../styles/styles.scss'
 import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import theme from '../../theme.js'
-import { LocalizationProvider } from '@mui/x-date-pickers';
+import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 function MyApp ({ Component, pageProps }) {
@@ -20,19 +20,19 @@ function MyApp ({ Component, pageProps }) {
   }, [])
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}> 
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <DataContextProvider>
-        {isLoading
-          ? (
-            <Loading />
-            )
-          : (
-            <Component {...pageProps} />
-            )}
-      </DataContextProvider>
-    </ThemeProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <DataContextProvider>
+          {isLoading
+            ? (
+              <Loading />
+              )
+            : (
+              <Component {...pageProps} />
+              )}
+        </DataContextProvider>
+      </ThemeProvider>
     </LocalizationProvider>
   )
 }

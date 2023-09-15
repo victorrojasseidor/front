@@ -15,7 +15,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 const Movement = () => {
   const { session, setModalToken, logout } = useAuth()
-  const [startDate, setStartDate] = useState(dayjs('01/01/2023', 'DD/MM/YYYY').format('DD/MM/YYYY'))
+  const [startDate, setStartDate] = useState(dayjs().startOf('month').format('DD/MM/YYYY'))
   const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'))
   const [dataInitialSelect, setInitialDataselect] = useState([])
   const [filteredBank, setFilteredBank] = useState(null) // Cambié el nombre a filteredBank
@@ -203,6 +203,24 @@ const Movement = () => {
     )
   }
 
+  function formatNumberToCurrency (number) {
+    // Divide el número en parte entera y decimal
+    const parts = number.toFixed(2).toString().split('.')
+    const integerPart = parts[0]
+    const decimalPart = parts[1]
+
+    // Agrega comas como separadores de miles a la parte entera
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+    // Si el número original no tenía decimales, agrega ".00"
+    const formattedDecimal = decimalPart === '00' ? '.00' : `.${decimalPart}`
+
+    // Combina la parte entera y la parte decimal formateadas
+    const formattedNumber = formattedInteger + formattedDecimal
+
+    return formattedNumber
+  }
+
   return (
     <LayouReport defaultTab={1}>
       <div className='balance'>
@@ -341,27 +359,29 @@ const Movement = () => {
                     <th>Bank</th>
                     <th>Account</th>
                     <th>Currency</th>
+                    <th>Descripcion</th>
                     <th>type </th>
                     <th>Operation No.</th>
-                    <th>amount</th>
+                    <th>Amount</th>
                     <th>Reference</th>
                     <th>UTC</th>
                     <th>RUC</th>
                     <th>Date</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className='rowTable'>
                   {movement.oConfCuentaMov.length > 0
                     ? (
                         movement.oConfCuentaMov.map((row) => (
                           <tr key={row.id_movimientos}>
                             <td>{row.razon_social_empresa}</td>
                             <td>{row.nombre_banco}</td>
-                            <td>{row.desc_cuenta_conf_cuenta}</td>
+                            <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
                             <td>{row.moneda}</td>
+                            <td>{row.descripcion}</td>
                             <td style={{ color: row.id_tipo === 1 ? '#008f39' : '#FF0000' }}>{row.descripcion_tipo}</td>
                             <td>{row.operacion}</td>
-                            <td>{row.importe}</td>
+                            <td className='importe'>{formatNumberToCurrency(row.importe)}</td>
                             <td>{row.referencia}</td>
                             <td>{row.utc}</td>
                             <td>{row.ruc}</td>

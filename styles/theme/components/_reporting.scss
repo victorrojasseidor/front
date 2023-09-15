@@ -50,24 +50,16 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    // h3{
-    //     color:get-color(black_p2);
-    //     @include media(tablet) {
-    //         color:get-color(black_p2);
-    //       }
-  
-    // }
-       
     
-
+   
     .spanReporting{
         font-size: 0.8rem;
         text-rendering: geometricPrecision;
     }
+    
 
-   
-        
-    }
+ 
+ }
 
     .container-filters{
         display: flex;
@@ -114,8 +106,7 @@
 
    .css-1pduc5x-MuiStack-root{
     padding-top: 0;
- 
-    display: flex;
+     display: flex;
     flex-direction: row;
     gap:1rem;
     label{
@@ -141,12 +132,13 @@
     max-width: 150px;
     min-width:0px ;
    margin-top: 1.5px;
+ 
 
    
    }
 
    .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
-    padding: 15.5px 14px;
+    padding: 15.5px 9px;
     
    }
    
@@ -174,4 +166,29 @@ width: 25%;
     height: 4rem;
     padding-left: 1rem;
     justify-content:center;
+}
+
+
+
+
+.rowTable { 
+    tr{
+       
+        &:hover,:focus {
+            background-color: get-color(bg-cles) !important;
+        }
+    }
+
+    .cuenta{
+
+        width: 8rem !important;
+    
+          }
+        
+           .importe{
+       
+        text-align: right !important;
+           }
+   
+
 }
