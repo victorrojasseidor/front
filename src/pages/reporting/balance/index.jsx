@@ -11,6 +11,9 @@ import dayjs from 'dayjs'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import Typography from '@mui/material/Typography'
+import Pagination from '@mui/material/Pagination'
+import Stack from '@mui/material/Stack'
 
 const Balance = () => {
   const { session, setModalToken, logout } = useAuth()
@@ -24,6 +27,8 @@ const Balance = () => {
   const [selectedAccount, setSelectedAccount] = useState('')
   const [requestError, setRequestError] = useState()
   const [balances, setBalances] = useState(null)
+  const [itemsPerPage] = useState(15)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     getBalancesInitial()
@@ -111,6 +116,10 @@ const Balance = () => {
         setRequestError(null)
       }, 1000)
     }
+  }
+
+  const handleChangePage = (event, value) => {
+    setPage(value)
   }
 
   const handleStartDateChange = (newValue) => {
@@ -251,26 +260,6 @@ const Balance = () => {
                 />
               </LocalizationProvider>
 
-              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker', 'DatePicker']}>
-                  <DatePicker
-                    label='From'
-                    value={dayjs(startDate, 'DD/MM/YYYY')}
-                    onChange={handleStartDateChange}
-                    format='DD/MM/YYYY'
-                  />
-
-                  <DatePicker
-                    label='To'
-                    value={dayjs(endDate, 'DD/MM/YYYY')}
-                    onChange={handleEndDateChange}
-                    format='DD/MM/YYYY'
-                  />
-
-                </DemoContainer>
-
-              </LocalizationProvider> */}
-
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id='company-label'>Company</InputLabel>
                 <Select
@@ -364,7 +353,7 @@ const Balance = () => {
                 <tbody className='rowTable'>
                   {balances.oSaldos.length > 0
                     ? (
-                        balances.oSaldos.map((row) => (
+                        balances.oSaldos.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
                           <tr key={row.id_saldos}>
                             <td>{row.razon_social_empresa}</td>
                             <td>{row.nombre_banco}</td>
@@ -382,6 +371,21 @@ const Balance = () => {
                       )}
                 </tbody>
               </table>
+
+              <Stack spacing={2}>
+                <div className='pagination'>
+
+                  <Typography>
+                    Page {page} of {Math.ceil(balances.oSaldos.length / itemsPerPage)}
+                  </Typography>
+                  <Pagination
+                    count={Math.ceil(balances.oSaldos.length / itemsPerPage)} // Calculate the total number of pages
+                    page={page}
+                    onChange={handleChangePage}
+                  />
+                </div>
+              </Stack>
+
             </div>
           </div>
         </div>

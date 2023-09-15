@@ -54,3 +54,17 @@
     width: 100%;
   }
 }
+
+.pagination{
+  width: 100%;
+  display: flex;
+ flex-direction: row;
+ justify-content:space-between;
+
+ .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+  background-color: get-color(pink_s5);
+  color:get-color(black_p2);
+  font-size: larger;
+ }
+
+}

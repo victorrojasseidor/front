@@ -11,6 +11,9 @@ import dayjs from 'dayjs'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import Typography from '@mui/material/Typography'
+import Pagination from '@mui/material/Pagination'
+import Stack from '@mui/material/Stack'
 
 const Movement = () => {
   const { session, setModalToken, logout } = useAuth()
@@ -25,6 +28,8 @@ const Movement = () => {
   const [selectedAccount, setSelectedAccount] = useState('')
   const [requestError, setRequestError] = useState()
   const [movement, setMovement] = useState(null)
+  const [itemsPerPage] = useState(15)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     getMovementInitial()
@@ -116,6 +121,9 @@ const Movement = () => {
       }, 1000)
     }
   }
+  const handleChangePage = (event, value) => {
+    setPage(value)
+  }
 
   const handleStartDateChange = (newValue) => {
     setStartDate(newValue.format('DD/MM/YYYY'))
@@ -201,6 +209,8 @@ const Movement = () => {
       selectedAccount !== ''
     )
   }
+
+  console.log('page', movement?.oConfCuentaMov.length)
 
   function formatNumberToCurrency (number) {
     // Divide el número en parte entera y decimal
@@ -380,22 +390,24 @@ const Movement = () => {
                 <tbody className='rowTable'>
                   {movement.oConfCuentaMov.length > 0
                     ? (
-                        movement.oConfCuentaMov.map((row) => (
-                          <tr key={row.id_movimientos}>
-                            <td>{row.razon_social_empresa}</td>
-                            <td>{row.nombre_banco}</td>
-                            <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
-                            <td>{row.moneda}</td>
-                            <td>{row.descripcion}</td>
-                            <td style={{ color: row.id_tipo === 1 ? '#008f39' : '#FF0000' }}>{row.descripcion_tipo}</td>
-                            <td>{row.operacion}</td>
-                            <td className='importe'>{formatNumberToCurrency(row.importe)}</td>
-                            <td>{row.referencia}</td>
-                            <td>{row.utc}</td>
-                            <td>{row.ruc}</td>
-                            <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
-                          </tr>
-                        ))
+                        movement.oConfCuentaMov
+                          .slice((page - 1) * itemsPerPage, page * itemsPerPage) // Slice the array based on the current page
+                          .map((row) => (
+                            <tr key={row.id_movimientos}>
+                              <td>{row.razon_social_empresa}</td>
+                              <td>{row.nombre_banco}</td>
+                              <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
+                              <td>{row.moneda}</td>
+                              <td>{row.descripcion}</td>
+                              <td style={{ color: row.id_tipo === 1 ? '#008f39' : '#FF0000' }}>{row.descripcion_tipo}</td>
+                              <td>{row.operacion}</td>
+                              <td className='importe'>{formatNumberToCurrency(row.importe)}</td>
+                              <td>{row.referencia}</td>
+                              <td>{row.utc}</td>
+                              <td>{row.ruc}</td>
+                              <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
+                            </tr>
+                          ))
                       )
                     : (
                       <tr>
@@ -404,8 +416,23 @@ const Movement = () => {
                       )}
                 </tbody>
               </table>
+
+              <Stack spacing={2}>
+                <div className='pagination'>
+                  <Typography>
+                    Page {page} of {Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)}
+                  </Typography>
+                  <Pagination
+                    count={Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)} // Calculate the total number of pages
+                    page={page}
+                    onChange={handleChangePage}
+                  />
+                </div>
+              </Stack>
+
             </div>
           </div>
+
         </div>
       )}
 
