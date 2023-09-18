@@ -406,9 +406,9 @@ export default function Products () {
             <p>No results found</p>
             )}
       </div>
-      {requestError && <div className='errorMessage'>
-        {requestError}
-      </div>}
+
+      {requestError && <p className='errorMessage'>{requestError.message}</p>}
+
     </LayoutProducts>
   )
 }

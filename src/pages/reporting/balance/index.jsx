@@ -16,6 +16,7 @@ import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import * as XLSX from 'xlsx'
 import ImageSvg from '@/helpers/ImageSVG'
+import Loading from '@/Components/Atoms/Loading'
 
 const Balance = () => {
   const { session, setModalToken, logout } = useAuth()
@@ -31,10 +32,12 @@ const Balance = () => {
   const [balances, setBalances] = useState(null)
   const [itemsPerPage] = useState(15)
   const [page, setPage] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isDateSorted, setIsDateSorted] = useState(false)
 
   useEffect(() => {
     getBalancesInitial()
-  }, [selectedCompany, startDate, endDate, selectedCompany, selectedBank, selectedAccount])
+  }, [selectedCompany, startDate])
 
   useEffect(() => {
     if (dataInitialSelect) {
@@ -43,6 +46,7 @@ const Balance = () => {
   }, [dataInitialSelect, startDate, endDate, selectedCompany, selectedBank, selectedAccount, filteredBank, filteredAccounts])
 
   async function getBalancesInitial () {
+    setIsLoading(true)
     const body = {
       oResults: {}
     }
@@ -76,10 +80,13 @@ const Balance = () => {
       setTimeout(() => {
         setRequestError(null)
       }, 1000)
+    } finally {
+      setIsLoading(false) // Ocultar señal de carga
     }
   }
 
   async function getBalancesReport () {
+    setIsLoading(true)
     const body = {
       oResults: {
         sFechaDesde: startDate,
@@ -117,6 +124,8 @@ const Balance = () => {
       setTimeout(() => {
         setRequestError(null)
       }, 1000)
+    } finally {
+      setIsLoading(false) // Ocultar señal de carga
     }
   }
 
@@ -239,6 +248,26 @@ const Balance = () => {
     }
   }
 
+  const orderDataToDate = () => {
+    setIsDateSorted(!isDateSorted)
+
+    setBalances((prevBalances) => {
+      const sortedData = [...prevBalances.oSaldos] // Clona los datos originales
+
+      // Ordena los datos por fecha de manera ascendente o descendente según el estado actual
+      if (isDateSorted) {
+        sortedData.sort((a, b) => dayjs(a.fecha).valueOf() - dayjs(b.fecha).valueOf())
+      } else {
+        sortedData.sort((a, b) => dayjs(b.fecha).valueOf() - dayjs(a.fecha).valueOf())
+      }
+
+      return {
+        ...prevBalances,
+        oSaldos: sortedData
+      }
+    })
+  }
+
   return (
     <LayouReport defaultTab={0}>
       <div className='balance'>
@@ -352,6 +381,14 @@ const Balance = () => {
         )}
       </div>
 
+      {isLoading
+        ? (
+          <Loading />
+          )
+        : (
+            ''
+          )}
+
       {balances && (
         <div className='contaniner-tables'>
           <div className='boards'>
@@ -370,23 +407,30 @@ const Balance = () => {
                     <th>Account</th>
                     <th>Currency</th>
                     <th>Balance</th>
-                    <th>Date</th>
+                    <th className='date-order'>
+                      Date
+                      <button onClick={orderDataToDate} className='btn_crud'>
+
+                        <ImageSvg name={isDateSorted ? 'Down' : 'Up'} />
+                      </button>
+
+                    </th>
                   </tr>
                 </thead>
                 <tbody className='rowTable'>
                   {balances.oSaldos.length > 0
-                    ? (
-                        balances.oSaldos.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
-                          <tr key={row.id_saldos}>
-                            <td>{row.razon_social_empresa}</td>
-                            <td>{row.nombre_banco}</td>
-                            <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
-                            <td>{row.moneda}</td>
-                            <td className='importe'>{formatNumberToCurrency(row.saldo)}</td>
-                            <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
-                          </tr>
-                        ))
-                      )
+                    ? balances.oSaldos
+                      .slice((page - 1) * itemsPerPage, page * itemsPerPage)
+                      .map((row) => (
+                        <tr key={row.id_saldos}>
+                          <td>{row.razon_social_empresa}</td>
+                          <td>{row.nombre_banco}</td>
+                          <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
+                          <td>{row.moneda}</td>
+                          <td className='importe'>{formatNumberToCurrency(row.saldo)}</td>
+                          <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
+                        </tr>
+                      ))
                     : (
                       <tr>
                         <td colSpan='6'>No hay Datos</td>

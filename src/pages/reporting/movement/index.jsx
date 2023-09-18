@@ -16,6 +16,7 @@ import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import * as XLSX from 'xlsx'
 import ImageSvg from '@/helpers/ImageSVG'
+import Loading from '@/Components/Atoms/Loading'
 
 const Movement = () => {
   const { session, setModalToken, logout } = useAuth()
@@ -32,10 +33,12 @@ const Movement = () => {
   const [movement, setMovement] = useState(null)
   const [itemsPerPage] = useState(15)
   const [page, setPage] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isDateSorted, setIsDateSorted] = useState(false)
 
   useEffect(() => {
     getMovementInitial()
-  }, [selectedCompany, startDate, endDate, selectedCompany, selectedBank, selectedAccount, selectedtype])
+  }, [selectedCompany, startDate])
 
   useEffect(() => {
     if (dataInitialSelect) {
@@ -44,6 +47,7 @@ const Movement = () => {
   }, [dataInitialSelect, startDate, endDate, selectedCompany, selectedBank, selectedAccount, filteredBank, filteredAccounts, selectedtype])
 
   async function getMovementInitial () {
+    setIsLoading(true)
     const body = {
       oResults: {}
     }
@@ -77,10 +81,13 @@ const Movement = () => {
       setTimeout(() => {
         setRequestError(null)
       }, 1000)
+    } finally {
+      setIsLoading(false) // Ocultar señal de carga
     }
   }
 
   async function getMovementReport () {
+    setIsLoading(true)
     const body = {
       oResults: {
         sFechaDesde: startDate,
@@ -121,6 +128,8 @@ const Movement = () => {
       setTimeout(() => {
         setRequestError(null)
       }, 1000)
+    } finally {
+      setIsLoading(false) // Ocultar señal de carga
     }
   }
   const handleChangePage = (event, value) => {
@@ -212,8 +221,6 @@ const Movement = () => {
     )
   }
 
-  console.log('page', movement?.oConfCuentaMov.length)
-
   function formatNumberToCurrency (number) {
     // Divide el número en parte entera y decimal
     const parts = number.toFixed(2).toString().split('.')
@@ -257,6 +264,26 @@ const Movement = () => {
         XLSX.writeFile(wb, 'movement_report.xlsx')
       }
     }
+  }
+
+  const orderDataToDate = () => {
+    setIsDateSorted(!isDateSorted)
+
+    setMovement((preMovement) => {
+      const sortedData = [...preMovement.oConfCuentaMov] // Clona los datos originales
+
+      // Ordena los datos por fecha de manera ascendente o descendente según el estado actual
+      if (isDateSorted) {
+        sortedData.sort((a, b) => dayjs(a.fecha).valueOf() - dayjs(b.fecha).valueOf())
+      } else {
+        sortedData.sort((a, b) => dayjs(b.fecha).valueOf() - dayjs(a.fecha).valueOf())
+      }
+
+      return {
+        ...preMovement,
+        oConfCuentaMov: sortedData
+      }
+    })
   }
 
   return (
@@ -391,6 +418,14 @@ const Movement = () => {
 
       </div>
 
+      {isLoading
+        ? (
+          <Loading />
+          )
+        : (
+            ''
+          )}
+
       {movement && (
         <div className='contaniner-tables'>
           <div className='boards'>
@@ -415,7 +450,15 @@ const Movement = () => {
                     <th>Reference</th>
                     <th>UTC</th>
                     <th>RUC</th>
-                    <th>Date</th>
+
+                    <th className='date-order'>
+                      <span>  Date </span>
+                      <button onClick={orderDataToDate} className='btn_crud'>
+
+                        <ImageSvg name={isDateSorted ? 'Down' : 'Up'} />
+                      </button>
+
+                    </th>
                   </tr>
                 </thead>
                 <tbody className='rowTable'>

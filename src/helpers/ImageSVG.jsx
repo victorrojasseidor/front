@@ -6,7 +6,7 @@ import { IoClose, IoNotificationsOutline } from 'react-icons/io5'
 import { HiOutlineUsers } from 'react-icons/hi'
 import { MdOutlineDashboard, MdModeEditOutline } from 'react-icons/md'
 import { GiProcessor } from 'react-icons/gi'
-import { AiOutlineInbox, AiOutlineSchedule } from 'react-icons/ai'
+import { AiOutlineInbox, AiOutlineSchedule, AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai'
 import { FaExchangeAlt, FaSignOutAlt, FaEye, FaEyeSlash, FaSearch, FaArrowRight, FaWeixin } from 'react-icons/fa'
 import { BiSupport, BiSolidError } from 'react-icons/bi'
 import { CgTimer } from 'react-icons/cg'
@@ -52,6 +52,8 @@ const ImageSvg = ({ name }) => {
     Delete: <Image src={deleteSVG} width={80} alt='Spain' />,
     // Delete: <FiTrash2 />,
     Download: <BsDownload />,
+    Down: <AiOutlineArrowDown />,
+    Up: <AiOutlineArrowUp />,
 
     // menú icons
     MenuOpen: <RiMenu3Line />,
