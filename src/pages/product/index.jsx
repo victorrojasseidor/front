@@ -20,11 +20,11 @@ export default function Products () {
   const router = useRouter()
   useEffect(() => {
     getProductscard()
-  }, [session, empresa,setEmpresa])
+  }, [session, empresa, setEmpresa])
 
-  if (!session) {
-    router.push('/login')
-  }
+  // if (!session) {
+  //   router.push('/login')
+  // }
 
   async function getProductscard () {
     try {
@@ -32,10 +32,11 @@ export default function Products () {
       const idEmpresa = empresa.id_empresa
       console.log('idEmpresaProduct', idEmpresa)
       const responseData = await getProducts(idEmpresa, token)
-      console.log(responseData)
+      console.log('responseData', responseData)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
+
         setProduct(data)
         setModalToken(false)
         setRequestError(null)
@@ -159,8 +160,6 @@ export default function Products () {
       filterResults()
     }
   }, [searchQuery, selectedFilter, product])
-
-  console.log('result', searchResults)
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value)
@@ -409,7 +408,7 @@ export default function Products () {
       </div>
       {requestError && <div className='errorMessage'>
         {requestError}
-                       </div>}
+      </div>}
     </LayoutProducts>
   )
 }

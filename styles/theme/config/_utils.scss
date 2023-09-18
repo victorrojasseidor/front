@@ -181,6 +181,87 @@
   }
 }
 
+
+
+.box-filter{
+  display: flex;
+ flex-direction: row;
+ flex-wrap: wrap;
+ justify-content:last baseline;
+ align-items:flex-start;
+ gap:1rem;
+
+
+.css-i44wyl {
+  margin-top: 0.2rem;
+}
+
+ .css-b1884d{
+  margin: 0rem;
+ }
+
+ label {
+  top: 0px;
+  left: -4px;
+  background:get-color(white_s1);
+   padding: 0.5rem 0.5rem 0 0.5rem;
+ }
+ .css-1869usk-MuiFormControl-root{
+  margin: 0px;
+  label {
+      top: 0px;
+      left: -4px;
+      background:get-color(white_s1);
+       padding: 0rem 0.5rem 0 0.5rem;
+     }
+
+  .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root{
+      padding: 0.5rem 0.5rem 0 0.5rem;
+  }
+     
+ }
+
+ .css-1pduc5x-MuiStack-root{
+  padding-top: 0;
+   display: flex;
+  flex-direction: row;
+  gap:1rem;
+  label{
+      padding: 0.5rem 0.5rem 0 0.5rem;
+  }
+
+  .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+      color: get-color(blue_p1);
+   
+    
+     
+  }
+  
+  @include media(tablet) {
+      flex-direction: row;
+   
+ }
+
+ 
+
+ }
+ .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root,.css-1pduc5x-MuiStack-root>.MuiTextField-root{
+  max-width: 150px;
+  min-width:0px ;
+ margin-top: 1.5px;
+
+
+ 
+ }
+
+ .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
+  padding: 15.5px 9px;
+  
+ }
+ 
+
+}
+
 .errorMessage {
   color: get-color(t3-red) !important;
   // margin-top: 5px;
