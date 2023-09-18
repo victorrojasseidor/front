@@ -350,7 +350,6 @@ const Balance = () => {
             </div>
           </div>
         )}
-
       </div>
 
       {balances && (
