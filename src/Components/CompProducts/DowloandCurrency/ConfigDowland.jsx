@@ -385,7 +385,14 @@ export default function ConfigDowland () {
           )}
           {activeTab === 2 && (
             <div className='ApiConfiCurency'>
-              <h3>schedule va </h3>
+              <button
+                type='button'
+                className='btn_secundary small'
+                onClick={() => setProcess(null)}
+              >
+                Run the process
+              </button>
+
             </div>
           )}
 

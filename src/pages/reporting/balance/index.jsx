@@ -111,7 +111,7 @@ const Balance = () => {
         setBalances(data)
         setModalToken(false)
         setRequestError(null)
-        orderDataByDate('fecha', isDateSorted)
+        // orderDataByDate('fecha', true)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
       } else if (responseData.oAuditResponse?.iCode === 4) {
@@ -217,6 +217,7 @@ const Balance = () => {
     )
   }
 
+  console.log('isDateSorted', isDateSorted)
   function formatNumberToCurrency (number) {
     // Divide el número en parte entera y decimal
     const parts = number.toFixed(2).toString().split('.')
