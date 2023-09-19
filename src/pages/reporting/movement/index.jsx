@@ -247,6 +247,7 @@ const Movement = () => {
   const exportToExcel = () => {
     if (movement && movement.oConfCuentaMov.length > 0) {
       const filteredData = movement.oConfCuentaMov.map((row) => ({
+        Date: formatDate(row.fecha),
         Company: row.razon_social_empresa,
         Bank: row.nombre_banco,
         Account: row.desc_cuenta_conf_cuenta,
@@ -257,8 +258,7 @@ const Movement = () => {
         Amount: formatNumberToCurrency(row.importe),
         Reference: row.referencia,
         UTC: row.utc,
-        RUC: row.ruc,
-        Date: dayjs(row.fecha).format('DD/MM/YYYY')
+        RUC: row.ruc
 
       }))
 
@@ -487,13 +487,15 @@ const Movement = () => {
       {movement && (
         <div className='contaniner-tables'>
 
+          <div className='box-search'>
+            <h3>Movement Report </h3>
+            <button className='btn_black ' onClick={exportToExcel}>
+              <ImageSvg name='Download' /> Export to Excel
+            </button>
+          </div>
+
           <div className='tableContainer'>
-            <div className='box-search'>
-              <h3>Movement Report </h3>
-              <button className='btn_black ' onClick={exportToExcel}>
-                <ImageSvg name='Download' /> Export to Excel
-              </button>
-            </div>
+
             <table className='dataTable Account'>
               <thead>
                 <tr>
@@ -589,19 +591,19 @@ const Movement = () => {
               </tbody>
             </table>
 
-            <Stack spacing={2}>
-              <div className='pagination'>
-                <Typography>
-                  Page {page} of {Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)}
-                </Typography>
-                <Pagination
-                  count={Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)} // Calculate the total number of pages
-                  page={page}
-                  onChange={handleChangePage}
-                />
-              </div>
-            </Stack>
           </div>
+          <Stack spacing={2}>
+            <div className='pagination'>
+              <Typography>
+                Page {page} of {Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)}
+              </Typography>
+              <Pagination
+                count={Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)} // Calculate the total number of pages
+                page={page}
+                onChange={handleChangePage}
+              />
+            </div>
+          </Stack>
 
         </div>
       )}

@@ -238,12 +238,13 @@ const Balance = () => {
   const exportToExcel = () => {
     if (balances && balances.oSaldos.length > 0) {
       const filteredData = balances.oSaldos.map((row) => ({
+        Date: formatDate(row.fecha),
         Company: row.razon_social_empresa,
         Bank: row.nombre_banco,
         Account: row.desc_cuenta_conf_cuenta,
         Currency: row.moneda,
-        Balance: row.saldo,
-        Date: dayjs(row.fecha).format('DD/MM/YYYY')
+        Balance: row.saldo
+
       }))
 
       if (filteredData.length > 0) {
@@ -452,13 +453,14 @@ const Balance = () => {
       {balances && (
         <div className='contaniner-tables'>
           <div className='boards'>
+            <div className='box-search'>
+              <h3>Balance Report </h3>
+              <button className='btn_black ' onClick={exportToExcel}>
+                <ImageSvg name='Download' /> Export to Excel
+              </button>
+            </div>
             <div className='tableContainer'>
-              <div className='box-search'>
-                <h3>Balance Report </h3>
-                <button className='btn_black ' onClick={exportToExcel}>
-                  <ImageSvg name='Download' /> Export to Excel
-                </button>
-              </div>
+
               <table className='dataTable Account'>
                 <thead>
                   <tr>
@@ -527,21 +529,21 @@ const Balance = () => {
                 </tbody>
               </table>
 
-              <Stack spacing={2}>
-                <div className='pagination'>
-
-                  <Typography>
-                    Page {page} of {Math.ceil(balances.oSaldos.length / itemsPerPage)}
-                  </Typography>
-                  <Pagination
-                    count={Math.ceil(balances.oSaldos.length / itemsPerPage)} // Calculate the total number of pages
-                    page={page}
-                    onChange={handleChangePage}
-                  />
-                </div>
-              </Stack>
-
             </div>
+
+            <Stack spacing={2}>
+              <div className='pagination'>
+
+                <Typography>
+                  Page {page} of {Math.ceil(balances.oSaldos.length / itemsPerPage)}
+                </Typography>
+                <Pagination
+                  count={Math.ceil(balances.oSaldos.length / itemsPerPage)} // Calculate the total number of pages
+                  page={page}
+                  onChange={handleChangePage}
+                />
+              </div>
+            </Stack>
           </div>
         </div>
       )}
