@@ -243,7 +243,7 @@ const Balance = () => {
         Bank: row.nombre_banco,
         Account: row.desc_cuenta_conf_cuenta,
         Currency: row.moneda,
-        Balance: row.saldo
+        Balance: formatNumberToCurrency(row.saldo)
 
       }))
 
