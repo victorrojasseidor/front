@@ -31,11 +31,17 @@ const Movement = () => {
   const [selectedAccount, setSelectedAccount] = useState('')
   const [requestError, setRequestError] = useState()
   const [movement, setMovement] = useState(null)
-  const [itemsPerPage] = useState(15)
+  const [itemsPerPage] = useState(25)
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [isDateSorted, setIsDateSorted] = useState(false)
-
+  const [isCompanySorted, setIsCompanySorted] = useState(false)
+  const [isBankSorted, setIsBankSorted] = useState(false)
+  const [isAccountSorted, setIsAccountSorted] = useState(false)
+  const [isCurrencySorted, setIsCurrencySorted] = useState(false)
+  const [isAmountSorted, setIsAmountSorted] = useState(false)
+  const [isOperationSorted, setIsOperationSorted] = useState(false)
+  const [isRucSorted, setIsRucSorted] = useState(false)
   useEffect(() => {
     getMovementInitial()
   }, [selectedCompany, startDate])
@@ -98,12 +104,11 @@ const Movement = () => {
         oCuenta: selectedAccount ? [selectedAccount] : []
       }
     }
-    console.log('body', body)
 
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetReporteMovimientos', body, token)
-      console.log('GetReporteSaldos', responseData)
+      // console.log('Saldos', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setMovement(data)
@@ -266,21 +271,60 @@ const Movement = () => {
     }
   }
 
-  const orderDataToDate = () => {
-    setIsDateSorted(!isDateSorted)
+  const orderDataAlphabetically = (columnName, setIsSorted, prevIsSorted) => {
+    setIsSorted((prevIsSorted) => !prevIsSorted)
 
-    setMovement((preMovement) => {
-      const sortedData = [...preMovement.oConfCuentaMov] // Clona los datos originales
+    setMovement((prevBalances) => {
+      const sortedData = [...prevBalances.oConfCuentaMov]
 
-      // Ordena los datos por fecha de manera ascendente o descendente según el estado actual
-      if (isDateSorted) {
-        sortedData.sort((a, b) => dayjs(a.fecha).valueOf() - dayjs(b.fecha).valueOf())
+      if (prevIsSorted) {
+        sortedData.sort((a, b) => a[columnName].localeCompare(b[columnName]))
       } else {
-        sortedData.sort((a, b) => dayjs(b.fecha).valueOf() - dayjs(a.fecha).valueOf())
+        sortedData.sort((a, b) => b[columnName].localeCompare(a[columnName]))
       }
 
       return {
-        ...preMovement,
+        ...prevBalances,
+        oConfCuentaMov: sortedData
+      }
+    })
+  }
+
+  // Función de ordenamiento genérica para columnas numéricas
+  const orderDataNumerically = (columnName, setIsSorted, prevIsSorted) => {
+    setIsSorted((prevIsSorted) => !prevIsSorted)
+
+    setMovement((prevBalances) => {
+      const sortedData = [...prevBalances.oConfCuentaMov]
+
+      if (prevIsSorted) {
+        sortedData.sort((a, b) => a[columnName] - b[columnName])
+      } else {
+        sortedData.sort((a, b) => b[columnName] - a[columnName])
+      }
+
+      return {
+        ...prevBalances,
+        oConfCuentaMov: sortedData
+      }
+    })
+  }
+
+  // Función de ordenamiento genérica para columnas de fecha
+  const orderDataByDate = () => {
+    setIsDateSorted(!isDateSorted)
+
+    setMovement((prevBalances) => {
+      const sortedData = [...prevBalances.oConfCuentaMov]
+
+      if (isDateSorted) {
+        sortedData.sort((a, b) => new Date(a.fecha) - new Date(b.fecha))
+      } else {
+        sortedData.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+      }
+
+      return {
+        ...prevBalances,
         oConfCuentaMov: sortedData
       }
     })
@@ -428,90 +472,128 @@ const Movement = () => {
 
       {movement && (
         <div className='contaniner-tables'>
-          <div className='boards'>
-            <div className='tableContainer'>
-              <div className='box-search'>
-                <h3>Movement Report </h3>
-                <button className='btn_black ' onClick={exportToExcel}>
-                  <ImageSvg name='Download' /> Export to Excel
-                </button>
-              </div>
-              <table className='dataTable Account'>
-                <thead>
-                  <tr>
-                    <th>Company</th>
-                    <th>Bank</th>
-                    <th>Account</th>
-                    <th>Currency</th>
-                    <th>Descripcion</th>
-                    <th>type </th>
-                    <th>Operation No.</th>
-                    <th>Amount</th>
-                    <th>Reference</th>
-                    <th>UTC</th>
-                    <th>RUC</th>
 
-                    <th className='date-order'>
-                      <span>  Date </span>
-                      <button onClick={orderDataToDate} className='btn_crud'>
-
-                        <ImageSvg name={isDateSorted ? 'Down' : 'Up'} />
-                      </button>
-
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className='rowTable'>
-                  {movement.oConfCuentaMov.length > 0
-                    ? (
-                        movement.oConfCuentaMov
-                          .slice((page - 1) * itemsPerPage, page * itemsPerPage) // Slice the array based on the current page
-                          .map((row) => (
-                            <tr key={row.id_movimientos}>
-                              <td>{row.razon_social_empresa}</td>
-                              <td>{row.nombre_banco}</td>
-                              <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
-                              <td>{row.moneda}</td>
-                              <td>{row.descripcion}</td>
-                              <td style={{ color: row.id_tipo === 1 ? '#008f39' : '#FF0000' }}>{row.descripcion_tipo}</td>
-                              <td>{row.operacion}</td>
-                              <td className='importe'>{formatNumberToCurrency(row.importe)}</td>
-                              <td>{row.referencia}</td>
-                              <td>{row.utc}</td>
-                              <td>{row.ruc}</td>
-                              <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
-                            </tr>
-                          ))
-                      )
-                    : (
-                      <tr>
-                        <td colSpan='6'>No hay Datos</td>
-                      </tr>
-                      )}
-                </tbody>
-              </table>
-
-              <Stack spacing={2}>
-                <div className='pagination'>
-                  <Typography>
-                    Page {page} of {Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)}
-                  </Typography>
-                  <Pagination
-                    count={Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)} // Calculate the total number of pages
-                    page={page}
-                    onChange={handleChangePage}
-                  />
-                </div>
-              </Stack>
-
+          <div className='tableContainer'>
+            <div className='box-search'>
+              <h3>Movement Report </h3>
+              <button className='btn_black ' onClick={exportToExcel}>
+                <ImageSvg name='Download' /> Export to Excel
+              </button>
             </div>
+            <table className='dataTable Account'>
+              <thead>
+                <tr>
+                  <th onClick={() => orderDataByDate()}>
+                    Date
+                    <button className='btn_crud'>
+                      <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} />
+                    </button>
+                  </th>
+                  <th onClick={() => orderDataAlphabetically('razon_social_empresa', setIsCompanySorted, isCompanySorted)}>
+                    Company
+                    <button className='btn_crud'>
+                      <ImageSvg name={isCompanySorted ? 'OrderZA' : 'OrderAZ'} />
+                    </button>
+                  </th>
+                  <th onClick={() => orderDataAlphabetically('nombre_banco', setIsBankSorted, isBankSorted)}>
+                    Bank
+                    <button className='btn_crud'>
+                      <ImageSvg name={isBankSorted ? 'OrderZA' : 'OrderAZ'} />
+                    </button>
+                  </th>
+                  <th onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
+                    Account
+                    <button className='btn_crud'>
+                      <ImageSvg name={isAccountSorted ? 'OrderZA' : 'OrderAZ'} />
+                    </button>
+                  </th>
+                  <th onClick={() => orderDataAlphabetically('moneda', setIsCurrencySorted, isCurrencySorted)}>
+                    Currency
+                    <button className='btn_crud'>
+                      <ImageSvg name={isCurrencySorted ? 'OrderZA' : 'OrderAZ'} />
+                    </button>
+                  </th>
+                  <th>Descripcion</th>
+                  <th>type </th>
+
+                  <th onClick={() => orderDataNumerically('operacion', setIsOperationSorted, isOperationSorted)}>
+                    Operation No.
+                    <button className='btn_crud'>
+                      <ImageSvg name={isOperationSorted ? 'OrderDown' : 'OrderUP'} />
+                    </button>
+                  </th>
+
+                  <th onClick={() => orderDataNumerically('importe', setIsAmountSorted, isAmountSorted)}>
+                    Amount
+                    <button className='btn_crud'>
+                      <ImageSvg name={isAmountSorted ? 'OrderDown' : 'OrderUP'} />
+                    </button>
+                  </th>
+
+                  <th>Reference</th>
+                  <th>UTC</th>
+
+                  <th onClick={() => orderDataNumerically('ruc', setIsRucSorted, isRucSorted)}>
+                    RUC
+                    <button className='btn_crud'>
+                      <ImageSvg name={isRucSorted ? 'OrderDown' : 'OrderUP'} />
+                    </button>
+                  </th>
+
+                </tr>
+              </thead>
+              <tbody className='rowTable'>
+                {movement.oConfCuentaMov.length > 0
+                  ? (
+                      movement.oConfCuentaMov
+                        .slice((page - 1) * itemsPerPage, page * itemsPerPage) // Slice the array based on the current page
+                        .map((row) => (
+                          <tr key={row.id_movimientos}>
+                            <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
+                            <td>{row.razon_social_empresa}</td>
+                            <td>{row.nombre_banco}</td>
+                            <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
+                            <td>{row.moneda}</td>
+                            <td>{row.descripcion}</td>
+                            <td style={{ color: row.id_tipo === 1 ? '#008f39' : '#FF0000' }}>{row.descripcion_tipo}</td>
+                            <td>{row.operacion}</td>
+                            <td className='importe'>{formatNumberToCurrency(row.importe)}</td>
+                            <td>{row.referencia}</td>
+                            <td>{row.utc}</td>
+                            <td>{row.ruc}</td>
+
+                          </tr>
+                        ))
+                    )
+                  : (
+                    <tr>
+                      <td colSpan='6'>
+                        There is no data
+                      </td>
+                    </tr>
+                    )}
+              </tbody>
+            </table>
+
+            <Stack spacing={2}>
+              <div className='pagination'>
+                <Typography>
+                  Page {page} of {Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)}
+                </Typography>
+                <Pagination
+                  count={Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)} // Calculate the total number of pages
+                  page={page}
+                  onChange={handleChangePage}
+                />
+              </div>
+            </Stack>
           </div>
 
         </div>
       )}
 
       <div>
-        {requestError && <div className='errorMessage'> {requestError} </div>}
+        {requestError && <div className='errorMessage'> {requestError.message} </div>}
       </div>
     </LayouReport>
   )

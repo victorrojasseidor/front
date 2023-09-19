@@ -58,7 +58,7 @@ const LayouReport = ({ defaultTab, children }) => {
           <h5>
             {session?.jCompany.razon_social_company}
           </h5>
-          <p> Updated balances and movemen as of
+          <p> Updated balances and movement as of
             <span>
               {obtenerFechaAnterior()}
             </span>

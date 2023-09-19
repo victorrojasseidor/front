@@ -12,7 +12,7 @@ import { BiSupport, BiSolidError } from 'react-icons/bi'
 import { CgTimer } from 'react-icons/cg'
 import { IoMdArrowRoundBack, IoMdCloseCircle, IoIosArrowForward } from 'react-icons/io'
 import { FcMultipleInputs, FcDebt, FcLock, FcAcceptDatabase } from 'react-icons/fc'
-import { BsCheckCircle, BsChatLeftDots, BsDownload } from 'react-icons/bs'
+import { BsCheckCircle, BsChatLeftDots, BsDownload, BsSortNumericUpAlt, BsSortNumericDown, BsSortAlphaDownAlt, BsSortAlphaDown } from 'react-icons/bs'
 import { FiTrash2 } from 'react-icons/fi'
 import { TiPencil } from 'react-icons/ti'
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri'
@@ -52,8 +52,10 @@ const ImageSvg = ({ name }) => {
     Delete: <Image src={deleteSVG} width={80} alt='Spain' />,
     // Delete: <FiTrash2 />,
     Download: <BsDownload />,
-    Down: <AiOutlineArrowDown />,
-    Up: <AiOutlineArrowUp />,
+    OrderDown: <BsSortNumericDown />,
+    OrderUP: <BsSortNumericUpAlt />,
+    OrderZA: <BsSortAlphaDownAlt />,
+    OrderAZ: <BsSortAlphaDown />,
 
     // menú icons
     MenuOpen: <RiMenu3Line />,

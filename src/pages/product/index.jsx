@@ -315,7 +315,7 @@ export default function Products () {
                       <ImageSvg name='Products' />
                     </span>
                     <Link href='#'>
-                      <h5> Pattern</h5>
+                      <h5> Download SUNAT Tax Status Registers </h5>
                     </Link>
                   </div>
                   <div>

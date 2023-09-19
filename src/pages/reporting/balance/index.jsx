@@ -30,10 +30,15 @@ const Balance = () => {
   const [selectedAccount, setSelectedAccount] = useState('')
   const [requestError, setRequestError] = useState()
   const [balances, setBalances] = useState(null)
-  const [itemsPerPage] = useState(15)
+  const [itemsPerPage] = useState(32)
   const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [isDateSorted, setIsDateSorted] = useState(false)
+  const [isCompanySorted, setIsCompanySorted] = useState(false)
+  const [isBankSorted, setIsBankSorted] = useState(false)
+  const [isAccountSorted, setIsAccountSorted] = useState(false)
+  const [isCurrencySorted, setIsCurrencySorted] = useState(false)
+  const [isBalanceSorted, setIsBalanceSorted] = useState(false)
 
   useEffect(() => {
     getBalancesInitial()
@@ -100,11 +105,13 @@ const Balance = () => {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetReporteSaldos', body, token)
+      console.log('balances', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setBalances(data)
         setModalToken(false)
         setRequestError(null)
+        orderDataByDate('fecha', isDateSorted)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
       } else if (responseData.oAuditResponse?.iCode === 4) {
@@ -248,17 +255,56 @@ const Balance = () => {
     }
   }
 
-  const orderDataToDate = () => {
+  const orderDataAlphabetically = (columnName, setIsSorted, prevIsSorted) => {
+    setIsSorted((prevIsSorted) => !prevIsSorted)
+
+    setBalances((prevBalances) => {
+      const sortedData = [...prevBalances.oSaldos]
+
+      if (prevIsSorted) {
+        sortedData.sort((a, b) => a[columnName].localeCompare(b[columnName]))
+      } else {
+        sortedData.sort((a, b) => b[columnName].localeCompare(a[columnName]))
+      }
+
+      return {
+        ...prevBalances,
+        oSaldos: sortedData
+      }
+    })
+  }
+
+  // Función de ordenamiento genérica para columnas numéricas
+  const orderDataNumerically = (columnName, setIsSorted, prevIsSorted) => {
+    setIsSorted((prevIsSorted) => !prevIsSorted)
+
+    setBalances((prevBalances) => {
+      const sortedData = [...prevBalances.oSaldos]
+
+      if (prevIsSorted) {
+        sortedData.sort((a, b) => a[columnName] - b[columnName])
+      } else {
+        sortedData.sort((a, b) => b[columnName] - a[columnName])
+      }
+
+      return {
+        ...prevBalances,
+        oSaldos: sortedData
+      }
+    })
+  }
+
+  // Función de ordenamiento genérica para columnas de fecha
+  const orderDataByDate = () => {
     setIsDateSorted(!isDateSorted)
 
     setBalances((prevBalances) => {
-      const sortedData = [...prevBalances.oSaldos] // Clona los datos originales
+      const sortedData = [...prevBalances.oSaldos]
 
-      // Ordena los datos por fecha de manera ascendente o descendente según el estado actual
       if (isDateSorted) {
-        sortedData.sort((a, b) => dayjs(a.fecha).valueOf() - dayjs(b.fecha).valueOf())
+        sortedData.sort((a, b) => new Date(a.fecha) - new Date(b.fecha))
       } else {
-        sortedData.sort((a, b) => dayjs(b.fecha).valueOf() - dayjs(a.fecha).valueOf())
+        sortedData.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
       }
 
       return {
@@ -402,19 +448,44 @@ const Balance = () => {
               <table className='dataTable Account'>
                 <thead>
                   <tr>
-                    <th>Company</th>
-                    <th>Bank</th>
-                    <th>Account</th>
-                    <th>Currency</th>
-                    <th>Balance</th>
-                    <th className='date-order'>
+                    <th onClick={() => orderDataByDate()}>
                       Date
-                      <button onClick={orderDataToDate} className='btn_crud'>
-
-                        <ImageSvg name={isDateSorted ? 'Down' : 'Up'} />
+                      <button className='btn_crud'>
+                        <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} />
                       </button>
-
                     </th>
+
+                    <th onClick={() => orderDataAlphabetically('razon_social_empresa', setIsCompanySorted, isCompanySorted)}>
+                      Company
+                      <button className='btn_crud'>
+                        <ImageSvg name={isCompanySorted ? 'OrderZA' : 'OrderAZ'} />
+                      </button>
+                    </th>
+                    <th onClick={() => orderDataAlphabetically('nombre_banco', setIsBankSorted, isBankSorted)}>
+                      Bank
+                      <button className='btn_crud'>
+                        <ImageSvg name={isBankSorted ? 'OrderZA' : 'OrderAZ'} />
+                      </button>
+                    </th>
+                    <th onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
+                      Account
+                      <button className='btn_crud'>
+                        <ImageSvg name={isAccountSorted ? 'OrderZA' : 'OrderAZ'} />
+                      </button>
+                    </th>
+                    <th onClick={() => orderDataAlphabetically('moneda', setIsCurrencySorted, isCurrencySorted)}>
+                      Currency
+                      <button className='btn_crud'>
+                        <ImageSvg name={isCurrencySorted ? 'OrderZA' : 'OrderAZ'} />
+                      </button>
+                    </th>
+                    <th onClick={() => orderDataNumerically('saldo', setIsBalanceSorted, isBalanceSorted)}>
+                      Balance
+                      <button className='btn_crud'>
+                        <ImageSvg name={isBalanceSorted ? 'OrderDown' : 'OrderUP'} />
+                      </button>
+                    </th>
+
                   </tr>
                 </thead>
                 <tbody className='rowTable'>
@@ -423,17 +494,20 @@ const Balance = () => {
                       .slice((page - 1) * itemsPerPage, page * itemsPerPage)
                       .map((row) => (
                         <tr key={row.id_saldos}>
+                          <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
                           <td>{row.razon_social_empresa}</td>
                           <td>{row.nombre_banco}</td>
                           <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
                           <td>{row.moneda}</td>
                           <td className='importe'>{formatNumberToCurrency(row.saldo)}</td>
-                          <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
+
                         </tr>
                       ))
                     : (
                       <tr>
-                        <td colSpan='6'>No hay Datos</td>
+                        <td colSpan='6'>
+                          There is no data
+                        </td>
                       </tr>
                       )}
                 </tbody>
@@ -459,7 +533,7 @@ const Balance = () => {
       )}
 
       <div>
-        {requestError && <div className='errorMessage'> {requestError} </div>}
+        {requestError && <div className='errorMessage'> {requestError.message} </div>}
       </div>
     </LayouReport>
   )

@@ -106,6 +106,7 @@
     border-radius: brd(2);
     background: get-color(black_p2);
     color: get-color(white_s1);
+    gap:1rem;
     @include media(tablet) {
       font-size: medium;
       padding: 0.8rem 1.25rem;
@@ -185,6 +186,7 @@
 .black {
   background-color: get-color(black_p2);
   color: get-color(white_s1);
+ 
   &:hover {
     background-color: get-color(t1-blue);
     color: get-color(white_s1);

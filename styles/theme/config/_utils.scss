@@ -77,8 +77,6 @@
   // gap: 1em;
   width: 100%;
 
-  
-
   .contentError {
     margin: 1rem 0 1rem 0;
     display: flex;
@@ -105,7 +103,8 @@
   input[type="text"],
   input[type="email"],
   input[type="number"],
-  input[type="password"],input[type="tel"],
+  input[type="password"],
+  input[type="tel"],
   textarea {
     padding: 0.5rem 0.5rem;
     margin: 1em 0;
@@ -118,9 +117,6 @@
       padding: 1rem 1rem;
     }
     font-family: Arial, Helvetica, sans-serif;
-
-
-
 
     &:hover,
     &:active {
@@ -181,102 +177,85 @@
   }
 }
 
-
-
-.box-filter{
+.box-filter {
   display: flex;
- flex-direction: row;
- flex-wrap: wrap;
- justify-content:last baseline;
- align-items:flex-start;
- gap:1rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: last baseline;
+  align-items: flex-start;
+  gap: 1rem;
 
+  .css-i44wyl {
+    margin-top: 0.2rem;
+  }
 
-.css-i44wyl {
-  margin-top: 0.2rem;
-}
+  .css-b1884d {
+    margin: 0rem;
+  }
 
- .css-b1884d{
-  margin: 0rem;
- }
-
- label {
-  top: 0px;
-  left: -4px;
-  background:get-color(white_s1);
-   padding: 0.5rem 0.5rem 0 0.5rem;
- }
- .css-1869usk-MuiFormControl-root{
-  margin: 0px;
   label {
+    top: 0px;
+    left: -4px;
+    background: get-color(white_s1);
+    padding: 0.5rem 0.5rem 0 0.5rem;
+  }
+  .css-1869usk-MuiFormControl-root {
+    margin: 0px;
+    label {
       top: 0px;
       left: -4px;
-      background:get-color(white_s1);
-       padding: 0rem 0.5rem 0 0.5rem;
-     }
+      background: get-color(white_s1);
+      padding: 0rem 0.5rem 0 0.5rem;
+    }
 
-  .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root{
+    .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
       padding: 0.5rem 0.5rem 0 0.5rem;
-  }
-     
- }
-
- .css-1pduc5x-MuiStack-root{
-  padding-top: 0;
-   display: flex;
-  flex-direction: row;
-  gap:1rem;
-  label{
-      padding: 0.5rem 0.5rem 0 0.5rem;
+    }
   }
 
-  .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  .css-1pduc5x-MuiStack-root {
+    padding-top: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    label {
+      padding: 0.5rem 0.5rem 0 0.5rem;
+    }
+
+    .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
       color: get-color(blue_p1);
-   
-    
-     
-  }
-  
-  @include media(tablet) {
+    }
+
+    @include media(tablet) {
       flex-direction: row;
-   
- }
+    }
+  }
+  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root,
+  .css-1pduc5x-MuiStack-root > .MuiTextField-root {
+    max-width: 150px;
+    min-width: 0px;
+    margin-top: 1.5px;
+  }
 
- 
-
- }
- .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root,.css-1pduc5x-MuiStack-root>.MuiTextField-root{
-  max-width: 150px;
-  min-width:0px ;
- margin-top: 1.5px;
-
-
- 
- }
-
- .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input{
-  padding: 15.5px 9px;
-  
- }
- 
-
+  .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 15.5px 9px;
+  }
 }
 
 .errorMessage {
-  color: get-color(t3-red) !important;
+  color: red !important;
   // margin-top: 5px;
   font-size: small;
 }
 
-
-// BEM 
+// BEM
 // bloque:     container-emails  o por ejemplo " card-image" "carrusel"
- // elemneto si es que tiene  ejemplo div  :  contanier-emails__title
- // si tengo tipos de titulos(ejemplo  un titulo grande)  contanier-emails__title--big  
+// elemneto si es que tiene  ejemplo div  :  contanier-emails__title
+// si tengo tipos de titulos(ejemplo  un titulo grande)  contanier-emails__title--big
 
- //atomos dising 
+//atomos dising
 
- .gradientSelect {
+.gradientSelect {
   display: inline-block;
   background-image: linear-gradient(to left, get-color(blue_p1), get-color(t2-ligthBlue));
   border-radius: brd(2);
@@ -293,9 +272,159 @@
     color: get-color(black_p2);
     font-weight: 500;
     font-size: 0.8rem;
-    option{
+    option {
       font-size: 1rem;
     }
-    
   }
+}
+
+.contaniner-tables {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem 1rem;
+  border-radius: brd(1);
+  border: 1px solid get-color(forms_s6);
+  box-shadow: bsh(1);
+  width: 100%;
+  .box-search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+
+    background-color: get-color(white_s1);
+  }
+
+  .pagination,
+  .box-search {
+    position: sticky;
+    top: 0; // Ajusta el valor superior según sea necesario
+    z-index: 2; // Asegura que estos elementos estén por encima del contenido de la tabla
+    background-color: white; // Opcional: Establece el fondo para que se destaque
+  }
+
+
+  .tableContainer {
+    overflow-x: auto;
+
+    /* Inmovilizar solo la columna 1 */
+    th:nth-child(1),
+    td:nth-child(1) {
+      position: sticky;
+      background-color: white;
+      z-index: 3;
+      left: -16px;
+      right: 0;
+      padding-left: 4rem;
+    }
+
+    /* Personalización de las barras de desplazamiento */
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+      max-height: 5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: get-color(pink_s5);
+      border-radius: 5px;
+      &:hover {
+        background-color: get-color(blue_p1); /* Cambio de color al pasar el cursor */
+      }
+    }
+  }
+
+  .Account {
+    tbody {
+      tr {
+        cursor: auto;
+
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  max-width: 100%;
+  // position: relative;
+
+  thead {
+    background-color: transparent;
+    border-style: none;
+    border-bottom: 1.5px dotted #ccc;
+    border-spacing: 8px;
+    cursor: none;
+
+    th {
+      padding: 0.5rem;
+      text-align: start;
+      white-space: nowrap;
+      width: max-content;
+      button {
+        display: inline-block;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      cursor: pointer;
+
+      &:hover {
+        background-color: get-color(pink_s5);
+      }
+    }
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      width: auto;
+    }
+    th {
+      // background-color: #f2f2f2;
+      border-style: none;
+    }
+
+    td {
+      text-align: start;
+      border-style: none;
+      color: get-color(grey2_s4);
+      white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+      width: max-content;
+    }
+
+    .active {
+      background-color: get-color(pink_s5);
+    }
+  }
+
+  .box-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: get-color(white_s1);
+  }
+}
+
+.pagination{
+  width: 100%;
+  display: flex;
+ flex-direction: row;
+ justify-content:space-between;
+
+ .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+  background-color: get-color(pink_s5);
+  color:get-color(black_p2);
+  font-size: larger;
+ }
+
 }
