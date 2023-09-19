@@ -108,7 +108,7 @@ const Movement = () => {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetReporteMovimientos', body, token)
-      // console.log('Saldos', responseData)
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setMovement(data)
@@ -330,6 +330,20 @@ const Movement = () => {
     })
   }
 
+  const formatDate = (date) => {
+    // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
+    const fechaObjeto = new Date(date)
+
+    // Obtener las partes de la fecha (mes, día y año)
+    const mes = (fechaObjeto.getUTCMonth() + 1).toString().padStart(2, '0') // +1 porque los meses comienzan en 0
+    const dia = fechaObjeto.getUTCDate().toString().padStart(2, '0')
+    const año = fechaObjeto.getUTCFullYear()
+
+    // Formatear la fecha en el formato deseado (DD/MM/YYYY)
+    const fechaFormateada = `${dia}/${mes}/${año}`
+    return fechaFormateada
+  }
+
   return (
     <LayouReport defaultTab={1}>
       <div className='balance'>
@@ -373,25 +387,6 @@ const Movement = () => {
                 />
               </LocalizationProvider>
               <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id='company-label'>Company</InputLabel>
-                <Select
-                  labelId='company-label'
-                  value={selectedCompany}
-                  onChange={handleCompanyChange}
-                >
-                  <MenuItem value=''>
-                    <em>All Companys</em>
-                  </MenuItem>
-                  {dataInitialSelect.oEmpresa?.map((comp) => (
-                    <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
-                      <div> {comp.razon_social_empresa}</div>
-                    </MenuItem>
-                  ))}
-                </Select>
-                <FormHelperText>Select a company</FormHelperText>
-              </FormControl>
-
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id='company-label'>Type</InputLabel>
                 <Select
                   labelId='type-label'
@@ -408,6 +403,25 @@ const Movement = () => {
                   ))}
                 </Select>
                 <FormHelperText>Select a type </FormHelperText>
+              </FormControl>
+
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='company-label'>Company</InputLabel>
+                <Select
+                  labelId='company-label'
+                  value={selectedCompany}
+                  onChange={handleCompanyChange}
+                >
+                  <MenuItem value=''>
+                    <em>All Companys</em>
+                  </MenuItem>
+                  {dataInitialSelect.oEmpresa?.map((comp) => (
+                    <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
+                      <div> {comp.razon_social_empresa}</div>
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>Select a company</FormHelperText>
               </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -549,7 +563,7 @@ const Movement = () => {
                         .slice((page - 1) * itemsPerPage, page * itemsPerPage) // Slice the array based on the current page
                         .map((row) => (
                           <tr key={row.id_movimientos}>
-                            <td>{dayjs(row.fecha).format('DD/MM/YYYY')}</td>
+                            <td>{formatDate(row.fecha)}</td>
                             <td>{row.razon_social_empresa}</td>
                             <td>{row.nombre_banco}</td>
                             <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>

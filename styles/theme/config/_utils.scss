@@ -75,6 +75,7 @@
   display: flex;
   flex-direction: column;
   // gap: 1em;
+  
   width: 100%;
 
   .contentError {
@@ -156,6 +157,8 @@
     left: 1rem; //0
     color: get-color(black_p2);
     background-color: get-color(white_s1);
+    border-radius: 5px;
+    padding: 0rem 0.25rem;
     font-size: small;
   }
 
@@ -243,9 +246,11 @@
 }
 
 .errorMessage {
-  color: red !important;
-  // margin-top: 5px;
+  color: get-color(t3-red) !important;
+
   font-size: small;
+
+
 }
 
 // BEM
