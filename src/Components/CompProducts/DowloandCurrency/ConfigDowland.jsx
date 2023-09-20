@@ -236,43 +236,34 @@ export default function ConfigDowland () {
         RuntimeType: 'Unattended',
         RunAsMe: false,
         InputArguments: '{}',
-        MachineSessionIds: [
-          125660
-        ],
-        RobotIds: [
-          5055
-        ]
+        MachineSessionIds: [125660],
+        RobotIds: [5055]
       }
     }
 
     try {
       const response = await fetch(url, {
         method: 'POST',
-        mode: 'no-cors',
         body: JSON.stringify(bodyP),
-        headers: {
 
-          Authorization: 'Bearer  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJUTkVOMEl5T1RWQk1UZEVRVEEzUlRZNE16UkJPVU00UVRRM016TXlSalUzUmpnMk4wSTBPQSJ9.eyJodHRwczovL3VpcGF0aC9lbWFpbCI6Imp2aWxjYW5xdWlAc2VpZG9yLmVzIiwiaHR0cHM6Ly91aXBhdGgvZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vYWNjb3VudC51aXBhdGguY29tLyIsInN1YiI6Im9hdXRoMnxVaVBhdGgtQUFEVjJ8YWIwMzBhMDAtODkxYS00NGJkLWJiNTEtNjhiNjA2MWEzOTQ0IiwiYXVkIjpbImh0dHBzOi8vb3JjaGVzdHJhdG9yLmNsb3VkLnVpcGF0aC5jb20iLCJodHRwczovL3VpcGF0aC5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjk0NzMzODY1LCJleHAiOjE2OTQ4MjAyNjUsImF6cCI6IjhERXYxQU1OWGN6VzN5NFUxNUxMM2pZZjYyaks5M241Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBvZmZsaW5lX2FjY2VzcyJ9.Kg8qoPTiREw6Q3MNtx-3m9Yl2-H25u1GS-PHTLrnBLCBeBOQLtINzukzu-mruViHtzatyjUOFk1mAsPR_gazFedefHQHNnlW6GpQ8A60IUzXTSlCHnUCKN_E277L0qsaUvTVzU0eZKB-allrFHPPCpNS4moLtipxLpWRCOzlvpSCH0eS_GhyeoaZKXmyK_YkfZJIjrUAv-_E-PIOmuXfjZLa-rkjMlYwFCU1zxPwKQ4rTl24d509rcgJE37ugV9NkPuV4DTEAKwTc0XAOjiLEmWWylJkTl3m8Ad5U_-f84cVuge9zi0ZjPzrPavMstaiFXpO8HSDh9cttPWGMPSvUg',
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJUTkVOMEl5T1RWQk1UZEVRVEEzUlRZNE16UkJPVU00UVRRM016TXlSalUzUmpnMk4wSTBPQSJ9.eyJodHRwczovL3VpcGF0aC9lbWFpbCI6Imp2aWxjYW5xdWlAc2VpZG9yLmVzIiwiaHR0cHM6Ly91aXBhdGgvZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vYWNjb3VudC51aXBhdGguY29tLyIsInN1YiI6Im9hdXRoMnxVaVBhdGgtQUFEVjJ8YWIwMzBhMDAtODkxYS00NGJkLWJiNTEtNjhiNjA2MWEzOTQ0IiwiYXVkIjpbImh0dHBzOi8vb3JjaGVzdHJhdG9yLmNsb3VkLnVpcGF0aC5jb20iLCJodHRwczovL3VpcGF0aC5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjk1MTc3MDIyLCJleHAiOjE2OTUyNjM0MjIsImF6cCI6IjhERXYxQU1OWGN6VzN5NFUxNUxMM2pZZjYyaks5M241Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBvZmZsaW5lX2FjY2VzcyJ9.UQFksgkq3nYZt83ySjOoqb4zA9odpq-2wKCSojv60L6HehD1XiNdN10YORUffS_IjGUHCB53WqudMiQabKap2IavqYceaKCE7Xg62mMVGA47LxENOYsCap2xXs8hEC5qzllUZ-rKpnLZ9FHNxQe1hdjfx89Iugc2uZKspaa3QII6svgPJugETxMJsBpjdo8eHWYYUDSG4eQvVbRHcSt-wR9t1XHuC_Y5QmMowsHVVzfLu3_7BQIXH5WEIUrypEzGVHB-LtTCZa07bSP4MktnQAVxTcNAzn22hw2mhCnab2yt0_blvMT3SEvI878QQD-lYEullkUCi8kj-gQFyP5GyA',
+          'Content-Type': 'application/json',
           'X-UIPATH-TenantName': 'Tenant_BPaaS',
           'X-UIPATH-OrganizationUnitId': '172516',
-          'Content-Type': 'application/json'
 
+          Cookie: '__cf_bm=G2aRGtZF1xEjwPAfgJtiMEo0JT6p9oo1xZpEVjJgM54-1695220323-0-AUvpwiYDiFDHAG/c/Z76VpcEyoY98/QuVsR6sYpOeyZRVdYMwd/3Ux8U0DiyxZ1IiLKY2BLXFBAmiQyTe0CROdE='
         }
       })
 
       if (response.ok) {
-        setModalConfirmationShedule(true)
+        const result = await response.text()
+        console.log(result)
       } else {
-        console.log('res', response)
-        throw new Error('Network response was not ok')
+        console.log('Error en la solicitud:', response, response.statusText)
       }
-
-      const responseData = await response.json()
-      console.log('response shedule', responseData)
-      return responseData
     } catch (error) {
-      console.error('error', error)
-      throw error
+      console.error('Error en la solicitud:', error.message)
     }
   }
 
@@ -337,13 +328,13 @@ export default function ConfigDowland () {
 
                   </div>
 
-                </div> : <div className='config-Automated--emails'>
-                    <h3> Register emails</h3>
-                    <div className='description'>
-                    Add the emails to notify to <b> Download automated Bank Statements </b>
-                  </div>
-                    <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
-                           </div>}
+                  </div> : <div className='config-Automated--emails'>
+                  <h3> Register emails</h3>
+                  <div className='description'>
+                      Add the emails to notify to <b> Download automated Bank Statements </b>
+                    </div>
+                  <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
+                         </div>}
 
             </div>
 
@@ -432,7 +423,7 @@ export default function ConfigDowland () {
               requestError
 
               }
-                                 </div>}
+                </div>}
 
               </div>
 
