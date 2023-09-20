@@ -447,7 +447,7 @@ export default function ConfigDowland () {
                 <div className='repository'>
                   <span> Register your repository :  </span>
 
-                  <Link href='https://drive.google.com/drive/u/1/folders/1o8_zA0tt3pgWT2-_tgZBAmxokv1F1aGC?pli=1'>
+                  <Link href='https://drive.google.com/drive/u/2/folders/1s2Ot16GFkN7d534ur12hNj7PPVv7alDs'>
                     See repository
                   </Link>
                 </div>

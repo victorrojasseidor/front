@@ -293,18 +293,14 @@
   border-radius: brd(1);
   border: 1px solid get-color(forms_s6);
   box-shadow: bsh(1);
-  
   width: 100%;
-      @include media(tablet) {
-          width: 90%;
-        }
+
   .box-search {
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 100%;
     justify-content: space-between;
-
     background-color: get-color(white_s1);
   }
 
@@ -328,7 +324,7 @@
       z-index: 3;
       left: -16px;
       right: 0;
-      padding-left: 4rem;
+      padding-left: 2rem;
     }
 
     /* Personalización de las barras de desplazamiento */
@@ -363,7 +359,6 @@
   width: 100%;
   border-collapse: collapse;
   max-width: 100%;
-  // position: relative;
 
   thead {
     background-color: transparent;

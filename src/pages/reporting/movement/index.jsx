@@ -344,7 +344,7 @@ const Movement = () => {
 
   return (
     <LayouReport defaultTab={1}>
-      <div className='balance'>
+      <div className='balance '>
         <div className='layoutReporting-company'>
           <h5>Movement report To {session?.jCompany.razon_social_company}</h5>
           <p>
@@ -483,7 +483,7 @@ const Movement = () => {
           )}
 
       {movement && (
-        <div className='contaniner-tables'>
+        <div className='contaniner-tables movement-table '>
 
           <div className='box-search'>
             <h3>Movement Report </h3>
