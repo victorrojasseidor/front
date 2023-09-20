@@ -337,3 +337,26 @@ p {
   text-align: center;
   color:get-color(grey2_s4);
 }
+
+
+.shedule{
+  display: flex;
+  width: 100%;
+  gap:2rem;
+
+  .checkbox{
+    display: flex;
+    gap:0.25rem;
+    align-items: flex-end;
+  }
+ 
+  flex-direction: column;
+  align-items: center;
+  .repository{
+   
+    a{
+      display: inline-block;
+    }
+  }
+
+}

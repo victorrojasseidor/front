@@ -8,6 +8,7 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
 import Modal from '@/Components/Modal'
 import TabsConfig from './Tabsconfig'
+import Link from 'next/link'
 
 export default function ConfigDowland () {
   const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
@@ -17,6 +18,7 @@ export default function ConfigDowland () {
   const [showForm, setShowForm] = useState(false)
   const [requestError, setRequestError] = useState('')
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null)
+  const [modalConfirmationShedule, setModalConfirmationShedule] = useState(false)
 
   const [activeTab, setActiveTab] = useState(0)
   const [completeEmails, setcompleteEmails] = useState(false)
@@ -221,6 +223,59 @@ export default function ConfigDowland () {
     router.push(`/product/configura/config?iIdProdEnv=${iIdProdEnv}&iId=${iId}&idbancoCredential=${row.id_banco_credencial}`)
   }
 
+  const runShedule = async () => {
+    const url = 'https://cloud.uipath.com/seidovnzrjnf/Tenant_BPaaS/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs'
+    const bodyP = {
+      startInfo: {
+        ReleaseKey: '9d06a0b6-56fe-41eb-b40e-932b1afe385e',
+        JobsCount: 1,
+        JobPriority: null,
+        SpecificPriorityValue: null,
+        Strategy: 'ModernJobsCount',
+        ResumeOnSameContext: false,
+        RuntimeType: 'Unattended',
+        RunAsMe: false,
+        InputArguments: '{}',
+        MachineSessionIds: [
+          125660
+        ],
+        RobotIds: [
+          5055
+        ]
+      }
+    }
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(bodyP),
+        headers: {
+
+          Authorization: 'Bearer  eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJUTkVOMEl5T1RWQk1UZEVRVEEzUlRZNE16UkJPVU00UVRRM016TXlSalUzUmpnMk4wSTBPQSJ9.eyJodHRwczovL3VpcGF0aC9lbWFpbCI6Imp2aWxjYW5xdWlAc2VpZG9yLmVzIiwiaHR0cHM6Ly91aXBhdGgvZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vYWNjb3VudC51aXBhdGguY29tLyIsInN1YiI6Im9hdXRoMnxVaVBhdGgtQUFEVjJ8YWIwMzBhMDAtODkxYS00NGJkLWJiNTEtNjhiNjA2MWEzOTQ0IiwiYXVkIjpbImh0dHBzOi8vb3JjaGVzdHJhdG9yLmNsb3VkLnVpcGF0aC5jb20iLCJodHRwczovL3VpcGF0aC5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjk0NzMzODY1LCJleHAiOjE2OTQ4MjAyNjUsImF6cCI6IjhERXYxQU1OWGN6VzN5NFUxNUxMM2pZZjYyaks5M241Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBvZmZsaW5lX2FjY2VzcyJ9.Kg8qoPTiREw6Q3MNtx-3m9Yl2-H25u1GS-PHTLrnBLCBeBOQLtINzukzu-mruViHtzatyjUOFk1mAsPR_gazFedefHQHNnlW6GpQ8A60IUzXTSlCHnUCKN_E277L0qsaUvTVzU0eZKB-allrFHPPCpNS4moLtipxLpWRCOzlvpSCH0eS_GhyeoaZKXmyK_YkfZJIjrUAv-_E-PIOmuXfjZLa-rkjMlYwFCU1zxPwKQ4rTl24d509rcgJE37ugV9NkPuV4DTEAKwTc0XAOjiLEmWWylJkTl3m8Ad5U_-f84cVuge9zi0ZjPzrPavMstaiFXpO8HSDh9cttPWGMPSvUg',
+          'X-UIPATH-TenantName': 'Tenant_BPaaS',
+          'X-UIPATH-OrganizationUnitId': '172516',
+          'Content-Type': 'application/json'
+
+        }
+      })
+
+      if (response.ok) {
+        setModalConfirmationShedule(true)
+      } else {
+        console.log('res', response)
+        throw new Error('Network response was not ok')
+      }
+
+      const responseData = await response.json()
+      console.log('response shedule', responseData)
+      return responseData
+    } catch (error) {
+      console.error('error', error)
+      throw error
+    }
+  }
+
   return (
     <section className='config-Automated'>
 
@@ -282,13 +337,13 @@ export default function ConfigDowland () {
 
                   </div>
 
-                  </div> : <div className='config-Automated--emails'>
-                  <h3> Register emails</h3>
-                  <div className='description'>
-                      Add the emails to notify to <b> Download automated Bank Statements </b>
-                    </div>
-                  <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
-                         </div>}
+                </div> : <div className='config-Automated--emails'>
+                    <h3> Register emails</h3>
+                    <div className='description'>
+                    Add the emails to notify to <b> Download automated Bank Statements </b>
+                  </div>
+                    <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
+                           </div>}
 
             </div>
 
@@ -377,18 +432,48 @@ export default function ConfigDowland () {
               requestError
 
               }
-                </div>}
+                                 </div>}
 
               </div>
 
             </div>
           )}
           {activeTab === 2 && (
-            <div className='ApiConfiCurency'>
+            <div className='shedule'>
+
+              <h2>
+                schedule
+              </h2>
+
+              <div className='input-box'>
+                <label className='checkbox'>
+                  <input className='checkboxId' id='acceptTerms' type='checkbox' name='acceptTerms' />
+
+                  Daily <span>Timezone: (UTC -05:00)</span> Bogota
+
+                </label>
+
+              </div>
+
+              <div>
+                <h5>
+                  Repository
+                </h5>
+
+                <div className='repository'>
+                  <span> Register your repository :  </span>
+
+                  <Link href='https://drive.google.com/drive/u/1/folders/1o8_zA0tt3pgWT2-_tgZBAmxokv1F1aGC?pli=1'>
+                    See repository
+                  </Link>
+                </div>
+
+              </div>
+
               <button
                 type='button'
-                className='btn_secundary small'
-                onClick={() => setProcess(null)}
+                className='btn_primary'
+                onClick={() => runShedule()}
               >
                 Run the process
               </button>
@@ -396,6 +481,15 @@ export default function ConfigDowland () {
             </div>
           )}
 
+          {modalConfirmationShedule && (
+            <Modal close={() => setModalConfirmationShedule(false)}>
+              <div>
+                <h3>
+                  Successfully executed
+                </h3>
+              </div>
+            </Modal>
+          )}
         </div>
       </div>
 
