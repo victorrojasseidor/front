@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useAuth } from '@/Context/DataContext'
 import { componentsProduct } from '@/Components/CompProducts/componentsProduct'
 import LayoutConfig from '@/Components/CompProducts/LayoutConfig'
 
@@ -13,8 +12,7 @@ export default function productId () {
   const iIdProdEnv = router.query.iIdProdEnv
   const type = router.query.type
   const pStatus = router.query.pStatus
-
-  const { session, empresa, setModalToken } = useAuth()
+  const idEmpresa = router.query.idEmpresa
 
   useEffect(() => {
     const selectComponentes = componentsProduct.find((p) => p.iId === parseInt(iId))
@@ -40,7 +38,7 @@ export default function productId () {
   }
 
   return (
-    <LayoutConfig id={iId} iIdProdEnv={iIdProdEnv} defaultTab={getTypeValueTab(type) ? getTypeValueTab(type) : activeTab}>
+    <LayoutConfig id={iId} idEmpresa={idEmpresa} iIdProdEnv={iIdProdEnv} defaultTab={getTypeValueTab(type) ? getTypeValueTab(type) : activeTab}>
       {component?.configuration}
     </LayoutConfig>
   )

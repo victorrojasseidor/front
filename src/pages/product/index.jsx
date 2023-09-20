@@ -22,10 +22,6 @@ export default function Products () {
     getProductscard()
   }, [session, empresa, setEmpresa])
 
-  // if (!session) {
-  //   router.push('/login')
-  // }
-
   async function getProductscard () {
     try {
       const token = session.sToken
@@ -68,6 +64,7 @@ export default function Products () {
         razon_social_empresa: DataEmpresa.razon_social_empresa,
         ruc_empresa: DataEmpresa.ruc_empresa
       }
+      console.log({ selectedEmpresa })
       localStorage.removeItem('selectedEmpresa')
       // Guardar la empresa seleccionada en el localStorage
       localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
@@ -81,6 +78,7 @@ export default function Products () {
   }
 
   const savedEmpresaJSON = localStorage.getItem('selectedEmpresa')
+  console.log({ empresa })
 
   useEffect(() => {
     if (savedEmpresaJSON) {
@@ -169,13 +167,13 @@ export default function Products () {
       return (
         <button
           className='btn_primary'
-          onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}`)}
+          onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}
         >
           {data.sDescStatus || 'Configure'}
         </button>
       )
     } else if (status === 27 || status === 31) {
-      return <button className='btn_secundary' onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}`)}>Free trial</button>
+      return <button className='btn_secundary' onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>Free trial</button>
     } else {
       return <span> </span>
     }
@@ -264,7 +262,7 @@ export default function Products () {
 
                     <div>
 
-                      <Link href={`/product/product?type=documentation&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}`}>
+                      <Link href={`/product/product?type=documentation&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}>
                         <p> View more</p>
                       </Link>
                       {renderButtons(product)}
@@ -304,36 +302,6 @@ export default function Products () {
                     <button className='btn_secundary'>Free trial</button>
                   </div>
                 </li>
-
-                {/* <li className='card'>
-                  <div>
-                    <span>
-                      <ImageSvg name='Products' />
-                    </span>
-                    <Link href='#'>
-                      <h5> Currency Exchange rates automation</h5>
-                    </Link>
-                  </div>
-                  <div>
-                    <p>Not hired</p>
-                    <span>
-                      <ImageSvg name='Time' />
-                      <span> Update 1 months</span>
-                    </span>
-                  </div>
-
-                  <div>
-                    <LimitedParagraph text='Settings for Daily exchange rate' limit={40} />
-                  </div>
-
-                  <div>
-                    <Link href='/product'>
-                      <p> View more</p>
-                    </Link>
-
-                    <button className='btn_secundary'>Free trial</button>
-                  </div>
-                </li> */}
 
                 <li className='card' style={{ display: selectedFilter == 31 || !selectedFilter ? 'block' : 'none' }}>
                   <div>

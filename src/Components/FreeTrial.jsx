@@ -59,13 +59,6 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
     }
   }
 
-  // const initialFormValues = {
-  //   corporateEmail: session.sCorreo,
-  //   title: `Estoy interesado en ${productName}`,
-  //   phoneNumber: session.sPhoneNumber ? session.sPhoneNumber : '51',
-  //   message: ''
-  // };
-
   return (
     <div className='freetrial'>
       <div className='freetrial_description'>

@@ -9,13 +9,13 @@ import Link from 'next/link'
 import ImageSvg from '@/helpers/ImageSVG'
 import NavigationPages from '../NavigationPages'
 
-export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, NameAcount }) {
+export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, NameAcount, idEmpresa }) {
   const [product, setProduct] = useState(null)
   const [activeTab, setActiveTab] = useState(defaultTab || 0)
   const [component, setComponent] = useState(null)
   const router = useRouter()
 
-  const { session, empresa, setModalToken } = useAuth()
+  const { session, setModalToken } = useAuth()
 
   useEffect(() => {
     const selectComponentes = componentsProduct.find((p) => p.iId === parseInt(id))
@@ -24,7 +24,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
 
   useEffect(() => {
     getDataProduct()
-  }, [id, empresa, session])
+  }, [id, idEmpresa, session])
 
   const handleTabClick = (index) => {
     if (index === 0) {
@@ -45,12 +45,10 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
       setActiveTab(index)
     }
   }
-  // Y así sucesivamente para cada tab restante
 
   async function getDataProduct () {
     try {
       const token = session.sToken
-      const idEmpresa = empresa.id_empresa
       const responseData = await getProducts(idEmpresa, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -68,6 +66,11 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
     }
   }
 
+  const NameEmpresa = (id) => {
+    const filterEmpresa = session.oEmpresa.find((p) => p.id_empresa == id)
+    return filterEmpresa.razon_social_empresa
+  }
+
   return (
     <LayoutProducts menu='Product'>
 
@@ -76,13 +79,14 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
         <Link href='/product'>
           <ImageSvg name='Products' />
           <p>
-            {empresa?.razon_social_empresa}
+            {/* {empresa?.razon_social_empresa} */}
+            {NameEmpresa(idEmpresa)}
           </p>
         </Link>
 
         <ImageSvg name='Navegación' />
 
-        <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
+        <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`}>
           {NameAcount ? <p> {product?.sName} </p> : <span>  {product?.sName}</span>}
 
         </Link>
@@ -98,7 +102,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
           <div className='idProduct_container'>
             <div className='horizontalTabs'>
               <div className='tab-header'>
-                <Link href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}`}>
+                <Link href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`}>
                   <button className={activeTab === 0 ? 'active ' : ''} onClick={() => handleTabClick(0)}>
                     {/* <h4>Free Trial</h4> */}
 
@@ -108,7 +112,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                 </Link>
 
                 <Link
-                  href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}`}
+                  href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}}&idEmpresa=${idEmpresa}`}
                 >
                   <button
                     style={{
@@ -120,13 +124,13 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                   </button>
                 </Link>
 
-                <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}`}>
+                <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}}&idEmpresa=${idEmpresa}`}>
                   <button className={activeTab === 2 ? 'active' : ''} style={{ display: 'none' }} onClick={() => handleTabClick(2)}>
                     <h4> API Configuration</h4>
 
                   </button>
                 </Link>
-                <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}`}>
+                <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}}&idEmpresa=${idEmpresa}`}>
                   <button className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
 
                     <h4> Documentation</h4>
@@ -143,7 +147,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                 )}
                 {activeTab === 1 && (
                   <div>
-                    {/* {component?.configuration} */}
 
                     {children}
                   </div>

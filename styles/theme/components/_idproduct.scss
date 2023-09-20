@@ -9,70 +9,66 @@
  &_container {
     width: 100%;
 
-  
+  }
 
-
- }
+}
 
 
 .freetrial {
-    display: flex;
-    // flex-direction: row; 
-    flex-wrap: wrap;  
-    width: 100%;
-   
-    @include media(desktop) {
-      flex-direction: row;   
-      gap: 1em;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;  
+  width: 100%;
+  gap: 1em;
  
-  
-      
-    }
+  @include media(tablet) {
+    flex-direction: row;   
+    
 
-    &_description{
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
-        gap:1em;
-      flex:1;
-      // width: 30%;
-      span{
-        color:get-color(lilac_p3);
-      }
-      p{
-        color:get-color(black_p2);
-        text-align: center;
+    
+    
+  }
 
-      }
-      img{
-        height: 6rem;
-        @include media(desktop) {
-          height: 10rem;
-          
-          
-        }
-      }
-
-    }
-
-    &_contact{
-   
-        flex:2;
-        width: 100%;
-
-   
-    }
-
-    .send{
+  &_description{
       display: flex;
-      width: 100%;
       align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      gap:1em;
+    flex:1;
+    // width: 30%;
+    span{
+      color:get-color(lilac_p3);
+    }
+    p{
+      color:get-color(black_p2);
+      text-align: center;
 
     }
+    img{
+      height: 6rem;
+      @include media(desktop) {
+        height: 10rem;
+        
+        
+      }
+    }
+
+  }
+
+  &_contact{
+ 
+      flex:2;
+      width: 100%;
+
+ 
+  }
+
+  .send{
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+  }
 }
-
-
-}
-
 

@@ -21,14 +21,15 @@ export default function ConfigAccount () {
   const iIdProdEnv = router.query.iIdProdEnv
   const iId = router.query.iId
   const idbancoCredential = router.query.idbancoCredential
+  const idEmpresa = router.query.idEmpresa
 
-  const { session, empresa, setModalToken, logout } = useAuth()
+  const { session, setModalToken, logout } = useAuth()
 
   useEffect(() => {
     if (session) {
       getExtrBancAccount()
     }
-  }, [session, initialEdit, showForm, selectedRowToDelete, empresa])
+  }, [session, initialEdit, showForm, selectedRowToDelete, idEmpresa])
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -198,7 +199,7 @@ export default function ConfigAccount () {
   }
 
   return (
-    <LayoutConfig id={iId} iIdProdEnv={iIdProdEnv} defaultTab={1} NameAcount={data?.nombre}>
+    <LayoutConfig id={iId} idEmpresa={idEmpresa} iIdProdEnv={iIdProdEnv} defaultTab={1} NameAcount={data?.nombre}>
       <section className='config-Automated'>
         <div className='config-Automated--tables'>
           <div style={{ display: 'flex', justifyContent: 'center' }}>

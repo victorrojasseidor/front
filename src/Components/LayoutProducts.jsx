@@ -25,7 +25,7 @@ const LayoutProducts = ({ children, menu }) => {
     setMenuLateralOpen(!isMenuLateralOpen)
   }
 
-  const { session, setSession, empresa, setEmpresa, modalToken } = useAuth()
+  const { session, setSession, modalToken } = useAuth()
 
   const toggleMenuMobile = () => {
     setIsOpenMobile(!isOpenMobile)
@@ -180,7 +180,7 @@ const LayoutProducts = ({ children, menu }) => {
 
             <li className={menu === 'Support' ? 'active' : ''}>
 
-              <Link href='/Support'>
+              <Link href='/support'>
                 <ImageSvg name='Support' /> <h5> Support
                                             </h5>
               </Link>
@@ -201,16 +201,6 @@ const LayoutProducts = ({ children, menu }) => {
             <li>
               <Cloud imgButton='ChatBot' cloudText='ChatBot' onClick={handleClick} />
             </li>
-
-            {/* <li>
-              <button onClick={handleClickLanguaje} className='btn_circle '>
-                <Image src={isSpanish ? IconES : IconEN} width={isMenuLateralOpen ? '20px' : '10px'} alt='imglanguage' />
-                <p>{isSpanish ? 'Es' : 'En'}</p>
-               <ImageSvg name='Change' />
-
-              </button>
-
-            </li> */}
 
             <li>
               <Cloud imgButton='SignOut' cloudText='Sign Out' onClick={handleLogout} />

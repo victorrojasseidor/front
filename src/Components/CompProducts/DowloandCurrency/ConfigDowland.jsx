@@ -32,8 +32,9 @@ export default function ConfigDowland () {
   const router = useRouter()
   const iIdProdEnv = router.query.iIdProdEnv
   const iId = router.query.iId
+  const idEmpresa = router.query.idEmpresa
 
-  const { session, empresa, setModalToken, logout } = useAuth()
+  const { session, setModalToken, logout } = useAuth()
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -54,7 +55,7 @@ export default function ConfigDowland () {
   async function handleAgregar (values) {
     const body = {
       oResults: {
-        iIdEmpresa: empresa?.id_empresa,
+        iIdEmpresa: idEmpresa,
         sName: values.name,
         iIdPais: 1,
         iBanco: values.bank.id,
@@ -108,7 +109,7 @@ export default function ConfigDowland () {
   async function handleEditListBank (values) {
     const body = {
       oResults: {
-        iIdEmpresa: empresa?.id_empresa,
+        iIdEmpresa: idEmpresa,
         iIdCredencial: initialEdit?.id_credenciales,
         iIdBancoCredencial: initialEdit?.id_banco_credencial,
         sName: values.name,
@@ -153,7 +154,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [session, haveEmails, initialEdit, showForm, empresa, selectedRowToDelete])
+  }, [session, haveEmails, initialEdit, showForm, idEmpresa, selectedRowToDelete])
 
   async function getExtrBanc () {
     const body = {
@@ -213,7 +214,7 @@ export default function ConfigDowland () {
   }
 
   const handleAcount = (row) => {
-    router.push(`/product/configura/config?iIdProdEnv=${iIdProdEnv}&iId=${iId}&idbancoCredential=${row.id_banco_credencial}`)
+    router.push(`/product/configura/config?iIdProdEnv=${iIdProdEnv}&iId=${iId}&idbancoCredential=${row.id_banco_credencial}&idEmpresa=${idEmpresa}`)
   }
 
   const runShedule = async () => {
@@ -321,13 +322,13 @@ export default function ConfigDowland () {
 
                   </div>
 
-                  </div> : <div className='config-Automated--emails'>
-                  <h3> Register emails</h3>
-                  <div className='description'>
-                      Add the emails to notify to <b> Download automated Bank Statements </b>
-                    </div>
-                  <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
-                         </div>}
+                </div> : <div className='config-Automated--emails'>
+                    <h3> Register emails</h3>
+                    <div className='description'>
+                    Add the emails to notify to <b> Download automated Bank Statements </b>
+                  </div>
+                    <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
+                           </div>}
 
             </div>
 
@@ -416,7 +417,7 @@ export default function ConfigDowland () {
               requestError
 
               }
-                </div>}
+                                 </div>}
 
               </div>
 
