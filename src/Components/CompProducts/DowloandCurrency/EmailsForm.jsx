@@ -20,7 +20,6 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
     if (dataEmails) {
       const arrayDeCorreos = dataEmails.map(item => item.correo)
       setEmails(arrayDeCorreos)
-      console.log('arraycorreso', arrayDeCorreos)
     }
   }, [dataEmails])
 
@@ -74,7 +73,6 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCorreoExtBancario', body, token)
-      console.log('emailsrespon', responseData)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data= responseData.oResults;
@@ -85,7 +83,7 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
         }, 1000)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('errok, ', errorMessage)
+        console.error('errok, ', errorMessage)
         setModalToken(true)
         setModalConfirmation(false)
       }

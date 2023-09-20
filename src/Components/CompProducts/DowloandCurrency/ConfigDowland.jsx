@@ -42,7 +42,7 @@ export default function ConfigDowland () {
       await logout()
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
-      console.log('errok, ', errorMessage)
+      console.error('errok, ', errorMessage)
       setModalToken(false)
       setRequestError(errorMessage)
       setTimeout(() => {
@@ -86,15 +86,13 @@ export default function ConfigDowland () {
       }
     } catch (error) {
       console.error('error', error)
-      // setModalToken(true)
+
       setShowForm(true)
       setRequestError(error)
-      // setStatus("Service error");
     }
   }
 
   const handleEdit = (dataEdit) => {
-    // console.log('handledit', dataEdit)
     setShowForm(true)
     setIinitialEdit(dataEdit)
     setIsEditing(true)
@@ -117,7 +115,6 @@ export default function ConfigDowland () {
         iIdPais: 1,
         iBanco: values.bank ? values.bank.id : (initialEdit ? initialEdit.id_banco : null),
         ...(values.password && { sPassword: values.password }),
-        // sPassword: values.password ? values.password : initialEdit.password,
         sCredencial: values.principalCredential,
         sCredencial2: values.credential2,
         sCredencial3: values.credential3,
@@ -129,9 +126,7 @@ export default function ConfigDowland () {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarExtBancario', body, token)
-      // console.log('response', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
-      // const data = responseData.oResults
         setModalToken(false)
         setShowForm(false)
         setIsEditing(false)
@@ -171,7 +166,6 @@ export default function ConfigDowland () {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
-      console.log('getestractosbancrios', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults
@@ -205,7 +199,7 @@ export default function ConfigDowland () {
     }
     try {
       const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarBancoCredencialExtBancario', body, token)
-      console.log('res', response)
+      console.error('res', response)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         setTimeout(() => {
@@ -219,7 +213,6 @@ export default function ConfigDowland () {
   }
 
   const handleAcount = (row) => {
-    console.log('domwla', row)
     router.push(`/product/configura/config?iIdProdEnv=${iIdProdEnv}&iId=${iId}&idbancoCredential=${row.id_banco_credencial}`)
   }
 
@@ -258,9 +251,9 @@ export default function ConfigDowland () {
 
       if (response.ok) {
         const result = await response.text()
-        console.log(result)
+        console.log({ result })
       } else {
-        console.log('Error en la solicitud:', response, response.statusText)
+        console.error('Error en la solicitud:', response, response.statusText)
       }
     } catch (error) {
       console.error('Error en la solicitud:', error.message)

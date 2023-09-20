@@ -9,10 +9,6 @@ import logo from '../../../public/img/logoseidor.png'
 // import { SignupSchemaEN } from '@/helpers/validateForms'
 
 export default function UpdatePassword () {
-  // const { t } = useContext(DataContext)
-
-  // console.log('t', t)
-
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -26,7 +22,7 @@ export default function UpdatePassword () {
 
   const handleSubmit = (values) => {
     // Realizar acción cuando el formulario es válido
-    console.log('Formulario válido', values)
+
   }
 
   return (

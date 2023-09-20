@@ -22,7 +22,7 @@ export default function changePassword () {
 
   const handleSubmit = (values) => {
     // Realizar acción cuando el formulario es válido
-    console.log('Formulario válido', values)
+
   }
 
   return (

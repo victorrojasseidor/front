@@ -9,8 +9,6 @@ function RefreshToken () {
 
   const { session, setModalToken, modalToken } = useAuth()
 
-  console.log('resfresmodla', modalToken)
-
   const handleConfirmRefresh = async () => {
     try {
       const newToken = await refresToken(session.sToken) // Llama a la función para refrescar el token

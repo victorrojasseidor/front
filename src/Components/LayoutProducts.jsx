@@ -61,7 +61,6 @@ const LayoutProducts = ({ children, menu }) => {
   }
 
   const handleLogout = () => {
-    console.log('log out')
     setSession(null)
     localStorage.removeItem('session')
     localStorage.removeItem('selectedEmpresa')
@@ -183,7 +182,7 @@ const LayoutProducts = ({ children, menu }) => {
 
               <Link href='/Support'>
                 <ImageSvg name='Support' /> <h5> Support
-                </h5>
+                                            </h5>
               </Link>
             </li>
 

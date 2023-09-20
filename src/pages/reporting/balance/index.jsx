@@ -105,7 +105,6 @@ const Balance = () => {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetReporteSaldos', body, token)
-      console.log('balances', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setBalances(data)
@@ -217,7 +216,6 @@ const Balance = () => {
     )
   }
 
-  console.log('isDateSorted', isDateSorted)
   function formatNumberToCurrency (number) {
     // Divide el número en parte entera y decimal
     const parts = number.toFixed(2).toString().split('.')

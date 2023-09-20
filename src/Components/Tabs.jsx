@@ -17,7 +17,7 @@ const Tabs = () => {
 
   const handleSubmit = (values) => {
     // Realizar acción cuando el formulario es válido
-    console.log('Formulario válido', values)
+
   }
 
   return (
@@ -127,20 +127,17 @@ const Tabs = () => {
                 <label className='checkbox'> Email notifications</label>
               </div>
             </ul>
-            
+
             <div className='actionsButtons'>
               <button className='btn_primary smallBack' type='submit'>
                 BACK
               </button>
 
-              
               <button className='btn_primary small' type='submit'>
-              
-               <Link href='/product'>  NEXT  </Link>
-               </button>
-              
-               
-            
+
+                <Link href='/product'>  NEXT  </Link>
+              </button>
+
               <div />
             </div>
           </div>

@@ -37,7 +37,7 @@ export default function ConfigAccount () {
       await logout()
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
-      console.log('errok, ', errorMessage)
+      console.error('errok, ', errorMessage)
       setModalToken(false)
       setRequestError(errorMessage)
       setTimeout(() => {
@@ -143,15 +143,12 @@ export default function ConfigAccount () {
   }
 
   const handleEdit = (dataEdit) => {
-    // console.log('handledit', dataEdit)
     setShowForm(true)
     setIinitialEdit(dataEdit)
     setIsEditing(true)
   }
 
   async function handleEditListAccount (values) {
-    // console.log('valueseditando', values)
-
     const body = {
       oResults: {
         iIdExtBanc: parseInt(iIdProdEnv),
@@ -172,7 +169,6 @@ export default function ConfigAccount () {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarCuentaExtBancario', body, token)
-      console.log('responseactualizar', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
       // const data = responseData.oResults
         setModalToken(false)
@@ -200,8 +196,6 @@ export default function ConfigAccount () {
   const toggleForm = () => {
     setShowForm(!showForm)
   }
-
-  console.log('data', data)
 
   return (
     <LayoutConfig id={iId} iIdProdEnv={iIdProdEnv} defaultTab={1} NameAcount={data?.nombre}>
@@ -323,7 +317,7 @@ export default function ConfigAccount () {
             requestError
 
             }
-            </div>}
+                             </div>}
 
           </div>
           {selectedRowToDelete && (

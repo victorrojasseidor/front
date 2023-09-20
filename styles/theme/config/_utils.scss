@@ -293,7 +293,11 @@
   border-radius: brd(1);
   border: 1px solid get-color(forms_s6);
   box-shadow: bsh(1);
+  
   width: 100%;
+      @include media(tablet) {
+          width: 90%;
+        }
   .box-search {
     display: flex;
     flex-direction: row;

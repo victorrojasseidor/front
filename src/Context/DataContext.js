@@ -34,26 +34,22 @@ export const DataContextProvider = ({ children }) => {
   // Logout
 
   async function logout () {
- 
     try {
       const token = session.sToken
       const body = {
         oResults: {}
       }
-      const response = await fetchConTokenPost('dev/BPasS/??Accion=SalidaUsuario', body, token);
-      console.log("response",response);
+      const response = await fetchConTokenPost('dev/BPasS/??Accion=SalidaUsuario', body, token)
       if (response.oAuditResponse?.iCode === 1 || response.oAuditResponse?.iCode === 4 || response.oAuditResponse?.iCode === 9) {
         setSession(null)
         localStorage.removeItem('session')
         localStorage.removeItem('selectedEmpresa')
         router.push('/login')
-        console.log(" logoutincontext")
       }
     } catch (error) {
       console.error('error en logout del servicio', error)
     }
   }
-
 
   useEffect(() => {
     // Restaurar la información de sesión desde localStorage cuando se monte el componente

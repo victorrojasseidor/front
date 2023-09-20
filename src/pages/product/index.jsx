@@ -30,10 +30,7 @@ export default function Products () {
     try {
       const token = session.sToken
       const idEmpresa = empresa.id_empresa
-      console.log('idEmpresaProduct', idEmpresa)
       const responseData = await getProducts(idEmpresa, token)
-      console.log('responseData', responseData)
-
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
 
@@ -49,7 +46,7 @@ export default function Products () {
           ? responseData.oAuditResponse.sMessage
           : 'Error in sending the form'
         setRequestError(errorMessage)
-        console.log('error', errorMessage)
+        console.error('error', errorMessage)
         setTimeout(() => {
           setRequestError(null)
         }, 1000)
@@ -89,7 +86,6 @@ export default function Products () {
     if (savedEmpresaJSON) {
       try {
         const savedEmpresa = JSON.parse(savedEmpresaJSON)
-        console.log('savedEmpresa', savedEmpresa)
         setEmpresa(savedEmpresa)
       } catch (error) {
         console.error('Error parsing savedEmpresa JSON:', error)
@@ -99,36 +95,6 @@ export default function Products () {
     }
   }, [])
 
-  // useEffect(() => {
-  //   if (product && product.length > 0) { // Added check for product length
-  //     const filterResults = () => {
-  //       let results = product
-  //       console.log('selectedFilter', selectedFilter)
-
-  //       if (selectedFilter === 25) {
-  //         results = results.filter(
-  //           (product) =>
-  //             product.iCodeStatus === 27 || product.iCodeStatus === 28
-  //         )
-  //       } else {
-  //         results = results.filter(
-  //           (product) =>
-  //             product.iCodeStatus === selectedFilter
-  //         )
-  //       }
-
-  //       if (searchQuery) {
-  //         results = results.filter((product) =>
-  //           product.sName.toLowerCase().includes(searchQuery.toLowerCase())
-  //         )
-  //       }
-
-  //       setSearchResults(results)
-  //     }
-
-  //     filterResults()
-  //   }
-  // }, [searchQuery, selectedFilter, product])
   useEffect(() => {
     if (product && product.length > 0) {
       const filterResults = () => {

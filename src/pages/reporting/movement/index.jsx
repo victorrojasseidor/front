@@ -62,7 +62,6 @@ const Movement = () => {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetInitMovimientos', body, token)
-      console.log('initmovrment', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         const dataInit = responseData.oResults
         setInitialDataselect(dataInit)
@@ -188,10 +187,8 @@ const Movement = () => {
     if (selectedBankValue === '') {
       setFilteredAccounts([])
     } else {
-      console.log('movement.oSaldos', movement.oConfCuentaMov)
       const accountsForSelectedBank = movement.oConfCuentaMov.filter(
         (bank) => bank.id_banco === selectedBankValue)
-      console.log('accountsForSelectedBank', accountsForSelectedBank)
       const seenIds = new Set()
       const uniqueBanks = []
 

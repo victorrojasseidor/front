@@ -26,9 +26,6 @@ function LoginConfirmed () {
 
     try {
       const responseData = await fetchConTokenPost('dev/General/?Accion=RegistrarUsuarioPendConf', body, token)
-
-      // console.log("💻", responseData.oAuditResponse);
-
       if (responseData.oAuditResponse.iCode == 29 || responseData.oAuditResponse.iCode == 1) {
         setIsconfirmed(true)
         setError(null)
@@ -37,7 +34,6 @@ function LoginConfirmed () {
         }, 10000)
       } else {
         const message = responseData?.oAuditResponse.sMessage
-        // const mensajeAntesDeComa = message.substring(0, message.indexOf(","));
         setError(message)
         const refresh = await refresToken(token)
         return refresh
@@ -99,7 +95,7 @@ function LoginConfirmed () {
               <p className='errorMessage'>{error}</p>
             </div>
             )}
-               </Modal>}
+      </Modal>}
 
     </section>
   )

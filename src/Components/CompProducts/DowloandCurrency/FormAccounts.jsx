@@ -20,8 +20,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     if (session) {
       getExtrBancToFile()
     }
-   
-  }, [session, iIdProdEnv, showForm , initialVal])
+  }, [session, iIdProdEnv, showForm, initialVal])
 
   async function getExtrBancToFile () {
     const body = {
@@ -35,20 +34,18 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults.oTipoArchivo
-        // console.log('getextractos', responseData.oResults)
         setFileTypeOptions(data.map((file) => ({ value: file.id_tipo_archivo, label: file.nombre })))
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('error, ', errorMessage)
+        console.error('error, ', errorMessage)
       }
     } catch (error) {
       console.error('error', error)
     }
   }
-
 
   const initialValues = {
     Account: initialVal?.cuenta || '',
@@ -178,7 +175,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                         isClearable
                         // value={(initialVal && fileTypeOptions && TypeFile===null )?fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo) : values.TypeFile}
                         value={
-                          (initialVal && fileTypeOptions && !values.TypeFile )
+                          (initialVal && fileTypeOptions && !values.TypeFile)
                             ? fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo)
                             : values.TypeFile
                         }

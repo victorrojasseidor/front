@@ -28,7 +28,6 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
 
       }
     }
-    console.log('bodeyfretrial', body)
 
     try {
       const token = session?.sToken
@@ -38,16 +37,15 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
         // const data= responseData.oResults;
         SetError(null)
         setModalToken(false)
-              SetConfirm(true)
-  
-        
+        SetConfirm(true)
+
         setTimeout(() => {
           resetForm()
-          window.location.reload();
+          window.location.reload()
         }, 1000)// Adjust the delay time as needed
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('errok, ', errorMessage)
+        console.error('errok, ', errorMessage)
         setModalToken(true)
         setSubmitting(false)
         SetConfirm(false)

@@ -51,7 +51,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
     try {
       const token = session.sToken
       const idEmpresa = empresa.id_empresa
-      console.log('layput product', idEmpresa)
       const responseData = await getProducts(idEmpresa, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -61,7 +60,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         setModalToken(true)
-        console.log('errok, ', errorMessage)
+        console.error('errok, ', errorMessage)
       }
     } catch (error) {
       setModalToken(true)

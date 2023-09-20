@@ -14,7 +14,6 @@ const ProgressRegister = ({ userData }) => {
 
   const router = useRouter()
   const { session, setSession, logout, setModalToken } = useAuth()
-  console.log('😍lprofilestar', session)
 
   // steps funciones
   const handleNextStep = () => {
@@ -35,8 +34,6 @@ const ProgressRegister = ({ userData }) => {
       }
     })
 
-    // console.log(oEmpresa);
-
     const body = {
       oResults: {
         sEmail: user.sCorreo,
@@ -51,19 +48,15 @@ const ProgressRegister = ({ userData }) => {
       }
     }
 
-    console.log('❤️body', body)
-
     const tok = user.sToken
-    console.log(user, tok)
 
     try {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarUsuarioEnd', body, tok)
 
       if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1) {
-        // setIsconfirmed(true);
         router.push('/product')
         setStatus(null)
-        console.log('💻', responseData)
+
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)

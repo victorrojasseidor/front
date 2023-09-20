@@ -48,7 +48,6 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
   useEffect(() => {
     if (initialVal && bankOptions) {
       const bankinintial = bankOptions.find((option) => option.id === initialVal.id_banco)
-      console.log('bankinintial', bankinintial?.jConfCredencial)
       if (bankinintial) {
         setShowComponent(bankinintial?.jConfCredencial)
       }

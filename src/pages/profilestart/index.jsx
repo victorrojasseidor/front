@@ -16,7 +16,6 @@ export default function Profilestart () {
   const [user, setUser] = useState({})
 
   const { session, logout } = useAuth()
-  console.log('😍profilestar', session)
 
   useEffect(() => {
     const localStorageData = JSON.parse(localStorage.getItem('user'))
@@ -37,7 +36,6 @@ export default function Profilestart () {
   }
 
   const handleLogout = () => {
-    console.log('logout')
     logout()
   }
 

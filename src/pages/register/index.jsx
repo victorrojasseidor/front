@@ -40,10 +40,6 @@ export default function Register () {
 
     try {
       const responseData = await fetchNoTokenPost('dev/General/?Accion=RegistrarUsuarioInit', dataRegister && dataRegister)
-      //  const responseData = await response.json();
-
-      console.log('resServidorcode', responseData)
-
       if (responseData.oAuditResponse?.iCode === 1) {
         setData(dataRegister)
         setShowM(true)
@@ -73,8 +69,7 @@ export default function Register () {
   useEffect(() => {
     if (ShowM) {
       // Lógica para mostrar el modal
-      // ...
-      console.log('data', data)
+
       setTimeout(() => {
         setShowM(false)
       }, 500000) // Cerrar el modal después de 50 segundos
