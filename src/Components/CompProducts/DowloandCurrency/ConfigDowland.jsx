@@ -1,4 +1,3 @@
-/* eslint-disable multiline-ternary */
 import React, { useState, useEffect } from 'react'
 import EmailsForm from './EmailsForm'
 import ImageSvg from '@/helpers/ImageSVG'
@@ -8,7 +7,11 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
 import Modal from '@/Components/Modal'
 import TabsConfig from './Tabsconfig'
+import Loading from '@/Components/Atoms/Loading'
+import LoadingComponent from '@/Components/Atoms/LoadingComponent'
+import NavigationPages from '@/Components/NavigationPages'
 import Link from 'next/link'
+import ConfigAccount from './ConfigAccount'
 
 export default function ConfigDowland () {
   const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
@@ -19,11 +22,14 @@ export default function ConfigDowland () {
   const [requestError, setRequestError] = useState('')
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null)
   const [modalConfirmationShedule, setModalConfirmationShedule] = useState(false)
-
+  const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingComponent, setIsLoadingComponent] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
   const [completeEmails, setcompleteEmails] = useState(false)
   const [completeconfigBank, setCompleteconfigBank] = useState(false)
   const [completeShedule, setCompleteShedule] = useState(false)
+  const [showAccounts, setShowAccounts] = useState(false)
+  const [bankCredential, setBankCredential] = useState(null)
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -43,7 +49,7 @@ export default function ConfigDowland () {
       await logout()
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
-      console.error('errok, ', errorMessage)
+      console.log('errok, ', errorMessage)
       setModalToken(false)
       setRequestError(errorMessage)
       setTimeout(() => {
@@ -52,7 +58,10 @@ export default function ConfigDowland () {
     }
   };
 
+  console.log('data', data)
+
   async function handleAgregar (values) {
+    setIsLoadingComponent(true)
     const body = {
       oResults: {
         iIdEmpresa: idEmpresa,
@@ -90,6 +99,8 @@ export default function ConfigDowland () {
 
       setShowForm(true)
       setRequestError(error)
+    } finally {
+      setIsLoadingComponent(false)
     }
   }
 
@@ -107,6 +118,7 @@ export default function ConfigDowland () {
   }
 
   async function handleEditListBank (values) {
+    setIsLoadingComponent(true)
     const body = {
       oResults: {
         iIdEmpresa: idEmpresa,
@@ -147,6 +159,9 @@ export default function ConfigDowland () {
       setShowForm(true)
       setIsEditing(true)
       setRequestError(null)
+    } finally {
+      setIsLoadingComponent(false)
+      setIinitialEdit(null)
     }
   }
 
@@ -154,9 +169,14 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [session, haveEmails, initialEdit, showForm, idEmpresa, selectedRowToDelete])
+  }, [haveEmails, initialEdit, showForm, idEmpresa, selectedRowToDelete])
+
+  const tieneDatosEnCuentas = (objeto) => {
+    return objeto.oListCuentas && objeto.oListCuentas.length > 0
+  }
 
   async function getExtrBanc () {
+    setIsLoadingComponent(true)
     const body = {
       oResults: {
         iIdExtBanc: iIdProdEnv,
@@ -167,6 +187,7 @@ export default function ConfigDowland () {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      console.log('getestract', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults
@@ -175,11 +196,21 @@ export default function ConfigDowland () {
         if (dataRes.oCorreoEB.length > 0) {
           setcompleteEmails(true)
         }
+        // Verificar si al menos un objeto tiene datos en oListCuentas
+        const alMenosUnoTieneDatos = responseData.oResults.oListBancoCredendicial.some(tieneDatosEnCuentas)
+
+        if (alMenosUnoTieneDatos) {
+          setCompleteconfigBank(true)
+        } else {
+          setCompleteconfigBank(false)
+        }
       } else {
         await handleCommonCodes(responseData)
       }
     } catch (error) {
       console.error('error', error)
+    } finally {
+      setIsLoadingComponent(false)
     }
   }
 
@@ -187,9 +218,8 @@ export default function ConfigDowland () {
     setShowForm(!showForm)
   }
 
-  // funcio+on de eliminar
-
   const handleDeleteBancoCredential = async (idbankcred) => {
+    setIsLoadingComponent(true)
     const token = session.sToken
     const body = {
       oResults: {
@@ -210,14 +240,18 @@ export default function ConfigDowland () {
       }
     } catch (error) {
       console.error('Error en la solicitud de eliminación', error)
+    } finally {
+      setIsLoadingComponent(false)
     }
   }
 
   const handleAcount = (row) => {
-    router.push(`/product/configura/config?iIdProdEnv=${iIdProdEnv}&iId=${iId}&idbancoCredential=${row.id_banco_credencial}&idEmpresa=${idEmpresa}`)
+    setBankCredential(row)
+    setShowAccounts(true)
   }
 
   const runShedule = async () => {
+    setIsLoadingComponent(true)
     const url = 'https://cloud.uipath.com/seidovnzrjnf/Tenant_BPaaS/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs'
     const bodyP = {
       startInfo: {
@@ -254,40 +288,40 @@ export default function ConfigDowland () {
         const result = await response.text()
         console.log({ result })
       } else {
-        console.error('Error en la solicitud:', response, response.statusText)
+        console.log('Error en la solicitud:', response, response.statusText)
       }
     } catch (error) {
       console.error('Error en la solicitud:', error.message)
+    } finally {
+      setIsLoadingComponent(false)
     }
   }
 
+  console.log({ data })
+
   return (
     <section className='config-Automated'>
-
+      {isLoading && <Loading />}
       <div className='Tabsumenu'>
         <div className='Tabsumenu-header '>
           <button className={` ${activeTab === 0 ? 'activeST' : ''} ${completeEmails ? 'completeST' : ''}`} onClick={() => handleTabClick(0)}>
             <ImageSvg name='Check' />
             <h4> Status and emails </h4>
-
           </button>
 
-          <button
-            className={` ${activeTab === 1 ? 'activeST' : ''} ${completeconfigBank ? 'completeST' : ''}`} onClick={() => handleTabClick(1)}
-          >
+          <button style={{ visibility: completeEmails ? 'visible' : 'hidden' }} className={` ${activeTab === 1 ? 'activeST' : ''} ${completeconfigBank ? 'completeST' : ''}`} onClick={() => handleTabClick(1)}>
             <ImageSvg name='Check' />
             <h4>  Bank and Accounts  </h4>
           </button>
 
-          <button className={` ${activeTab === 2 ? 'activeST' : ''} ${completeShedule ? 'completeST' : ''}`} onClick={() => handleTabClick(2)}>
+          <button style={{ visibility: completeconfigBank ? 'visible' : 'hidden' }} className={` ${activeTab === 2 ? 'activeST' : ''} ${completeShedule ? 'completeST' : ''}`} onClick={() => handleTabClick(2)}>
             <ImageSvg name='Check' />
             <h4> Schedule and repository</h4>
           </button>
-
         </div>
-        <div className='Tabsumenu-content'>
-          {activeTab === 0 && (
 
+        <div className='Tabsumenu-content'>
+          {activeTab === 0 &&
             <div className='container-status'>
               <div className='status-config'>
                 <ul>
@@ -319,166 +353,194 @@ export default function ConfigDowland () {
                         </button>
                       </span>
                     </div>
-
                   </div>
-
-                </div> : <div className='config-Automated--emails'>
-                    <h3> Register emails</h3>
-                    <div className='description'>
+                  </div>
+                : <div className='config-Automated--emails'>
+                  <h3> Register emails</h3>
+                  <div className='description'>
                     Add the emails to notify to <b> Download automated Bank Statements </b>
                   </div>
-                    <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
-                           </div>}
+                  <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
+                  </div>}
+              <div className='box-buttons'>
+                <button
+                  type='button'
+                  className={`btn_primary small ${completeEmails ? ' ' : 'disabled'}`}
+                  onClick={() => handleTabClick(1)}
+                  disabled={!completeEmails}
+                >
+                  Next
+                </button>
+              </div>
+            </div>}
 
-            </div>
-
-          )}
-
-          {activeTab === 1 && (
+          {activeTab === 1 &&
             <div className='config-Automated--tables'>
-              <div className='contaniner-tables'>
-                <div className='box-search'>
-                  <h3>List Bank Credential</h3>
-                  {/* <div>Search</div> */}
-                  <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
-                    {showForm ? 'Close Form' : '+ Add credential'}
-                  </button>
-                </div>
-                <div className='boards'>
-                  <div className='tableContainer'>
-                    <table className='dataTable'>
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Principal user</th>
-                          <th>Bank</th>
-                          <th>Country</th>
-                          <th>State</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {data?.oListBancoCredendicial?.map((row) => (
-                          <tr key={row.id_banco_credencial}>
-                            <td onClick={() => handleAcount(row)}>{row.nombre}</td>
-                            <td onClick={() => handleAcount(row)}>{row.usuario}</td>
-                            <td onClick={() => handleAcount(row)}>{row.nombre_banco}</td>
-                            <td onClick={() => handleAcount(row)}>Perú</td>
-                            <td onClick={() => handleAcount(row)}>
-                              <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
-                            </td>
-                            <td className='box-actions'>
-                              <button className='btn_crud' onClick={() => handleEdit(row)}>
-                                {' '}
-                                <ImageSvg name='Edit' />{' '}
-                              </button>
-                              <button
-                                className='btn_crud' onClick={() => {
-                                  setSelectedRowToDelete(row)
-                                }}
-                              >
 
-                                <ImageSvg name='Delete' />
-                              </button>
+              <div className='navegation '>
 
-                            </td>
+                <button onClick={() => { setShowAccounts(false); setBankCredential(null) }}>
+                  List Bank Credential
+                </button>
 
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  {showForm && <FormCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
-                </div>
-                {selectedRowToDelete && (
-                  <Modal close={() => {
-                    setSelectedRowToDelete(null)
-                  }}
-                  >
-                    <div>
-                      <h3>Do you want to delete this credential bank list?</h3>
-                      <div className='box-buttons'>
-                        <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
-                          YES
-                        </button>
-                        <button
-                          type='button'
-                          className='btn_secundary small'
-                          onClick={() => setSelectedRowToDelete(null)}
-                        >
-                          NOT
-                        </button>
-                      </div>
-                    </div>
-                  </Modal>
-                )}
+                <ImageSvg name='Navegación' />
 
-                {requestError && <div className='errorMessage'> {
-              requestError
-
-              }
-                                 </div>}
+                <span>
+                  {/* {NameAcount ? <span> <ImageSvg name='Navegación' /> {NameAcount} </span> : ''} */}
+                  {bankCredential?.nombre}
+                </span>
 
               </div>
 
-            </div>
-          )}
-          {activeTab === 2 && (
-            <div className='shedule'>
+              {showAccounts
+                ? <ConfigAccount idbancoCredential={bankCredential?.id_banco_credencial} setShowAccounts={setShowAccounts} OptionBanks={data?.oPaisBanco} />
 
+                : <div className='contaniner-tables'>
+                  <div className='box-search'>
+                    <h3>List Bank Credential</h3>
+                    <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
+                      {showForm ? 'Close Form' : '+ Add credential'}
+                    </button>
+                  </div>
+                  <div className='boards'>
+                    <div className='tableContainer'>
+                      <table className='dataTable'>
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Principal user</th>
+                            <th>Bank</th>
+                            <th>Country</th>
+                            <th>State</th>
+                            <th>Config status</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {data?.oListBancoCredendicial?.map((row) => (
+                            <tr key={row.id_banco_credencial}>
+                              <td>{row.nombre}</td>
+                              <td>{row.usuario}</td>
+                              <td>{row.nombre_banco}</td>
+                              <td>Perú</td>
+                              <td>
+                                <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
+                              </td>
+
+                              <td className=''>
+                                {row.oListCuentas.length > 0
+                                  ? <button className='btn_green' onClick={() => handleAcount(row)}> show Accounts </button>
+                                  : <button className='btn_red' onClick={() => handleAcount(row)}>     Need Accounts  </button>}
+                              </td>
+                              <td className='box-actions'>
+                                <button className='btn_crud' onClick={() => handleEdit(row)}>
+                                  <ImageSvg name='Edit' />{' '}
+                                </button>
+                                <button
+                                  className='btn_crud' onClick={() => {
+                                    setSelectedRowToDelete(row)
+                                  }}
+                                >
+                                  <ImageSvg name='Delete' />
+                                </button>
+                              </td>
+
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                    {isLoadingComponent && <LoadingComponent />}
+                    {showForm && <FormCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
+                  </div>
+                  {selectedRowToDelete && (
+                    <Modal close={() => {
+                      setSelectedRowToDelete(null)
+                    }}
+                    >
+                      <div>
+                        <h3>Do you want to delete this credential bank list?</h3>
+                        <div className='box-buttons'>
+                          <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
+                            YES
+                          </button>
+                          <button
+                            type='button'
+                            className='btn_secundary small'
+                            onClick={() => setSelectedRowToDelete(null)}
+                          >
+                            NOT
+                          </button>
+                        </div>
+                      </div>
+                    </Modal>
+                  )}
+                  {requestError && <div className='errorMessage'>{requestError}</div>}
+                </div>}
+
+              <div className='box-buttons'>
+                <button
+                  type='button'
+                  className='btn_primary small'
+                  onClick={() => handleTabClick(0)}
+                >
+                  Previus
+                </button>
+                <button
+                  className={`btn_primary small  ${completeconfigBank ? ' ' : 'disabled'}`}
+                  onClick={() => handleTabClick(2)}
+                  disabled={!completeconfigBank}
+                >
+                  Next
+                </button>
+              </div>
+            </div>}
+
+          {activeTab === 2 &&
+            <div className='shedule'>
               <h2>
                 schedule
               </h2>
-
               <div className='input-box'>
                 <label className='checkbox'>
                   <input className='checkboxId' id='acceptTerms' type='checkbox' name='acceptTerms' />
-
                   Daily <span>Timezone: (UTC -05:00)</span> Bogota
-
                 </label>
-
               </div>
-
               <div>
                 <h5>
                   Repository
                 </h5>
-
                 <div className='repository'>
                   <span> Register your repository :  </span>
-
                   <Link href='https://drive.google.com/drive/u/2/folders/1s2Ot16GFkN7d534ur12hNj7PPVv7alDs'>
                     See repository
                   </Link>
                 </div>
-
               </div>
-
-              <button
-                type='button'
-                className='btn_primary'
-                onClick={() => runShedule()}
-              >
-                Run the process
-              </button>
-
-            </div>
-          )}
-
-          {modalConfirmationShedule && (
-            <Modal close={() => setModalConfirmationShedule(false)}>
-              <div>
-                <h3>
-                  Successfully executed
-                </h3>
+              {session.jCompany.id_company == 4
+                ? <button
+                    type='button'
+                    className={`btn_primary small ${completeShedule ? ' ' : 'disabled'}`}
+                    onClick={runShedule}
+                    disabled={!completeShedule}
+                  >
+                  <ImageSvg name='Automation' />
+                  Run automation
+                </button>
+                : ''}
+              <div className='box-buttons'>
+                <button
+                  type='button'
+                  className='btn_primary small'
+                  onClick={() => handleTabClick(1)}
+                >
+                  Previus
+                </button>
               </div>
-            </Modal>
-          )}
+            </div>}
         </div>
       </div>
-
-      <div />
     </section>
   )
 }

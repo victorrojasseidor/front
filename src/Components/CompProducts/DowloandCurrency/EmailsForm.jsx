@@ -83,7 +83,7 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
         }, 1000)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.error('errok, ', errorMessage)
+        console.log('errok, ', errorMessage)
         setModalToken(true)
         setModalConfirmation(false)
       }

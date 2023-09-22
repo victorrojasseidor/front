@@ -3,6 +3,7 @@ import en from '../../lang/en.json'
 import es from '../../lang/es.json'
 import { useRouter } from 'next/navigation'
 import { fetchConTokenPost } from '@/helpers/fetch'
+import Loading from '@/Components/Atoms/Loading'
 
 const DataContext = createContext()
 
@@ -24,36 +25,42 @@ export const DataContextProvider = ({ children }) => {
 
   // State para almacenar los datos del usuario
   const [session, setSession] = useState(null)
-  const [empresa, setEmpresa] = useState('')
   const [modalToken, setModalToken] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   // lang
   const locale = 'en'
   const t = locale === 'en' ? en : es
   const router = useRouter()
-  // Logout
 
+  // Función para manejar el cierre de sesión
   async function logout () {
+    setIsLoading(true)
     try {
       const token = session.sToken
       const body = {
         oResults: {}
       }
       const response = await fetchConTokenPost('dev/BPasS/??Accion=SalidaUsuario', body, token)
-      if (response.oAuditResponse?.iCode === 1 || response.oAuditResponse?.iCode === 4 || response.oAuditResponse?.iCode === 9) {
+      if (
+        response.oAuditResponse?.iCode === 1 ||
+        response.oAuditResponse?.iCode === 4 ||
+        response.oAuditResponse?.iCode === 9
+      ) {
+        router.push('/login')
         setSession(null)
         localStorage.removeItem('session')
         localStorage.removeItem('selectedEmpresa')
-        router.push('/login')
       }
     } catch (error) {
       console.error('error en logout del servicio', error)
+    } finally {
+      setIsLoading(false) // Ocultar el indicador de carga después de que la petición se complete
     }
   }
 
   useEffect(() => {
     // Restaurar la información de sesión desde localStorage cuando se monte el componente
-    // eslint-disable-next-line no-undef
     const storedSession = localStorage.getItem('session')
     if (storedSession) {
       setSession(JSON.parse(storedSession))
@@ -61,13 +68,12 @@ export const DataContextProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    // Almacenar la información de sesión en localStorage cuando cambie el estado
     if (session) {
       localStorage.setItem('session', JSON.stringify(session))
     } else {
       localStorage.removeItem('session')
     }
-  }, [session, empresa])
+  }, [session])
 
   return (
     <DataContext.Provider
@@ -77,15 +83,14 @@ export const DataContextProvider = ({ children }) => {
         session,
         setSession,
         logout,
-        empresa,
-        setEmpresa,
         modalToken,
         setModalToken,
-
         t
+
       }}
     >
       {children}
+      {isLoading && <Loading />}
     </DataContext.Provider>
   )
 }

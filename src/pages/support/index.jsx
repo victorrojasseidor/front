@@ -46,7 +46,7 @@ function Support () {
         }, 1000)// Adjust the delay time as needed
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.error('errok, ', errorMessage)
+        console.log('errok, ', errorMessage)
         setModalToken(true)
         setSubmitting(false)
         SetConfirm(false)

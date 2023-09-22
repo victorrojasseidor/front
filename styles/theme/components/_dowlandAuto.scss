@@ -5,7 +5,7 @@
   &--emails {
     display: flex;
     width: 100%;
-    // flex-direction: column;
+
 flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -46,18 +46,15 @@ flex-wrap: wrap;
     justify-content: center;
     gap: 1em;
     flex-direction: column;
-
-   
-
-
-
+    width: 100%;
+    align-items: center;
     
- 
 
   }
 
  
 }
+
 
 
 .container-status{ 
@@ -95,9 +92,9 @@ flex-wrap: wrap;
     }
   }
 
-  .box-emails {
+ 
 
-    border-left: 1.5px solid get-color(forms_s6);
+  .box-emails {
     padding-left: 1rem;
     display: flex;
     justify-content: center;
@@ -141,29 +138,24 @@ flex-wrap: wrap;
 
 
 
+.status{
+  &-active{
+    color:get-color(blue_p1);
+  }
+  &-disabled{
+    color:get-color(t3-red);
+    
+  }
 
-
-
-.status-active {
-
-    background-color:get-color(t5-green);
-    padding: 0.25rem 0.5rem;
-    border-radius: brd(2);
-    color:get-color(black_p2);
-
- 
  
 }
-.status-disabled {
-  
-    background-color:get-color(t3-red);
-    padding: 0.25rem 0.5rem;
-    border-radius: brd(2);
-    color:get-color(black_p2);
-   
-  
- 
-}
+
+
+
+
+
+
+
 
 .emailsFormContainer {
   width: 100%;
@@ -359,4 +351,16 @@ p {
     }
   }
 
+}
+
+.accounts-tables{
+ width: 100%;
+
+ @include media(tablet) {
+  width: 72%;
+
+ }
+ @include media(desktop) {
+  width: 72%;
+ }
 }

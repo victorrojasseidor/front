@@ -299,18 +299,28 @@
   
 
 
-  .navegation {
+
+
+}
+
+
+.navegation {
   color: get-color(grey1_s3);
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
-  // padding-left: 0.5rem;
   gap: 0.25rem;
   align-items: center;
   width: 100%;
 
-  svg {
+  button{
+    border-style: none ;
+    background-color: transparent;
+  
+  }
+
+  svg,button {
     color: get-color(grey1_s3);
     // font-size: 1rem;
     &:hover,
@@ -321,11 +331,12 @@
   
   a,
   p,
-  span {
+  span,button {
     display: flex;
     align-items: center;
     text-decoration: none;
     text-transform: uppercase;
+   
     font-size: 0.8rem;
     color: inherit;
     cursor: pointer;
@@ -335,12 +346,8 @@
     }
   }
 
-  span:last-child{
+  span:last-child,button:last-child {
     color: get-color(blue_p1);
     font-weight: 600;
   }
 }
-
-}
-
-

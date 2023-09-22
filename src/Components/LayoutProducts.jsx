@@ -25,7 +25,7 @@ const LayoutProducts = ({ children, menu }) => {
     setMenuLateralOpen(!isMenuLateralOpen)
   }
 
-  const { session, setSession, modalToken } = useAuth()
+  const { session, setSession, modalToken, logout } = useAuth()
 
   const toggleMenuMobile = () => {
     setIsOpenMobile(!isOpenMobile)
@@ -61,10 +61,7 @@ const LayoutProducts = ({ children, menu }) => {
   }
 
   const handleLogout = () => {
-    setSession(null)
-    localStorage.removeItem('session')
-    localStorage.removeItem('selectedEmpresa')
-    // router.push("/login");
+    logout()
   }
 
   const handleClick = () => {
@@ -182,7 +179,7 @@ const LayoutProducts = ({ children, menu }) => {
 
               <Link href='/support'>
                 <ImageSvg name='Support' /> <h5> Support
-                                            </h5>
+                </h5>
               </Link>
             </li>
 

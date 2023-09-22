@@ -381,11 +381,11 @@
 
   tbody {
     tr {
-      cursor: pointer;
+      // cursor: pointer;
 
-      &:hover {
-        background-color: get-color(pink_s5);
-      }
+      // &:hover {
+      //   background-color: get-color(pink_s5);
+      // }
     }
     th,
     td {

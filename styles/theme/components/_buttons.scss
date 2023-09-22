@@ -49,8 +49,7 @@
     padding: 0.25em;
     display: flex;
     justify-content: center;
-    // color: get-color(blue_p1);
-    color:get-color(grey2_s4);
+     color:get-color(grey2_s4);
       
 
       &:hover, &:focus{
@@ -155,6 +154,30 @@
       }
   }
 
+
+  &_green{
+    background-color:get-color(t5-green);
+       padding: 0.25rem 0.5rem;
+       border-radius: brd(2);
+       border-style: none;
+       &:hover {
+       
+        font-size: large;
+      }
+     }
+   
+     &_red{
+   background-color:get-color(t3-red);
+       padding: 0.25rem 0.5rem;
+       color:get-color(forms_s6);
+       border-radius: brd(2);
+       border-style: none;
+       &:hover {
+       
+        font-size: large;
+      }
+       
+     }
  
 }
 
@@ -236,3 +259,10 @@ button:hover + .cloud {
   opacity: 1; /* Se hace visible cuando el botón está en :hover */
 }
 
+
+.box-buttons{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  }
+  

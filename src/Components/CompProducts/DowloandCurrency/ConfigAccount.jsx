@@ -6,30 +6,26 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import ImageSvg from '@/helpers/ImageSVG'
 import Modal from '@/Components/Modal'
 import FormAccounts from '@/Components/CompProducts/DowloandCurrency/FormAccounts'
+import Loading from '@/Components/Atoms/Loading'
+import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 
-export default function ConfigAccount () {
+export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
   const [data, setData] = useState(null)
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
   const [showForm, setShowForm] = useState(false)
-  // const [showModalDelete, setShowModalDelete] = useState(false)
   const [requestError, setRequestError] = useState('')
   const [showcomponent, setShowComponentAccounts] = useState(null)
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isLoadingComponent, setIsLoadingComponent] = useState(false)
+
+  const { session, setModalToken, logout } = useAuth()
 
   const router = useRouter()
   const iIdProdEnv = router.query.iIdProdEnv
   const iId = router.query.iId
-  const idbancoCredential = router.query.idbancoCredential
   const idEmpresa = router.query.idEmpresa
-
-  const { session, setModalToken, logout } = useAuth()
-
-  useEffect(() => {
-    if (session) {
-      getExtrBancAccount()
-    }
-  }, [session, initialEdit, showForm, selectedRowToDelete, idEmpresa])
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -38,7 +34,7 @@ export default function ConfigAccount () {
       await logout()
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
-      console.error('errok, ', errorMessage)
+      console.log('errok, ', errorMessage)
       setModalToken(false)
       setRequestError(errorMessage)
       setTimeout(() => {
@@ -47,7 +43,14 @@ export default function ConfigAccount () {
     }
   };
 
+  useEffect(() => {
+    if (session) {
+      getExtrBancAccount()
+    }
+  }, [initialEdit, showForm, selectedRowToDelete])
+
   async function getExtrBancAccount () {
+    setIsLoadingComponent(true)
     const body = {
       oResults: {
         iIdExtBanc: iIdProdEnv,
@@ -72,6 +75,8 @@ export default function ConfigAccount () {
       }
     } catch (error) {
       console.error('error', error)
+    } finally {
+      setIsLoadingComponent(false)
     }
   }
 
@@ -83,6 +88,7 @@ export default function ConfigAccount () {
   }
 
   const handleDeleteAccount = async (idAccount) => {
+    setIsLoadingComponent(true)
     const token = session.sToken
     const body = {
       oResults: {
@@ -101,14 +107,17 @@ export default function ConfigAccount () {
       }
     } catch (error) {
       console.error('Error en la solicitud de eliminación', error)
+    } finally {
+      setIsLoadingComponent(false) // Ocultar el indicador de carga después de que la petición se complete
     }
   }
 
   async function handleAgregar (values) {
+    setIsLoadingComponent(true)
     const body = {
       oResults: {
         iIdExtBanc: parseInt(iIdProdEnv),
-        iIdBancoCredencial: parseInt(idbancoCredential),
+        iIdBancoCredencial: parseInt(data.id_banco_credencial),
         iIdTipoArchivo: values.TypeFile?.value,
         sEmpresa: values.Company,
         sEmpresaDescripcion: values.DesCompany,
@@ -140,6 +149,8 @@ export default function ConfigAccount () {
       console.error('error', error)
       setShowForm(true)
       setRequestError(error)
+    } finally {
+      setIsLoadingComponent(false)
     }
   }
 
@@ -150,12 +161,14 @@ export default function ConfigAccount () {
   }
 
   async function handleEditListAccount (values) {
+    setIsLoadingComponent(true)
+
     const body = {
       oResults: {
         iIdExtBanc: parseInt(iIdProdEnv),
         iIdEBConfCuentas: initialEdit.id_eb_conf_cuentas,
-        iIdBancoCredencial: parseInt(idbancoCredential),
-        iIdTipoArchivo: values.TypeFile.value ? values.TypeFile.value : initialEdit.id_tipo_archivo,
+        iIdBancoCredencial: parseInt(data.id_banco_credencial),
+        iIdTipoArchivo: values.TypeFile?.value ? values.TypeFile.value : initialEdit.id_tipo_archivo,
         sEmpresa: values?.Company,
         sEmpresaDescripcion: values?.DesCompany,
         sRuc: values.Ruc,
@@ -163,15 +176,17 @@ export default function ConfigAccount () {
         sCuentaDescripcion: values?.DesAccount,
         sMoneda: values?.Coin,
         sMonedaDescripcion: values?.DesCoin,
-        bCodeEnabled: values?.state === 'Active'
+        bCodeEnabled: values?.state == 'Active'
       }
     }
+
+    console.log('body', body)
 
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarCuentaExtBancario', body, token)
+      console.log('respoedit', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
-      // const data = responseData.oResults
         setModalToken(false)
         setShowForm(false)
         setIsEditing(false)
@@ -184,12 +199,16 @@ export default function ConfigAccount () {
         await handleCommonCodes(responseData)
         setShowForm(true)
         setIsEditing(true)
+        setRequestError(null)
       }
     } catch (error) {
       console.error('error', error)
-      // setModalToken(true)
       setShowForm(true)
       setIsEditing(true)
+      setRequestError(null)
+    } finally {
+      setIsLoadingComponent(false)
+      setRequestError(null)
       setRequestError(null)
     }
   }
@@ -199,20 +218,20 @@ export default function ConfigAccount () {
   }
 
   return (
-    <LayoutConfig id={iId} idEmpresa={idEmpresa} iIdProdEnv={iIdProdEnv} defaultTab={1} NameAcount={data?.nombre}>
+    <>
+
+      {isLoading && <Loading />}
       <section className='config-Automated'>
-        <div className='config-Automated--tables'>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <h5> {data?.nombre}</h5>
-          </div>
-          <div className='container-status'>
+        <div className='config-Automated--tables accounts-tables '>
+
+          <div className='container-status' style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
 
             <div className='status-config'>
               <ul>
                 <li>
-                  <p>Country :</p>
-                  <p>{data?.country ? data.country : 'Perú'}
-                  </p>
+                  <p>Name  :</p>
+                  <p> <h5> {data?.nombre}</h5> </p>
+
                 </li>
 
                 <li>
@@ -224,7 +243,7 @@ export default function ConfigAccount () {
             <div className='box-emails'>
               <ul>
                 <li>
-                  <p>Bank :</p>
+                  <p>Bank : </p>
                   <p>{data?.nombre_banco}</p>
                 </li>
 
@@ -255,7 +274,7 @@ export default function ConfigAccount () {
 
             </div>
           </div>
-          <div className='contaniner-tables'>
+          <div className='contaniner-tables  '>
             <div className='box-search'>
               <h3>Accounts </h3>
               <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
@@ -263,7 +282,7 @@ export default function ConfigAccount () {
               </button>
             </div>
             <div className='boards'>
-              <div className='tableContainer'>
+              <div className='tableContainer  '>
                 <table className='dataTable Account'>
                   <thead>
                     <tr>
@@ -310,6 +329,7 @@ export default function ConfigAccount () {
                     ))}
                   </tbody>
                 </table>
+
               </div>
               {showForm && <FormAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListAccount={handleEditListAccount} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm} showcomponent={showcomponent} />}
             </div>
@@ -319,6 +339,8 @@ export default function ConfigAccount () {
 
             }
                              </div>}
+
+            {isLoadingComponent && <LoadingComponent />}
 
           </div>
           {selectedRowToDelete && (
@@ -349,7 +371,7 @@ export default function ConfigAccount () {
         <div />
       </section>
 
-    </LayoutConfig>
+    </>
 
   )
 }

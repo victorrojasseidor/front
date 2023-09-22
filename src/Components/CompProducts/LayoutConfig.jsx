@@ -13,7 +13,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   const [product, setProduct] = useState(null)
   const [activeTab, setActiveTab] = useState(defaultTab || 0)
   const [component, setComponent] = useState(null)
-  const router = useRouter()
 
   const { session, setModalToken } = useAuth()
 
@@ -58,7 +57,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         setModalToken(true)
-        console.error('errok, ', errorMessage)
+        console.log('errok, ', errorMessage)
       }
     } catch (error) {
       setModalToken(true)
@@ -67,8 +66,8 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   }
 
   const NameEmpresa = (id) => {
-    const filterEmpresa = session.oEmpresa.find((p) => p.id_empresa == id)
-    return filterEmpresa.razon_social_empresa
+    const filterEmpresa = session?.oEmpresa.find((p) => p.id_empresa == id)
+    return filterEmpresa?.razon_social_empresa
   }
 
   return (
@@ -79,20 +78,19 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
         <Link href='/product'>
           <ImageSvg name='Products' />
           <p>
-            {/* {empresa?.razon_social_empresa} */}
-            {NameEmpresa(idEmpresa)}
+            {idEmpresa && NameEmpresa(idEmpresa)}
           </p>
         </Link>
 
         <ImageSvg name='Navegación' />
 
-        <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`}>
+        {/* <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`}>
           {NameAcount ? <p> {product?.sName} </p> : <span>  {product?.sName}</span>}
 
-        </Link>
+        </Link> */}
 
         <span>
-          {NameAcount ? <span> <ImageSvg name='Navegación' /> {NameAcount} </span> : ''}
+          {product?.sName}
         </span>
 
       </NavigationPages>
@@ -102,7 +100,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
           <div className='idProduct_container'>
             <div className='horizontalTabs'>
               <div className='tab-header'>
-                <Link href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`}>
+                <Link href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`} style={{ display: 'none' }}>
                   <button className={activeTab === 0 ? 'active ' : ''} onClick={() => handleTabClick(0)}>
                     {/* <h4>Free Trial</h4> */}
 
@@ -130,7 +128,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
 
                   </button>
                 </Link>
-                <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}}&idEmpresa=${idEmpresa}`}>
+                <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}}&idEmpresa=${idEmpresa}`} style={{ display: 'none' }}>
                   <button className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
 
                     <h4> Documentation</h4>

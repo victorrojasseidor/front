@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
 import { getProducts } from '@/helpers/auth'
 import NavigationPages from '@/Components/NavigationPages'
+import Loading from '@/Components/Atoms/Loading'
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -14,15 +15,18 @@ export default function Products () {
   const [selectedFilter, setSelectedFilter] = useState(null)
   const [product, setProduct] = useState({})
   const [requestError, setRequestError] = useState('')
+  const [empresa, setEmpresa] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
-  const { session, empresa, setModalToken, logout, setEmpresa } = useAuth()
+  const { session, setModalToken, logout } = useAuth()
 
   const router = useRouter()
   useEffect(() => {
     getProductscard()
-  }, [session, empresa, setEmpresa])
+  }, [session, empresa])
 
   async function getProductscard () {
+    setIsLoading(true)
     try {
       const token = session.sToken
       const idEmpresa = empresa.id_empresa
@@ -42,7 +46,7 @@ export default function Products () {
           ? responseData.oAuditResponse.sMessage
           : 'Error in sending the form'
         setRequestError(errorMessage)
-        console.error('error', errorMessage)
+        console.log('error', errorMessage)
         setTimeout(() => {
           setRequestError(null)
         }, 1000)
@@ -51,10 +55,12 @@ export default function Products () {
       console.error('error', error)
       setModalToken(true)
       setRequestError(error)
+    } finally {
+      setIsLoading(false) // Ocultar el indicador de carga después de que la petición se complete
     }
   }
 
-  const handleSelectChange = (event) => {
+  const handleSelectChangeEmpresa = (event) => {
     const selectedValue = event.target.value
     const DataEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
 
@@ -64,31 +70,19 @@ export default function Products () {
         razon_social_empresa: DataEmpresa.razon_social_empresa,
         ruc_empresa: DataEmpresa.ruc_empresa
       }
-      console.log({ selectedEmpresa })
-      localStorage.removeItem('selectedEmpresa')
       // Guardar la empresa seleccionada en el localStorage
       localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
-
-      // Actualizar el estado de la empresa
       setEmpresa(selectedEmpresa)
-
-      // Realizar la redirección
-      router.push('/product')
     }
   }
 
-  const savedEmpresaJSON = localStorage.getItem('selectedEmpresa')
-  console.log({ empresa })
-
   useEffect(() => {
-    if (savedEmpresaJSON) {
-      try {
-        const savedEmpresa = JSON.parse(savedEmpresaJSON)
-        setEmpresa(savedEmpresa)
-      } catch (error) {
-        console.error('Error parsing savedEmpresa JSON:', error)
-      }
-    } else if (!empresa && session?.oEmpresa.length > 0) {
+    // Comprobar si hay una empresa seleccionada en el localStorage
+    const storedEmpresa = localStorage.getItem('selectedEmpresa')
+    if (storedEmpresa) {
+      setEmpresa(JSON.parse(storedEmpresa))
+    } else if (session.oEmpresa.length > 0) {
+      // Si no hay una empresa en el localStorage, utiliza la primera empresa de session.oEmpresa
       setEmpresa(session.oEmpresa[0])
     }
   }, [])
@@ -162,6 +156,8 @@ export default function Products () {
       router.push(ruta)
     }
 
+    console.log({ empresa })
+
     const status = data.iCodeStatus
     if (status === 23 || status === 28) {
       return (
@@ -196,8 +192,7 @@ export default function Products () {
 
             {/* <Image src={carita} width={20} alt='carita' /> */}
           </p>
-          <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChange}>
-            {/* <option value="">Seleccione una empresa</option> */}
+          <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChangeEmpresa}>
             {session?.oEmpresa.map((empres) => (
               <option key={empres.id_empresa} value={empres.razon_social_empresa}>
                 {empres.razon_social_empresa}
@@ -228,6 +223,8 @@ export default function Products () {
             </button>
           </div>
         </div>
+
+        {isLoading && <Loading />}
 
         {searchResults.length > 0
           ? (
