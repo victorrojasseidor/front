@@ -284,6 +284,7 @@
 
 .disabled {
   opacity: 0.5;
+  border-style: none;
   cursor: not-allowed;
 }
 
@@ -291,15 +292,10 @@
   opacity: 0.8;
   background-color: get-color(grey1_s3);
   cursor: not-allowed;
+  border-style: none;
+  color:get-color(white_s1)
+
 }
-
-
-
-
-
-
-
-
 
 
 

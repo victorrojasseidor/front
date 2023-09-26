@@ -17,7 +17,6 @@ import Stack from '@mui/material/Stack'
 import * as XLSX from 'xlsx'
 import ImageSvg from '@/helpers/ImageSVG'
 import Loading from '@/Components/Atoms/Loading'
-import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 const Movement = () => {
   const { session, setModalToken, logout } = useAuth()
@@ -43,15 +42,19 @@ const Movement = () => {
   const [isAmountSorted, setIsAmountSorted] = useState(false)
   const [isOperationSorted, setIsOperationSorted] = useState(false)
   const [isRucSorted, setIsRucSorted] = useState(false)
+  const [apply, setApply] = useState(false)
+
   useEffect(() => {
     getMovementInitial()
-  }, [selectedCompany, startDate])
+  }, [])
 
   useEffect(() => {
     if (dataInitialSelect) {
       getMovementReport()
     }
-  }, [dataInitialSelect, startDate, endDate, selectedCompany, selectedBank, selectedAccount, filteredBank, filteredAccounts, selectedtype])
+  }, [apply])
+
+  console.log('dataInitialSelect', dataInitialSelect)
 
   async function getMovementInitial () {
     setIsLoading(true)
@@ -187,15 +190,15 @@ const Movement = () => {
     if (selectedBankValue === '') {
       setFilteredAccounts([])
     } else {
-      const accountsForSelectedBank = movement.oConfCuentaMov.filter(
+      const accountsForSelectedBank = dataInitialSelect.oCuenta.filter(
         (bank) => bank.id_banco === selectedBankValue)
       const seenIds = new Set()
       const uniqueBanks = []
 
       accountsForSelectedBank.forEach((report) => {
-        if (!seenIds.has(report.desc_cuenta_conf_cuenta)) {
-          seenIds.add(report.desc_cuenta_conf_cuenta)
-          uniqueBanks.push({ cuenta_conf_cuenta: report.cuenta_conf_cuenta, desc_cuenta_conf_cuenta: report.desc_cuenta_conf_cuenta, desc_cuenta: report.desc_cuenta })
+        if (!seenIds.has(report.descripcion_cuenta)) {
+          seenIds.add(report.descripcion_cuenta)
+          uniqueBanks.push({ cuenta_conf_cuenta: report.cuenta, desc_cuenta_conf_cuenta: report.descripcion_cuenta, desc_cuenta: report.descripcion_cuenta })
         }
       })
 
@@ -213,6 +216,7 @@ const Movement = () => {
     setSelectedType('')
     setSelectedBank('')
     setSelectedAccount('')
+    setApply(!apply)
   }
 
   const hasAppliedFilters = () => {
@@ -384,24 +388,6 @@ const Movement = () => {
                   format='DD/MM/YYYY'
                 />
               </LocalizationProvider>
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id='company-label'>Type</InputLabel>
-                <Select
-                  labelId='type-label'
-                  value={selectedtype}
-                  onChange={handleTypeChange}
-                >
-                  <MenuItem value=''>
-                    <em>All Companys</em>
-                  </MenuItem>
-                  {dataInitialSelect.oTipo?.map((comp) => (
-                    <MenuItem key={comp.id_tipo} value={comp.id_tipo}>
-                      <div> {comp.descripcion}</div>
-                    </MenuItem>
-                  ))}
-                </Select>
-                <FormHelperText>Select a type </FormHelperText>
-              </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id='company-label'>Company</InputLabel>
@@ -409,6 +395,7 @@ const Movement = () => {
                   labelId='company-label'
                   value={selectedCompany}
                   onChange={handleCompanyChange}
+                  className='delimite-text'
                 >
                   <MenuItem value=''>
                     <em>All Companys</em>
@@ -420,6 +407,26 @@ const Movement = () => {
                   ))}
                 </Select>
                 <FormHelperText>Select a company</FormHelperText>
+              </FormControl>
+
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='company-label'>Type</InputLabel>
+                <Select
+                  labelId='type-label'
+                  value={selectedtype}
+                  onChange={handleTypeChange}
+
+                >
+                  <MenuItem value=''>
+                    <em>All Companys</em>
+                  </MenuItem>
+                  {dataInitialSelect.oTipo?.map((comp) => (
+                    <MenuItem key={comp.id_tipo} value={comp.id_tipo}>
+                      <div> {comp.descripcion}</div>
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>Select a type </FormHelperText>
               </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -463,8 +470,12 @@ const Movement = () => {
               </FormControl>
 
               <div className='box-clear'>
-                <button className={`btn_black ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
-                  Clear Filters
+                <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => setApply(!apply)} disabled={!hasAppliedFilters()}>
+                  Apply
+                </button>
+
+                <button className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
+                  Clear
                 </button>
               </div>
 

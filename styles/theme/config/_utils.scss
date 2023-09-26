@@ -217,6 +217,8 @@
     }
   }
 
+ 
+
   .css-1pduc5x-MuiStack-root {
     padding-top: 0;
     display: flex;
@@ -447,3 +449,12 @@
   }
 }
 
+
+.delimite-text{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 11rem;
+  padding-right: 28px;
+
+}

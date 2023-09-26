@@ -39,16 +39,17 @@ const Balance = () => {
   const [isAccountSorted, setIsAccountSorted] = useState(false)
   const [isCurrencySorted, setIsCurrencySorted] = useState(false)
   const [isBalanceSorted, setIsBalanceSorted] = useState(false)
+  const [apply, setApply] = useState(false)
 
   useEffect(() => {
     getBalancesInitial()
-  }, [selectedCompany, startDate])
+  }, [])
 
   useEffect(() => {
     if (dataInitialSelect) {
       getBalancesReport()
     }
-  }, [dataInitialSelect, startDate, endDate, selectedCompany, selectedBank, selectedAccount, filteredBank, filteredAccounts])
+  }, [apply])
 
   async function getBalancesInitial () {
     setIsLoading(true)
@@ -175,20 +176,21 @@ const Balance = () => {
 
   const handleBankChange = (event) => {
     const selectedBankValue = event.target.value
+
     setSelectedBank(selectedBankValue)
     if (selectedBankValue === '') {
       setFilteredAccounts([])
     } else {
-      const accountsForSelectedBank = balances.oSaldos.filter(
+      const accountsForSelectedBank = dataInitialSelect.oCuenta.filter(
         (bank) => bank.id_banco === selectedBankValue)
 
       const seenIds = new Set()
       const uniqueBanks = []
 
       accountsForSelectedBank.forEach((report) => {
-        if (!seenIds.has(report.desc_cuenta_conf_cuenta)) {
-          seenIds.add(report.desc_cuenta_conf_cuenta)
-          uniqueBanks.push({ cuenta_conf_cuenta: report.cuenta_conf_cuenta, desc_cuenta_conf_cuenta: report.desc_cuenta_conf_cuenta, desc_cuenta: report.desc_cuenta })
+        if (!seenIds.has(report.descripcion_cuenta)) {
+          seenIds.add(report.descripcion_cuenta)
+          uniqueBanks.push({ cuenta_conf_cuenta: report.cuenta, desc_cuenta_conf_cuenta: report.descripcion_cuenta, desc_cuenta: report.descripcion_cuenta })
         }
       })
 
@@ -203,9 +205,9 @@ const Balance = () => {
 
   const handleClearFilters = () => {
     setSelectedCompany('')
-
     setSelectedBank('')
     setSelectedAccount('')
+    setApply(!apply)
   }
 
   const hasAppliedFilters = () => {
@@ -431,8 +433,11 @@ const Balance = () => {
               </FormControl>
 
               <div className='box-clear'>
-                <button className={`btn_black ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
-                  Clear Filters
+                <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => setApply(!apply)} disabled={!hasAppliedFilters()}>
+                  Apply
+                </button>
+                <button className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
+                  Clear
                 </button>
               </div>
 
