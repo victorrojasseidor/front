@@ -366,14 +366,16 @@ p {
 
 .accounts-tables{
  width: 100%;
+ display: inline-block;
 
- @include media(tablet) {
-  width: 100%;
-
- }
- @include media(desktop) {
-  width: 100%;
- }
+//  @include media(tablet) {
+//   width: 60%;
+//  }
+//  @include media(desktop) {
+//   min-width: 76%;
+  
+  
+//  }
 }
 
 

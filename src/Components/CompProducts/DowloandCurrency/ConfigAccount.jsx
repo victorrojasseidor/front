@@ -289,7 +289,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
               <div className='boards'>
                 <div className='tableContainer  '>
-                  <table className='dataTable Account'>
+                  <table className='dataTable '>
                     <thead>
                       <tr>
                         <th>Account</th>
@@ -344,11 +344,11 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
             requestError
 
             }
-                               </div>}
+              </div>}
 
               {isLoadingComponent && <LoadingComponent />}
 
-                                             </div>
+            </div>
           }
 
           {selectedRowToDelete && (

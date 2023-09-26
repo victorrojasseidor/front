@@ -346,17 +346,7 @@
     }
   }
 
-  .Account {
-    tbody {
-      tr {
-        cursor: auto;
-
-        &:hover {
-          background-color: transparent;
-        }
-      }
-    }
-  }
+ 
 }
 
 .dataTable {
@@ -374,7 +364,7 @@
     th {
       padding: 0.5rem;
       text-align: start;
-      white-space: nowrap;
+      // white-space: nowrap;
       width: max-content;
       button {
         display: inline-block;
@@ -385,11 +375,11 @@
 
   tbody {
     tr {
-      // cursor: pointer;
+      cursor: pointer;
 
-      // &:hover {
-      //   background-color: get-color(pink_s5);
-      // }
+      &:hover {
+        background-color: get-color(bg-cles);
+      }
     }
     th,
     td {
@@ -406,7 +396,7 @@
       text-align: start;
       border-style: none;
       color: get-color(grey2_s4);
-      white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+      // white-space: nowrap; /* Evita que el texto se divida en varias líneas */
       width: max-content;
     }
 
@@ -436,3 +426,24 @@
  }
 
 }
+
+
+.Account {
+
+  th,td{
+
+    white-space: nowrap;
+  }
+
+  
+  tbody {
+
+    tr {
+      cursor: auto;
+
+     
+    }
+
+  }
+}
+

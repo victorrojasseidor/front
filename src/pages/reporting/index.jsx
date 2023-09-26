@@ -43,6 +43,7 @@ function index (props) {
               </div>
 
               <div>
+
                 <Link href='/reporting/balance'>
                   <p> View reporting</p>
                 </Link>
