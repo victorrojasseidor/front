@@ -2,7 +2,6 @@ import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import LimitedParagraph from '@/helpers/limitParagraf'
 import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
 import { getProducts } from '@/helpers/auth'
@@ -254,7 +253,7 @@ export default function Products () {
           ? (
             <div className='products_cards'>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <h5> finance and administration to {empresa?.razon_social_empresa}</h5>
+                <h5> Finance and administration to {empresa?.razon_social_empresa}</h5>
 
               </div>
 

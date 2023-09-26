@@ -16,6 +16,10 @@
     align-items: center;
     gap:0.5rem;
     justify-content: center;
+    cursor: pointer;
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+  box-shadow: 0 2px 8px get-color(pink_s5);
+
     svg{
       path,polyline{
         stroke:get-color(white_s1);
@@ -23,16 +27,26 @@
       }
    
     }
+
     a {
       color: get-color(white_s1);
     }
 
-    &:hover {
-      background-color: get-color(t1-blue);
-      transform: translateY(-2px);
-      font-size: 1rem;
+
+    &:focus {
+      outline: 0;
+      
     }
+  
+   
+    &:active {
+      transform: scale(0.9);
+      background-color: darken(get-color(t1-blue) , 5%);
+      box-shadow: 0 2px 25px get-color(lilac_p3);
+    }
+
   }
+
 
   &_secundary {
     margin-top: 1rem;
@@ -46,6 +60,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    box-shadow: 0 2px 25px get-color(bg-cles);
   
    
 
@@ -53,7 +69,7 @@
       background-color: get-color(t1-blue);
       color: get-color(white_s1);
       font-size: 1rem;
-      transform: translateY(-2px);
+  
       border-style: none;
 
       svg{
@@ -63,6 +79,20 @@
         }
       }
     }
+    &:focus {
+      outline: 0;
+    }
+
+    &:active {
+      transform: scale(0.9);
+      background-color: darken(get-color(blue_p1) , 5%);
+      box-shadow: 0 2px 25px get-color(bg-cles);
+    }
+    
+    
+    
+   
+
   }
   &_crud {
     border-style: none;
@@ -71,6 +101,7 @@
     display: flex;
     justify-content: center;
      color:get-color(grey2_s4);
+     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
       
 
       &:hover, &:focus{
@@ -127,10 +158,17 @@
     background: get-color(black_p2);
     color: get-color(white_s1);
     gap:1rem;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
     @include media(tablet) {
       font-size: medium;
       padding: 0.8rem 1.25rem;
       gap: 1em;
+    }
+
+
+
+    &:focus {
+      outline: 0;
     }
 
     &:focus,
@@ -138,6 +176,8 @@
       background-color: get-color(white_s1);
       color: get-color(black_p2);
       border: 1px solid get-color(black_p2);
+      transform: scale(0.9);   
+      box-shadow: 0 2px 25px get-color(bg-cles);
     }
   }
 
@@ -204,6 +244,7 @@
  
 }
 
+
 //modificador para botones pequeños
 .small {
   margin: 0.5rem;
@@ -251,6 +292,14 @@
   background-color: get-color(grey1_s3);
   cursor: not-allowed;
 }
+
+
+
+
+
+
+
+
 
 
 
