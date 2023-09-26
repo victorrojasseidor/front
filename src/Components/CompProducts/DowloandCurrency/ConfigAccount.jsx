@@ -180,8 +180,6 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
       }
     }
 
-    console.log('body', body)
-
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarCuentaExtBancario', body, token)
@@ -274,75 +272,85 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
             </div>
           </div>
-          <div className='contaniner-tables  '>
-            <div className='box-search'>
+
+          <div className='box-search'>
+            <div>
               <h3>Accounts </h3>
-              <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
-                {showForm ? 'Close Form list' : '+ Add Account'}
-              </button>
+              <p> Register accounts for bank credentials </p>
             </div>
-            <div className='boards'>
-              <div className='tableContainer  '>
-                <table className='dataTable Account'>
-                  <thead>
-                    <tr>
-                      <th>Account</th>
-                      <th>Account Description</th>
-                      <th>Company</th>
-                      <th>Company Description</th>
-                      <th>Ruc</th>
-                      <th>File</th>
-                      <th>Currency</th>
-                      <th>Description currency</th>
-                      <th>State</th>
-                      <th>Actions</th>
 
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data?.oListCuentas?.map((row) => (
-                      <tr key={row.id_eb_conf_cuentas}>
-                        <td>{row.cuenta}</td>
-                        <td>{row.descripcion_cuenta}</td>
-                        <td>{row.empresa}</td>
-                        <td>{row.descripcion_empresa}</td>
-                        <td>{row.ruc}</td>
-                        <td>{row.nombre_tipo_archivo}</td>
-                        <td>{row.moneda}</td>
-                        <td>{row.descripcion_moneda}</td>
-                        <td>
-                          <span className={row.estado == '23' ? 'status-active' : 'status-disabled'}>{row.estado == '23' ? 'Active' : 'Disabled'}</span>
-                        </td>
-                        <td className='box-actions'>
-                          <button className='btn_crud' onClick={() => handleEdit(row)}>
-                            {' '}
-                            <ImageSvg name='Edit' />{' '}
-                          </button>
-                          <button className='btn_crud' onClick={() => setSelectedRowToDelete(row)}>
-                            {' '}
-                            <ImageSvg name='Delete' />
-                          </button>
+            <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
+              {showForm ? 'Close Form list' : '+ Add Account'}
+            </button>
+          </div>
 
-                        </td>
+          {
+            data?.oListCuentas.length > 0 && <div className='contaniner-tables  '>
+
+              <div className='boards'>
+                <div className='tableContainer  '>
+                  <table className='dataTable Account'>
+                    <thead>
+                      <tr>
+                        <th>Account</th>
+                        <th>Account Description</th>
+                        <th>Company</th>
+                        <th>Company Description</th>
+                        <th>Ruc</th>
+                        <th>File</th>
+                        <th>Currency</th>
+                        <th>Description currency</th>
+                        <th>State</th>
+                        <th>Actions</th>
 
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {data?.oListCuentas?.map((row) => (
+                        <tr key={row.id_eb_conf_cuentas}>
+                          <td>{row.cuenta}</td>
+                          <td>{row.descripcion_cuenta}</td>
+                          <td>{row.empresa}</td>
+                          <td>{row.descripcion_empresa}</td>
+                          <td>{row.ruc}</td>
+                          <td>{row.nombre_tipo_archivo}</td>
+                          <td>{row.moneda}</td>
+                          <td>{row.descripcion_moneda}</td>
+                          <td>
+                            <span className={row.estado == '23' ? 'status-active' : 'status-disabled'}>{row.estado == '23' ? 'Active' : 'Disabled'}</span>
+                          </td>
+                          <td className='box-actions'>
+                            <button className='btn_crud' onClick={() => handleEdit(row)}>
+                              {' '}
+                              <ImageSvg name='Edit' />{' '}
+                            </button>
+                            <button className='btn_crud' onClick={() => setSelectedRowToDelete(row)}>
+                              {' '}
+                              <ImageSvg name='Delete' />
+                            </button>
+
+                          </td>
+
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                </div>
 
               </div>
-              {showForm && <FormAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListAccount={handleEditListAccount} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm} showcomponent={showcomponent} />}
-            </div>
 
-            {requestError && <div className='errorMessage'> {
+              {requestError && <div className='errorMessage'> {
             requestError
 
             }
-                             </div>}
+                               </div>}
 
-            {isLoadingComponent && <LoadingComponent />}
+              {isLoadingComponent && <LoadingComponent />}
 
-          </div>
+                                             </div>
+          }
+
           {selectedRowToDelete && (
             <Modal close={() => {
               setSelectedRowToDelete(null)
@@ -369,6 +377,8 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
         </div>
 
         <div />
+
+        {showForm && <FormAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListAccount={handleEditListAccount} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm} showcomponent={showcomponent} />}
       </section>
 
     </>

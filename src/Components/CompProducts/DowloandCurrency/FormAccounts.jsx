@@ -201,11 +201,11 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                   <div className='content'>
                     <label>
                       <Field type='radio' name='state' value='Active' />
-                      Activate
+                      Active
                     </label>
                     <label>
                       <Field type='radio' name='state' value='Disabled' />
-                      Deactivate
+                      Disabled
                     </label>
                   </div>
                 </div>

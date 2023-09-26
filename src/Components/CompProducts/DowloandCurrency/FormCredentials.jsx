@@ -181,11 +181,11 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                   <div className='content'>
                     <label>
                       <Field type='radio' name='state' value='Active' />
-                      Activate
+                      Active
                     </label>
                     <label>
                       <Field type='radio' name='state' value='Disabled' />
-                      Deactivate
+                      Disabled
                     </label>
                   </div>
                 </div>

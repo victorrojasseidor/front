@@ -4,7 +4,7 @@
   cursor: pointer;
 
   &_primary {
-    margin-top: 2rem;
+    margin-top: 1rem;
     border-radius: brd(1);
     border-style: none;
     width: auto;
@@ -12,6 +12,17 @@
     color: get-color(white_s1);
     padding: 0.8rem 1.25rem;
     max-width: 500px;
+    display: flex;
+    align-items: center;
+    gap:0.5rem;
+    justify-content: center;
+    svg{
+      path,polyline{
+        stroke:get-color(white_s1);
+        color:get-color(white_s1)
+      }
+   
+    }
     a {
       color: get-color(white_s1);
     }
@@ -24,23 +35,33 @@
   }
 
   &_secundary {
+    margin-top: 1rem;
     border-style: none;
     border-radius: brd(1);
     background-color: transparent;
     color: get-color(black_p2);
-    // margin: 0.5rem;
-    padding: 0.5em 1.25em;
+     padding: 0.8rem 1.25rem;
     width: auto;
     border: 1px solid #242331;
     display: flex;
     justify-content: center;
     align-items: center;
+  
+   
 
     &:hover {
       background-color: get-color(t1-blue);
       color: get-color(white_s1);
       font-size: 1rem;
       transform: translateY(-2px);
+      border-style: none;
+
+      svg{
+        path,polyline{
+          stroke:get-color(white_s1);
+          color:get-color(white_s1)
+        }
+      }
     }
   }
   &_crud {
@@ -162,7 +183,8 @@
        border-style: none;
        &:hover {
        
-        font-size: large;
+        padding: 0.25rem 1rem;
+        font-weight: 600;
       }
      }
    
@@ -174,7 +196,8 @@
        border-style: none;
        &:hover {
        
-        font-size: large;
+        padding: 0.25rem 1rem;
+        font-weight: 600;
       }
        
      }

@@ -201,6 +201,8 @@
         margin-top: 0;
         padding: 0.5em 1em;
         width: 8rem;
+        display: flex;
+        justify-content: center;
       }
     }
   }
@@ -268,6 +270,7 @@
 .navigation-box{
  display: flex;
  flex-direction: column;
+
   .header-box{
  display: flex;
   flex-direction: row;
@@ -313,6 +316,7 @@
   gap: 0.25rem;
   align-items: center;
   width: 100%;
+  padding: 0.5rem 0;
 
   button{
     border-style: none ;

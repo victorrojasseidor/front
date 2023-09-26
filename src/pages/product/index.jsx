@@ -156,22 +156,46 @@ export default function Products () {
       router.push(ruta)
     }
 
-    console.log({ empresa })
-
     const status = data.iCodeStatus
-    if (status === 23 || status === 28) {
+    if (status === 28) {
       return (
         <button
           className='btn_primary'
           onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}
         >
-          {data.sDescStatus || 'Configure'}
+
+          <span>     </span> Setup  <span>  </span>
+
+        </button>
+      )
+    } else if (status === 23) {
+      return (
+        <button
+          className='btn_primary'
+          onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}
+        >
+
+          <span>     </span>  Edit <span>  </span>
+
         </button>
       )
     } else if (status === 27 || status === 31) {
-      return <button className='btn_secundary' onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>Free trial</button>
+      return (
+        <button
+          className='btn_secundary'
+          onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}
+        >
+
+          Free Trial
+
+        </button>
+      )
     } else {
-      return <span> </span>
+      return (
+        <Link href='#'>
+          <p> View more</p>
+        </Link>
+      )
     }
   }
 
@@ -217,7 +241,7 @@ export default function Products () {
             </button>
           </div>
           <div className='searchButton'>
-            <input type='text' placeholder='Search...' value={searchQuery} onChange={() => handleInputChange} />
+            <input type='text' placeholder='Search...' value={searchQuery} onChange={handleInputChange} />
             <button onClick={handleSearch}>
               <ImageSvg name='Search' />
             </button>
@@ -230,10 +254,10 @@ export default function Products () {
           ? (
             <div className='products_cards'>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <h5> Finanzas & Administración to {empresa?.razon_social_empresa}</h5>
+                <h5> finance and administration to {empresa?.razon_social_empresa}</h5>
 
               </div>
-              {/* <p> {selectedFilter}</p> */}
+
               <ul>
                 {searchResults.map((product) => (
                   <li key={product.iId} className={`card ${product.sDescStatus === 'Configured' ? 'configured' : ''} ${product.sDescStatus === 'Pending' || product.sDescStatus === 'Earring' ? 'pending' : ''}`}>
@@ -246,6 +270,9 @@ export default function Products () {
 
                     </div>
                     <div>
+                      <span>
+                        Status:
+                      </span>
                       <p>{product.sDescStatus}</p>
                       <span>
                         <ImageSvg name='Time' />
@@ -254,14 +281,7 @@ export default function Products () {
                     </div>
 
                     <div>
-                      <LimitedParagraph text={product.sDescription} limit={40} />
-                    </div>
 
-                    <div>
-
-                      <Link href={`/product/product?type=documentation&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}>
-                        <p> View more</p>
-                      </Link>
                       {renderButtons(product)}
 
                     </div>
@@ -280,6 +300,9 @@ export default function Products () {
                     </Link>
                   </div>
                   <div>
+                    <span>
+                      Status:
+                    </span>
                     <p>Not hired</p>
                     <span>
                       <ImageSvg name='Time' />
@@ -288,15 +311,9 @@ export default function Products () {
                   </div>
 
                   <div>
-                    <LimitedParagraph text='Create your list of patterns, you can add more than one' limit={40} />
-                  </div>
-
-                  <div>
-                    <Link href='/product'>
-                      <p> View more</p>
+                    <Link href='https://www.innovativa.la/digitalemployee'>
+                      View more
                     </Link>
-
-                    <button className='btn_secundary'>Free trial</button>
                   </div>
                 </li>
 
@@ -310,6 +327,9 @@ export default function Products () {
                     </Link>
                   </div>
                   <div>
+                    <span>
+                      Status:
+                    </span>
                     <p>Not hired</p>
                     <span>
                       <ImageSvg name='Time' />
@@ -318,15 +338,10 @@ export default function Products () {
                   </div>
 
                   <div>
-                    <LimitedParagraph text='Settings for Daily exchange rate' limit={40} />
-                  </div>
-
-                  <div>
-                    <Link href='/product'>
-                      <p> View more</p>
+                    <Link href='https://www.innovativa.la/digitalemployee'>
+                      View more
                     </Link>
 
-                    <button className='btn_secundary'>Free trial</button>
                   </div>
                 </li>
 

@@ -152,11 +152,6 @@ flex-wrap: wrap;
 
 
 
-
-
-
-
-
 .emailsFormContainer {
   width: 100%;
   display: flex;
@@ -300,20 +295,31 @@ p {
  }
 }
 
+
+
+}
+
+
 .submit-box{
-  padding: 1rem 0rem ;
+  padding: 2rem 0rem ;
   width: 100%;
   display:flex;
-  justify-content:space-around;
+  justify-content:center;
+  gap:1rem;
   align-items: center;
   align-content: center;
   button{
     width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: space-evenly;
   }
 }
 
+.head-status{
+  min-width: 10rem;
+ 
 }
-
 
 .docDowland{
   background-color: get-color(bone_s2);
@@ -345,6 +351,11 @@ p {
   flex-direction: column;
   align-items: center;
   .repository{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+    
    
     a{
       display: inline-block;
@@ -357,10 +368,24 @@ p {
  width: 100%;
 
  @include media(tablet) {
-  width: 72%;
+  width: 100%;
 
  }
  @include media(desktop) {
-  width: 72%;
+  width: 100%;
  }
+}
+
+
+.noti{
+  background-color: get-color(pink_s5);
+  border-radius: 10px 0 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+
+  span{
+    color:get-color(blue_p1);
+  }
 }

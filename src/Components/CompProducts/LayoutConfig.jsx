@@ -52,7 +52,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults
-        const selectedProduct = data.find((p) => p.iIdProdEnv === parseInt(iIdProdEnv))
+        const selectedProduct = data.find((p) => p.iId === parseInt(id))
         setProduct(selectedProduct)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
@@ -100,9 +100,8 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
           <div className='idProduct_container'>
             <div className='horizontalTabs'>
               <div className='tab-header'>
-                <Link href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`} style={{ display: 'none' }}>
+                <Link href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`}>
                   <button className={activeTab === 0 ? 'active ' : ''} onClick={() => handleTabClick(0)}>
-                    {/* <h4>Free Trial</h4> */}
 
                     <h4> Free Trial</h4>
 
@@ -139,7 +138,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
               <div className='tab-content'>
                 {activeTab === 0 && (
                   <div className='tabOne'>
-                    <FreeTrial iIdProd={iIdProdEnv} />
+                    <FreeTrial iIdProd={iIdProdEnv} nameProduct={product?.sName} />
                     {/* ... */}
                   </div>
                 )}

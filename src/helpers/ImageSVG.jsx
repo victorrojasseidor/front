@@ -4,18 +4,18 @@ import Image from 'next/image'
 import { FiMenu, FiChevronsRight, FiChevronsLeft } from 'react-icons/fi'
 import { IoClose, IoNotificationsOutline } from 'react-icons/io5'
 import { HiOutlineUsers } from 'react-icons/hi'
-import { MdOutlineDashboard, MdModeEditOutline } from 'react-icons/md'
+import { MdOutlineDashboard } from 'react-icons/md'
 import { GiProcessor } from 'react-icons/gi'
-import { AiOutlineInbox, AiOutlineSchedule, AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai'
-import { FaExchangeAlt, FaSignOutAlt, FaEye, FaEyeSlash, FaSearch, FaArrowRight, FaWeixin } from 'react-icons/fa'
-import { BiSupport, BiSolidError } from 'react-icons/bi'
+import { AiOutlineInbox, AiOutlineSchedule } from 'react-icons/ai'
+import { FaExchangeAlt, FaSignOutAlt, FaEye, FaEyeSlash, FaSearch, FaWeixin } from 'react-icons/fa'
+import { BiSupport } from 'react-icons/bi'
 import { CgTimer } from 'react-icons/cg'
-import { IoMdArrowRoundBack, IoMdCloseCircle, IoIosArrowForward } from 'react-icons/io'
+import { IoMdCloseCircle, IoIosArrowForward } from 'react-icons/io'
 import { FcMultipleInputs, FcDebt, FcLock, FcAcceptDatabase } from 'react-icons/fc'
-import { BsCheckCircle, BsChatLeftDots, BsDownload, BsSortNumericUpAlt, BsSortNumericDown, BsSortAlphaDownAlt, BsSortAlphaDown } from 'react-icons/bs'
-import { FiTrash2 } from 'react-icons/fi'
-import { TiPencil } from 'react-icons/ti'
+import { BsCheckCircle, BsDownload, BsSortNumericUpAlt, BsSortNumericDown, BsSortAlphaDownAlt, BsSortAlphaDown } from 'react-icons/bs'
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri'
+import { GoArrowLeft, GoArrowRight } from 'react-icons/go'
+import { GrFormPrevious, GrFormNext } from 'react-icons/gr'
 
 // icons of bpass
 
@@ -48,8 +48,10 @@ const ImageSvg = ({ name }) => {
     ClosePassword: <FaEyeSlash />,
     Search: <FaSearch />,
     Time: <CgTimer />,
-    Back: <IoMdArrowRoundBack />,
+    Back: <GrFormPrevious />,
+    Next: <GrFormNext />,
     Delete: <Image src={deleteSVG} width={80} alt='Spain' />,
+
     // Delete: <FiTrash2 />,
     Download: <BsDownload />,
     OrderDown: <BsSortNumericDown />,
