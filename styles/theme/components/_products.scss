@@ -7,12 +7,12 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
-    margin: 1em;
+    padding: 1em 0rem;
     gap: 1em;
 
     @include media(tablet) {
       flex-direction: row;
-      justify-content: space-around;
+      justify-content:flex-start;
     }
   }
 
@@ -47,14 +47,15 @@
   align-items: center;
   align-content: center;
   border: 1px solid get-color(forms_s6);
-  border-radius: brd(2);
+  border-radius: brd(1);
   padding-right: 1rem;
-  max-width: 300px;
+  max-width: 25rem;
   background-color: get-color(white_s1);
   height: 2.5em;
+  gap:2rem;
 
   input {
-    // padding: 1rem;
+
     font-size: 1rem;
     margin: 0.5rem;
     height: 1.5em;
@@ -354,4 +355,18 @@
     color: get-color(blue_p1);
     font-weight: 600;
   }
+}
+
+
+.box-empresa{
+  display: flex;
+  justify-content: flex-start;
+  gap:1rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+.sub-title{
+  padding: 1rem 0rem;
 }

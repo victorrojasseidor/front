@@ -7,6 +7,11 @@ import { useAuth } from '@/Context/DataContext'
 import { getProducts } from '@/helpers/auth'
 import NavigationPages from '@/Components/NavigationPages'
 import Loading from '@/Components/Atoms/Loading'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormHelperText from '@mui/material/FormHelperText'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -202,26 +207,44 @@ export default function Products () {
     <LayoutProducts menu='Product'>
       <div className='products'>
         <NavigationPages title='Digital employees'>
-          <div>
+          {/* <div>
             <Link href='/product'>
               <ImageSvg name='Products' />
             </Link>
-          </div>
+          </div> */}
         </NavigationPages>
 
-        <div className='perfil-select'>
+        <div className='box-empresa'>
           <p>
-            <span className='welcomeSpan'> Welcome 👋, Digital employees to company: </span>
+            <span className='welcomeSpan'> Welcome 👋, Digital employees  </span>
 
-            {/* <Image src={carita} width={20} alt='carita' /> */}
           </p>
-          <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChangeEmpresa}>
+          {/* <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChangeEmpresa}>
             {session?.oEmpresa.map((empres) => (
               <option key={empres.id_empresa} value={empres.razon_social_empresa}>
                 {empres.razon_social_empresa}
               </option>
             ))}
-          </select>
+          </select> */}
+
+          <div className='box-filter'>
+
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id='company-label'> To company:</InputLabel>
+              <Select
+                labelId='company-label'
+                value={empresa?.razon_social_empresa || ''}
+                onChange={handleSelectChangeEmpresa}
+              >
+                {session?.oEmpresa.map((empres) => (
+                  <MenuItem key={empres.id_empresa} value={empres.razon_social_empresa}>
+                    <div>   {empres.razon_social_empresa}</div>
+                  </MenuItem>
+                ))}
+              </Select>
+              {/* <FormHelperText>Select a company</FormHelperText> */}
+            </FormControl>
+          </div>
         </div>
 
         <div className='products_filterSearch'>
@@ -252,9 +275,8 @@ export default function Products () {
         {searchResults.length > 0
           ? (
             <div className='products_cards'>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <h5> Finance and administration to {empresa?.razon_social_empresa}</h5>
-
+              <div className='sub-title'>
+                <h5> ARI Finance to {empresa?.razon_social_empresa}</h5>
               </div>
 
               <ul>

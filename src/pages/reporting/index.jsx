@@ -4,22 +4,24 @@ import ImageSvg from '@/helpers/ImageSVG'
 import LimitedParagraph from '@/helpers/limitParagraf'
 import Link from 'next/link'
 import NavigationPages from '@/Components/NavigationPages'
+import { useAuth } from '@/Context/DataContext'
 
 function index (props) {
+  const { session } = useAuth()
+
   return (
     <LayoutProducts menu='Reporting'>
 
-      <NavigationPages title='Digital employees'>
+      <NavigationPages title='Reporting'>
 
-        <Link href='/reporting'>
-          <ImageSvg name='Dashboard' />
-          <p>
-            Reporting
-          </p>
-        </Link>
+        {}
 
       </NavigationPages>
       <section className='reporting'>
+        <div className='sub-title'>
+          <h5> ARI Finance to {session?.jCompany.razon_social_company} </h5>
+        </div>
+
         <div className='products_cards'>
           <ul className='reporting-list'>
             <li className='card configured'>

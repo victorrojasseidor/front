@@ -34,6 +34,21 @@ export default function ConfigDowland () {
   const [completeShedule, setCompleteShedule] = useState(false)
   const [showAccounts, setShowAccounts] = useState(false)
   const [bankCredential, setBankCredential] = useState(null)
+  // Estado para almacenar si el checkbox está marcado o no
+  const [isChecked, setIsChecked] = useState(false)
+
+  // Función para manejar el cambio de estado del checkbox
+  const handleCheckboxChange = (e) => {
+    setIsChecked(e.target.checked)
+  }
+
+  useEffect(() => {
+    if (isChecked) {
+      setCompleteShedule(true)
+    } else {
+      setCompleteShedule(false)
+    }
+  }, [isChecked])
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -594,7 +609,14 @@ export default function ConfigDowland () {
               </h2>
               <div className='input-box'>
                 <label className='checkbox'>
-                  <input className='checkboxId' id='acceptTerms' type='checkbox' name='acceptTerms' />
+                  <input
+                    className='checkboxId'
+                    id='acceptTerms'
+                    type='checkbox'
+                    name='acceptTerms'
+                    checked={isChecked} // Establece el estado del checkbox
+                    onChange={handleCheckboxChange}
+                  />
                   Daily <span>Timezone: (UTC -05:00)</span> Bogota
                 </label>
               </div>

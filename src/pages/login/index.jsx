@@ -74,7 +74,7 @@ export default function Login () {
 
   return (
     <LayoutLogin>
-      <nav className='navRegister'>
+      <nav className='navRegister' style={{ justifyContent: 'center' }}>
         <Image src={logo} width={120} alt='imgRegister' />
         <ul>
           <li className='Question'> </li>
@@ -84,7 +84,7 @@ export default function Login () {
         </ul>
       </nav>
 
-      <div className='register'>
+      <div className='register' style={{ paddingTop: '2rem' }}>
         <h1> Log in </h1>
         <p> Log in Digital Employees </p>
 
