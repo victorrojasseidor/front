@@ -2,18 +2,18 @@ import Image from 'next/image'
 
 // icons react icons
 import { FiMenu, FiChevronsRight, FiChevronsLeft } from 'react-icons/fi'
-import { IoClose, IoNotificationsOutline } from 'react-icons/io5'
+import { IoClose, IoNotificationsOutline, IoRefreshCircle } from 'react-icons/io5'
 import { HiOutlineUsers } from 'react-icons/hi'
 import { MdOutlineDashboard } from 'react-icons/md'
 import { GiProcessor } from 'react-icons/gi'
 import { AiOutlineInbox, AiOutlineSchedule } from 'react-icons/ai'
 import { FaExchangeAlt, FaSignOutAlt, FaEye, FaEyeSlash, FaSearch, FaWeixin } from 'react-icons/fa'
-import { BiSupport } from 'react-icons/bi'
+import { BiSupport, BiBot } from 'react-icons/bi'
 import { CgTimer } from 'react-icons/cg'
 import { IoMdCloseCircle, IoIosArrowForward } from 'react-icons/io'
 import { FcMultipleInputs, FcDebt, FcLock, FcAcceptDatabase } from 'react-icons/fc'
-import { BsCheckCircle, BsDownload, BsSortNumericUpAlt, BsSortNumericDown, BsSortAlphaDownAlt, BsSortAlphaDown } from 'react-icons/bs'
-import { RiMenu3Line, RiCloseLine } from 'react-icons/ri'
+import { BsCheckCircle, BsDownload, BsSortNumericUpAlt, BsSortNumericDown, BsSortAlphaDownAlt, BsSortAlphaDown, BsCheckCircleFill, BsFillQuestionCircleFill } from 'react-icons/bs'
+import { RiMenu3Line, RiCloseLine, RiRobot2Fill } from 'react-icons/ri'
 import { GoArrowLeft, GoArrowRight } from 'react-icons/go'
 import { GrFormPrevious, GrFormNext } from 'react-icons/gr'
 
@@ -51,7 +51,8 @@ const ImageSvg = ({ name }) => {
     Back: <GrFormPrevious />,
     Next: <GrFormNext />,
     Delete: <Image src={deleteSVG} width={80} alt='Spain' />,
-
+    Refresh: <IoRefreshCircle />,
+    Question: <BsFillQuestionCircleFill />,
     // Delete: <FiTrash2 />,
     Download: <BsDownload />,
     OrderDown: <BsSortNumericDown />,
@@ -62,7 +63,7 @@ const ImageSvg = ({ name }) => {
     // menú icons
     MenuOpen: <RiMenu3Line />,
     MenuClose: <RiCloseLine />,
-    Products: <AiOutlineInbox />,
+    Products: <BiBot />,
     Users: <HiOutlineUsers />,
     Dashboard: <MdOutlineDashboard />,
     APIS: <GiProcessor />,

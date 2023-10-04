@@ -6,6 +6,8 @@ import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import Modal from './Modal'
+import ImageSvg from '@/helpers/ImageSVG'
+import { useRouter } from 'next/router'
 
 function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
   const [error, SetError] = useState(null)
@@ -13,9 +15,7 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
   const { session, setModalToken } = useAuth()
 
   const productName = nameProduct || 'Downlaod automated Bank Statements'
-
-  console.log('session', session)
-
+  const router = useRouter()
   // send frretrial
   async function handleSubmit (values, { setSubmitting, resetForm }) {
     const body = {
@@ -43,7 +43,6 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
 
         setTimeout(() => {
           resetForm()
-          window.location.reload()
         }, 1000)// Adjust the delay time as needed
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
@@ -132,13 +131,24 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
 
         {confirm && (
           <Modal close={() => { SetConfirm(false) }}>
-            <div>
-              <h2>
-                Your request was sent successfully
-              </h2>
+            <ImageSvg name='Check' />
 
-              <p> We will contact you soon </p>
+            <h2>
+              Your request was sent successfully
+            </h2>
+
+            <p> We will contact you soon </p>
+
+            <div className='box-buttons'>
+              <button
+                type='button'
+                className='btn_primary small'
+                onClick={() => { router.push('/product'); SetConfirm(false) }}
+              >
+                Return to DE
+              </button>
             </div>
+
           </Modal>
         )}
 

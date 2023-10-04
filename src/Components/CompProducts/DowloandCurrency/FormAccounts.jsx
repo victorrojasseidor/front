@@ -50,7 +50,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
   const initialValues = {
     Account: initialVal?.cuenta || '',
     DesAccount: initialVal?.descripcion_cuenta || '', // Usamos los valores iniciales si están disponibles
-    Company: initialVal?.descripcion_cuenta || '',
+    Company: initialVal?.empresa || '',
     DesCompany: initialVal?.descripcion_empresa || '',
     Ruc: initialVal?.ruc || '',
     Coin: initialVal?.moneda || '',
@@ -65,7 +65,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
         <h2 className='box'>{initialVal ? 'Edit record' : 'Add account'}</h2>
         <Formik
           initialValues={initialValues}
-          validate={(values) => validateFormAddAccount(values, initialValues)}
+          validate={(values) => validateFormAddAccount(values, initialVal, showcomponent)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
               handleEditListAccount(values)
@@ -183,6 +183,9 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                           setFieldValue('TypeFile', selectedOption)
                         }}
                       />
+
+                      <ErrorMessage name='TypeFile' component='span' className='errorMessage' />
+
                     </div>}
 
                 </div>

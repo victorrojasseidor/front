@@ -367,6 +367,8 @@ p {
 .accounts-tables{
  width: 100%;
  display: inline-block;
+ display: flex;
+ gap:1rem;
 
 //  @include media(tablet) {
 //   width: 60%;

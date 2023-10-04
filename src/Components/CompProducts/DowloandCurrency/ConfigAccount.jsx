@@ -356,6 +356,8 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
               setSelectedRowToDelete(null)
             }}
             >
+              <ImageSvg name='Question' />
+
               <div>
                 <h3>Delete this account?</h3>
                 <div className='box-buttons'>

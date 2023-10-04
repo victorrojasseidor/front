@@ -538,8 +538,10 @@ export default function ConfigDowland () {
                         setSelectedRowToDelete(null)
                       }}
                       >
+                        <ImageSvg name='Question' />
+
                         <div>
-                          <h3>Do you want to delete this credential bank list?</h3>
+                          <h3>Do you want to delete this credential bank ?</h3>
                           <div className='box-buttons'>
                             <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
                               YES
@@ -694,11 +696,15 @@ export default function ConfigDowland () {
         }}
         >
           <div>
+            <ImageSvg name='Check' />
+          </div>
+          <div>
+
             <h2>Configured  </h2>
 
-            <span>
+            <p>
               DOWNLOAD BANK STATEMENTS
-            </span>
+            </p>
 
             <div className='box-buttons'>
 

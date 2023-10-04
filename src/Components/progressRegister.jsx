@@ -6,11 +6,18 @@ import { useRouter } from 'next/navigation'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import { refresToken } from '@/helpers/auth'
 import { useAuth } from '@/Context/DataContext'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormHelperText from '@mui/material/FormHelperText'
+import ImageSvg from '@/helpers/ImageSVG'
 
 const ProgressRegister = ({ userData }) => {
   const [step, setStep] = useState(1)
   const [user, setUser] = useState(userData)
   const [formValues, setFormValues] = useState({}) // Nuevo estado para almacenar los datos del formulario
+  const [country, setCountrySelect] = useState('')
 
   const router = useRouter()
   const { session, setSession, logout, setModalToken } = useAuth()
@@ -22,6 +29,10 @@ const ProgressRegister = ({ userData }) => {
 
   const handlePreviousStep = () => {
     setStep(step - 1)
+  }
+  const handleCountryChange = (event) => {
+    const valueSelect = event.target.value
+    setCountrySelect(valueSelect)
   }
 
   // enviar formulario
@@ -118,15 +129,26 @@ const ProgressRegister = ({ userData }) => {
                     <ErrorMessage className='errorMessage' name='lastName' component='div' />
                   </div>
 
-                  <div className='phone-field'>
-                    <div>
-                      <Field as='select' id='countryCode' name='countryCode'>
-                        {countryOptions.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </Field>
+                  <div className='box-phone'>
+
+                    <div className='box-filter'>
+                      <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel id='company-label'>Code</InputLabel>
+                        <Select
+                          labelId='company-label'
+                          value={country || countryOptions[0].value}
+                          onChange={handleCountryChange}
+                          className='delimite-text'
+                        >
+
+                          {countryOptions?.map((comp) => (
+                            <MenuItem key={comp.value} value={comp.value}>
+                              <div> {comp.label}</div>
+                            </MenuItem>
+                          ))}
+                        </Select>
+
+                      </FormControl>
                     </div>
 
                     <div className='input-box'>
@@ -134,6 +156,7 @@ const ProgressRegister = ({ userData }) => {
                       <label htmlFor='phoneNumber'>Phone Number</label>
                       <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
                     </div>
+
                   </div>
 
                   <div className='input-box'>
@@ -142,8 +165,9 @@ const ProgressRegister = ({ userData }) => {
                   </div>
 
                   <div className='box-buttons'>
-                    <button className='btn_primary small' type='submit' onClick={handleNextStep}>
+                    <button className='btn_secundary small' type='submit' onClick={handleNextStep}>
                       NEXT
+                      <ImageSvg name='Next' />
                     </button>
                   </div>
                 </div>
@@ -208,11 +232,13 @@ const ProgressRegister = ({ userData }) => {
                 </div>
 
                 <div className='box-buttons'>
-                  <button type='button' className='btn_secundary' onClick={handlePreviousStep}>
+                  <button type='button' className='btn_secundary small' onClick={handlePreviousStep}>
+                    <ImageSvg name='Back' />
                     Previous
                   </button>
-                  <button type='button' className='btn_primary small' onClick={handleNextStep}>
+                  <button type='button' className='btn_secundary small' onClick={handleNextStep}>
                     Next
+                    <ImageSvg name='Next' />
                   </button>
                 </div>
               </div>
@@ -236,6 +262,8 @@ const ProgressRegister = ({ userData }) => {
 
                 <div className='box-buttons'>
                   <button type='button' className='btn_secundary small' onClick={handlePreviousStep}>
+                    <ImageSvg name='Back' />
+
                     Previous
                   </button>
                   <button type='submit' className='btn_primary small' disabled={isSubmitting}>

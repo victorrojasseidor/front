@@ -67,7 +67,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
           initialValues={initialValues}
           // validate={initialVal === null ? validateFormAddListBank : undefined}
           // validate={validateFormAddListBank}
-          validate={(values) => validateFormAddListBank(values, initialValues)}
+          validate={(values) => validateFormAddListBank(values, initialVal, showcomponent)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
               handleEditListBank(values)
@@ -117,7 +117,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                       isClearable
                       value={values.bank || (initialVal && bankOptions.find((option) => option.id === initialVal.id_banco))}
                       onChange={(selectedOption) => {
-                        setShowComponent(selectedOption.jConfCredencial)
+                        setShowComponent(selectedOption?.jConfCredencial)
                         setFieldValue('bank', selectedOption)
                       }}
                       isDisabled={!country}

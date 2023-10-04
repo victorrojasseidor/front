@@ -130,11 +130,11 @@
     display: flex;
     justify-content: row;
     justify-content: center;
-    // width: 100%;
     padding: 0 1em;
     gap: 1em;
+  }
 
-    &:first-child {
+    &-title {
       /* Estilos para el primer div */
 
       span {
@@ -156,12 +156,12 @@
       h5 {
         font-weight: bold;
         &:hover {
-          background-color: get-color(pink_s5);
+          background-color: get-color(bg-cles);
         }
       }
     }
 
-    &:nth-child(2) {
+    &-status {
       display: flex;
       align-items: center;
       display: flex;
@@ -172,41 +172,13 @@
         color: get-color(grey1_s3);
         font-size: small;
       }
-
       svg {
         font-size: medium;
       }
     }
 
-    &:nth-child(3) {
-      /* Estilos para el tercer div */
-      // background-color: aqua;
-      color: get-color(grey1_s3);
-      font-size: medium;
-    }
-
-    &:nth-child(4) {
-      /* Estilos para el tercer div */
-      // background-color: aqua;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      // background-color: #8cf3ea;
-
-      a {
-        color: get-color(blue_p1);
-        display: flex;
-        align-items: center;
-      }
-      button {
-        margin-top: 0;
-        padding: 0.5em 1em;
-        width: 8rem;
-        display: flex;
-        justify-content: center;
-      }
-    }
-  }
+  
+  
 }
 
 .limited-paragraph {

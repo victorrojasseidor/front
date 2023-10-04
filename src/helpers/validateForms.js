@@ -96,55 +96,63 @@ export const validateFormprofilestart = (values) => {
   return errors
 }
 
-export const validateFormAddListBank = (values, initialValues) => {
+export const validateFormAddListBank = (values, initialVal, showcomponent) => {
   const errors = {}
 
   if (!values.name) {
     errors.name = 'Name is required'
   }
 
-  if (!values.principalCredential) {
-    errors.principalCredential = 'Principal Credential is required'
+  if (!values.bank && !initialVal) {
+    errors.bank = 'Bank is required'
   }
 
-  if (!initialValues) {
-    if (!values.bank) {
-      errors.bank = 'Bank is required'
-    }
+  if (!initialVal && !values.password) {
+    errors.password = 'Password is required'
+  }
 
-    if (!values.country) {
-      errors.country = 'Country is required'
-    }
+  if (!values.principalCredential && showcomponent?.bCredencial1) {
+    errors.principalCredential = 'This credential is required'
+  }
 
-    if (!values.password) {
-      errors.password = 'Password is required'
-    }
+  if (!values.credential2 && showcomponent?.bCredencial2) {
+    errors.credential2 = 'This credential is required'
+  }
+
+  if (!values.credential3 && showcomponent?.bCredencial3) {
+    errors.credential3 = 'This credential is required'
+  }
+
+  if (!values.credential4 && showcomponent?.bCredencial4) {
+    errors.credential4 = 'This credential is required'
   }
 
   return errors
 }
 
-export const validateFormAddAccount = (values, initialValues) => {
+export const validateFormAddAccount = (values, initialVal, showcomponent) => {
   const errors = {}
 
-  // if (!values.Company) {
-  //   errors.Company = 'Company is required'
-  // }
+  console.log(initialVal)
 
-  // if (!values.Ruc) {
-  //   errors.Ruc = 'Ruc is required'
-  // }
-
-  // if (!values.Coin) {
-  //   errors.Coin = 'Coin is required'
-  // }
-
-  // if (!values.TypeFile) {
-  //   errors.TypeFile = 'Type of file is required'
-  // }
-
-  if (!values.Account) {
+  if (!values.Account && showcomponent.bAccount) {
     errors.Account = 'Account is required'
+  }
+
+  if (!values.Company && showcomponent.bCompany) {
+    errors.Company = 'Company is required'
+  }
+
+  if (!values.Ruc && showcomponent.bRuc) {
+    errors.Ruc = 'Ruc is required'
+  }
+
+  if (!values.Coin && showcomponent.bCoin) {
+    errors.Coin = 'Coin is required'
+  }
+
+  if (!values.TypeFile && showcomponent.bType && !initialVal) {
+    errors.TypeFile = 'Type of file is required'
   }
 
   return errors

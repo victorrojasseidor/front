@@ -25,7 +25,7 @@ function index (props) {
         <div className='products_cards'>
           <ul className='reporting-list'>
             <li className='card configured'>
-              <div>
+              <div className='card-title'>
                 <span>
                   <ImageSvg name='Dashboard' />
                 </span>
@@ -34,10 +34,10 @@ function index (props) {
                 </Link>
               </div>
               <div />
-              <div className='description'>
-                <p>
+              <div className='card-status description'>
+                <span>
                   Made by Digital Employes:
-                </p>
+                </span>
                 <span className='maybe'>
                   <LimitedParagraph text='Download the daily bank statement' limit={40} />
                 </span>
@@ -54,7 +54,7 @@ function index (props) {
             </li>
 
             <li className='card configured'>
-              <div>
+              <div className='card-title'>
                 <span>
                   <ImageSvg name='Dashboard' />
                 </span>
@@ -63,10 +63,10 @@ function index (props) {
                 </Link>
               </div>
               <div />
-              <div className='description'>
-                <p>
+              <div className='card-status description'>
+                <span>
                   Made by Digital Employes:
-                </p>
+                </span>
                 <span className='maybe'>
                   <LimitedParagraph text='Download the daily bank statement' limit={40} />
                 </span>

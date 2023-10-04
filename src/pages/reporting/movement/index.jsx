@@ -418,7 +418,7 @@ const Movement = () => {
 
                 >
                   <MenuItem value=''>
-                    <em>All Companys</em>
+                    <em>All types</em>
                   </MenuItem>
                   {dataInitialSelect.oTipo?.map((comp) => (
                     <MenuItem key={comp.id_tipo} value={comp.id_tipo}>

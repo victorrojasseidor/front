@@ -88,7 +88,151 @@
     
   }
 
+
+  .box-progress{
+ 
+    padding: 1rem 0rem;
+    
+  }
   
+}
+
+.profile{
+  background-color: get-color(white_s1);
+  padding: 2rem;
+  border-radius: brd(2);
+  
+
+  .box-action{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .data-profile{
+
+    .card-info{
+      padding: 1rem 0rem;
+      
+      ul{
+        padding: 0.5rem 0rem;
+        
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap:1rem;
+        li{
+          color:get-color(grey2_s4);
+
+        }
+        span{
+         color: get-color(blue_p1)
+
+        }
+
+      }
+    }
+
+  }
+
+
+  .edit-profile{
+  
+    
+
+    h2{
+    
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  
+    h4{
+      width: 100%;
+      display:inline-block;
+   
+      text-align: start;
+    }
+
+    .form-container{
+      display: flex;
+      gap:1rem;
+      flex-direction: column;
+    }
+  
+    .box-forms{
+    
+  
+      display: grid;
+      grid-auto-columns: auto;
+      gap:1rem;
+
+
+     @include media(tablet) {
+      grid-template-columns: 1fr 1fr; 
+      }
+
+     
+    
+     
+
+
+        
+        
+    }
+
+    .companies-container{
+  
+  
+      align-items:flex-start ;
+
+      .box-companies{
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+        min-width: 12rem;
+      }
+
+    }
+
+  
+  }
+}
+
+
+.box-phone{
+    
+  display: flex;
+  gap:1em;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  .delimite-text {
+        height: 3.25rem;
+        color:get-color(blue_p1);
+        padding-top: 0.7rem;
+    
+  }
+  .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
+    // margin-bottom: 0.35em;
+  }
+
+  .box-filter .css-1869usk-MuiFormControl-root .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
+    padding: 0.25rem 0.5rem 0 0.5rem;
+  }
+
+
+  }
+
+.selected{
+
+  border-radius: brd(1);
+  border: 2px solid get-color(lilac_p3);
+  padding: 1rem;
+  background-color:get-color(pink_s5);
+  box-shadow: bsh(1);
+  transition: border 0.3s ease-in-out; 
 }
 
 

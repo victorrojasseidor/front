@@ -203,6 +203,8 @@ export default function Products () {
     }
   }
 
+  console.log({ session })
+
   return (
     <LayoutProducts menu='Product'>
       <div className='products'>
@@ -215,10 +217,9 @@ export default function Products () {
         </NavigationPages>
 
         <div className='box-empresa'>
-          <p>
-            <span className='welcomeSpan'> Welcome 👋, Digital employees  </span>
 
-          </p>
+          <span> Welcome 👋, Digital employees  </span>
+
           {/* <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChangeEmpresa}>
             {session?.oEmpresa.map((empres) => (
               <option key={empres.id_empresa} value={empres.razon_social_empresa}>
@@ -281,8 +282,8 @@ export default function Products () {
 
               <ul>
                 {searchResults.map((product) => (
-                  <li key={product.iId} className={`card ${product.sDescStatus === 'Configured' ? 'configured' : ''} ${product.sDescStatus === 'Pending' || product.sDescStatus === 'Earring' ? 'pending' : ''}`}>
-                    <div>
+                  <li key={product.iId} className={`card ${product.iCodeStatus === 23 ? 'configured' : ''} ${product.iCodeStatus === 28 ? 'pending' : ''}`}>
+                    <div className='card-title'>
                       <span>
                         <ImageSvg name='Products' />
                       </span>
@@ -290,7 +291,7 @@ export default function Products () {
                       <h5> {product.sName}</h5>
 
                     </div>
-                    <div>
+                    <div className='card-status'>
                       <span>
                         Status:
                       </span>
@@ -301,7 +302,7 @@ export default function Products () {
                       </span>
                     </div>
 
-                    <div>
+                    <div className='box-buttons'>
 
                       {renderButtons(product)}
 
@@ -312,7 +313,7 @@ export default function Products () {
                 {/* productos añadidos por el momento */}
 
                 <li className='card' style={{ display: selectedFilter == 31 || !selectedFilter ? 'block' : 'none' }}>
-                  <div>
+                  <div className='card-title'>
                     <span>
                       <ImageSvg name='Products' />
                     </span>
@@ -320,7 +321,7 @@ export default function Products () {
                       <h5> Download SUNAT Tax Status Registers </h5>
                     </Link>
                   </div>
-                  <div>
+                  <div className='card-status'>
                     <span>
                       Status:
                     </span>
@@ -331,7 +332,7 @@ export default function Products () {
                     </span>
                   </div>
 
-                  <div>
+                  <div className='box-buttons' style={{ height: '5rem' }}>
                     <Link href='https://www.innovativa.la/digitalemployee'>
                       View more
                     </Link>
@@ -339,7 +340,7 @@ export default function Products () {
                 </li>
 
                 <li className='card' style={{ display: selectedFilter == 31 || !selectedFilter ? 'block' : 'none' }}>
-                  <div>
+                  <div className='card-title'>
                     <span>
                       <ImageSvg name='Products' />
                     </span>
@@ -347,7 +348,7 @@ export default function Products () {
                       <h5>Invoice register</h5>
                     </Link>
                   </div>
-                  <div>
+                  <div className='card-status'>
                     <span>
                       Status:
                     </span>
@@ -358,7 +359,7 @@ export default function Products () {
                     </span>
                   </div>
 
-                  <div>
+                  <div className='box-buttons' style={{ height: '5rem' }}>
                     <Link href='https://www.innovativa.la/digitalemployee'>
                       View more
                     </Link>

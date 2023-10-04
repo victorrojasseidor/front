@@ -99,6 +99,9 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
 
       {modalConfirmation && (
         <Modal close={() => setModalConfirmation(false)}>
+
+          <ImageSvg name='Check' />
+
           <div>
             <h3>
               Successful email registration

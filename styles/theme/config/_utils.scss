@@ -154,9 +154,9 @@
     transform: translateY(-30px) scale(0.9);
     transform-origin: left top;
     /* medio*/
-    top: 2.4rem; //0
+    top: 2.5rem; //0
     left: 1rem; //0
-    color: get-color(black_p2);
+    color: get-color(grey2_s4);
     background-color: get-color(white_s1);
     border-radius: 5px;
     padding: 0rem 0.25rem;
@@ -376,13 +376,7 @@
   }
 
   tbody {
-    tr {
-      cursor: pointer;
-
-      &:hover {
-        background-color: get-color(bg-cles);
-      }
-    }
+    
     th,
     td {
       border: 1px solid #ccc;
@@ -432,6 +426,14 @@
 
 .Account {
 
+  tr {
+      
+
+    &:hover {
+      background-color: get-color(bg-cles);
+    }
+  }
+
   th,td{
 
     white-space: nowrap;
@@ -457,4 +459,8 @@
   width: 11rem;
   padding-right: 28px;
 
+
+
 }
+
+

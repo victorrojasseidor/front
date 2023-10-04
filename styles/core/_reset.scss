@@ -160,30 +160,30 @@ p {
 }
 
 
-select {
-  /* Estilos generales para el select */
-  width: 100%;
-  color:get-color(blue_p1);
-  padding: 0.8rem 1rem;
-  border: brd(1);
-  border-radius: 4px;
-  background-color: get-color(white_s1);
-  border: 1px solid #e5e5ea;
-  border-radius: 0.3125rem;
-  border-bottom: 2px solid #ddd;
-  margin: 1em 0;
-  cursor: pointer;
+// select {
+//   /* Estilos generales para el select */
+//   width: 100%;
+//   color:get-color(blue_p1);
+//   padding: 0.8rem 1rem;
+//   border: brd(1);
+//   border-radius: 4px;
+//   background-color: get-color(white_s1);
+//   border: 1px solid #e5e5ea;
+//   border-radius: 0.3125rem;
+//   border-bottom: 2px solid #ddd;
+//   margin: 1em 0;
+//   cursor: pointer;
 
-  &:focus {
-    outline: none;
-  }
+//   &:focus {
+//     outline: none;
+//   }
 
-  &:active,
-  &:hover {
-    transform: translateY(2px);
+//   &:active,
+//   &:hover {
+//     transform: translateY(2px);
 
-    option {
-      background-color: get-color(white_s1);
-    }
-  }
-}
+//     option {
+//       background-color: get-color(white_s1);
+//     }
+//   }
+// }

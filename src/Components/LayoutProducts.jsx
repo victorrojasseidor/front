@@ -167,7 +167,7 @@ const LayoutProducts = ({ children, menu }) => {
           <ul>
 
             <li className={menu === 'Profile' ? 'active' : ''}>
-              <Link href='/profilestart'>
+              <Link href='/profile'>
                 <ImageSvg name='Users' />
                 <h5>
                   Profile
