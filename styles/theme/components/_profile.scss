@@ -5,9 +5,14 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-size: 80vw;
-  padding: 2em 6em;
+  padding: 2em 1em;
   display: flex;
   flex-direction: row;
+  @include media(tablet) {
+   
+    padding: 2em 8em;
+  }
+
 
 
   .discover {
@@ -87,7 +92,6 @@ h2{
   padding: 2rem;
   border-radius: brd(2);
   
-
   .box-action{
     display: flex;
     justify-content: flex-end;
@@ -199,18 +203,22 @@ h2{
 .companies-container{
   display: flex;
   gap:1rem;
-  justify-content: center;
+ width: 100%;
   align-items:flex-start ;
   flex-direction: column;
+  
   
   .companies{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
+      
     gap:1rem;
     padding: 1rem 1rem;
   }
+
   .box-companies{
     display: flex;
     gap: 0.5rem;
@@ -220,6 +228,7 @@ h2{
     padding: 1rem;
     max-width: 10rem;
     text-align: center;
+    cursor: pointer;
 
   }
   .card {

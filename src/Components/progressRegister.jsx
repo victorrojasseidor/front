@@ -61,7 +61,6 @@ const ProgressRegister = ({ userData }) => {
         bCodeNotEmail: true,
         bCodeNotBpas: true,
         oEmpresa: selectedCompanies
-
       }
     }
 
@@ -84,9 +83,7 @@ const ProgressRegister = ({ userData }) => {
         await logout()
         setConfirmRegister(false)
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form'
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         setStatus(errorMessage)
         setConfirmRegister(false)
         console.log('error', errorMessage)
@@ -111,7 +108,6 @@ const ProgressRegister = ({ userData }) => {
       oResults: {
         sEmail: userData.sCorreo,
         sPassword: userData.password
-
       }
     }
 
@@ -137,218 +133,185 @@ const ProgressRegister = ({ userData }) => {
   }
 
   return (
-    <div className='containerProgress '>
+    <>
       {isLoading && <Loading />}
-      <div className='progressBar'>
-        <div
-          className='progressBarFill'
-          style={{ width: `${(step - 1) * 50}%` }} // 50% per step
-        />
-      </div>
-      <div className='step'>Step {step}</div>
-      <Formik
-        initialValues={{
-          lastName: '',
-          countryCode: countryOptions[0], // Valor inicial de Perú
-          phoneNumber: '',
-          notificationsInBpass: true,
-          emailNotifications: true,
-          companies: []
-        }}
-        validate={validateFormprofilestart} // Use the custom validation function here
-        onSubmit={(values, { setSubmitting, setStatus }) => {
-          setFormValues(values)
-          handleSumbit(values, { setSubmitting, setStatus })
-        }}
-        enableReinitialize
-      >
-        {({ isSubmitting, status, values, setFieldValue, errors }) => (
-          <Form className='form-container '>
-            {step === 1 && (
-              <div>
-                <h4> Personal information</h4>
+      <div className='containerProgress '>
+        <div className='progressBar'>
+          <div className='progressBarFill' style={{ width: `${(step - 1) * 50}%` }} />
+        </div>
+        <div className='step'>Step {step}</div>
+        <Formik
+          initialValues={{
+            lastName: '',
+            countryCode: countryOptions[0], // Valor inicial de Perú
+            phoneNumber: '',
+            notificationsInBpass: true,
+            emailNotifications: true,
+            companies: []
+          }}
+          validate={validateFormprofilestart} // Use the custom validation function here
+          onSubmit={(values, { setSubmitting, setStatus }) => {
+            setFormValues(values)
+            handleSumbit(values, { setSubmitting, setStatus })
+          }}
+          enableReinitialize
+        >
+          {({ isSubmitting, status, values, setFieldValue, errors }) => (
+            <Form className='form-container '>
+              {step === 1 && (
+                <div>
+                  <h4> Personal information</h4>
 
-                <div className='box-forms'>
-                  <div className='input-box'>
-                    <Field type='text' name='name' placeholder=' ' value={userData?.sUserName || ''} readOnly />
-                    <label htmlFor='name'>Username</label>
-                  </div>
-
-                  <div className='input-box'>
-                    <Field type='text' name='lastName' placeholder=' ' />
-                    <label htmlFor='lastName'>Last Name</label>
-                    <ErrorMessage className='errorMessage' name='lastName' component='div' />
-                  </div>
-
-                  <div className='box-phone'>
-
-                    <div className='box-filter'>
-                      <FormControl sx={{ m: 1, minWidth: 120 }}>
-                        <InputLabel id='company-label'>Code</InputLabel>
-                        <Select
-                          labelId='company-label'
-                          value={country || countryOptions[0]?.value}
-                          onChange={handleCountryChange}
-                          className='delimite-text'
-                        >
-
-                          {countryOptions?.map((comp) => (
-                            <MenuItem key={comp.value} value={comp.value}>
-                              <div> {comp.label}</div>
-                            </MenuItem>
-                          ))}
-                        </Select>
-
-                      </FormControl>
+                  <div className='box-forms'>
+                    <div className='input-box'>
+                      <Field type='text' name='name' placeholder=' ' value={userData?.sUserName || ''} readOnly />
+                      <label htmlFor='name'>Username</label>
                     </div>
 
                     <div className='input-box'>
-                      <Field type='text' id='phoneNumber' name='phoneNumber' placeholder=' ' />
-                      <label htmlFor='phoneNumber'>Phone Number</label>
-                      <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
+                      <Field type='text' name='lastName' placeholder=' ' />
+                      <label htmlFor='lastName'>Last Name</label>
+                      <ErrorMessage className='errorMessage' name='lastName' component='div' />
                     </div>
 
-                  </div>
-
-                  <div className='input-box'>
-                    <Field type='email' name='corporateEmail' placeholder=' ' value={userData?.sCorreo || ''} readOnly />
-                    <label htmlFor='corporateEmail'>Company email</label>
-                  </div>
-
-                </div>
-
-                <div className='box-buttons'>
-                  {values.phoneNumber && values.lastName &&
-                    <button
-                      className={`btn_secundary small ${'lastName' in errors || 'phoneNumber' in errors ? 'disabled' : ''}`}
-                      disabled={!values.phoneNumber || !values.lastName}
-                      type='submit' onClick={handleNextStep}
-                    >
-                      NEXT
-                      <ImageSvg name='Next' />
-                    </button>}
-
-                </div>
-              </div>
-            )}
-
-            {step === 2 && (
-              <div className='companies-container'>
-                <h4> Company profile </h4>
-
-                <div>
-                  <div>
-                    <p>
-                      Corporate: <span>{userData.jCompany.razon_social_company}</span>
-                    </p>
-                  </div>
-
-                  <div>
-                    <p>Select the Profile to company:</p>
-                  </div>
-
-                  <div className='companies'>
-                    {userData?.oEmpresa.map((option) => (
-                      <div
-                        className={`box-companies ${selectedCompanies.includes(option.id_empresa) ? 'selected' : ''}`}
-                        key={option.id_empresa}
-                        onClick={() => toggleCompanySelection(option.id_empresa)}
-                      >
-                        <div className='card'>
-                          <span className='initial'>{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
-                        </div>
-                        <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
+                    <div className='box-phone'>
+                      <div className='box-filter'>
+                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                          <InputLabel id='company-label'>Code</InputLabel>
+                          <Select labelId='company-label' value={country || countryOptions[0]?.value} onChange={handleCountryChange} className='delimite-text'>
+                            {countryOptions?.map((comp) => (
+                              <MenuItem key={comp.value} value={comp.value}>
+                                <div> {comp.label}</div>
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
                       </div>
-                    ))}
+
+                      <div className='input-box'>
+                        <Field type='text' id='phoneNumber' name='phoneNumber' placeholder=' ' />
+                        <label htmlFor='phoneNumber'>Phone Number</label>
+                        <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
+                      </div>
+                    </div>
+
+                    <div className='input-box'>
+                      <Field type='email' name='corporateEmail' placeholder=' ' value={userData?.sCorreo || ''} readOnly />
+                      <label htmlFor='corporateEmail'>Company email</label>
+                    </div>
                   </div>
 
+                  <div className='box-buttons'>
+                    {values.phoneNumber && values.lastName && (
+                      <button className={`btn_secundary small ${'lastName' in errors || 'phoneNumber' in errors ? 'disabled' : ''}`} disabled={!values.phoneNumber || !values.lastName} type='submit' onClick={handleNextStep}>
+                        NEXT
+                        <ImageSvg name='Next' />
+                      </button>
+                    )}
+                  </div>
                 </div>
+              )}
 
-                <div className='box-buttons'>
-                  <button type='button' className='btn_secundary small' onClick={handlePreviousStep}>
-                    <ImageSvg name='Back' />
-                    Previous
-                  </button>
+              {step === 2 && (
+                <div className='companies-container'>
+                  <h4> Company profile </h4>
 
-                  <button
-                    type='button'
-                    className={`btn_secundary small ${selectedCompanies.length > 0 ? '' : 'disabled'}`}
-                    onClick={handleNextStep}
-                    disabled={selectedCompanies.length == 0}
-                  >
-                    Next
-                    <ImageSvg name='Next' />
-                  </button>
-                </div>
-              </div>
-            )}
+                  <div>
+                    <div>
+                      <p>
+                        Corporate: <span>{userData.jCompany.razon_social_company}</span>
+                      </p>
+                    </div>
 
-            {step === 3 && (
-              <div className='container-notificatión'>
-                <h4>Notifications</h4>
-                <p>Select how you want to be notified</p>
-                <ul>
-                  <div className='box-notification'>
-                    <Field type='checkbox' className='checkboxId' name='notificationsInBpass' />
-                    <label htmlFor='notificationsInBpass'>Notifications in Bpass</label>
+                    <div>
+                      <p>Select the Profile to company:</p>
+                    </div>
+
+                    <div className='companies'>
+                      {userData?.oEmpresa.map((option) => (
+                        <div className={`box-companies ${selectedCompanies.includes(option.id_empresa) ? 'selected' : ''}`} key={option.id_empresa} onClick={() => toggleCompanySelection(option.id_empresa)}>
+                          <div className='card'>
+                            <span className='initial'>{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
+                          </div>
+                          <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  <div className='box-notification'>
-                    <Field type='checkbox' className='checkboxId' name='emailNotifications' />
-                    <label htmlFor='emailNotifications'>Email notifications</label>
+                  <div className='box-buttons'>
+                    <button type='button' className='btn_secundary small' onClick={handlePreviousStep}>
+                      <ImageSvg name='Back' />
+                      Previous
+                    </button>
+
+                    <button type='button' className={`btn_secundary small ${selectedCompanies.length > 0 ? '' : 'disabled'}`} onClick={handleNextStep} disabled={selectedCompanies.length == 0}>
+                      Next
+                      <ImageSvg name='Next' />
+                    </button>
                   </div>
-                </ul>
-
-                <div className='box-buttons'>
-                  <button type='button' className='btn_secundary small' onClick={handlePreviousStep}>
-                    <ImageSvg name='Back' />
-
-                    Previous
-                  </button>
-                  <button type='submit' className='btn_primary small' disabled={isSubmitting}>
-                    Next
-                    <ImageSvg name='Next' />
-                  </button>
                 </div>
+              )}
 
-                <div className='contentError'>
-                  <div className='errorMessage'>{status}</div>
+              {step === 3 && (
+                <div className='container-notificatión'>
+                  <h4>Notifications</h4>
+                  <p>Select how you want to be notified</p>
+                  <ul>
+                    <div className='box-notification'>
+                      <Field type='checkbox' className='checkboxId' name='notificationsInBpass' />
+                      <label htmlFor='notificationsInBpass'>Notifications in Bpass</label>
+                    </div>
+
+                    <div className='box-notification'>
+                      <Field type='checkbox' className='checkboxId' name='emailNotifications' />
+                      <label htmlFor='emailNotifications'>Email notifications</label>
+                    </div>
+                  </ul>
+
+                  <div className='box-buttons'>
+                    <button type='button' className='btn_secundary small' onClick={handlePreviousStep}>
+                      <ImageSvg name='Back' />
+                      Previous
+                    </button>
+                    <button type='submit' className='btn_primary small' disabled={isSubmitting}>
+                      Next
+                      <ImageSvg name='Next' />
+                    </button>
+                  </div>
+
+                  <div className='contentError'>
+                    <div className='errorMessage'>{status}</div>
+                  </div>
                 </div>
+              )}
+            </Form>
+          )}
+        </Formik>
 
-              </div>
-            )}
+        {confirmRegister && (
+          <Modal
+            close={() => {
+              setConfirmRegister(false)
+            }}
+          >
+            <ImageSvg name='Check' />
 
-          </Form>
+            <div>
+              <h3>Completed profile</h3>
+            </div>
+
+            <button type='submit' className='btn_primary small' onClick={() => router.push('/product')}>
+              Next
+            </button>
+
+            {errorLogin && <div className='errorMessage'> {errorLogin} </div>}
+          </Modal>
         )}
-      </Formik>
 
-      {confirmRegister && (
-        <Modal close={() => {
-          setConfirmRegister(false)
-        }}
-        >
-          <ImageSvg name='Check' />
-
-          <div>
-            <h3>Completed profile</h3>
-
-          </div>
-
-          <button type='submit' className='btn_primary small' onClick={() => router.push('/product')}>
-            Next
-
-          </button>
-
-          {
-      errorLogin && <div className='errorMessage'> {errorLogin}     </div>
-
-     }
-        </Modal>
-      )}
-
-      <div>{modalToken && session && <RefreshToken />}</div>
-
-    </div>
+        <div>{modalToken && session && <RefreshToken />}</div>
+      </div>
+    </>
   )
 }
 
