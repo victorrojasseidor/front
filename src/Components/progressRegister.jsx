@@ -1,26 +1,39 @@
 import React, { useState } from 'react'
-import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { countryOptions } from '@/helpers/contry'
 import { validateFormprofilestart } from '@/helpers/validateForms'
 import { useRouter } from 'next/navigation'
-import { fetchConTokenPost } from '@/helpers/fetch'
-import { refresToken } from '@/helpers/auth'
+import { fetchConTokenPost, fetchNoTokenPost } from '@/helpers/fetch'
 import { useAuth } from '@/Context/DataContext'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
-import FormHelperText from '@mui/material/FormHelperText'
 import ImageSvg from '@/helpers/ImageSVG'
+import Loading from '@/Components/Atoms/Loading'
+import Modal from './Modal'
+import RefreshToken from './RefresToken'
 
 const ProgressRegister = ({ userData }) => {
   const [step, setStep] = useState(1)
-  const [user, setUser] = useState(userData)
   const [formValues, setFormValues] = useState({}) // Nuevo estado para almacenar los datos del formulario
   const [country, setCountrySelect] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [confirmRegister, setConfirmRegister] = useState(false)
+  const [errorLogin, setErrorLogin] = useState('')
 
   const router = useRouter()
-  const { session, setSession, logout, setModalToken } = useAuth()
+  const { session, logout, modalToken, setModalToken, setSession } = useAuth()
+
+  const [selectedCompanies, setSelectedCompanies] = useState([])
+
+  const toggleCompanySelection = (companyId) => {
+    if (selectedCompanies.includes(companyId)) {
+      setSelectedCompanies(selectedCompanies.filter((id) => id !== companyId))
+    } else {
+      setSelectedCompanies([...selectedCompanies, companyId])
+    }
+  }
 
   // steps funciones
   const handleNextStep = () => {
@@ -35,59 +48,97 @@ const ProgressRegister = ({ userData }) => {
     setCountrySelect(valueSelect)
   }
 
-  // enviar formulario
   async function handleSumbit (values, { setSubmitting, setStatus }) {
-    const oEmpresaSelect = values.companies.map((companyId) => {
-      const company = user.oEmpresa.find((option) => option.id_empresa === companyId)
-      return {
-        iIdEmpresa: company.id_empresa,
-        sRucEmpresa: company.ruc_empresa
-      }
-    })
+    setIsLoading(true)
 
     const body = {
       oResults: {
-        sEmail: user.sCorreo,
-        sUserName: user.sUserName,
+        sEmail: userData.sCorreo,
+        sUserName: userData.sUserName,
         sLastName: values.lastName,
         sCodePhone: values.countryCode.value,
         sPhone: values.phoneNumber,
         bCodeNotEmail: true,
         bCodeNotBpas: true,
-        oEmpresa: oEmpresaSelect
+        oEmpresa: selectedCompanies
 
       }
     }
 
-    const tok = user.sToken
+    console.log({ body })
+    console.log({ selectedCompanies })
+
+    const tok = userData.sToken
 
     try {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarUsuarioEnd', body, tok)
-
+      console.log('responseData', responseData)
       if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1) {
-        router.push('/product')
+        setConfirmRegister(true)
         setStatus(null)
-
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
+        setConfirmRegister(false)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+        setConfirmRegister(false)
       } else {
-        const message = responseData?.oAuditResponse.sMessage
-        setStatus(message)
-        setSubmitting(false)
-        setModalToken(false)
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        setStatus(errorMessage)
+        setConfirmRegister(false)
+        console.log('error', errorMessage)
+        setTimeout(() => {
+          setStatus(null)
+        }, 1000)
       }
     } catch (error) {
       console.error('Error:', error)
+      setConfirmRegister(false)
 
       throw new Error('Hubo un error en la operación asincrónica.')
+    } finally {
+      setIsLoading(false) // Ocultar el indicador de carga después de que la petición se complete
     }
   }
 
-  // add companies
+  // login
+
+  async function handleSubmit (values) {
+    const dataRegister = {
+      oResults: {
+        sEmail: userData.sCorreo,
+        sPassword: userData.password
+
+      }
+    }
+
+    try {
+      const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const userDataNextRegister = responseData.oResults
+        setErrorLogin(null)
+        if (responseData.oResults.iEstado == 28) {
+          router.push('/profilestart')
+        } else {
+          router.push('/product')
+          setSession(userDataNextRegister)
+        }
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        setErrorLogin(errorMessage)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setErrorLogin('Service error')
+    }
+  }
 
   return (
-    <div className='containerProgress'>
+    <div className='containerProgress '>
+      {isLoading && <Loading />}
       <div className='progressBar'>
         <div
           className='progressBarFill'
@@ -111,15 +162,15 @@ const ProgressRegister = ({ userData }) => {
         }}
         enableReinitialize
       >
-        {({ isSubmitting, status, values, setFieldValue }) => (
-          <Form className='form-container'>
+        {({ isSubmitting, status, values, setFieldValue, errors }) => (
+          <Form className='form-container '>
             {step === 1 && (
               <div>
                 <h4> Personal information</h4>
 
-                <div>
+                <div className='box-forms'>
                   <div className='input-box'>
-                    <Field type='text' name='name' placeholder=' ' value={user?.sUserName || ''} readOnly />
+                    <Field type='text' name='name' placeholder=' ' value={userData?.sUserName || ''} readOnly />
                     <label htmlFor='name'>Username</label>
                   </div>
 
@@ -136,7 +187,7 @@ const ProgressRegister = ({ userData }) => {
                         <InputLabel id='company-label'>Code</InputLabel>
                         <Select
                           labelId='company-label'
-                          value={country || countryOptions[0].value}
+                          value={country || countryOptions[0]?.value}
                           onChange={handleCountryChange}
                           className='delimite-text'
                         >
@@ -160,16 +211,23 @@ const ProgressRegister = ({ userData }) => {
                   </div>
 
                   <div className='input-box'>
-                    <Field type='email' name='corporateEmail' placeholder=' ' value={user?.sCorreo || ''} readOnly />
+                    <Field type='email' name='corporateEmail' placeholder=' ' value={userData?.sCorreo || ''} readOnly />
                     <label htmlFor='corporateEmail'>Company email</label>
                   </div>
 
-                  <div className='box-buttons'>
-                    <button className='btn_secundary small' type='submit' onClick={handleNextStep}>
+                </div>
+
+                <div className='box-buttons'>
+                  {values.phoneNumber && values.lastName &&
+                    <button
+                      className={`btn_secundary small ${'lastName' in errors || 'phoneNumber' in errors ? 'disabled' : ''}`}
+                      disabled={!values.phoneNumber || !values.lastName}
+                      type='submit' onClick={handleNextStep}
+                    >
                       NEXT
                       <ImageSvg name='Next' />
-                    </button>
-                  </div>
+                    </button>}
+
                 </div>
               </div>
             )}
@@ -181,54 +239,29 @@ const ProgressRegister = ({ userData }) => {
                 <div>
                   <div>
                     <p>
-                      Corporate: <span>{user.jCompany.razon_social_company}</span>
+                      Corporate: <span>{userData.jCompany.razon_social_company}</span>
                     </p>
                   </div>
 
                   <div>
-                    <p>Profile to company:</p>
+                    <p>Select the Profile to company:</p>
                   </div>
-                  {/* <FieldArray name="companies">
-            {({ push, remove }) => (
-              <div className="companies">
-                {user.oEmpresa.map((option) => (
-                  <div className="box-companies" key={option.id_empresa}>
-                    <div className="card">
-                      <span className="initial">{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
-                    </div>
-                    <Field type="checkbox" className="checkboxId" name={`companies`} value={option.id_empresa} />
-                    <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
-                  </div>
-                ))}
-              </div>
-            )}
-          </FieldArray> */}
 
                   <div className='companies'>
-                    {user.oEmpresa.map((option) => (
-                      <div className='box-companies' key={option.id_empresa}>
+                    {userData?.oEmpresa.map((option) => (
+                      <div
+                        className={`box-companies ${selectedCompanies.includes(option.id_empresa) ? 'selected' : ''}`}
+                        key={option.id_empresa}
+                        onClick={() => toggleCompanySelection(option.id_empresa)}
+                      >
                         <div className='card'>
                           <span className='initial'>{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
                         </div>
-                        <input
-                          type='checkbox'
-                          className='checkboxId'
-                          checked={values.companies.includes(option.id_empresa)} // Marca el checkbox si el valor está incluido en companies
-                          onChange={(e) => {
-                            const checkedCompanyId = option.id_empresa
-                            if (e.target.checked) {
-                              // Agregar el ID de la empresa al array companies
-                              setFieldValue('companies', [...values.companies, checkedCompanyId])
-                            } else {
-                              // Remover el ID de la empresa del array companies
-                              setFieldValue('companies', values.companies.filter((id) => id !== checkedCompanyId))
-                            }
-                          }}
-                        />
                         <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
                       </div>
                     ))}
                   </div>
+
                 </div>
 
                 <div className='box-buttons'>
@@ -236,7 +269,13 @@ const ProgressRegister = ({ userData }) => {
                     <ImageSvg name='Back' />
                     Previous
                   </button>
-                  <button type='button' className='btn_secundary small' onClick={handleNextStep}>
+
+                  <button
+                    type='button'
+                    className={`btn_secundary small ${selectedCompanies.length > 0 ? '' : 'disabled'}`}
+                    onClick={handleNextStep}
+                    disabled={selectedCompanies.length == 0}
+                  >
                     Next
                     <ImageSvg name='Next' />
                   </button>
@@ -246,7 +285,7 @@ const ProgressRegister = ({ userData }) => {
 
             {step === 3 && (
               <div className='container-notificatión'>
-                <h3>Notifications</h3>
+                <h4>Notifications</h4>
                 <p>Select how you want to be notified</p>
                 <ul>
                   <div className='box-notification'>
@@ -267,7 +306,8 @@ const ProgressRegister = ({ userData }) => {
                     Previous
                   </button>
                   <button type='submit' className='btn_primary small' disabled={isSubmitting}>
-                    Submit
+                    Next
+                    <ImageSvg name='Next' />
                   </button>
                 </div>
 
@@ -277,9 +317,37 @@ const ProgressRegister = ({ userData }) => {
 
               </div>
             )}
+
           </Form>
         )}
       </Formik>
+
+      {confirmRegister && (
+        <Modal close={() => {
+          setConfirmRegister(false)
+        }}
+        >
+          <ImageSvg name='Check' />
+
+          <div>
+            <h3>Completed profile</h3>
+
+          </div>
+
+          <button type='submit' className='btn_primary small' onClick={() => router.push('/product')}>
+            Next
+
+          </button>
+
+          {
+      errorLogin && <div className='errorMessage'> {errorLogin}     </div>
+
+     }
+        </Modal>
+      )}
+
+      <div>{modalToken && session && <RefreshToken />}</div>
+
     </div>
   )
 }

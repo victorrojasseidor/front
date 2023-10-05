@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
-
+import Loading from '@/Components/Atoms/Loading'
 import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import NavigationPages from '@/Components/NavigationPages'
@@ -14,18 +14,16 @@ import Modal from '@/Components/Modal'
 function Support () {
   const [error, SetError] = useState(null)
   const [confirm, SetConfirm] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const { session, empresa, setModalToken, logout } = useAuth()
 
-  const { session, empresa, setModalToken } = useAuth()
-  // send frretrial
   async function handleSubmit (values, { setSubmitting, resetForm }) {
     const body = {
       oResults: {
-        sProd: 'EXT_BANC',
-        iIdProdEnv: ' ',
-        sCorreo: values.corporateEmail,
-        sTitle: values.title,
-        sPhoneNumber: values.phoneNumber,
-        sMessage: values.message
+        sEmailOrigen: values.corporateEmail,
+        sTitulo: values.title,
+        sTelefono: values.phoneNumber ? values.phoneNumber : '999999999',
+        sMensaje: values.message
 
       }
     }
@@ -33,30 +31,41 @@ function Support () {
     try {
       const token = session?.sToken
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=SolicitarProducto', body, token)
+      setIsLoading(true)
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=EnvioCorreoSoporteSmtp', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
-        // const data= responseData.oResults;
         SetError(null)
         setModalToken(false)
         SetConfirm(true)
-
+        setSubmitting(true)
         setTimeout(() => {
+          SetConfirm(false)
           resetForm()
-          window.location.reload()
-        }, 1000)// Adjust the delay time as needed
+        }, 3000)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errok, ', errorMessage)
-        setModalToken(true)
         setSubmitting(false)
         SetConfirm(false)
         SetError(errorMessage)
+        setTimeout(() => {
+          SetError(null)
+        }, 1000)
       }
     } catch (error) {
       console.error('error', error)
       SetConfirm(false)
       SetError(error)
+      setTimeout(() => {
+        SetError(null)
+      }, 1000)
       setSubmitting(false)
+    } finally {
+      setIsLoading(false) // Ocultar el indicador de carga después de que la petición se complete
     }
   }
 
@@ -81,6 +90,8 @@ function Support () {
 
       </NavigationPages>
 
+      {isLoading && <Loading />}
+
       <div className='freetrial'>
         <div className='freetrial_description'>
           <div>
@@ -99,14 +110,13 @@ function Support () {
             initialValues={{
               corporateEmail: session.sCorreo,
               title: '',
-              phoneNumber: session.sPhoneNumber ? session.sPhoneNumber : 51,
+              phoneNumber: session.sPhoneNumber ? session.sPhoneNumber : '',
               message: ''
 
             }}
-          // validationSchema={validateFormRegister}
             onSubmit={handleSubmit}
           >
-            {({ isSubmitting }) => (
+            {({ isSubmitting, values }) => (
               <Form className='form-container'>
                 <div className='input-box'>
                   <Field type='email' name='corporateEmail' placeholder='' readOnly />
@@ -128,19 +138,25 @@ function Support () {
 
                 <div className='input-box'>
 
-                  <textarea
-              // value={email}
-              // onChange={handleChange}
+                  <Field
+                    as='textarea' // Usa "textarea" como tipo de campo
+                    id='message'
+                    name='message' // Asegúrate de que el atributo "name" coincida con initialValues
                     placeholder=''
                     rows={4}
                     cols={40}
                   />
+
                   <label htmlFor='message'> Message</label>
                   <ErrorMessage className='errorMessage' name='message' component='div' />
                 </div>
 
                 <div className='containerButton'>
-                  <button className='btn_primary ' type='submit' disabled={isSubmitting}>
+                  <button
+                    className={`btn_primary ${(values.message && values.title) ? '' : 'disabled'}`} type='submit'
+                    disabled={!values.message || !values.title}
+                  >
+
                     SEND
                   </button>
                 </div>
@@ -151,13 +167,15 @@ function Support () {
 
           {confirm && (
             <Modal close={() => { SetConfirm(false) }}>
-              <div>
-                <h2>
-                  Your request was sent successfully
-                </h2>
 
-                <p> We will contact you soon </p>
-              </div>
+              <ImageSvg name='Check' />
+
+              <h2>
+                Your request was sent successfully
+              </h2>
+
+              <p> We will contact you soon </p>
+
             </Modal>
           )}
 

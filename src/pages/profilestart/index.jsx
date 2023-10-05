@@ -10,6 +10,7 @@ import ProgressRegister from '@/Components/progressRegister'
 import Loading from '@/Components/Atoms/Loading'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Cloud from '@/Components/Atoms/Cloud'
 
 export default function Profilestart () {
   const [isSpanish, setIsSpanish] = useState(false)
@@ -42,53 +43,42 @@ export default function Profilestart () {
   return (
     <DataContextProvider>
       <section className='profilestart'>
-        <section className='discover'>
-          <Image src={logo} width={1000} alt='imgRegister' />
-          <div className='box-descriptions'>
-            <h3>Discover a new way to optimize your financial operations.</h3>
-            <div>Innovation is the key to efficiency and speed in your financial processes. Our robots collaborate to provide you with the best service, so you don't have to worry about a thing.</div>
-          </div>
-
-          <Image src={imgProfilestart} width={280} alt='imgProfilestart' />
-        </section>
+        <section className='discover' />
 
         <section className='welcome'>
+
           <nav>
-            <ul>
-              <li>
-                <h1>Welcome to Seidor BPaaS!</h1>
-              </li>
-              <li>
-                <p>BPaaS: Robots and people work better together</p>
-              </li>
-            </ul>
+
             <fieldset>
-              <div>
+              {/* <div>
                 <button onClick={handleClick} className='btn_icons'>
                   <Image src={isSpanish ? es : en} width={30} alt='imglanguage' />
                   {isSpanish ? 'Es' : 'En'} <ImageSvg name='Change' />
                 </button>
-              </div>
-              <button className='btn_icons' onClick={handleLogout}>
-                <ImageSvg name='SignOut' />
-              </button>
-              {session &&
-                <Link href='/product'>
-                  <button className='btn_icons'>
-                    <ImageSvg name='Products' />
-                  </button>
-                </Link>}
+              </div> */}
+              <Image src={logo} width={95} alt='imgRegister' />
+              <Cloud imgButton='SignOut' cloudText='Sign Out' onClick={handleLogout} />
+              <Cloud imgButton='Change' cloudText='Español' onClick={() => console.log('hhfhfh')} />
 
             </fieldset>
+            <ul>
+
+              <li>
+                <h1>Welcome to ARI Seidor!</h1>
+              </li>
+              <li>
+                <p> Robots and people work better together</p>
+              </li>
+            </ul>
+
           </nav>
-          <section className='formProfile'>
+          <section className='formProfile '>
             <div>
-              <h3>let's get started</h3>
+              <h2>let's get started</h2>
               <p>Fill in the following fields to complete your profile</p>
             </div>
 
             <div>
-              {/* <Tabs /> */}
               <ProgressRegister userData={session} />
             </div>
           </section>

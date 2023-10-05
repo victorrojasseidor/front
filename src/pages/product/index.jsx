@@ -9,7 +9,6 @@ import NavigationPages from '@/Components/NavigationPages'
 import Loading from '@/Components/Atoms/Loading'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
-import FormHelperText from '@mui/material/FormHelperText'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 
@@ -63,6 +62,8 @@ export default function Products () {
       setIsLoading(false) // Ocultar el indicador de carga después de que la petición se complete
     }
   }
+
+  console.log({ session })
 
   const handleSelectChangeEmpresa = (event) => {
     const selectedValue = event.target.value
@@ -202,8 +203,6 @@ export default function Products () {
       )
     }
   }
-
-  console.log({ session })
 
   return (
     <LayoutProducts menu='Product'>

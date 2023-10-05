@@ -73,28 +73,35 @@ function LoginConfirmed () {
       {show && <Modal close={() => setShow(false)}>
         {isconfirmed
           ? (
-            <div>
+            <>
+
               <ImageSvg name='Check' />
+              <div>
+                <p>Your email {isEmail}</p>
 
-              <p>Your email</p>
-              <h2>{isEmail}</h2>
-              <p>
-                was verified <span>&nbsp;successfully</span>
-              </p>
+                <h2>
+                  was verified &nbsp;successfully
+                </h2>
 
-              <div className='actions'>
-                <button className='btn_primary small' onClick={handleCloseModal}>
-                  NEXT
-                </button>
+                <div className='actions'>
+                  <button className='btn_primary small' onClick={handleCloseModal}>
+                    NEXT
+                  </button>
+                </div>
               </div>
-            </div>
+            </>
             )
           : (
-            <div>
+            <>
+
               <ImageSvg name='ErrorMessage' />
-              <p className='errorMessage'>{error}</p>
-            </div>
+
+              <div>
+                <p className='errorMessage'>{error}</p>
+              </div>
+            </>
             )}
+
                </Modal>}
 
     </section>

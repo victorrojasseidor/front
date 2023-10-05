@@ -70,7 +70,6 @@ export default function Login () {
   }
 
   // detectar que usuario ingresón
-  const [user, setUser] = useState(null)
 
   return (
     <LayoutLogin>

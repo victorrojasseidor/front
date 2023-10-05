@@ -285,7 +285,8 @@
 .disabled {
   opacity: 0.5;
   border-style: none;
-  cursor: not-allowed;
+  cursor: not-allowed; /* Cambia el cursor a "no permitido" */
+  pointer-events: none; /* Desactiva eventos de puntero */
 }
 
 .desactivo{
@@ -332,5 +333,8 @@ button:hover + .cloud {
   display: flex;
   flex-direction: row;
   width: 100%;
+  align-items: center;
+  justify-content: center;
+ 
   }
   

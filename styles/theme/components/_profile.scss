@@ -1,72 +1,52 @@
 .profilestart {
   height: 100vh;
   background-image: src;
-  background-image: url("../../../public/img/profilebg.png");
+  background-image: url("../../../public/img/profilestart.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-size: 100vw;
-  padding: 1em 1em;
+  background-size: 80vw;
+  padding: 2em 6em;
   display: flex;
   flex-direction: row;
-  gap: 2em;
+
 
   .discover {
       display: none;
       @include media(tablet) {
      display: block;
-     width: 30%;
-     display: flex;
-     flex-direction: column;
-     gap: 1em;
-    
+     width: 5%;
+       
     }
 
-    .box-descriptions {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap:1em;
-    
-      h3 {
-        color: get-color(blue_p1);
-        flex: 1;
-      }
-    
-      div {
-        color: get-color(grey2_s4);
-      
-        display: flex;
-     
-      }
-
-     
-    }
-
-   
-
-    img:first-child {
-      width: 40%;
-    }
+  
   }
 
 
 .welcome {
   width: 100%;
+  
 }
 
+h2{
+  color:get-color(blue_p1)
+}
+
+
   nav {
+    
     display: flex;
      width: 100%;
-    gap: 2em;
-    // background-color: aquamarine;
-    justify-items: center;
-    align-items: first baseline;
-    justify-content: space-around;
+     justify-items: center;
+    align-items: center;
+    justify-content:space-between;
 
     ul {
       text-align: center;
+      padding: 1rem;
     }
+    
 
+   
     fieldset {
       display: flex;
       border-style: none;
@@ -77,7 +57,12 @@
   }
 
   .formProfile{
-    margin:  2em 0em;
+
+    p{
+      color:get-color(grey2_s4)
+    }
+ 
+    margin:  0.5em 0em;
     background-color: get-color(white_s1);
     padding: 2em;
     box-shadow: 0px 22.0468px 22.0468px rgba(50, 50, 71, 0.08), 0px 22.0468px 44.0937px rgba(50, 50, 71, 0.06);
@@ -160,43 +145,28 @@
       flex-direction: column;
     }
   
-    .box-forms{
     
-  
-      display: grid;
-      grid-auto-columns: auto;
-      gap:1rem;
 
-
-     @include media(tablet) {
-      grid-template-columns: 1fr 1fr; 
-      }
-
-     
     
-     
-
-
-        
-        
-    }
-
-    .companies-container{
-  
-  
-      align-items:flex-start ;
-
-      .box-companies{
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem;
-        min-width: 12rem;
-      }
-
-    }
 
   
   }
+}
+
+
+
+
+.box-forms{
+  display: grid;
+  grid-auto-columns: auto;
+  gap:1rem;
+
+
+ @include media(tablet) {
+  grid-template-columns: 1fr 1fr; 
+  }
+
+    
 }
 
 
@@ -215,7 +185,7 @@
     
   }
   .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
-    // margin-bottom: 0.35em;
+    margin-bottom: 0.35em;
   }
 
   .box-filter .css-1869usk-MuiFormControl-root .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
@@ -223,15 +193,71 @@
   }
 
 
+}
+
+
+.companies-container{
+  display: flex;
+  gap:1rem;
+  justify-content: center;
+  align-items:flex-start ;
+  flex-direction: column;
+  
+  .companies{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap:1rem;
+    padding: 1rem 1rem;
+  }
+  .box-companies{
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    max-width: 10rem;
+    text-align: center;
+
+  }
+  .card {
+    width: 5rem;
+    height: 5rem;
+     background: linear-gradient(to bottom right, #3c2cd1,#ff8d8d);
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: brd(f); /* Hacer el card redondo */
+ 
+  }
+  
+  .initial {
+    font-size: 2.5rem;
+    // font-weight: bold;
+    color: get-color(white_s1);
+  
+    // Estilos adicionales según tus preferencias
   }
 
-.selected{
+  
+  
+  
+  
+  
+  
+}
 
+
+
+.selected{
   border-radius: brd(1);
   border: 2px solid get-color(lilac_p3);
   padding: 1rem;
-  background-color:get-color(pink_s5);
-  box-shadow: bsh(1);
+  // background-color:get-color(pink_s5);
+  // box-shadow: bsh(1);
   transition: border 0.3s ease-in-out; 
 }
 

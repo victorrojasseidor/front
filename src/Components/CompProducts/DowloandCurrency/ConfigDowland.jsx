@@ -410,14 +410,14 @@ export default function ConfigDowland () {
                       <ImageSvg name='Next' />
                     </button>
                   </div>
-                  </div>
+                </div>
                 : <div className='config-Automated--emails'>
                   <h3> Register emails</h3>
                   <div className='description'>
                     Add the emails to notify to <b> Download automated Bank Statements </b>
                   </div>
                   <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
-                  </div>}
+                </div>}
 
             </div>}
 
@@ -438,7 +438,7 @@ export default function ConfigDowland () {
                     {bankCredential?.nombre}
                   </span>
 
-                </div>
+                                  </div>
               }
 
               {showAccounts
@@ -456,7 +456,7 @@ export default function ConfigDowland () {
                     </button>
 
                   </div>
-                </>
+                  </>
 
                 : <>
 
@@ -520,13 +520,13 @@ export default function ConfigDowland () {
                                 </tr>
                               ))}
                             </tbody>
-                          </table>
+                            </table>
                           : <div>
                             <p> Register your bank Credentials
 
                             </p>
 
-                          </div>}
+                            </div>}
 
                       </div>
                       {isLoadingComponent && <LoadingComponent />}
@@ -597,10 +597,10 @@ export default function ConfigDowland () {
                           </div>
 
                           )}
-                                                              </div>
+                    </div>
                   }
 
-                </>}
+                  </>}
 
             </div>}
 
@@ -665,7 +665,7 @@ export default function ConfigDowland () {
                   >
                   <ImageSvg name='Automation' />
                   Run automation
-                </button>
+                  </button>
                 : ''}
               <div className='box-buttons'>
                 <button
