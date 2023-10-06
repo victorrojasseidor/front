@@ -117,65 +117,77 @@
   gap: 0.5em;
   background-color: get-color(white_s1);
   flex-direction: column;
-  max-width: 20rem;
+  width: 18rem;
   padding: 1em 1em;
   box-shadow: bsh(2);
   border-radius: brd(2);
-
   @include media(tablet) {
-    width: auto;
+    width: 20rem;
   }
 
-  div {
+ 
+
+  &-status {
     display: flex;
-    justify-content: row;
-    justify-content: center;
-    padding: 0 1em;
-    gap: 1em;
+  justify-content: flex-start;  
   }
+
+ 
 
     &-title {
-      /* Estilos para el primer div */
+  
+      display: flex;
+      justify-content: flex-start;
+       gap: 1em;
 
-      span {
-        background-color: get-color(forms_s6);
-        padding: 0.5em 0.8em;
-        color: get-color(grey2_s4);
-        font-size: 1.2em;
-        border-radius: brd(2);
+       img[alt='imgProducts']{
+ 
+        width: 80px;
+        padding: 0.5rem;
+       justify-self: center;
+      
+        
+        
+             }
+ 
+       
+      
 
-        // border-top-left-radius: 10px;
-        // border-bottom-right-radius: 40px;
-      }
-      a {
+       .box-name{
+      
         display: flex;
-        width: 190px;
-        align-items: center;
-      }
+        flex-direction: column;
+        gap:1em;
+        align-items: flex-start;
 
-      h5 {
-        font-weight: bold;
-        &:hover {
-          background-color: get-color(bg-cles);
+        h4{
+          &:focus{
+            background-color: get-color(bg-cles);
+          }
         }
+
+        
       }
+
+      .dayLetf{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: smaller;
+        svg{
+          color:get-color(grey1_s3);
+          font-size: medium;
+        }
+      span{
+        color:get-color(blue_p1)
+      }
+
+      }
+
+      
     }
 
-    &-status {
-      display: flex;
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-      span {
-        display: flex;
-        gap: 0.25em;
-        color: get-color(grey1_s3);
-        font-size: small;
-      }
-      svg {
-        font-size: medium;
-      }
-    }
+    
 
   
   
@@ -190,31 +202,42 @@
 }
 
 .pending {
-  div {
-    &:first-child {
-      span {
-        background: linear-gradient(180deg, #1eaaf1 6.13%, #3c2cd1 90.51%);
-        color: get-color(white_s1);
-      }
-    }
-
-    &:nth-child(2) {
-      p {
-        color: get-color(blue_p1);
-        font-weight: 600;
-      }
-    }
-  }
+  background-color:get-color(pink_s5);
+  color:get-color(blue_p1);
+  padding: 0.25rem 1rem;
+  border-radius: brd(2);
+  // background: linear-gradient(180deg, #1eaaf1 6.13%, #3c2cd1 90.51%);
 }
 
 .configured {
-  div {
+  background-image: radial-gradient(circle at -20.44% 43.84%, #bbeebb 0, #b3efc1 12.5%, #abf1c7 25%, #a4f1ce 37.5%, #9df2d5 50%, #96f2dc 62.5%, #91f3e3 75%, #8cf3ea 87.5%, #88f3f1 100%);
+  color:get-color(black_p2);
+  padding: 0.25rem 1rem;
+  border-radius: brd(2);
+
+}
+
+
+.not-hired{
+  background-color:get-color(forms_s6);
+  color:get-color(grey2_s4);
+  padding: 0.25rem 1rem;
+  border-radius: brd(2);
+}
+
+
+
+.card-reporting{
+   div {
     &:first-child {
       span {
         color: get-color(white_s1);
         color: get-color(t6-green2);
-
         background-image: radial-gradient(circle at -20.44% 43.84%, #bbeebb 0, #b3efc1 12.5%, #abf1c7 25%, #a4f1ce 37.5%, #9df2d5 50%, #96f2dc 62.5%, #91f3e3 75%, #8cf3ea 87.5%, #88f3f1 100%);
+        color:get-color(black_p2);
+        border-radius: brd(2);
+        padding: 1em 1.5rem;
+       
       }
     }
 
@@ -224,18 +247,6 @@
         font-weight: 600;
       }
     }
-  }
-}
-
-.back {
-  padding: 0.5em 0 0.5em 0;
-  width: 100%;
-  color: get-color(grey2_s4);
-  button {
-    border-style: none;
-    background-color: transparent;
-    display: flex;
-    gap: 1em;
   }
 }
 

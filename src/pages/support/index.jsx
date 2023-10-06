@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import imgfree from '../../../public/img/freetrial.png'
+import imgfree from '../../../public/img/contactanos.png'
+
 import Image from 'next/image'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { useAuth } from '@/Context/DataContext'
@@ -73,7 +74,7 @@ function Support () {
 
     <LayoutProducts menu='Product'>
 
-      <NavigationPages title='Digital employees'>
+      <NavigationPages title='Support'>
 
         <Link href='/product'>
           <ImageSvg name='Products' />
@@ -94,16 +95,20 @@ function Support () {
 
       <div className='freetrial'>
         <div className='freetrial_description'>
+          <h1> Contact us </h1>
+
           <div>
-            The fastest and
-            <span> safest </span>
-            way to have the exchange rate registered in your ERP
-            <span> every day </span>
+            {/* <h4> Your satisfaction is our top priority!</h4> */}
+            <p>
+              If you have any questions, comments or requests,
+            </p>
+            <p>
+              please do not <span> hesitate to contact us  </span> through the form at our technical support
+            </p>
 
           </div>
-          <p>An expert will contact you</p>
 
-          <Image src={imgfree} width={900} alt='imgfreetrial' />
+          <Image src={imgfree} width={800} alt='imgfreetrial' />
         </div>
         <div className='freetrial_contact'>
           <Formik

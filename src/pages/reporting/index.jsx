@@ -24,7 +24,7 @@ function index (props) {
 
         <div className='products_cards'>
           <ul className='reporting-list'>
-            <li className='card configured'>
+            <li className='card card-reporting'>
               <div className='card-title'>
                 <span>
                   <ImageSvg name='Dashboard' />
@@ -53,7 +53,7 @@ function index (props) {
               </div>
             </li>
 
-            <li className='card configured'>
+            <li className='card card-reporting'>
               <div className='card-title'>
                 <span>
                   <ImageSvg name='Dashboard' />

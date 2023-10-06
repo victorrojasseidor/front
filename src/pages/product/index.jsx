@@ -11,6 +11,12 @@ import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
+import imgEstractos from '../../../public/img/prod-estractos.png'
+import imgInvoice from '../../../public/img/prod-invoice.png'
+import imgTipo from '../../../public/img/prod-tipo.png'
+import imgSunat from '../../../public/img/prod-sunat.png'
+import imgProd from '../../../public/img/prod-default.png'
+import Image from 'next/image'
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -135,6 +141,18 @@ export default function Products () {
   const handleSearch = () => {
     setSearchQuery('')
     setSelectedFilter(null)
+  }
+
+  const imgProduct = (id) => {
+    if (id === 1) {
+      return imgEstractos
+    } else if (id === 2) {
+      return imgTipo
+    } else if (id === 3) {
+      return imgSunat
+    } else if (id === 4) {
+      return imgInvoice
+    } else return imgProd
   }
 
   const renderSelectedFilter = (status, time) => {
@@ -281,30 +299,34 @@ export default function Products () {
 
               <ul>
                 {searchResults.map((product) => (
-                  <li key={product.iId} className={`card ${product.iCodeStatus === 23 ? 'configured' : ''} ${product.iCodeStatus === 28 ? 'pending' : ''}`}>
-                    <div className='card-title'>
-                      <span>
-                        <ImageSvg name='Products' />
-                      </span>
+                  <li key={product.iId} className='card'>
 
-                      <h5> {product.sName}</h5>
+                    <div className='card-status'>
+                      {/* <span>
+                        Status:
+                      </span> */}
+                      <p className={`${product.iCodeStatus === 23 ? 'configured' : ''} ${product.iCodeStatus === 28 ? 'pending' : 'not-hired'}`}>  {product.sDescStatus}
+                      </p>
 
                     </div>
-                    <div className='card-status'>
-                      <span>
-                        Status:
-                      </span>
-                      <p>{product.sDescStatus}</p>
-                      <span>
-                        <ImageSvg name='Time' />
-                        {renderSelectedFilter(product.iCodeStatus, product.jTime)}
-                      </span>
+
+                    <div className='card-title'>
+                      <Image src={imgProduct(product.iId)} width={100} alt='imgProducts' />
+                      <div className='box-name'>
+                        <h4> {product.sName}</h4>
+
+                        <p className='dayLetf'>
+                          <ImageSvg name='Time' />
+                          Days left:      {product.iCodeStatus === 23 ? <span>{product.jTime.SExpires}</span> : <span>... </span>}
+
+                        </p>
+
+                      </div>
+
                     </div>
 
                     <div className='box-buttons'>
-
                       {renderButtons(product)}
-
                     </div>
                   </li>
                 ))}
@@ -312,23 +334,26 @@ export default function Products () {
                 {/* productos añadidos por el momento */}
 
                 <li className='card' style={{ display: selectedFilter == 31 || !selectedFilter ? 'block' : 'none' }}>
-                  <div className='card-title'>
-                    <span>
-                      <ImageSvg name='Products' />
-                    </span>
-                    <Link href='#'>
-                      <h5> Download SUNAT Tax Status Registers </h5>
-                    </Link>
-                  </div>
+
                   <div className='card-status'>
-                    <span>
-                      Status:
-                    </span>
-                    <p>Not hired</p>
-                    <span>
-                      <ImageSvg name='Time' />
-                      <span> Update 3 months</span>
-                    </span>
+
+                    <p className='not-hired'>  Not hired
+                    </p>
+
+                  </div>
+
+                  <div className='card-title'>
+                    <Image src={imgProduct(3)} width={100} alt='imgProducts' />
+                    <div className='box-name'>
+                      <h4> Download SUNAT Tax Status Registers</h4>
+
+                      <p className='dayLetf'>
+                        <ImageSvg name='Time' />
+                        Days left:..
+                      </p>
+
+                    </div>
+
                   </div>
 
                   <div className='box-buttons' style={{ height: '5rem' }}>
@@ -339,23 +364,25 @@ export default function Products () {
                 </li>
 
                 <li className='card' style={{ display: selectedFilter == 31 || !selectedFilter ? 'block' : 'none' }}>
-                  <div className='card-title'>
-                    <span>
-                      <ImageSvg name='Products' />
-                    </span>
-                    <Link href='#'>
-                      <h5>Invoice register</h5>
-                    </Link>
-                  </div>
                   <div className='card-status'>
-                    <span>
-                      Status:
-                    </span>
-                    <p>Not hired</p>
-                    <span>
-                      <ImageSvg name='Time' />
-                      <span> Update 1 months</span>
-                    </span>
+
+                    <p className='not-hired'>  Not hired
+                    </p>
+
+                  </div>
+
+                  <div className='card-title'>
+                    <Image src={imgProduct(4)} width={100} alt='imgProducts' />
+                    <div className='box-name'>
+                      <h4> Invoice register </h4>
+
+                      <p className='dayLetf'>
+                        <ImageSvg name='Time' />
+                        Days left:..
+                      </p>
+
+                    </div>
+
                   </div>
 
                   <div className='box-buttons' style={{ height: '5rem' }}>
