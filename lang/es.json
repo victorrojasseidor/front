@@ -20,13 +20,14 @@
 
   "login": {
     "Log in": "Iniciar sesión",
-    "Log in on the Business Process as a service": "Inicie sesión en Business Process as a service",
-    "Company email": "Correo coorportivo",
+    "Log in Digital Employees": "Inicie sesión in Digital Employees",
+    "Company email": "Correo corporativo",
     "Password": "Contraseña",
+
     "I forgot my password": "Olvidé mi contraseña",
     "The password or email is incorrect": "La contraseña o el correo son incorrectos",
     "Have not an account?": "¿No tienes una cuenta?",
-    "Sign up": "Regístrate"
+    "Sign_up": "Regístrate"
   },
 
   "recover_password": {
@@ -71,6 +72,19 @@
     "Products": "Productos",
     "Users": "Usuarios",
     "Dashboard": "Dashboard",
+    "APIS": "APIS",
+    "Schedule": "Horario",
+    "Support": "Soporte",
+    "English": "Inglés",
+    "Spanish": "Español"
+  },
+
+  
+  "validation": {
+    "Corporate email is required": "Se requiere correo electrónico corporativo",
+    "Password is required": "Se requiere contraseña",
+    "The password must have more than 8 characters between uppercase": "La contraseña debe tener más de 8 caracteres entre mayúsculas",
+    "The email must be from the company": "El correo electrónico debe ser de una empresa",
     "APIS": "APIS",
     "Schedule": "Horario",
     "Support": "Soporte",

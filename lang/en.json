@@ -20,7 +20,7 @@
 
   "login": {
     "Log in": "Log in",
-    "Log in on the Business Process as a service": "Log in on the Business Process as a service",
+    "Log in Digital Employees": "Log in Digital Employees",
     "Company email": "Company email",
     "Password": "Password",
     "I forgot my password": "I forgot my password",
@@ -92,5 +92,12 @@
     "Spanish": "Spanish",
     "dev": "deven ingles",
     "buttonLenguaje": "Change Lenguaje"
+  },
+  "validation": {
+    "Corporate email is required": "Corporate email is required",
+    "Password is required": "Password is required",
+    "The password must have more than 8 characters between uppercase": "The password must have more than 8 characters between uppercase",
+    "The email must be from the company": "The email must be from the company"
+    
   }
 }

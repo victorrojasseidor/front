@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import en from '../../lang/en.json'
 import es from '../../lang/es.json'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import Loading from '@/Components/Atoms/Loading'
 
@@ -29,9 +29,10 @@ export const DataContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
 
   // lang
-  const locale = 'en'
-  const t = locale === 'en' ? en : es
+
   const router = useRouter()
+  const { locale } = router
+  const l = locale === 'en' ? en : es
 
   // Función para manejar el cierre de sesión
   async function logout () {
@@ -85,7 +86,7 @@ export const DataContextProvider = ({ children }) => {
         logout,
         modalToken,
         setModalToken,
-        t
+        l
 
       }}
     >

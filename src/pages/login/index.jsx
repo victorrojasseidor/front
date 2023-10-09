@@ -2,26 +2,30 @@ import Link from 'next/link'
 import LayoutLogin from '@/Components/LayoutLogin'
 // import "../../../styles/styles.scss";
 import { Formik, Field, ErrorMessage, Form } from 'formik'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import Image from 'next/image'
 import logo from '../../../public/img/logoseidor.png'
 import { validateFormLogin } from '@/helpers/validateForms'
 import { fetchNoTokenPost } from '@/helpers/fetch'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 import { useAuth } from '@/Context/DataContext'
 
 export default function Login () {
-  const { session, setSession } = useAuth()
+  const { session, setSession, l } = useAuth()
+
+  const t = l.login
 
   const [showPassword, setShowPassword] = useState(false)
   const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true)
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
   // pruba nuevo repo 2
 
   const router = useRouter()
+  const { locale } = router
 
   async function handleSubmit (values, { setSubmitting, setStatus, resetForm }) {
     const dataRegister = {
@@ -84,8 +88,8 @@ export default function Login () {
       </nav>
 
       <div className='register' style={{ paddingTop: '2rem' }}>
-        <h1> Log in </h1>
-        <p> Log in Digital Employees </p>
+        <h1> {t['Log in']}</h1>
+        <p>{t['Log in Digital Employees']}  </p>
 
         <Formik
           initialValues={{
@@ -93,17 +97,18 @@ export default function Login () {
             password: ''
           }}
           validateOnChange
-          validate={validateFormLogin}
+          validate={(values) => validateFormLogin(values, l.validation)}
           onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
             handleSubmit(values, { setSubmitting, setStatus, resetForm })
           }}
           enableReinitialize
+
         >
           {({ isValid, isSubmitting, status }) => (
             <Form className='form-container'>
               <div className='input-box'>
                 <Field type='email' name='corporateEmail' id='corporateEmail' placeholder=' ' disabled={!isEmailFieldEnabled || isSubmitting} />
-                <label htmlFor='corporateEmail'>Company email</label>
+                <label htmlFor='corporateEmail'>{t['Company email']}</label>
                 <ErrorMessage className='errorMessage' name='corporateEmail' component='span' />
               </div>
 
@@ -112,12 +117,12 @@ export default function Login () {
                   <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
                 </span>
                 <Field type={showPassword ? 'text' : 'password'} id='password' name='password' placeholder=' ' disabled={isSubmitting} />
-                <label htmlFor='password'> Password</label>
+                <label htmlFor='password'>  {t.Password}</label>
                 <ErrorMessage className='errorMessage' name='password' component='span' />
               </div>
 
               <button type='submit' disabled={isSubmitting || !isEmailFieldEnabled} className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => setEmailFieldEnabled(true)}>
-                {isSubmitting ? 'Log in...' : 'Log in '}
+                {isSubmitting ? `${t['Log in']}${'....'}` : t['Log in']}
               </button>
 
               <div className='contentError'>
@@ -129,13 +134,13 @@ export default function Login () {
         <nav className='navRegister navLogin '>
           <ul className='iforget'>
             <Link href='/changepassword'>
-              <li> I forgot my password</li>
+              <li> {t['I forgot my password']}</li>
             </Link>
           </ul>
           <ul>
-            <li className='Question'>Have an account?</li>
+            <li className='Question'>{t['Have not an account?']}</li>
             <li className='link'>
-              <Link href='/register'>Sign up</Link>
+              <Link href='/register'>{t['Sign up']}</Link>
             </li>
           </ul>
         </nav>

@@ -11,6 +11,7 @@ import Loading from '@/Components/Atoms/Loading'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Cloud from '@/Components/Atoms/Cloud'
+import Lang from '@/Components/Atoms/Lang'
 
 export default function Profilestart () {
   const [isSpanish, setIsSpanish] = useState(false)
@@ -58,7 +59,7 @@ export default function Profilestart () {
               </div> */}
               <Image src={logo} width={95} alt='imgRegister' />
               <Cloud imgButton='SignOut' cloudText='Sign Out' onClick={handleLogout} />
-              <Cloud imgButton='Change' cloudText='Español' onClick={() => console.log('hhfhfh')} />
+              <Lang />
 
             </fieldset>
             <ul>

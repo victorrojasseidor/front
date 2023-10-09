@@ -1,13 +1,22 @@
 import React from 'react'
-import { DataContextProvider } from '@/Context/DataContext'
-
+import Lang from './Atoms/Lang'
 export default function LayoutLogin ({ children }) {
   return (
-    <DataContextProvider>
-      <section className='layoutLogin'>
-        <div className='layoutLogin_image'> </div>
-        <section>{children}</section>
+
+    <section className='layoutLogin'>
+
+      <div className='layoutLogin_image' />
+
+      <section>
+
+        {children}
+        <div className='container-lang'>
+          <Lang />
+        </div>
+
       </section>
-    </DataContextProvider>
+
+    </section>
+
   )
 }

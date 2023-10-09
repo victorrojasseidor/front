@@ -6,8 +6,13 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true
   },
+  i18n: {
+    locales: ['en', 'es'],
+    defaultLocale: 'en'
+
+  },
   reactStrictMode: true,
-  async headers() {
+  async headers () {
     return [
       {
         source: '/api/:path*',
@@ -23,10 +28,10 @@ const nextConfig = {
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      jquery: 'jquery',
-    };
-    return config;
-  },
+      jquery: 'jquery'
+    }
+    return config
+  }
 }
 
-module.exports = nextConfig;
+module.exports = nextConfig

@@ -455,3 +455,45 @@
 }
 
 
+.container-lang{
+
+  display: flex;
+  justify-content:flex-start;
+  align-items:center;
+  padding-top: 2rem;
+  button{
+    cursor:e-resize;
+  }
+  // background-color: aqua;
+}
+
+
+.languajes{
+ 
+  font-size: smaller;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap:0.5rem;
+  padding: 0.25rem;
+  
+
+  a{
+    color:get-color(grey2_s4);
+    padding: 0.25rem 0rem;
+   
+  }
+
+  .lang_active{
+      color:get-color(blue_p1);
+      border-bottom: 1px solid get-color(lilac_p3);
+    
+      
+        
+  }
+  
+  
+
+  
+}
+

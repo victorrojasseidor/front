@@ -25,7 +25,7 @@ const LayoutProducts = ({ children, menu }) => {
     setMenuLateralOpen(!isMenuLateralOpen)
   }
 
-  const { session, setSession, modalToken, logout } = useAuth()
+  const { session, setSession, modalToken, logout, t } = useAuth()
 
   const toggleMenuMobile = () => {
     setIsOpenMobile(!isOpenMobile)
