@@ -7,7 +7,7 @@ import Image from 'next/image'
 import logo from '../../../public/img/logoseidor.png'
 import { validateFormRegister } from '@/helpers/validateForms'
 import ImageSvg from '@/helpers/ImageSVG'
-
+import { useAuth } from '@/Context/DataContext'
 import { fetchNoTokenPost } from '@/helpers/fetch'
 import Modal from '@/Components/Modal'
 import Button from '@/Components/Atoms/Buttons'
@@ -20,6 +20,10 @@ export default function Register () {
   const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true)
   const [ShowM, setShowM] = useState(false)
   // const [infoModal,setInfomodal]= useState(null);
+
+  const { session, setSession, l } = useAuth()
+
+  const t = l.signup
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
@@ -81,16 +85,16 @@ export default function Register () {
       <nav className='navRegister'>
         <Image src={logo} width={120} alt='logoRegister' />
         <ul>
-          <li className='Question'>Have an account?</li>
+          <li className='Question'>{t['Have an account?']}</li>
           <li className='link'>
-            <Link href='/login'> Log in</Link>
+            <Link href='/login'> {t['Log in']}</Link>
           </li>
         </ul>
       </nav>
 
       <div className='register'>
-        <h1> Sign up</h1>
-        <p> Create your Account in ARI SEIDOR</p>
+        <h1> {t['Sign up']}</h1>
+        <p> {t['Create your Account in ARI SEIDOR']}</p>
 
         <Formik
           initialValues={{
@@ -102,7 +106,7 @@ export default function Register () {
           }}
           // validationSchema={SignupSchemaEN}
           validateOnChange
-          validate={validateFormRegister}
+          validate={(values) => validateFormRegister(values, l.validation)}
           onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
             // same shape as initial values
             handleSubmit(values, { setSubmitting, setStatus, resetForm })
@@ -113,13 +117,13 @@ export default function Register () {
             <Form className='form-container'>
               <div className='input-box'>
                 <Field type='text' id='name' name='name' placeholder=' ' autoComplete='off' disabled={isSubmitting} />
-                <label htmlFor='name'>Name</label>
+                <label htmlFor='name'>{t.Name}</label>
                 <ErrorMessage className='errorMessage' name='name' component='span' />
               </div>
 
               <div className='input-box'>
                 <Field type='email' name='corporateEmail' id='corporateEmail' placeholder=' ' disabled={!isEmailFieldEnabled || isSubmitting} />
-                <label htmlFor='corporateEmail'>Company email</label>
+                <label htmlFor='corporateEmail'>{t['Company email']}</label>
                 <ErrorMessage className='errorMessage' name='corporateEmail' component='span' />
               </div>
 
@@ -128,7 +132,7 @@ export default function Register () {
                   <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
                 </span>
                 <Field type={showPassword ? 'text' : 'password'} id='password' name='password' placeholder=' ' disabled={isSubmitting} />
-                <label htmlFor='password'> Password</label>
+                <label htmlFor='password'> {t.Password}</label>
                 <ErrorMessage className='errorMessage' name='password' component='span' />
               </div>
 
@@ -138,7 +142,7 @@ export default function Register () {
                 </span>
                 <Field type={showConfirmPassword ? 'text' : 'password'} id='confirmPassword' name='confirmPassword' placeholder=' ' disabled={isSubmitting} />
                 <label htmlFor='confirmPassword' placeholder=''>
-                  Confirm password
+                  {t['Confirm password']}
                 </label>
                 <ErrorMessage className='errorMessage' name='confirmPassword' component='span' />
               </div>
@@ -147,13 +151,13 @@ export default function Register () {
                 <label className='checkbox'>
                   <Field className='checkboxId' id='acceptTerms' type='checkbox' name='acceptTerms' disabled={isSubmitting} />
 
-                  <span> I accept</span>
-                  <span> ARI SEIDOR Terms and Conditions and Privacy Policy</span>
+                  <span> {t['I accept']}</span>
+                  <span> {t['ARI SEIDOR Terms and Conditions and Privacy Policy']}</span>
                 </label>
                 <ErrorMessage className='errorMessage' name='acceptTerms' component='span' />
               </div>
 
-              <Button className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => setEmailFieldEnabled(true)} label={isSubmitting ? 'Send...' : 'Sign Up Now'} disabled={isSubmitting || !isEmailFieldEnabled} />
+              <Button className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => setEmailFieldEnabled(true)} label={isSubmitting ? `${t['Sign up']}${'....'}` : t['Sign Up Now']} disabled={isSubmitting || !isEmailFieldEnabled} />
 
               <div className='contentError'>
                 <div className='errorMessage'>{status}</div>
@@ -166,9 +170,9 @@ export default function Register () {
           <Modal close={() => setShowM(false)}>
             <ImageSvg name='Check' />
             <div>
-              <p> We´ve sent a verification link to</p>
+              <p> {t['We´ve sent a verification link to']}</p>
               <h2> {data.oResults.sEmail} </h2>
-              <p>Please enter your email to confirm registration</p>
+              <p>{t['Please enter your email to confirm registration']}</p>
             </div>
 
           </Modal>

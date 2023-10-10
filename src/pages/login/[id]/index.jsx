@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import Loading from '@/Components/Atoms/Loading'
 import { refresToken } from '@/helpers/auth'
+import { useAuth } from '@/Context/DataContext'
 
 function LoginConfirmed () {
   const router = useRouter()
@@ -16,6 +17,10 @@ function LoginConfirmed () {
   const [isconfirmed, setIsconfirmed] = useState(false)
   const [error, setError] = useState(null)
   const [show, setShow] = useState(true)
+
+  const { l } = useAuth()
+
+  const t = l.login
 
   async function handleSubmit (email, token) {
     const body = {
@@ -77,15 +82,15 @@ function LoginConfirmed () {
 
               <ImageSvg name='Check' />
               <div>
-                <p>Your email {isEmail}</p>
+                <p>{t['Your email']} {isEmail}</p>
 
                 <h2>
-                  was verified &nbsp;successfully
+                  {t['was verified']} &nbsp;{t.successfully}
                 </h2>
 
                 <div className='actions'>
                   <button className='btn_primary small' onClick={handleCloseModal}>
-                    NEXT
+                    {t.NEXT}
                   </button>
                 </div>
               </div>
@@ -102,7 +107,7 @@ function LoginConfirmed () {
             </>
             )}
 
-               </Modal>}
+      </Modal>}
 
     </section>
   )

@@ -47,7 +47,7 @@
   align-items: center;
   align-content: center;
   border: 1px solid get-color(forms_s6);
-  border-radius: brd(1);
+  border-radius: brd(2);
   padding-right: 1rem;
   max-width: 25rem;
   background-color: get-color(white_s1);
@@ -57,9 +57,7 @@
   input {
 
     font-size: 1rem;
-    margin: 0.5rem;
     height: 1.5em;
-
     color: get-color(blue_p1);
     font-weight: 500;
     border-style: none;
@@ -81,26 +79,33 @@
 
 .filterButtons {
   // margin-bottom: 1rem;
+  display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:1rem;
 
   @include media(tablet) {
     display: flex;
     align-items: center;
+    gap:0.5rem;
   }
 
   button {
-    padding: 0.5rem;
+
     border-style: none;
-    border-radius: brd(1);
+    border-radius: brd(2);
     background-color: get-color(white_s1);
     color: get-color(grey1_s3);
-    margin-right: 0.5rem;
+    padding: 0rem 0.25rem;
+    background-color: get-color(forms_s6);
+    width: 10rem;
     cursor: pointer;
-    width: 80px;
-    font-size: 0.8rem;
+     font-size: 0.8rem;
     height: 3em;
     border: 0.3px solid get-color(forms_s6);
     @include media(tablet) {
-      width: 100px;
+      width: 7.5rem;
       font-size: 1rem;
       height: 2.5em;
     }
@@ -118,7 +123,7 @@
   background-color: get-color(white_s1);
   flex-direction: column;
   width: 16rem;
-  padding: 0.5em 1em;
+  padding: 0.5em 1em 1em 1em;
   box-shadow: bsh(2);
   border-radius: brd(2);
   @include media(tablet) {

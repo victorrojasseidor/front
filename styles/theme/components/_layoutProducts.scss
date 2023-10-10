@@ -115,7 +115,7 @@
       ul {
         display: flex;
         flex-direction: column;
-        gap: 0.5em;
+        gap: 0.75em;
         justify-content: center;
 
         li {
@@ -135,8 +135,8 @@
             display: flex;
             gap:0.5rem;
             flex-direction: row;
-            justify-content:first baseline;
-            align-items:flex-end;
+            justify-content:center;
+            align-items:center;
             color: get-color(grey2_s4);
             font-weight: 600;
             text-decoration: none;
@@ -455,17 +455,33 @@
 }
 
 
-.container-lang{
+.container-lang-destok{
+ display: none;
+ 
 
+  @include media(tablet) {
+    display: flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding-top: 2rem;
+  }
+
+  
+ 
+}
+
+.container-lang-movil{
   display: flex;
   justify-content:flex-start;
   align-items:center;
   padding-top: 2rem;
-  button{
-    cursor:e-resize;
+  @include media(tablet) { 
+    display: none;
   }
-  // background-color: aqua;
+
 }
+
+
 
 
 .languajes{

@@ -7,19 +7,21 @@ import NavigationPages from '@/Components/NavigationPages'
 import { useAuth } from '@/Context/DataContext'
 
 function index (props) {
-  const { session } = useAuth()
+  const { session, l } = useAuth()
+
+  const t = l.Reporting
 
   return (
     <LayoutProducts menu='Reporting'>
 
-      <NavigationPages title='Reporting'>
+      <NavigationPages title={t.Reporting}>
 
         {}
 
       </NavigationPages>
       <section className='reporting'>
         <div className='sub-title'>
-          <h5> ARI Finance to {session?.jCompany.razon_social_company} </h5>
+          <h5> {t['ARI Finance to']} {session?.jCompany.razon_social_company} </h5>
         </div>
 
         <div className='products_cards'>
@@ -30,16 +32,16 @@ function index (props) {
                   <ImageSvg name='Dashboard' />
                 </span>
                 <Link href='/reporting/balance'>
-                  <h4> Balance report</h4>
+                  <h4> {t['Balance report']} </h4>
                 </Link>
               </div>
               <div />
               <div className='card-status description'>
                 <span>
-                  Made by Digital Employes:
+                  {t['Made by Digital Employes:']}
                 </span>
                 <span className='maybe'>
-                  <LimitedParagraph text='Download the daily bank statement' limit={40} />
+                  <LimitedParagraph text={t['Download the daily bank statement']} limit={40} />
                 </span>
 
               </div>
@@ -47,7 +49,7 @@ function index (props) {
               <div>
 
                 <Link href='/reporting/balance'>
-                  <p> View reporting</p>
+                  <p> {t['View reporting']} </p>
                 </Link>
 
               </div>
@@ -59,23 +61,23 @@ function index (props) {
                   <ImageSvg name='Dashboard' />
                 </span>
                 <Link href='/reporting/movement'>
-                  <h4> Movement report</h4>
+                  <h4> {t['Movement report']} </h4>
                 </Link>
               </div>
               <div />
               <div className='card-status description'>
                 <span>
-                  Made by Digital Employes:
+                  {t['Made by Digital Employes:']}
                 </span>
                 <span className='maybe'>
-                  <LimitedParagraph text='Download the daily bank statement' limit={40} />
+                  <LimitedParagraph text={t['Download the daily bank statement']} limit={40} />
                 </span>
 
               </div>
 
               <div>
                 <Link href='/reporting/movement'>
-                  <p> View reporting</p>
+                  <p> {t['View reporting']}</p>
                 </Link>
 
               </div>

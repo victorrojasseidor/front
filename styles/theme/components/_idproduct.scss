@@ -26,6 +26,36 @@
       
   }
 
+
+  .message-support{
+      
+      display: flex;
+      margin-top: -10rem;
+      margin-left: -4rem;
+      align-items: center;
+      gap:0.25rem;
+      flex-direction: column;
+      color:get-color(blue_p1);
+      font-size: 1.5rem;
+      font-weight: 600;
+
+      span{
+        color:get-color(lilac_p3);
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      p{
+        font-size: 1.5rem;
+        font-weight: 600;
+        color:get-color(black_p2)
+      }
+    
+    
+  }
+
+
+
+
   &_description{
 
     h1{

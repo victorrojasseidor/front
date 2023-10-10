@@ -7,11 +7,12 @@ import { useAuth } from '@/Context/DataContext'
 
 const LayouReport = ({ defaultTab, children }) => {
   const [activeTab, setActiveTab] = useState(defaultTab || 0)
-  const { session, empresa, setModalToken, logout, setEmpresa } = useAuth()
+  const { session, empresa, setModalToken, logout, setEmpresa, l } = useAuth()
 
   const today = new Date().toISOString().substr(0, 10) // Fecha de hoy en formato YYYY-MM-DD
   const defaultStartDate = '2023-01-01'
 
+  const t = l.Reporting
   function obtenerFechaAnterior () {
     // Obtén la fecha actual
     const fechaActual = new Date()
@@ -41,14 +42,14 @@ const LayouReport = ({ defaultTab, children }) => {
         <Link href='/reporting'>
           <ImageSvg name='Dashboard' />
           <p>
-            Reporting
+            {t.Reporting}
           </p>
         </Link>
 
         <ImageSvg name='Navegación' />
 
         <Link href='#'>
-          <span> {defaultTab == 0 ? 'Balance' : 'Movement'}</span>
+          <span> {defaultTab == 0 ? t.Balance : t.Movement}</span>
         </Link>
 
       </NavigationPages>
@@ -58,7 +59,7 @@ const LayouReport = ({ defaultTab, children }) => {
           <h5>
             {session?.jCompany.razon_social_company}
           </h5>
-          <p> Updated balances and movement as of
+          <p> {t['Updated balances and movement as of']}
             <span>
               {obtenerFechaAnterior()}
             </span>
@@ -71,7 +72,7 @@ const LayouReport = ({ defaultTab, children }) => {
               <button className={activeTab === 0 ? 'active ' : ''} onClick={() => handleTabClick(0)}>
                 {/* <h4>Free Trial</h4> */}
 
-                <h4>Balance</h4>
+                <h4>{t.Balance}</h4>
 
               </button>
             </Link>
@@ -83,7 +84,7 @@ const LayouReport = ({ defaultTab, children }) => {
 
                 className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}
               >
-                <h4> Movement</h4>
+                <h4> {t.Movement}</h4>
               </button>
             </Link>
 

@@ -3,18 +3,15 @@
     "Have an account?": "¿Ya tienes una cuenta?",
     "Log in": "Iniciar sesión",
     "Sign up": "Regístrate",
-    "Username": "Nombre de usuario",
+    "Sign Up Now":"Regístrate ahora",
+    "Create your Account in ARI SEIDOR": "Crea tu cuenta en ARI SEIDOR",
+    "Name": "Nombre",
     "Company email": "Correo corporativo",
     "Password": "Contraseña",
     "Confirm password": "Confirmar contraseña",
     "I accept": " Acepto los",
-    "SEIDOR BPaaS Terms and Conditions and Privacy Policy": "Términos y Condiciones y la Política de Privacidad de SEIDOR BPaaS",
-    "SIGN UP NOW": "REGÍSTRATE AHORA",
-    "The email domain is not corporate": "El dominio de correo electrónico no es corporativo",
-    "Password validated: contains more than 8 characters between uppercase, lowercase and numbers": "Contraseña validada: contiene más de 8 caracteres entre mayúsculas, minúsculas y números",
-    "Password confirmed": "Contraseña confirmada",
-    "Create your account in SEIDOR BPaas": "Crea tu cuenta en SEIDOR BPaas",
-    "We´ve sent a verefication link to": "Hemos enviado un enlace de verificación a ",
+    "ARI SEIDOR Terms and Conditions and Privacy Policy": "Términos, Condiciones y la Política de Privacidad de ARI SEIDOR",
+     "We´ve sent a verefication link to": "Hemos enviado un enlace de verificación a ",
     "please enter your email to confirm registration": "Por favor ingrese a su correo electrónico para confirmar su registro"
   },
 
@@ -23,11 +20,14 @@
     "Log in Digital Employees": "Inicie sesión in Digital Employees",
     "Company email": "Correo corporativo",
     "Password": "Contraseña",
-
     "I forgot my password": "Olvidé mi contraseña",
     "The password or email is incorrect": "La contraseña o el correo son incorrectos",
     "Have not an account?": "¿No tienes una cuenta?",
-    "Sign_up": "Regístrate"
+    "Sign up": "Regístrate",
+    "Your email":"Tu correo",
+    "was verified":"fue verificado ",
+    "successfully": "con éxito",
+    "Next": "Siguiente"
   },
 
   "recover_password": {
@@ -69,14 +69,111 @@
   },
   "header": {
     "Edit profile": "Editar perfil",
+    "Digital employees":"Empleados digitales",
     "Products": "Productos",
     "Users": "Usuarios",
-    "Dashboard": "Dashboard",
+    "Notifications":"Notificaciones",
+    "Reporting": "Reportes",
     "APIS": "APIS",
-    "Schedule": "Horario",
+    "Schedule": "Cronograma",
+    "Profile":"Perfil",
     "Support": "Soporte",
     "English": "Inglés",
-    "Spanish": "Español"
+    "Spanish": "Español",
+    "Sign Out":"Cerrar sesión"
+  },
+  "Products": {
+   
+    "Digital employees":"Empleados digitales",
+    "Welcome": "Bienvenido",
+    "To company:": "De la empresa",
+    "All":"Todos",
+    "Configured": "Configurado",
+    "Pending": "Pendiente",
+    "Not hired": "No contratado",
+    "Search": "Buscar......",
+    "ARI Finance to":"ARI Finance para",
+    "Setup":"Configurar",
+    "Edit":"Editar",
+    "Free Trial":"Prueba gratuita",
+    "View more":"Ver más",
+    "Days left:":"Días restantes:",
+    "Download SUNAT Tax Status Registers":"Descarga Registros de Estado Tributario de la SUNAT",
+    "Invoice register":"Registro de facturas",
+    "No results found":"No se han encontrado resultados"
+
+
+  
+  
+  },
+
+  "Support": {
+    "Support":"Soporte",
+    "Contact us": "Contáctanos",
+    "If you have any questions, comments or requests,": "Si tiene alguna pregunta, comentario o solicitud,",
+    "please do not": "por favor ",
+    "hesitate to contact us": "no dude en contactar",
+    "through the form at our technical support": "a nuestro soporte técnico a través del formulario ",
+    "Company email": "Correo corporativo",
+    "Title": "Título del mensaje",
+    "Phone Number": "Número de teléfono",
+    "Message": "Mensaje",
+    "Your request was sent successfully":"Su solicitud o mensaje fue enviada exitosamente",
+    "We will contact you soon":"Pronto nos pondremos en contacto contigo",
+    "Send":"Enviar",
+    "Your satisfaction": "Tu satisfacción",
+    "is our top":"es nuestra",
+    "priority":"prioridad"
+
+  
+  },
+
+  "Reporting": {
+  
+    "Reporting":"Reportes",
+    "ARI Finance to":"Finanzas ARI para ",
+    "Balance report": "Reporte de saldos",
+    "Movement report": "Reporte de movimientos",
+    "Made by Digital Employes:": "Hecho por empleados digitales:",
+    "Download the daily bank statement": "Descargar extracto bancario diario",
+    "View reporting": "Ver reportes",
+    "Balance": "Saldos",
+    "Updated balances and movement as of": "Saldos y movimiento actualizados al",
+    "Movement":"Movimientos",
+    "Balance report To":"Reporte de saldos de",
+    "If you want to view the complete information, use the":"Si deseas ver la información completa, utiliza la",
+    "export option":"opción de exportación",
+    "Movement report To":"Reporte de movimientos de",
+    "From":"Desde",
+    "To":"Hasta",
+    "Company":"Empresa",
+    "All Companys":"Todas las compañias",
+    "Type":"Tipo",
+    "Bank":"Banco",
+    "All Banks":"Todos los bancos",
+    "Account":"Cuenta",
+    "All Accounts":"Todas las cuentas",
+    "Date start":"Fecha de inicio",
+    "Date end":"Fecha fin",
+    "Select a company":"Seleccione una empresa",
+    "Select a type":"Seleccione el tipo",
+    "Select a bank":"Seleccione un banco",
+    "Select an account":"Seleccione una cuenta",
+    "Apply":"Filtrar",
+    "Clear":"Limpiar",
+    "Export to Excel":"Exportar a Excel",
+    "Date":"Fecha",
+    "Currency":"Moneda",
+    "Description":"Descripción",
+    "Operation No.":"N° operación:",
+    "Amount":"Monto",
+    "Reference":"Referencia",
+    "UTC":"UTC",
+    "RUC":"RUC",
+    "There is no data":"No hay datos",
+    "Page":"Página",
+    "of":"de"
+
   },
 
   
@@ -85,11 +182,13 @@
     "Password is required": "Se requiere contraseña",
     "The password must have more than 8 characters between uppercase": "La contraseña debe tener más de 8 caracteres entre mayúsculas",
     "The email must be from the company": "El correo electrónico debe ser de una empresa",
-    "APIS": "APIS",
-    "Schedule": "Horario",
-    "Support": "Soporte",
-    "English": "Inglés",
-    "Spanish": "Español"
+    "The name is required":"El nombre es obligatorio",
+    "Your name must not contain numbers or other special characters,allow up to 2 names":"Su nombre no debe contener números ni otros caracteres especiales, se permiten hasta 2 nombres",
+    "Your Surnames must not contain numbers or other special characters, allow up to 2 surnames":"Tus Apellidos no deben contener números ni otros caracteres especiales, se permite hasta 2 apellidos",
+    "Phone phone must contain numbers":"El teléfono debe contener números",
+    "Password confirmation is required":"Se requiere confirmación de contraseña",
+    "Passwords do not match":"Las contraseñas no coinciden",
+    "You must accept the terms and conditions":"Debes aceptar los términos y condiciones"
   },
   "dev": "deven ingles",
   "buttonLenguaje": "Cambiar idioma"

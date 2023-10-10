@@ -19,7 +19,7 @@ import ImageSvg from '@/helpers/ImageSVG'
 import Loading from '@/Components/Atoms/Loading'
 
 const Balance = () => {
-  const { session, setModalToken, logout } = useAuth()
+  const { session, setModalToken, logout, l } = useAuth()
   const [startDate, setStartDate] = useState(dayjs().startOf('month').format('DD/MM/YYYY'))
   const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'))
   const [dataInitialSelect, setInitialDataselect] = useState([])
@@ -40,6 +40,7 @@ const Balance = () => {
   const [isCurrencySorted, setIsCurrencySorted] = useState(false)
   const [isBalanceSorted, setIsBalanceSorted] = useState(false)
   const [apply, setApply] = useState(false)
+  const t = l.Reporting
 
   useEffect(() => {
     getBalancesInitial()
@@ -334,9 +335,9 @@ const Balance = () => {
     <LayouReport defaultTab={0}>
       <div className='balance'>
         <div className='layoutReporting-company'>
-          <h5>Balance report To {session?.jCompany.razon_social_company}</h5>
+          <h5>{t['Balance report To']} {session?.jCompany.razon_social_company}</h5>
           <p>
-            If you want to view the complete information, use the <span>export option</span>
+            {t['If you want to view the complete information, use the']} <span>{t['export option']}</span>
           </p>
         </div>
         {dataInitialSelect && (
@@ -345,11 +346,11 @@ const Balance = () => {
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                  label='From'
+                  label={t.From}
                   value={dayjs(startDate, 'DD/MM/YYYY')}
                   slotProps={{
                     textField: {
-                      helperText: 'Date start'
+                      helperText: t['Date start']
                     }
 
                   }}
@@ -360,11 +361,11 @@ const Balance = () => {
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                  label='To'
+                  label={t.To}
                   value={dayjs(endDate, 'DD/MM/YYYY')}
                   slotProps={{
                     textField: {
-                      helperText: 'Date end'
+                      helperText: t['Date end']
                     }
 
                   }}
@@ -374,14 +375,14 @@ const Balance = () => {
               </LocalizationProvider>
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id='company-label'>Company</InputLabel>
+                <InputLabel id='company-label'>{t.Company}</InputLabel>
                 <Select
                   labelId='company-label'
                   value={selectedCompany}
                   onChange={handleCompanyChange}
                 >
                   <MenuItem value=''>
-                    <em>All Companys</em>
+                    <em>{t['All Companys']}</em>
                   </MenuItem>
                   {dataInitialSelect.oEmpresa?.map((comp) => (
                     <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
@@ -389,18 +390,18 @@ const Balance = () => {
                     </MenuItem>
                   ))}
                 </Select>
-                <FormHelperText>Select a company</FormHelperText>
+                <FormHelperText>{t['Select a company']}</FormHelperText>
               </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id='bank-label'>Bank</InputLabel>
+                <InputLabel id='bank-label'>{t.Bank}</InputLabel>
                 <Select
                   labelId='bank-label'
                   value={selectedBank}
                   onChange={handleBankChange}
                 >
                   <MenuItem value=''>
-                    <em>All Banks</em>
+                    <em>{t['All Banks']}</em>
                   </MenuItem>
                   {filteredBank && filteredBank.map((report) => (
                     <MenuItem key={report.id_banco} value={report.id_banco}>
@@ -408,11 +409,11 @@ const Balance = () => {
                     </MenuItem>
                   ))}
                 </Select>
-                <FormHelperText>Select a bank</FormHelperText>
+                <FormHelperText>{t['Select a bank']}</FormHelperText>
               </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id='account-label'>Account</InputLabel>
+                <InputLabel id='account-label'>{t.Account}</InputLabel>
                 <Select
                   labelId='account-label'
                   value={selectedAccount}
@@ -420,7 +421,7 @@ const Balance = () => {
                 >
 
                   <MenuItem value=''>
-                    <em>All Accounts</em>
+                    <em>{t['All Accounts']}</em>
                   </MenuItem>
                   {selectedBank && filteredAccounts.map((account) => (
                     <MenuItem key={account.cuenta_conf_cuenta} value={account.cuenta_conf_cuenta}>
@@ -434,10 +435,10 @@ const Balance = () => {
 
               <div className='box-clear'>
                 <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => setApply(!apply)} disabled={!hasAppliedFilters()}>
-                  Apply
+                  {t.Apply}
                 </button>
                 <button className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
-                  Clear
+                  {t.Clear}
                 </button>
               </div>
 
@@ -458,9 +459,9 @@ const Balance = () => {
         <div className='contaniner-tables'>
           <div className='boards'>
             <div className='box-search'>
-              <h3>Balance Report </h3>
+              <h3>{t['Balance Report']} </h3>
               <button className='btn_black ' onClick={exportToExcel}>
-                <ImageSvg name='Download' /> Export to Excel
+                <ImageSvg name='Download' /> {t['Export to Excel']}
               </button>
             </div>
             <div className='tableContainer'>
@@ -469,38 +470,38 @@ const Balance = () => {
                 <thead>
                   <tr>
                     <th onClick={() => orderDataByDate()}>
-                      Date
+                      {t.Date}
                       <button className='btn_crud'>
                         <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} />
                       </button>
                     </th>
 
                     <th onClick={() => orderDataAlphabetically('razon_social_empresa', setIsCompanySorted, isCompanySorted)}>
-                      Company
+                      {t.Company}
                       <button className='btn_crud'>
                         <ImageSvg name={isCompanySorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
                     <th onClick={() => orderDataAlphabetically('nombre_banco', setIsBankSorted, isBankSorted)}>
-                      Bank
+                      {t.Bank}
                       <button className='btn_crud'>
                         <ImageSvg name={isBankSorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
                     <th onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
-                      Account
+                      {t.Account}
                       <button className='btn_crud'>
                         <ImageSvg name={isAccountSorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
                     <th onClick={() => orderDataAlphabetically('moneda', setIsCurrencySorted, isCurrencySorted)}>
-                      Currency
+                      {t.Currency}
                       <button className='btn_crud'>
                         <ImageSvg name={isCurrencySorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
                     <th onClick={() => orderDataNumerically('saldo', setIsBalanceSorted, isBalanceSorted)}>
-                      Balance
+                      {t.Balance}
                       <button className='btn_crud'>
                         <ImageSvg name={isBalanceSorted ? 'OrderDown' : 'OrderUP'} />
                       </button>
@@ -526,7 +527,7 @@ const Balance = () => {
                     : (
                       <tr>
                         <td colSpan='6'>
-                          There is no data
+                          {t['There is no data']}
                         </td>
                       </tr>
                       )}
@@ -539,7 +540,7 @@ const Balance = () => {
               <div className='pagination'>
 
                 <Typography>
-                  Page {page} of {Math.ceil(balances.oSaldos.length / itemsPerPage)}
+                  {t.Page} {page} {t.of} {Math.ceil(balances.oSaldos.length / itemsPerPage)}
                 </Typography>
                 <Pagination
                   count={Math.ceil(balances.oSaldos.length / itemsPerPage)} // Calculate the total number of pages

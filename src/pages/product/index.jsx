@@ -27,7 +27,9 @@ export default function Products () {
   const [empresa, setEmpresa] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const { session, setModalToken, logout } = useAuth()
+  const { session, setModalToken, logout, l } = useAuth()
+
+  const t = l.Products
 
   const router = useRouter()
   useEffect(() => {
@@ -187,7 +189,7 @@ export default function Products () {
           onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}
         >
 
-          <span>     </span> Setup  <span>  </span>
+          <span>     </span> {t.Setup} <span>  </span>
 
         </button>
       )
@@ -198,7 +200,7 @@ export default function Products () {
           onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}
         >
 
-          <span>     </span>  Edit <span>  </span>
+          <span>     </span>  {t.Edit} <span>  </span>
 
         </button>
       )
@@ -209,14 +211,14 @@ export default function Products () {
           onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}
         >
 
-          Free Trial
+          {t['Free Trial']}
 
         </button>
       )
     } else {
       return (
         <Link href='#'>
-          <p> View more</p>
+          <p> {t['View more']}</p>
         </Link>
       )
     }
@@ -225,7 +227,7 @@ export default function Products () {
   return (
     <LayoutProducts menu='Product'>
       <div className='products'>
-        <NavigationPages title='Digital employees'>
+        <NavigationPages title={t['Digital employees']}>
           {/* <div>
             <Link href='/product'>
               <ImageSvg name='Products' />
@@ -235,7 +237,7 @@ export default function Products () {
 
         <div className='box-empresa'>
 
-          <span> Welcome 👋, Digital employees  </span>
+          <span> {t.Welcome} 👋, {t['Digital employees']}  </span>
 
           {/* <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChangeEmpresa}>
             {session?.oEmpresa.map((empres) => (
@@ -248,7 +250,7 @@ export default function Products () {
           <div className='box-filter'>
 
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id='company-label'> To company:</InputLabel>
+              <InputLabel id='company-label'> {t['To company:']}</InputLabel>
               <Select
                 labelId='company-label'
                 value={empresa?.razon_social_empresa || ''}
@@ -268,20 +270,20 @@ export default function Products () {
         <div className='products_filterSearch'>
           <div className='filterButtons'>
             <button onClick={() => handleFilter(null)} className={selectedFilter === null ? 'active' : ''}>
-              All
+              {t.All}
             </button>
             <button onClick={() => handleFilter(23)} className={selectedFilter === 23 ? 'active' : ''}>
-              Configured
+              {t.Configured}
             </button>
             <button onClick={() => handleFilter(25)} className={selectedFilter === 25 || selectedFilter === 27 || selectedFilter === 28 ? 'active' : ''}>
-              Pending
+              {t.Pending}
             </button>
             <button onClick={() => handleFilter(31)} className={selectedFilter === 31 ? 'active' : ''}>
-              Not hired
+              {t['Not hired']}
             </button>
           </div>
           <div className='searchButton'>
-            <input type='text' placeholder='Search...' value={searchQuery} onChange={handleInputChange} />
+            <input type='text' placeholder={t.Search} value={searchQuery} onChange={handleInputChange} />
             <button onClick={handleSearch}>
               <ImageSvg name='Search' />
             </button>
@@ -294,7 +296,7 @@ export default function Products () {
           ? (
             <div className='products_cards'>
               <div className='sub-title'>
-                <h5> ARI Finance to {empresa?.razon_social_empresa}</h5>
+                <h5> {t['ARI Finance to']} {empresa?.razon_social_empresa}</h5>
               </div>
 
               <ul>
@@ -317,7 +319,7 @@ export default function Products () {
 
                         <p className='dayLetf'>
                           <ImageSvg name='Time' />
-                          Days left:      {product.iCodeStatus === 23 ? <span>{product.jTime.SExpires}</span> : <span>... </span>}
+                          {t['Days left:']}      {product.iCodeStatus === 23 ? <span>{product.jTime.SExpires}</span> : <span>... </span>}
 
                         </p>
 
@@ -337,7 +339,7 @@ export default function Products () {
 
                   <div className='card-status'>
 
-                    <p className='not-hired'>  Not hired
+                    <p className='not-hired'>  {t['Not hired']}
                     </p>
 
                   </div>
@@ -349,7 +351,7 @@ export default function Products () {
 
                       <p className='dayLetf'>
                         <ImageSvg name='Time' />
-                        Days left:..
+                        {t['Days left:']} ..
                       </p>
 
                     </div>
@@ -358,7 +360,7 @@ export default function Products () {
 
                   <div className='box-buttons' style={{ height: '5rem' }}>
                     <Link href='https://www.innovativa.la/digitalemployee'>
-                      View more
+                      {t['View more']}
                     </Link>
                   </div>
                 </li>
@@ -366,7 +368,7 @@ export default function Products () {
                 <li className='card' style={{ display: selectedFilter == 31 || !selectedFilter ? 'block' : 'none' }}>
                   <div className='card-status'>
 
-                    <p className='not-hired'>  Not hired
+                    <p className='not-hired'> {t['Not hired']}
                     </p>
 
                   </div>
@@ -378,7 +380,7 @@ export default function Products () {
 
                       <p className='dayLetf'>
                         <ImageSvg name='Time' />
-                        Days left:..
+                        {t['Days left:']} ..
                       </p>
 
                     </div>
@@ -387,7 +389,7 @@ export default function Products () {
 
                   <div className='box-buttons' style={{ height: '5rem' }}>
                     <Link href='https://www.innovativa.la/digitalemployee'>
-                      View more
+                      {t['View more']}
                     </Link>
 
                   </div>
@@ -397,7 +399,7 @@ export default function Products () {
             </div>
             )
           : (
-            <p>No results found</p>
+            <p>{t['No results found']}</p>
             )}
       </div>
 

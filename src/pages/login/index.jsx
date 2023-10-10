@@ -25,7 +25,6 @@ export default function Login () {
   // pruba nuevo repo 2
 
   const router = useRouter()
-  const { locale } = router
 
   async function handleSubmit (values, { setSubmitting, setStatus, resetForm }) {
     const dataRegister = {
@@ -132,11 +131,11 @@ export default function Login () {
           )}
         </Formik>
         <nav className='navRegister navLogin '>
-          <ul className='iforget'>
+          {/* <ul className='iforget'>
             <Link href='/changepassword'>
               <li> {t['I forgot my password']}</li>
             </Link>
-          </ul>
+          </ul> */}
           <ul>
             <li className='Question'>{t['Have not an account?']}</li>
             <li className='link'>

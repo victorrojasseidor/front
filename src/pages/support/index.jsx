@@ -16,7 +16,9 @@ function Support () {
   const [error, SetError] = useState(null)
   const [confirm, SetConfirm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const { session, empresa, setModalToken, logout } = useAuth()
+  const { session, empresa, setModalToken, logout, l } = useAuth()
+
+  const t = l.Support
 
   async function handleSubmit (values, { setSubmitting, resetForm }) {
     const body = {
@@ -74,7 +76,7 @@ function Support () {
 
     <LayoutProducts menu='Product'>
 
-      <NavigationPages title='Support'>
+      <NavigationPages title={t.Support}>
 
         <Link href='/product'>
           <ImageSvg name='Products' />
@@ -86,7 +88,7 @@ function Support () {
         <ImageSvg name='Navegación' />
 
         <Link href='/support'>
-          Support
+          {t.Support}
         </Link>
 
       </NavigationPages>
@@ -95,20 +97,31 @@ function Support () {
 
       <div className='freetrial'>
         <div className='freetrial_description'>
-          <h1> Contact us </h1>
+          <h1> {t['Contact us']} </h1>
 
           <div>
             {/* <h4> Your satisfaction is our top priority!</h4> */}
             <p>
-              If you have any questions, comments or requests,
+              {t['If you have any questions, comments or requests,']}
             </p>
-            <p>
-              please do not <span> hesitate to contact us  </span> through the form at our technical support
+            <p> {t['please do not']} <span> {t['hesitate to contact us']} </span>{t['through the form at our technical support']}
             </p>
 
           </div>
 
           <Image src={imgfree} width={800} alt='imgfreetrial' />
+          <div className='message-support'>
+            {t['Your satisfaction']}
+
+            <p>
+
+              {t['is our top']}
+
+              <span>  {t.priority} </span>!
+            </p>
+
+          </div>
+
         </div>
         <div className='freetrial_contact'>
           <Formik
@@ -125,19 +138,19 @@ function Support () {
               <Form className='form-container'>
                 <div className='input-box'>
                   <Field type='email' name='corporateEmail' placeholder='' readOnly />
-                  <label htmlFor='corporateEmail'>Company email</label>
+                  <label htmlFor='corporateEmail'> {t['Company email']}</label>
                   <ErrorMessage className='errorMessage' name='corporateEmail' component='div' />
                 </div>
 
                 <div className='input-box'>
                   <Field type='text' name='title' placeholder='' />
-                  <label htmlFor='title'> Title </label>
+                  <label htmlFor='title'>  {t.Title} </label>
                   <ErrorMessage className='errorMessage' name='title' component='div' />
                 </div>
 
                 <div className='input-box'>
                   <Field type='tel' id='phoneNumber' name='phoneNumber' placeholder='' />
-                  <label htmlFor='phoneNumber'>Phone Number</label>
+                  <label htmlFor='phoneNumber'>{t['Phone Number']}</label>
                   <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
                 </div>
 
@@ -152,7 +165,7 @@ function Support () {
                     cols={40}
                   />
 
-                  <label htmlFor='message'> Message</label>
+                  <label htmlFor='message'> {t.Message}</label>
                   <ErrorMessage className='errorMessage' name='message' component='div' />
                 </div>
 
@@ -162,7 +175,7 @@ function Support () {
                     disabled={!values.message || !values.title}
                   >
 
-                    SEND
+                    {t.Send}
                   </button>
                 </div>
               </Form>
@@ -176,10 +189,10 @@ function Support () {
               <ImageSvg name='Check' />
 
               <h2>
-                Your request was sent successfully
+                {t['Your request was sent successfully']}
               </h2>
 
-              <p> We will contact you soon </p>
+              <p>  {t['We will contact you soon']} </p>
 
             </Modal>
           )}

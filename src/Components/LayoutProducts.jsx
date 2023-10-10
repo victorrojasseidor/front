@@ -25,7 +25,9 @@ const LayoutProducts = ({ children, menu }) => {
     setMenuLateralOpen(!isMenuLateralOpen)
   }
 
-  const { session, setSession, modalToken, logout, t } = useAuth()
+  const { session, setSession, modalToken, logout, l } = useAuth()
+
+  const t = l.header
 
   const toggleMenuMobile = () => {
     setIsOpenMobile(!isOpenMobile)
@@ -54,11 +56,6 @@ const LayoutProducts = ({ children, menu }) => {
       window.removeEventListener('resize', checkScreenWidth)
     }
   }, [isMobile, isMenuLateralOpen])
-
-  const handleClickLanguaje = () => {
-    setIsSpanish(!isSpanish)
-    // Aquí puedes realizar acciones adicionales según el idioma seleccionado
-  }
 
   const handleLogout = () => {
     logout()
@@ -113,7 +110,7 @@ const LayoutProducts = ({ children, menu }) => {
               <Link href='/product'>
                 <ImageSvg name='Products' />
                 <h5>
-                  Digital employees
+                  {t['Digital employees']}
                 </h5>
 
               </Link>
@@ -123,7 +120,7 @@ const LayoutProducts = ({ children, menu }) => {
 
               <Link href='/reporting'>
                 <ImageSvg name='Dashboard' />
-                <h5> Reporting
+                <h5> {t.Reporting}
                 </h5>
 
               </Link>
@@ -155,7 +152,7 @@ const LayoutProducts = ({ children, menu }) => {
               <Link href='/Schedule'>
                 <ImageSvg name='Schedule' />
                 <h5>
-                  Schedule
+                  {t.Schedule}
                 </h5>
               </Link>
             </li>
@@ -170,7 +167,7 @@ const LayoutProducts = ({ children, menu }) => {
               <Link href='/profile'>
                 <ImageSvg name='Users' />
                 <h5>
-                  Profile
+                  {t.Profile}
                 </h5>
               </Link>
             </li>
@@ -178,8 +175,8 @@ const LayoutProducts = ({ children, menu }) => {
             <li className={menu === 'Support' ? 'active' : ''}>
 
               <Link href='/support'>
-                <ImageSvg name='Support' /> <h5> Support
-                </h5>
+                <ImageSvg name='Support' /> <h5> {t.Support}
+                                            </h5>
               </Link>
             </li>
 
@@ -190,17 +187,13 @@ const LayoutProducts = ({ children, menu }) => {
           </div>
 
           <div className='menu_navIcons' style={{ flexDirection: isMenuLateralOpen ? 'row' : 'column' }}>
-            {/* <li>
-
-              <Cloud imgButton='Notifications' cloudText='Notifications' />
-            </li> */}
 
             <li>
               <Cloud imgButton='ChatBot' cloudText='ChatBot' onClick={handleClick} />
             </li>
 
             <li>
-              <Cloud imgButton='SignOut' cloudText='Sign Out' onClick={handleLogout} />
+              <Cloud imgButton='SignOut' cloudText={t['Sign Out']} onClick={handleLogout} />
             </li>
 
           </div>
