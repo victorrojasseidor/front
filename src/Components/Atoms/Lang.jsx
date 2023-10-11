@@ -7,31 +7,30 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 export default function Lang () {
-  const router = useRouter()
-  const { locale } = router
+  const router = useRouter();
+  const { locale } = router;
+
+  const handleChangeLocale = (newLocale) => {
+    const { pathname, query } = router;
+    router.push({ pathname, query }, undefined, { locale: newLocale });
+  };
+
  
   return (
     <>
-
       <button className='btn_circle ' style={{cursor:'alias'}}>
         <Image src={locale === 'es' ? IconES : IconEN} width='10px' alt='imglanguage' />
 
       </button>
 
-      <div className='languajes'>
-        <Link href='' locale='en' className={locale === 'en' ? 'lang_active' : ''}>
-          En
-
-        </Link>
-
-        <Link
-          href=''
-          locale='es'
-          className={locale === 'es' ? 'lang_active' : ''}
-        >
-          Es
-        </Link>
-      </div>
+      <div className="languajes">
+      <button onClick={() => handleChangeLocale('en')} className={locale === 'en' ? 'lang_active' : ''}>
+              En
+            </button>
+            <button onClick={() => handleChangeLocale('es')} className={locale === 'es' ? 'lang_active' : ''}>
+              Es
+            </button>
+          </div>
     </>
   )
 }

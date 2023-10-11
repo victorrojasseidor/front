@@ -10,7 +10,10 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
   const [error, setError] = useState('')
   const [modalConfirmation, setModalConfirmation] = useState(false)
 
-  const { session, setModalToken } = useAuth()
+  const { session, setModalToken, l } = useAuth()
+
+  const t = l.Download
+
   const handleChange = (e) => {
     setEmail(e.target.value)
     setError('')
@@ -104,7 +107,7 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
 
           <div>
             <h3>
-              Successful email registration
+              {t['Successful email registration']}
             </h3>
           </div>
         </Modal>
@@ -122,11 +125,11 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
               rows={4} // Adjust the number of visible rows as needed
               cols={40}
             />
-            <label htmlFor=''> Add emails </label>
+            <label htmlFor=''> {t['Add emails']} </label>
           </div>
           <div>
             <button type='button' className='btn_black' onClick={handleAddEmails}>
-              + Add
+              {t['+ Add']}
             </button>
           </div>
 
@@ -137,7 +140,7 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
       </form>
       {emails.length > 0 && (
         <div className='listEmails'>
-          <p>Added Emails:</p>
+          <p>{t['Added Emails']}:</p>
 
           <ul className='ListEmails'>
             {emails?.map((email, index) => (
@@ -148,7 +151,7 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
           </ul>
         </div>
       )}
-      {emails.length > 0 && <button className='btn_primary' onClick={handleSendEmails}>Save and continue</button>}
+      {emails.length > 0 && <button className='btn_primary' onClick={handleSendEmails}>{t['Save and continue']}</button>}
 
     </div>
 

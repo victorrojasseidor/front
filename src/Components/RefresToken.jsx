@@ -6,9 +6,9 @@ import ImageSvg from '@/helpers/ImageSVG'
 
 function RefreshToken () {
   const [token, setToken] = useState(null)
-  // const [showModal, setShowModal] = useState(true);
 
-  const { session, setModalToken, modalToken } = useAuth()
+  const { session, setModalToken, modalToken, l } = useAuth()
+  const t = l.Modal
 
   const handleConfirmRefresh = async () => {
     try {
@@ -33,8 +33,8 @@ function RefreshToken () {
             <ImageSvg name='Refresh' />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <h2>Your session is about to expire!</h2>
-            <div>Please confirm to refresh your token and continue.</div>
+            <h2>{t['Your session is about to expire!']}</h2>
+            <div>{t['Please confirm to refresh your token and continue']}</div>
             <button className='btn_primary' onClick={handleConfirmRefresh}>Confirm</button>
           </div>
         </Modal>

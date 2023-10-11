@@ -59,7 +59,9 @@ export default function ConfigDowland () {
   const iId = router.query.iId
   const idEmpresa = router.query.idEmpresa
 
-  const { session, setModalToken, logout } = useAuth()
+  const { session, setModalToken, logout, l } = useAuth()
+
+  const t = l.Download
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -339,54 +341,63 @@ export default function ConfigDowland () {
   }
 
   return (
-    <section className='config-Automated'>
 
+    <section className='config-Automated'>
       {isLoading && <Loading />}
+
       <div className='Tabsumenu'>
         <div className='Tabsumenu-header '>
           <button className={` ${activeTab === 0 ? 'activeST' : ''} ${completeEmails ? 'completeST' : ''}`} onClick={() => handleTabClick(0)}>
             <ImageSvg name='Check' />
-            <h4> Status and emails </h4>
+            <h4> {t['Status and emails']} </h4>
           </button>
 
           <button style={{ visibility: completeEmails ? 'visible' : 'hidden' }} className={` ${activeTab === 1 ? 'activeST' : ''} ${completeconfigBank ? 'completeST' : ''}`} onClick={() => handleTabClick(1)}>
             <ImageSvg name='Check' />
-            <h4>  Bank and Accounts  </h4>
+            <h4>  {t['Bank and Accounts']}  </h4>
           </button>
 
           <button style={{ visibility: completeconfigBank ? 'visible' : 'hidden' }} className={` ${activeTab === 2 ? 'activeST' : ''} ${completeShedule ? 'completeST' : ''}`} onClick={() => handleTabClick(2)}>
             <ImageSvg name='Check' />
-            <h4> Schedule and repository</h4>
+            <h4> {t['Schedule and repository']}</h4>
           </button>
         </div>
 
         <div className='Tabsumenu-content'>
           {activeTab === 0 &&
             <div className='container-status'>
+              {/* <h1> {t['Download automated Bank Statements']} </h1> */}
               <div className='status-config'>
+
                 <ul>
+
                   <li>
-                    <p>Start service :</p>
+                    <p>{t['Digital employees']}:</p>
+                    <h5>  {t['Download automated Bank Statements']} </h5>
+                  </li>
+                  <li>
+
+                    <p>{t['Start service:']}</p>
 
                     <p> {formatDate(dataCardProduct?.sDateEnd)}</p>
                   </li>
                   <li>
-                    <p>End service :</p>
+                    <p>{t['End service:']}</p>
                     <p> {formatDate(dataCardProduct?.sDateInit)} </p>
                   </li>
                   <li>
-                    <p>Country :</p>
+                    <p>{t.Country} :</p>
                     <p>{dataCardProduct?.sCountry}</p>
                   </li>
                   <li>
-                    <p>State :</p>
+                    <p>{t.State} :</p>
                     <p className='Active'>{dataCardProduct?.sDescStatus}</p>
                   </li>
                 </ul>
               </div>
               {haveEmails
                 ? <div className='box-emails'>
-                  <h3>Emails for notifications</h3>
+                  <h3>{t['Emails for notifications']}</h3>
                   <div className='card--emails'>
                     <div className='emails'>
                       {data?.oCorreoEB.slice(0, 5).map((email) => (
@@ -406,15 +417,15 @@ export default function ConfigDowland () {
                       onClick={() => handleTabClick(1)}
                       disabled={!completeEmails}
                     >
-                      Next
+                      {t.Next}
                       <ImageSvg name='Next' />
                     </button>
                   </div>
                 </div>
                 : <div className='config-Automated--emails'>
-                  <h3> Register emails</h3>
+                  <h3> {t['Register emails']} </h3>
                   <div className='description'>
-                    Add the emails to notify to <b> Download automated Bank Statements </b>
+                    {t['Add the emails to notify to']}
                   </div>
                   <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
                 </div>}
@@ -425,21 +436,21 @@ export default function ConfigDowland () {
             <div className='config-Automated--tables'>
 
               {
-                bankCredential && <div className='navegation '>
+              bankCredential && <div className='navegation '>
 
-                  <button onClick={() => { setShowAccounts(false); setBankCredential(null) }}>
-                    List Bank Credential
-                  </button>
+                <button onClick={() => { setShowAccounts(false); setBankCredential(null) }}>
+                  {t['List Bank Credential']}
+                </button>
 
-                  <ImageSvg name='Navegación' />
+                <ImageSvg name='Navegación' />
 
-                  <span>
+                <span>
 
-                    {bankCredential?.nombre}
-                  </span>
+                  {bankCredential?.nombre}
+                </span>
 
-                                  </div>
-              }
+              </div>
+            }
 
               {showAccounts
                 ? <>
@@ -452,18 +463,18 @@ export default function ConfigDowland () {
                       onClick={() => { setShowAccounts(false); setBankCredential(null) }}
                     >
                       <ImageSvg name='Back' />
-                      Previus
+                      {t.Previus}
                     </button>
 
                   </div>
-                  </>
+                </>
 
                 : <>
 
                   <div className='box-search'>
-                    <h3>List Bank Credential</h3>
+                    <h3>{t['List Bank Credential']} </h3>
                     <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
-                      {showForm ? 'Close Form' : '+ Add credential'}
+                      {showForm ? t['Close Form'] : t['+ Add credential']}
                     </button>
                   </div>
 
@@ -477,13 +488,13 @@ export default function ConfigDowland () {
 
                             <thead>
                               <tr>
-                                <th>Name</th>
-                                <th>Principal user</th>
-                                <th>Bank</th>
-                                <th>Country</th>
-                                <th>State</th>
-                                <th>Accounts</th>
-                                <th>Actions</th>
+                                <th>{t.Name} </th>
+                                <th>{t['Principal user']} </th>
+                                <th>{t.Bank} </th>
+                                <th>{t.Country} </th>
+                                <th>{t.State} </th>
+                                <th>{t.Accounts} </th>
+                                <th>{t.Actions} </th>
                               </tr>
                             </thead>
 
@@ -501,8 +512,8 @@ export default function ConfigDowland () {
 
                                   <td className='head-status'>
                                     {row.oListCuentas.length > 0
-                                      ? <button className='btn_green' onClick={() => handleAcount(row)}> Show Accounts </button>
-                                      : <button className='btn_red' onClick={() => handleAcount(row)}>     Add Accounts  </button>}
+                                      ? <button className='btn_green' onClick={() => handleAcount(row)}> {t['Show Accounts']} </button>
+                                      : <button className='btn_red' onClick={() => handleAcount(row)}>     {t['Add Accounts']}  </button>}
                                   </td>
                                   <td className='box-actions'>
                                     <button className='btn_crud' onClick={() => handleEdit(row)}>
@@ -522,7 +533,7 @@ export default function ConfigDowland () {
                             </tbody>
                             </table>
                           : <div>
-                            <p> Register your bank Credentials
+                            <p> {t['Register your bank Credentials']}
 
                             </p>
 
@@ -541,17 +552,17 @@ export default function ConfigDowland () {
                         <ImageSvg name='Question' />
 
                         <div>
-                          <h3>Do you want to delete this credential bank ?</h3>
+                          <h3>{t['Do you want to delete this credential bank ?']}</h3>
                           <div className='box-buttons'>
                             <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
-                              YES
+                              {t.YES}
                             </button>
                             <button
                               type='button'
                               className='btn_secundary small'
                               onClick={() => setSelectedRowToDelete(null)}
                             >
-                              NOT
+                              {t.NOT}
                             </button>
                           </div>
                         </div>
@@ -562,52 +573,51 @@ export default function ConfigDowland () {
                   </div>
 
                   {
-                    data.oListBancoCredendicial.length > 0 && <div>
-                      {completeconfigBank
-                        ? (
-                          <div className='box-buttons'>
-                            <button
-                              type='button'
-                              className='btn_secundary small'
-                              onClick={() => handleTabClick(0)}
-                            >
-                              <ImageSvg name='Back' />
+                  data.oListBancoCredendicial.length > 0 && <div>
+                    {completeconfigBank
+                      ? (
+                        <div className='box-buttons'>
+                          <button
+                            type='button'
+                            className='btn_secundary small'
+                            onClick={() => handleTabClick(0)}
+                          >
+                            <ImageSvg name='Back' />
 
-                              Previus
-                            </button>
-                            <button
-                              className={`btn_secundary small  ${completeconfigBank ? ' ' : 'disabled'}`}
-                              onClick={() => handleTabClick(2)}
-                              disabled={!completeconfigBank}
-                            >
-                              Next
-                              <ImageSvg name='Next' />
-                            </button>
-                          </div>
+                            {t.Previus}
+                          </button>
+                          <button
+                            className={`btn_secundary small  ${completeconfigBank ? ' ' : 'disabled'}`}
+                            onClick={() => handleTabClick(2)}
+                            disabled={!completeconfigBank}
+                          >
+                            {t.Next}
+                            <ImageSvg name='Next' />
+                          </button>
+                        </div>
 
-                          )
-                        : (
+                        )
+                      : (
 
-                          <div className='noti'>
-                            <p> Register at least one bank account to proceed to the next
-                              step in the setup process.
+                        <div className='noti'>
+                          <p> {t['Register at least one bank account to proceed to the next step in the setup process']}
 
-                            </p>
-                            <p> <span> Please click on Add Accounts. </span> </p>
-                          </div>
+                          </p>
+                          <p> <span> {t['Please click on Add Accounts']} </span> </p>
+                        </div>
 
-                          )}
-                    </div>
-                  }
+                        )}
+                  </div>
+                }
 
-                  </>}
+                </>}
 
             </div>}
 
           {activeTab === 2 &&
             <div className='shedule'>
               <h2>
-                Schedule
+                {t.Schedule}
               </h2>
               <div className='input-box'>
                 <label className='checkbox'>
@@ -619,19 +629,19 @@ export default function ConfigDowland () {
                     checked={isChecked} // Establece el estado del checkbox
                     onChange={handleCheckboxChange}
                   />
-                  Daily <span>Timezone: (UTC -05:00)</span> Bogota
+                  <span>   <strong>{t.Daily}:  </strong>   {t.Timezone} (UTC -05:00) Bogota </span>
                 </label>
               </div>
 
               <div className='repository'>
 
                 <h5>
-                  Repository
+                  {t.Repository}
                 </h5>
 
                 <Formik
                   initialValues={{
-                    repository: 'https://drive.google.com/drive/u/2/folders/1s2Ot16GFkN7d534ur12hNj7PPVv7alDs'
+                    Repository: 'https://drive.google.com/drive/u/2/folders/1s2Ot16GFkN7d534ur12hNj7PPVv7alDs'
 
                   }}
 
@@ -641,9 +651,9 @@ export default function ConfigDowland () {
                     <Form style={{ width: '70%' }}>
                       <div className='input-box'>
                         <Field type='text' name='repository' placeholder='' readOnly />
-                        <label htmlFor='repository'>Repository path</label>
+                        <label htmlFor='repository'>{t['Repository path']}</label>
                         <Link href='https://drive.google.com/drive/u/2/folders/1s2Ot16GFkN7d534ur12hNj7PPVv7alDs'>
-                          See repository
+                          {t['See repository']}
                         </Link>
                         <ErrorMessage className='errorMessage' name='repository' component='div' />
 
@@ -664,8 +674,8 @@ export default function ConfigDowland () {
                     disabled={!completeShedule}
                   >
                   <ImageSvg name='Automation' />
-                  Run automation
-                  </button>
+                  {t['Run automation']}
+                </button>
                 : ''}
               <div className='box-buttons'>
                 <button
@@ -674,7 +684,7 @@ export default function ConfigDowland () {
                   onClick={() => handleTabClick(1)}
                 >
                   <ImageSvg name='Back' />
-                  Previus
+                  {t.Previus}
                 </button>
 
                 <button
@@ -682,7 +692,7 @@ export default function ConfigDowland () {
                   className='btn_primary small'
                   onClick={() => setModalConfirmationShedule(true)}
                 >
-                  Next
+                  {t.Next}
                   <ImageSvg name='Next' />
                 </button>
               </div>
@@ -700,10 +710,10 @@ export default function ConfigDowland () {
           </div>
           <div>
 
-            <h2>Configured  </h2>
+            <h2>{t.Configured}  </h2>
 
             <p>
-              DOWNLOAD BANK STATEMENTS
+              {t['Download automated Bank Statements']}
             </p>
 
             <div className='box-buttons'>
@@ -713,7 +723,7 @@ export default function ConfigDowland () {
                 className='btn_primary small'
                 onClick={() => { router.push('/product'); setModalConfirmationShedule(false) }}
               >
-                Return a Digital Employees
+                {t['Return a Digital Employees']}
               </button>
 
             </div>

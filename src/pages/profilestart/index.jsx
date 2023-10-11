@@ -17,7 +17,8 @@ export default function Profilestart () {
   const [isSpanish, setIsSpanish] = useState(false)
   const [user, setUser] = useState({})
 
-  const { session, logout } = useAuth()
+  const { session, logout, l } = useAuth()
+  const t = l.profile
 
   useEffect(() => {
     const localStorageData = JSON.parse(localStorage.getItem('user'))

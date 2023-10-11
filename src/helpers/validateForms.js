@@ -1,4 +1,12 @@
-export const validateFormRegister = (values, t) => {
+import en from '../../lang/en.json'
+import es from '../../lang/es.json'
+
+export const validateFormRegister = (values) => {
+  const localeSpanish = window.location.href
+  const localeES = localeSpanish.includes('/es/')
+  const l = localeES ? es : en
+  const t = l.validation
+
   const errors = {}
 
   if (!values.name) {
@@ -40,7 +48,12 @@ export const validateFormRegister = (values, t) => {
   return errors
 }
 
-export const validateFormLogin = (values, t) => {
+export const validateFormLogin = (values) => {
+  const localeSpanish = window.location.href
+  const localeES = localeSpanish.includes('/es/')
+  const l = localeES ? es : en
+  const t = l.validation
+
   const errors = {}
 
   if (!values.corporateEmail) {
@@ -59,88 +72,103 @@ export const validateFormLogin = (values, t) => {
 }
 
 export const validateFormprofilestart = (values) => {
+  const localeSpanish = window.location.href
+  const localeES = localeSpanish.includes('/es/')
+  const l = localeES ? es : en
+  const t = l.validation
+
   const errors = {}
 
   if (!values.lastName) {
-    errors.lastName = 'Last Name is required'
+    errors.lastName = t['Last Name is required']
   } else if (!/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
-    errors.lastName = 'Your Surnames must not contain numbers or other special characters, allow up to 2 surnames'
+    errors.lastName = t['Your Surnames must not contain numbers or other special characters, allow up to 2 surnames']
   }
 
   if (values.lastName && values.lastName.trim() !== '' && !/^[A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,}( [A-Za-záéíóúÁÉÍÓÚüÜñÑ]{2,})?$/.test(values.lastName)) {
-    errors.lastName = 'Your Surnames must not contain numbers or other special characters, allow up to 2 surnames'
+    errors.lastName = t['Your Surnames must not contain numbers or other special characters, allow up to 2 surnames']
   }
 
   if (!values.phoneNumber) {
-    errors.phoneNumber = 'Phone number is required'
+    errors.phoneNumber = t['Phone number is required']
   } else if (!/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(values.phoneNumber)) {
-    errors.phoneNumber = 'Phone phone must contain numbers'
+    errors.phoneNumber = t['Phone phone must contain numbers']
   }
 
   if (values.phoneNumber && !/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(values.phoneNumber)) {
-    errors.phoneNumber = 'Phone phone must contain numbers'
+    errors.phoneNumber = t['Phone phone must contain numbers']
   }
 
   return errors
 }
 
 export const validateFormAddListBank = (values, initialVal, showcomponent) => {
+  const localeSpanish = window.location.href
+  const localeES = localeSpanish.includes('/es/')
+  const l = localeES ? es : en
+  const t = l.validation
+
   const errors = {}
 
   if (!values.name) {
-    errors.name = 'Name is required'
+    errors.name = t['Name is required']
   }
 
   if (!values.bank && !initialVal) {
-    errors.bank = 'Bank is required'
+    errors.bank = t['Bank is required']
   }
 
   if (!initialVal && !values.password) {
-    errors.password = 'Password is required'
+    errors.password = t['Password is required']
   }
 
   if (!values.principalCredential && showcomponent?.bCredencial1) {
-    errors.principalCredential = 'This credential is required'
+    errors.principalCredential = t['This credential is required']
   }
 
   if (!values.credential2 && showcomponent?.bCredencial2) {
-    errors.credential2 = 'This credential is required'
+    errors.credential2 = t['This credential is required']
   }
 
   if (!values.credential3 && showcomponent?.bCredencial3) {
-    errors.credential3 = 'This credential is required'
+    errors.credential3 = t['This credential is required']
   }
 
   if (!values.credential4 && showcomponent?.bCredencial4) {
-    errors.credential4 = 'This credential is required'
+    errors.credential4 = t['This credential is required']
   }
 
   return errors
 }
 
 export const validateFormAddAccount = (values, initialVal, showcomponent) => {
+  const localeSpanish = window.location.href
+  const localeES = localeSpanish.includes('/es/')
+  const l = localeES ? es : en
+  const t = l.validation
+
   const errors = {}
 
   console.log(initialVal)
 
   if (!values.Account && showcomponent.bAccount) {
-    errors.Account = 'Account is required'
+    errors.Account = t['Account is required']
   }
 
   if (!values.Company && showcomponent.bCompany) {
-    errors.Company = 'Company is required'
+    errors.Company = t['Company is required']
   }
 
   if (!values.Ruc && showcomponent.bRuc) {
-    errors.Ruc = 'Ruc is required'
+    errors.Ruc = t['Ruc is required']
   }
 
   if (!values.Coin && showcomponent.bCoin) {
-    errors.Coin = 'Coin is required'
+    errors.Coin = t['Coin is required']
   }
 
   if (!values.TypeFile && showcomponent.bType && !initialVal) {
-    errors.TypeFile = 'Type of file is required'
+    errors.TypeFile = t['Type of file is required']
   }
 
   return errors

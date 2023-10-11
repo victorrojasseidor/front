@@ -55,30 +55,36 @@
     "UPDATE": "UPDATE"
   },
 
-  "profile_start": {
-    "Discover a new way to optimize your financial operations.": "Discover a new way to optimize your financial operations.",
-    "BPaaS: Robots and people work better together": "BPaaS: Robots and people work better together",
-    "Welcome to Seidor BPaaS!": "Welcome to Seidor BPaaS!",
-    "Innovation is the key to efficiency and speed in your financial processes.": "Innovation is the key to efficiency and speed in your financial processes.",
-    "Our robots collaborate to provide you with the best service, so you don't have to worry about a thing.": "Our robots collaborate to provide you with the best service, so you don't have to worry about a thing.",
-    "let's get started": "let's get started",
+  "profile": {
+    
+    "Welcome to ARI Seidor!": "Welcome to ARI Seidor!",
+    "Robots and people work better together": "Robots and people work better together",
+    "let's get started": "let's get started<",
     "Fill in the following fields to complete your profile": "Fill in the following fields to complete your profile",
+    "Step": "Step",
     "Personal information": "Personal information",
-    "Company": "Company",
-    "Notifications": "Notifications",
+    "Username": "Username",
     "Last Name": "Last Name",
-    "Phone number": "Phone number",
+    "Phone Number": "Phone Number",
     "Company email": "Company email",
-    "NEXT": "NEXT",
-    "Company name": "Company name",
-    "Add business unit or associated company": "Add business unit or associated company",
-    "ADD NEW": "ADD NEW",
-    "Profile created for the following companies": "Profile created for the following companies",
-    "BACK": "BACK",
+    "Next": "Next",
+    "Company profile": "Company profile",
+    "Corporate": "Corporate",
+    "Select the Profile to company": "Select the Profile to company",
+    "Previous": "Previous",
+    "Notifications": "Notifications",
     "Select how you want to be notified": "Select how you want to be notified",
-    "Notifications in Bpass": "Notifications in Bpass",
+    "Notifications in ARI": "Notifications in Bpass",
     "Email notifications": "Email notifications",
-    "SAVE": "SAVE"
+    "Completed profile": "Completed profile",
+    "Edit profile": "Edit profile",
+    "Company": "Company",
+    "Code":"Code",
+    "Update": "Update",
+    "Estatus": "Estatus",
+    "Corporation": "Corporation",
+    "Companies": "Companies"
+  
   },
 
   "header": {
@@ -116,15 +122,109 @@
     "Days left:":"Days left:",
     "Download SUNAT Tax Status Registers":"Download SUNAT Tax Status Registers",
     "Invoice register":"Invoice register",
-    "No results found":"No results found"
+    "No results found":"No results found",
+    "Configuration":"Configuration",
+    "Apiconfuguración":"Apiconfuguración",
+    "Documentation":"Documentation",
+    "Apiconfuguratión":"Apiconfuguratión"
+
 
     },
+    "Download": {
+      "Digital employees":"Digital employees",
+      "Status and emails":"Status and emails",
+      "Bank and Accounts": "Bank and Accounts",
+      "Start service:": "Start service:",
+      "End service:": "End service:",
+      "Country": "Country:",
+      "State": "State:",
+      "Emails for notifications": "Emails for notifications",
+      "Next": "Next",
+      "Close Form":"Close Form",
+      "+ Add credential":"+ Add credential",
+      "+ Add Account":"+ Add Account",
+      "Register emails": "Register emails",
+      "Add the emails to notify to": "Add the emails to notify to",
+      "Download automated Bank Statements": "Download automated Bank Statements",
+      "List Bank Credential": "List Bank Credential",
+      "Previus": "Next",
+      "Name": "Name",
+      "Principal user": "Principal user",
+      "Bank": "Bank",
+      "Accounts": "Accounts",
+      "Actions": "Actions",
+      "Show Accounts": "Show Accounts",
+      "Add Accounts": "Add Accounts",
+      "Register your bank Credentials": "Register your bank Credentials",
+      "Do you want to delete this credential bank ?": "Do you want to delete this credential bank ?",
+      "YES": "YES",
+      "NOT": "NOT",
+      "Register at least one bank account to proceed to the next step in the setup process": "Register at least one bank account to proceed to the next step in the setup process",
+      "Please click on Add Accounts": "Please click on Add Accounts",
+      "Schedule": "Schedule",
+      "Schedule and repository":"Schedule and repository",
+      "Daily": "Daily",
+      "Repository": "Repository",
+      "Timezone":"Timezone",
+      "See repository": "See repository",
+      "Repository path": "Repository path",
+      "Run automation": "Run automation",
+      "Configured": "Configured",
+      "Return a Digital Employees": "Return a Digital Employees",
+      "Credentials": "Credentials",
+      "Register accounts for bank credentials": "Register accounts for bank credentials",
+      "Account Description": "Account Description",
+      "Company": "Company",
+      "Company Description": "Company Description",
+      "RUC": "RUC",
+      "File": "File",
+      "Currency": "Currency",
+      "Description currency": "Description currency",
+      "Delete this account?": "Delete this account?",
+      "Register your bank":"Register your bank",
+      "Successful email registration":"Successful email registration",
+      "+ Add": " + Add",
+      "Add emails": "Add emails",
+      "Save and continue": "Save and continue",
+      "Register your Account": "Register your Account",
+      "Edit record": "Edit record",
+      "Add account": "Add account",
+      "Register company": "Register company",
+      "Register currency": "Register currency",
+      "How do you want recibir tu information?": "How do you want recibir tu information?",
+      "Activate or deactivate your Account": "Activate or deactivate your Account",
+      "Active": "Active",
+      "Disabled": "Disabled",
+      "Close": "Close",
+      "Update": "Update",
+      "Select a type of file": "Select a type of file",
+      
+      
+      "Edit credential": "Edit credential",
+      "Update old password":"Update old password",
+    "Password":"Password",
+      "Add credential": "Add credential",
+      "Add the bank":"Add the bank",
+      "Add all your accounts to automate": "Add all your accounts to automate",
+      "Name of Bank Credential": "Name of Bank Credential",
+      "Select a country": "Select a country",
+      "Select a bank": "Select a bank",
+      "Add Credential": "Add Credential",
+      "Register your credentials": "Register your credentials",
+      "Activate or deactivate the download of bank statements for this credential": "Activate or deactivate the download of bank statements for this credential",
+      "Add": "Add"
+    
+
+      
+    
+
+    },
+  
     "Support": {
       "Support":"Support",
       "Contact us": "Contact us",
       "If you have any questions, comments or requests,": "If you have any questions, comments or requests,",
       "please do not": "please do not",
-    
       "hesitate to contact us": "hesitate to contact us",
       "through the form at our technical support": "through the form at our technical support",
       "Company email": "Company email",
@@ -156,7 +256,6 @@
       "Movement report To":"Movement report To",
       "From":"From",
       "To":"To",
-
       "Company":"Company",
       "All Companys":"All Companys",
       "Type":"Type",
@@ -185,6 +284,10 @@
       "Page":"Page",
       "of":"of"
       },
+      "Modal": {
+        "Your session is about to expire!": "Your session is about to expire!",
+        "Please confirm to refresh your token and continue": "Please confirm to refresh your token and continue"
+      },
 
 
   "validation": {
@@ -198,7 +301,19 @@
     "Phone phone must contain numbers":"Phone phone must contain numbers",
     "Password confirmation is required":"Password confirmation is required",
     "Passwords do not match":"Passwords do not match",
-    "You must accept the terms and conditions":"You must accept the terms and conditions"
+    "You must accept the terms and conditions":"You must accept the terms and conditions",
+    "Name is required":"Name is required",
+    "Bank is required":"Bank is required",
+    "This credential is required":"This credential is required",
+    "Account is required":"Account is required",
+    "Company is required":"Company is required",
+    "Ruc is required":"Ruc is required",
+    "Coin is required":"Coin is required",
+    "Type of file is required":"Type of file is required",
+    "Last Name is required":"Last Name is required",
+    "Phone number is required":"Phone number is required"
+    
+
     
   }
 }

@@ -20,12 +20,14 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingComponent, setIsLoadingComponent] = useState(false)
 
-  const { session, setModalToken, logout } = useAuth()
+  const { session, setModalToken, logout, l } = useAuth()
 
   const router = useRouter()
   const iIdProdEnv = router.query.iIdProdEnv
   const iId = router.query.iId
   const idEmpresa = router.query.idEmpresa
+
+  const t = l.Download
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -227,13 +229,13 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
             <div className='status-config'>
               <ul>
                 <li>
-                  <p>Name  :</p>
+                  <p>{t.Name}: </p>
                   <p> <h5> {data?.nombre}</h5> </p>
 
                 </li>
 
                 <li>
-                  <p>State :</p>
+                  <p>{t.State}: </p>
                   <p className='Active'>{data?.estado_c == 23 ? 'Active' : 'Disabled'}</p>
                 </li>
               </ul>
@@ -241,12 +243,12 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
             <div className='box-emails'>
               <ul>
                 <li>
-                  <p>Bank : </p>
+                  <p>{t.Bank} : </p>
                   <p>{data?.nombre_banco}</p>
                 </li>
 
                 <li>
-                  <p>Credentials :</p>
+                  <p>{t.Credentials} :</p>
                   <p>
                     <span>
                       {data?.usuario}
@@ -275,12 +277,12 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
           <div className='box-search'>
             <div>
-              <h3>Accounts </h3>
-              <p> Register accounts for bank credentials </p>
+              <h3>{t.Accounts} </h3>
+              <p> {t['Register accounts for bank credentials']} </p>
             </div>
 
             <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
-              {showForm ? 'Close Form list' : '+ Add Account'}
+              {showForm ? t['Close Form'] : t['+ Add Account']}
             </button>
           </div>
 
@@ -292,16 +294,16 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
                   <table className='dataTable '>
                     <thead>
                       <tr>
-                        <th>Account</th>
-                        <th>Account Description</th>
-                        <th>Company</th>
-                        <th>Company Description</th>
-                        <th>Ruc</th>
-                        <th>File</th>
-                        <th>Currency</th>
-                        <th>Description currency</th>
-                        <th>State</th>
-                        <th>Actions</th>
+                        <th>{t.Accounts}</th>
+                        <th>{t['Account Description']}</th>
+                        <th>{t.Company}</th>
+                        <th>{t['Company Description']}</th>
+                        <th>{t.RUC}</th>
+                        <th>{t.File}</th>
+                        <th>{t.Currency}</th>
+                        <th>{t['Description currency']}</th>
+                        <th>{t.State}</th>
+                        <th>{t.Actions}</th>
 
                       </tr>
                     </thead>
@@ -359,17 +361,17 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
               <ImageSvg name='Question' />
 
               <div>
-                <h3>Delete this account?</h3>
+                <h3>{t['Delete this account?']}</h3>
                 <div className='box-buttons'>
                   <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
-                    YES
+                    {t.YES}
                   </button>
                   <button
                     type='button'
                     className='btn_secundary small'
                     onClick={() => setSelectedRowToDelete(null)}
                   >
-                    NOT
+                    {t.NOT}
                   </button>
                 </div>
               </div>

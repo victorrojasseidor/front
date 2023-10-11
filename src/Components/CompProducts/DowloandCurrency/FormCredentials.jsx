@@ -3,12 +3,15 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import Select from 'react-select'
 import { validateFormAddListBank } from '@/helpers/validateForms'
 import ModalForm from '@/Components/Atoms/ModalForm'
+import { useAuth } from '@/Context/DataContext'
 
 const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, handleEditListBank, setShowForm }) => {
   const [countryOptions, setCountryOptions] = useState([])
   const [bankOptions, setBankOptions] = useState([])
   const [country, setCountry] = useState(null)
   const [showcomponent, setShowComponent] = useState(null)
+  const { l } = useAuth()
+  const t = l.Download
 
   const countryData = dataUser?.oPaisBanco
 
@@ -62,7 +65,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
       }}
     >
       <div className='Form-listCredential'>
-        <h2 className='box'>{initialVal ? 'Edit credential' : 'Add credential'}</h2>
+        <h2 className='box'>{initialVal ? t['Edit credential'] : t['Add credential']}</h2>
         <Formik
           initialValues={initialValues}
           // validate={initialVal === null ? validateFormAddListBank : undefined}
@@ -81,22 +84,22 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
             <Form className='form-container formCredential'>
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 1. Register your bank </h5>
-                  <p className='description'>Add all your accounts to automate</p>
+                  <h5 className='sub'> 1. {t['Register your bank']} </h5>
+                  <p className='description'>{t['Add the bank']}</p>
                 </div>
                 <div className='group'>
                   <div className='input-box'>
                     <Field type='text' name='name' placeholder=' ' />
-                    <label htmlFor='name'>Name of Bank Credential</label>
+                    <label htmlFor='name'>{t['Name of Bank Credential']}</label>
                     <ErrorMessage name='name' component='span' className='errorMessage' />
                   </div>
 
                   <div className='country-box'>
-                    <label htmlFor='country'>Select a country</label>
+                    <label htmlFor='country'>{t['Select a country']}</label>
                     <Select
                       options={countryOptions}
                       name='country'
-                      placeholder='Select a country'
+                      placeholder={t['Select a country']}
                       isClearable
                       value={countryOptions[0]}
                       // value={country}
@@ -109,11 +112,11 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                   </div>
 
                   <div className='bank-box'>
-                    <label htmlFor='bank'>Select a bank</label>
+                    <label htmlFor='bank'>{t['Select a bank']}</label>
                     <Select
                       options={bankOptions}
                       name='bank'
-                      placeholder='Select a bank'
+                      placeholder={t['Select a bank']}
                       isClearable
                       value={values.bank || (initialVal && bankOptions.find((option) => option.id === initialVal.id_banco))}
                       onChange={(selectedOption) => {
@@ -126,7 +129,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
 
                   <div className='input-box'>
                     <Field type='password' name='password' placeholder=' ' />
-                    <label htmlFor='password'>{initialVal ? 'Update old password' : 'Password'}</label>
+                    <label htmlFor='password'>{initialVal ? t['Update old password'] : t.Password}</label>
                     <ErrorMessage name='password' component='span' className='errorMessage' />
                   </div>
                 </div>
@@ -134,8 +137,8 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 2. Add Credential </h5>
-                  <p className='description'>Register your credentials</p>
+                  <h5 className='sub'> 2. {t['Add Credential']} </h5>
+                  <p className='description'>{t['Register your credentials']}</p>
                 </div>
 
                 <div className='group'>
@@ -173,19 +176,19 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 3. State </h5>
-                  <p className='description'>Activate or deactivate your credential bank</p>
+                  <h5 className='sub'> 3. {t.State} </h5>
+                  <p className='description'>{t['Activate or deactivate the download of bank statements for this credential']}</p>
                 </div>
                 <div className='state-box'>
-                  <label>State: </label>
+                  <label>{t.State}: </label>
                   <div className='content'>
                     <label>
                       <Field type='radio' name='state' value='Active' />
-                      Active
+                      {t.Active}
                     </label>
                     <label>
                       <Field type='radio' name='state' value='Disabled' />
-                      Disabled
+                      {t.Disabled}
                     </label>
                   </div>
                 </div>
@@ -199,7 +202,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                     setShowForm(false)
                   }}
                 >
-                  Close
+                  {t.Close}
                 </button>
 
                 <button type='submit' className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>

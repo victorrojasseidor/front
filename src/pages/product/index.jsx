@@ -34,7 +34,7 @@ export default function Products () {
   const router = useRouter()
   useEffect(() => {
     getProductscard()
-  }, [session, empresa])
+  }, [session, empresa, l])
 
   async function getProductscard () {
     setIsLoading(true)
@@ -347,7 +347,7 @@ export default function Products () {
                   <div className='card-title'>
                     <Image src={imgProduct(3)} width={100} alt='imgProducts' />
                     <div className='box-name'>
-                      <h4> Download SUNAT Tax Status Registers</h4>
+                      <h4> {t['Download SUNAT Tax Status Registers']}</h4>
 
                       <p className='dayLetf'>
                         <ImageSvg name='Time' />
@@ -376,7 +376,7 @@ export default function Products () {
                   <div className='card-title'>
                     <Image src={imgProduct(4)} width={100} alt='imgProducts' />
                     <div className='box-name'>
-                      <h4> Invoice register </h4>
+                      <h4> {t['Invoice register']} </h4>
 
                       <p className='dayLetf'>
                         <ImageSvg name='Time' />

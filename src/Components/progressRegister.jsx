@@ -23,9 +23,11 @@ const ProgressRegister = ({ userData }) => {
   const [errorLogin, setErrorLogin] = useState('')
 
   const router = useRouter()
-  const { session, logout, modalToken, setModalToken, setSession } = useAuth()
+  const { session, logout, modalToken, setModalToken, setSession, l } = useAuth()
 
   const [selectedCompanies, setSelectedCompanies] = useState([])
+
+  const t = l.profile
 
   const toggleCompanySelection = (companyId) => {
     if (selectedCompanies.includes(companyId)) {
@@ -139,7 +141,7 @@ const ProgressRegister = ({ userData }) => {
         <div className='progressBar'>
           <div className='progressBarFill' style={{ width: `${(step - 1) * 50}%` }} />
         </div>
-        <div className='step'>Step {step}</div>
+        <div className='step'>{t.Step} {step}</div>
         <Formik
           initialValues={{
             lastName: '',
@@ -160,24 +162,24 @@ const ProgressRegister = ({ userData }) => {
             <Form className='form-container '>
               {step === 1 && (
                 <div>
-                  <h4> Personal information</h4>
+                  <h4> {t['Personal information']}</h4>
 
                   <div className='box-forms'>
                     <div className='input-box'>
                       <Field type='text' name='name' placeholder=' ' value={userData?.sUserName || ''} readOnly />
-                      <label htmlFor='name'>Username</label>
+                      <label htmlFor='name'>{t.Username}</label>
                     </div>
 
                     <div className='input-box'>
                       <Field type='text' name='lastName' placeholder=' ' />
-                      <label htmlFor='lastName'>Last Name</label>
+                      <label htmlFor='lastName'>{t['Last Name']}</label>
                       <ErrorMessage className='errorMessage' name='lastName' component='div' />
                     </div>
 
                     <div className='box-phone'>
                       <div className='box-filter'>
                         <FormControl sx={{ m: 1, minWidth: 120 }}>
-                          <InputLabel id='company-label'>Code</InputLabel>
+                          <InputLabel id='company-label'>{t.Code}</InputLabel>
                           <Select labelId='company-label' value={country || countryOptions[0]?.value} onChange={handleCountryChange} className='delimite-text'>
                             {countryOptions?.map((comp) => (
                               <MenuItem key={comp.value} value={comp.value}>
@@ -190,21 +192,21 @@ const ProgressRegister = ({ userData }) => {
 
                       <div className='input-box'>
                         <Field type='text' id='phoneNumber' name='phoneNumber' placeholder=' ' />
-                        <label htmlFor='phoneNumber'>Phone Number</label>
+                        <label htmlFor='phoneNumber'>{t['Phone Number']}</label>
                         <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
                       </div>
                     </div>
 
                     <div className='input-box'>
                       <Field type='email' name='corporateEmail' placeholder=' ' value={userData?.sCorreo || ''} readOnly />
-                      <label htmlFor='corporateEmail'>Company email</label>
+                      <label htmlFor='corporateEmail'>{t['Company email']}</label>
                     </div>
                   </div>
 
                   <div className='box-buttons'>
                     {values.phoneNumber && values.lastName && (
                       <button className={`btn_secundary small ${'lastName' in errors || 'phoneNumber' in errors ? 'disabled' : ''}`} disabled={!values.phoneNumber || !values.lastName} type='submit' onClick={handleNextStep}>
-                        NEXT
+                        {t.Next}
                         <ImageSvg name='Next' />
                       </button>
                     )}
@@ -214,17 +216,17 @@ const ProgressRegister = ({ userData }) => {
 
               {step === 2 && (
                 <div className='companies-container'>
-                  <h4> Company profile </h4>
+                  <h4> {t['Company profile']} </h4>
 
                   <div>
                     <div>
                       <p>
-                        Corporate: <span>{userData.jCompany.razon_social_company}</span>
+                        {t.Corporation}: <span>{userData.jCompany.razon_social_company}</span>
                       </p>
                     </div>
 
                     <div>
-                      <p>Select the Profile to company:</p>
+                      <p>{t['Select the Profile to company']}:</p>
                     </div>
 
                     <div className='companies'>
@@ -242,11 +244,11 @@ const ProgressRegister = ({ userData }) => {
                   <div className='box-buttons'>
                     <button type='button' className='btn_secundary small' onClick={handlePreviousStep}>
                       <ImageSvg name='Back' />
-                      Previous
+                      {t.Previous}
                     </button>
 
                     <button type='button' className={`btn_secundary small ${selectedCompanies.length > 0 ? '' : 'disabled'}`} onClick={handleNextStep} disabled={selectedCompanies.length == 0}>
-                      Next
+                      {t.Next}
                       <ImageSvg name='Next' />
                     </button>
                   </div>
@@ -255,27 +257,27 @@ const ProgressRegister = ({ userData }) => {
 
               {step === 3 && (
                 <div className='container-notificatión'>
-                  <h4>Notifications</h4>
-                  <p>Select how you want to be notified</p>
+                  <h4>{t.Notifications}</h4>
+                  <p>{t['Select how you want to be notified']}</p>
                   <ul>
                     <div className='box-notification'>
                       <Field type='checkbox' className='checkboxId' name='notificationsInBpass' />
-                      <label htmlFor='notificationsInBpass'>Notifications in Bpass</label>
+                      <label htmlFor='notificationsInBpass'>{t['Notifications in ARI']}</label>
                     </div>
 
                     <div className='box-notification'>
                       <Field type='checkbox' className='checkboxId' name='emailNotifications' />
-                      <label htmlFor='emailNotifications'>Email notifications</label>
+                      <label htmlFor='emailNotifications'>{t['Email notifications']}</label>
                     </div>
                   </ul>
 
                   <div className='box-buttons'>
                     <button type='button' className='btn_secundary small' onClick={handlePreviousStep}>
                       <ImageSvg name='Back' />
-                      Previous
+                      {t.Previous}
                     </button>
                     <button type='submit' className='btn_primary small' disabled={isSubmitting}>
-                      Next
+                      {t.Next}
                       <ImageSvg name='Next' />
                     </button>
                   </div>
@@ -298,11 +300,11 @@ const ProgressRegister = ({ userData }) => {
             <ImageSvg name='Check' />
 
             <div>
-              <h3>Completed profile</h3>
+              <h3>{t['Completed profile']}</h3>
             </div>
 
             <button type='submit' className='btn_primary small' onClick={() => router.push('/product')}>
-              Next
+              {t.Next}
             </button>
 
             {errorLogin && <div className='errorMessage'> {errorLogin} </div>}

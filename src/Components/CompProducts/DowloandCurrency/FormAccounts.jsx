@@ -14,7 +14,8 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
   // const id = router.query.iId
   const iIdProdEnv = router.query.iIdProdEnv
 
-  const { session, setModalToken } = useAuth()
+  const { session, setModalToken, l } = useAuth()
+  const t = l.Download
 
   useEffect(() => {
     if (session) {
@@ -62,7 +63,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
   return (
     <ModalForm close={() => { setIinitialEdit(null); setShowForm(false) }}>
       <div className='Form-listCredential'>
-        <h2 className='box'>{initialVal ? 'Edit record' : 'Add account'}</h2>
+        <h2 className='box'>{initialVal ? t['Edit record'] : t['Add account']}</h2>
         <Formik
           initialValues={initialValues}
           validate={(values) => validateFormAddAccount(values, initialVal, showcomponent)}
@@ -80,7 +81,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 1. Register your Account </h5>
+                  <h5 className='sub'> 1. {t['Register your Account']} </h5>
 
                 </div>
 
@@ -102,7 +103,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 2. Register company </h5>
+                  <h5 className='sub'> 2. {t['Register company']} </h5>
                   {/* <p className='description'>
                   Add all your accounts to automate
                   </p> */}
@@ -133,7 +134,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 3. Register currency </h5>
+                  <h5 className='sub'> 3. {t['Register currency']} </h5>
                   {/* <p className='description'>
                     Add all your accounts to automate
                   </p> */}
@@ -157,7 +158,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 4.How do you want recibir tu information? </h5>
+                  <h5 className='sub'> 4. {t['How do you want recibir tu information?']} </h5>
                   {/* <p className='description'>
                   Add all your accounts to automate
                   </p> */}
@@ -171,7 +172,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                       <Select
                         options={fileTypeOptions}
                         name='TypeFile'
-                        placeholder='Select a type of file'
+                        placeholder={t['Select a type of file']}
                         isClearable
                         // value={(initialVal && fileTypeOptions && TypeFile===null )?fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo) : values.TypeFile}
                         value={
@@ -193,22 +194,22 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 5. State  </h5>
+                  <h5 className='sub'> 5. {t.State}  </h5>
                   <p className='description'>
-                    Activate or deactivate your Account
+                    {t['Activate or deactivate your Account']}
                   </p>
                 </div>
 
                 <div className='state-box'>
-                  <label>State: </label>
+                  <label>{t.State}: </label>
                   <div className='content'>
                     <label>
                       <Field type='radio' name='state' value='Active' />
-                      Active
+                      {t.Active}
                     </label>
                     <label>
                       <Field type='radio' name='state' value='Disabled' />
-                      Disabled
+                      {t.Disabled}
                     </label>
                   </div>
                 </div>
@@ -217,11 +218,11 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
               <div className='submit-box'>
 
                 <button type='submit' className='btn_secundary small' onClick={() => { setIinitialEdit(null); setShowForm(false) }}>
-                  Close
+                  {t.Close}
                 </button>
 
                 <button type='submit' className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>
-                  {initialVal ? 'Update' : 'Add'}
+                  {initialVal ? t.Update : t.Add}
                 </button>
 
               </div>

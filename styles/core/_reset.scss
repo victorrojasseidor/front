@@ -53,6 +53,7 @@ h6 {
   line-height: 125%;
   display: flex;
   gap: 0.5em;
+  
   svg{
     font-size: larger;
   }
@@ -91,6 +92,8 @@ h4{
 
 h5 {
     font-size: 14px;
+    display: flex;
+    align-items: center;
 }
 
 

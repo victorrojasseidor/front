@@ -492,6 +492,13 @@
   justify-content: flex-start;
   gap:0.5rem;
   padding: 0.25rem;
+
+  button{
+    background-color: transparent;
+    border-style: none;
+    font-size:small;
+    display: flex;
+    }
   
 
   a{

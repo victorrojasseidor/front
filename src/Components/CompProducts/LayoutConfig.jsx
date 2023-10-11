@@ -14,7 +14,14 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   const [activeTab, setActiveTab] = useState(defaultTab || 0)
   const [component, setComponent] = useState(null)
 
-  const { session, setModalToken } = useAuth()
+  const { session, setModalToken, l } = useAuth()
+
+  const router = useRouter()
+  const { locale } = router
+
+  console.log('locale', locale)
+
+  const t = l.Products
 
   useEffect(() => {
     const selectComponentes = componentsProduct.find((p) => p.iId === parseInt(id))
@@ -73,7 +80,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   return (
     <LayoutProducts menu='Product'>
 
-      <NavigationPages title='Digital employees'>
+      <NavigationPages title={t['Digital employees']}>
 
         <Link href='/product'>
           <ImageSvg name='Products' />
@@ -103,7 +110,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                 <Link href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`}>
                   <button className={activeTab === 0 ? 'active ' : ''} onClick={() => handleTabClick(0)}>
 
-                    <h4> Free Trial</h4>
+                    <h4> {t['Free Trial']}</h4>
 
                   </button>
                 </Link>
@@ -117,20 +124,20 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                     }}
                     className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}
                   >
-                    <h4> Configuration</h4>
+                    <h4> {t.Configuration}</h4>
                   </button>
                 </Link>
 
                 <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}}&idEmpresa=${idEmpresa}`}>
                   <button className={activeTab === 2 ? 'active' : ''} style={{ display: 'none' }} onClick={() => handleTabClick(2)}>
-                    <h4> API Configuration</h4>
+                    <h4> {t['API Configuration']}</h4>
 
                   </button>
                 </Link>
                 <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}}&idEmpresa=${idEmpresa}`} style={{ display: 'none' }}>
                   <button className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
 
-                    <h4> Documentation</h4>
+                    <h4> {t.Documentation}</h4>
 
                   </button>
                 </Link>
@@ -150,7 +157,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                 )}
                 {activeTab === 2 && (
                   <div className='ApiConfiCurency'>
-                    <h3>apiconfuguración</h3>
+                    <h3>{t['Apiconfuguración']}</h3>
                   </div>
                 )}
                 {activeTab === 3 && <div>{component?.documentation}</div>}

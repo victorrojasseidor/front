@@ -22,11 +22,11 @@ export default function profile () {
   const [formValues, setFormValues] = useState({})
   const [country, setCountrySelect] = useState('')
 
-  const { session, setModalToken, logout } = useAuth()
+  const { session, setModalToken, logout, l } = useAuth()
   const router = useRouter()
   const [selectedCompanies, setSelectedCompanies] = useState([])
 
-  console.log('country', country)
+  const t = l.profile
 
   const toggleCompanySelection = (companyId) => {
     if (selectedCompanies.includes(companyId)) {
@@ -106,7 +106,7 @@ export default function profile () {
           {
             edit
               ? ''
-              : <button className='btn_primary small' onClick={() => setEdit(!edit)}> Edit profile</button>
+              : <button className='btn_primary small' onClick={() => setEdit(!edit)}> {t['Edit profile']}</button>
           }
         </div>
 
@@ -115,7 +115,7 @@ export default function profile () {
                 edit
                   ? <div className='edit-profile'>
 
-                    <h2> Edit profile </h2>
+                    <h2> {t['Edit profile']} </h2>
 
                     <Formik
                       initialValues={{
@@ -136,18 +136,18 @@ export default function profile () {
                       {({ isSubmitting, status, values, setFieldValue }) => (
                         <Form className='form-container'>
                           <div>
-                            <h4> 1.Personal information</h4>
+                            <h4> 1.{t['Personal information']}</h4>
 
                             <div className='box-forms'>
 
                               <div className='input-box'>
                                 <Field type='text' name='name' placeholder=' ' value={session?.sUserName || ''} readOnly />
-                                <label htmlFor='name'>Username</label>
+                                <label htmlFor='name'>{t.Username}</label>
                               </div>
 
                               <div className='input-box'>
                                 <Field type='text' name='lastName' placeholder=' ' />
-                                <label htmlFor='lastName'>Last Name</label>
+                                <label htmlFor='lastName'>{t['Last Name']}</label>
                                 <ErrorMessage className='errorMessage' name='lastName' component='div' />
                               </div>
 
@@ -155,7 +155,7 @@ export default function profile () {
 
                                 <div className='box-filter'>
                                   <FormControl sx={{ m: 1, minWidth: 120 }}>
-                                    <InputLabel id='company-label'>Company</InputLabel>
+                                    <InputLabel id='company-label'>{t.Code}</InputLabel>
                                     <Select
                                       labelId='company-label'
                                       value={country}
@@ -175,7 +175,7 @@ export default function profile () {
 
                                 <div className='input-box'>
                                   <Field type='text' id='phoneNumber' name='phoneNumber' placeholder=' ' />
-                                  <label htmlFor='phoneNumber'>Phone Number</label>
+                                  <label htmlFor='phoneNumber'>{t['Phone Number']}</label>
                                   <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
                                 </div>
 
@@ -183,23 +183,23 @@ export default function profile () {
 
                               <div className='input-box'>
                                 <Field type='email' name='corporateEmail' placeholder=' ' value={session?.sCorreo || ''} readOnly />
-                                <label htmlFor='corporateEmail'>Company email</label>
+                                <label htmlFor='corporateEmail'>{t['Company email']}</label>
                               </div>
 
                             </div>
                           </div>
 
                           <div className='companies-container'>
-                            <h4> 2.Company profile </h4>
+                            <h4> 2.{t['Company profile']} </h4>
                             <div>
                               <div>
                                 <p>
-                                  Corporate: <span>{session?.jCompany.razon_social_company}</span>
+                                  {t.Corporate}: <span>{session?.jCompany.razon_social_company}</span>
                                 </p>
                               </div>
 
                               <div>
-                                <p>Profile to company:</p>
+                                <p>{t['Select the Profile to company']}</p>
                               </div>
                               <div className='companies'>
                                 {session?.oEmpresa.map((option) => (
@@ -221,24 +221,24 @@ export default function profile () {
                           </div>
 
                           <div className='container-notificatión'>
-                            <h4>3.Notifications</h4>
-                            <p>Select how you want to be notified</p>
+                            <h4>3.{t.Notifications}</h4>
+                            <p>{t['Select how you want to be notified']}</p>
                             <ul>
                               <div className='box-notification'>
                                 <Field type='checkbox' className='checkboxId' name='notificationsInBpass' />
-                                <label htmlFor='notificationsInBpass'>Notifications in Bpass</label>
+                                <label htmlFor='notificationsInBpass'>{t['Notifications in ARI']}</label>
                               </div>
 
                               <div className='box-notification'>
                                 <Field type='checkbox' className='checkboxId' name='emailNotifications' />
-                                <label htmlFor='emailNotifications'>Email notifications</label>
+                                <label htmlFor='emailNotifications'>{t['Email notifications']}</label>
                               </div>
                             </ul>
 
                             <div className='box-buttons'>
 
                               <button type='submit' className='btn_primary small' disabled={isSubmitting}>
-                                Update
+                                {t.Update}
                               </button>
                             </div>
 
@@ -252,16 +252,16 @@ export default function profile () {
                       )}
                     </Formik>
 
-                  </div>
+                    </div>
 
                   : <div className='data-profile'>
 
                     <div className='card-info'>
-                      <h4> 1. Personal information</h4>
+                      <h4> 1. {t['Personal information']}</h4>
 
                       <ul>
                         <li>
-                          Username:
+                          {t.Username}:
                         </li>
                         <li>
                           <span> {session?.sUserName} </span>
@@ -270,7 +270,7 @@ export default function profile () {
 
                       <ul>
                         <li>
-                          Correo:
+                          {t['Company email']}:
                         </li>
                         <li>
                           <span> {session?.sCorreo}
@@ -280,7 +280,7 @@ export default function profile () {
 
                       <ul>
                         <li>
-                          Estatus:
+                          {t.Estatus}:
                         </li>
                         <li>
                           <span> {session?.sDescription} </span>
@@ -290,11 +290,11 @@ export default function profile () {
                     </div>
 
                     <div className='card-info'>
-                      <h4> 2. Company profile </h4>
+                      <h4> 2. {t['Company profile']} </h4>
 
                       <ul>
                         <li>
-                          Company:
+                          {t.Corporation}:
                         </li>
                         <li>
                           <span> {session?.jCompany.razon_social_company} </span>
@@ -303,21 +303,21 @@ export default function profile () {
 
                       <ul>
                         <li>
-                          Empresas:
+                          {t.Companies}:
                         </li>
                         <li>
                           {
-  session?.oEmpresa.map((em, index) => (
+                          session?.oEmpresa.map((em, index) => (
 
-    <p key={em.id_empresa}>
-      <span> </span>
+                            <p key={em.id_empresa}>
+                              <span> </span>
 
-      <span>
-        {em.razon_social_empresa}
-      </span>
+                              <span>
+                                {em.razon_social_empresa}
+                              </span>
 
-    </p>
-  ))
+                            </p>
+                          ))
 }
 
                         </li>
@@ -326,12 +326,12 @@ export default function profile () {
                     </div>
 
                     <div>
-                      <h4>3. Notifications</h4>
+                      <h4>3. {t.Notifications}</h4>
 
                     </div>
                     ....
 
-                  </div>
+                    </div>
               }
 
         </div>
