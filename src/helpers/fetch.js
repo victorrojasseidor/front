@@ -1,8 +1,5 @@
 const baseApiUrl = 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/'
 
-// cors
-// const CORS_PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
-
 const fetchNoTokenPost = async (endpoint, data) => {
   // const url = `${CORS_PROXY_URL}${baseApiUrl}${endpoint}`;
   const url = `${baseApiUrl}${endpoint}`
@@ -17,9 +14,7 @@ const fetchNoTokenPost = async (endpoint, data) => {
         slanguage: localeES ? 'es' : 'en',
         'x-api-key': process.env.NEXT_PUBLIC_X_API_KEY,
         'Content-Type': 'application/json'
-        // configurations to proxy:
-        // "origin": "https://bpass-ja335w0fd-ninoska2000.vercel.app", // Agrega el origin requerido
-        // "x-requested-with": "XMLHttpRequest",
+
       }
     })
 
