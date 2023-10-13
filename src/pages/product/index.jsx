@@ -55,8 +55,8 @@ export default function Products () {
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
       } else if (responseData.oAuditResponse?.iCode === 4) {
-        // await logout()
-        setModalToken(true)
+        await logout()
+        // setModalToken(true)
       } else {
         const errorMessage = responseData.oAuditResponse
           ? responseData.oAuditResponse.sMessage
