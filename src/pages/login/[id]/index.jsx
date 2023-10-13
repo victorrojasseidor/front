@@ -82,15 +82,15 @@ function LoginConfirmed () {
 
               <ImageSvg name='Check' />
               <div>
-                <p>{t['Your email']} {isEmail}</p>
+                {t['Your email']} {isEmail}
 
                 <h2>
-                  {t['was verified']} &nbsp;{t.successfully}
+                  {t['was verified']} {t.successfully}
                 </h2>
 
                 <div className='actions'>
                   <button className='btn_primary small' onClick={handleCloseModal}>
-                    {t.NEXT}
+                    {t.Next}
                   </button>
                 </div>
               </div>
@@ -107,7 +107,7 @@ function LoginConfirmed () {
             </>
             )}
 
-      </Modal>}
+               </Modal>}
 
     </section>
   )

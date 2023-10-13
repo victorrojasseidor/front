@@ -12,11 +12,12 @@
     "I accept": " Acepto los",
     "ARI SEIDOR Terms and Conditions and Privacy Policy": "Términos, Condiciones y la Política de Privacidad de ARI SEIDOR",
     "We´ve sent a verefication link to": "Hemos enviado un enlace de verificación a ",
-    "please enter your email to confirm registration": "Por favor ingrese a su correo electrónico para confirmar su registro"
+    "Please enter your email": "Por favor ingrese a su correo electrónico ",
+    "to confirm registration":  "para confirmar su registro"
   },
   "login": {
     "Log in": "Iniciar sesión",
-    "Log in Digital Employees": "Inicie sesión in Digital Employees",
+    "Log in Digital Employees": "Inicie sesión in ARI Seidor",
     "Company email": "Correo corporativo",
     "Password": "Contraseña",
     "I forgot my password": "Olvidé mi contraseña",
@@ -24,7 +25,7 @@
     "Have not an account?": "¿No tienes una cuenta?",
     "Sign up": "Regístrate",
     "Your email": "Tu correo",
-    "was verified": "fue verificado ",
+    "was verified": "fue verificado",
     "successfully": "con éxito",
     "Next": "Siguiente"
   },
@@ -49,7 +50,7 @@
     "Personal information": "Información personal",
     "Username": "Nombre de usuario",
     "Last Name": "Apellido",
-    "Phone Number": "Número de teléfono",
+    "Phone Number": "N° teléfono",
     "Company email": "Correo electrónico corporativo",
     "Next": "Siguiente",
     "Company profile": "Perfil de la empresa",

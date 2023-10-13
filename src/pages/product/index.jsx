@@ -33,25 +33,30 @@ export default function Products () {
 
   const router = useRouter()
   useEffect(() => {
-    getProductscard()
+    if (session) {
+      getProductscard()
+    }
   }, [session, empresa, l])
+
+  console.log('session', session)
 
   async function getProductscard () {
     setIsLoading(true)
     try {
-      const token = session.sToken
+      const token = session?.sToken
       const idEmpresa = empresa.id_empresa
       const responseData = await getProducts(idEmpresa, token)
+      console.log('getproduc', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
-
         setProduct(data)
         setModalToken(false)
         setRequestError(null)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
       } else if (responseData.oAuditResponse?.iCode === 4) {
-        await logout()
+        // await logout()
+        setModalToken(true)
       } else {
         const errorMessage = responseData.oAuditResponse
           ? responseData.oAuditResponse.sMessage
@@ -71,11 +76,9 @@ export default function Products () {
     }
   }
 
-  console.log({ session })
-
   const handleSelectChangeEmpresa = (event) => {
     const selectedValue = event.target.value
-    const DataEmpresa = session.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
+    const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
 
     if (DataEmpresa) {
       const selectedEmpresa = {
@@ -94,9 +97,9 @@ export default function Products () {
     const storedEmpresa = localStorage.getItem('selectedEmpresa')
     if (storedEmpresa) {
       setEmpresa(JSON.parse(storedEmpresa))
-    } else if (session.oEmpresa.length > 0) {
+    } else if (session?.oEmpresa.length > 0) {
       // Si no hay una empresa en el localStorage, utiliza la primera empresa de session.oEmpresa
-      setEmpresa(session.oEmpresa[0])
+      setEmpresa(session?.oEmpresa[0])
     }
   }, [])
 
@@ -157,25 +160,6 @@ export default function Products () {
     } else return imgProd
   }
 
-  const renderSelectedFilter = (status, time) => {
-    const renderStatus = status
-    if (renderStatus === 23) {
-      /* si está configurado */
-      return <span>{time.SExpires}</span>
-    } else if (renderStatus === 28) {
-      /* si está pendiente de configurar */
-      return <span>{time.sEnabled}</span>
-    } else if (renderStatus === 27) {
-      /* si está pendiente de solicitud */
-      return <span>{time.sNoAprob}</span>
-    } else if (renderStatus === 31) {
-      /* si no ha sido solicitado, estado free trial */
-      return <span>{time.sUpdate}</span>
-    } else {
-      return <span>---</span>
-    }
-  }
-
   const renderButtons = (data) => {
     const handleLink = (ruta) => {
       router.push(ruta)
@@ -226,6 +210,9 @@ export default function Products () {
 
   return (
     <LayoutProducts menu='Product'>
+
+      {!session && <Loading />}
+
       <div className='products'>
         <NavigationPages title={t['Digital employees']}>
           {/* <div>
@@ -238,14 +225,6 @@ export default function Products () {
         <div className='box-empresa'>
 
           <span> {t.Welcome} 👋, {t['Digital employees']}  </span>
-
-          {/* <select value={empresa?.razon_social_empresa || ''} onChange={handleSelectChangeEmpresa}>
-            {session?.oEmpresa.map((empres) => (
-              <option key={empres.id_empresa} value={empres.razon_social_empresa}>
-                {empres.razon_social_empresa}
-              </option>
-            ))}
-          </select> */}
 
           <div className='box-filter'>
 
@@ -313,7 +292,11 @@ export default function Products () {
                     </div>
 
                     <div className='card-title'>
-                      <Image src={imgProduct(product.iId)} width={100} alt='imgProducts' />
+
+                      <div className='box-img'>
+                        <Image src={imgProduct(product.iId)} width={100} alt='imgProducts' />
+                      </div>
+
                       <div className='box-name'>
                         <h4> {product.sName}</h4>
 
@@ -335,7 +318,7 @@ export default function Products () {
 
                 {/* productos añadidos por el momento */}
 
-                <li className='card' style={{ display: selectedFilter == 31 || !selectedFilter ? 'block' : 'none' }}>
+                <li className='card' style={{ gap: '1rem', visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
                   <div className='card-status'>
 
@@ -345,7 +328,11 @@ export default function Products () {
                   </div>
 
                   <div className='card-title'>
-                    <Image src={imgProduct(3)} width={100} alt='imgProducts' />
+                    <div className='box-img'>
+                      <Image src={imgProduct(3)} width={100} alt='imgProducts' />
+
+                    </div>
+
                     <div className='box-name'>
                       <h4> {t['Download SUNAT Tax Status Registers']}</h4>
 
@@ -358,14 +345,14 @@ export default function Products () {
 
                   </div>
 
-                  <div className='box-buttons' style={{ height: '5rem' }}>
+                  <div className='box-buttons'>
                     <Link href='https://www.innovativa.la/digitalemployee'>
                       {t['View more']}
                     </Link>
                   </div>
                 </li>
 
-                <li className='card' style={{ display: selectedFilter == 31 || !selectedFilter ? 'block' : 'none' }}>
+                <li className='card' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
                   <div className='card-status'>
 
                     <p className='not-hired'> {t['Not hired']}
@@ -374,7 +361,12 @@ export default function Products () {
                   </div>
 
                   <div className='card-title'>
-                    <Image src={imgProduct(4)} width={100} alt='imgProducts' />
+
+                    <div className='box-img'>
+                      <Image src={imgProduct(4)} width={100} alt='imgProducts' />
+
+                    </div>
+
                     <div className='box-name'>
                       <h4> {t['Invoice register']} </h4>
 
@@ -387,7 +379,7 @@ export default function Products () {
 
                   </div>
 
-                  <div className='box-buttons' style={{ height: '5rem' }}>
+                  <div className='box-buttons'>
                     <Link href='https://www.innovativa.la/digitalemployee'>
                       {t['View more']}
                     </Link>

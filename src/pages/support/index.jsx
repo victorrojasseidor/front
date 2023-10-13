@@ -74,7 +74,7 @@ function Support () {
 
   return (
 
-    <LayoutProducts menu='Product'>
+    <LayoutProducts menu='Support'>
 
       <NavigationPages title={t.Support}>
 

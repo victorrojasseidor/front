@@ -8,10 +8,17 @@
   padding: 2em 1em;
   display: flex;
   flex-direction: row;
+
   @include media(tablet) {
-   
+
+    padding: 2em 2em;
+  }
+
+  @include media(desktop) {
+
     padding: 2em 8em;
   }
+
 
 
 
@@ -20,6 +27,7 @@
       @include media(tablet) {
      display: block;
      width: 5%;
+    
        
     }
 
@@ -29,6 +37,7 @@
 
 .welcome {
   width: 100%;
+ 
   
 }
 
@@ -44,10 +53,32 @@ h2{
      justify-items: center;
     align-items: center;
     justify-content:space-between;
+    flex-direction: column;
+    
+
+    @include media(tablet) {
+          flex-direction: row;
+
+      }
 
     ul {
       text-align: center;
       padding: 1rem;
+      h1{
+        color:get-color(white_s1);
+        @include media(tablet) {
+          color:get-color(black_p2);
+   
+  
+        }
+
+      }
+      color:get-color(pink_s5);
+      @include media(tablet) {
+      color:get-color(grey2_s4)
+   
+  
+        }
     }
     
 
@@ -88,6 +119,10 @@ h2{
   }
   
 }
+
+
+
+
 
 .profile{
   background-color: get-color(white_s1);
@@ -168,7 +203,7 @@ h2{
   gap:1rem;
 
 
- @include media(tablet) {
+ @include media(desktop) {
   grid-template-columns: 1fr 1fr; 
   }
 

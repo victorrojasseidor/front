@@ -22,7 +22,8 @@
     max-width: 12.5rem;
     background-color: get-color(pink_s5);
     border-radius: 0px 0px 0px 0px;
-    box-shadow: bsh(2);
+    // box-shadow: bsh(2);
+    border-right: 1px solid get-color(forms_s6);
     align-items: center;
     height: fit-content;
     padding-bottom: 1.5rem;
@@ -282,7 +283,7 @@
         position: fixed;
         z-index: 99;
         width: 100%;
-        justify-content:space-around;
+        justify-content:space-evenly;
         align-items:center;
 
 
@@ -481,6 +482,35 @@
 
 }
 
+.container-lang-hambuerger{
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  
+
+  @include media(tablet) { 
+    display: none;
+  }
+  button{
+    color:get-color(forms_s6);
+
+
+  }
+
+  
+
+.btn_circle{
+  background-color: transparent;
+}
+  
+
+  .lang_active{
+    color:get-color(white_s1);
+    border-bottom: 1px solid get-color(white_s1);
+  }
+
+}
+
 
 
 
@@ -507,16 +537,17 @@
    
   }
 
-  .lang_active{
-      color:get-color(blue_p1);
-      border-bottom: 1px solid get-color(lilac_p3);
-    
-      
-        
-  }
+  
   
   
 
   
 }
 
+
+.lang_active{
+  color:get-color(blue_p1);
+  border-bottom: 1px solid get-color(lilac_p3);
+
+    
+}

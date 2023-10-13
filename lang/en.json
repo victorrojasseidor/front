@@ -9,10 +9,10 @@
     "Company email": "Company email",
     "Password": "Password",
     "Confirm password": "Confirm password ",
-    "I accept": " I accept SEIDOR BPaaS",
+    "I accept": " I accept",
     "ARI SEIDOR Terms and Conditions and Privacy Policy": "ARI SEIDOR Terms and Conditions and Privacy Policy",
-    "We´ve sent a verefication link to": "We´ve sent a verefication link to",
-    "Please enter your email to confirm registration": "Please enter your email to confirm registration"
+    "Please enter your email": "Please enter your email ",
+    "to confirm registration":  "to confirm registration"
   },
 
   "login": {

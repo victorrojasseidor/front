@@ -114,6 +114,7 @@
     height: 3em;
     color: get-color(blue_p1);
     line-height: none;
+    width: 100%;
 
     @include media(tablet) {
       padding: 1rem 1rem;
@@ -161,6 +162,7 @@
     border-radius: 5px;
     padding: 0rem 0.25rem;
     font-size: small;
+ 
   }
 
   .iconPassword {

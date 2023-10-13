@@ -2,7 +2,7 @@ import Link from 'next/link'
 import LayoutLogin from '@/Components/LayoutLogin'
 // import "../../../styles/styles.scss";
 import { Formik, Field, ErrorMessage, Form } from 'formik'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import Image from 'next/image'
 import logo from '../../../public/img/logoseidor.png'
@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { useAuth } from '@/Context/DataContext'
 
 export default function Login () {
-  const { session, setSession, l } = useAuth()
+  const { setSession, l, setdataProfileStart } = useAuth()
 
   const t = l.login
 
@@ -42,8 +42,8 @@ export default function Login () {
         const userData = responseData.oResults
 
         if (responseData.oResults.iEstado == 28) {
+          setdataProfileStart(userData)
           router.push('/profilestart')
-          setSession(userData)
         } else {
           router.push('/product')
           setSession(userData)

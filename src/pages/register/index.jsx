@@ -21,7 +21,7 @@ export default function Register () {
   const [ShowM, setShowM] = useState(false)
   // const [infoModal,setInfomodal]= useState(null);
 
-  const { session, setSession, l } = useAuth()
+  const { l } = useAuth()
 
   const t = l.signup
 
@@ -169,11 +169,13 @@ export default function Register () {
         {ShowM && data && (
           <Modal close={() => setShowM(false)}>
             <ImageSvg name='Check' />
-            <div>
-              <p> {t['We´ve sent a verification link to']}</p>
-              <h2> {data.oResults.sEmail} </h2>
-              <p>{t['Please enter your email to confirm registration']}</p>
-            </div>
+
+            {/* <p> {t['We´ve sent a verefication link to']} </p> */}
+
+            {t['Please enter your email']}
+            <h2> {data.oResults.sEmail}</h2>
+
+            {t['to confirm registration']}
 
           </Modal>
         )}

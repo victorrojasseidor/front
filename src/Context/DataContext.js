@@ -16,17 +16,11 @@ export const useAuth = () => {
 }
 
 export const DataContextProvider = ({ children }) => {
-  // data user
-  const dataClient = {
-    name: 'Agustin',
-    years: 27,
-    title: 'dataclienttt'
-  }
-
   // State para almacenar los datos del usuario
   const [session, setSession] = useState(null)
   const [modalToken, setModalToken] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [dataProfileStart, setdataProfileStart] = useState(null)
 
   // lang
 
@@ -49,38 +43,40 @@ export const DataContextProvider = ({ children }) => {
         response.oAuditResponse?.iCode === 9
       ) {
         router.push('/login')
-        setSession(null)
+        setdataProfileStart(null)
         localStorage.removeItem('session')
         localStorage.removeItem('selectedEmpresa')
+        setSession(null)
       }
     } catch (error) {
-      console.error('error en logout del servicio', error)
+      console.log('error en logout del servicio', error)
     } finally {
       setIsLoading(false) // Ocultar el indicador de carga después de que la petición se complete
     }
   }
 
+  // UseEffect para cargar la sesión desde el almacenamiento local al montar el componente
   useEffect(() => {
-    // Restaurar la información de sesión desde localStorage cuando se monte el componente
     const storedSession = localStorage.getItem('session')
+    console.log({ storedSession })
     if (storedSession) {
       setSession(JSON.parse(storedSession))
     }
   }, [])
 
+  // UseEffect para guardar la sesión en el almacenamiento local cuando cambie
   useEffect(() => {
     if (session) {
       localStorage.setItem('session', JSON.stringify(session))
-    } else {
-      localStorage.removeItem('session')
     }
   }, [session])
 
   return (
     <DataContext.Provider
       value={{
-        dataClient,
         locale,
+        dataProfileStart,
+        setdataProfileStart,
         session,
         setSession,
         logout,

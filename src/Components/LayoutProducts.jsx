@@ -12,10 +12,10 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
 import Cloud from './Atoms/Cloud'
 import logoOscuro from '../../public/img/logoOscuro.png'
+import Lang from './Atoms/Lang'
 
 const LayoutProducts = ({ children, menu }) => {
   const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
-  const [isSpanish, setIsSpanish] = useState(false)
   const [isOpenMobile, setIsOpenMobile] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [margen, setMargen] = useState('0rem')
@@ -25,7 +25,7 @@ const LayoutProducts = ({ children, menu }) => {
     setMenuLateralOpen(!isMenuLateralOpen)
   }
 
-  const { session, setSession, modalToken, logout, l } = useAuth()
+  const { session, modalToken, logout, l } = useAuth()
 
   const t = l.header
 
@@ -75,11 +75,9 @@ const LayoutProducts = ({ children, menu }) => {
 
   useEffect(() => {
     if ((menu == 'Product')) {
-      setTitlePage('Digital Product')
-    } else if ((menu == 'Reporting')) {
-      setTitlePage(`Reporting to ${session?.jCompany.razon_social_company}`)
-    } else if ((menu == 'Support')) {
-      setTitlePage('Support')
+      setTitlePage(t['Digital employees'])
+    } else {
+      setTitlePage(t[menu])
     }
   }, [menu])
 
@@ -210,9 +208,15 @@ const LayoutProducts = ({ children, menu }) => {
                 <button className='btn_icons hamburger' onClick={toggleMenuMobile}>
                   <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
                 </button>
+
               </li>
+
             </ul>
           </nav>
+
+          <div className='container-lang-hambuerger'>
+            <Lang />
+          </div>
 
           <div className='titleMenu'>
             <div>
@@ -228,6 +232,7 @@ const LayoutProducts = ({ children, menu }) => {
 
           <div className='logo-oscuro'>
             <Image src={logoOscuro} width='100' alt='logoOscuro' priority />
+
           </div>
 
         </div>

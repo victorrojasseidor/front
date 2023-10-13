@@ -31,7 +31,8 @@ const ProgressRegister = ({ userData }) => {
 
   const toggleCompanySelection = (companyId) => {
     if (selectedCompanies.includes(companyId)) {
-      setSelectedCompanies(selectedCompanies.filter((id) => id !== companyId))
+      const seletcompany = selectedCompanies.filter((id) => id !== companyId)
+      setSelectedCompanies(seletcompany)
     } else {
       setSelectedCompanies([...selectedCompanies, companyId])
     }
@@ -53,6 +54,14 @@ const ProgressRegister = ({ userData }) => {
   async function handleSumbit (values, { setSubmitting, setStatus }) {
     setIsLoading(true)
 
+    const transfOempresa = selectedCompanies.map((company) => {
+      return {
+        iIdEmpresa: company.id_empresa,
+        sRucEmpresa: company.ruc_empresa
+
+      }
+    })
+
     const body = {
       oResults: {
         sEmail: userData.sCorreo,
@@ -62,19 +71,24 @@ const ProgressRegister = ({ userData }) => {
         sPhone: values.phoneNumber,
         bCodeNotEmail: true,
         bCodeNotBpas: true,
-        oEmpresa: selectedCompanies
+        oEmpresa: transfOempresa
       }
     }
-
-    console.log({ body })
-    console.log({ selectedCompanies })
 
     const tok = userData.sToken
 
     try {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarUsuarioEnd', body, tok)
-      console.log('responseData', responseData)
-      if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1) {
+      console.log('responseDataProfilestar', responseData)
+      if (responseData.oAuditResponse.iCode == 1) {
+        localStorage.removeItem('session')
+        const userDataNew = responseData.oResults
+        setSession(userDataNew)
+        localStorage.setItem('session', JSON.stringify(userDataNew))
+        setStatus(null)
+        setModalToken(false)
+        setConfirmRegister(true)
+      } else if (responseData.oAuditResponse.iCode == 30) {
         setConfirmRegister(true)
         setStatus(null)
         setModalToken(false)
@@ -103,36 +117,7 @@ const ProgressRegister = ({ userData }) => {
     }
   }
 
-  // login
-
-  async function handleSubmit (values) {
-    const dataRegister = {
-      oResults: {
-        sEmail: userData.sCorreo,
-        sPassword: userData.password
-      }
-    }
-
-    try {
-      const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
-      if (responseData.oAuditResponse?.iCode === 1) {
-        const userDataNextRegister = responseData.oResults
-        setErrorLogin(null)
-        if (responseData.oResults.iEstado == 28) {
-          router.push('/profilestart')
-        } else {
-          router.push('/product')
-          setSession(userDataNextRegister)
-        }
-      } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        setErrorLogin(errorMessage)
-      }
-    } catch (error) {
-      console.error('error', error)
-      setErrorLogin('Service error')
-    }
-  }
+  console.log('sesion profilestar', session)
 
   return (
     <>
@@ -231,7 +216,7 @@ const ProgressRegister = ({ userData }) => {
 
                     <div className='companies'>
                       {userData?.oEmpresa.map((option) => (
-                        <div className={`box-companies ${selectedCompanies.includes(option.id_empresa) ? 'selected' : ''}`} key={option.id_empresa} onClick={() => toggleCompanySelection(option.id_empresa)}>
+                        <div className={`box-companies ${selectedCompanies.includes(option) ? 'selected' : ''}`} key={option.id_empresa} onClick={() => toggleCompanySelection(option)}>
                           <div className='card'>
                             <span className='initial'>{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
                           </div>
@@ -303,9 +288,9 @@ const ProgressRegister = ({ userData }) => {
               <h3>{t['Completed profile']}</h3>
             </div>
 
-            <button type='submit' className='btn_primary small' onClick={() => router.push('/product')}>
+            {session && <button type='submit' className='btn_primary small' onClick={() => router.push('/product')}>
               {t.Next}
-            </button>
+                        </button>}
 
             {errorLogin && <div className='errorMessage'> {errorLogin} </div>}
           </Modal>
