@@ -29,7 +29,7 @@
     padding-bottom: 1.5rem;
     position: fixed;
     // left: 6px; /* Puedes ajustar este valor según tu diseño */
-    z-index: 9999;
+    z-index: 99;
     height: 120vh;
     gap: 4rem;
  
@@ -547,7 +547,6 @@
 
 .lang_active{
   color:get-color(blue_p1);
-  border-bottom: 1px solid get-color(lilac_p3);
-
-    
+  border-bottom: 1px solid get-color(lilac_p3) !important;
+  
 }

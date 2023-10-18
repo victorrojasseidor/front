@@ -126,10 +126,46 @@
     "Configuration":"Configuration",
     "Apiconfuguración":"Apiconfuguración",
     "Documentation":"Documentation",
-    "Apiconfuguratión":"Apiconfuguratión"
+    "Admin confuguratión":"Admin confuguratión"
 
 
     },
+    "Apiconfuguration": {
+      "Service configuration status":"Service configuration status",
+      "Approve digital employees request":"Approve digital employees request",
+      "This service changes digital employees from requested to pending":"This service changes digital employees from requested to pending",
+      "Confirm configuration":"Confirm configuration",
+      "This service changes the status of the digital employee from pending to configured":"This service changes the status of the digital employee from pending to configured" ,
+      "Approve":"Approve",
+      "Disapprove":"Disapprove",
+      "Digital employees":"Digital employees",
+      "Do you want to activate digital employees for this company?": "Do you want to activate digital employees for this company?",
+"Company":"Company",
+"This digital employee is not yet requested":"This digital employee is not yet requested",
+"Not configured yet":"Not configured yet",
+"You want to approve the setup of this company":"You want to approve the setup of this company?",
+      
+
+      "Configuration":"Configuration",
+      "Enable or disable this digital Employees": "Enable or disable this digital Employees to", 
+      "State":"State",
+     
+      "Enabled": "Enabled",
+      "Disabled": "Disabled",
+      "Service date ranges": "Service date ranges",
+      "Select service date ranges": "Select service date ranges",
+      "Service start date": "Service start date",
+      "End of service date": "End of service date",
+      "TokenApp": "TokenApp",
+      "Save": "Save",
+  
+      "From":"From",
+      "To":"To",
+      "Yees":"Sí",
+      "No":"No"
+      },
+
+
     "Download": {
       "Digital employees":"Digital employees",
       "Status and emails":"Status and emails",
@@ -238,6 +274,27 @@
       "is our top":"is our top",
       "priority":"priority"
     },
+
+
+    
+
+    "freeTrial": {
+      "Free trial":"Free trial ",
+      "To be able to request the digital employee": "To be able to request the digital employee",
+      "use the following form,": "use the following form",
+      "Company email": "Company email",
+      "Title": "Title",
+      "Phone Number": "Phone Number",
+      "Message": "Message",
+      "Your request was sent successfully":"Your request was sent successfully",
+      "We will contact you soon":"We will contact you soon",
+      "Send":"Enviar",
+      "Your satisfaction": "Your satisfaction",
+      "is our top":"is our top",
+      "priority":"priority",
+      "Return to DE":"Return to DE"
+    },
+
 
     "Reporting": {
       "Reporting":"Reporting",

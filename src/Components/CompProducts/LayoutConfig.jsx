@@ -8,6 +8,7 @@ import { componentsProduct } from '@/Components/CompProducts/componentsProduct'
 import Link from 'next/link'
 import ImageSvg from '@/helpers/ImageSVG'
 import NavigationPages from '../NavigationPages'
+import Apiconfiguration from '../Admi/Apiconfiguration'
 
 export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, NameAcount, idEmpresa }) {
   const [product, setProduct] = useState(null)
@@ -17,9 +18,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   const { session, setModalToken, l } = useAuth()
 
   const router = useRouter()
-  const { locale } = router
-
-  console.log('locale', locale)
 
   const t = l.Products
 
@@ -30,7 +28,8 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
 
   useEffect(() => {
     getDataProduct()
-  }, [id, idEmpresa, session])
+    const t = l.Products
+  }, [id, idEmpresa, session, t])
 
   const handleTabClick = (index) => {
     if (index === 0) {
@@ -116,7 +115,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                 </Link>
 
                 <Link
-                  href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}}&idEmpresa=${idEmpresa}`}
+                  href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`}
                 >
                   <button
                     style={{
@@ -128,13 +127,17 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                   </button>
                 </Link>
 
-                <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}}&idEmpresa=${idEmpresa}`}>
-                  <button className={activeTab === 2 ? 'active' : ''} style={{ display: 'none' }} onClick={() => handleTabClick(2)}>
-                    <h4> {t['API Configuration']}</h4>
+                <Link
+                  href={`/product/product?type=apiconfiguration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`}
+                  style={{ visibility: session?.sPerfilCode === 'ADMIN' ? 'visible' : 'hidden' }}
+                >
+                  <button className={activeTab === 2 ? 'active' : ''} onClick={() => handleTabClick(2)}>
+                    <h4> {t['Admin confuguratión']}</h4>
 
                   </button>
                 </Link>
-                <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}}&idEmpresa=${idEmpresa}`} style={{ display: 'none' }}>
+
+                <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`} style={{ display: 'none' }}>
                   <button className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
 
                     <h4> {t.Documentation}</h4>
@@ -146,7 +149,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                 {activeTab === 0 && (
                   <div className='tabOne'>
                     <FreeTrial iIdProd={iIdProdEnv} nameProduct={product?.sName} />
-                    {/* ... */}
                   </div>
                 )}
                 {activeTab === 1 && (
@@ -156,13 +158,18 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                   </div>
                 )}
                 {activeTab === 2 && (
-                  <div className='ApiConfiCurency'>
-                    <h3>{t['Apiconfuguración']}</h3>
+                  <div style={{ visibility: session?.sPerfilCode === 'ADMIN' ? 'visible' : 'hidden' }}>
+
+                    <Apiconfiguration nameEmpresa={NameEmpresa(idEmpresa)} product={product} />
                   </div>
                 )}
-                {activeTab === 3 && <div>{component?.documentation}</div>}
+                {activeTab === 3 && <div>
+                  {/* {component?.documentation} */}
+
+                                    </div>}
               </div>
             </div>
+
           </div>
         </section>}
 

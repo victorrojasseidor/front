@@ -94,8 +94,9 @@ const LayoutProducts = ({ children, menu }) => {
 
           <h5>
             <div className='box-correo'>
-              <p className='company'>{session?.jCompany.razon_social_company}</p>
+              <p className='company'>{session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
               <p>{session?.sCorreo}</p>
+
             </div>
           </h5>
 
@@ -174,7 +175,7 @@ const LayoutProducts = ({ children, menu }) => {
 
               <Link href='/support'>
                 <ImageSvg name='Support' /> <h5> {t.Support}
-                                            </h5>
+                </h5>
               </Link>
             </li>
 

@@ -58,30 +58,31 @@
 
   &_description{
 
-    h1{
-      // text-align: start;
-    //  width: 100%;
-    }
       display: flex;
       align-items: center;
       flex-direction: column;
       justify-content: center;
       gap:1em;
     flex:1;
-    // width: 30%;
+   
     span{
       color:get-color(lilac_p3);
     }
     p{
       color:get-color(black_p2);
       text-align: center;
-
+      display:inline-block
     }
     img{
-      height: 60%;
+  
+      max-width: 15rem;
+      @include media(tablet) {
+        max-width: 20rem;
+              
+      }
       @include media(desktop) {
-        height: 80%;
-        
+   
+        max-width: 24rem;
         
       }
     }
@@ -104,3 +105,62 @@
   }
 }
 
+
+.apiconfiguration{
+ 
+  padding: 1rem;
+gap:1rem;
+display: flex;
+flex-direction: column;
+
+  h3{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .name-product{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    span{
+      color:get-color(black_p2)
+    }
+  }
+
+  .css-dmmspl-MuiFormGroup-root{
+    display: flex;
+    flex-direction: row;
+
+    
+  }
+
+  .state-message{
+    color:get-color(lilac_p3)
+
+  }
+
+  
+
+
+  
+ 
+
+  
+
+  .box-filter{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content{
+    display: flex;
+    justify-content:flex-start;
+    width: 100%;
+    gap:2rem;
+
+    
+  }
+  
+}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import imgfree from '../../public/img/freetrial.png'
 import Image from 'next/image'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 // import { validateFormRegister } from '@/helpers/validateForms'
@@ -8,15 +7,20 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import Modal from './Modal'
 import ImageSvg from '@/helpers/ImageSVG'
 import { useRouter } from 'next/router'
+import imgfree from '../../public/img/contactanos.png'
 
 function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
   const [error, SetError] = useState(null)
   const [confirm, SetConfirm] = useState(false)
-  const { session, setModalToken } = useAuth()
+  const { session, setModalToken, l } = useAuth()
+
+  const t = l.freeTrial
 
   const productName = nameProduct || 'Downlaod automated Bank Statements'
   const router = useRouter()
+
   // send frretrial
+
   async function handleSubmit (values, { setSubmitting, resetForm }) {
     const body = {
       oResults: {
@@ -62,7 +66,7 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
 
   return (
     <div className='freetrial'>
-      <div className='freetrial_description'>
+      {/* <div className='freetrial_description'>
         <div>
           The fastest and
           <span> safest </span>
@@ -73,7 +77,25 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
         <p>An expert will contact you</p>
 
         <Image src={imgfree} width={900} alt='imgfreetrial' />
+      </div> */}
+
+      <div className='freetrial_description'>
+        <h1> {t['Free trial']} </h1>
+
+        <div>
+          {/* <h4> Your satisfaction is our top priority!</h4> */}
+          <p>
+            {t['To be able to request the digital employee']}
+          </p>
+          <p> <span> {nameProduct} </span>{t['use the following form,']}
+          </p>
+
+        </div>
+
+        <Image src={imgfree} width={600} alt='imgfreetrial' />
+
       </div>
+
       <div className='freetrial_contact'>
         <Formik
           initialValues={{
@@ -90,19 +112,19 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
             <Form className='form-container'>
               <div className='input-box'>
                 <Field type='email' name='corporateEmail' placeholder='' readOnly />
-                <label htmlFor='corporateEmail'>Company email</label>
+                <label htmlFor='corporateEmail'>{t['Company email']}</label>
                 <ErrorMessage className='errorMessage' name='corporateEmail' component='div' />
               </div>
 
               <div className='input-box'>
                 <Field type='text' name='title' placeholder='' readOnly />
-                <label htmlFor='title'> Title </label>
+                <label htmlFor='title'> {t.Title} </label>
                 <ErrorMessage className='errorMessage' name='title' component='div' />
               </div>
 
               <div className='input-box'>
                 <Field type='tel' id='phoneNumber' name='phoneNumber' placeholder='' />
-                <label htmlFor='phoneNumber'>Phone Number</label>
+                <label htmlFor='phoneNumber'>{t['Phone Number']}</label>
                 <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
               </div>
 
@@ -114,19 +136,22 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
                   placeholder=''
                   rows={4}
                   cols={40}
+                  style={{ height: 'auto', minHeight: '4rem' }}
+
                 />
-                <label htmlFor='message'> Message</label>
+                <label htmlFor='message'> {t.Message}</label>
                 <ErrorMessage className='errorMessage' name='message' component='div' />
               </div>
 
               <div className='containerButton'>
                 <button className='btn_primary ' type='submit' disabled={isSubmitting}>
-                  SEND
+                  {t.Send}
                 </button>
               </div>
             </Form>
           )}
         </Formik>
+
         {error && <p className='errorMessage'>{error} </p>}
 
         {confirm && (
@@ -134,10 +159,10 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
             <ImageSvg name='Check' />
 
             <h2>
-              Your request was sent successfully
+              {t['Your request was sent successfully']}
             </h2>
 
-            <p> We will contact you soon </p>
+            <p> {t['We will contact you soon']} </p>
 
             <div className='box-buttons'>
               <button
@@ -145,7 +170,7 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
                 className='btn_primary small'
                 onClick={() => { router.push('/product'); SetConfirm(false) }}
               >
-                Return to DE
+                {t['Return to DE']}
               </button>
             </div>
 

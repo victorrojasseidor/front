@@ -172,7 +172,7 @@ p {
   // justify-content: center;
   // align-items: center;
   gap: 0.25em;
-  white-space: nowrap;
+  // white-space: nowrap;
 }
 
 .listEmails {
@@ -272,6 +272,20 @@ p {
 
 
 
+
+
+.country-box,.bank-box{
+  padding: 1rem 0rem;
+@include media(tablet) {
+  padding: 0rem 0rem;
+
+ }
+}
+
+
+
+}
+
 .state-box{
   display: flex;
   gap: 1rem;
@@ -286,19 +300,6 @@ p {
     }
   }
 }
-
-.country-box,.bank-box{
-  padding: 1rem 0rem;
-@include media(tablet) {
-  padding: 0rem 0rem;
-
- }
-}
-
-
-
-}
-
 
 .submit-box{
   padding: 2rem 0rem ;

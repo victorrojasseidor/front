@@ -163,6 +163,7 @@ function Support () {
                     placeholder=''
                     rows={4}
                     cols={40}
+                    style={{ height: 'auto', minHeight: '4rem' }}
                   />
 
                   <label htmlFor='message'> {t.Message}</label>
