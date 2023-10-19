@@ -38,8 +38,6 @@ export default function Products () {
     }
   }, [session, empresa, l])
 
-  console.log('session', session)
-
   async function getProductscard () {
     setIsLoading(true)
     try {
@@ -188,23 +186,21 @@ export default function Products () {
 
         </button>
       )
-    } else if (status === 27 || status === 31) {
+    } else if (status === 31) {
       return (
         <button
           className='btn_secundary'
           onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}
         >
 
-          {t['Free Trial']}
+          {t['Try free']}
 
         </button>
       )
     } else {
-      return (
-        <Link href='#'>
-          <p> {t['View more']}</p>
-        </Link>
-      )
+      return (session?.sPerfilCode == 'ADMIN'
+        ? <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p> {t['View more']}</p>  </Link>
+        : <Link href='#'> <p> {t['View more']}</p> </Link>)
     }
   }
 

@@ -106,11 +106,12 @@
     "Configuration": "Configuración",
     "Apiconfuguración": "Apiconfuguración",
     "Documentation": "Documentación",
-    "Admin confuguratión": "Admin configuración"
+    "Admin confuguratión": "Admin configuración",
+    "Try free": "Probar gratis"
   },
   "Apiconfuguration": {
     "Service configuration status":"Estado de configuración del servicio",
-    "Approve digital employees request": "Aprobar solicitud de empleados digitales",
+    "Approve configuration request": "Aprobar solicitud de configuración",
 "This service changes digital employees from requested to pending": "Este servicio cambia empleados digitales de solicitados a pendientes",
 "Confirm configuration": "Confirmar configuración",
 "This service changes the status of the digital employee from pending to configured": "Este servicio cambia el estado del empleado digital de pendiente a configurado",

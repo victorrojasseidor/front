@@ -119,6 +119,10 @@ flex-direction: column;
     justify-content: center;
   }
 
+  .state{
+    color:get-color(blue_p1);
+  }
+
   .name-product{
     display: flex;
     justify-content: flex-start;

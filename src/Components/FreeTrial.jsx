@@ -66,18 +66,6 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
 
   return (
     <div className='freetrial'>
-      {/* <div className='freetrial_description'>
-        <div>
-          The fastest and
-          <span> safest </span>
-          way to have the exchange rate registered in your ERP
-          <span> every day </span>
-
-        </div>
-        <p>An expert will contact you</p>
-
-        <Image src={imgfree} width={900} alt='imgfreetrial' />
-      </div> */}
 
       <div className='freetrial_description'>
         <h1> {t['Free trial']} </h1>

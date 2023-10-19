@@ -126,13 +126,14 @@
     "Configuration":"Configuration",
     "Apiconfuguración":"Apiconfuguración",
     "Documentation":"Documentation",
-    "Admin confuguratión":"Admin confuguratión"
+    "Admin confuguratión":"Admin confuguratión",
+    "Try free": "Try free"
 
 
     },
     "Apiconfuguration": {
       "Service configuration status":"Service configuration status",
-      "Approve digital employees request":"Approve digital employees request",
+      "Approve configuration request":"Approve configuration request",
       "This service changes digital employees from requested to pending":"This service changes digital employees from requested to pending",
       "Confirm configuration":"Confirm configuration",
       "This service changes the status of the digital employee from pending to configured":"This service changes the status of the digital employee from pending to configured" ,
@@ -157,8 +158,7 @@
       "Service start date": "Service start date",
       "End of service date": "End of service date",
       "TokenApp": "TokenApp",
-      "Save": "Save",
-  
+      "Save": "Save",  
       "From":"From",
       "To":"To",
       "Yees":"Sí",

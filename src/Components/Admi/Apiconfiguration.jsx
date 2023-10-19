@@ -7,8 +7,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import Loading from '@/Components/Atoms/Loading'
 import dayjs from 'dayjs'
-import PropTypes from 'prop-types'
-import { styled } from '@mui/material/styles'
+
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -30,6 +29,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
   const t = l.Apiconfuguration
 
   const pStatus = product?.iCodeStatus
+
+  console.log({ session })
 
   async function getDataProduct () {
     setIsLoading(true)
@@ -70,17 +71,15 @@ export default function Apiconfiguration ({ nameEmpresa }) {
   const [requestError, setRequestError] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
-  const [valueApproved, setValueApprobed] = useState(pStatus == 27 || pStatus == 31 ? 'Disabled' : 'Active')
+  const [valueApproved, setValueApprobed] = useState(null)
   const [modalApproved, setModalApproved] = useState(false)
 
-  const [valueConfirmed, setValueConfirmed] = useState(pStatus === 23 ? 'Active' : 'Disabled')
+  const [valueConfirmed, setValueConfirmed] = useState(null)
   const [modalConfirmed, setModalConfirmed] = useState(false)
-
-  console.log({ product })
 
   useEffect(() => {
     getDataProduct()
-  }, [iIdProdEnv, valueConfirmed, valueApproved, t])
+  }, [iIdProdEnv, valueConfirmed, valueApproved, modalApproved, modalConfirmed, t])
 
   const handleChangeAprobed = (event) => {
     setValueApprobed(event.target.value)
@@ -91,14 +90,26 @@ export default function Apiconfiguration ({ nameEmpresa }) {
   }
 
   const handleChangeConfirmed = (event) => {
-    setValueApprobed(event.target.value)
+    setValueConfirmed(event.target.value)
     if (event.target.value === 'Active') {
       // Muestra el modal de confirmación
       setModalConfirmed(true)
     }
   }
 
-  //   console.log(pStatus)
+  useEffect(() => {
+    if (pStatus == 27 || pStatus == 31) {
+      setValueApprobed('Disabled')
+    } else {
+      setValueApprobed('Active')
+    }
+
+    if (pStatus === 23) {
+      setValueConfirmed('Active')
+    } else {
+      setValueConfirmed('Disabled')
+    }
+  }, [pStatus])
 
   const handleStartDateChange = (newValue) => {
     setStartDate(newValue.format('DD/MM/YYYY'))
@@ -203,10 +214,11 @@ export default function Apiconfiguration ({ nameEmpresa }) {
         <div className='name-product'>
           <p> <span> {t.Company}:  </span>{nameEmpresa}</p>
           <p> <span>  {t['Digital employees']}: </span>{product?.sName}</p>
+          <p className='state'> <span>  {t.State}: </span> {pStatus} - {product?.sDescStatus}  </p>
         </div>
 
         <div className='subtitle'>
-          <h5 className='sub'>  {t['Approve digital employees request']}</h5>
+          <h5 className='sub'>  {t['Approve configuration request']}</h5>
           <p className='description'> {t['This service changes digital employees from requested to pending']} </p>
 
           {pStatus == 31
@@ -229,19 +241,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                     label={t.Approve}
                   />
 
-                  {/* <FormControlLabel
-                    value='Disabled'
-                    control={<Radio sx={{
-                      color: 'grey',
-                      '&.Mui-checked': {
-                        color: 'red'
-                      }
-                    }}
-                             />}
-                    label={t.Disapprove}
-                  /> */}
-
-                  {pStatus == 28 || pStatus == 23
+                  {/* {pStatus == 28 || pStatus == 23
                     ? ''
 
                     : <FormControlLabel
@@ -254,7 +254,19 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                         }}
                                  />}
                         label={t.Disapprove}
-                      />}
+                      />} */}
+
+                  <FormControlLabel
+                    value='Disabled'
+                    control={<Radio sx={{
+                      color: 'grey',
+                      '&.Mui-checked': {
+                        color: 'red'
+                      }
+                    }}
+                             />}
+                    label={t.Disapprove}
+                  />
 
                 </RadioGroup>
 
@@ -288,7 +300,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                       label={t.Approve}
                     />
 
-                    {pStatus == 23
+                    {/* {pStatus == 23
                       ? ''
 
                       : <FormControlLabel
@@ -301,7 +313,19 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                           }}
                                    />}
                           label={t.Disapprove}
-                        />}
+                        />} */}
+
+                    <FormControlLabel
+                      value='Disabled'
+                      control={<Radio sx={{
+                        color: 'grey',
+                        '&.Mui-checked': {
+                          color: 'red'
+                        }
+                      }}
+                               />}
+                      label={t.Disapprove}
+                    />
 
                   </RadioGroup>
 
@@ -409,6 +433,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
         </Modal>
       )}
+
+      {requestError && <div className='errorMessage'> {requestError}</div>}
 
     </>
 
