@@ -1,6 +1,5 @@
 import React from 'react'
-import DocCurrency from '@/Components/CompProducts/Currency/DocCurrency'
-import ConfigCurrency from '@/Components/CompProducts/ConfigCurrency'
+import ConfigCurrency from './Currency/ConfigCurrency'
 import ConfigDowland from '@/Components/CompProducts/DowloandCurrency/ConfigDowland'
 import DocDowland from './DowloandCurrency/DocDowland'
 
@@ -13,9 +12,9 @@ export const componentsProduct = [
     configuration: <ConfigDowland /> ? <ConfigDowland /> : 'configuration id 1'
   },
   {
-    iId: 4,
+    iId: 2,
     sName: 'Currency Exchange rates automation',
-    documentation: <DocCurrency />,
+    documentation: 'hhhhhhhh',
     apiConfiguration: 'apiconfiguration currency',
     configuration: <ConfigCurrency />
   },

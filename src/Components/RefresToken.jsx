@@ -18,7 +18,7 @@ function RefreshToken () {
       // Refresca la página para que las demás peticiones vuelvan a funcionar con el nuevo token
       window.location.reload()
     } catch (error) {
-      console.error('Error:', error)
+      console.log('Error:', error)
       // Maneja el error si ocurre algún problema al refrescar el token
       // Puedes mostrar un mensaje de error al usuario, o tomar otras acciones apropiadas.
     }

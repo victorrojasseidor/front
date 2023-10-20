@@ -158,6 +158,36 @@ export default function Products () {
     } else return imgProd
   }
 
+  const formatDate = (date) => {
+    // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
+    const fechaObjeto = new Date(date)
+
+    // Obtener las partes de la fecha (mes, día y año)
+    const mes = (fechaObjeto.getUTCMonth() + 1).toString().padStart(2, '0') // +1 porque los meses comienzan en 0
+    const dia = fechaObjeto.getUTCDate().toString().padStart(2, '0')
+    const año = fechaObjeto.getUTCFullYear()
+
+    // Formatear la fecha en el formato deseado (DD/MM/YYYY)
+    const fechaFormateada = `${dia}/${mes}/${año}`
+    return fechaFormateada
+  }
+
+  function calcularDiasRestantes (day) {
+    // Obtener la fecha actual
+    const fechaActual = new Date()
+
+    // Crear la fecha objetivo (2024-01-18T19:13:10.000Z)
+    const fechaObjetivo = new Date(day)
+
+    // Calcular la diferencia en milisegundos
+    const diferenciaEnMilisegundos = fechaObjetivo - fechaActual
+
+    // Calcular los días restantes
+    const diasRestantes = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24))
+
+    return diasRestantes
+  }
+
   const renderButtons = (data) => {
     const handleLink = (ruta) => {
       router.push(ruta)
@@ -298,7 +328,7 @@ export default function Products () {
 
                         <p className='dayLetf'>
                           <ImageSvg name='Time' />
-                          {t['Days left:']}      {product.iCodeStatus === 23 ? <span>{product.jTime.SExpires}</span> : <span>... </span>}
+                          {t['Days left:']}      {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? <span>{calcularDiasRestantes(product.sDateEnd)}</span> : <span> --- </span>}
 
                         </p>
 
