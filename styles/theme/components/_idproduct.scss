@@ -155,14 +155,24 @@ flex-direction: column;
 
   }
 
+  .dates-box{
+    padding-top: 1em;
+    display: flex;
+    flex-direction: column;
+    @include media(desktop) {
+   
+      flex-direction: row;
+      
+    }
+  }
+
+  .date{
+    display: flex;
+    flex-direction: row;
+    gap:1rem;
   
-
-
+  }
   
- 
-
-  
-
   .box-filter{
     display: flex;
     flex-direction: column;

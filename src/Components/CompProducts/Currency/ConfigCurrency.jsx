@@ -368,14 +368,14 @@ export default function ConfigCurrency () {
                       <ImageSvg name='Next' />
                     </button>
                   </div>
-                  </div>
+                </div>
                 : <div className='config-Automated--emails'>
                   <h3> {t['Register emails']} </h3>
                   <div className='description'>
                     {t['Add the emails to notify to']}
                   </div>
                   <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
-                  </div>}
+                </div>}
 
             </div>}
 
@@ -525,7 +525,7 @@ export default function ConfigCurrency () {
                         </div>
 
                         )}
-                  </div>
+                                                             </div>
 }
 
             </div>}
@@ -591,7 +591,7 @@ export default function ConfigCurrency () {
                   >
                   <ImageSvg name='Automation' />
                   {t['Run automation']}
-                  </button>
+                </button>
                 : ''}
               <div className='box-buttons'>
                 <button

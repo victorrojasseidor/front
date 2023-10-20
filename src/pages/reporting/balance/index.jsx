@@ -61,7 +61,6 @@ const Balance = () => {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetInitSaldos', body, token)
-
       if (responseData.oAuditResponse?.iCode === 1) {
         const dataInit = responseData.oResults
         setInitialDataselect(dataInit)
