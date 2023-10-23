@@ -130,52 +130,35 @@
   "Apiconfuguration": {
     "Service configuration status": "Service configuration status",
     "Approve configuration request": "Approve configuration request",
- 
-    "This service changes digital employees from requested to pending": "This service changes digital employees from requested to pending",
-    "Confirm configuration": "Confirm configuration",
-    "This service changes the status of the digital employee from pending to configured": "This service changes the status of the digital employee from pending to configured",
-    "Approve": "Approve",
-    "Disapprove": "Disapprove",
-    "Digital employees": "Digital employees",
-    "Do you want to activate digital employees for this company?": "Do you want to activate digital employees for this company?",
-    "Company": "Company",
-    "This digital employee is not yet requested": "This digital employee is not yet requested",
-    "Not configured yet": "Not configured yet",
-    "You want to approve the setup of this company": "You want to approve the setup of this company?",
-
-
-  
+     "Digital employees": "Digital employees",
+      "Company": "Company",
+   
     "Configuration": "Configuration",
-    "Enable or disable this digital Employees": "Enable or disable this digital Employees to",
+    
     "State": "State",
+    "Configured": "Configured",
+    "Pending": "Pending",
+    "Not hired": "Not hired",
+    "Update the status":"Update the status",
+    "Free Trial": "Free Trial",
+    
+   "Update the status of digital employees": "Select the status of digital employees",
+   "Do you want to update the status?":"Do you want to update the status?",
+   "Update": "Update",
+   "Message" : "Message",
+   "optional":"optional",
+   "Cancel":"Cancel",
+     
+      "Service date ranges": "Service date ranges",
+      "Select service date ranges": "Select service date ranges",
+      "Service start date": "Service start date",
+      "End of service date": "End of service date",
 
+      "From": "From",
+      "To": "To",
+      "Yees": "Sí",
+      "No": "No"
 
-    "Not Hired Status":  "Not Hired Status", 
-     "Change from any status to uncontracted": "Change from any status to uncontracted",
-    "Requested Status": "Requested Status",
-    "Service requested by digital employees (Free trial)":"Service requested by digital employees (Free trial)",
-    "Change to requested status":"Change to requested status?",
-    "Approve digital employees request":"Approve digital employees request",
-     "Status Pending configuration": "Status Pending configuration",
-    "Configured status": "Configured status",
-    "Change to configuration pending state":"Change to configuration pending state",
-     "Change to configured state":"Change to configured state",
-     "You want to change the status to Not-hired":"You want to change the status to Not-hired",
-     "You want to enable settings for this company":"You want to enable settings for this company?",
-
-
-    "Enabled": "Enabled",
-    "Disabled": "Disabled",
-    "Service date ranges": "Service date ranges",
-    "Select service date ranges": "Select service date ranges",
-    "Service start date": "Service start date",
-    "End of service date": "End of service date",
-    "TokenApp": "TokenApp",
-    "Save": "Save",
-    "From": "From",
-    "To": "To",
-    "Yees": "Sí",
-    "No": "No"
   },
 
   "Download": {

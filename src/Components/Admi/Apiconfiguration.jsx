@@ -63,20 +63,21 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     }
   }
 
-  const parsedStartDate = dayjs(product?.sDateInit, { format: 'YYYY-MM-DDTHH:mm:ss.SSSZ' })
-  const parsedEndDate = dayjs(product?.sDateEnd, { format: 'YYYY-MM-DDTHH:mm:ss.SSSZ' })
+  const parsedStartDate = dayjs(product?.sDateInit, { format: 'YYYY-MM-DD' })
+  const parsedEndDate = dayjs(product?.sDateEnd, { format: 'YYYY-MM-DD' })
 
-  const [startDate, setStartDate] = useState(null)
-  const [endDate, setEndDate] = useState(null)
+  const [startDate, setStartDate] = useState(parsedStartDate)
+  const [endDate, setEndDate] = useState(parsedEndDate)
   const [requestError, setRequestError] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [valueState, setValueState] = useState(null)
+  const [stateInitial, setStateInitial] = useState(null)
   const [modalConfirmed, setModalConfirmed] = useState(false)
   const [message, setMessage] = useState(null)
 
   useEffect(() => {
     getDataProduct()
-  }, [pStatus, valueState, modalConfirmed])
+  }, [pStatus, valueState, modalConfirmed, startDate, endDate])
 
   const handleChangemessage = (event) => {
     setMessage(event.target.value)
@@ -89,22 +90,28 @@ export default function Apiconfiguration ({ nameEmpresa }) {
   useEffect(() => {
     if (pStatus == 31) {
       setValueState('NotHiredProducto')
+      setStateInitial('NotHiredProducto')
     } else if (pStatus == 27) {
       setValueState('SolicitarProducto')
+      setStateInitial('SolicitarProducto')
     } else if (pStatus == 28) {
       setValueState('AprobarSolProducto')
+      setStateInitial('AprobarSolProducto')
     } else if (pStatus == 23) {
       setValueState('ConfirmarConfiguracion')
+      setStateInitial('ConfirmarConfiguracion')
     }
   }, [pStatus])
 
   const handleStartDateChange = (newValue) => {
-    setStartDate(newValue.format('DD/MM/YYYY'))
+    setStartDate(newValue.format('YYYY-MM-DD'))
   }
 
   const handleEndDateChange = (newValue) => {
-    setEndDate(newValue.format('DD/MM/YYYY'))
+    setEndDate(newValue.format('YYYY-MM-DD'))
   }
+
+  console.log({ product })
 
   async function handleServiceChange () {
     setIsLoading(true)
@@ -118,11 +125,14 @@ export default function Apiconfiguration ({ nameEmpresa }) {
         sTitle: 'Admin',
         sPhoneNumber: session?.sPhone,
         sMessage: message || 'message-Admin',
-        sFechaInit: startDate || product?.sDateInit,
-        sFechaEnd: endDate || product?.sDateEnd
-
+        sFechaInit: startDate || product.sDateInit,
+        sFechaEnd: endDate || product.sDateEnd
+        // sFechaInit: '2023-10-01',
+        // sFechaEnd: '2024-03-01'
       }
     }
+
+    console.log({ body })
 
     try {
       const token = session?.sToken
@@ -132,6 +142,9 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       if (responseData.oAuditResponse?.iCode === 1) {
         // setModalFreeTrial(false)
         setModalConfirmed(false)
+        // setEndDate(null)
+        // setStartDate(null)
+        setMessage(null)
 
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 27) {
@@ -157,6 +170,21 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       setIsLoading(false) // Ocultar señal de carga
     }
   }
+  const formatDate = (date) => {
+    // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
+    const fechaObjeto = new Date(date)
+
+    // Obtener las partes de la fecha (mes, día y año)
+    const mes = (fechaObjeto.getUTCMonth() + 1).toString().padStart(2, '0') // +1 porque los meses comienzan en 0
+    const dia = fechaObjeto.getUTCDate().toString().padStart(2, '0')
+    const año = fechaObjeto.getUTCFullYear()
+
+    // Formatear la fecha en el formato deseado (DD/MM/YYYY)
+    const fechaFormateada = `${dia}/${mes}/${año}`
+    return fechaFormateada
+  }
+
+  // console.log(formatDate(startDate), formatDate(product.sDateInit))
 
   return (
     <>
@@ -168,11 +196,13 @@ export default function Apiconfiguration ({ nameEmpresa }) {
           <p> <span> {t.Company}:  </span>{nameEmpresa}</p>
           <p> <span>  {t['Digital employees']}: </span>{product?.sName}</p>
           <p className='state'> <span>  {t.State}: </span> {pStatus} - {product?.sDescStatus}  </p>
+          <p> <span>  {t['Service start date']}: </span>{formatDate(product?.sDateInit)}</p>
+          <p> <span>  {t['End of service date']}: </span>{formatDate(product?.sDateEnd)}</p>
         </div>
 
         <div className='subtitle'>
-          <h5 className='sub'> {t.State} </h5>
-          <p className='description'> {t['Change from any status to uncontracted']}  </p>
+          <h5 className='sub'> {t['Update the status']} </h5>
+          <p className='description'> {t['Update the status of digital employees']}  </p>
 
           <div className='content'>
 
@@ -188,25 +218,25 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
                 <FormControlLabel
                   value='NotHiredProducto'
-                  control={<Radio color='success' />}
-                  label='not hired'
+                  control={<Radio />}
+                  label={t['Not hired']}
                 />
 
                 <FormControlLabel
                   value='SolicitarProducto'
                   control={<Radio color='success' />}
-                  label='free trial'
+                  label={t['Free Trial']}
                 />
 
                 <FormControlLabel
                   value='AprobarSolProducto'
-                  control={<Radio color='success' />}
-                  label='Aprobar para soliicic'
+                  control={<Radio />}
+                  label={t.Pending}
                 />
                 <FormControlLabel
                   value='ConfirmarConfiguracion'
-                  control={<Radio color='success' />}
-                  label='configurado'
+                  control={<Radio />}
+                  label={t.Configured}
                 />
 
               </RadioGroup>
@@ -216,60 +246,66 @@ export default function Apiconfiguration ({ nameEmpresa }) {
           </div>
         </div>
 
-        <div className='date'>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label={t.From}
-              value={dayjs(parsedStartDate, 'DD/MM/YYYY')}
-              slotProps={{
-                textField: {
-                  helperText: t['Service start date']
-                }
+        {valueState == 'AprobarSolProducto'
+          ? <div className='date'>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label={t.From}
+                value={dayjs(parsedStartDate, 'YYYY-MM-DD')}
+                slotProps={{
+                  textField: {
+                    helperText: t['Service start date']
+                  }
 
+                }}
+                onChange={handleStartDateChange}
+                format='YYYY-MM-DD'
+              />
+            </LocalizationProvider>
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label={t.To}
+                value={dayjs(parsedEndDate, 'YYYY-MM-DD')}
+                slotProps={{
+                  textField: {
+                    helperText: t['End of service date']
+                  }
+
+                }}
+                onChange={handleEndDateChange}
+                format='YYYY-MM-DD'
+              />
+            </LocalizationProvider>
+
+            </div>
+          : ''}
+
+        {valueState !== stateInitial
+          ? <div className='box-buttons' style={{ justifyContent: 'flex-start' }}>
+            <button
+              type='button'
+              className='btn_primary small'
+              onClick={() => { setModalConfirmed(true) }}
+            >
+              {t.Update}
+
+            </button>
+
+            <button
+              type='button'
+              className='btn_secundary small'
+              onClick={() => {
+                setValueState(stateInitial); setEndDate(null)
+                setStartDate(null)
               }}
-              onChange={handleStartDateChange}
-              format='DD/MM/YYYY'
-            />
-          </LocalizationProvider>
+            >
+              {t.Cancel}
 
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label={t.To}
-              value={dayjs(parsedEndDate, 'DD/MM/YYYY')}
-              slotProps={{
-                textField: {
-                  helperText: t['End of service date']
-                }
+            </button>
 
-              }}
-              onChange={handleEndDateChange}
-              format='DD/MM/YYYY'
-            />
-          </LocalizationProvider>
-
-        </div>
-
-        <div className='input-box'>
-
-          <textarea
-            value={message}
-            onChange={handleChangemessage}
-            placeholder=''
-            rows={4}
-            cols={40}
-            style={{ height: 'auto', minHeight: '3rem' }}
-          />
-          <label htmlFor='message'> mensaje  </label>
-
-        </div>
-
-        <button
-          type='button'
-          className='btn_primary small'
-          onClick={() => { setModalConfirmed(true) }}
-        >
-          Send
-        </button>
+            </div>
+          : ''}
 
         {isLoading && <Loading />}
 
@@ -280,8 +316,22 @@ export default function Apiconfiguration ({ nameEmpresa }) {
           <ImageSvg name='Question' />
 
           <h3>
-            {t['You want to approve the setup of this company']}
+            {t['Do you want to update the status?']}
           </h3>
+
+          <div className='input-box'>
+
+            <textarea
+              value={message}
+              onChange={handleChangemessage}
+              placeholder=''
+              rows={4}
+              cols={40}
+              style={{ height: 'auto', minHeight: '3rem' }}
+            />
+            <label htmlFor='message'> {t.Message} ({t.optional})  </label>
+
+          </div>
 
           <div className='box-buttons'>
             <button
@@ -289,7 +339,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
               className='btn_primary small'
               onClick={() => { handleServiceChange() }}
             >
-              {t.Yees}
+              {t.Yes}
             </button>
 
             <button
