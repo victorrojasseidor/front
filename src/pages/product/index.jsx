@@ -17,6 +17,9 @@ import imgTipo from '../../../public/img/prod-tipo.png'
 import imgSunat from '../../../public/img/prod-sunat.png'
 import imgProd from '../../../public/img/prod-default.png'
 import Image from 'next/image'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+// import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -28,6 +31,37 @@ export default function Products () {
   const [isLoading, setIsLoading] = useState(false)
 
   const { session, setModalToken, logout, l } = useAuth()
+
+  // Nuevo estado para opciones de búsqueda de empresas
+  const [companyOptions, setCompanyOptions] = useState([])
+
+  // Nuevo estado para la empresa seleccionada
+  const [selectedCompany, setSelectedCompany] = useState(null)
+
+  useEffect(() => {
+    // Actualiza las opciones de búsqueda de empresas cuando cambia la lista de empresas en session
+    if (session?.oEmpresa) {
+      setCompanyOptions(session.oEmpresa)
+    }
+  }, [session])
+
+  const handleCompanyInputChange = (event, newValue) => {
+    setSelectedCompany(newValue) // Actualiza la empresa seleccionada
+
+    console.log({ newValue })
+    if (newValue) {
+      const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === newValue.razon_social_empresa
+      )
+      const selectedEmpresa = {
+        id_empresa: DataEmpresa.id_empresa,
+        razon_social_empresa: DataEmpresa.razon_social_empresa,
+        ruc_empresa: DataEmpresa.ruc_empresa
+      }
+      // Guardar la empresa seleccionada en el localStorage
+      localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
+      setEmpresa(selectedEmpresa)
+    }
+  }
 
   const t = l.Products
 
@@ -74,30 +108,45 @@ export default function Products () {
     }
   }
 
-  const handleSelectChangeEmpresa = (event) => {
-    const selectedValue = event.target.value
-    const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
+  // const handleSelectChangeEmpresa = (event) => {
+  //   const selectedValue = event.target.value
+  //   const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
 
-    if (DataEmpresa) {
-      const selectedEmpresa = {
-        id_empresa: DataEmpresa.id_empresa,
-        razon_social_empresa: DataEmpresa.razon_social_empresa,
-        ruc_empresa: DataEmpresa.ruc_empresa
-      }
-      // Guardar la empresa seleccionada en el localStorage
-      localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
-      setEmpresa(selectedEmpresa)
-    }
-  }
+  //   if (DataEmpresa) {
+  //     const selectedEmpresa = {
+  //       id_empresa: DataEmpresa.id_empresa,
+  //       razon_social_empresa: DataEmpresa.razon_social_empresa,
+  //       ruc_empresa: DataEmpresa.ruc_empresa
+  //     }
+  //     // Guardar la empresa seleccionada en el localStorage
+  //     localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
+  //     setEmpresa(selectedEmpresa)
+  //   }
+  // }
+
+  // // useEffect(() => {
+  // //   // Comprobar si hay una empresa seleccionada en el localStorage
+  // //   const storedEmpresa = localStorage.getItem('selectedEmpresa')
+  // //   if (storedEmpresa) {
+  // //     setEmpresa(JSON.parse(storedEmpresa))
+  // //   } else if (session?.oEmpresa.length > 0) {
+  // //     // Si no hay una empresa en el localStorage, utiliza la primera empresa de session.oEmpresa
+  // //     setEmpresa(session?.oEmpresa[0])
+  // //   }
+  // // }, [])
 
   useEffect(() => {
     // Comprobar si hay una empresa seleccionada en el localStorage
     const storedEmpresa = localStorage.getItem('selectedEmpresa')
     if (storedEmpresa) {
-      setEmpresa(JSON.parse(storedEmpresa))
+      const selectedEmpresa = JSON.parse(storedEmpresa)
+      setEmpresa(selectedEmpresa)
+      setSelectedCompany(selectedEmpresa) // Inicializa selectedCompany con el valor
     } else if (session?.oEmpresa.length > 0) {
       // Si no hay una empresa en el localStorage, utiliza la primera empresa de session.oEmpresa
-      setEmpresa(session?.oEmpresa[0])
+      const firstEmpresa = session?.oEmpresa[0]
+      setEmpresa(firstEmpresa)
+      setSelectedCompany(firstEmpresa) // Inicializa selectedCompany con el valor
     }
   }, [])
 
@@ -234,6 +283,8 @@ export default function Products () {
     }
   }
 
+  // autocomplete
+
   return (
     <LayoutProducts menu='Product'>
 
@@ -252,9 +303,9 @@ export default function Products () {
 
           <span> {t.Welcome} 👋, {t['Digital employees']}  </span>
 
-          <div className='box-filter'>
+          <div className=''>
 
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
+            {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id='company-label'> {t['To company:']}</InputLabel>
               <Select
                 labelId='company-label'
@@ -267,9 +318,23 @@ export default function Products () {
                   </MenuItem>
                 ))}
               </Select>
-              {/* <FormHelperText>Select a company</FormHelperText> */}
-            </FormControl>
+
+            </FormControl>  */}
+
+            {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
+            <Autocomplete
+              value={selectedCompany}
+              onChange={handleCompanyInputChange}
+              sx={{ minWidth: 370 }}
+              options={companyOptions}
+              getOptionLabel={(option) => option.razon_social_empresa}
+              renderInput={(params) => (
+                <TextField {...params} label={t['To company:']} />
+              )}
+            />
+
           </div>
+
         </div>
 
         <div className='products_filterSearch'>

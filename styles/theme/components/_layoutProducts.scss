@@ -479,6 +479,7 @@
   @include media(tablet) { 
     display: none;
   }
+  
 
 }
 
@@ -493,14 +494,14 @@
   }
   button{
     color:get-color(forms_s6);
-
-
   }
 
   
 
 .btn_circle{
   background-color: transparent;
+ display: none;
+  
 }
   
 

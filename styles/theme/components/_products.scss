@@ -10,6 +10,11 @@
     padding: 1em 0rem;
     gap: 1em;
 
+    @include media(tablet) {
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
     @include media(desktop) {
       flex-direction: row;
       justify-content: flex-start;
@@ -339,6 +344,13 @@
   gap: 1rem;
   flex-direction: column;
   align-items: flex-start;
+
+  .css-1yhyf2r-MuiAutocomplete-root{
+    min-width: 18rem;
+    @include media(tablet) {
+      min-width: 25rem;
+  }
+}
 }
 
 .sub-title {
