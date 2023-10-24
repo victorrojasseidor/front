@@ -45,6 +45,8 @@ export default function Products () {
     }
   }, [session])
 
+  console.log({ product })
+
   const handleCompanyInputChange = (event, newValue) => {
     setSelectedCompany(newValue) // Actualiza la empresa seleccionada
 
@@ -207,32 +209,34 @@ export default function Products () {
     } else return imgProd
   }
 
-  const formatDate = (date) => {
-    // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
-    const fechaObjeto = new Date(date)
+  // function calcularDiasRestantes (day) {
+  //   // Obtener la fecha actual
+  //   const fechaActual = new Date()
 
-    // Obtener las partes de la fecha (mes, día y año)
-    const mes = (fechaObjeto.getUTCMonth() + 1).toString().padStart(2, '0') // +1 porque los meses comienzan en 0
-    const dia = fechaObjeto.getUTCDate().toString().padStart(2, '0')
-    const año = fechaObjeto.getUTCFullYear()
+  //   // Crear la fecha objetivo (2024-01-18T19:13:10.000Z)
+  //   const fechaObjetivo = new Date(day)
 
-    // Formatear la fecha en el formato deseado (DD/MM/YYYY)
-    const fechaFormateada = `${dia}/${mes}/${año}`
-    return fechaFormateada
-  }
+  //   // Calcular la diferencia en milisegundos
+  //   const diferenciaEnMilisegundos = fechaObjetivo - fechaActual
+
+  //   // Calcular los días restantes
+  //   const diasRestantes = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24))
+
+  //   return diasRestantes
+  // }
 
   function calcularDiasRestantes (day) {
-    // Obtener la fecha actual
+    // Obtener la fecha actual en UTC
     const fechaActual = new Date()
 
-    // Crear la fecha objetivo (2024-01-18T19:13:10.000Z)
+    // Crear la fecha objetivo en UTC
     const fechaObjetivo = new Date(day)
 
     // Calcular la diferencia en milisegundos
     const diferenciaEnMilisegundos = fechaObjetivo - fechaActual
 
     // Calcular los días restantes
-    const diasRestantes = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24))
+    const diasRestantes = Math.ceil(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24))
 
     return diasRestantes
   }
@@ -242,8 +246,11 @@ export default function Products () {
       router.push(ruta)
     }
 
+    const dayLef = parseInt(calcularDiasRestantes(data.sDateEnd), 10)
+
+    console.log({ dayLef })
     const status = data.iCodeStatus
-    if (status === 28) {
+    if (status === 28 && dayLef >= 0) {
       return (
         <button
           className='btn_primary'
@@ -254,7 +261,7 @@ export default function Products () {
 
         </button>
       )
-    } else if (status === 23) {
+    } else if (status === 23 && dayLef >= 0) {
       return (
         <button
           className='btn_primary'
@@ -276,10 +283,11 @@ export default function Products () {
 
         </button>
       )
+    } else if (dayLef <= 0) {
+      return (
+        <Link href='/support'> <p> {t['Contact technical support']}  </p> </Link>)
     } else {
-      return (session?.sPerfilCode == 'ADMIN'
-        ? <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p> {t['View more']}</p>  </Link>
-        : <Link href='#'> <p> {t['View more']}</p> </Link>)
+      return <Link href='#'> <p>  </p> </Link>
     }
   }
 
@@ -380,6 +388,10 @@ export default function Products () {
                       <p className={`${product.iCodeStatus === 23 ? 'configured' : ''} ${product.iCodeStatus === 28 ? 'pending' : 'not-hired'}`}>  {product.sDescStatus}
                       </p>
 
+                      {session?.sPerfilCode == 'ADMIN' &&
+
+                        <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p className='admin'>  <ImageSvg name='Admin' /> Admin </p> </Link>}
+
                     </div>
 
                     <div className='card-title'>
@@ -391,11 +403,13 @@ export default function Products () {
                       <div className='box-name'>
                         <h4> {product.sName}</h4>
 
-                        <p className='dayLetf'>
-                          <ImageSvg name='Time' />
-                          {t['Days left:']}      {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? <span>{calcularDiasRestantes(product.sDateEnd)}</span> : <span> --- </span>}
+                        {product.iCodeStatus === 23 || product.iCodeStatus === 28
+                          ? <p className='dayLetf'>
 
-                        </p>
+                            <ImageSvg name='Time' />
+                            {t['Days left:']}     <span style={{ color: calcularDiasRestantes(product.sDateEnd) < 0 ? 'red' : 'blue' }}>{calcularDiasRestantes(product.sDateEnd)}</span>
+                            </p>
+                          : <p className='dayLetf'> </p>}
 
                       </div>
 

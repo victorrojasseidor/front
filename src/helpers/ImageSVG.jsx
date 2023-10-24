@@ -15,7 +15,7 @@ import { FcMultipleInputs, FcDebt, FcLock, FcAcceptDatabase } from 'react-icons/
 import { BsCheckCircle, BsDownload, BsSortNumericUpAlt, BsSortNumericDown, BsSortAlphaDownAlt, BsSortAlphaDown, BsCheckCircleFill, BsFillQuestionCircleFill } from 'react-icons/bs'
 import { RiMenu3Line, RiCloseLine, RiRobot2Fill } from 'react-icons/ri'
 import { GoArrowLeft, GoArrowRight } from 'react-icons/go'
-import { GrFormPrevious, GrFormNext } from 'react-icons/gr'
+import { GrFormPrevious, GrFormNext, GrConfigure } from 'react-icons/gr'
 
 // icons of bpass
 
@@ -55,6 +55,7 @@ const ImageSvg = ({ name }) => {
     Question: <BsFillQuestionCircleFill />,
     // Delete: <FiTrash2 />,
     Download: <BsDownload />,
+    Admin: <GrConfigure />,
     OrderDown: <BsSortNumericDown />,
     OrderUP: <BsSortNumericUpAlt />,
     OrderZA: <BsSortAlphaDownAlt />,

@@ -125,8 +125,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
         sMessage: message || 'message-Admin',
         sFechaInit: startDate || product.sDateInit,
         sFechaEnd: endDate || product.sDateEnd
-        // sFechaInit: '2023-10-01',
-        // sFechaEnd: '2024-03-01'
+
       }
     }
 
@@ -240,7 +239,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
           </div>
         </div>
 
-        {valueState == 'AprobarSolProducto'
+        {valueState == 'AprobarSolProducto' || valueState == 'ConfirmarConfiguracion'
           ? <div className='date'>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
@@ -323,28 +322,29 @@ export default function Apiconfiguration ({ nameEmpresa }) {
               cols={40}
               style={{ height: 'auto', minHeight: '3rem' }}
             />
-            <label htmlFor='message'> {t.Message} ({t.optional})  </label>
+            <label htmlFor='message'> {t.Message}   </label>
 
           </div>
 
-          <div className='box-buttons'>
-            <button
-              type='button'
-              className='btn_primary small'
-              onClick={() => { handleServiceChange() }}
-            >
-              {t.Yees}
-            </button>
+          {message &&
+            <div className='box-buttons'>
+              <button
+                type='button'
+                className='btn_primary small'
+                onClick={() => { handleServiceChange() }}
+              >
+                {t.Yees}
+              </button>
 
-            <button
-              type='button'
-              className='btn_primary small'
-              onClick={() => { setModalConfirmed(false) }}
-            >
-              {t.No}
-            </button>
+              <button
+                type='button'
+                className='btn_primary small'
+                onClick={() => { setModalConfirmed(false) }}
+              >
+                {t.No}
+              </button>
 
-          </div>
+            </div>}
 
         </Modal>
       )}

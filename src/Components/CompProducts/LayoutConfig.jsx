@@ -39,7 +39,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
     } else if (index === 1) {
       // Lógica para el tab 1
       // Si iCodeStatus es 28 o 23, se activa el tab 1
-      if (product.iCodeStatus === 28 || product.iCodeStatus === 23) {
+      if (session?.sPerfilCode === 'ADMIN' || product.iCodeStatus === 28 || product.iCodeStatus === 23) {
         setActiveTab(index)
       }
     } else if (index === 2) {
@@ -118,9 +118,10 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                   href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`}
                 >
                   <button
-                    style={{
-                      display: product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'block' : 'none'
-                    }}
+                    // style={{
+                    //   display: product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'block' : 'none'
+                    // }}
+                    style={{ display: session?.sPerfilCode === 'ADMIN' ? 'block' : product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'block' : 'none' }}
                     className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}
                   >
                     <h4> {t.Configuration}</h4>
@@ -166,7 +167,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                 {activeTab === 3 && <div>
                   {/* {component?.documentation} */}
 
-                                    </div>}
+                </div>}
               </div>
             </div>
 

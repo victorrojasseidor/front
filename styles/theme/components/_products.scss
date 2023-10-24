@@ -133,7 +133,11 @@
 
   &-status {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+
+    
+
+    
     
   }
 
@@ -225,6 +229,16 @@
   color: get-color(grey2_s4);
   padding: 0.25rem 1rem;
   border-radius: brd(2);
+}
+
+.admin {
+  background-color: get-color(bg-cles);
+  color: get-color(grey2_s4);
+  padding: 0.25rem 1rem;
+  border-radius: brd(2);
+  path{
+    fill:get-color(grey1_s3)
+  }
 }
 
 .card-reporting {
