@@ -63,11 +63,11 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     }
   }
 
-  const parsedStartDate = dayjs(product?.sDateInit, { format: 'YYYY-MM-DD' })
-  const parsedEndDate = dayjs(product?.sDateEnd, { format: 'YYYY-MM-DD' })
+  const parsedStartDate = dayjs(product?.sDateInit, { format: 'YYYY-MM-DDTHH:mm:ss.SSSZ' })
+  const parsedEndDate = dayjs(product?.sDateEnd, { format: 'YYYY-MM-DDTHH:mm:ss.SSSZ' })
 
-  const [startDate, setStartDate] = useState(parsedStartDate)
-  const [endDate, setEndDate] = useState(parsedEndDate)
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
   const [requestError, setRequestError] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [valueState, setValueState] = useState(null)
@@ -104,11 +104,11 @@ export default function Apiconfiguration ({ nameEmpresa }) {
   }, [pStatus])
 
   const handleStartDateChange = (newValue) => {
-    setStartDate(newValue.format('YYYY-MM-DD'))
+    setStartDate(newValue.format('YYYY-MM-DDTHH:mm:ss.SSSZ'))
   }
 
   const handleEndDateChange = (newValue) => {
-    setEndDate(newValue.format('YYYY-MM-DD'))
+    setEndDate(newValue.format('YYYY-MM-DDTHH:mm:ss.SSSZ'))
   }
 
   console.log({ product })
@@ -142,8 +142,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       if (responseData.oAuditResponse?.iCode === 1) {
         // setModalFreeTrial(false)
         setModalConfirmed(false)
-        // setEndDate(null)
-        // setStartDate(null)
+        setEndDate(null)
+        setStartDate(null)
         setMessage(null)
 
         setModalToken(false)
@@ -184,7 +184,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     return fechaFormateada
   }
 
-  // console.log(formatDate(startDate), formatDate(product.sDateInit))
+  console.log(startDate, endDate)
 
   return (
     <>
@@ -251,7 +251,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={t.From}
-                value={dayjs(parsedStartDate, 'YYYY-MM-DD')}
+                value={dayjs(parsedStartDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
                 slotProps={{
                   textField: {
                     helperText: t['Service start date']
@@ -259,14 +259,14 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
                 }}
                 onChange={handleStartDateChange}
-                format='YYYY-MM-DD'
+                format='DD-MM-YYYY'
               />
             </LocalizationProvider>
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={t.To}
-                value={dayjs(parsedEndDate, 'YYYY-MM-DD')}
+                value={dayjs(parsedEndDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
                 slotProps={{
                   textField: {
                     helperText: t['End of service date']
@@ -274,14 +274,14 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
                 }}
                 onChange={handleEndDateChange}
-                format='YYYY-MM-DD'
+                format='DD-MM-YYYY'
               />
             </LocalizationProvider>
 
             </div>
           : ''}
 
-        {valueState !== stateInitial
+        {valueState !== stateInitial || startDate || endDate
           ? <div className='box-buttons' style={{ justifyContent: 'flex-start' }}>
             <button
               type='button'
@@ -339,7 +339,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
               className='btn_primary small'
               onClick={() => { handleServiceChange() }}
             >
-              {t.Yes}
+              {t.Yees}
             </button>
 
             <button
