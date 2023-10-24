@@ -8,25 +8,38 @@ import Modal from './Modal'
 import ImageSvg from '@/helpers/ImageSVG'
 import { useRouter } from 'next/router'
 import imgfree from '../../public/img/contactanos.png'
+import Loading from '@/Components/Atoms/Loading'
+import { getProducts } from '@/helpers/auth'
 
 function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
   const [error, SetError] = useState(null)
   const [confirm, SetConfirm] = useState(false)
-  const { session, setModalToken, l } = useAuth()
+  const { session, setModalToken, l, logout } = useAuth()
+  const [product, setProduct] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [requestError, setRequestError] = useState()
+
+  const router = useRouter()
+  const iIdProdEnv = router.query.iIdProdEnv
+  const iId = router.query.iId
+  const idEmpresa = router.query.idEmpresa
 
   const t = l.freeTrial
 
-  const productName = nameProduct || 'Downlaod automated Bank Statements'
-  const router = useRouter()
+  useEffect(() => {
+    getDataProduct()
+  }, [])
 
   // send frretrial
+
+  const productName = nameProduct || product?.sName
 
   async function handleSubmit (values, { setSubmitting, resetForm }) {
     const body = {
       oResults: {
 
-        sProd: 'EXT_BANC',
-        iIdProdEnv: iIdProd,
+        sProd: product?.sProd,
+        iIdProdEnv: iIdProd || product?.iIdProdEnv,
         sCorreo: values.corporateEmail,
         sTitle: values.title,
         sPhoneNumber: values.phoneNumber,
@@ -35,10 +48,13 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
       }
     }
 
+    console.log({ body })
+
     try {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=SolicitarProducto', body, token)
+      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data= responseData.oResults;
         SetError(null)
@@ -61,6 +77,40 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
       SetConfirm(false)
       SetError(error)
       setSubmitting(false)
+    }
+  }
+
+  async function getDataProduct () {
+    setIsLoading(true)
+    try {
+      const token = session.sToken
+      const responseData = await getProducts(idEmpresa, token)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setModalToken(false)
+        const data = responseData.oResults
+        const selectedProduct = data.find((p) => p.iId === parseInt(iId))
+        setProduct(selectedProduct)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null)
+        }, 1000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setRequestError(error)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 1000)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -166,6 +216,8 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
         )}
 
       </div>
+
+      {requestError && <div className='errorMessage'> {requestError}  </div>}
 
     </div>
   )

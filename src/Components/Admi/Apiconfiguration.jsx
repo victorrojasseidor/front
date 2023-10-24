@@ -111,8 +111,6 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     setEndDate(newValue.format('YYYY-MM-DDTHH:mm:ss.SSSZ'))
   }
 
-  console.log({ product })
-
   async function handleServiceChange () {
     setIsLoading(true)
 
@@ -131,8 +129,6 @@ export default function Apiconfiguration ({ nameEmpresa }) {
         // sFechaEnd: '2024-03-01'
       }
     }
-
-    console.log({ body })
 
     try {
       const token = session?.sToken
@@ -183,8 +179,6 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     const fechaFormateada = `${dia}/${mes}/${año}`
     return fechaFormateada
   }
-
-  console.log(startDate, endDate)
 
   return (
     <>
@@ -278,7 +272,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
               />
             </LocalizationProvider>
 
-            </div>
+          </div>
           : ''}
 
         {valueState !== stateInitial || startDate || endDate
@@ -304,7 +298,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
             </button>
 
-            </div>
+          </div>
           : ''}
 
         {isLoading && <Loading />}
