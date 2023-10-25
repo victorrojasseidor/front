@@ -285,7 +285,11 @@ export default function Products () {
       )
     } else if (dayLef <= 0) {
       return (
-        <Link href='/support'> <p> {t['Contact technical support']}  </p> </Link>)
+        <>
+
+          <Link href='/support'> <p> {t['Contact technical support']}  </p> </Link>
+        </>
+      )
     } else {
       return <Link href='#'> <p>  </p> </Link>
     }
@@ -403,13 +407,22 @@ export default function Products () {
                       <div className='box-name'>
                         <h4> {product.sName}</h4>
 
-                        {product.iCodeStatus === 23 || product.iCodeStatus === 28
-                          ? <p className='dayLetf'>
+                        {(product.iCodeStatus === 23 || product.iCodeStatus === 28) && (
+                          calcularDiasRestantes(product.sDateEnd) >= 0
+                            ? (
+                              <p className='dayLetf'>
+                                <ImageSvg name='Time' />
+                                {t['Days left:']} <span style={{ color: 'blue' }}>{calcularDiasRestantes(product.sDateEnd)}</span>
+                              </p>
+                              )
+                            : (
+                              <p className='dayLetf'>
+                                <ImageSvg name='Time' />
+                                <span className='errorMessage' style={{ color: 'red' }}>     {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days} </span>
 
-                            <ImageSvg name='Time' />
-                            {t['Days left:']}     <span style={{ color: calcularDiasRestantes(product.sDateEnd) < 0 ? 'red' : 'blue' }}>{calcularDiasRestantes(product.sDateEnd)}</span>
-                            </p>
-                          : <p className='dayLetf'> </p>}
+                              </p>
+                              )
+                        )}
 
                       </div>
 

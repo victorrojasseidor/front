@@ -126,7 +126,9 @@
     "Documentation": "Documentation",
     "Admin confuguratión": "Admin configuratión",
     "Try free": "Try free",
-    "Contact technical support":"Contact technical support"
+    "Contact technical support":"Contact technical support",
+    "Permit expired ago":"permit expired ago",
+    "days":"days"
   },
   "Apiconfuguration": {
     "Service configuration status": "Service configuration status",

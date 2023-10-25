@@ -179,15 +179,19 @@
 
     .dayLetf {
       display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      font-size: smaller;
+      justify-content:center;
+      align-items:center;
+      font-size: 0.8rem;
       svg {
         color: get-color(grey1_s3);
-        font-size: medium;
+      font-size: 1rem;
+        display: inline-block;
       }
       span {
         color: get-color(blue_p1);
+        display: inline-block;
+        font-size: 0.8rem;
+        text-align: center;
       }
     }
   }

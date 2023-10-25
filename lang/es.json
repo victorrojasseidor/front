@@ -108,7 +108,9 @@
     "Documentation": "Documentación",
     "Admin confuguratión": "Admin configuración",
     "Try free": "Probar gratis",
-    "Contact technical support":"Contactar a soporte técnico"
+    "Contact technical support":"Contactar a soporte técnico",
+    "Permit expired ago":"Permiso expiró hace",
+    "days":"días"
   },
   "Apiconfuguration": {
     "Service configuration status": "Estado de configuración del servicio",
