@@ -17,7 +17,6 @@ import { getProducts } from '@/helpers/auth'
 import { formatDate } from '@/helpers/report'
 
 export default function ConfigDowland () {
-  const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
   const [data, setData] = useState(null)
@@ -34,6 +33,8 @@ export default function ConfigDowland () {
   const [completeShedule, setCompleteShedule] = useState(false)
   const [showAccounts, setShowAccounts] = useState(false)
   const [bankCredential, setBankCredential] = useState(null)
+  const [updateEmails, setUpdateEmails] = useState(false)
+
   // Estado para almacenar si el checkbox está marcado o no
   const [isChecked, setIsChecked] = useState(false)
 
@@ -188,7 +189,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [haveEmails, initialEdit, showForm, idEmpresa, selectedRowToDelete, showAccounts])
+  }, [initialEdit, showForm, idEmpresa, selectedRowToDelete, showAccounts, updateEmails])
 
   async function getExtrBanc () {
     setIsLoadingComponent(true)
@@ -340,6 +341,8 @@ export default function ConfigDowland () {
     }
   }
 
+  console.log(data?.oCorreoEB)
+
   return (
 
     <section className='config-Automated'>
@@ -366,69 +369,56 @@ export default function ConfigDowland () {
         <div className='Tabsumenu-content'>
           {activeTab === 0 &&
             <div className='container-status'>
-              {/* <h1> {t['Download automated Bank Statements']} </h1> */}
-              <div className='status-config'>
 
+              <div className='status-config'>
+                <h3 className='title-Config'> {t.State} </h3>
                 <ul>
 
                   <li>
-                    <p>{t['Digital employees']}:</p>
-                    <h5>  {t['Download automated Bank Statements']} </h5>
+                    <p>{t['Digital employees']}</p>
+                    <p>:</p>
+                    <p className='name-blue'>
+                      {t['Download automated Bank Statements']}
+                    </p>
+
                   </li>
                   <li>
 
                     <p>{t['Start service:']}</p>
-
+                    <p>:</p>
                     <p> {formatDate(dataCardProduct?.sDateEnd)}</p>
                   </li>
                   <li>
                     <p>{t['End service:']}</p>
+                    <p>:</p>
                     <p> {formatDate(dataCardProduct?.sDateInit)} </p>
                   </li>
                   <li>
-                    <p>{t.Country} :</p>
+                    <p>{t.Country} </p>
+                    <p>:</p>
                     <p>{dataCardProduct?.sCountry}</p>
                   </li>
                   <li>
-                    <p>{t.State} :</p>
+                    <p>{t.State} </p>
+                    <p>:</p>
                     <p className='Active'>{dataCardProduct?.sDescStatus}</p>
                   </li>
                 </ul>
               </div>
-              {haveEmails
-                ? <div className='box-emails'>
-                  <h3>{t['Emails for notifications']}</h3>
-                  <div className='card--emails'>
-                    <div className='emails'>
-                      {data?.oCorreoEB.slice(0, 5).map((email) => (
-                        <p key={email.correo_cc}>{email.correo_cc}</p>
-                      ))}
-                      <span>
-                        <button className='btn_crud' onClick={() => setHaveEmails(false)}>
-                          <ImageSvg name='Edit' />
-                        </button>
-                      </span>
-                    </div>
-                  </div>
-                  <div className='box-buttons'>
-                    <button
-                      type='button'
-                      className={`btn_secundary small ${completeEmails ? ' ' : 'disabled'}`}
-                      onClick={() => handleTabClick(1)}
-                      disabled={!completeEmails}
-                    >
-                      {t.Next}
-                      <ImageSvg name='Next' />
-                    </button>
-                  </div>
-                </div>
-                : <div className='config-Automated--emails'>
-                  <h3> {t['Register emails']} </h3>
-                  <div className='description'>
-                    {t['Add the emails to notify to']}
-                  </div>
-                  <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
-                </div>}
+
+              <EmailsForm dataEmails={data?.oCorreoEB} setUpdateEmails={setUpdateEmails} />
+
+              <div className='box-buttons'>
+                <button
+                  type='button'
+                  className={`btn_secundary small ${completeEmails ? ' ' : 'disabled'}`}
+                  onClick={() => handleTabClick(1)}
+                  disabled={!completeEmails}
+                >
+                  {t.Next}
+                  <ImageSvg name='Next' />
+                </button>
+              </div>
 
             </div>}
 
@@ -449,7 +439,7 @@ export default function ConfigDowland () {
                   {bankCredential?.nombre}
                 </span>
 
-              </div>
+                                </div>
             }
 
               {showAccounts
@@ -459,7 +449,7 @@ export default function ConfigDowland () {
                   <div className='box-buttons'>
                     <button
                       type='button'
-                      className='btn_secundary small'
+                      className='btn_secundary small  '
                       onClick={() => { setShowAccounts(false); setBankCredential(null) }}
                     >
                       <ImageSvg name='Back' />
@@ -467,7 +457,7 @@ export default function ConfigDowland () {
                     </button>
 
                   </div>
-                </>
+                  </>
 
                 : <>
 
@@ -531,13 +521,13 @@ export default function ConfigDowland () {
                                 </tr>
                               ))}
                             </tbody>
-                            </table>
+                          </table>
                           : <div>
                             <p> {t['Register your bank Credentials']}
 
                             </p>
 
-                            </div>}
+                          </div>}
 
                       </div>
                       {isLoadingComponent && <LoadingComponent />}
@@ -607,10 +597,10 @@ export default function ConfigDowland () {
                         </div>
 
                         )}
-                  </div>
+                                                            </div>
                 }
 
-                </>}
+                  </>}
 
             </div>}
 
@@ -675,7 +665,7 @@ export default function ConfigDowland () {
                   >
                   <ImageSvg name='Automation' />
                   {t['Run automation']}
-                </button>
+                  </button>
                 : ''}
               <div className='box-buttons'>
                 <button

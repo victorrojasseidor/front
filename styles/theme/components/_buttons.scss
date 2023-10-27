@@ -102,7 +102,7 @@
     justify-content: center;
      color:get-color(grey2_s4);
      transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-      
+     
 
       &:hover, &:focus{
         img{
@@ -144,6 +144,7 @@
       color: get-color(blue_p1);
     }
   }
+  
 
   &_black {
     display: flex;
@@ -253,34 +254,36 @@
   max-width: 200px;
 }
 
-.smallBack {
-  margin: 0.5rem;
-  padding: 0.625rem 2rem;
-  max-width: 300px;
-  border-style: none;
-  // border-radius: brd(1);
-  background-color: transparent;
-  border: 1px solid get-color(black_p2);
-  color: get-color(black_p2);
 
-  &:hover {
-    background-color: get-color(t1-blue);
-    color: get-color(white_s1);
-    transform: translateY(-2px);
-  }
-}
 
 .black {
   background-color: get-color(black_p2);
   color: get-color(white_s1);
  
   &:hover {
-    background-color: get-color(t1-blue);
-    color: get-color(white_s1);
+    background-color: get-color(white_s1);
+    color: get-color(black_p2);
     font-size: 1rem;
-    transform: translateY(-2px);
+    border: 1px solid get-color(grey1_s3);
+    // transform: translateY(-2px);
   }
 }
+
+.white {
+  background-color: get-color(white_s1);
+  color: get-color(black_p2);
+  border: 1px solid get-color(grey1_s3);
+ 
+  &:hover {
+    background-color: get-color(black_p2);
+    color: get-color(white_s1);
+    font-size: 1rem;
+    // transform: translateY(-2px);
+  }
+}
+
+
+
 
 .disabled {
   opacity: 0.5;

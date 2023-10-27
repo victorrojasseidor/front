@@ -45,13 +45,11 @@ export default function Products () {
     }
   }, [session])
 
-  console.log({ product })
-
   const handleCompanyInputChange = (event, newValue) => {
-    setSelectedCompany(newValue) // Actualiza la empresa seleccionada
-
     console.log({ newValue })
+    // Actualiza la empresa seleccionada
     if (newValue) {
+      setSelectedCompany(newValue)
       const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === newValue.razon_social_empresa
       )
       const selectedEmpresa = {
@@ -109,33 +107,6 @@ export default function Products () {
       setIsLoading(false) // Ocultar el indicador de carga después de que la petición se complete
     }
   }
-
-  // const handleSelectChangeEmpresa = (event) => {
-  //   const selectedValue = event.target.value
-  //   const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === selectedValue)
-
-  //   if (DataEmpresa) {
-  //     const selectedEmpresa = {
-  //       id_empresa: DataEmpresa.id_empresa,
-  //       razon_social_empresa: DataEmpresa.razon_social_empresa,
-  //       ruc_empresa: DataEmpresa.ruc_empresa
-  //     }
-  //     // Guardar la empresa seleccionada en el localStorage
-  //     localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
-  //     setEmpresa(selectedEmpresa)
-  //   }
-  // }
-
-  // // useEffect(() => {
-  // //   // Comprobar si hay una empresa seleccionada en el localStorage
-  // //   const storedEmpresa = localStorage.getItem('selectedEmpresa')
-  // //   if (storedEmpresa) {
-  // //     setEmpresa(JSON.parse(storedEmpresa))
-  // //   } else if (session?.oEmpresa.length > 0) {
-  // //     // Si no hay una empresa en el localStorage, utiliza la primera empresa de session.oEmpresa
-  // //     setEmpresa(session?.oEmpresa[0])
-  // //   }
-  // // }, [])
 
   useEffect(() => {
     // Comprobar si hay una empresa seleccionada en el localStorage
@@ -209,22 +180,6 @@ export default function Products () {
     } else return imgProd
   }
 
-  // function calcularDiasRestantes (day) {
-  //   // Obtener la fecha actual
-  //   const fechaActual = new Date()
-
-  //   // Crear la fecha objetivo (2024-01-18T19:13:10.000Z)
-  //   const fechaObjetivo = new Date(day)
-
-  //   // Calcular la diferencia en milisegundos
-  //   const diferenciaEnMilisegundos = fechaObjetivo - fechaActual
-
-  //   // Calcular los días restantes
-  //   const diasRestantes = Math.floor(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24))
-
-  //   return diasRestantes
-  // }
-
   function calcularDiasRestantes (day) {
     // Obtener la fecha actual en UTC
     const fechaActual = new Date()
@@ -248,7 +203,6 @@ export default function Products () {
 
     const dayLef = parseInt(calcularDiasRestantes(data.sDateEnd), 10)
 
-    console.log({ dayLef })
     const status = data.iCodeStatus
     if (status === 28 && dayLef >= 0) {
       return (

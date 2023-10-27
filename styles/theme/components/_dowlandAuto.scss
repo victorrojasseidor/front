@@ -2,44 +2,7 @@
   width: 100%;
   //  padding: 1em;
 
-  &--emails {
-    display: flex;
-    width: 100%;
-
-flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    font-size: smaller;
-   
-
-    .description{
-      display: flex;
-      padding: 0.5rem;
-      width: 100%;
-      margin: 0;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 0.25rem;
-      @include media(tablet) {
-        font-size: medium;
-        
-      }
- 
-    }
-    .emailBox {
-      width: 100%;
-      display: flex;
-       flex-direction: column;
-      justify-content: center;
-
-      @include media(tablet) {
-        flex-direction: row;
-        gap: 1em;
-        align-items: center;
-      }
-    }
-  }
+  
 
   &--tables {
     display: flex;
@@ -48,42 +11,53 @@ flex-wrap: wrap;
     flex-direction: column;
     width: 100%;
     align-items: center;
-    
-
   }
-
- 
 }
 
-
-
-.container-status{ 
-
-  width: 100%;   
+.container-status {
+  width: 100%;
   display: flex;
-  justify-content: center;
-  gap: 1em;
+  justify-content: flex-start;
+  gap: 2em;
   flex-direction: column;
-  align-items: center;
-
-  
+  align-items: flex-start;
 
   .status-config {
+    width: 100%;
+
     ul {
       display: flex;
       flex-direction: column;
-      justify-content: first baseline;
+      justify-content: flex-start;
+      width: 100%;
 
+      p:first-of-type {
+        /* Estilos para el primer elemento <p> */
+        color: get-color(grey2_s4);
+        display: flex;
+        justify-content: flex-start;
+        text-align: start;
+        width: 100%;
+        flex: 1;
+      }
+
+      p:nth-of-type(3) {
+        /* Estilos para el segundo elemento <p> */
+        color: get-color(black_p2);
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        flex: 3;
+      }
 
       li {
         display: flex;
+
         gap: 1em;
         justify-content: center;
         @include media(tablet) {
-        
           justify-content: space-between;
         }
-
 
         .Active {
           color: get-color(blue_p1);
@@ -92,224 +66,331 @@ flex-wrap: wrap;
     }
   }
 
- 
 
-  .box-emails {
-    padding-left: 1rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  .container-emails{
+  
 
-    .card--emails {
+    .form-emailTo {
+      width: 100%;
       display: flex;
-      align-items: flex-start;
-      
-      flex-direction: row;
-      
-      .emails {
-      // max-width: 20rem; 
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column ;
+      align-items:center ;
+      justify-content:space-between;
      
-      //  overflow: hidden; // Oculta el contenido que desborda del ancho máximo
-      // display: inline-block; // Asegura que el contenedor tome solo el ancho que necesita
-      // white-space: nowrap; // Evita que el contenido se envuelva a la siguiente línea
-      //  text-overflow: ellipsis;
-      //   gap:1rem;
-      //   // Evita que el contenido se envuelva a la siguiente línea
-      //   color: get-color(grey1_s3);
 
-        p{
-          padding-left: 0.25rem;
+      .input-box{
+        flex:6
+
+      }
+
+      .box-add{
+        flex:1;
+        width: 100%;
+    
         
+      }
+  
+    
+  
+      @include media(tablet) {
+        flex-direction: row;
+        gap: 1em;
+     
+      }
+    }
+
+
+
+
+
+    
+
+
+    .box-emails{
+
+
+
+      &-show {
+   
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap:1rem;
+
+        .box-edit{
+          width: 100%;
+          display: flex;
+         text-align: left;
+          justify-content: space-between;
+        
+        }
+        
+    
+        .card--emails {
+
+          border: 2px solid var(--s-2-pink, #efecff);
+        background: var(--s-1-white, #fff);
+        border-radius: brd(1);
+        padding: 1rem;
+     
+          display: flex;
+          align-items: flex-start;
+      flex-direction: column;
+          flex-direction: column;
+          gap:2rem;
+
+    
+          
+        }
+        svg {
+          color: get-color(blue_p1);
+        }
+      }
+
+      
+
+
+      &-update {
+        display: flex;
+        width: 100%;
+        gap:1rem;
+    
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        font-size: smaller;
+
+        // .description{
+        //   display: flex;
+        //   justify-content: flex-start;
+        //   background-color: aqua;
+        //   align-items: flex-start;
+        //   width: 100%;
+        //   text-align: start;
+        // }
+
+        .box-update {
+         padding: 1rem;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          border: 2px solid var(--s-2-pink, #efecff);
+          background: var(--s-1-white, #fff);
+          border-radius: brd(1);
+        
+          // form {
+          //   flex: 1;
+          // }
+        }
+    
+        .description {
+          display: flex;
+     
+          width: 100%;
+          margin: 0;
+          align-items: flex-start;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          gap: 0.25rem;
+          @include media(tablet) {
+            font-size: medium;
+          }
+        }
+       
+      }
+
+     
+      
+      // p {
+      //   display: inline-flex;
+      //   justify-content: center;
+      //   align-items: center;
+      //   // justify-content: center;
+      //   // align-items: center;
+      //   gap: 0.25em;
+      //   // white-space: nowrap;
+      // }
+
+      
+
+    }
+
+    
+
+
+  }
+    
+
+  
+  .emails {
+    // max-width: 20rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    gap:0.5rem;
+    text-align: center;
+
+    span {
+      font-size: medium;
+    }
+  
+ 
+    p{
+     
+      background-color:get-color(bone_s2);
+      color:get-color(black_p2);
+      padding: 0.25em 0.5rem;
+      border-radius: brd(1);
+
+    }
+
+    ul {
+        
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+   
+      flex-wrap: wrap;
+      width: 100%;
+      border-radius: 10px;
+      
+      gap:0.5rem;
+      padding: 1rem;
+  
+      li {
+        // background-color: aqua;
+        background-color:get-color(bone_s2);
+        color:get-color(black_p2);
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+   
+        padding:  0.5rem;
+        border-radius: brd(1);
+      }
+  
+      button {
+        background-color: transparent;
+        border-style: none;
+  
+        svg {
+          color: get-color(blue_p1);
         }
       }
     }
-    svg {
-      color: get-color(blue_p1);
-    }
-
-
   }
-}
 
 
 
 
-.status{
-  &-active{
-    color:get-color(blue_p1);
-  }
-  &-disabled{
-    color:get-color(t3-red);
-    
-  }
+
 
  
 }
 
-
-
-.emailsFormContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  form {
-    flex: 1;
+.status {
+  &-active {
+    color: get-color(blue_p1);
+  }
+  &-disabled {
+    color: get-color(t3-red);
   }
 }
 
 
-p {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  // justify-content: center;
-  // align-items: center;
-  gap: 0.25em;
-  // white-space: nowrap;
-}
 
-.listEmails {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  flex-direction: column;
-
-  ul {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    border-radius: 10px;
-    border: 2px solid var(--s-2-pink, #efecff);
-    background: var(--s-1-white, #fff);
-
-    li {
-      // background-color: aqua;
-      display: flex;
-      justify-content: space-between;
-
-      padding: 0.5em 1em;
-    }
-    button {
-      background-color: transparent;
-      border-style: none;
-
-      svg {
-        color: get-color(blue_p1);
-      }
-    }
-  }
-}
-
-.formCredential{
-  .GroupForm{
+.formCredential {
+  .GroupForm {
     display: flex;
     flex-direction: column;
-     
+
     /* Ajusta el ancho según tus necesidades */
     @include media(tablet) {
-        display: grid;
-     grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
-     grid-template-rows: repeat(3, 1fr); /* Tres filas de igual tamaño */
-     grid-gap: 1rem; /* Espacio entre elementos */
-     
-   }
-   }
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+      grid-template-rows: repeat(3, 1fr); /* Tres filas de igual tamaño */
+      grid-gap: 1rem; /* Espacio entre elementos */
+    }
+  }
 
-   .content{
- 
-    .group{
+  .content {
+    .group {
       display: flex;
       flex-direction: column;
-  
+
       @include media(tablet) {
         display: grid;
         grid-template-columns: 1fr 1fr;
         // grid-gap: 1rem;
         grid-column-gap: 2rem;
-      
-       }
-    
+      }
     }
-   }
-  
-
+  }
 }
 
-.subtitle{
+.subtitle {
   padding-top: 1rem;
-  .sub{
-   color:get-color(black_p2);
-   
+  .sub {
+    color: get-color(black_p2);
   }
-  .description{
-    color:get-color(grey2_s4)
+  .description {
+    color: get-color(grey2_s4);
   }
- }
+}
 
-
-
-
-.Form-listCredential{
+.Form-listCredential {
   padding: 0rem 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
 
-  h2{
+  h2 {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: center;
   }
 
-
-
-
-
-.country-box,.bank-box{
-  padding: 1rem 0rem;
-@include media(tablet) {
-  padding: 0rem 0rem;
-
- }
-}
-
-
-
-}
-
-.state-box{
-  display: flex;
-  gap: 1rem;
-  .content{
-    display: flex;
-    width: 100%;
-    gap:1rem;
-    justify-content: space-around;
-    label{
-      display: flex;
-      gap:1rem;
+  .country-box,
+  .bank-box {
+    padding: 1rem 0rem;
+    @include media(tablet) {
+      padding: 0rem 0rem;
     }
   }
 }
 
-.submit-box{
-  padding: 2rem 0rem ;
+.state-box {
+  display: flex;
+  gap: 1rem;
+  .content {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    justify-content: space-around;
+    label {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+}
+
+.submit-box {
+  padding: 2rem 0rem;
   width: 100%;
-  display:flex;
-  justify-content:center;
-  gap:1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
   align-items: center;
   align-content: center;
-  button{
+  button {
     width: 100%;
     align-items: center;
     display: flex;
@@ -317,72 +398,65 @@ p {
   }
 }
 
-.head-status{
+.head-status {
   min-width: 10.5rem;
- 
 }
 
-.docDowland{
+.docDowland {
   background-color: get-color(bone_s2);
-
 }
 
-.befenitDes{
+.befenitDes {
   width: 100%;
   font-size: 0.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color:get-color(grey2_s4);
+  color: get-color(grey2_s4);
 }
 
-
-.shedule{
+.shedule {
   display: flex;
   width: 100%;
-  gap:2rem;
+  gap: 2rem;
 
-  .checkbox{
+  .checkbox {
     display: flex;
-    gap:0.25rem;
+    gap: 0.25rem;
     align-items: flex-end;
   }
- 
+
   flex-direction: column;
   align-items: center;
-  .repository{
+  .repository {
     display: flex;
     width: 100%;
     align-items: center;
     flex-direction: column;
-    
-   
-    a{
+
+    a {
       display: inline-block;
     }
   }
-
 }
 
-.accounts-tables{
- width: 100%;
- display: inline-block;
- display: flex;
- gap:1rem;
+.accounts-tables {
+  width: 100%;
+  display: inline-block;
+  display: flex;
+  gap: 1rem;
 
-//  @include media(tablet) {
-//   width: 60%;
-//  }
-//  @include media(desktop) {
-//   min-width: 76%;
-  
-  
-//  }
+  //  @include media(tablet) {
+  //   width: 60%;
+  //  }
+  //  @include media(desktop) {
+  //   min-width: 76%;
+
+  //  }
 }
 
-
-.noti{
+.noti {
   background-color: get-color(pink_s5);
   border-radius: 10px 0 10px 0;
   display: flex;
@@ -390,7 +464,11 @@ p {
   align-items: center;
   padding: 1rem;
 
-  span{
-    color:get-color(blue_p1);
+  span {
+    color: get-color(blue_p1);
   }
+}
+
+.name-blue {
+  color: get-color(lilac_p3) !important;
 }

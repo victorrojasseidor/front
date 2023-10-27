@@ -1,33 +1,46 @@
 import React, { useEffect, useState } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import { useAuth } from '@/Context/DataContext'
-import { fetchConTokenPost } from '@/helpers/fetch'
 import Modal from '@/Components/Modal'
+import { useRouter } from 'next/router'
+import LoadingComponent from '@/Components/Atoms/LoadingComponent'
+import { fetchConTokenPost } from '@/helpers/fetch'
 
-export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
-  const [email, setEmail] = useState('')
-  const [emails, setEmails] = useState([])
-  const [error, setError] = useState('')
-  const [modalConfirmation, setModalConfirmation] = useState(false)
+export default function EmailsForm ({ dataEmails, setUpdateEmails }) {
+  const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
+  const [valueEmailTo, setValueEmailTo] = useState('')
+  const [valueEmailCco, setValueEmailCco] = useState('')
+  const [emailsTo, setEmailsTo] = useState([])
+  const [emailsCco, setEmailsCco] = useState([])
+  const [modalConfirmationEmail, setModalConfirmationEmail] = useState(false)
+  const [isLoadingComponent, setIsLoadingComponent] = useState(false)
+  const [errorTo, setErrorTo] = useState('')
+  const [errorCco, setErrorCco] = useState('')
 
-  const { session, setModalToken, l } = useAuth()
+  const router = useRouter()
+  const iIdProdEnv = router.query.iIdProdEnv
+  const iId = router.query.iId
+  const idEmpresa = router.query.idEmpresa
 
-  const t = l.Download
-
-  const handleChange = (e) => {
-    setEmail(e.target.value)
-    setError('')
-  }
+  const { session, setModalToken, logout, l } = useAuth()
+  const t = l.Currency
 
   useEffect(() => {
     if (dataEmails) {
       const arrayDeCorreos = dataEmails.map(item => item.correo)
-      setEmails(arrayDeCorreos)
+      setEmailsTo(arrayDeCorreos)
     }
   }, [dataEmails])
 
-  const handleAddEmails = () => {
-    const emailList = email.split(/[ ,;\n]+/) // Expresión regular para separar por espacios, comas, puntos y comas y saltos de línea
+  // TO
+
+  const handleChangeTo = (e) => {
+    setValueEmailTo(e.target.value)
+    setErrorTo('')
+  }
+
+  const handleAddEmailsTo = () => {
+    const emailList = valueEmailTo.split(/[ ,;\n]+/) // Expresión regular para separar por espacios, comas, puntos y comas y saltos de línea
     const validEmails = []
     const invalidEmails = []
 
@@ -36,7 +49,7 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@ñ]+$/i
 
       if (emailRegex.test(trimmedEmail)) {
-        if (!emails.includes(trimmedEmail)) {
+        if (!emailsTo.includes(trimmedEmail)) {
           validEmails.push(trimmedEmail)
         }
       } else {
@@ -44,116 +57,293 @@ export default function EmailsForm ({ setHaveEmails, dataEmails, idproduct }) {
       }
     })
 
-    setEmails([...emails, ...validEmails])
-    setEmail('')
+    setEmailsTo([...emailsTo, ...validEmails])
+    setValueEmailTo('')
 
-    setError(invalidEmails.length > 0 ? `The following emails are invalid: ${invalidEmails.join(', ')}` : '')
+    setErrorTo(invalidEmails.length > 0 ? `The following emails are invalid: ${invalidEmails.join(', ')}` : '')
     setTimeout(function () {
-      setError('')
+      setErrorTo('')
     }, 10000)
   }
 
-  const handleDelete = (index) => {
-    const updatedEmails = [...emails]
+  const handleDeleteTo = (index) => {
+    const updatedEmails = [...emailsTo]
     updatedEmails.splice(index, 1)
-    setEmails(updatedEmails)
+    setEmailsTo(updatedEmails)
   }
 
+  // CCo
+
+  const handleChangeCco = (e) => {
+    setValueEmailCco(e.target.value)
+    setErrorCco('')
+  }
+
+  const handleAddEmailsCco = () => {
+    const emailList = valueEmailCco.split(/[ ,;\n]+/) // Expresión regular para separar por espacios, comas, puntos y comas y saltos de línea
+    const validEmails = []
+    const invalidEmails = []
+
+    emailList?.forEach((singleEmail) => {
+      const trimmedEmail = singleEmail.trim()
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@ñ]+$/i
+
+      if (emailRegex.test(trimmedEmail)) {
+        if (!emailsCco.includes(trimmedEmail)) {
+          validEmails.push(trimmedEmail)
+        }
+      } else {
+        invalidEmails.push(trimmedEmail)
+      }
+    })
+
+    setEmailsCco([...emailsCco, ...validEmails])
+    setValueEmailCco('')
+
+    setErrorCco(invalidEmails.length > 0 ? `The following emails are invalid: ${invalidEmails.join(', ')}` : '')
+    setTimeout(function () {
+      setErrorCco('')
+    }, 10000)
+  }
+
+  const handleDeleteCco = (index) => {
+    const updatedEmails = [...emailsCco]
+    updatedEmails.splice(index, 1)
+    setEmailsCco(updatedEmails)
+  }
+
+  console.log({ emailsCco })
+
   async function handleSendEmails () {
-    const listEmails = emails?.map(correo => {
+    const listEmails = emailsTo.map(correo => {
       return { sCorreo: correo }
     })
 
     const body = {
       oResults: {
-        iIdExtBanc: idproduct,
+        iIdExtBanc: iIdProdEnv,
         iIdPais: 1,
         oCorreo: listEmails
       }
     }
 
+    setIsLoadingComponent(true)
     try {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCorreoExtBancario', body, token)
-
+      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data= responseData.oResults;
-        setModalConfirmation(true)
+        setModalConfirmationEmail(true)
+        setUpdateEmails(true)
         setModalToken(false)
         setTimeout(function () {
           setHaveEmails(true)
+          setModalConfirmationEmail(false)
         }, 1000)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         console.log('errok, ', errorMessage)
         setModalToken(true)
-        setModalConfirmation(false)
+        setModalConfirmationEmail(false)
       }
     } catch (error) {
       console.error('error', error)
       // setModalToken(true)
-      setModalConfirmation(false)
+      setModalConfirmationEmail(false)
+    } finally {
+      setIsLoadingComponent(false)
     }
   }
 
   return (
-    <div className='emailsFormContainer'>
+    <>
 
-      {modalConfirmation && (
-        <Modal close={() => setModalConfirmation(false)}>
+      <di className='container-emails'>
 
-          <ImageSvg name='Check' />
+        {modalConfirmationEmail && (
+          <Modal close={() => setModalConfirmationEmail(false)}>
 
-          <div>
-            <h3>
-              {t['Successful email registration']}
-            </h3>
+            <ImageSvg name='Check' />
+
+            <div>
+              <h2>
+                {t['Emails were added successfully']}
+              </h2>
+              <p />
+
+            </div>
+          </Modal>
+        )}
+
+        {isLoadingComponent && <LoadingComponent />}
+
+        {haveEmails
+          ? <div className='box-emails-show'>
+            <h3 className='title-Config'>{t['Emails for notifications']}</h3>
+
+            <div className='contaniner-tables'>
+
+              <div className='box-edit'>
+                <p> {t['Traceability information will be sent to the following emails']}:</p>
+                <button className='btn_crud' onClick={() => setHaveEmails(false)}>
+                  <ImageSvg name='Edit' />
+                </button>
+              </div>
+
+              <div className='emails'>
+                <h4> {t.To}: </h4>
+                {dataEmails?.slice(0, 6).map((email) => (
+                  <p key={email.correo_cc}>{email.correo_cc}</p>
+                ))}
+                <span>...</span>
+              </div>
+
+              <div className='emails'>
+                <h4> {t.Cco}: </h4>
+
+                {dataEmails?.slice(0, 6).map((email) => (
+                  <p key={email.correo_cc}>{email.correo_cc}</p>
+                ))}
+                <span>...</span>
+              </div>
+
+            </div>
+
           </div>
-        </Modal>
-      )}
-      <form className='form-container' onSubmit={(e) => e.preventDefault()}>
-        <div className='emailBox'>
+          : <div className='box-emails-update'>
+            <h3 className='title-Config'> {t['Register emails']} </h3>
 
-          <div className='input-box'>
+            <p className='description'>
+              {t['Please tell us which email addresses we should send our digital employee traceability reports to']}
+            </p>
 
-            <textarea
-              value={email}
-              onChange={handleChange}
-              placeholder=''
-            // placeholder="Introduce uno o varios correos electrónicos separados por espacios, comas o puntos y comas"
-              rows={4} // Adjust the number of visible rows as needed
-              cols={40}
-            />
-            <label htmlFor=''> {t['Add emails']} </label>
-          </div>
-          <div>
-            <button type='button' className='btn_black' onClick={handleAddEmails}>
-              {t['+ Add']}
-            </button>
-          </div>
+            <div className='contaniner-tables'>
 
-        </div>
+              <h4 className='title-Config'> {t.To}: </h4>
 
-        {error && <p className='errorMessage'>{error}</p>}
+              <form className='form-container' onSubmit={(e) => e.preventDefault()}>
 
-      </form>
-      {emails.length > 0 && (
-        <div className='listEmails'>
-          <p>{t['Added Emails']}:</p>
+                <p> {t['Enter one or more emails either separated by spaces, commas or semicolons']}</p>
 
-          <ul className='ListEmails'>
-            {emails?.map((email, index) => (
-              <li key={index}>
-                {email} <button className='btn_crud' onClick={() => handleDelete(index)}> <ImageSvg name='Delete' /></button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      {emails.length > 0 && <button className='btn_primary' onClick={handleSendEmails}>{t['Save and continue']}</button>}
+                <div className='form-emailTo'>
 
-    </div>
+                  <div className='input-box'>
 
+                    <textarea
+                      value={valueEmailTo}
+                      onChange={handleChangeTo}
+                      placeholder=''
+                      rows={4}
+                      style={{ height: '4rem' }} // Adjust the number of visible rows as needed
+                      cols={60}
+                    />
+                    <label htmlFor=''> {t['Add emails']} </label>
+                  </div>
+
+                  <div className='box-add'>
+                    <button type='button' className='btn_icons black' onClick={() => { handleAddEmailsTo() }}>
+                      {/* {t.Add} */}
+                      +
+                    </button>
+                  </div>
+
+                </div>
+
+                {errorTo && <p className='errorMessage'>{errorTo}</p>}
+
+              </form>
+              {emailsTo.length > 0 && (
+                <div className='emails'>
+                  <span>{t['Added Emails']}:</span>
+
+                  <ul className='emails'>
+                    {emailsTo?.map((email, index) => (
+                      <li key={index}>
+                        {email} <button className='btn_crud' onClick={() => handleDeleteTo(index)}> <ImageSvg name='Delete' /></button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+            </div>
+
+            <div className='contaniner-tables'>
+
+              <h4 className='title-Config'> {t.Cco}: </h4>
+
+              <form className='form-container' onSubmit={(e) => e.preventDefault()}>
+
+                {/* <p> {t['Enter one or more emails either separated by spaces, commas or semicolons']}</p> */}
+
+                <div className='form-emailTo'>
+
+                  <div className='input-box'>
+
+                    <textarea
+                      value={valueEmailCco}
+                      onChange={handleChangeCco}
+                      placeholder=''
+               // placeholder="Ingresa uno o varios correos electrónicos ya sea separados por espacios, comas o puntos y comas"
+                      rows={4}
+                      style={{ height: '4rem' }} // Adjust the number of visible rows as needed
+                      cols={60}
+                    />
+                    <label htmlFor=''> {t['Add emails']} </label>
+                  </div>
+
+                  <div className='box-add'>
+                    <button type='button' className='btn_icons black' onClick={handleAddEmailsCco}>
+                      {/* {t.Add} */}
+                      +
+                    </button>
+                  </div>
+
+                </div>
+
+                {errorCco && <p className='errorMessage'>{errorCco}</p>}
+
+              </form>
+              {emailsCco.length > 0 && (
+                <div className='emails'>
+                  <span>{t['Added Emails']}:</span>
+
+                  <ul className='emails'>
+                    {emailsCco?.map((email, index) => (
+                      <li key={index}>
+                        {email} <button className='btn_crud' onClick={() => handleDeleteCco(index)}> <ImageSvg name='Delete' /></button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+            </div>
+
+            <div className='box-buttons'>
+
+              <button className='btn_primary  small black' onClick={() => { handleSendEmails() }}>
+
+                {t.Save}
+              </button>
+
+              <button className='btn_primary small white ' onClick={() => { setHaveEmails(true) }}>
+
+                {t.Cancel}
+              </button>
+
+            </div>
+
+          </div>}
+
+      </di>
+
+    </>
   )
 }

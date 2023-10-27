@@ -7,7 +7,7 @@
   flex-direction: column;
   // padding-right: 10px;
   display: flex;
-  background-color: transparent;
+
 
   button {
     display: flex;
@@ -20,8 +20,9 @@
     color: get-color(grey2_s4);
     flex: 1;
     border-right-width: 2rem;
-   
+
     @include media(tablet) {
+
       gap: 1em;
       padding: 1em;
       min-width: 12rem;
@@ -48,7 +49,6 @@
         }
       }
     }
-
   }
 }
 
@@ -57,7 +57,7 @@
   padding: 2rem 1.5rem;
   border-radius: 0 0 10px 10px;
   min-height: 58.5vh;
-  
+
   width: 100%;
   p {
     color: get-color(grey2_s4);
@@ -80,57 +80,47 @@
   }
 }
 
-
-
-
-.horizontalTabs{
-  width: 100%; 
+.horizontalTabs {
+  width: 100%;
   display: flex;
   flex-direction: column;
   width: 100%;
   background-color: get-color(white_s1);
   border-radius: brd(1);
- 
-  
 
-  .tab-header{
-
-    h4{
-      color:get-color(grey2_s4);
+  .tab-header {
+    h4 {
+      color: get-color(grey2_s4);
       font-weight: 500;
       text-align: center;
-  }
-
+    }
 
     display: flex;
-    justify-content:flex-start;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: row;
-    margin-bottom:0;
+    margin-bottom: 0;
     button {
       margin-bottom: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 1em 1em 0.5em 1em;
-     align-items: center;
+      align-items: center;
 
       &.active {
-          margin-bottom: 0;
+        margin-bottom: 0;
+        color: get-color(blue_p1);
+       
+        border-right: none;
+        border-bottom: 2px solid get-color(lilac_p3);
+        h4 {
           color: get-color(blue_p1);
-          // background-color: #ccc;
-          border-right: none;
-          border-bottom: 2px solid get-color(lilac_p3);
-          h4{
-              color:get-color(blue_p1);
-              font-weight: 600;
-          }
-         
+          font-weight: 600;
         }
-
+      }
     }
-}   
-
+  }
 }
 
 .verticalTabs {
@@ -139,24 +129,23 @@
   width: 100%;
   font-size: 1.2rem;
   flex-direction: column;
-    cursor: pointer;
-    @include media(tablet) {
-      flex-direction: row;
-    }
+  cursor: pointer;
+  @include media(tablet) {
+    flex-direction: row;
+  }
 
-  
   .tabHeader {
     display: flex;
     flex-direction: row;
-     height: 100%;
+    height: 100%;
     padding: 0.5em;
-    
-    p{
-      color:get-color(grey1_s3);
+
+    p {
+      color: get-color(grey1_s3);
     }
 
     @include media(tablet) {
-       flex-direction: column;
+      flex-direction: column;
     }
 
     button {
@@ -164,16 +153,13 @@
       background: none;
       border: none;
       width: 5rem;
-        
-      
-    
-      h4{
-        color:get-color(grey2_s4);
+
+      h4 {
+        color: get-color(grey2_s4);
         font-size: medium;
         padding-left: 1em;
       }
-    
-  
+
       @include media(tablet) {
         gap: 1em;
         padding: 0.25em;
@@ -181,57 +167,42 @@
       }
 
       &.activeVT {
-        h4{
-          color:get-color(black_p2);
+        h4 {
+          color: get-color(black_p2);
           font-weight: 600;
-          padding-bottom: 0.5em ;
+          padding-bottom: 0.5em;
           border-bottom: 2px solid get-color(forms_s6);
 
-            
-      @include media(tablet) {
-        padding-bottom: none ;
-        border-bottom: none  ;
-      }
+          @include media(tablet) {
+            padding-bottom: none;
+            border-bottom: none;
+          }
         }
-       
-              
       }
-    
-  
+
       &.complete {
-        h4{
-          color:get-color(black_p2);
+        h4 {
+          color: get-color(black_p2);
           font-weight: 600;
         }
-     
-      
       }
     }
-
- 
-
-  
-
   }
- 
 
-
-
-  
   .tabContent {
     padding: 0.5em;
-   
-      width: 100%;
+  
+    width: 100%;
     p {
       color: get-color(grey2_s4);
     }
-  
+
     .tabOne {
-        display: flex;
+      display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-  
+
       h4 {
         display: flex;
         justify-self: baseline;
@@ -243,90 +214,85 @@
   }
 }
 
-.Tabsumenu{
+
+
+.Tabsumenu {
   display: flex;
   flex-direction: column;
+  
 
   @include media(tablet) {
-   
     flex-direction: row;
   }
 
-  &-header{
+  &-header {
     display: flex;
     flex-direction: row;
-  padding-right: 10px;
-  background-color: transparent;
-
-  @include media(tablet) {
-    flex-direction: column;
-  }
-  
-
-  button {
-    
-    display: flex;
-    gap: 0.5em;
-   padding: 0.5rem 0.5rem 0.5rem 0;
-    background: none;
-    border: none;
-    font-weight: bold;
-    color: get-color(grey2_s4);
-    flex: 1;
-    border-right-width: 2rem;
-    cursor: pointer;
-
-    svg{
-      flex:2;
+    margin-right: 1.5rem;
+    background-color:transparent ;
+   border-right: 2px solid get-color(bg-cles);
+    @include media(tablet) {
+      flex-direction: column;
     }
 
-    h4{
-      flex:8;
-    }
+    button {
+      display: flex;
+      gap: 0.5em;
+      padding: 0.5rem 0.5rem 0.5rem 0;
+      background: none;
+      border: none;
+      font-weight: bold;
+      color: get-color(grey2_s4);
+      flex: 1;
+      border-right-width: 2rem;
+      cursor: pointer;
 
-  
-    svg {
-    
-      path {
-        fill: transparent;
+      svg {
+        flex: 2;
+      }
+
+      h4 {
+        flex: 8;
+      }
+
+      svg {
+        path {
+          fill: transparent;
+        }
+      }
+
+      @include media(tablet) {
+        gap: 1em;
+        padding: 1em;
+        width: 10rem;
       }
     }
-
-    @include media(tablet) {
-      gap: 1em;
-      padding: 1em;
-      width: 10rem;
-    }
-  }
 
     .activeST {
-  h4{
-    color: get-color(blue_p1);
-  }
-    
-  // border-bottom: 2px solid get-color(lilac_p3);
-  
-    
-      @include media(tablet) {
-    
- 
-        
-      // border-right: 2px solid get-color(lilac_p3);
-      border-bottom: none;
+      h4 {
+        color: get-color(blue_p1);
       }
+      background-color: get-color(bg-cles);
+      display: flex;
+      align-items: center;
+      border-radius: 20px 0px 0px 20px;
+      // border-bottom: 2px solid get-color(lilac_p3);
 
+      @include media(tablet) {
+        // border-right: 1px solid get-color(lilac_p3);
+        border-bottom: none;
+        
+      
+      }
     }
-    
+
     .completeST {
       svg {
-      path {
-        fill: get-color(blue_p1);
+        path {
+          fill: get-color(blue_p1);
+        }
       }
     }
-    }
-
-
-
   }
 
   &-content {
@@ -335,28 +301,14 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap:1rem;
+    gap: 1rem;
     padding-top: 1rem;
-
-
   }
-
-
-
-
-
- 
-
-  
- 
 }
 
-
-
-
-
-
-
+.title-Config {
+  width: 100%;
+}
 
 .phone-field {
   width: 100%;
@@ -365,11 +317,6 @@
   align-items: center;
   gap: 1em;
 }
-
-
-
-
-
 
 .registration-form {
   max-width: 500px;
@@ -405,7 +352,6 @@
 
   justify-content: center;
   // align-self: baseline;
- 
 }
 
 .companyForm {
@@ -415,7 +361,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
 
   .preview {
     padding: 1em;
@@ -427,7 +372,6 @@
       path {
         // fill: get-color(black_p2);
         border-style: none;
-
       }
     }
     ul {
@@ -437,12 +381,12 @@
       li {
         display: flex;
         background-color: get-color(pink_s5);
-        align-items:center;
+        align-items: center;
         padding: 0.5rem;
         gap: 16px;
         border: 0.5px solid get-color(pink_s5);
         border-radius: 5px;
-        
+
         display: flex;
         p {
           color: get-color(black_p2);
@@ -455,25 +399,11 @@
       }
     }
   }
-
-
-
 }
-
-
-
-
-
-
 
 //tabs vertiacals
 
-
-
-
-
-
-//progress barr stpeos 
+//progress barr stpeos
 
 .containerProgress {
   // width: x;
@@ -487,7 +417,6 @@
   flex-direction: column;
 
   .progressBar {
- 
     width: 60%;
     height: 10px;
     background-color: #f0f0f0;
@@ -497,54 +426,44 @@
 
     .progressBarFill {
       height: 100%;
-      background-color:get-color(blue_p1);
+      background-color: get-color(blue_p1);
       transition: width 0.3s;
     }
   }
-
 
   .step {
     display: flex;
     justify-content: center;
     align-items: center;
-      font-weight: bold;
+    font-weight: bold;
     color: get-color(black_p2);
     margin-bottom: 20px;
 
     &.active {
-      color:get-color(blue_p1);
+      color: get-color(blue_p1);
     }
   }
-
-
- 
 }
 
-
-
-.container-notificatión{
+.container-notificatión {
   display: flex;
-gap:1em;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-justify-items: center;
-ul{
-display: flex;
-flex-direction: row;
-gap:1em;
-justify-content: center;
-align-items: center;
-justify-items: center;
-}
-.box-notification{
-  display: flex;
-  gap:0.5em;
-  justify-content: baseline;
+  gap: 1em;
+  flex-direction: column;
   align-items: center;
-
+  justify-content: center;
+  justify-items: center;
+  ul {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+  }
+  .box-notification {
+    display: flex;
+    gap: 0.5em;
+    justify-content: baseline;
+    align-items: center;
+  }
 }
-
-
-}
-

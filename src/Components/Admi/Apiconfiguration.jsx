@@ -118,15 +118,23 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       oResults: {
         sProd: product?.sProd,
         iIdProdEnv: product?.iIdProdEnv,
-        iIdExtBanc: product?.iIdProdEnv,
-        sCorreo: session?.sCorreo,
-        sTitle: 'Admin',
-        sPhoneNumber: session?.sPhone,
-        sMessage: message || 'message-Admin',
-        sFechaInit: startDate || product.sDateInit,
-        sFechaEnd: endDate || product.sDateEnd
+        sMessage: message || 'Mensaje de prueba'
 
       }
+
+    }
+
+    if (valueState === 'SolicitarProducto' || valueState === 'NotHiredProducto') {
+      body.oResults.sCorreo = session?.sCorreo
+      body.oResults.sTitle = 'Admin'
+      body.oResults.sPhoneNumber = session?.sPhone
+    } else if (valueState === 'AprobarSolProducto') {
+      body.oResults.sFechaInit = startDate || product?.sDateInit
+      body.oResults.sFechaEnd = endDate || product?.sDateEnd
+    } else if (valueState === 'ConfirmarConfiguracion') {
+      body.oResults.sFechaInit = startDate || product?.sDateInit
+      body.oResults.sFechaEnd = endDate || product?.sDateEnd
+      body.oResults.iIdExtBanc = product?.iIdProdEnv
     }
 
     try {
@@ -226,11 +234,12 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                   control={<Radio />}
                   label={t.Pending}
                 />
-                <FormControlLabel
+
+                {product?.sProd === 'EXT_BANC' && <FormControlLabel
                   value='ConfirmarConfiguracion'
                   control={<Radio />}
                   label={t.Configured}
-                />
+                                                  />}
 
               </RadioGroup>
 
@@ -338,7 +347,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
               <button
                 type='button'
-                className='btn_primary small'
+                className='btn_secundary small'
                 onClick={() => { setModalConfirmed(false) }}
               >
                 {t.No}

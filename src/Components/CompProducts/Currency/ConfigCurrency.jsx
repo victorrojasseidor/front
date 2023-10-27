@@ -13,7 +13,7 @@ import { formatDate } from '@/helpers/report'
 import FormDayleCurrency from './FormDayleCurrency'
 
 export default function ConfigCurrency () {
-  const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
+  const [haveEmails, setHaveEmails] = useState(false)
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
   const [data, setData] = useState(null)
@@ -30,6 +30,7 @@ export default function ConfigCurrency () {
   const [completeShedule, setCompleteShedule] = useState(true)
   const [showAccounts, setShowAccounts] = useState(false)
   const [bankCredential, setBankCredential] = useState(null)
+  const [modalConfirmationEmail, setModalConfirmationEmail] = useState(false)
   // Estado para almacenar si el checkbox está marcado o no
   const [isChecked, setIsChecked] = useState(false)
 
@@ -58,6 +59,49 @@ export default function ConfigCurrency () {
   const { session, setModalToken, logout, l } = useAuth()
 
   const t = l.Currency
+
+  async function handleSendEmails (emails) {
+    const listEmails = emails?.map(correo => {
+      return { sCorreo: correo }
+    })
+
+    const body = {
+      oResults: {
+        iIdTipoCambio: iIdProdEnv,
+        iIdPais: 1,
+        oCorreo: listEmails
+      }
+    }
+
+    setIsLoading(true)
+    try {
+      const token = session?.sToken
+
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCorreoTipoCambio', body, token)
+
+      if (responseData.oAuditResponse?.iCode === 1) {
+        // const data= responseData.oResults;
+        setModalConfirmationEmail(true)
+
+        setModalToken(false)
+        setTimeout(function () {
+          setHaveEmails(true)
+          setModalConfirmationEmail(false)
+        }, 1000)
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        console.log('errok, ', errorMessage)
+        setModalToken(true)
+        setModalConfirmationEmail(false)
+      }
+    } catch (error) {
+      console.error('error', error)
+      // setModalToken(true)
+      setModalConfirmationEmail(false)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -119,151 +163,15 @@ export default function ConfigCurrency () {
     }
   }
 
-  const handleEdit = (dataEdit) => {
-    setShowForm(true)
-    setIinitialEdit(dataEdit)
-    setIsEditing(true)
-  }
-
-  const handleDeleteConfirmation = async () => {
-    if (selectedRowToDelete) {
-      await handleDeleteBancoCredential(selectedRowToDelete.id_banco_credencial)
-      setSelectedRowToDelete(null)
-    }
-  }
-
-  async function handleEditListBank (values) {
-    setIsLoadingComponent(true)
-    const body = {
-      oResults: {
-        iIdEmpresa: idEmpresa,
-        iIdCredencial: initialEdit?.id_credenciales,
-        iIdBancoCredencial: initialEdit?.id_banco_credencial,
-        sName: values.name,
-        iIdPais: 1,
-        iBanco: values.bank ? values.bank.id : (initialEdit ? initialEdit.id_banco : null),
-        ...(values.password && { sPassword: values.password }),
-        sCredencial: values.principalCredential,
-        sCredencial2: values.credential2,
-        sCredencial3: values.credential3,
-        sCredencial4: values.credential4,
-        bCodeEnabled: values.state === 'Active'
-      }
-    }
-
-    try {
-      const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarExtBancario', body, token)
-      if (responseData.oAuditResponse?.iCode === 1) {
-        setModalToken(false)
-        setShowForm(false)
-        setIsEditing(false)
-        setTimeout(() => {
-          setIinitialEdit(null)
-          setRequestError(null)
-          setShowForm(false)
-        }, 2000)
-      } else {
-        await handleCommonCodes(responseData)
-        setShowForm(true)
-        setIsEditing(true)
-      }
-    } catch (error) {
-      console.error('error', error)
-      // setModalToken(true)
-      setShowForm(true)
-      setIsEditing(true)
-      setRequestError(null)
-    } finally {
-      setIsLoadingComponent(false)
-      setIinitialEdit(null)
-    }
-  }
-
   useEffect(() => {
     if (session) {
       // getExtrBanc()
     }
   }, [haveEmails, initialEdit, showForm, idEmpresa, selectedRowToDelete, showAccounts])
 
-  async function getExtrBanc () {
-    setIsLoadingComponent(true)
-    const body = {
-      oResults: {
-        iIdExtBanc: iIdProdEnv,
-        iIdPais: 1
-      }
-    }
-
-    try {
-      const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
-      if (responseData.oAuditResponse?.iCode === 1) {
-        setModalToken(false)
-        const dataRes = responseData.oResults
-        setData(dataRes)
-
-        if (dataRes.oCorreoEB.length > 0) {
-          setcompleteEmails(true)
-        }
-        // Verificar si al menos un objeto tiene datos en oListCuentas
-        const atLeastOneAccount = haveAccounts(responseData.oResults)
-
-        if (atLeastOneAccount) {
-          setCompleteconfigBank(true)
-        } else {
-          setCompleteconfigBank(false)
-        }
-      } else {
-        await handleCommonCodes(responseData)
-      }
-    } catch (error) {
-      console.error('error', error)
-    } finally {
-      setIsLoadingComponent(false)
-    }
-  }
-
   const toggleForm = () => {
     setShowForm(!showForm)
   }
-
-  const handleDeleteBancoCredential = async (idbankcred) => {
-    setIsLoadingComponent(true)
-    const token = session.sToken
-    const body = {
-      oResults: {
-        iIdExtBanc: iIdProdEnv,
-        iIdBancoCredencial: idbankcred
-
-      }
-    }
-    try {
-      const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarBancoCredencialExtBancario', body, token)
-      console.error('res', response)
-      if (response.oAuditResponse?.iCode === 1) {
-        setModalToken(false)
-        setTimeout(() => {
-        }, 1000)
-      } else {
-        await handleCommonCodes(response)
-      }
-    } catch (error) {
-      console.error('Error en la solicitud de eliminación', error)
-    } finally {
-      setIsLoadingComponent(false)
-    }
-  }
-
-  const handleAcount = (row) => {
-    setBankCredential(row)
-    setShowAccounts(true)
-  }
-
-  // Función para verificar si un objeto tiene datos en oListCuentas
-  const haveAccounts = (data) => data?.oListBancoCredendicial.some(
-    (objeto) => objeto.oListCuentas && objeto.oListCuentas.length > 0
-  )
 
   useEffect(() => {
     getDataProduct()
@@ -324,20 +232,20 @@ export default function ConfigCurrency () {
                   </li>
                   <li>
 
-                    <p>{t['Start service:']}</p>
+                    <p>{t['Start service:']}:</p>
 
                     <p> {formatDate(dataCardProduct?.sDateEnd)}</p>
                   </li>
                   <li>
-                    <p>{t['End service:']}</p>
+                    <p>{t['End service:']}:</p>
                     <p> {formatDate(dataCardProduct?.sDateInit)} </p>
                   </li>
                   <li>
-                    <p>{t.Country} :</p>
+                    <p>{t.Country}: </p>
                     <p>{dataCardProduct?.sCountry}</p>
                   </li>
                   <li>
-                    <p>{t.State} :</p>
+                    <p>{t.State}:</p>
                     <p className='Active'>{dataCardProduct?.sDescStatus}</p>
                   </li>
                 </ul>
@@ -368,14 +276,11 @@ export default function ConfigCurrency () {
                       <ImageSvg name='Next' />
                     </button>
                   </div>
-                </div>
-                : <div className='config-Automated--emails'>
-                  <h3> {t['Register emails']} </h3>
-                  <div className='description'>
-                    {t['Add the emails to notify to']}
                   </div>
-                  <EmailsForm setHaveEmails={setHaveEmails} idproduct={iIdProdEnv} dataEmails={data?.oCorreoEB} />
-                </div>}
+                : <div className='config-Automated--emails'>
+
+                  <EmailsForm setHaveEmails={setHaveEmails} dataEmails={data?.oCorreoEB} handleSendEmails={handleSendEmails} />
+                  </div>}
 
             </div>}
 
@@ -525,7 +430,7 @@ export default function ConfigCurrency () {
                         </div>
 
                         )}
-                                                             </div>
+                  </div>
 }
 
             </div>}
@@ -591,7 +496,7 @@ export default function ConfigCurrency () {
                   >
                   <ImageSvg name='Automation' />
                   {t['Run automation']}
-                </button>
+                  </button>
                 : ''}
               <div className='box-buttons'>
                 <button
