@@ -341,8 +341,6 @@ export default function ConfigDowland () {
     }
   }
 
-  console.log(data?.oCorreoEB)
-
   return (
 
     <section className='config-Automated'>
@@ -406,7 +404,7 @@ export default function ConfigDowland () {
                 </ul>
               </div>
 
-              <EmailsForm dataEmails={data?.oCorreoEB} setUpdateEmails={setUpdateEmails} />
+              <EmailsForm dataEmails={data?.oCorreoEB} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
 
               <div className='box-buttons'>
                 <button
@@ -439,7 +437,7 @@ export default function ConfigDowland () {
                   {bankCredential?.nombre}
                 </span>
 
-                                </div>
+              </div>
             }
 
               {showAccounts
@@ -457,7 +455,7 @@ export default function ConfigDowland () {
                     </button>
 
                   </div>
-                  </>
+                </>
 
                 : <>
 
@@ -521,13 +519,13 @@ export default function ConfigDowland () {
                                 </tr>
                               ))}
                             </tbody>
-                          </table>
+                            </table>
                           : <div>
                             <p> {t['Register your bank Credentials']}
 
                             </p>
 
-                          </div>}
+                            </div>}
 
                       </div>
                       {isLoadingComponent && <LoadingComponent />}
@@ -597,10 +595,10 @@ export default function ConfigDowland () {
                         </div>
 
                         )}
-                                                            </div>
+                  </div>
                 }
 
-                  </>}
+                </>}
 
             </div>}
 
@@ -665,7 +663,7 @@ export default function ConfigDowland () {
                   >
                   <ImageSvg name='Automation' />
                   {t['Run automation']}
-                  </button>
+                </button>
                 : ''}
               <div className='box-buttons'>
                 <button

@@ -6,8 +6,8 @@ import { useRouter } from 'next/router'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 import { fetchConTokenPost } from '@/helpers/fetch'
 
-export default function EmailsForm ({ dataEmails, setUpdateEmails }) {
-  const [haveEmails, setHaveEmails] = useState(true) // hay correos ?
+export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
+  const [haveEmails, setHaveEmails] = useState(false) // hay correos ?
   const [valueEmailTo, setValueEmailTo] = useState('')
   const [valueEmailCco, setValueEmailCco] = useState('')
   const [emailsTo, setEmailsTo] = useState([])
@@ -27,8 +27,15 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails }) {
 
   useEffect(() => {
     if (dataEmails) {
-      const arrayDeCorreos = dataEmails.map(item => item.correo)
+      const filterEmailsTo = dataEmails.filter(eml => eml.correo_estado == 'CORREO')
+      const arrayDeCorreos = filterEmailsTo.map(item => item.correo)
       setEmailsTo(arrayDeCorreos)
+
+      const filterEmailsCco = dataEmails.filter(eml => eml.correo_estado == 'CORREO_CC')
+      const arrayDeCorreosCC = filterEmailsCco.map(item => item.correo)
+      setEmailsCco(arrayDeCorreosCC)
+      setHaveEmails(true)
+      setUpdateEmails(false)
     }
   }, [dataEmails])
 
@@ -112,26 +119,31 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails }) {
     setEmailsCco(updatedEmails)
   }
 
-  console.log({ emailsCco })
-
   async function handleSendEmails () {
-    const listEmails = emailsTo.map(correo => {
-      return { sCorreo: correo }
+    const listEmailsTO = emailsTo.map(correo => {
+      return { sCorreo: correo, sTipoCorreo: 'CORREO' }
+    })
+
+    const listEmailsCCo = emailsCco.map(correo => {
+      return { sCorreo: correo, sTipoCorreo: 'CORREO_CC' }
     })
 
     const body = {
       oResults: {
-        iIdExtBanc: iIdProdEnv,
+        sProd: sProduct,
+        iIdProdEnv: parseInt(iIdProdEnv),
         iIdPais: 1,
-        oCorreo: listEmails
+        oCorreo: listEmailsTO.concat(listEmailsCCo)
       }
     }
 
     setIsLoadingComponent(true)
+
+    console.log({ body })
     try {
       const token = session?.sToken
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCorreoExtBancario', body, token)
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCorreoProducto', body, token)
       console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data= responseData.oResults;
@@ -161,10 +173,12 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails }) {
     }
   }
 
+  console.log({ dataEmails })
+
   return (
     <>
 
-      <di className='container-emails'>
+      <div className='container-emails'>
 
         {modalConfirmationEmail && (
           <Modal close={() => setModalConfirmationEmail(false)}>
@@ -198,8 +212,8 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails }) {
 
               <div className='emails'>
                 <h4> {t.To}: </h4>
-                {dataEmails?.slice(0, 6).map((email) => (
-                  <p key={email.correo_cc}>{email.correo_cc}</p>
+                {dataEmails?.filter(eml => eml.correo_estado == 'CORREO')?.slice(0, 6).map((email) => (
+                  <p key={email.id_correo_eb}>{email.correo}</p>
                 ))}
                 <span>...</span>
               </div>
@@ -207,8 +221,8 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails }) {
               <div className='emails'>
                 <h4> {t.Cco}: </h4>
 
-                {dataEmails?.slice(0, 6).map((email) => (
-                  <p key={email.correo_cc}>{email.correo_cc}</p>
+                {dataEmails?.filter(eml => eml.correo_estado == 'CORREO_CC')?.slice(0, 6).map((email) => (
+                  <p key={email.id_correo_eb}>{email.correo}</p>
                 ))}
                 <span>...</span>
               </div>
@@ -342,7 +356,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails }) {
 
           </div>}
 
-      </di>
+      </div>
 
     </>
   )

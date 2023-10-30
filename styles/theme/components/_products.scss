@@ -118,7 +118,9 @@
 
 .card {
   display: flex;
-  background-color: get-color(white_s1);
+  // background: conic-gradient(from 90deg at 50% 0%, #4500ff, #7a5efd, #bfb9fd);
+  background: get-color(white_s1);
+  
   flex-direction: column;
   width: 16rem;
   padding: 0.5em;
@@ -144,6 +146,7 @@
   &-title {
     display: flex;
     justify-content: flex-start;
+  
     gap: 1em;
   
   
@@ -162,7 +165,7 @@
     }
 
     .box-name {
-  
+      
       height: 5rem;
       display: flex;
       flex-direction: column;
@@ -171,6 +174,9 @@
   
 
       h4 {
+        // color:get-color(white_s1);
+        color:get-color(black_p2);
+    
         &:focus {
           background-color: get-color(bg-cles);
         }
@@ -182,13 +188,21 @@
       justify-content:center;
       align-items:center;
       font-size: 0.8rem;
+  
+      // color:get-color(bone_s2);
+      color:get-color(grey1_s3);
+     
       svg {
-        color: get-color(grey1_s3);
-      font-size: 1rem;
+        color: get-color(grey2_s4);
+       font-size: 1rem;
         display: inline-block;
       }
       span {
-        color: get-color(blue_p1);
+        color: get-color(black_p2);
+      //  background-color:get-color(pink_s5);
+
+        justify-content: center;
+        border-radius: brd(1);
         display: inline-block;
         font-size: 0.8rem;
         text-align: center;
@@ -199,8 +213,17 @@
   .box-buttons {
    
     height: 3rem;
+
+    a{
+      // color:get-color(white_s1);
+      // background-color: get-color(blue_p1);
+      padding: 0.5rem 1rem;
+      border-radius: brd(2);
+    }
+    
     button {
       margin-top: 0rem;
+     
     }
   }
 }

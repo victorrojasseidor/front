@@ -13,7 +13,6 @@ import { formatDate } from '@/helpers/report'
 import FormDayleCurrency from './FormDayleCurrency'
 
 export default function ConfigCurrency () {
-  const [haveEmails, setHaveEmails] = useState(false)
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
   const [data, setData] = useState(null)
@@ -33,6 +32,7 @@ export default function ConfigCurrency () {
   const [modalConfirmationEmail, setModalConfirmationEmail] = useState(false)
   // Estado para almacenar si el checkbox está marcado o no
   const [isChecked, setIsChecked] = useState(false)
+  const [updateEmails, setUpdateEmails] = useState(false)
 
   // Función para manejar el cambio de estado del checkbox
   const handleCheckboxChange = (e) => {
@@ -59,49 +59,6 @@ export default function ConfigCurrency () {
   const { session, setModalToken, logout, l } = useAuth()
 
   const t = l.Currency
-
-  async function handleSendEmails (emails) {
-    const listEmails = emails?.map(correo => {
-      return { sCorreo: correo }
-    })
-
-    const body = {
-      oResults: {
-        iIdTipoCambio: iIdProdEnv,
-        iIdPais: 1,
-        oCorreo: listEmails
-      }
-    }
-
-    setIsLoading(true)
-    try {
-      const token = session?.sToken
-
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCorreoTipoCambio', body, token)
-
-      if (responseData.oAuditResponse?.iCode === 1) {
-        // const data= responseData.oResults;
-        setModalConfirmationEmail(true)
-
-        setModalToken(false)
-        setTimeout(function () {
-          setHaveEmails(true)
-          setModalConfirmationEmail(false)
-        }, 1000)
-      } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        console.log('errok, ', errorMessage)
-        setModalToken(true)
-        setModalConfirmationEmail(false)
-      }
-    } catch (error) {
-      console.error('error', error)
-      // setModalToken(true)
-      setModalConfirmationEmail(false)
-    } finally {
-      setIsLoading(false)
-    }
-  }
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -165,9 +122,9 @@ export default function ConfigCurrency () {
 
   useEffect(() => {
     if (session) {
-      // getExtrBanc()
+      getTipCambio()
     }
-  }, [haveEmails, initialEdit, showForm, idEmpresa, selectedRowToDelete, showAccounts])
+  }, [updateEmails])
 
   const toggleForm = () => {
     setShowForm(!showForm)
@@ -175,7 +132,7 @@ export default function ConfigCurrency () {
 
   useEffect(() => {
     getDataProduct()
-  }, [idEmpresa])
+  }, [idEmpresa, updateEmails])
 
   async function getDataProduct () {
     setIsLoading(true)
@@ -194,6 +151,43 @@ export default function ConfigCurrency () {
       console.error('error', error)
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  async function getTipCambio () {
+    setIsLoadingComponent(true)
+    const body = {
+      oResults: {
+        iIdExtBanc: iIdProdEnv,
+        iIdPais: 1
+      }
+    }
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setModalToken(false)
+        const dataRes = responseData.oResults
+        setData(dataRes)
+        if (dataRes.oCorreoEB.length > 0) {
+          setcompleteEmails(true)
+        }
+        // Verificar si al menos un objeto tiene datos en oListCuentas
+        // const atLeastOneAccount = haveAccounts(responseData.oResults)
+
+        // if (atLeastOneAccount) {
+        //   setCompleteconfigBank(true)
+        // } else {
+        //   setCompleteconfigBank(false)
+        // }
+      } else {
+        await handleCommonCodes(responseData)
+      }
+    } catch (error) {
+      console.error('error', error)
+    } finally {
+      setIsLoadingComponent(false)
     }
   }
 
@@ -250,37 +244,20 @@ export default function ConfigCurrency () {
                   </li>
                 </ul>
               </div>
-              {haveEmails
-                ? <div className='box-emails'>
-                  <h3>{t['Emails for notifications']}</h3>
-                  <div className='card--emails'>
-                    <div className='emails'>
-                      {data?.oCorreoEB.slice(0, 5).map((email) => (
-                        <p key={email.correo_cc}>{email.correo_cc}</p>
-                      ))}
-                      <span>
-                        <button className='btn_crud' onClick={() => setHaveEmails(false)}>
-                          <ImageSvg name='Edit' />
-                        </button>
-                      </span>
-                    </div>
-                  </div>
-                  <div className='box-buttons'>
-                    <button
-                      type='button'
-                      className={`btn_secundary small ${completeEmails ? ' ' : 'disabled'}`}
-                      onClick={() => handleTabClick(1)}
-                      disabled={!completeEmails}
-                    >
-                      {t.Next}
-                      <ImageSvg name='Next' />
-                    </button>
-                  </div>
-                  </div>
-                : <div className='config-Automated--emails'>
 
-                  <EmailsForm setHaveEmails={setHaveEmails} dataEmails={data?.oCorreoEB} handleSendEmails={handleSendEmails} />
-                  </div>}
+              <EmailsForm dataEmails={data?.oCorreoEB} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
+
+              <div className='box-buttons'>
+                <button
+                  type='button'
+                  className={`btn_secundary small ${completeEmails ? ' ' : 'disabled'}`}
+                  onClick={() => handleTabClick(1)}
+                  disabled={!completeEmails}
+                >
+                  {t.Next}
+                  <ImageSvg name='Next' />
+                </button>
+              </div>
 
             </div>}
 
@@ -364,7 +341,13 @@ export default function ConfigCurrency () {
 
                   </div>
                   {isLoadingComponent && <LoadingComponent />}
-                  {showForm && <FormDayleCurrency onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
+                  {showForm && <FormDayleCurrency
+                    onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null}
+
+                    // setIinitialEdit={setIinitialEdit}
+
+                    setShowForm={setShowForm}
+                               />}
                 </div>
 
                 {selectedRowToDelete && (
@@ -430,7 +413,7 @@ export default function ConfigCurrency () {
                         </div>
 
                         )}
-                  </div>
+                                                             </div>
 }
 
             </div>}
@@ -496,7 +479,7 @@ export default function ConfigCurrency () {
                   >
                   <ImageSvg name='Automation' />
                   {t['Run automation']}
-                  </button>
+                </button>
                 : ''}
               <div className='box-buttons'>
                 <button

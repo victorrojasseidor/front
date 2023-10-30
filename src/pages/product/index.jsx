@@ -7,10 +7,6 @@ import { useAuth } from '@/Context/DataContext'
 import { getProducts } from '@/helpers/auth'
 import NavigationPages from '@/Components/NavigationPages'
 import Loading from '@/Components/Atoms/Loading'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
 import imgEstractos from '../../../public/img/prod-estractos.png'
 import imgInvoice from '../../../public/img/prod-invoice.png'
 import imgTipo from '../../../public/img/prod-tipo.png'
@@ -241,7 +237,7 @@ export default function Products () {
       return (
         <>
 
-          <Link href='/support'> <p> {t['Contact technical support']}  </p> </Link>
+          <Link href='https://www.innovativa.la/contacto'> <p> {t['Contact technical support']}  </p> </Link>
         </>
       )
     } else {
@@ -270,22 +266,6 @@ export default function Products () {
           <span> {t.Welcome} 👋, {t['Digital employees']}  </span>
 
           <div className=''>
-
-            {/* <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id='company-label'> {t['To company:']}</InputLabel>
-              <Select
-                labelId='company-label'
-                value={empresa?.razon_social_empresa || ''}
-                onChange={handleSelectChangeEmpresa}
-              >
-                {session?.oEmpresa.map((empres) => (
-                  <MenuItem key={empres.id_empresa} value={empres.razon_social_empresa}>
-                    <div>   {empres.razon_social_empresa}</div>
-                  </MenuItem>
-                ))}
-              </Select>
-
-            </FormControl>  */}
 
             {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
             <Autocomplete

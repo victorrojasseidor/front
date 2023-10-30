@@ -52,11 +52,12 @@
     margin-top: 1rem;
     border-style: none;
     border-radius: brd(1);
-    background-color: transparent;
+    background-color: get-color(white_s1);
+    
     color: get-color(black_p2);
      padding: 0.8rem 1.25rem;
     width: auto;
-    border: 1px solid #242331;
+    border: 1px solid get-color(grey1_s3);
     display: flex;
     justify-content: center;
     align-items: center;
