@@ -26,7 +26,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
   const t = l.Currency
 
   useEffect(() => {
-    if (dataEmails) {
+    if (dataEmails?.length > 0) {
       const filterEmailsTo = dataEmails.filter(eml => eml.correo_estado == 'CORREO')
       const arrayDeCorreos = filterEmailsTo.map(item => item.correo)
       setEmailsTo(arrayDeCorreos)
@@ -36,6 +36,8 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
       setEmailsCco(arrayDeCorreosCC)
       setHaveEmails(true)
       setUpdateEmails(false)
+    } else {
+      setHaveEmails(false)
     }
   }, [dataEmails])
 
@@ -173,8 +175,6 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
     }
   }
 
-  console.log({ dataEmails })
-
   return (
     <>
 
@@ -194,8 +194,6 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
             </div>
           </Modal>
         )}
-
-        {isLoadingComponent && <LoadingComponent />}
 
         {haveEmails
           ? <div className='box-emails-show'>
@@ -340,21 +338,25 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
 
             </div>
 
-            <div className='box-buttons'>
+            {emailsCco.length > 0 || emailsTo.length > 0
+              ? <div className='box-buttons'>
 
-              <button className='btn_primary  small black' onClick={() => { handleSendEmails() }}>
+                <button className='btn_primary  small black' onClick={() => { handleSendEmails() }}>
 
-                {t.Save}
-              </button>
+                  {t.Save}
+                </button>
 
-              <button className='btn_primary small white ' onClick={() => { setHaveEmails(true) }}>
+                <button className='btn_primary small white ' onClick={() => { setHaveEmails(true) }}>
 
-                {t.Cancel}
-              </button>
+                  {t.Cancel}
+                </button>
 
-            </div>
+                </div>
+              : ''}
 
           </div>}
+
+        {isLoadingComponent && <LoadingComponent />}
 
       </div>
 

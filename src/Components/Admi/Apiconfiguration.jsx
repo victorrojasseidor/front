@@ -98,8 +98,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       setValueState('AprobarSolProducto')
       setStateInitial('AprobarSolProducto')
     } else if (pStatus == 23) {
-      setValueState('ConfirmarConfiguracion')
-      setStateInitial('ConfirmarConfiguracion')
+      setValueState('ConfirmarConfiguracionProducto')
+      setStateInitial('ConfirmarConfiguracionProducto')
     }
   }, [pStatus])
 
@@ -128,13 +128,13 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       body.oResults.sCorreo = session?.sCorreo
       body.oResults.sTitle = 'Admin'
       body.oResults.sPhoneNumber = session?.sPhone
-    } else if (valueState === 'AprobarSolProducto') {
+    } else if (valueState === 'AprobarSolProducto' || valueState === 'ConfirmarConfiguracionProducto') {
+      body.oResults.sCorreo = session?.sCorreo
+      body.oResults.sTitle = 'Admin'
+      body.oResults.sPhoneNumber = session?.sPhone
       body.oResults.sFechaInit = startDate || product?.sDateInit
+      body.oResults.sCorreo = session?.sCorreo
       body.oResults.sFechaEnd = endDate || product?.sDateEnd
-    } else if (valueState === 'ConfirmarConfiguracion') {
-      body.oResults.sFechaInit = startDate || product?.sDateInit
-      body.oResults.sFechaEnd = endDate || product?.sDateEnd
-      body.oResults.iIdExtBanc = product?.iIdProdEnv
     }
 
     try {
@@ -191,7 +191,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     <>
       <div className='apiconfiguration'>
 
-        <h1> {t['Service configuration status']} </h1>
+        <h3 className='title-Config'>{t['Service configuration status']}</h3>
 
         <div className='name-product'>
           <p> <span> {t.Company}:  </span>{nameEmpresa}</p>
@@ -235,11 +235,11 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                   label={t.Pending}
                 />
 
-                {product?.sProd === 'EXT_BANC' && <FormControlLabel
-                  value='ConfirmarConfiguracion'
+                <FormControlLabel
+                  value='ConfirmarConfiguracionProducto'
                   control={<Radio />}
                   label={t.Configured}
-                                                  />}
+                />
 
               </RadioGroup>
 
@@ -248,7 +248,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
           </div>
         </div>
 
-        {valueState == 'AprobarSolProducto' || valueState == 'ConfirmarConfiguracion'
+        {valueState == 'AprobarSolProducto' || valueState == 'ConfirmarConfiguracionProducto'
           ? <div className='date'>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
@@ -280,7 +280,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
               />
             </LocalizationProvider>
 
-            </div>
+          </div>
           : ''}
 
         {valueState !== stateInitial || startDate || endDate
@@ -306,7 +306,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
             </button>
 
-            </div>
+          </div>
           : ''}
 
         {isLoading && <Loading />}

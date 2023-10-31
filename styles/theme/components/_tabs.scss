@@ -306,9 +306,7 @@
   }
 }
 
-.title-Config {
-  width: 100%;
-}
+
 
 .phone-field {
   width: 100%;
@@ -466,4 +464,14 @@
     justify-content: baseline;
     align-items: center;
   }
+}
+
+
+
+.title-Config {
+  width: 100%;
+ 
+  text-align: start;
+  display: flex;
+  justify-content: flex-start;
 }

@@ -141,10 +141,6 @@
 
 
 
-
-
-
-
 .modalForm {
   position: fixed;
   top: 0;
@@ -155,7 +151,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999999;
+  z-index: 10;
 
  .contentForm{
   height: 98vh;
@@ -193,4 +189,8 @@
       background-color: transparent;
     }
   }
+
+  .css-6hp17o-MuiList-root-MuiMenu-list{
+    z-index: 2000;
+    }
 }

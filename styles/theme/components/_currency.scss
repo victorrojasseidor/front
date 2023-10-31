@@ -98,8 +98,18 @@
   }
 }
 
-.form-Curency{
-  
+.conten-form-Curency{
+
+   padding: 1rem 1rem;
+    display: flex;
+    align-items:center;
+    flex-direction: column;
+    justify-content: center;
+
+    .form-Curency{
+      width: 100%;
+    }
+
 
   .group{
     padding: 1rem 0rem;

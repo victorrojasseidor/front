@@ -29,7 +29,7 @@
     padding-bottom: 1.5rem;
     position: fixed;
     // left: 6px; /* Puedes ajustar este valor según tu diseño */
-    z-index: 99;
+    z-index: 6;
     height: 120vh;
     gap: 4rem;
  
@@ -281,7 +281,7 @@
         background-color: get-color(blue_p1);
         color: get-color(white_s1);
         position: fixed;
-        z-index: 99;
+        z-index: 5;
         width: 100%;
         justify-content:space-evenly;
         align-items:center;
