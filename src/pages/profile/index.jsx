@@ -92,6 +92,8 @@ export default function profile () {
     // }
   }
 
+  console.log({ session })
+
   return (
     <LayoutProducts menu='Profile'>
       <NavigationPages title='Profile'>
@@ -101,14 +103,14 @@ export default function profile () {
       </NavigationPages>
 
       <div className='profile'>
-        <div className='box-action'>
+        {/* <div className='box-action'>
 
           {
             edit
               ? ''
               : <button className='btn_primary small' onClick={() => setEdit(!edit)}> {t['Edit profile']}</button>
           }
-        </div>
+        </div> */}
 
         <div>
           {
@@ -119,11 +121,12 @@ export default function profile () {
 
                     <Formik
                       initialValues={{
-                        lastName: '',
+                        name: session?.sUserName,
+                        lastName: session?.sLastName,
                         countryCode: countryOptions[0], // Valor inicial de Perú
-                        phoneNumber: '',
-                        notificationsInBpass: true,
-                        emailNotifications: true,
+                        phoneNumber: session?.sPhone,
+                        notificationsInBpass: session?.bCodeNotBpas,
+                        emailNotifications: session?.bCodeNotEmail,
                         companies: []
                       }}
                       // validate={validateFormprofilestart} // Use the custom validation function here
@@ -141,7 +144,7 @@ export default function profile () {
                             <div className='box-forms'>
 
                               <div className='input-box'>
-                                <Field type='text' name='name' placeholder=' ' value={session?.sUserName || ''} readOnly />
+                                <Field type='text' name='name' placeholder=' ' />
                                 <label htmlFor='name'>{t.Username}</label>
                               </div>
 
@@ -156,20 +159,13 @@ export default function profile () {
                                 <div className='box-filter'>
                                   <FormControl sx={{ m: 1, minWidth: 120 }}>
                                     <InputLabel id='company-label'>{t.Code}</InputLabel>
-                                    <Select
-                                      labelId='company-label'
-                                      value={country}
-                                      onChange={handleCountryChange}
-                                      className='delimite-text'
-                                    >
-
+                                    <Select labelId='company-label' value={country || countryOptions[0]?.value} onChange={handleCountryChange} className='delimite-text'>
                                       {countryOptions?.map((comp) => (
                                         <MenuItem key={comp.value} value={comp.value}>
                                           <div> {comp.label}</div>
                                         </MenuItem>
                                       ))}
                                     </Select>
-
                                   </FormControl>
                                 </div>
 
@@ -252,7 +248,7 @@ export default function profile () {
                       )}
                     </Formik>
 
-                    </div>
+                  </div>
 
                   : <div className='data-profile'>
 
@@ -331,7 +327,7 @@ export default function profile () {
                     </div>
                     ....
 
-                    </div>
+                  </div>
               }
 
         </div>
