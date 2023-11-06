@@ -81,28 +81,42 @@ const LayoutProducts = ({ children, menu }) => {
     }
   }, [menu])
 
+  console.log(session)
+
   return (
     <section className='layoutProducts'>
-      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ top: isMobile ? '65px' : '0px', marginLeft: isMobile ? '0,5rem' : '0rem', borderRadius: isMobile ? '0 10px 10px 0' : '0px', display: isMobile ? (isOpenMobile ? 'block' : 'none') : 'block' }}>
+      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ top: isMobile ? '65px' : '0px', marginLeft: isMobile ? '0,5rem' : '0rem', borderRadius: isMobile ? '0 10px 10px 0' : '0px', visibility: isMobile ? (isOpenMobile ? 'visible' : 'hidden') : 'visible' }}>
         <div className='menu_Account'>
           <div className='imgPerfil'>
-            <Image src={perfil} width={isMenuLateralOpen ? 100 : 80} alt='Robot' />
-            <button onClick={toggleMenu}>
+            <div className='imgPerfil_logo'>
+              {isMenuLateralOpen
+                ? <Image src={logo} width={80} alt='logo' priority />
+                : <Image src={carita} width={80} alt='logo' priority />}
+            </div>
+
+            <button className='imgPerfil_close' onClick={toggleMenu}>
               <ImageSvg name={isMenuLateralOpen ? 'CloseMenu' : 'OpenMenu'} />
             </button>
           </div>
 
-          <h5>
-            <div className='box-correo'>
-              <p className='company'>{session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
-              <p>{session?.sCorreo}</p>
+          <div className='box-name'>
+            <div className='box-name_person'>
+
+              <ImageSvg name='Person' />
 
             </div>
-          </h5>
+            <div className='box-name_name'>
+              <p>{session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
+              <span>{session?.sCorreo}</span>
+
+            </div>
+
+          </div>
 
         </div>
 
         <nav className='menu_nav'>
+
           <ul>
             <li className={menu === 'Product' ? 'active' : ''}>
 
@@ -118,7 +132,7 @@ const LayoutProducts = ({ children, menu }) => {
             <li className={menu === 'Reporting' ? 'active' : ''}>
 
               <Link href='/reporting'>
-                <ImageSvg name='Dashboard' />
+                <ImageSvg name='Reporting' />
                 <h5> {t.Reporting}
                 </h5>
 
@@ -157,8 +171,8 @@ const LayoutProducts = ({ children, menu }) => {
             </li>
 
           </ul>
-
-          <div className='liner' />
+          {/*
+          <div className='liner' /> */}
 
           <ul>
 
@@ -175,17 +189,13 @@ const LayoutProducts = ({ children, menu }) => {
 
               <Link href='/support'>
                 <ImageSvg name='Support' /> <h5> {t.Support}
-                </h5>
+                                            </h5>
               </Link>
             </li>
 
           </ul>
 
-          <div className='menu_logo'>
-            <Image src={logo} width={isMenuLateralOpen ? 100 : 80} alt='logo' priority />
-          </div>
-
-          <div className='menu_navIcons' style={{ flexDirection: isMenuLateralOpen ? 'row' : 'column' }}>
+          {/* <div className='menu_navIcons' style={{ flexDirection: isMenuLateralOpen ? 'row' : 'column' }}>
 
             <li>
               <Cloud imgButton='ChatBot' cloudText='ChatBot' onClick={handleClick} />
@@ -195,9 +205,44 @@ const LayoutProducts = ({ children, menu }) => {
               <Cloud imgButton='SignOut' cloudText={t['Sign Out']} onClick={handleLogout} />
             </li>
 
-          </div>
+          </div> */}
 
         </nav>
+
+        <div className='menu_profile menu_nav'>
+
+          <div className='img_perfil'>
+            <Image src={perfil} width={isMenuLateralOpen ? 100 : 80} alt='Robot' />
+            <span>{session?.sUserName} </span>
+          </div>
+
+          <nav className=' singout '>
+
+            <ul>
+
+              <li className='lang'>
+
+                <Lang />
+              </li>
+
+              <li>
+
+                <Link href='/product'>
+                  <ImageSvg name='SignOut' />
+                  <h5>
+                    {t['Sign Out']}
+                  </h5>
+
+                </Link>
+              </li>
+
+            </ul>
+
+          </nav>
+
+          <div />
+
+        </div>
 
       </section>
 
