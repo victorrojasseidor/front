@@ -17,21 +17,38 @@
   }
 
   .menu {
-    max-width: 13rem;
-    background-color: get-color(pink_s5);
-    border-radius: 0px 0px 0px 0px;
-    align-items: center;
-    height: fit-content;
-    padding-bottom: 1.5rem;
-    position: fixed;
     z-index: 6;
-    height: 120vh;
-    gap: 1rem;
+    top: 90px;
+    margin-left: 1rem;
+    border-radius: brd(2);
+    visibility: visible;
+    height: 72vh;
+    background-color: get-color(white_s1);
+    box-shadow: bsh(2);
+    position: fixed;
+    padding-top: 1rem;
+ 
+   
+    
 
     @include media(tablet) {
+      z-index: 0;
+      top: 0;
+    margin-left: 0;
+    padding-top: 0rem;
+      max-width: 15rem;
+      border-radius: 0;
+      box-shadow: none;
+      align-items: center;
+      height: fit-content;
+      padding-bottom: 1.5rem;
+      position: fixed;
+      border-style: none;
+      height: 120vh;
+      gap: 1rem;
       background-color: get-color(white_s1);
       backdrop-filter: blur(20px);
-      justify-content:center;
+      justify-content:space-between;
       height: 100%;
       flex-direction: column;
       display: flex;
@@ -43,11 +60,11 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
+     
       position: relative;
       border-bottom: 1px solid get-color(grey1_s3);
       padding-bottom: 1rem;
-      padding-top: 2rem;
+     
 
       p {
         font-size: small;
@@ -64,26 +81,31 @@
         }
       }
 
-      .img_logo {
-        width: 6rem;
-
-        // border-radius: brd(f);
-      }
 
       .imgPerfil {
+       display: none;
+       @include media(tablet) {
+
+
+
         display: flex;
         flex-direction: row;
         position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
+        width: 100%;
 
         &_logo {
-          width: 100%;
+          img{
+            height:  120px;
+            width: auto;
+          }
+          
         }
 
         &_close {
-          background-color: get-color(white_s1);
+          background-color: get-color(grey1_s3);
           position: absolute;
           padding: 0.5em;
           display: flex;
@@ -94,8 +116,17 @@
           border-radius: brd(f);
           z-index: 10;
           border-style: none;
-          right: -34px;
+          right: 7px;
+          svg{
+           
+              stroke:get-color(blue_p1);
+              width: 2rem;
+              
+             
+            
+          }
         }
+      }
       }
 
       .box-name {
@@ -104,6 +135,8 @@
         flex-direction: row;
         gap: 0.25rem;
         padding: 0.5rem;
+       width: 100%;
+        
 
         &_person {
           background-color: get-color(blue_p1);
@@ -126,7 +159,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 120px; // Ancho máximo en el que deseas truncar el texto
+            width: 130px; // Ancho máximo en el que deseas truncar el texto
             display: block;
             white-space: nowrap;
             overflow: hidden;
@@ -142,6 +175,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      width: 100%;
 
       @include media(tablet) {
         gap: 1rem;
@@ -150,17 +184,19 @@
       ul {
         display: flex;
         flex-direction: column;
-        gap: 0.75em;
+        gap: 1em;
         justify-content: center;
 
         li {
           display: flex;
-          padding: 0.5rem;
+          padding: 0.5rem 1.5rem 0.5rem 1.5rem; 
           flex-direction: row;
           align-items: flex-start;
           color: get-color(grey2_s4);
           position: relative;
           font-size: small;
+          
+
 
           svg {
             width: 20px;
@@ -169,7 +205,11 @@
               fill: get-color(grey2_s4);
             }
           }
-          a {
+          button{
+            background-color: transparent;
+            border-style: none;
+          }
+          a, button {
             display: flex;
             gap: 0.5rem;
             flex-direction: row;
@@ -208,16 +248,18 @@
     }
 
     &_profile {
-      width: 100%;
-      display: flex;
-      margin-top: 4rem;
+
+      display: none ;
+      @include media(tablet) {
+        width: 100%;
+        margin-top: 1rem;
+        display: flex;
+        padding: 1rem 0.5rem 0.5rem 1rem;
+        flex-direction: column;
+        border-top: 1px solid get-color(grey1_s3);
+
+      }
      
-      flex-direction: column;
-      gap: 0.25rem;
- 
-     
-      // padding: 0rem 0rem 0rem 0rem ;
-      border-top: 1px solid get-color(grey1_s3);
 
       .img_perfil {
         display: flex;
@@ -228,29 +270,31 @@
       
       
         img {
-          border-radius: brd(f);
+         
+          border-radius: brd(1);
           width: 40px;
           height: 40px;
         }
 
         span {
           color: get-color(t1-blue);
+          font-size: small;
         }
       }
 
-      .singout {
-        width: 100%;
+      // .singout {
+      //   width: 100%;
        
        
        
-        display: flex;
+      //   display: flex;
 
-        justify-content: flex-start;
-        align-items: flex-start;
+      //   justify-content: flex-start;
+      //   align-items: flex-start;
 
 
         
-      }
+      // }
     }
 
     &_navIcons {
@@ -309,7 +353,7 @@
       align-items: center;
       // padding: 1em;
       img {
-        width: 70px;
+        width: 50px;
       }
     }
 
@@ -317,12 +361,17 @@
       // background-color: #ff6b6b;
       max-width: 100px;
       nav {
+        
         padding: 1rem 1rem;
         li {
           h5 {
             display: none;
           }
         }
+      }
+
+      .menu_nav{
+        margin-top: 0rem;
       }
 
       .username {
@@ -332,6 +381,8 @@
       .box-name_name {
         display: none;
       }
+
+      
 
       h5 {
         display: none;
@@ -345,6 +396,7 @@
       }
 
       .img_perfil {
+        display: none;
         align-items: center;
         justify-content: center;
         span {
@@ -366,6 +418,8 @@
       .btn_icons {
         border: 1px solid get-color(white_s1);
       }
+
+      
 
       .imgPerfil {
         img {
@@ -457,7 +511,7 @@
       .children {
         padding: 6rem 2rem;
         @include media(tablet) {
-          padding: 1rem 2rem;
+          padding: 2rem 3rem;
         }
       }
     }
@@ -476,8 +530,9 @@
     display: block;
 
     button {
-      background-color: get-color(blue_p1);
-      color: get-color(white_s1);
+      background-color: get-color(white_s1);
+      color: get-color(blue_p1);
+      width: 5rem;
     }
 
     @include media(tablet) {

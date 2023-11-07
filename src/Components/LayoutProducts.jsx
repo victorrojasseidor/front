@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
-import logo from '../../public/img/logoseidor.png'
+// import logo from '../../public/img/logoseidor.png'
+import logo from '../../public/img/logoGift.gif'
 import carita from '../../public/img/carita.png'
 import Image from 'next/image'
 import perfil from '../../public/img/perfil.jpg'
@@ -43,7 +44,7 @@ const LayoutProducts = ({ children, menu }) => {
       setMargen('0rem')
     } else {
       if (isMenuLateralOpen) {
-        setMargen('12.5rem')
+        setMargen('13rem')
       } else {
         setMargen('6rem')
       }
@@ -59,11 +60,6 @@ const LayoutProducts = ({ children, menu }) => {
 
   const handleLogout = () => {
     logout()
-  }
-
-  const handleClick = () => {
-    // Redirige al usuario a la URL deseada
-    window.location.href = 'https://seidor.mensajea.chat/'
   }
 
   const router = useRouter()
@@ -85,12 +81,12 @@ const LayoutProducts = ({ children, menu }) => {
 
   return (
     <section className='layoutProducts'>
-      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ top: isMobile ? '65px' : '0px', marginLeft: isMobile ? '0,5rem' : '0rem', borderRadius: isMobile ? '0 10px 10px 0' : '0px', visibility: isMobile ? (isOpenMobile ? 'visible' : 'hidden') : 'visible' }}>
+      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ visibility: isMobile ? (isOpenMobile ? 'visible' : 'hidden') : 'visible' }}>
         <div className='menu_Account'>
           <div className='imgPerfil'>
             <div className='imgPerfil_logo'>
               {isMenuLateralOpen
-                ? <Image src={logo} width={80} alt='logo' priority />
+                ? <Image src={logo} width={500} alt='logo' priority />
                 : <Image src={carita} width={80} alt='logo' priority />}
             </div>
 
@@ -209,40 +205,40 @@ const LayoutProducts = ({ children, menu }) => {
 
         </nav>
 
-        <div className='menu_profile menu_nav'>
+        <div className='menu_profile '>
 
           <div className='img_perfil'>
             <Image src={perfil} width={isMenuLateralOpen ? 100 : 80} alt='Robot' />
-            <span>{session?.sUserName} </span>
+            <span>{session?.sUserName}  {session?.sLastName} </span>
           </div>
-
-          <nav className=' singout '>
-
-            <ul>
-
-              <li className='lang'>
-
-                <Lang />
-              </li>
-
-              <li>
-
-                <Link href='/product'>
-                  <ImageSvg name='SignOut' />
-                  <h5>
-                    {t['Sign Out']}
-                  </h5>
-
-                </Link>
-              </li>
-
-            </ul>
-
-          </nav>
 
           <div />
 
         </div>
+
+        <nav className='menu_nav ' style={{ paddingTop: '0rem' }}>
+
+          <ul>
+
+            <li className='lang'>
+
+              <Lang />
+            </li>
+
+            <li>
+
+              <button onClick={() => handleLogout()}>
+                <ImageSvg name='SignOut' />
+                <h5>
+                  {t['Sign Out']}
+                </h5>
+              </button>
+
+            </li>
+
+          </ul>
+
+        </nav>
 
       </section>
 
@@ -259,10 +255,6 @@ const LayoutProducts = ({ children, menu }) => {
 
             </ul>
           </nav>
-
-          <div className='container-lang-hambuerger'>
-            <Lang />
-          </div>
 
           <div className='titleMenu'>
             <div>
