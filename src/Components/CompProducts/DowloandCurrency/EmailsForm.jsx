@@ -25,8 +25,6 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
   const { session, setModalToken, logout, l } = useAuth()
   const t = l.Currency
 
-  console.log(dataEmails)
-
   useEffect(() => {
     if (dataEmails?.length > 0) {
       const filterEmailsTo = dataEmails.filter(eml => eml.correo_estado == 'CORREO')
@@ -123,6 +121,8 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
     setEmailsCco(updatedEmails)
   }
 
+  console.log(sProduct)
+
   async function handleSendEmails () {
     const listEmailsTO = emailsTo.map(correo => {
       return { sCorreo: correo, sTipoCorreo: 'CORREO' }
@@ -131,6 +131,8 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
     const listEmailsCCo = emailsCco.map(correo => {
       return { sCorreo: correo, sTipoCorreo: 'CORREO_CC' }
     })
+
+    setIsLoadingComponent(true)
 
     const body = {
       oResults: {
@@ -141,9 +143,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
       }
     }
 
-    setIsLoadingComponent(true)
-
-    console.log({ body })
+    console.log('body', sProduct, body)
     try {
       const token = session?.sToken
 

@@ -70,7 +70,7 @@ export default function ConfigDowland () {
     } else if (response.oAuditResponse?.iCode === 4) {
       await logout()
     } else {
-      const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
+      const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in services '
       console.log('errok, ', errorMessage)
       setModalToken(false)
       setRequestError(errorMessage)
@@ -329,7 +329,7 @@ export default function ConfigDowland () {
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults
-        const selectedProduct = data.find((p) => p.iIdProdEnv === parseInt(iIdProdEnv))
+        const selectedProduct = data.find((p) => p.iId === parseInt(iId))
         setdataCardProduct(selectedProduct)
       } else {
         await handleCommonCodes(responseData)
@@ -376,7 +376,7 @@ export default function ConfigDowland () {
                     <p>{t['Digital employees']}</p>
                     <p>:</p>
                     <p className='name-blue'>
-                      {t['Download automated Bank Statements']}
+                      {dataCardProduct?.sName}
                     </p>
 
                   </li>
@@ -437,7 +437,7 @@ export default function ConfigDowland () {
                   {bankCredential?.nombre}
                 </span>
 
-              </div>
+                                </div>
             }
 
               {showAccounts
@@ -455,7 +455,7 @@ export default function ConfigDowland () {
                     </button>
 
                   </div>
-                </>
+                  </>
 
                 : <>
 
@@ -519,13 +519,13 @@ export default function ConfigDowland () {
                                 </tr>
                               ))}
                             </tbody>
-                            </table>
+                          </table>
                           : <div>
                             <p> {t['Register your bank Credentials']}
 
                             </p>
 
-                            </div>}
+                          </div>}
 
                       </div>
                       {isLoadingComponent && <LoadingComponent />}
@@ -595,10 +595,10 @@ export default function ConfigDowland () {
                         </div>
 
                         )}
-                  </div>
+                                                            </div>
                 }
 
-                </>}
+                  </>}
 
             </div>}
 
@@ -663,7 +663,7 @@ export default function ConfigDowland () {
                   >
                   <ImageSvg name='Automation' />
                   {t['Run automation']}
-                </button>
+                  </button>
                 : ''}
               <div className='box-buttons'>
                 <button

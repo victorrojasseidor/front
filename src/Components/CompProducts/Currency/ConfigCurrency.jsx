@@ -48,7 +48,7 @@ export default function ConfigCurrency () {
 
   const t = l.Currency
 
-  console.log(dataTypeChange)
+  console.log(dataTypeChange, dataCardProduct)
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -129,10 +129,11 @@ export default function ConfigCurrency () {
     try {
       const token = session.sToken
       const responseData = await getProducts(idEmpresa, token)
+      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults
-        const selectedProduct = data.find((p) => p.iIdProdEnv === parseInt(iIdProdEnv))
+        const selectedProduct = data.find((p) => p.iId === parseInt(iId))
         setdataCardProduct(selectedProduct)
       } else {
         await handleCommonCodes(responseData)
@@ -183,6 +184,8 @@ export default function ConfigCurrency () {
     }
   }
 
+  console.log(dataCardProduct)
+
   return (
     <div className='Currency_configurations'>
 
@@ -217,7 +220,7 @@ export default function ConfigCurrency () {
                     <p>{t['Digital employees']}</p>
                     <p>:</p>
                     <p className='name-blue'>
-                      {t['Currency Exchange rates automation']}
+                      {dataCardProduct?.sName}
                     </p>
 
                   </li>
@@ -413,7 +416,7 @@ export default function ConfigCurrency () {
                         </div>
 
                         )}
-                                                                  </div>
+                  </div>
 }
 
             </div>}
@@ -570,7 +573,7 @@ export default function ConfigCurrency () {
                      </div>
 
                      )}
-               </div>
+                                                                    </div>
 }
 
             </div>}
