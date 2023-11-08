@@ -3,6 +3,7 @@ import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
 // import logo from '../../public/img/logoseidor.png'
 import logo from '../../public/img/logoGift.gif'
+import ari from '../../public/img/ari.gif'
 import carita from '../../public/img/carita.png'
 import Image from 'next/image'
 import perfil from '../../public/img/perfil.jpg'
@@ -87,7 +88,7 @@ const LayoutProducts = ({ children, menu }) => {
             <div className='imgPerfil_logo'>
               {isMenuLateralOpen
                 ? <Image src={logo} width={500} alt='logo' priority />
-                : <Image src={carita} width={80} alt='logo' priority />}
+                : <Image src={ari} width={80} alt='logo' priority />}
             </div>
 
             <button className='imgPerfil_close' onClick={toggleMenu}>

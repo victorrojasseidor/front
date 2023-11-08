@@ -12,7 +12,7 @@ border-radius: brd(1);
   display: flex;
   flex-direction: row;
   margin: 0em 1em;
-  height: 100vh;
+  height: 150vh;
 
   &_image {
     @include media(tablet) {
@@ -28,7 +28,7 @@ border-radius: brd(1);
     gap: 1em;
   }
   @include media(desktop) {
-    background-size: 140vh;
+    background-size: 200vh;
     // height: 108vh;
   }
 
