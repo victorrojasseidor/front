@@ -25,6 +25,8 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
   const { session, setModalToken, logout, l } = useAuth()
   const t = l.Currency
 
+  console.log(dataEmails)
+
   useEffect(() => {
     if (dataEmails?.length > 0) {
       const filterEmailsTo = dataEmails.filter(eml => eml.correo_estado == 'CORREO')

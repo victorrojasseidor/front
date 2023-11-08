@@ -34,7 +34,6 @@ export default function ConfigCurrency () {
   // Estado para almacenar si el checkbox está marcado o no
 
   const [updateEmails, setUpdateEmails] = useState(false)
-  const [age, setAge] = useState('')
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -48,6 +47,8 @@ export default function ConfigCurrency () {
   const { session, setModalToken, logout, l } = useAuth()
 
   const t = l.Currency
+
+  console.log(dataTypeChange)
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -147,20 +148,21 @@ export default function ConfigCurrency () {
     setIsLoadingComponent(true)
     const body = {
       oResults: {
-        iIdExtBanc: iIdProdEnv,
+        iIdTipCamb: iIdProdEnv,
         iIdPais: 1
       }
     }
 
+    console.log({ body })
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTipCambio', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults
         setDataTypeChange(dataRes)
-        if (dataRes.oCorreoEB.length > 0) {
+        if (dataRes.oCorreo.length > 0) {
           setcompleteEmails(true)
         }
         // Verificar si al menos un objeto tiene datos en oListCuentas
@@ -243,7 +245,7 @@ export default function ConfigCurrency () {
                 </ul>
               </div>
 
-              <EmailsForm dataEmails={dataTypeChange?.oCorreoEB} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
+              <EmailsForm dataEmails={dataTypeChange?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
 
               <div className='box-buttons'>
                 <button
@@ -377,7 +379,7 @@ export default function ConfigCurrency () {
               </div>
 
               {
-                  dataTypeChange?.oListBancoCredendicial.length > 0 && <div>
+                  dataTypeChange?.oTiempoTipoCambio.length > 0 && <div>
                     {completeConfigDayly
                       ? (
                         <div className='box-buttons'>
@@ -411,7 +413,7 @@ export default function ConfigCurrency () {
                         </div>
 
                         )}
-                                                                       </div>
+                                                                  </div>
 }
 
             </div>}
@@ -568,7 +570,7 @@ export default function ConfigCurrency () {
                      </div>
 
                      )}
-                                                                    </div>
+               </div>
 }
 
             </div>}

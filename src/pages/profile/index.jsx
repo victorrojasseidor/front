@@ -103,14 +103,14 @@ export default function profile () {
       </NavigationPages>
 
       <div className='profile'>
-        {/* <div className='box-action'>
+        <div className='box-action'>
 
           {
             edit
               ? ''
               : <button className='btn_primary small' onClick={() => setEdit(!edit)}> {t['Edit profile']}</button>
           }
-        </div> */}
+        </div>
 
         <div>
           {
@@ -248,7 +248,7 @@ export default function profile () {
                       )}
                     </Formik>
 
-                  </div>
+                    </div>
 
                   : <div className='data-profile'>
 
@@ -327,7 +327,7 @@ export default function profile () {
                     </div>
                     ....
 
-                  </div>
+                    </div>
               }
 
         </div>
