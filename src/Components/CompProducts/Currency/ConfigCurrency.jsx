@@ -64,7 +64,7 @@ export default function ConfigCurrency () {
     }
   };
 
-  console.log({ session })
+  console.log({ dataTypeChange })
 
   async function handleAgregar (values) {
     setIsLoadingComponent(true)
@@ -123,7 +123,7 @@ export default function ConfigCurrency () {
     if (session) {
       getTipCambio()
     }
-  }, [updateEmails, showForm])
+  }, [updateEmails, showForm, selectedRowToDelete])
 
   const toggleForm = () => {
     setShowForm(!showForm)
@@ -187,6 +187,41 @@ export default function ConfigCurrency () {
       }
     } catch (error) {
       console.error('error', error)
+    } finally {
+      setIsLoadingComponent(false)
+    }
+  }
+
+  const handleDeleteConfirmation = async () => {
+    if (selectedRowToDelete) {
+      await handleDeleteTypeChange(selectedRowToDelete.id_moneda_fuente_tipo_cambio)
+      setSelectedRowToDelete(null)
+    }
+  }
+
+  const handleDeleteTypeChange = async (idbankcred) => {
+    setIsLoadingComponent(true)
+    const token = session.sToken
+    const body = {
+      oResults: {
+        oIdRegistro: [
+          idbankcred
+        ]
+
+      }
+    }
+    try {
+      const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarTipoCambio', body, token)
+      console.error('res', response)
+      if (response.oAuditResponse?.iCode === 1) {
+        setModalToken(false)
+        setTimeout(() => {
+        }, 1000)
+      } else {
+        await handleCommonCodes(response)
+      }
+    } catch (error) {
+      console.error('Error en la solicitud de eliminación', error)
     } finally {
       setIsLoadingComponent(false)
     }
@@ -364,17 +399,17 @@ export default function ConfigCurrency () {
                     <ImageSvg name='Question' />
 
                     <div>
-                      <h3>{t['Do you want to delete this credential bank ?']}</h3>
+                      <h3>{t['Do you want to delete this record']}</h3>
                       <div className='box-buttons'>
                         <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
-                          {t.YES}
+                          {t.Yeah}
                         </button>
                         <button
                           type='button'
                           className='btn_secundary small'
                           onClick={() => setSelectedRowToDelete(null)}
                         >
-                          {t.NOT}
+                          {t.No}
                         </button>
                       </div>
                     </div>
