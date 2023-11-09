@@ -84,12 +84,12 @@ export default function Login () {
 
         </div>
 
-        <ul>
+        {/* <ul className='navRegister_question'>
           <li className='Question'> </li>
           <li className='link'>
             <Link href='/login'> </Link>
           </li>
-        </ul>
+        </ul> */}
       </nav>
 
       <div className='register'>
@@ -142,7 +142,7 @@ export default function Login () {
               <li> {t['I forgot my password']}</li>
             </Link>
           </ul> */}
-          <ul>
+          <ul className='navRegister_question'>
             <li className='Question'>{t['Have not an account?']}</li>
             <li className='link'>
               <Link href='/register'>{t['Sign up']}</Link>

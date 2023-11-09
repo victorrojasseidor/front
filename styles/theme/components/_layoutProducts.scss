@@ -98,8 +98,9 @@
 
         &_logo {
           img{
-            height:  120px;
+            height:  100px;
             width: auto;
+            padding-top: 2rem;
           }
           
         }
@@ -116,7 +117,7 @@
           border-radius: brd(f);
           z-index: 10;
           border-style: none;
-          right: 7px;
+          right: -4px;
           svg{
            
               stroke:get-color(blue_p1);
@@ -434,7 +435,8 @@
 
       .imgPerfil {
         img {
-          width: 120px;
+          width: 70px;
+          padding-bottom: 1rem;
         }
       }
     }
