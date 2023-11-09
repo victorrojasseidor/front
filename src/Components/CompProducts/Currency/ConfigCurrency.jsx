@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { getProducts } from '@/helpers/auth'
 import { formatDate } from '@/helpers/report'
-import FormDayleCurrency from './FormDayleCurrency'
+import FormCurrency from './FormCurrency'
 
 export default function ConfigCurrency () {
   const [initialEdit, setIinitialEdit] = useState(null)
@@ -34,7 +34,6 @@ export default function ConfigCurrency () {
   // Estado para almacenar si el checkbox está marcado o no
 
   const [updateEmails, setUpdateEmails] = useState(false)
-  const [age, setAge] = useState('')
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -65,32 +64,43 @@ export default function ConfigCurrency () {
     }
   };
 
+  console.log({ session })
+
   async function handleAgregar (values) {
     setIsLoadingComponent(true)
+
+    console.log('values', values)
+
     const body = {
       oResults: {
-        iIdEmpresa: idEmpresa,
-        sName: values.name,
-        iIdPais: 1,
-        iBanco: values.bank.id,
-        sPassword: values.password,
-        sCredencial: values.principalCredential,
-        sCredencial2: values.credential2,
-        sCredencial3: values.credential3,
-        sCredencial4: values.credential4,
-        bCodeEnabled: values.state === 'Active'
+
+        oTipoCambio: [
+          {
+
+            iIdTipCamb: parseInt(iIdProdEnv),
+            iIdPais: values.country,
+            iIdMonedaOrigen: values.coinOrigin,
+            iIdMonedaDestino: values.coinDestiny,
+            iIdFuente: values.fuente,
+            iDiasAdicional: values.days,
+            iIdTiempoTipoCambio: 1,
+            sEstado: 'X'
+          }
+        ]
       }
+
     }
+
+    console.log(body)
 
     try {
       const token = session.sToken
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarExtBancario', body, token)
-
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarTipoCambio', body, token)
+      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
         setTimeout(() => {
-          // setDataList(data)
           setModalToken(false)
           setShowForm(false)
           setRequestError(null)
@@ -113,7 +123,7 @@ export default function ConfigCurrency () {
     if (session) {
       getTipCambio()
     }
-  }, [updateEmails])
+  }, [updateEmails, showForm])
 
   const toggleForm = () => {
     setShowForm(!showForm)
@@ -128,10 +138,11 @@ export default function ConfigCurrency () {
     try {
       const token = session.sToken
       const responseData = await getProducts(idEmpresa, token)
+
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults
-        const selectedProduct = data.find((p) => p.iIdProdEnv === parseInt(iIdProdEnv))
+        const selectedProduct = data.find((p) => p.iId === parseInt(iId))
         setdataCardProduct(selectedProduct)
       } else {
         await handleCommonCodes(responseData)
@@ -147,20 +158,20 @@ export default function ConfigCurrency () {
     setIsLoadingComponent(true)
     const body = {
       oResults: {
-        iIdExtBanc: iIdProdEnv,
+        iIdTipCamb: iIdProdEnv,
         iIdPais: 1
       }
     }
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTipCambio', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults
         setDataTypeChange(dataRes)
-        if (dataRes.oCorreoEB.length > 0) {
+        if (dataRes.oCorreo.length > 0) {
           setcompleteEmails(true)
         }
         // Verificar si al menos un objeto tiene datos en oListCuentas
@@ -215,7 +226,7 @@ export default function ConfigCurrency () {
                     <p>{t['Digital employees']}</p>
                     <p>:</p>
                     <p className='name-blue'>
-                      {t['Currency Exchange rates automation']}
+                      {dataCardProduct?.sName}
                     </p>
 
                   </li>
@@ -243,7 +254,7 @@ export default function ConfigCurrency () {
                 </ul>
               </div>
 
-              <EmailsForm dataEmails={dataTypeChange?.oCorreoEB} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
+              <EmailsForm dataEmails={dataTypeChange?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
 
               <div className='box-buttons'>
                 <button
@@ -286,8 +297,8 @@ export default function ConfigCurrency () {
                           <th> {t['Portal Available']}</th>
                           <th> {t['Source Currency']}</th>
 
-                          <th> {t['Additional days']}</th>
                           <th> {t['Target currency']}</th>
+                          <th> {t['Additional days']}</th>
 
                           <th>{t.State} </th>
 
@@ -297,21 +308,18 @@ export default function ConfigCurrency () {
 
                       <tbody>
 
-                        {/* {data?.oListBancoCredendicial?.map((row) => (
-                          <tr key={row.id_banco_credencial}>
-                            <td>{row.nombre}</td>
-                            <td>{row.usuario}</td>
-                            <td>{row.nombre_banco}</td>
-                            <td>Perú</td>
+                        {dataTypeChange?.oDailyExchange?.map((row) => (
+                          <tr key={row.id_moneda_fuente_tipo_cambio}>
+                            <td>{row.descripcion_pais}</td>
+                            <td>{row.nombre} </td>
+                            <td>{row.descripcion_moneda_origen}</td>
+                            <td>{row.descripcion_moneda_destino}</td>
+                            <td>{row.dias_adicional}</td>
+
                             <td>
-                              <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
+                              <span className={row.estado == '23' ? 'status-active' : 'status-disabled'}>{row.estado == '23' ? 'Active' : 'Disabled'}</span>
                             </td>
 
-                            <td className='head-status'>
-                              {row.oListCuentas.length > 0
-                                ? <button className='btn_green' onClick={() => handleAcount(row)}> {t['Show Accounts']} </button>
-                                : <button className='btn_red' onClick={() => handleAcount(row)}>     {t['Add Accounts']}  </button>}
-                            </td>
                             <td className='box-actions'>
                               <button className='btn_crud' onClick={() => handleEdit(row)}>
                                 <ImageSvg name='Edit' />{' '}
@@ -326,7 +334,7 @@ export default function ConfigCurrency () {
                             </td>
 
                           </tr>
-                        ))} */}
+                        ))}
 
                       </tbody>
                     </table>
@@ -339,13 +347,13 @@ export default function ConfigCurrency () {
 
                   </div>
                   {isLoadingComponent && <LoadingComponent />}
-                  {showForm && <FormDayleCurrency
-                    onAgregar={handleAgregar} dataTypeChange={dataTypeChange} initialVal={isEditing ? initialEdit : null}
+                  {showForm &&
 
+                    <FormCurrency
+                      onAgregar={handleAgregar} dataTypeChange={dataTypeChange} initialVal={isEditing ? initialEdit : null}
                     // setIinitialEdit={setIinitialEdit}
-
-                    setShowForm={setShowForm}
-                               />}
+                      setShowForm={setShowForm}
+                    />}
                 </div>
 
                 {selectedRowToDelete && (
@@ -377,7 +385,7 @@ export default function ConfigCurrency () {
               </div>
 
               {
-                  dataTypeChange?.oListBancoCredendicial.length > 0 && <div>
+                  dataTypeChange?.oMonthExchange.length > 0 && <div>
                     {completeConfigDayly
                       ? (
                         <div className='box-buttons'>
@@ -411,7 +419,7 @@ export default function ConfigCurrency () {
                         </div>
 
                         )}
-                                                                       </div>
+                  </div>
 }
 
             </div>}
@@ -443,8 +451,8 @@ export default function ConfigCurrency () {
                           <th> {t['Portal Available']}</th>
                           <th> {t['Source Currency']}</th>
 
-                          <th> {t['Additional days']}</th>
                           <th> {t['Target currency']}</th>
+                          <th> {t['Additional days']}</th>
 
                           <th>{t.State} </th>
 
@@ -454,36 +462,33 @@ export default function ConfigCurrency () {
 
                       <tbody>
 
-                        {/* {data?.oListBancoCredendicial?.map((row) => (
-                       <tr key={row.id_banco_credencial}>
-                         <td>{row.nombre}</td>
-                         <td>{row.usuario}</td>
-                         <td>{row.nombre_banco}</td>
-                         <td>Perú</td>
-                         <td>
-                           <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
-                         </td>
+                        {dataTypeChange?.oMonthExchange?.map((row) => (
+                          <tr key={row.id_moneda_fuente_tipo_cambio}>
+                            <td>{row.descripcion_pais}</td>
+                            <td>{row.nombre} </td>
+                            <td>{row.descripcion_moneda_origen}</td>
+                            <td>{row.descripcion_moneda_destino}</td>
+                            <td>{row.dias_adicional}</td>
 
-                         <td className='head-status'>
-                           {row.oListCuentas.length > 0
-                             ? <button className='btn_green' onClick={() => handleAcount(row)}> {t['Show Accounts']} </button>
-                             : <button className='btn_red' onClick={() => handleAcount(row)}>     {t['Add Accounts']}  </button>}
-                         </td>
-                         <td className='box-actions'>
-                           <button className='btn_crud' onClick={() => handleEdit(row)}>
-                             <ImageSvg name='Edit' />{' '}
-                           </button>
-                           <button
-                             className='btn_crud' onClick={() => {
-                               setSelectedRowToDelete(row)
-                             }}
-                           >
-                             <ImageSvg name='Delete' />
-                           </button>
-                         </td>
+                            <td>
+                              <span className={row.estado == '23' ? 'status-active' : 'status-disabled'}>{row.estado == '23' ? 'Active' : 'Disabled'}</span>
+                            </td>
 
-                       </tr>
-                     ))} */}
+                            <td className='box-actions'>
+                              <button className='btn_crud' onClick={() => handleEdit(row)}>
+                                <ImageSvg name='Edit' />{' '}
+                              </button>
+                              <button
+                                className='btn_crud' onClick={() => {
+                                  setSelectedRowToDelete(row)
+                                }}
+                              >
+                                <ImageSvg name='Delete' />
+                              </button>
+                            </td>
+
+                          </tr>
+                        ))}
 
                       </tbody>
                     </table>
@@ -496,7 +501,7 @@ export default function ConfigCurrency () {
 
                   </div>
                   {isLoadingComponent && <LoadingComponent />}
-                  {showForm && <FormDayleCurrency
+                  {showForm && <FormCurrency
                     onAgregar={handleAgregar} dataTypeChange={dataTypeChange} initialVal={isEditing ? initialEdit : null}
 
                  // setIinitialEdit={setIinitialEdit}
@@ -534,7 +539,7 @@ export default function ConfigCurrency () {
               </div>
 
               {
-               dataTypeChange?.oListBancoCredendicial.length > 0 && <div>
+               dataTypeChange?.oDailyExchange.length > 0 && <div>
                  {completeConfigDayly
                    ? (
                      <div className='box-buttons'>
@@ -568,7 +573,7 @@ export default function ConfigCurrency () {
                      </div>
 
                      )}
-                                                                    </div>
+               </div>
 }
 
             </div>}

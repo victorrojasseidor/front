@@ -10,8 +10,8 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-const FormDayleCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditListBank, setShowForm }) => {
-  const [selectedCountry, setSelectedCountry] = useState('peru')
+const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditListBank, setShowForm }) => {
+  const [selectedCountry, setSelectedCountry] = useState(null)
   const [selectedPortal, setSelectedPortal] = useState('')
   const [selectedCoinOrigin, setSelectedCoinOrigin] = useState('')
   const [selectedCoinDestiny, setSelectedCoinDestiny] = useState('')
@@ -20,24 +20,27 @@ const FormDayleCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeCha
   const { l } = useAuth()
   const t = l.Currency
 
-  const countryData = dataTypeChange?.oPaisBanco
+  console.log({ dataTypeChange })
 
-  const initialValues = {
-    name: initialVal?.nombre || '', // Usamos los valores iniciales si están disponibles
-    password: '', // parq ue no se vea el passwoard
-    principalCredential: initialVal?.usuario || '',
-    credential2: initialVal?.usuario_a || '',
-    credential3: initialVal?.usuario_b || '',
-    credential4: initialVal?.usuario_c || '',
-    bank: initialVal?.bank || null,
-    country: initialVal?.country || null,
-    state: initialVal && initialVal.estado_c == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
+  useEffect(() => {
+    if (dataTypeChange?.oPais.length > 0) {
+      setSelectedCountry(dataTypeChange.oPais[0])
+    }
+  }, [])
+
+  const formValues = {
+    country: parseInt(selectedCountry), // Usamos los valores iniciales si están disponibles
+    fuente: parseInt(selectedPortal),
+    coinOrigin: parseInt(selectedCoinOrigin),
+    coinDestiny: parseInt(selectedCoinDestiny),
+    days: parseInt(selectedDays),
+    state: initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
+
   }
 
   const handleCountryChange = (event) => {
     const selectValue = event.target.value
     setSelectedCountry(selectValue)
-
     setSelectedPortal('')
     setSelectedCoinOrigin('')
     setSelectedCoinDestiny('')
@@ -46,7 +49,6 @@ const FormDayleCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeCha
   const handlePortalChange = (event) => {
     const selectValue = event.target.value
     setSelectedPortal(selectValue)
-
     setSelectedCoinOrigin('')
     setSelectedCoinDestiny('')
   }
@@ -67,47 +69,18 @@ const FormDayleCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeCha
     setSelectedDays(selectValue)
   }
 
-  const countryOptionslabel = [
-    { value: 'peru', label: 'Peru' },
-    { value: 'brazil', label: 'Brazil' },
-    { value: 'mexico', label: 'Mexico' },
-    { value: 'argentinafggggggggg', label: 'Argentinafhhhhh' }
-    // Add more countries as needed
-  ]
-
-  const coinOptionslabel = [
-    { value: 'usd', label: 'Dólar estadounidense' },
-    { value: 'eur', label: 'Euro' },
-    { value: 'jpy', label: 'Yen japonés' },
-    { value: 'gbp', label: 'Libra esterlina' },
-    { value: 'aud', label: 'Dólar australiano' },
-    { value: 'cad', label: 'Dólar canadiense' },
-    { value: 'chf', label: 'Franco suizo' },
-    { value: 'cny', label: 'Yuan chino' },
-    { value: 'inr', label: 'Rupia india' }
-    // Agrega más monedas según sea necesario
-  ]
-
-  const PortalOptionslabel = [
-    { value: 'sbs', label: 'Superintendencia de Banca, Seguros y AFP (SBS) - Perú' },
-    { value: 'bcrp', label: 'Banco Central de Reserva del Perú (BCRP) - Perú' },
-    { value: 'xe', label: 'XE.com - Conversor de Divisas en Línea' },
-    { value: 'oanda', label: 'OANDA - Servicios de Divisas y Cambio de Moneda' }
-    // Agrega más portales y países según sea necesario
-  ]
-
   const daysOptionslabel = [
-    { value: 0, label: '0 days' },
-    { value: 1, label: '1 days' },
-    { value: 2, label: '2 days' },
-    { value: 3, label: '3 days' },
-    { value: 4, label: '4 days' },
-    { value: 5, label: '5 days' },
-    { value: 6, label: '6 days' },
-    { value: 7, label: '7 days' },
-    { value: 8, label: '8 days' },
-    { value: 9, label: '9 days' },
-    { value: 10, label: '10 days' }
+    { value: 0, label: '0' },
+    { value: 1, label: '1' },
+    { value: 2, label: '2' },
+    { value: 3, label: '3' },
+    { value: 4, label: '4' },
+    { value: 5, label: '5' },
+    { value: 6, label: '6' },
+    { value: 7, label: '7' },
+    { value: 8, label: '8' },
+    { value: 9, label: '9' },
+    { value: 10, label: '10' }
   ]
 
   return (
@@ -122,14 +95,13 @@ const FormDayleCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeCha
         <h2 className='box'>{initialVal ? t.Edit : t['Set your daily exchange rate']}</h2>
 
         <Formik
-          initialValues={initialValues}
-
+          initialValues={formValues}
           // validate={(values) => validateFormAddListBank(values, initialVal)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
               handleEditListBank(values)
             } else {
-              onAgregar(values)
+              onAgregar(formValues)
             }
             resetForm()
           }}
@@ -146,71 +118,65 @@ const FormDayleCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeCha
                   <div className='box-filter'>
 
                     <FormControl sx={{ m: 2, minWidth: 120 }}>
-                      <InputLabel id='country-label'>{t.Country}</InputLabel>
+                      <InputLabel id='country'>{t.Country}</InputLabel>
                       <Select
-                        labelId='country-label'
+                        labelId='country'
                         value={selectedCountry}
                         onChange={handleCountryChange}
                       >
-                        <MenuItem value=''>
-                          <em>{t['All Companys']}</em>
-                        </MenuItem>
-                        {countryOptionslabel.map((country) => (
-                          <MenuItem key={country.value} value={country.value}>
-                            {country.label}
+
+                        {dataTypeChange?.oPais.map((country) => (
+                          <MenuItem key={country.id_pais} value={country.id_pais}>
+                            {country.descripcion_pais}
                           </MenuItem>)
                         )}
                       </Select>
                     </FormControl>
 
                     <FormControl sx={{ m: 2, minWidth: 120 }}>
-                      <InputLabel id='country-label'>{t['Portal Available']}</InputLabel>
+                      <InputLabel id='fuente'>{t['Portal Available']}</InputLabel>
                       <Select
-                        labelId='country-label'
+                        labelId='fuente'
                         value={selectedPortal}
                         onChange={handlePortalChange}
                       >
-                        <MenuItem value=''>
-                          <em>{t['All Companys']}</em>
-                        </MenuItem>
-                        {PortalOptionslabel.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+
+                        {dataTypeChange?.oFuente.map((option) => (
+                          <MenuItem key={option.id_fuente} value={option.id_fuente}>
+                            {option.nombre}
                           </MenuItem>)
                         )}
                       </Select>
                     </FormControl>
 
                     <FormControl sx={{ m: 2, minWidth: 120 }}>
-                      <InputLabel id='country-label'>{t['Source Currency']}</InputLabel>
+                      <InputLabel id='coinOrigin'>{t['Source Currency']}</InputLabel>
                       <Select
-                        labelId='country-label'
+                        labelId='coinOrigin'
                         value={selectedCoinOrigin}
                         onChange={handleCoinOriginChange}
                       >
-                        <MenuItem value=''>
-                          <em>{t['All Companys']}</em>
-                        </MenuItem>
-                        {coinOptionslabel.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+
+                        {dataTypeChange?.oMoneda.map((option) => (
+                          <MenuItem key={option.id_moneda} value={option.id_moneda}>
+                            {option.codigo_moneda} -{option.descripcion_moneda}
                           </MenuItem>)
                         )}
                       </Select>
                     </FormControl>
                     <FormControl sx={{ m: 2, minWidth: 120 }}>
-                      <InputLabel id='country-label'>{t['Target currency']}</InputLabel>
+                      <InputLabel id='coinDestiny'>{t['Target currency']}</InputLabel>
                       <Select
-                        labelId='country-label'
+                        labelId='coinDestiny'
                         value={selectedCoinDestiny}
                         onChange={handleCoinDestinyChange}
                       >
                         <MenuItem value=''>
                           <em>{t['All Companys']}</em>
                         </MenuItem>
-                        {coinOptionslabel.map((option) => (
-                          <MenuItem key={option.value} value={option.value}>
-                            {option.label}
+                        {dataTypeChange?.oMoneda.map((option) => (
+                          <MenuItem key={option.id_moneda} value={option.id_moneda}>
+                            {option.codigo_moneda} -{option.descripcion_moneda}
                           </MenuItem>)
                         )}
                       </Select>
@@ -230,15 +196,13 @@ const FormDayleCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeCha
                 <div className='box-filter'>
 
                   <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel id='country-label'>{t['Additional days']}</InputLabel>
+                    <InputLabel id='days'>{t['Additional days']}</InputLabel>
                     <Select
-                      labelId='country-label'
+                      labelId='days'
                       value={selectedDays}
                       onChange={handleDaysChange}
                     >
-                      <MenuItem value=''>
-                        <em>{t['All Companys']}</em>
-                      </MenuItem>
+
                       {daysOptionslabel.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
                           {option.label}
@@ -293,4 +257,4 @@ const FormDayleCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeCha
   )
 }
 
-export default FormDayleCurrency
+export default FormCurrency

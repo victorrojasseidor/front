@@ -130,6 +130,8 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
       return { sCorreo: correo, sTipoCorreo: 'CORREO_CC' }
     })
 
+    setIsLoadingComponent(true)
+
     const body = {
       oResults: {
         sProd: sProduct,
@@ -139,9 +141,6 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
       }
     }
 
-    setIsLoadingComponent(true)
-
-    console.log({ body })
     try {
       const token = session?.sToken
 
