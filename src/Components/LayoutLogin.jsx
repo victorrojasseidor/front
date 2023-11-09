@@ -1,19 +1,26 @@
 import React from 'react'
 import Lang from './Atoms/Lang'
+import Image from 'next/image'
+import logoOscuro from '../../public/img/logoOscuro.png'
+
 export default function LayoutLogin ({ children }) {
   return (
 
     <section className='layoutLogin'>
-      <div className='container-lang-destok'>
-        <Lang />
-      </div>
-      <div className='layoutLogin_image' />
 
-      <section>
-        <div className='container-lang-movil'>
+      <div className='layoutLogin_image'>
+
+        <Image src={logoOscuro} width={200} alt='logo' priority />
+      </div>
+
+      <section className='layoutLogin_form'>
+        {/* <div className='container-lang-movil'>
+
           <Lang />
+        </div> */}
+        <div className='layout-children'>
+          {children}
         </div>
-        {children}
 
       </section>
 

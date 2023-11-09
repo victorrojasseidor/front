@@ -11,12 +11,25 @@ border-radius: brd(1);
 .layoutLogin {
   display: flex;
   flex-direction: row;
-  margin: 0em 1em;
-  height: 150vh;
+
+  height: 100vh;
+
+  
 
   &_image {
+    display: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 0;
     @include media(tablet) {
+      width: 30%;
+      
+    }
+    @include media(desktop) {
       width: 50%;
+      
     }
   }
 
@@ -25,37 +38,52 @@ border-radius: brd(1);
     background-repeat: no-repeat;
     background-size: cover;
     // background-size: 130vh;
-    gap: 1em;
+  
   }
   @include media(desktop) {
-    background-size: 200vh;
-    // height: 108vh;
+    background-size: 250vh;
+    width: 100%;
   }
 
-  section {
-    background-color: transparent;
+  &_form {
+    
     display: flex;
+    
     flex-direction: column;
     width: 100%;
+    align-items: center;
+    justify-content: center;
+    // padding: 1em;
+    margin: 1rem;
     @include media(tablet) {
-      padding: 1em;
-      width: 50%;
+    width: 60%;
+   
+
+     
     }
+    @include media(desktop) {
+      width: 40%;
+      background-color: transparent;
+      
+      }
 
     .navRegister {
-      margin-top: 0.5em;
+     
       display: flex;
       justify-content: space-around;
       justify-self: unset;
       align-items: center;
-      // flex-grow: 0.1;
-
-      // img{
-      //   width: 4rem;
-      //   height: 4rem;
-      // }
+     
+      &_logo{
+        padding: 0rem 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+      }
+      
       img {
-        height: 70px;
+        height: 200px;
         width: auto;
       }
 
@@ -84,11 +112,21 @@ border-radius: brd(1);
   }
 }
 
+
+.layout-children{
+  width: 100%;
+  background-color: get-color(white_s1);
+  padding: 0.5rem;
+  margin: 1rem 2rem;
+  border-radius: brd(2);
+}
+
 .navLogin {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   width: 100%;
+  padding-bottom: 2rem;
 }
 
 .iforget {
@@ -98,3 +136,13 @@ border-radius: brd(1);
   color: get-color(grey2_s4);
   margin-bottom: 1em;
 }
+
+.container-lang {
+    display: flex;
+    padding-top: 1rem;
+    justify-content: center;
+    align-items: center;
+ 
+  
+}
+

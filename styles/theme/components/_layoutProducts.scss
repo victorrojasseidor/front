@@ -614,26 +614,7 @@
   }
 }
 
-.container-lang-destok {
-  display: none;
 
-  @include media(tablet) {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 2rem;
-  }
-}
-
-.container-lang-movil {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 2rem;
-  @include media(tablet) {
-    display: none;
-  }
-}
 
 .container-lang-hambuerger {
   display: flex;
