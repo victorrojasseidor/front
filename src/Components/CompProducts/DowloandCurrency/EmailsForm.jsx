@@ -121,8 +121,6 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
     setEmailsCco(updatedEmails)
   }
 
-  console.log(sProduct)
-
   async function handleSendEmails () {
     const listEmailsTO = emailsTo.map(correo => {
       return { sCorreo: correo, sTipoCorreo: 'CORREO' }
@@ -143,7 +141,6 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
       }
     }
 
-    console.log('body', sProduct, body)
     try {
       const token = session?.sToken
 
