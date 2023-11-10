@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-import { validateFormAddListBank } from '@/helpers/validateForms'
+import { validateFormCurrency } from '@/helpers/validateForms'
 import ModalForm from '@/Components/Atoms/ModalForm'
 import { useAuth } from '@/Context/DataContext'
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
 const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditListBank, setShowForm }) => {
@@ -20,7 +21,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
   const { l } = useAuth()
   const t = l.Currency
 
-  console.log({ dataTypeChange })
+  // console.log(dataTypeChange)
 
   useEffect(() => {
     if (dataTypeChange?.oPais.length > 0) {
@@ -96,7 +97,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
         <Formik
           initialValues={formValues}
-          // validate={(values) => validateFormAddListBank(values, initialVal)}
+          validate={(values) => validateFormCurrency(values, formValues)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
               handleEditListBank(values)
@@ -118,11 +119,13 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   <div className='box-filter'>
 
                     <FormControl sx={{ m: 2, minWidth: 120 }}>
-                      <InputLabel id='country'>{t.Country}</InputLabel>
+                      <InputLabel id='country' name='country'>{t.Country}</InputLabel>
+
                       <Select
                         labelId='country'
+                        name='country' // Make sure this matches the Field name
                         value={selectedCountry}
-                        onChange={handleCountryChange}
+                        onChange={(values) => { handleCountryChange(values); setFieldValue('country', values.target.value) }}
                       >
 
                         {dataTypeChange?.oPais.map((country) => (
@@ -138,7 +141,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                       <Select
                         labelId='fuente'
                         value={selectedPortal}
-                        onChange={handlePortalChange}
+                        onChange={(values) => { handlePortalChange(values); setFieldValue('fuente', values.target.value) }}
                       >
 
                         {dataTypeChange?.oFuente.map((option) => (
@@ -147,6 +150,8 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                           </MenuItem>)
                         )}
                       </Select>
+
+                      <FormHelperText>error: </FormHelperText>
                     </FormControl>
 
                     <FormControl sx={{ m: 2, minWidth: 120 }}>
@@ -154,7 +159,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                       <Select
                         labelId='coinOrigin'
                         value={selectedCoinOrigin}
-                        onChange={handleCoinOriginChange}
+                        onChange={(values) => { handleCoinOriginChange(values); setFieldValue('coinOrigin', values.target.value) }}
                       >
 
                         {dataTypeChange?.oMoneda.map((option) => (
@@ -169,7 +174,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                       <Select
                         labelId='coinDestiny'
                         value={selectedCoinDestiny}
-                        onChange={handleCoinDestinyChange}
+                        onChange={(values) => { handleCoinDestinyChange(values); setFieldValue('coinDestiny', values.target.value) }}
                       >
                         <MenuItem value=''>
                           <em>{t['All Companys']}</em>
@@ -200,7 +205,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                     <Select
                       labelId='days'
                       value={selectedDays}
-                      onChange={handleDaysChange}
+                      onChange={(values) => { handleDaysChange(values); setFieldValue('days', values.target.value) }}
                     >
 
                       {daysOptionslabel.map((option) => (

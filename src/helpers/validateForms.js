@@ -173,3 +173,37 @@ export const validateFormAddAccount = (values, initialVal, showcomponent) => {
 
   return errors
 }
+
+export const validateFormCurrency = (values, formValues) => {
+  const localeSpanish = window.location.href
+  const localeES = localeSpanish.includes('/es/')
+  const l = localeES ? es : en
+  const t = l.validation
+
+  const errors = {}
+
+  console.log('values', values)
+  console.log('formValues', formValues)
+
+  // if (!values.Account && showcomponent.bAccount) {
+  //   errors.Account = t['Account is required']
+  // }
+
+  // if (!values.Company && showcomponent.bCompany) {
+  //   errors.Company = t['Company is required']
+  // }
+
+  // if (!values.Ruc && showcomponent.bRuc) {
+  //   errors.Ruc = t['Ruc is required']
+  // }
+
+  // if (!values.Coin && showcomponent.bCoin) {
+  //   errors.Coin = t['Coin is required']
+  // }
+
+  // if (!values.TypeFile && showcomponent.bType && !initialVal) {
+  //   errors.TypeFile = t['Type of file is required']
+  // }
+
+  return errors
+}

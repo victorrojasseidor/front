@@ -437,7 +437,7 @@ export default function ConfigDowland () {
                   {bankCredential?.nombre}
                 </span>
 
-                                </div>
+              </div>
             }
 
               {showAccounts
@@ -455,7 +455,7 @@ export default function ConfigDowland () {
                     </button>
 
                   </div>
-                  </>
+                </>
 
                 : <>
 
@@ -519,13 +519,13 @@ export default function ConfigDowland () {
                                 </tr>
                               ))}
                             </tbody>
-                          </table>
+                            </table>
                           : <div>
                             <p> {t['Register your bank Credentials']}
 
                             </p>
 
-                          </div>}
+                            </div>}
 
                       </div>
                       {isLoadingComponent && <LoadingComponent />}
@@ -595,10 +595,10 @@ export default function ConfigDowland () {
                         </div>
 
                         )}
-                                                            </div>
+                  </div>
                 }
 
-                  </>}
+                </>}
 
             </div>}
 
@@ -663,7 +663,7 @@ export default function ConfigDowland () {
                   >
                   <ImageSvg name='Automation' />
                   {t['Run automation']}
-                  </button>
+                </button>
                 : ''}
               <div className='box-buttons'>
                 <button
