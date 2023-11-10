@@ -8,15 +8,20 @@ import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
 import FormHelperText from '@mui/material/FormHelperText'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
 
 const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditListBank, setShowForm }) => {
   const [selectedCountry, setSelectedCountry] = useState(null)
   const [selectedPortal, setSelectedPortal] = useState('')
   const [selectedCoinOrigin, setSelectedCoinOrigin] = useState('')
   const [selectedCoinDestiny, setSelectedCoinDestiny] = useState('')
-  const [selectedDays, setSelectedDays] = useState('0')
+  const [selectedDays, setSelectedDays] = useState('1')
+  const [valueState, setValueState] = useState('Active')
+
   const [registerDuplicate, setRegisterDuplicate] = useState(false)
 
   const { l } = useAuth()
@@ -46,10 +51,8 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
     if (isIncluded) {
       setRegisterDuplicate(true)
-      console.log('registroduplicado')
     } else {
       setRegisterDuplicate(false)
-      console.log('noooo duplicado')
     }
   }, [formValues])
 
@@ -81,6 +84,10 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
   const handleDaysChange = (event) => {
     const selectValue = event.target.value
     setSelectedDays(selectValue)
+  }
+
+  const handleStateChange = (event) => {
+    setValueState(event.target.value)
   }
 
   const daysOptionslabel = [
@@ -136,7 +143,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
                   <div className='box-filter'>
 
-                    <FormControl sx={{ m: 2, minWidth: 120 }}>
+                    <FormControl sx={{ m: 1, minWidth: 150 }}>
                       <InputLabel id='country' name='country'>{t.Country}</InputLabel>
 
                       <Select
@@ -155,7 +162,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                       <FormHelperText> {selectedCountry ? '' : t.Select} </FormHelperText>
                     </FormControl>
 
-                    <FormControl sx={{ m: 2, minWidth: 120 }}>
+                    <FormControl sx={{ m: 1, minWidth: 180 }}>
                       <InputLabel id='fuente'>{t['Portal Available']}</InputLabel>
                       <Select
                         labelId='fuente'
@@ -174,7 +181,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
                     </FormControl>
 
-                    <FormControl sx={{ m: 2, minWidth: 120 }}>
+                    <FormControl sx={{ m: 1, minWidth: 180 }}>
                       <InputLabel id='coinOrigin'>{t['Source Currency']}</InputLabel>
                       <Select
                         labelId='coinOrigin'
@@ -194,7 +201,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                       }
 
                     </FormControl>
-                    <FormControl sx={{ m: 2, minWidth: 120 }}>
+                    <FormControl sx={{ m: 1, minWidth: 180 }}>
                       <InputLabel id='coinDestiny'>{t['Target currency']}</InputLabel>
                       <Select
                         labelId='coinDestiny'
@@ -223,14 +230,14 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 2. {t.Days} </h5>
+                  <h5 className='sub'> 2.{t['Additional days']} </h5>
                   <p className='description'>{t['Register your credentials']} Additional days to .... </p>
                 </div>
 
                 <div className='box-filter'>
 
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel id='days'>{t['Additional days']}</InputLabel>
+                  <FormControl sx={{ m: 1, minWidth: 100 }}>
+                    <InputLabel id='days'> {t.Days}</InputLabel>
                     <Select
                       labelId='days'
                       value={selectedDays}
@@ -253,19 +260,37 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   <h5 className='sub'> 3. {t.State} </h5>
                   <p className='description'>{t['Enable or disable exchange rate']}</p>
                 </div>
-                <div className='state-box'>
-                  <label>{t.State}: </label>
-                  <div className='content'>
-                    <label>
-                      <Field type='radio' name='state' value='Active' />
-                      {t.Active}
-                    </label>
-                    <label>
-                      <Field type='radio' name='state' value='Disabled' />
-                      {t.Disabled}
-                    </label>
-                  </div>
+
+                <div className='content'>
+
+                  <FormControl sx={{ m: 1 }}>
+
+                    <RadioGroup
+                      row
+                      aria-labelledby='demo-form-control-label-placement'
+                      name='state'
+                      value={valueState}
+                      onChange={(values) => { handleStateChange(values); setFieldValue('state', values.target.value) }}
+                    >
+
+                      <FormControlLabel
+                        value='Active'
+                        control={<Radio />}
+                        label={t.Active}
+                      />
+
+                      <FormControlLabel
+                        value='Disabled'
+                        control={<Radio />}
+                        label={t.Disabled}
+                      />
+
+                    </RadioGroup>
+
+                  </FormControl>
+
                 </div>
+
               </div>
 
               {registerDuplicate && <div className='error '>
@@ -274,7 +299,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   {t['Exchange rate record already exists']}
                 </p>
 
-                                    </div>}
+              </div>}
 
               <div className='submit-box'>
 
@@ -297,7 +322,6 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
             </Form>
           )}
 
-          {/* <ErrorMessage className='errorMessage' name='fuente' component='span' /> */}
         </Formik>
       </div>
     </ModalForm>

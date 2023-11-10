@@ -6,8 +6,6 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
 import Modal from '@/Components/Modal'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
-import Link from 'next/link'
-import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { getProducts } from '@/helpers/auth'
 import { formatDate } from '@/helpers/report'
 import FormCurrency from './FormCurrency'
@@ -64,8 +62,6 @@ export default function ConfigCurrency () {
     }
   };
 
-  console.log({ dataTypeChange })
-
   async function handleAgregar (values) {
     setIsLoadingComponent(true)
 
@@ -84,14 +80,14 @@ export default function ConfigCurrency () {
             iIdFuente: values.fuente,
             iDiasAdicional: values.days,
             iIdTiempoTipoCambio: 1,
-            sEstado: 'X'
+            bEstado: values.state === 'Active'
           }
         ]
       }
 
     }
 
-    console.log(body)
+    console.log({ body })
 
     try {
       const token = session.sToken
@@ -227,9 +223,6 @@ export default function ConfigCurrency () {
     }
   }
 
-
-
-  
   return (
     <div className='Currency_configurations'>
 
@@ -457,7 +450,7 @@ export default function ConfigCurrency () {
                         </div>
 
                         )}
-                  </div>
+                                                               </div>
 }
 
             </div>}
@@ -611,7 +604,7 @@ export default function ConfigCurrency () {
                      </div>
 
                      )}
-               </div>
+                                                            </div>
 }
 
             </div>}
