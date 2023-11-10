@@ -174,7 +174,7 @@ export const validateFormAddAccount = (values, initialVal, showcomponent) => {
   return errors
 }
 
-export const validateFormCurrency = (values, formValues) => {
+export const validateFormCurrency = (values) => {
   const localeSpanish = window.location.href
   const localeES = localeSpanish.includes('/es/')
   const l = localeES ? es : en
@@ -183,27 +183,25 @@ export const validateFormCurrency = (values, formValues) => {
   const errors = {}
 
   console.log('values', values)
-  console.log('formValues', formValues)
+  console.log({ errors })
 
-  // if (!values.Account && showcomponent.bAccount) {
-  //   errors.Account = t['Account is required']
-  // }
+  if (!values.country) {
+    errors.country = 'no hay pais'
+  }
+  if (!values.fuente) {
+    errors.fuente = 'seleccione fuente'
+  }
+  if (!values.coinOrigin) {
+    errors.coinOrigin = 'seleccione moneda de ring'
+  }
+  if (!values.coinDestiny) {
+    errors.coinDestiny = 'seleccione moneda de destino'
+  }
 
-  // if (!values.Company && showcomponent.bCompany) {
-  //   errors.Company = t['Company is required']
-  // }
-
-  // if (!values.Ruc && showcomponent.bRuc) {
-  //   errors.Ruc = t['Ruc is required']
-  // }
-
-  // if (!values.Coin && showcomponent.bCoin) {
-  //   errors.Coin = t['Coin is required']
-  // }
-
-  // if (!values.TypeFile && showcomponent.bType && !initialVal) {
-  //   errors.TypeFile = t['Type of file is required']
-  // }
+  if (values.coinDestiny === values.coinOrigin) {
+    errors.coinDestiny = 'las monedas no pueden ser iguales'
+    errors.coinOrigin = 'seleccione una moneda diferente'
+  }
 
   return errors
 }

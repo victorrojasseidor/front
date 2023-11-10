@@ -275,7 +275,11 @@
     "Set your Monthly exchange rate": "Configura tu tasa de cambio mensual",
     "Was successfully configured!": "¡Se configuró correctamente!",
     "Please tell us which email addresses we should send our digital employee traceability reports to": "Por favor, indícanos a qué direcciones de correo electrónico debemos enviar nuestros informes de trazabilidad del empleado digital",
-    "Traceability information will be sent to the following emails": "La información de trazabilidad se enviará a los siguientes correos"
+    "Traceability information will be sent to the following emails": "La información de trazabilidad se enviará a los siguientes correos",
+    "Exchange rate record already exists":"Este registro de tipo de cambio ya existe",
+
+    "Select":"Seleccione",
+    "Select different currencies":"Selecciona monedas distintas"
   },
   "Pattern": {
     "Digital employees": "Empleados digitales",

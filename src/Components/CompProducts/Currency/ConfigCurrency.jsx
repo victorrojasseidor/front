@@ -227,6 +227,9 @@ export default function ConfigCurrency () {
     }
   }
 
+
+
+  
   return (
     <div className='Currency_configurations'>
 

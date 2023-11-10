@@ -17,27 +17,41 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
   const [selectedCoinOrigin, setSelectedCoinOrigin] = useState('')
   const [selectedCoinDestiny, setSelectedCoinDestiny] = useState('')
   const [selectedDays, setSelectedDays] = useState('0')
+  const [registerDuplicate, setRegisterDuplicate] = useState(false)
 
   const { l } = useAuth()
   const t = l.Currency
-
-  // console.log(dataTypeChange)
-
-  useEffect(() => {
-    if (dataTypeChange?.oPais.length > 0) {
-      setSelectedCountry(dataTypeChange.oPais[0])
-    }
-  }, [])
 
   const formValues = {
     country: parseInt(selectedCountry), // Usamos los valores iniciales si están disponibles
     fuente: parseInt(selectedPortal),
     coinOrigin: parseInt(selectedCoinOrigin),
     coinDestiny: parseInt(selectedCoinDestiny),
-    days: parseInt(selectedDays),
-    state: initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
+    days: parseInt(selectedDays)
+    // state: initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
 
   }
+
+  useEffect(() => {
+    const typeRe = dataTypeChange.oDailyExchange.map(regis => ({
+      country: regis.id_pais,
+      fuente: regis.id_fuente,
+      coinOrigin: regis.id_moneda_origen,
+      coinDestiny: regis.id_moneda_destino,
+      days: regis.dias_adicional
+
+    }))
+
+    const isIncluded = typeRe.some(arr => JSON.stringify(arr) === JSON.stringify(formValues))
+
+    if (isIncluded) {
+      setRegisterDuplicate(true)
+      console.log('registroduplicado')
+    } else {
+      setRegisterDuplicate(false)
+      console.log('noooo duplicado')
+    }
+  }, [formValues])
 
   const handleCountryChange = (event) => {
     const selectValue = event.target.value
@@ -57,7 +71,6 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
   const handleCoinOriginChange = (event) => {
     const selectCountryValue = event.target.value
     setSelectedCoinOrigin(selectCountryValue)
-    setSelectedCoinDestiny('')
   }
 
   const handleCoinDestinyChange = (event) => {
@@ -89,6 +102,11 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
       close={() => {
         // setIinitialEdit(null)
         setShowForm(false)
+        setSelectedCountry(null)
+        setSelectedPortal(null)
+        setSelectedCoinOrigin(null)
+        setSelectedCoinDestiny(null)
+        setSelectedDays('0')
       }}
     >
       <div className='conten-form-Curency'>
@@ -97,17 +115,17 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
         <Formik
           initialValues={formValues}
-          validate={(values) => validateFormCurrency(values, formValues)}
+          validate={(values) => validateFormCurrency(values)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
               handleEditListBank(values)
             } else {
-              onAgregar(formValues)
+              onAgregar(values)
             }
             resetForm()
           }}
         >
-          {({ values, isValid, setFieldValue }) => (
+          {({ values, isValid, setFieldValue, status }) => (
             <Form className='form-Curency'>
               <div className='content'>
                 <div className='subtitle'>
@@ -134,6 +152,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                           </MenuItem>)
                         )}
                       </Select>
+                      <FormHelperText> {selectedCountry ? '' : t.Select} </FormHelperText>
                     </FormControl>
 
                     <FormControl sx={{ m: 2, minWidth: 120 }}>
@@ -151,7 +170,8 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                         )}
                       </Select>
 
-                      <FormHelperText>error: </FormHelperText>
+                      <FormHelperText> {selectedPortal ? '' : t.Select} </FormHelperText>
+
                     </FormControl>
 
                     <FormControl sx={{ m: 2, minWidth: 120 }}>
@@ -168,6 +188,11 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                           </MenuItem>)
                         )}
                       </Select>
+                      <FormHelperText> {selectedCoinOrigin ? '' : t.Select} </FormHelperText>
+                      {
+                      selectedCoinOrigin && selectedCoinDestiny && selectedCoinDestiny === selectedCoinOrigin ? <FormHelperText className='errorMessage'> {t['Select different currencies']} </FormHelperText> : ''
+                      }
+
                     </FormControl>
                     <FormControl sx={{ m: 2, minWidth: 120 }}>
                       <InputLabel id='coinDestiny'>{t['Target currency']}</InputLabel>
@@ -176,15 +201,19 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                         value={selectedCoinDestiny}
                         onChange={(values) => { handleCoinDestinyChange(values); setFieldValue('coinDestiny', values.target.value) }}
                       >
-                        <MenuItem value=''>
-                          <em>{t['All Companys']}</em>
-                        </MenuItem>
+
                         {dataTypeChange?.oMoneda.map((option) => (
                           <MenuItem key={option.id_moneda} value={option.id_moneda}>
                             {option.codigo_moneda} -{option.descripcion_moneda}
                           </MenuItem>)
                         )}
                       </Select>
+                      <FormHelperText> {selectedCoinDestiny ? '' : t.Select} </FormHelperText>
+
+                      {
+                      selectedCoinOrigin && selectedCoinDestiny && selectedCoinDestiny === selectedCoinOrigin ? <FormHelperText className='errorMessage'> {t['Select different currencies']} </FormHelperText> : ''
+                      }
+
                     </FormControl>
 
                   </div>
@@ -238,7 +267,17 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   </div>
                 </div>
               </div>
+
+              {registerDuplicate && <div className='error '>
+
+                <p className='errorMessage'>
+                  {t['Exchange rate record already exists']}
+                </p>
+
+                                    </div>}
+
               <div className='submit-box'>
+
                 <button
                   type='submit'
                   className='btn_secundary small'
@@ -250,12 +289,15 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   {t.Close}
                 </button>
 
-                <button type='submit' className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>
+                <button type='submit' className={`btn_primary small ${!isValid || registerDuplicate ? 'disabled' : ''}`} disabled={!isValid || registerDuplicate}>
                   {initialVal ? 'Update' : 'Add'}
                 </button>
               </div>
+
             </Form>
           )}
+
+          {/* <ErrorMessage className='errorMessage' name='fuente' component='span' /> */}
         </Formik>
       </div>
     </ModalForm>
