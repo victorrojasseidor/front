@@ -279,7 +279,8 @@
     "Exchange rate record already exists":"Este registro de tipo de cambio ya existe",
 
     "Select":"Seleccione",
-    "Select different currencies":"Selecciona monedas distintas"
+    "Select different currencies":"Selecciona monedas distintas",
+    "Edit exchange rate": "Editar tipo de cambio"
   },
   "Pattern": {
     "Digital employees": "Empleados digitales",

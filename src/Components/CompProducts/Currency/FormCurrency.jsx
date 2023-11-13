@@ -14,13 +14,13 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 
-const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditListBank, setShowForm }) => {
-  const [selectedCountry, setSelectedCountry] = useState(null)
-  const [selectedPortal, setSelectedPortal] = useState('')
-  const [selectedCoinOrigin, setSelectedCoinOrigin] = useState('')
-  const [selectedCoinDestiny, setSelectedCoinDestiny] = useState('')
-  const [selectedDays, setSelectedDays] = useState('1')
-  const [valueState, setValueState] = useState('Active')
+const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm }) => {
+  const [selectedCountry, setSelectedCountry] = useState(initialVal?.id_pais || '')
+  const [selectedPortal, setSelectedPortal] = useState(initialVal?.id_fuente || '')
+  const [selectedCoinOrigin, setSelectedCoinOrigin] = useState(initialVal?.id_moneda_origen || '')
+  const [selectedCoinDestiny, setSelectedCoinDestiny] = useState(initialVal?.id_moneda_destino || '')
+  const [selectedDays, setSelectedDays] = useState(initialVal?.dias_adicional || '1')
+  const [valueState, setValueState] = useState(initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active')
 
   const [registerDuplicate, setRegisterDuplicate] = useState(false)
 
@@ -36,6 +36,8 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
     // state: initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
 
   }
+
+  console.log('initialVal', initialVal)
 
   useEffect(() => {
     const typeRe = dataTypeChange.oDailyExchange.map(regis => ({
@@ -107,25 +109,25 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
   return (
     <ModalForm
       close={() => {
-        // setIinitialEdit(null)
+        setIinitialEdit(null)
         setShowForm(false)
-        setSelectedCountry(null)
-        setSelectedPortal(null)
-        setSelectedCoinOrigin(null)
-        setSelectedCoinDestiny(null)
-        setSelectedDays('0')
+        setSelectedCountry('')
+        setSelectedPortal('')
+        setSelectedCoinOrigin('')
+        setSelectedCoinDestiny('')
+        setSelectedDays('1')
       }}
     >
       <div className='conten-form-Curency'>
 
-        <h2 className='box'>{initialVal ? t.Edit : t['Set your daily exchange rate']}</h2>
+        <h2 className='box'>{initialVal ? t['Edit exchange rate'] : t['Set your daily exchange rate']}</h2>
 
         <Formik
           initialValues={formValues}
           validate={(values) => validateFormCurrency(values)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
-              handleEditListBank(values)
+              handleEditCurrency(values)
             } else {
               onAgregar(values)
             }
@@ -293,7 +295,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
               </div>
 
-              {registerDuplicate && <div className='error '>
+              {registerDuplicate && !initialVal && <div className='error '>
 
                 <p className='errorMessage'>
                   {t['Exchange rate record already exists']}
@@ -307,14 +309,19 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   type='submit'
                   className='btn_secundary small'
                   onClick={() => {
-                    // setIinitialEdit(null)
                     setShowForm(false)
+                    setIinitialEdit(null)
+                    setSelectedCountry('')
+                    setSelectedPortal('')
+                    setSelectedCoinOrigin('')
+                    setSelectedCoinDestiny('')
+                    setSelectedDays('1')
                   }}
                 >
                   {t.Close}
                 </button>
 
-                <button type='submit' className={`btn_primary small ${!isValid || registerDuplicate ? 'disabled' : ''}`} disabled={!isValid || registerDuplicate}>
+                <button type='submit' className={`btn_primary small ${!isValid || registerDuplicate && !initialVal ? 'disabled' : ''}`} disabled={!isValid || registerDuplicate && !initialVal}>
                   {initialVal ? 'Update' : 'Add'}
                 </button>
               </div>

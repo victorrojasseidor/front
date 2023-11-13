@@ -223,6 +223,64 @@ export default function ConfigCurrency () {
     }
   }
 
+  const handleEdit = (dataEdit) => {
+    setShowForm(true)
+    setIinitialEdit(dataEdit)
+    setIsEditing(true)
+  }
+
+  async function handleEditCurrency (values) {
+    setIsLoadingComponent(true)
+
+    const body = {
+
+      oResults: {
+        oTipoCambio: [
+          {
+            iIdRegistro: initialEdit?.id_moneda_fuente_tipo_cambio,
+            iIdTipCamb: parseInt(iIdProdEnv),
+            iIdPais: values.country,
+            iIdMonedaOrigen: values.coinOrigin,
+            iIdMonedaDestino: values.coinDestiny,
+            iIdFuente: values.fuente,
+            iDiasAdicional: values.days,
+            iIdTiempoTipoCambio: 1,
+            sEstado: values.state === 'Active'
+          }
+        ]
+      }
+
+    }
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarTipoCambio', body, token)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setModalToken(false)
+        setShowForm(false)
+        setIsEditing(false)
+        setTimeout(() => {
+          setIinitialEdit(null)
+          setRequestError(null)
+          setShowForm(false)
+        }, 2000)
+      } else {
+        await handleCommonCodes(responseData)
+        setShowForm(true)
+        setIsEditing(true)
+      }
+    } catch (error) {
+      console.error('error', error)
+      // setModalToken(true)
+      setShowForm(true)
+      setIsEditing(true)
+      setRequestError(null)
+    } finally {
+      setIsLoadingComponent(false)
+      setIinitialEdit(null)
+    }
+  }
+
   return (
     <div className='Currency_configurations'>
 
@@ -310,7 +368,12 @@ export default function ConfigCurrency () {
                   <p> {t['Add the setting for Daily exchange rate']} </p>
                 </div>
 
-                <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
+                <button
+                  className='btn_black'
+                  style={{ display: initialEdit !== null ? 'none' : 'block' }}
+
+                  onClick={toggleForm}
+                >
                   {showForm ? t.Close : t.Add}
                 </button>
               </div>
@@ -382,7 +445,8 @@ export default function ConfigCurrency () {
 
                     <FormCurrency
                       onAgregar={handleAgregar} dataTypeChange={dataTypeChange} initialVal={isEditing ? initialEdit : null}
-                    // setIinitialEdit={setIinitialEdit}
+                      setIinitialEdit={setIinitialEdit}
+                      handleEditCurrency={handleEditCurrency}
                       setShowForm={setShowForm}
                     />}
                 </div>
@@ -450,7 +514,7 @@ export default function ConfigCurrency () {
                         </div>
 
                         )}
-                                                               </div>
+                  </div>
 }
 
             </div>}
@@ -604,7 +668,7 @@ export default function ConfigCurrency () {
                      </div>
 
                      )}
-                                                            </div>
+               </div>
 }
 
             </div>}

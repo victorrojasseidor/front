@@ -78,8 +78,6 @@ const LayoutProducts = ({ children, menu }) => {
     }
   }, [menu])
 
-  console.log(session)
-
   return (
     <section className='layoutProducts'>
       <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ visibility: isMobile ? (isOpenMobile ? 'visible' : 'hidden') : 'visible' }}>
@@ -186,7 +184,7 @@ const LayoutProducts = ({ children, menu }) => {
 
               <Link href='/support'>
                 <ImageSvg name='Support' /> <h5> {t.Support}
-                                            </h5>
+                </h5>
               </Link>
             </li>
 
