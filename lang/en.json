@@ -304,7 +304,11 @@
     "Was successfully configured!": "was successfully configured!",
     "Please tell us which email addresses we should send our digital employee traceability reports to": "Please tell us which email addresses we should send our digital employee traceability reports to",
     "Traceability information will be sent to the following emails":"Traceability information will be sent to the following emails",
-    "Edit exchange rate": "Edit exchange rate"
+    "Edit exchange rate": "Edit exchange rate",
+    "Add exchange rate":"Add exchange rate",
+    "Register the daily exchange rates":"Register the daily exchange rates",
+    "click on Add":"click on Add",
+    "optional": "optional"
   },
 
   "Support": {

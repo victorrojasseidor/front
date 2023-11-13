@@ -96,6 +96,30 @@
       }
     }
   }
+
+  &_configurations{
+
+    .contentForm{
+      width: 70vw;
+    height: 85vh;
+
+    .closeform {
+      button{
+        top: 81px;
+
+      }
+    }
+    }
+   
+    .box-search{
+ 
+      span{
+        color: get-color(grey2_s4);
+      }
+    }
+  }
+
+ 
 }
 
 
@@ -128,4 +152,6 @@
   .group{
     padding: 1rem 0rem;
   }
+
+
 }

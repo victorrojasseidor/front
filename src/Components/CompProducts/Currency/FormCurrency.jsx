@@ -14,7 +14,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 
-const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm }) => {
+const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm, typeOfChange }) => {
   const [selectedCountry, setSelectedCountry] = useState(initialVal?.id_pais || '')
   const [selectedPortal, setSelectedPortal] = useState(initialVal?.id_fuente || '')
   const [selectedCoinOrigin, setSelectedCoinOrigin] = useState(initialVal?.id_moneda_origen || '')
@@ -37,10 +37,8 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
   }
 
-  console.log('initialVal', initialVal)
-
   useEffect(() => {
-    const typeRe = dataTypeChange.oDailyExchange.map(regis => ({
+    const typeRe = dataTypeChange[typeOfChange == 1 ? 'oDailyExchange' : 'oMonthExchange'].map(regis => ({
       country: regis.id_pais,
       fuente: regis.id_fuente,
       coinOrigin: regis.id_moneda_origen,
@@ -55,6 +53,30 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
       setRegisterDuplicate(true)
     } else {
       setRegisterDuplicate(false)
+    }
+
+    if (initialVal) {
+      console.log({ initialVal })
+      const dataInitial = {
+        country: initialVal.id_pais,
+        fuente: initialVal.id_fuente,
+        coinOrigin: initialVal.id_moneda_origen,
+        coinDestiny: initialVal.id_moneda_destino,
+        days: initialVal.dias_adicional
+      }
+
+      const dataInitialString = JSON.stringify(dataInitial)
+      const formValuesString = JSON.stringify(formValues)
+      // Comparar cadenas JSON
+      const sonIguales = dataInitialString === formValuesString
+
+      console.log({ sonIguales })
+
+      if (isIncluded && !sonIguales) {
+        setRegisterDuplicate(true)
+      } else {
+        setRegisterDuplicate(false)
+      }
     }
   }, [formValues])
 
@@ -120,7 +142,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
     >
       <div className='conten-form-Curency'>
 
-        <h2 className='box'>{initialVal ? t['Edit exchange rate'] : t['Set your daily exchange rate']}</h2>
+        <h2 className='box'>{initialVal ? t['Edit exchange rate'] : t['Add exchange rate']}</h2>
 
         <Formik
           initialValues={formValues}
@@ -129,7 +151,14 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
             if (initialVal) {
               handleEditCurrency(values)
             } else {
-              onAgregar(values)
+              onAgregar({
+                country: parseInt(selectedCountry), // Usamos los valores iniciales si están disponibles
+                fuente: parseInt(selectedPortal),
+                coinOrigin: parseInt(selectedCoinOrigin),
+                coinDestiny: parseInt(selectedCoinDestiny),
+                days: parseInt(selectedDays),
+                state: valueState
+              })
             }
             resetForm()
           }}
@@ -295,7 +324,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
               </div>
 
-              {registerDuplicate && !initialVal && <div className='error '>
+              {registerDuplicate && <div className='error '>
 
                 <p className='errorMessage'>
                   {t['Exchange rate record already exists']}
@@ -321,7 +350,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   {t.Close}
                 </button>
 
-                <button type='submit' className={`btn_primary small ${!isValid || registerDuplicate && !initialVal ? 'disabled' : ''}`} disabled={!isValid || registerDuplicate && !initialVal}>
+                <button type='submit' className={`btn_primary small ${!isValid || registerDuplicate ? 'disabled' : ''}`} disabled={!isValid || registerDuplicate}>
                   {initialVal ? 'Update' : 'Add'}
                 </button>
               </div>

@@ -280,7 +280,12 @@
 
     "Select":"Seleccione",
     "Select different currencies":"Selecciona monedas distintas",
-    "Edit exchange rate": "Editar tipo de cambio"
+    "Edit exchange rate": "Editar tipo de cambio",
+    "Add exchange rate":"Agregar tipo de cambio",
+    "Register the daily exchange rates":"Registra los tipos de cambio diario",
+    "click on Add":"click en agregar",
+    "optional": "opcional"
+
   },
   "Pattern": {
     "Digital employees": "Empleados digitales",
