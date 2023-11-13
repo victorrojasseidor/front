@@ -284,7 +284,8 @@
     "Add exchange rate":"Agregar tipo de cambio",
     "Register the daily exchange rates":"Registra los tipos de cambio diario",
     "click on Add":"click en agregar",
-    "optional": "opcional"
+    "optional": "opcional",
+    "Day explication": "Días adicionales ajusta la fecha del tipo de cambio SBS según necesidad. Por ejemplo, si la fecha original es el 12/11/2023 y se añade 1 día, el resultado será el 13/11/2023, facilitando la obtención de información actualizada."
 
   },
   "Pattern": {

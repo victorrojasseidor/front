@@ -262,7 +262,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
               <div className='content'>
                 <div className='subtitle'>
                   <h5 className='sub'> 2.{t['Additional days']} </h5>
-                  <p className='description'>{t['Register your credentials']} Additional days to .... </p>
+                  <p className='description'>{t['Day explication']} </p>
                 </div>
 
                 <div className='box-filter'>
