@@ -5,7 +5,7 @@
 
   &_primary {
     margin-top: 1rem;
-    border-radius: brd(1);
+    border-radius: brd(2);
     border-style: none;
     width: auto;
     background-color: get-color(blue_p1);
@@ -13,6 +13,7 @@
     padding: 0.8rem 1.25rem;
     max-width: 500px;
     display: flex;
+    font-weight: 600;
     align-items: center;
     gap:0.5rem;
     justify-content: center;
@@ -51,23 +52,28 @@
   &_secundary {
     margin-top: 1rem;
     border-style: none;
-    border-radius: brd(1);
+    border-radius: brd(2);
     background-color: get-color(white_s1);
-    
-    color: get-color(black_p2);
+    color: get-color(blue_p1);
      padding: 0.8rem 1.25rem;
     width: auto;
-    border: 1px solid get-color(grey1_s3);
+    border: 2px solid get-color(lilac_p3);
+    font-weight: 600;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
     box-shadow: 0 2px 25px get-color(bg-cles);
-  
+    svg{
+      path,polyline{
+        stroke:get-color(blue_p1);
+        color:get-color(blue_p1)
+      }
+    }
    
 
     &:hover {
-      background-color: get-color(t1-blue);
+      background-color: get-color(blue_p1);
       color: get-color(white_s1);
       font-size: 1rem;
   
@@ -97,20 +103,25 @@
   }
   &_crud {
     border-style: none;
-    background-color: transparent;
-    padding: 0.25em;
+    padding: 0.8em;
     display: flex;
+    align-items: center;
     justify-content: center;
-     color:get-color(grey2_s4);
+     color:get-color(blue_p1);
      transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-     
+     border-radius: brd(f);
+    background-color: transparent;
+     height: auto;
+    //  background: rgba(get-color(blue_p1), 0.1);
 
+     
+  
       &:hover, &:focus{
-        img{
-          filter: brightness(0);
-          width: 1.4rem;
-          height: auto;
-         
+
+        svg, img{
+          // filter: brightness(0);
+          width: 0.9rem;
+          height: auto;         
         }
         
       
@@ -217,6 +228,7 @@
       }
   }
 
+  
 
   &_green{
     background-color:get-color(t5-green);
@@ -245,6 +257,11 @@
      }
  
 }
+
+.delete{
+  
+  // background: rgba(get-color(t3-red), 0.1);
+ }
 
 
 //modificador para botones pequeños

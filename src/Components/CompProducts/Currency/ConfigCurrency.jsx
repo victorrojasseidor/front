@@ -6,8 +6,6 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
 import Modal from '@/Components/Modal'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
-import Link from 'next/link'
-import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { getProducts } from '@/helpers/auth'
 import { formatDate } from '@/helpers/report'
 import FormCurrency from './FormCurrency'
@@ -20,23 +18,20 @@ export default function ConfigCurrency () {
   const [showForm, setShowForm] = useState(false)
   const [requestError, setRequestError] = useState('')
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null)
-  const [modalConfirmationShedule, setModalConfirmationShedule] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingComponent, setIsLoadingComponent] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
   const [completeEmails, setcompleteEmails] = useState(false)
-  const [completeConfigDayly, setCompleteConfigDayly] = useState(true)
-  const [completeConfigMontly, setCompleteConfigMontly] = useState(true)
-
-  const [showAccounts, setShowAccounts] = useState(false)
-  // const [bankCredential, setBankCredential] = useState(null)
-  // const [modalConfirmationEmail, setModalConfirmationEmail] = useState(false)
-  // Estado para almacenar si el checkbox está marcado o no
-
+  const [completeConfigDayly, setCompleteConfigDayly] = useState(false)
+  const [completeConfigMontly, setCompleteConfigMontly] = useState(false)
+  const [typeOfChange, setTypeofChange] = useState(0)
   const [updateEmails, setUpdateEmails] = useState(false)
 
   const handleTabClick = (index) => {
     setActiveTab(index)
+  }
+  const toggleForm = () => {
+    setShowForm(!showForm)
   }
 
   const router = useRouter()
@@ -64,7 +59,7 @@ export default function ConfigCurrency () {
     }
   };
 
-  console.log({ session })
+  console.log({ dataTypeChange })
 
   async function handleAgregar (values) {
     setIsLoadingComponent(true)
@@ -83,15 +78,15 @@ export default function ConfigCurrency () {
             iIdMonedaDestino: values.coinDestiny,
             iIdFuente: values.fuente,
             iDiasAdicional: values.days,
-            iIdTiempoTipoCambio: 1,
-            sEstado: 'X'
+            iIdTiempoTipoCambio: typeOfChange,
+            bEstado: values.state === 'Active'
           }
         ]
       }
 
     }
 
-    console.log(body)
+    console.log({ body })
 
     try {
       const token = session.sToken
@@ -123,11 +118,11 @@ export default function ConfigCurrency () {
     if (session) {
       getTipCambio()
     }
-  }, [updateEmails, showForm])
+  }, [updateEmails, showForm, selectedRowToDelete])
 
-  const toggleForm = () => {
-    setShowForm(!showForm)
-  }
+  // const toggleForm = () => {
+  //   setShowForm(true)
+  // }
 
   useEffect(() => {
     getDataProduct()
@@ -171,17 +166,23 @@ export default function ConfigCurrency () {
         setModalToken(false)
         const dataRes = responseData.oResults
         setDataTypeChange(dataRes)
+        // Verificar si al menos un objeto tiene datos
+        console.log(dataRes.oDailyExchange.length, dataRes.oMonthExchange.length)
+
         if (dataRes.oCorreo.length > 0) {
           setcompleteEmails(true)
         }
-        // Verificar si al menos un objeto tiene datos en oListCuentas
-        // const atLeastOneAccount = haveAccounts(responseData.oResults)
+        if (dataRes.oDailyExchange.length > 0) {
+          setCompleteConfigDayly(true)
+        } else {
+          setCompleteConfigDayly(false)
+        }
 
-        // if (atLeastOneAccount) {
-        //   setCompleteconfigBank(true)
-        // } else {
-        //   setCompleteconfigBank(false)
-        // }
+        if (dataRes.oMonthExchange.length > 0) {
+          setCompleteConfigMontly(true)
+        } else {
+          setCompleteConfigMontly(false)
+        }
       } else {
         await handleCommonCodes(responseData)
       }
@@ -192,8 +193,102 @@ export default function ConfigCurrency () {
     }
   }
 
+  const handleDeleteConfirmation = async () => {
+    if (selectedRowToDelete) {
+      await handleDeleteTypeChange(selectedRowToDelete.id_moneda_fuente_tipo_cambio)
+      setSelectedRowToDelete(null)
+    }
+  }
+
+  const handleDeleteTypeChange = async (idbankcred) => {
+    setIsLoadingComponent(true)
+    const token = session.sToken
+    const body = {
+      oResults: {
+        oIdRegistro: [
+          idbankcred
+        ]
+
+      }
+    }
+    try {
+      const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarTipoCambio', body, token)
+      console.error('res', response)
+      if (response.oAuditResponse?.iCode === 1) {
+        setModalToken(false)
+        setTimeout(() => {
+        }, 1000)
+      } else {
+        await handleCommonCodes(response)
+      }
+    } catch (error) {
+      console.error('Error en la solicitud de eliminación', error)
+    } finally {
+      setIsLoadingComponent(false)
+    }
+  }
+
+  const handleEdit = (dataEdit) => {
+    setShowForm(true)
+    setIinitialEdit(dataEdit)
+    setIsEditing(true)
+  }
+
+  async function handleEditCurrency (values) {
+    setIsLoadingComponent(true)
+
+    const body = {
+
+      oResults: {
+        oTipoCambio: [
+          {
+            iIdRegistro: initialEdit?.id_moneda_fuente_tipo_cambio,
+            iIdTipCamb: parseInt(iIdProdEnv),
+            iIdPais: values.country,
+            iIdMonedaOrigen: values.coinOrigin,
+            iIdMonedaDestino: values.coinDestiny,
+            iIdFuente: values.fuente,
+            iDiasAdicional: values.days,
+            iIdTiempoTipoCambio: typeOfChange,
+            sEstado: values.state === 'Active'
+          }
+        ]
+      }
+
+    }
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarTipoCambio', body, token)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setModalToken(false)
+        setShowForm(false)
+        setIsEditing(false)
+        setTimeout(() => {
+          setIinitialEdit(null)
+          setRequestError(null)
+          setShowForm(false)
+        }, 2000)
+      } else {
+        await handleCommonCodes(responseData)
+        setShowForm(true)
+        setIsEditing(true)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setShowForm(true)
+      setIsEditing(true)
+      setRequestError(null)
+    } finally {
+      setIsLoadingComponent(false)
+      setIinitialEdit(null)
+    }
+  }
+
+  console.log({ completeConfigDayly }, { completeConfigMontly })
+
   return (
-    <div className='Currency_configurations'>
+    <div className='currency_configurations'>
 
       <div className='Tabsumenu'>
         <div className='Tabsumenu-header '>
@@ -207,9 +302,10 @@ export default function ConfigCurrency () {
             <h4>  {t['Daily exchange rate']}  </h4>
           </button>
 
-          <button style={{ visibility: completeConfigMontly ? 'visible' : 'hidden' }} className={` ${activeTab === 2 ? 'activeST' : ''} ${completeConfigMontly ? 'completeST' : ''}`} onClick={() => handleTabClick(2)}>
+          <button style={{ visibility: completeEmails ? 'visible' : 'hidden' }} className={` ${activeTab === 2 ? 'activeST' : ''} ${completeConfigMontly ? 'completeST' : ''}`} onClick={() => handleTabClick(2)}>
             <ImageSvg name='Check' />
-            <h4> {t['Monthly exchange rate']}</h4>
+            <h4> {t['Monthly exchange rate']}
+            </h4>
           </button>
         </div>
 
@@ -279,7 +375,11 @@ export default function ConfigCurrency () {
                   <p> {t['Add the setting for Daily exchange rate']} </p>
                 </div>
 
-                <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
+                <button
+                  className='btn_black'
+                  style={{ display: initialEdit !== null ? 'none' : 'block' }}
+                  onClick={() => { toggleForm(); setTypeofChange(1) }}
+                >
                   {showForm ? t.Close : t.Add}
                 </button>
               </div>
@@ -321,11 +421,11 @@ export default function ConfigCurrency () {
                             </td>
 
                             <td className='box-actions'>
-                              <button className='btn_crud' onClick={() => handleEdit(row)}>
+                              <button className='btn_crud' onClick={() => { handleEdit(row); setTypeofChange(1) }}>
                                 <ImageSvg name='Edit' />{' '}
                               </button>
                               <button
-                                className='btn_crud' onClick={() => {
+                                className='btn_crud delete' onClick={() => {
                                   setSelectedRowToDelete(row)
                                 }}
                               >
@@ -347,80 +447,48 @@ export default function ConfigCurrency () {
 
                   </div>
                   {isLoadingComponent && <LoadingComponent />}
-                  {showForm &&
 
-                    <FormCurrency
-                      onAgregar={handleAgregar} dataTypeChange={dataTypeChange} initialVal={isEditing ? initialEdit : null}
-                    // setIinitialEdit={setIinitialEdit}
-                      setShowForm={setShowForm}
-                    />}
                 </div>
 
-                {selectedRowToDelete && (
-                  <Modal close={() => {
-                    setSelectedRowToDelete(null)
-                  }}
-                  >
-                    <ImageSvg name='Question' />
-
-                    <div>
-                      <h3>{t['Do you want to delete this credential bank ?']}</h3>
-                      <div className='box-buttons'>
-                        <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
-                          {t.YES}
-                        </button>
-                        <button
-                          type='button'
-                          className='btn_secundary small'
-                          onClick={() => setSelectedRowToDelete(null)}
-                        >
-                          {t.NOT}
-                        </button>
-                      </div>
-                    </div>
-                  </Modal>
-                )}
                 {requestError && <div className='errorMessage'>{requestError}</div>}
 
               </div>
 
-              {
-                  dataTypeChange?.oMonthExchange.length > 0 && <div>
-                    {completeConfigDayly
-                      ? (
-                        <div className='box-buttons'>
-                          <button
-                            type='button'
-                            className='btn_secundary small'
-                            onClick={() => handleTabClick(0)}
-                          >
-                            <ImageSvg name='Back' />
+              <div>
+                {completeConfigDayly
+                  ? (
+                    <div className='box-buttons'>
+                      <button
+                        type='button'
+                        className='btn_secundary small'
+                        onClick={() => handleTabClick(0)}
+                      >
+                        <ImageSvg name='Back' />
 
-                            {t.Previus}
-                          </button>
-                          <button
-                            className={`btn_secundary small  ${completeConfigDayly ? ' ' : 'disabled'}`}
-                            onClick={() => handleTabClick(2)}
-                            disabled={!completeConfigDayly}
-                          >
-                            {t.Next}
-                            <ImageSvg name='Next' />
-                          </button>
-                        </div>
+                        {t.Previus}
+                      </button>
+                      <button
+                        className={`btn_secundary small  ${completeConfigDayly ? ' ' : 'disabled'}`}
+                        onClick={() => handleTabClick(2)}
+                        disabled={!completeConfigDayly}
+                      >
+                        {t.Next}
+                        <ImageSvg name='Next' />
+                      </button>
+                    </div>
 
-                        )
-                      : (
+                    )
+                  : (
 
-                        <div className='noti'>
-                          <p> {t['Register at least one bank account to proceed to the next step in the setup process']}
+                    <div className='noti'>
+                      <p> {t['Register the daily exchange rates']}
 
-                          </p>
-                          <p> <span> {t['Please click on Add Accounts']} </span> </p>
-                        </div>
+                      </p>
+                      <p> <span> {t['click on Add']} </span> </p>
+                    </div>
 
-                        )}
-                                                               </div>
-}
+                    )}
+              </div>
 
             </div>}
 
@@ -429,13 +497,19 @@ export default function ConfigCurrency () {
 
               <div className='box-search'>
                 <div>
-                  <h3>{t['Monthly exchange rate']} </h3>
+                  <h3>{t['Monthly exchange rate']}  <span>( {t.optional} )  </span>
+                  </h3>
                   <p> {t['This exchange rate is used for the monthly accounting closing']} </p>
                 </div>
 
-                <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
+                <button
+                  className='btn_black'
+                  // style={{ display: initialEdit !== null ? 'none' : 'block' }}
+                  onClick={() => { toggleForm(); setTypeofChange(2) }}
+                >
                   {showForm ? t.Close : t.Add}
                 </button>
+
               </div>
 
               <div className='contaniner-tables'>
@@ -475,11 +549,11 @@ export default function ConfigCurrency () {
                             </td>
 
                             <td className='box-actions'>
-                              <button className='btn_crud' onClick={() => handleEdit(row)}>
+                              <button className='btn_crud' onClick={() => { handleEdit(row); setTypeofChange(2) }}>
                                 <ImageSvg name='Edit' />{' '}
                               </button>
                               <button
-                                className='btn_crud' onClick={() => {
+                                className='btn_crud ' onClick={() => {
                                   setSelectedRowToDelete(row)
                                 }}
                               >
@@ -501,39 +575,9 @@ export default function ConfigCurrency () {
 
                   </div>
                   {isLoadingComponent && <LoadingComponent />}
-                  {showForm && <FormCurrency
-                    onAgregar={handleAgregar} dataTypeChange={dataTypeChange} initialVal={isEditing ? initialEdit : null}
 
-                 // setIinitialEdit={setIinitialEdit}
-
-                    setShowForm={setShowForm}
-                               />}
                 </div>
 
-                {selectedRowToDelete && (
-                  <Modal close={() => {
-                    setSelectedRowToDelete(null)
-                  }}
-                  >
-                    <ImageSvg name='Question' />
-
-                    <div>
-                      <h3>{t['Do you want to delete this credential bank ?']}</h3>
-                      <div className='box-buttons'>
-                        <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
-                          {t.YES}
-                        </button>
-                        <button
-                          type='button'
-                          className='btn_secundary small'
-                          onClick={() => setSelectedRowToDelete(null)}
-                        >
-                          {t.NOT}
-                        </button>
-                      </div>
-                    </div>
-                  </Modal>
-                )}
                 {requestError && <div className='errorMessage'>{requestError}</div>}
 
               </div>
@@ -573,11 +617,47 @@ export default function ConfigCurrency () {
                      </div>
 
                      )}
-                                                            </div>
+               </div>
 }
 
             </div>}
+
         </div>
+
+        {showForm &&
+
+          <FormCurrency
+            onAgregar={handleAgregar} dataTypeChange={dataTypeChange} initialVal={isEditing ? initialEdit : null}
+            setIinitialEdit={setIinitialEdit}
+            handleEditCurrency={handleEditCurrency}
+            setShowForm={setShowForm}
+            typeOfChange={typeOfChange}
+          />}
+
+        {selectedRowToDelete && (
+          <Modal close={() => {
+            setSelectedRowToDelete(null)
+          }}
+          >
+            <ImageSvg name='Question' />
+
+            <div>
+              <h3>{t['Do you want to delete this record']}</h3>
+              <div className='box-buttons'>
+                <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
+                  {t.Yeah}
+                </button>
+                <button
+                  type='button'
+                  className='btn_secundary small'
+                  onClick={() => setSelectedRowToDelete(null)}
+                >
+                  {t.No}
+                </button>
+              </div>
+            </div>
+          </Modal>
+        )}
       </div>
 
     </div>

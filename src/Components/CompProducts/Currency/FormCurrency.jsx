@@ -1,42 +1,84 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 
-import { validateFormAddListBank } from '@/helpers/validateForms'
+import { validateFormCurrency } from '@/helpers/validateForms'
 import ModalForm from '@/Components/Atoms/ModalForm'
 import { useAuth } from '@/Context/DataContext'
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormHelperText from '@mui/material/FormHelperText'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
 
-const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditListBank, setShowForm }) => {
-  const [selectedCountry, setSelectedCountry] = useState(null)
-  const [selectedPortal, setSelectedPortal] = useState('')
-  const [selectedCoinOrigin, setSelectedCoinOrigin] = useState('')
-  const [selectedCoinDestiny, setSelectedCoinDestiny] = useState('')
-  const [selectedDays, setSelectedDays] = useState('0')
+const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm, typeOfChange }) => {
+  const [selectedCountry, setSelectedCountry] = useState(initialVal?.id_pais || '')
+  const [selectedPortal, setSelectedPortal] = useState(initialVal?.id_fuente || '')
+  const [selectedCoinOrigin, setSelectedCoinOrigin] = useState(initialVal?.id_moneda_origen || '')
+  const [selectedCoinDestiny, setSelectedCoinDestiny] = useState(initialVal?.id_moneda_destino || '')
+  const [selectedDays, setSelectedDays] = useState(initialVal?.dias_adicional || '1')
+  const [valueState, setValueState] = useState(initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active')
+
+  const [registerDuplicate, setRegisterDuplicate] = useState(false)
 
   const { l } = useAuth()
   const t = l.Currency
-
-  console.log({ dataTypeChange })
-
-  useEffect(() => {
-    if (dataTypeChange?.oPais.length > 0) {
-      setSelectedCountry(dataTypeChange.oPais[0])
-    }
-  }, [])
 
   const formValues = {
     country: parseInt(selectedCountry), // Usamos los valores iniciales si están disponibles
     fuente: parseInt(selectedPortal),
     coinOrigin: parseInt(selectedCoinOrigin),
     coinDestiny: parseInt(selectedCoinDestiny),
-    days: parseInt(selectedDays),
-    state: initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
+    days: parseInt(selectedDays)
+    // state: initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
 
   }
+
+  useEffect(() => {
+    const typeRe = dataTypeChange[typeOfChange == 1 ? 'oDailyExchange' : 'oMonthExchange'].map(regis => ({
+      country: regis.id_pais,
+      fuente: regis.id_fuente,
+      coinOrigin: regis.id_moneda_origen,
+      coinDestiny: regis.id_moneda_destino,
+      days: regis.dias_adicional
+
+    }))
+
+    const isIncluded = typeRe.some(arr => JSON.stringify(arr) === JSON.stringify(formValues))
+
+    if (isIncluded) {
+      setRegisterDuplicate(true)
+    } else {
+      setRegisterDuplicate(false)
+    }
+
+    if (initialVal) {
+      console.log({ initialVal })
+      const dataInitial = {
+        country: initialVal.id_pais,
+        fuente: initialVal.id_fuente,
+        coinOrigin: initialVal.id_moneda_origen,
+        coinDestiny: initialVal.id_moneda_destino,
+        days: initialVal.dias_adicional
+      }
+
+      const dataInitialString = JSON.stringify(dataInitial)
+      const formValuesString = JSON.stringify(formValues)
+      // Comparar cadenas JSON
+      const sonIguales = dataInitialString === formValuesString
+
+      console.log({ sonIguales })
+
+      if (isIncluded && !sonIguales) {
+        setRegisterDuplicate(true)
+      } else {
+        setRegisterDuplicate(false)
+      }
+    }
+  }, [formValues])
 
   const handleCountryChange = (event) => {
     const selectValue = event.target.value
@@ -56,7 +98,6 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
   const handleCoinOriginChange = (event) => {
     const selectCountryValue = event.target.value
     setSelectedCoinOrigin(selectCountryValue)
-    setSelectedCoinDestiny('')
   }
 
   const handleCoinDestinyChange = (event) => {
@@ -67,6 +108,10 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
   const handleDaysChange = (event) => {
     const selectValue = event.target.value
     setSelectedDays(selectValue)
+  }
+
+  const handleStateChange = (event) => {
+    setValueState(event.target.value)
   }
 
   const daysOptionslabel = [
@@ -86,27 +131,39 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
   return (
     <ModalForm
       close={() => {
-        // setIinitialEdit(null)
+        setIinitialEdit(null)
         setShowForm(false)
+        setSelectedCountry('')
+        setSelectedPortal('')
+        setSelectedCoinOrigin('')
+        setSelectedCoinDestiny('')
+        setSelectedDays('1')
       }}
     >
       <div className='conten-form-Curency'>
 
-        <h2 className='box'>{initialVal ? t.Edit : t['Set your daily exchange rate']}</h2>
+        <h2 className='box'>{initialVal ? t['Edit exchange rate'] : t['Add exchange rate']}</h2>
 
         <Formik
           initialValues={formValues}
-          // validate={(values) => validateFormAddListBank(values, initialVal)}
+          validate={(values) => validateFormCurrency(values)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
-              handleEditListBank(values)
+              handleEditCurrency(values)
             } else {
-              onAgregar(formValues)
+              onAgregar({
+                country: parseInt(selectedCountry), // Usamos los valores iniciales si están disponibles
+                fuente: parseInt(selectedPortal),
+                coinOrigin: parseInt(selectedCoinOrigin),
+                coinDestiny: parseInt(selectedCoinDestiny),
+                days: parseInt(selectedDays),
+                state: valueState
+              })
             }
             resetForm()
           }}
         >
-          {({ values, isValid, setFieldValue }) => (
+          {({ values, isValid, setFieldValue, status }) => (
             <Form className='form-Curency'>
               <div className='content'>
                 <div className='subtitle'>
@@ -117,12 +174,14 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
                   <div className='box-filter'>
 
-                    <FormControl sx={{ m: 2, minWidth: 120 }}>
-                      <InputLabel id='country'>{t.Country}</InputLabel>
+                    <FormControl sx={{ m: 1, minWidth: 150 }}>
+                      <InputLabel id='country' name='country'>{t.Country}</InputLabel>
+
                       <Select
                         labelId='country'
+                        name='country' // Make sure this matches the Field name
                         value={selectedCountry}
-                        onChange={handleCountryChange}
+                        onChange={(values) => { handleCountryChange(values); setFieldValue('country', values.target.value) }}
                       >
 
                         {dataTypeChange?.oPais.map((country) => (
@@ -131,14 +190,15 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                           </MenuItem>)
                         )}
                       </Select>
+                      <FormHelperText> {selectedCountry ? '' : t.Select} </FormHelperText>
                     </FormControl>
 
-                    <FormControl sx={{ m: 2, minWidth: 120 }}>
+                    <FormControl sx={{ m: 1, minWidth: 180 }}>
                       <InputLabel id='fuente'>{t['Portal Available']}</InputLabel>
                       <Select
                         labelId='fuente'
                         value={selectedPortal}
-                        onChange={handlePortalChange}
+                        onChange={(values) => { handlePortalChange(values); setFieldValue('fuente', values.target.value) }}
                       >
 
                         {dataTypeChange?.oFuente.map((option) => (
@@ -147,14 +207,17 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                           </MenuItem>)
                         )}
                       </Select>
+
+                      <FormHelperText> {selectedPortal ? '' : t.Select} </FormHelperText>
+
                     </FormControl>
 
-                    <FormControl sx={{ m: 2, minWidth: 120 }}>
+                    <FormControl sx={{ m: 1, minWidth: 180 }}>
                       <InputLabel id='coinOrigin'>{t['Source Currency']}</InputLabel>
                       <Select
                         labelId='coinOrigin'
                         value={selectedCoinOrigin}
-                        onChange={handleCoinOriginChange}
+                        onChange={(values) => { handleCoinOriginChange(values); setFieldValue('coinOrigin', values.target.value) }}
                       >
 
                         {dataTypeChange?.oMoneda.map((option) => (
@@ -163,23 +226,32 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                           </MenuItem>)
                         )}
                       </Select>
+                      <FormHelperText> {selectedCoinOrigin ? '' : t.Select} </FormHelperText>
+                      {
+                      selectedCoinOrigin && selectedCoinDestiny && selectedCoinDestiny === selectedCoinOrigin ? <FormHelperText className='errorMessage'> {t['Select different currencies']} </FormHelperText> : ''
+                      }
+
                     </FormControl>
-                    <FormControl sx={{ m: 2, minWidth: 120 }}>
+                    <FormControl sx={{ m: 1, minWidth: 180 }}>
                       <InputLabel id='coinDestiny'>{t['Target currency']}</InputLabel>
                       <Select
                         labelId='coinDestiny'
                         value={selectedCoinDestiny}
-                        onChange={handleCoinDestinyChange}
+                        onChange={(values) => { handleCoinDestinyChange(values); setFieldValue('coinDestiny', values.target.value) }}
                       >
-                        <MenuItem value=''>
-                          <em>{t['All Companys']}</em>
-                        </MenuItem>
+
                         {dataTypeChange?.oMoneda.map((option) => (
                           <MenuItem key={option.id_moneda} value={option.id_moneda}>
                             {option.codigo_moneda} -{option.descripcion_moneda}
                           </MenuItem>)
                         )}
                       </Select>
+                      <FormHelperText> {selectedCoinDestiny ? '' : t.Select} </FormHelperText>
+
+                      {
+                      selectedCoinOrigin && selectedCoinDestiny && selectedCoinDestiny === selectedCoinOrigin ? <FormHelperText className='errorMessage'> {t['Select different currencies']} </FormHelperText> : ''
+                      }
+
                     </FormControl>
 
                   </div>
@@ -189,18 +261,18 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 2. {t.Days} </h5>
-                  <p className='description'>{t['Register your credentials']} Additional days to .... </p>
+                  <h5 className='sub'> 2.{t['Additional days']} </h5>
+                  <p className='description'>{t['Day explication']} </p>
                 </div>
 
                 <div className='box-filter'>
 
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel id='days'>{t['Additional days']}</InputLabel>
+                  <FormControl sx={{ m: 1, minWidth: 100 }}>
+                    <InputLabel id='days'> {t.Days}</InputLabel>
                     <Select
                       labelId='days'
                       value={selectedDays}
-                      onChange={handleDaysChange}
+                      onChange={(values) => { handleDaysChange(values); setFieldValue('days', values.target.value) }}
                     >
 
                       {daysOptionslabel.map((option) => (
@@ -219,38 +291,73 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   <h5 className='sub'> 3. {t.State} </h5>
                   <p className='description'>{t['Enable or disable exchange rate']}</p>
                 </div>
-                <div className='state-box'>
-                  <label>{t.State}: </label>
-                  <div className='content'>
-                    <label>
-                      <Field type='radio' name='state' value='Active' />
-                      {t.Active}
-                    </label>
-                    <label>
-                      <Field type='radio' name='state' value='Disabled' />
-                      {t.Disabled}
-                    </label>
-                  </div>
+
+                <div className='content'>
+
+                  <FormControl sx={{ m: 1 }}>
+
+                    <RadioGroup
+                      row
+                      aria-labelledby='demo-form-control-label-placement'
+                      name='state'
+                      value={valueState}
+                      onChange={(values) => { handleStateChange(values); setFieldValue('state', values.target.value) }}
+                    >
+
+                      <FormControlLabel
+                        value='Active'
+                        control={<Radio />}
+                        label={t.Active}
+                      />
+
+                      <FormControlLabel
+                        value='Disabled'
+                        control={<Radio />}
+                        label={t.Disabled}
+                      />
+
+                    </RadioGroup>
+
+                  </FormControl>
+
                 </div>
+
               </div>
+
+              {registerDuplicate && <div className='error '>
+
+                <p className='errorMessage'>
+                  {t['Exchange rate record already exists']}
+                </p>
+
+                                    </div>}
+
               <div className='submit-box'>
+
                 <button
                   type='submit'
                   className='btn_secundary small'
                   onClick={() => {
-                    // setIinitialEdit(null)
                     setShowForm(false)
+                    setIinitialEdit(null)
+                    setSelectedCountry('')
+                    setSelectedPortal('')
+                    setSelectedCoinOrigin('')
+                    setSelectedCoinDestiny('')
+                    setSelectedDays('1')
                   }}
                 >
                   {t.Close}
                 </button>
 
-                <button type='submit' className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>
+                <button type='submit' className={`btn_primary small ${!isValid || registerDuplicate ? 'disabled' : ''}`} disabled={!isValid || registerDuplicate}>
                   {initialVal ? 'Update' : 'Add'}
                 </button>
               </div>
+
             </Form>
           )}
+
         </Formik>
       </div>
     </ModalForm>

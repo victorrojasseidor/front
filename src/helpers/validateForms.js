@@ -173,3 +173,35 @@ export const validateFormAddAccount = (values, initialVal, showcomponent) => {
 
   return errors
 }
+
+export const validateFormCurrency = (values) => {
+  const localeSpanish = window.location.href
+  const localeES = localeSpanish.includes('/es/')
+  const l = localeES ? es : en
+  const t = l.validation
+
+  const errors = {}
+
+  console.log('values', values)
+  console.log({ errors })
+
+  if (!values.country) {
+    errors.country = 'no hay pais'
+  }
+  if (!values.fuente) {
+    errors.fuente = 'seleccione fuente'
+  }
+  if (!values.coinOrigin) {
+    errors.coinOrigin = 'seleccione moneda de ring'
+  }
+  if (!values.coinDestiny) {
+    errors.coinDestiny = 'seleccione moneda de destino'
+  }
+
+  if (values.coinDestiny === values.coinOrigin) {
+    errors.coinDestiny = 'las monedas no pueden ser iguales'
+    errors.coinOrigin = 'seleccione una moneda diferente'
+  }
+
+  return errors
+}

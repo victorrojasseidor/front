@@ -1,22 +1,22 @@
 $colors: (
-  blue_p1: #3c2cd1,
-  black_p2: #242331,
-  lilac_p3: #9a90ff,
-  white_s1: #ffffff,
-  bone_s2: #f9f9f9,
-  grey1_s3: rgba(121, 121, 121, 0.5),
-  grey2_s4: #797979,
-  pink_s5: #EFECFF,
-  forms_s6: #e5e5ea,
-  bg-cles:#F6F9FF,
+  blue_p1: #4318FF,
+black_p2: #242331,
+lilac_p3: #9a90ff,
+white_s1: #ffffff,
+bone_s2: #f9f9f9,
+grey1_s3: #EFF4FB,
+grey2_s4: #7D86A2,
+pink_s5: #EFECFF,
+forms_s6: #e5e5ea,
+bg-cles:#F6F9FF,
 
-  //dashwoard
-  t1-blue: #0d0088,
-  t2-ligthBlue: #66b6ff,
-  t3-red: #d84a4a,
-  t4-orange: #ffbe61,
-  t5-green: #adff81,
-  t6-green2:#5DB92C,
+//dashwoard
+t1-blue: #2B3674,
+t2-ligthBlue: #007AFF,
+t3-red: #E31A1A,
+t4-orange: #FFCE20,
+t5-green: #05CD99,
+t6-green2:#5DB92C,
 );
 
 @function get-color($color-name) {

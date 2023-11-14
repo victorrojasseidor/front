@@ -224,31 +224,32 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
       <section className='config-Automated'>
         <div className='config-Automated--tables accounts-tables '>
 
-          <div className='container-status' style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+          <div className='container-status'>
 
             <div className='status-config'>
+              <h3 className='title-Config'> {t.State} </h3>
               <ul>
                 <li>
-                  <p>{t.Name}: </p>
-                  <p> <h5> {data?.nombre}</h5> </p>
+                  <p>{t.Name} </p>
+                  <p>:</p>
+                  <p className='name-blue'> <h5> {data?.nombre}</h5> </p>
 
                 </li>
 
                 <li>
-                  <p>{t.State}: </p>
+                  <p>{t.State} </p>
+                  <p>:</p>
                   <p className='Active'>{data?.estado_c == 23 ? 'Active' : 'Disabled'}</p>
                 </li>
-              </ul>
-            </div>
-            <div className='box-emails'>
-              <ul>
-                <li>
-                  <p>{t.Bank} : </p>
-                  <p>{data?.nombre_banco}</p>
-                </li>
 
                 <li>
-                  <p>{t.Credentials} :</p>
+                  <p>{t.Bank}  </p>
+                  <p>: </p>
+                  <p>{data?.nombre_banco}</p>
+                </li>
+                <li>
+                  <p>{t.Credentials} </p>
+                  <p>:</p>
                   <p>
                     <span>
                       {data?.usuario}
@@ -267,12 +268,9 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
                   </p>
 
                 </li>
-
               </ul>
-              {/* <h5> Principal Credencial</h5> */}
-              <div className='card--emails' />
-
             </div>
+
           </div>
 
           <div className='box-search'>
@@ -346,11 +344,11 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
             requestError
 
             }
-              </div>}
+                               </div>}
 
               {isLoadingComponent && <LoadingComponent />}
 
-            </div>
+                                             </div>
           }
 
           {selectedRowToDelete && (

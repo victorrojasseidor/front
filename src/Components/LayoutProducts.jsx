@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
-import logo from '../../public/img/logoseidor.png'
+// import logo from '../../public/img/logoseidor.png'
+import logo from '../../public/img/logoGift.gif'
+import ari from '../../public/img/ari.gif'
 import carita from '../../public/img/carita.png'
 import Image from 'next/image'
 import perfil from '../../public/img/perfil.jpg'
@@ -43,7 +45,7 @@ const LayoutProducts = ({ children, menu }) => {
       setMargen('0rem')
     } else {
       if (isMenuLateralOpen) {
-        setMargen('12.5rem')
+        setMargen('13rem')
       } else {
         setMargen('6rem')
       }
@@ -59,11 +61,6 @@ const LayoutProducts = ({ children, menu }) => {
 
   const handleLogout = () => {
     logout()
-  }
-
-  const handleClick = () => {
-    // Redirige al usuario a la URL deseada
-    window.location.href = 'https://seidor.mensajea.chat/'
   }
 
   const router = useRouter()
@@ -83,26 +80,38 @@ const LayoutProducts = ({ children, menu }) => {
 
   return (
     <section className='layoutProducts'>
-      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ top: isMobile ? '65px' : '0px', marginLeft: isMobile ? '0,5rem' : '0rem', borderRadius: isMobile ? '0 10px 10px 0' : '0px', display: isMobile ? (isOpenMobile ? 'block' : 'none') : 'block' }}>
+      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ visibility: isMobile ? (isOpenMobile ? 'visible' : 'hidden') : 'visible' }}>
         <div className='menu_Account'>
           <div className='imgPerfil'>
-            <Image src={perfil} width={isMenuLateralOpen ? 100 : 80} alt='Robot' />
-            <button onClick={toggleMenu}>
+            <div className='imgPerfil_logo'>
+              {isMenuLateralOpen
+                ? <Image src={logo} width={500} alt='logo' priority />
+                : <Image src={ari} width={80} alt='logo' priority />}
+            </div>
+
+            <button className='imgPerfil_close' onClick={toggleMenu}>
               <ImageSvg name={isMenuLateralOpen ? 'CloseMenu' : 'OpenMenu'} />
             </button>
           </div>
 
-          <h5>
-            <div className='box-correo'>
-              <p className='company'>{session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
-              <p>{session?.sCorreo}</p>
+          <div className='box-name'>
+            <div className='box-name_person'>
+
+              <ImageSvg name='Person' />
 
             </div>
-          </h5>
+            <div className='box-name_name'>
+              <p>{session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
+              <span>{session?.sCorreo}</span>
+
+            </div>
+
+          </div>
 
         </div>
 
         <nav className='menu_nav'>
+
           <ul>
             <li className={menu === 'Product' ? 'active' : ''}>
 
@@ -118,7 +127,7 @@ const LayoutProducts = ({ children, menu }) => {
             <li className={menu === 'Reporting' ? 'active' : ''}>
 
               <Link href='/reporting'>
-                <ImageSvg name='Dashboard' />
+                <ImageSvg name='Reporting' />
                 <h5> {t.Reporting}
                 </h5>
 
@@ -157,8 +166,8 @@ const LayoutProducts = ({ children, menu }) => {
             </li>
 
           </ul>
-
-          <div className='liner' />
+          {/*
+          <div className='liner' /> */}
 
           <ul>
 
@@ -181,23 +190,46 @@ const LayoutProducts = ({ children, menu }) => {
 
           </ul>
 
-          <div className='menu_logo'>
-            <Image src={logo} width={isMenuLateralOpen ? 100 : 80} alt='logo' priority />
-          </div>
+        </nav>
 
-          <div className='menu_navIcons' style={{ flexDirection: isMenuLateralOpen ? 'row' : 'column' }}>
+        <nav className='menu_nav ' style={{ paddingTop: '0rem' }}>
 
-            <li>
-              <Cloud imgButton='ChatBot' cloudText='ChatBot' onClick={handleClick} />
+          <ul>
+
+            <li className='lang'>
+
+              <Lang />
             </li>
 
             <li>
-              <Cloud imgButton='SignOut' cloudText={t['Sign Out']} onClick={handleLogout} />
+
+              <button onClick={() => handleLogout()}>
+                <ImageSvg name='SignOut' />
+                <h5>
+                  {t['Sign Out']}
+                </h5>
+              </button>
+
             </li>
 
-          </div>
+          </ul>
 
         </nav>
+
+        <div className='menu_profile '>
+
+          <div className='img_perfil '>
+            <Image src={perfil} width={isMenuLateralOpen ? 100 : 80} alt='Robot' />
+            <span>{session?.sUserName}
+              <br />
+              {session?.sLastName}
+            </span>
+
+          </div>
+
+          <div />
+
+        </div>
 
       </section>
 
@@ -214,10 +246,6 @@ const LayoutProducts = ({ children, menu }) => {
 
             </ul>
           </nav>
-
-          <div className='container-lang-hambuerger'>
-            <Lang />
-          </div>
 
           <div className='titleMenu'>
             <div>

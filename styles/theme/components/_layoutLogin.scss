@@ -1,22 +1,21 @@
-/*desktop
-tablet
-mobile
-border: bd(thin);
-@include fzBody(normal);
-border-radius: brd(1);
-@include fzBody(small);
-  list-style-type: none;
-*/
-
 .layoutLogin {
   display: flex;
   flex-direction: row;
-  margin: 0em 1em;
-  height: 100vh;
+  height: 105vh;
 
   &_image {
+    display: none;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 0;
     @include media(tablet) {
-      width: 50%;
+      width: 40%;
+    }
+    @include media(desktop) {
+      width: 60%;
     }
   }
 
@@ -24,45 +23,70 @@ border-radius: brd(1);
     background-image: url("../../../public/img/register.png");
     background-repeat: no-repeat;
     background-size: cover;
-    // background-size: 130vh;
-    gap: 1em;
+    
   }
   @include media(desktop) {
-    background-size: 140vh;
-    // height: 108vh;
+    background-size: 250vh;
+    width: 100%;
+    height: 115vh;
   }
 
-  section {
-    background-color: transparent;
+  &_form {
     display: flex;
     flex-direction: column;
     width: 100%;
+    justify-content:space-around;
+    align-items: center;
+    margin: 1rem;
+
     @include media(tablet) {
-      padding: 1em;
-      width: 50%;
+      width: 60%;
+    }
+    @include media(desktop) {
+      width: 35%;
+      background-color: transparent;
+      
     }
 
     .navRegister {
-      margin-top: 0.5em;
       display: flex;
       justify-content: space-around;
-      justify-self: unset;
-      align-items: center;
-      // flex-grow: 0.1;
+      flex-direction: column;
+      padding: 0rem 2rem ;
 
-      // img{
-      //   width: 4rem;
-      //   height: 4rem;
-      // }
-      img {
-        height: 70px;
-        width: auto;
+      &_head {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        .container-lang{
+          width: 100%;
+        
+        
+          justify-content: flex-end;
+        }
       }
 
-      ul {
+      &_logo {
+      
         display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        img {
+          height: 100px;
+          width: auto;
+        }
+      }
+
+      
+
+      &_question {
+        display: flex;
+        justify-content: center;
         align-content: flex-end;
-        gap: 0.2em;
+        gap: 0.25em;
+        padding-bottom: 1rem;
 
         li {
           list-style-type: none;
@@ -84,11 +108,19 @@ border-radius: brd(1);
   }
 }
 
+.layout-children {
+  width: 100%;
+  background-color: get-color(white_s1);
+  margin: 1rem 2rem;
+  border-radius: brd(2);
+}
+
 .navLogin {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   width: 100%;
+  padding-bottom: 2rem;
 }
 
 .iforget {
@@ -97,4 +129,59 @@ border-radius: brd(1);
   justify-content: flex-end;
   color: get-color(grey2_s4);
   margin-bottom: 1em;
+}
+
+.container-lang {
+  display: flex;
+  padding-top: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.textAnimation {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: auto;
+  padding: 2rem;
+
+  h1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+
+    padding: 2rem;
+  }
+
+  .text {
+    font-size: 1.5rem;
+    display: flex;
+    text-align: center;
+    color: get-color(bg-cles);
+    font-size: 2rem;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: brd(2);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1rem;
+    backdrop-filter: blur(3px);
+  }
+
+  .typing {
+    display: flex;
+
+    flex-wrap: wrap;
+    align-items: center;
+    overflow: hidden;
+    color: get-color(lilac_p3);
+    white-space: wrap;
+    animation: typingAnimation 1s steps(5, end);
+  }
+
+  @keyframes typingAnimation {
+    from {
+      width: 0;
+    }
+  }
 }

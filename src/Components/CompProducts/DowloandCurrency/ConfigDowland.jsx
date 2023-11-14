@@ -424,7 +424,7 @@ export default function ConfigDowland () {
             <div className='config-Automated--tables'>
 
               {
-              bankCredential && <div className='navegation '>
+              bankCredential && <div className=' title-Config navegation' style={{ justifyContent: 'flex-start' }}>
 
                 <button onClick={() => { setShowAccounts(false); setBankCredential(null) }}>
                   {t['List Bank Credential']}

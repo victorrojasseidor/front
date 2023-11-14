@@ -44,9 +44,9 @@ export const DataContextProvider = ({ children }) => {
       ) {
         router.push('/login')
         setdataProfileStart(null)
+        setSession(null)
         localStorage.removeItem('session')
         localStorage.removeItem('selectedEmpresa')
-        setSession(null)
       }
     } catch (error) {
       console.log('error en logout del servicio', error)

@@ -5,11 +5,12 @@ import { Formik, Field, ErrorMessage, Form } from 'formik'
 import React, { useState } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import Image from 'next/image'
-import logo from '../../../public/img/logoseidor.png'
+import logo from '../../../public/img/logoGift.gif'
 import { validateFormLogin } from '@/helpers/validateForms'
 import { fetchNoTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/Context/DataContext'
+import Lang from '@/Components/Atoms/Lang'
 
 export default function Login () {
   const { setSession, l, setdataProfileStart } = useAuth()
@@ -76,17 +77,20 @@ export default function Login () {
 
   return (
     <LayoutLogin>
-      <nav className='navRegister' style={{ justifyContent: 'center' }}>
-        <Image src={logo} width={120} alt='imgRegister' />
-        <ul>
-          <li className='Question'> </li>
-          <li className='link'>
-            <Link href='/login'> </Link>
-          </li>
-        </ul>
+
+      <nav className='navRegister'>
+        <div className='navRegister_head'>
+          <div className='container-lang'>      <Lang /> </div>
+          <div className='navRegister_logo'>
+
+            <Image src={logo} width={100} alt='imgRegister' />
+
+          </div>
+        </div>
+
       </nav>
 
-      <div className='register' style={{ paddingTop: '2rem' }}>
+      <div className='register'>
         <h1> {t['Log in']}</h1>
         <p>{t['Log in Digital Employees']}  </p>
 
@@ -136,7 +140,7 @@ export default function Login () {
               <li> {t['I forgot my password']}</li>
             </Link>
           </ul> */}
-          <ul>
+          <ul className='navRegister_question'>
             <li className='Question'>{t['Have not an account?']}</li>
             <li className='link'>
               <Link href='/register'>{t['Sign up']}</Link>
@@ -144,6 +148,7 @@ export default function Login () {
           </ul>
         </nav>
       </div>
+
     </LayoutLogin>
   )
 }

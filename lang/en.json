@@ -258,7 +258,13 @@
     "Save and continue":"Save and continue",
     "Save":"Save",
     "Cancel":"Cancel",
-  
+   "Yeah":"Yeah",
+    "No":"No",
+    "Do you want to delete this record":"Do you want to delete this record?",
+    "Exchange rate record already exists":"This exchange rate record already exists",
+    "Select":"Select",
+    "Select different currencies":"Select different currencies",
+ 
     "Added Emails":"Added Emails",
     "Add emails":"Add emails",
     "Emails were added successfully":"Emails were added successfully",
@@ -297,7 +303,13 @@
     "Set your  Monthly exchange rate": "Set your  Monthly exchange rate",
     "Was successfully configured!": "was successfully configured!",
     "Please tell us which email addresses we should send our digital employee traceability reports to": "Please tell us which email addresses we should send our digital employee traceability reports to",
-    "Traceability information will be sent to the following emails":"Traceability information will be sent to the following emails"
+    "Traceability information will be sent to the following emails":"Traceability information will be sent to the following emails",
+    "Edit exchange rate": "Edit exchange rate",
+    "Add exchange rate":"Add exchange rate",
+    "Register the daily exchange rates":"Register the daily exchange rates",
+    "click on Add":"click on Add",
+    "optional": "optional",
+    "Day explication": "Additional days adjusts the SBS exchange rate date as needed. For example, if the original date is 11/12/2023 and 1 day is added, the result will be 11/13/2023, making it easier to obtain updated information."
   },
 
   "Support": {

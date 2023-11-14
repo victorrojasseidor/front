@@ -1,5 +1,5 @@
 .register {
-  padding: 1em 0em 0 0em;
+  padding: 1rem;
   max-width: 500px;
   margin: 0 auto;
   display: flex;
@@ -9,7 +9,8 @@
   gap: 0.5em;
   width: 100%;
   @include media(tablet) {
-    padding: 1em 0em 0 1em;
+    padding: 1rem;
+    
   }
 }
 
@@ -30,6 +31,7 @@
     width: 100%;
   }
 }
+
 
 
 

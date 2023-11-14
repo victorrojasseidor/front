@@ -4,12 +4,13 @@ import LayoutLogin from '@/Components/LayoutLogin'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import logo from '../../../public/img/logoseidor.png'
+import logo from '../../../public/img/logoGift.gif'
 import { validateFormRegister } from '@/helpers/validateForms'
 import ImageSvg from '@/helpers/ImageSVG'
 import { useAuth } from '@/Context/DataContext'
 import { fetchNoTokenPost } from '@/helpers/fetch'
 import Modal from '@/Components/Modal'
+import Lang from '@/Components/Atoms/Lang'
 import Button from '@/Components/Atoms/Buttons'
 
 export default function Register () {
@@ -83,13 +84,15 @@ export default function Register () {
   return (
     <LayoutLogin>
       <nav className='navRegister'>
-        <Image src={logo} width={120} alt='logoRegister' />
-        <ul>
-          <li className='Question'>{t['Have an account?']}</li>
-          <li className='link'>
-            <Link href='/login'> {t['Log in']}</Link>
-          </li>
-        </ul>
+        <div className='navRegister_head'>
+          <div className='container-lang'>      <Lang /> </div>
+          <div className='navRegister_logo'>
+
+            <Image src={logo} width={100} alt='imgRegister' />
+
+          </div>
+        </div>
+
       </nav>
 
       <div className='register'>
@@ -170,8 +173,6 @@ export default function Register () {
           <Modal close={() => setShowM(false)}>
             <ImageSvg name='Check' />
 
-            {/* <p> {t['We´ve sent a verefication link to']} </p> */}
-
             {t['Please enter your email']}
             <h2> {data.oResults.sEmail}</h2>
 
@@ -179,7 +180,17 @@ export default function Register () {
 
           </Modal>
         )}
+
+        <ul className='navRegister_question'>
+          <li className='Question'>{t['Have an account?']}</li>
+          <li className='link'>
+            <Link href='/login'> {t['Log in']}</Link>
+          </li>
+
+        </ul>
+
       </div>
+
     </LayoutLogin>
   )
 }

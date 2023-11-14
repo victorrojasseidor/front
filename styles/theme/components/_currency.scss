@@ -96,6 +96,44 @@
       }
     }
   }
+
+  &_configurations{
+
+    .contentForm{
+      width: 70vw;
+    height: 85vh;
+
+    .closeform {
+      button{
+        top: 81px;
+
+      }
+    }
+    }
+   
+    .box-search{
+ 
+      span{
+        color: get-color(grey2_s4);
+      }
+    }
+  }
+
+ 
+}
+
+
+.error{
+  display: flex;
+ 
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 2rem;
+  padding: 1rem;
+  border-radius: brd(2);
+  background-color: rgba(get-color(t3-red), 0.1); 
+
+  
 }
 
 .conten-form-Curency{
@@ -114,4 +152,6 @@
   .group{
     padding: 1rem 0rem;
   }
+
+
 }
