@@ -84,11 +84,13 @@ export default function Register () {
   return (
     <LayoutLogin>
       <nav className='navRegister'>
-
-        <div className='navRegister_logo'>
-          <Image src={logo} width={100} alt='imgRegister' />
+        <div className='navRegister_head'>
           <div className='container-lang'>      <Lang /> </div>
+          <div className='navRegister_logo'>
 
+            <Image src={logo} width={100} alt='imgRegister' />
+
+          </div>
         </div>
 
       </nav>
@@ -170,8 +172,6 @@ export default function Register () {
         {ShowM && data && (
           <Modal close={() => setShowM(false)}>
             <ImageSvg name='Check' />
-
-            {/* <p> {t['We´ve sent a verefication link to']} </p> */}
 
             {t['Please enter your email']}
             <h2> {data.oResults.sEmail}</h2>

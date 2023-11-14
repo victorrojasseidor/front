@@ -77,19 +77,17 @@ export default function Login () {
 
   return (
     <LayoutLogin>
-      <nav className='navRegister' style={{ justifyContent: 'center' }}>
-        <div className='navRegister_logo'>
-          <Image src={logo} width={120} alt='imgRegister' />
-          <div className='container-lang'>      <Lang /> </div>
 
+      <nav className='navRegister'>
+        <div className='navRegister_head'>
+          <div className='container-lang'>      <Lang /> </div>
+          <div className='navRegister_logo'>
+
+            <Image src={logo} width={100} alt='imgRegister' />
+
+          </div>
         </div>
 
-        {/* <ul className='navRegister_question'>
-          <li className='Question'> </li>
-          <li className='link'>
-            <Link href='/login'> </Link>
-          </li>
-        </ul> */}
       </nav>
 
       <div className='register'>

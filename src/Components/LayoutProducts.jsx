@@ -190,30 +190,7 @@ const LayoutProducts = ({ children, menu }) => {
 
           </ul>
 
-          {/* <div className='menu_navIcons' style={{ flexDirection: isMenuLateralOpen ? 'row' : 'column' }}>
-
-            <li>
-              <Cloud imgButton='ChatBot' cloudText='ChatBot' onClick={handleClick} />
-            </li>
-
-            <li>
-              <Cloud imgButton='SignOut' cloudText={t['Sign Out']} onClick={handleLogout} />
-            </li>
-
-          </div> */}
-
         </nav>
-
-        <div className='menu_profile '>
-
-          <div className='img_perfil'>
-            <Image src={perfil} width={isMenuLateralOpen ? 100 : 80} alt='Robot' />
-            <span>{session?.sUserName}  {session?.sLastName} </span>
-          </div>
-
-          <div />
-
-        </div>
 
         <nav className='menu_nav ' style={{ paddingTop: '0rem' }}>
 
@@ -238,6 +215,21 @@ const LayoutProducts = ({ children, menu }) => {
           </ul>
 
         </nav>
+
+        <div className='menu_profile '>
+
+          <div className='img_perfil '>
+            <Image src={perfil} width={isMenuLateralOpen ? 100 : 80} alt='Robot' />
+            <span>{session?.sUserName}
+              <br />
+              {session?.sLastName}
+            </span>
+
+          </div>
+
+          <div />
+
+        </div>
 
       </section>
 
