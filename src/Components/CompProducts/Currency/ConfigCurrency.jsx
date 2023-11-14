@@ -59,12 +59,8 @@ export default function ConfigCurrency () {
     }
   };
 
-  console.log({ dataTypeChange })
-
   async function handleAgregar (values) {
     setIsLoadingComponent(true)
-
-    console.log('values', values)
 
     const body = {
       oResults: {
@@ -119,10 +115,6 @@ export default function ConfigCurrency () {
       getTipCambio()
     }
   }, [updateEmails, showForm, selectedRowToDelete])
-
-  // const toggleForm = () => {
-  //   setShowForm(true)
-  // }
 
   useEffect(() => {
     getDataProduct()
@@ -250,7 +242,7 @@ export default function ConfigCurrency () {
             iIdFuente: values.fuente,
             iDiasAdicional: values.days,
             iIdTiempoTipoCambio: typeOfChange,
-            sEstado: values.state === 'Active'
+            bEstado: values.state === 'Active'
           }
         ]
       }
@@ -284,8 +276,6 @@ export default function ConfigCurrency () {
       setIinitialEdit(null)
     }
   }
-
-  console.log({ completeConfigDayly }, { completeConfigMontly })
 
   return (
     <div className='currency_configurations'>
@@ -330,12 +320,12 @@ export default function ConfigCurrency () {
 
                     <p>{t['Start service:']}</p>
                     <p>:</p>
-                    <p> {formatDate(dataCardProduct?.sDateEnd)}</p>
+                    <p> {formatDate(dataCardProduct?.sDateInit)}</p>
                   </li>
                   <li>
                     <p>{t['End service:']}</p>
                     <p>:</p>
-                    <p> {formatDate(dataCardProduct?.sDateInit)} </p>
+                    <p> {formatDate(dataCardProduct?.sDateEnd)} </p>
                   </li>
                   <li>
                     <p>{t.Country} </p>
