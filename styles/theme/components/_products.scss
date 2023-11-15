@@ -2,6 +2,76 @@
   // background-color: aqua;
   // margin: 0em 1em 0 0;
 
+  &_home {
+    background-color: get-color(blue_p1);
+    border-radius: brd(2);
+    width: 100%;
+    height: 320px;
+    background-image: src;
+    background-image: url("../../../public/img/home.png");
+    background-repeat: no-repeat;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+  
+
+
+.welcome{
+  width: 100%;
+  display: flex;
+  justify-content:space-around;
+  flex-direction:column;
+  align-items: flex-end;
+  
+  h1{
+    color:get-color(white_s1);
+  }
+  color:get-color(white_s1);
+
+}
+
+.reporting-box{
+  
+ 
+
+border-radius: brd(1);
+display: flex;
+width: 100%;
+justify-content: flex-end;
+align-items: flex-end;
+
+.report-content{
+  width: 80%;
+  display: flex;
+  background-color: get-color(white_s1);
+  border-radius: brd(2);
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .report{
+    display: flex;
+    flex-direction: row;
+    gap:1rem;
+
+    justify-content: center;
+    background-color: #bbeebb;
+    &_icon{
+      background-color: #88f3f1;
+    }
+
+    &_data{
+      background-color: cadetblue;
+    }
+  }
+}
+
+
+}
+
+  }
+
   &_filterSearch {
     display: flex;
     flex-direction: column;
@@ -34,7 +104,7 @@
       flex-direction: row;
       gap: 1rem;
       flex-wrap: wrap;
-   
+
       @include media(desktop) {
         justify-content: space-between;
       }
@@ -120,7 +190,7 @@
   display: flex;
   // background: conic-gradient(from 90deg at 50% 0%, #4500ff, #7a5efd, #bfb9fd);
   background: get-color(white_s1);
-  
+
   flex-direction: column;
   width: 16rem;
   padding: 0.5em;
@@ -136,26 +206,20 @@
   &-status {
     display: flex;
     justify-content: space-between;
-
-    
-
-    
-    
   }
 
   &-title {
     display: flex;
     justify-content: flex-start;
-  
+
     gap: 1em;
-  
-  
+
     .box-img {
       height: 4rem;
       // width: 4rem;
       display: flex;
       justify-content: center;
-      align-items:center;
+      align-items: center;
 
       img[alt="imgProducts"] {
         width: 60px;
@@ -165,18 +229,16 @@
     }
 
     .box-name {
-      
       height: 5rem;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      justify-content:flex-start;
-  
+      justify-content: flex-start;
 
       h4 {
         // color:get-color(white_s1);
-        color:get-color(black_p2);
-    
+        color: get-color(black_p2);
+
         &:focus {
           background-color: get-color(bg-cles);
         }
@@ -185,21 +247,21 @@
 
     .dayLetf {
       display: flex;
-      justify-content:center;
-      align-items:center;
+      justify-content: center;
+      align-items: center;
       font-size: 0.8rem;
-  
+
       // color:get-color(bone_s2);
-      color:get-color(grey1_s3);
-     
+      color: get-color(grey1_s3);
+
       svg {
         color: get-color(grey2_s4);
-       font-size: 1rem;
+        font-size: 1rem;
         display: inline-block;
       }
       span {
         color: get-color(black_p2);
-      //  background-color:get-color(pink_s5);
+        //  background-color:get-color(pink_s5);
 
         justify-content: center;
         border-radius: brd(1);
@@ -211,19 +273,17 @@
   }
 
   .box-buttons {
-   
     height: 3rem;
 
-    a{
+    a {
       // color:get-color(white_s1);
       // background-color: get-color(blue_p1);
       padding: 0.5rem 1rem;
       border-radius: brd(2);
     }
-    
+
     button {
       margin-top: 0rem;
-     
     }
   }
 }
@@ -263,8 +323,8 @@
   color: get-color(grey2_s4);
   padding: 0.25rem 1rem;
   border-radius: brd(2);
-  path{
-    fill:get-color(grey1_s3)
+  path {
+    fill: get-color(grey1_s3);
   }
 }
 
@@ -308,15 +368,20 @@
     padding-bottom: 1rem;
     // border-bottom: 1px solid get-color(forms_s6);
 
-    .buttons {
+    .languajes-box {
       display: none;
       @include media(tablet) {
         width: 15%;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
-        align-items: center;
+        align-items: flex-start;
         gap: 0.5rem;
+      }
+      svg {
+        path {
+          fill: get-color(grey2_s4);
+        }
       }
     }
 
@@ -331,27 +396,28 @@
 .navegation {
   color: get-color(grey2_s4);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 0.25rem;
   align-items: center;
   width: 100%;
-  padding: 0.5rem 0;
-  align-items: center;
+
+  &_title {
+    color: get-color(t1-blue);
+  }
 
   button {
     border-style: none;
     background-color: transparent;
   }
 
-  svg,
-  button {
-    color: get-color(grey2_s4);
-    // font-size: 1rem;
-    &:hover,
-    & :focus {
-      color: get-color(blue_p1);
+  svg {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    path {
+      fill: get-color(grey2_s4);
     }
   }
 
@@ -359,26 +425,37 @@
   p,
   span,
   button {
+    color: get-color(grey2_s4);
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    text-transform: uppercase;
+    // text-transform: uppercase;
+    font-style: normal;
 
-    font-size: 0.8rem;
+    font-size: 0.875rem;
     color: inherit;
+    text-align: center;
+    line-height: 24px;
     cursor: pointer;
+
     &:hover,
     & :focus {
       color: get-color(blue_p1);
     }
+    .box-languajes {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      width: 100%;
+    }
   }
 
-  span:last-child,
-  button:last-child {
-    color: get-color(blue_p1);
-    font-weight: 600;
-  }
+  // span:last-child,
+  // button:last-child {
+  //   color: get-color(blue_p1);
+  //   font-weight: 600;
+  // }
 }
 
 .box-empresa {
@@ -388,12 +465,12 @@
   flex-direction: column;
   align-items: flex-start;
 
-  .css-1yhyf2r-MuiAutocomplete-root{
+  .css-1yhyf2r-MuiAutocomplete-root {
     min-width: 18rem;
     @include media(tablet) {
       min-width: 25rem;
+    }
   }
-}
 }
 
 .sub-title {

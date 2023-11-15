@@ -4,6 +4,7 @@
   flex-direction: row;
   height: 200vh;
   width: 100vw;
+  
 
   background-color: get-color(bg-cles);
   // background-image: src;
@@ -14,61 +15,68 @@
     height: 120vh;
     width: 100%;
     background-size: 120%, auto;
+   
   }
 
   .menu {
     z-index: 6;
     top: 90px;
-    margin-left: 1rem;
+    height: fit-content;
+    
     border-radius: brd(2);
     visibility: visible;
-    height: 72vh;
+    // height: 100vh;
     background-color: get-color(white_s1);
     box-shadow: bsh(2);
     position: fixed;
     padding-top: 1rem;
- 
+    
    
     
 
     @include media(tablet) {
+      height: 100vh;
       z-index: 0;
       top: 0;
-    margin-left: 0;
-    padding-top: 0rem;
+     margin-left: 0;
       max-width: 15rem;
       border-radius: 0;
       box-shadow: none;
       align-items: center;
       height: fit-content;
-      padding-bottom: 1.5rem;
+      // padding-bottom: 1.5rem;
       position: fixed;
       border-style: none;
-      height: 120vh;
-      gap: 1rem;
       background-color: get-color(white_s1);
       backdrop-filter: blur(20px);
       justify-content:space-between;
-      height: 100%;
       flex-direction: column;
       display: flex;
+      overflow-y: auto; /* Agregamos desplazamiento vertical si es necesario */
+      height: 100svh; 
+   
+     
+      
     }
 
     &_Account {
-      
+
+     
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-     
+      gap:2rem;
+      padding: 0rem 1.5rem;
       position: relative;
       border-bottom: 1px solid get-color(grey1_s3);
-      padding-bottom: 1rem;
+      padding-bottom: 0.5rem;
      
-
+     
       p {
         font-size: small;
       }
+
       .box-correo {
         display: flex;
         flex-direction: column;
@@ -81,13 +89,14 @@
         }
       }
 
+     
+
 
       .imgPerfil {
+
        display: none;
        @include media(tablet) {
-
-
-
+        
         display: flex;
         flex-direction: row;
         position: relative;
@@ -97,83 +106,28 @@
         width: 100%;
 
         &_logo {
+     
           img{
             height:  100px;
             width: auto;
-            padding-top: 2rem;
-            margin-bottom:1rem;
+            padding-top: 1rem;
+         
           }
           
         }
 
-        &_close {
-          background-color: get-color(grey1_s3);
-          position: absolute;
-          padding: 0.5em;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 30px;
-          width: 30px;
-          border-radius: brd(f);
-          z-index: 10;
-          border-style: none;
-          right: -4px;
-          svg{
-           
-              stroke:get-color(blue_p1);
-              width: 2rem;
-              
-             
-            
-          }
-        }
-      }
-      }
-
-      .box-name {
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        gap: 0.25rem;
-        padding: 0.5rem;
-       width: 100%;
         
-
-        &_person {
-          background-color: get-color(blue_p1);
-          border-radius: brd(1);
-          padding: 0.5rem;
-
-          flex-shrink: 0;
-          display: flex;
-          justify-content: center;
-        }
-        &_name {
-          p {
-            color: get-color(t2-ligthBlue);
-            font-weight: 500;
-          }
-          span {
-            color: get-color(grey2_s4);
-            font-size: small;
-            font-weight: 300;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            width: 130px; // Ancho máximo en el que deseas truncar el texto
-            display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            -o-text-overflow: ellipsis;
-          }
-        }
       }
+      }
+
+
+    
+
+     
     }
 
     &_nav {
-      padding: 1rem 0em 1rem 1rem;
+      padding: 1rem 0em 1rem 1.5rem;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
@@ -191,8 +145,9 @@
 
         li {
           display: flex;
-          padding: 0.5rem 1.5rem 0.5rem 1.5rem; 
+          padding: 0.5rem 1rem 1rem 0rem; 
           flex-direction: row;
+          justify-content: flex-start;
           align-items: flex-start;
           color: get-color(grey2_s4);
           position: relative;
@@ -251,61 +206,83 @@
 
     &_profile {
 
-      display: none ;
-      @include media(tablet) {
-        width: 100%;
-        margin-top: 1rem;
-        display: flex;
-        padding: 1rem 0.5rem 0.5rem 1rem;
-        flex-direction: column;
+    
         border-top: 1px solid get-color(grey1_s3);
 
       }
      
 
-      .img_perfil {
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.5rem;
-      
-      
-        img {
-         
-          border-radius: brd(f);
-          width: 40px;
-          height: 40px;
-        }
+     
 
+      
+    
+
+   
+    .box-name {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      gap: 0.25rem;
+      
+     width: 100%;
+      
+
+      &_person {
+        background-color: get-color(blue_p1);
+        border-radius: brd(1);
+        padding: 0.5rem;
+
+        flex-shrink: 0;
+        display: flex;
+        justify-content: center;
+      }
+      &_name {
+        p {
+          color: get-color(t2-ligthBlue);
+          font-weight: 500;
+        }
         span {
-          color: get-color(t1-blue);
+          color: get-color(grey2_s4);
           font-size: small;
+          font-weight: 300;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 130px; // Ancho máximo en el que deseas truncar el texto
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -o-text-overflow: ellipsis;
         }
       }
-
-      
     }
 
-    &_navIcons {
-      // padding: 1rem 0rem;
-      // background-color: aqua;
-      // border-top: 1px solid get-color(forms_s6);
+    .action-open-close {
+      background-color: get-color(white_s1);
+      border-style: none;
+      position: absolute;
+      padding: 0.5em;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
-      li {
-        list-style: none;
+      height: 30px;
+      width: 30px;
+      border-radius: brd(1);
+      z-index: 14;
+      border: 1px solid get-color(grey1_s3);
+      right: 1px;
+      bottom: -15px;
+      
+      svg{
+       
+          stroke:get-color(blue_p1);
+          width: 3rem;
+          
+         
+        
       }
-      // height: 10vh;
-      // //  background-color: get-color(bg-cles);
-      // background-image: src;
-      // background-image: url("../../../public/img/debajo.png");
-      // background-repeat: no-repeat;
-      // background-size: cover, 10vh;
     }
-
     .active {
       color: get-color(blue_p1);
 
@@ -354,24 +331,56 @@
     &.menu-close {
       // background-color: #ff6b6b;
       max-width: 100px;
-      nav {
+      height: fit-content;
+      justify-content:space-between;
+      gap:1rem;
+      margin-left: 1rem;
+
+      @include media(tablet) {
+        height: 100vh;
+        margin-left: 0rem;
+      }
+
+
+     
+    
+      .menu_Account{
+        width: 100%;
+        margin:  0rem;
+        gap:1rem;
+      }
+
+    
+
+      
+
+      .menu_nav {
         
-        padding: 1rem 1rem;
+      
+       padding: 0.5rem 0rem;
+    
+        
+  
         li {
+          justify-content: center;
           h5 {
             display: none;
           }
         }
       }
 
-      .menu_nav{
-        margin-top: 0rem;
-      }
+     
+
+      
 
       .username {
         display: none;
       }
 
+
+      .box-name{
+        justify-content: center;
+      }
          
 
 
@@ -379,6 +388,12 @@
         display: none;
       }
 
+   .action-open-close{
+  
+    left:  10px;
+    border: 1px solid get-color(lilac_p3);
+   
+   }
       
 
       h5 {
@@ -386,46 +401,41 @@
         font-weight: 300;
       }
 
-      .imgPerfil {
-        button {
-          right: -30px;
-        }
-
-       
-      }
+      
 
 
 
       .img_perfil {
+        
         display: none;
-        align-items: center;
-        justify-content: center;
+       
         span {
           display: none;
         }
       }
-      .languaje {
-        width: 10px;
-      }
 
-      .lang {
-        display: flex;
-        flex-direction: column;
-        .languajes{
-          flex-direction: column;
-        }
-      }
+      // .languaje {
+      //   width: 10px;
+      // }
 
-      .btn_icons {
-        border: 1px solid get-color(white_s1);
-      }
+      // .lang {
+      //   display: flex;
+      //   flex-direction: column;
+      //   .languajes{
+      //     flex-direction: column;
+      //   }
+      // }
+
+      
 
       
 
       .imgPerfil {
+     
         img {
-          width: 60px;
-          padding-bottom: 1rem;
+          width: auto;
+        padding: 1rem;
+          
         }
       }
     }
@@ -560,6 +570,29 @@
   li {
     background-color: transparent;
   }
+}
+
+
+.fondoPerfil{
+  //  background-image: src;
+  // background-image: url("../../../public/img/fondo_Perfil.png");
+  // background-size: 6rem;
+  background-color: rgba(get-color(t2-ligthBlue), 0.2) !important;
+  // border-radius: brd(f) !important;
+ 
+
+  &_color{
+    p{
+      color:get-color(grey2_s4) !important;
+    }
+  }
+  
+  svg{
+    path{
+      fill:get-color(t2-ligthBlue);
+    }
+  }
+
 }
 
 .perfil-select {

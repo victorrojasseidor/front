@@ -89,9 +89,9 @@ const LayoutProducts = ({ children, menu }) => {
                 : <Image src={ari} width={80} alt='logo' priority />}
             </div>
 
-            <button className='imgPerfil_close' onClick={toggleMenu}>
+            {/* <button className='imgPerfil_close' onClick={toggleMenu}>
               <ImageSvg name={isMenuLateralOpen ? 'CloseMenu' : 'OpenMenu'} />
-            </button>
+            </button> */}
           </div>
 
           <div className='box-name'>
@@ -106,6 +106,12 @@ const LayoutProducts = ({ children, menu }) => {
 
             </div>
 
+          </div>
+
+          <div>
+            <button className='action-open-close' onClick={toggleMenu}>
+              <ImageSvg name={isMenuLateralOpen ? 'CloseMenu' : 'OpenMenu'} />
+            </button>
           </div>
 
         </div>
@@ -166,8 +172,6 @@ const LayoutProducts = ({ children, menu }) => {
             </li>
 
           </ul>
-          {/*
-          <div className='liner' /> */}
 
           <ul>
 
@@ -192,44 +196,32 @@ const LayoutProducts = ({ children, menu }) => {
 
         </nav>
 
-        <nav className='menu_nav ' style={{ paddingTop: '0rem' }}>
+        <nav className='menu_nav  menu_profile'>
+          <div className='box-name '>
+            <div className='box-name_person fondoPerfil'>
+
+              <ImageSvg name='Users' />
+
+            </div>
+            <div className='box-name_name fondoPerfil_color'>
+              <p>{session?.sUserName}</p>
+              <span>{session?.sLastName}</span>
+
+            </div>
+
+          </div>
 
           <ul>
-
-            <li className='lang'>
-
-              <Lang />
-            </li>
-
             <li>
-
               <button onClick={() => handleLogout()}>
                 <ImageSvg name='SignOut' />
                 <h5>
                   {t['Sign Out']}
                 </h5>
               </button>
-
             </li>
-
           </ul>
-
         </nav>
-
-        <div className='menu_profile '>
-
-          <div className='img_perfil '>
-            <Image src={perfil} width={isMenuLateralOpen ? 100 : 80} alt='Robot' />
-            <span>{session?.sUserName}
-              <br />
-              {session?.sLastName}
-            </span>
-
-          </div>
-
-          <div />
-
-        </div>
 
       </section>
 

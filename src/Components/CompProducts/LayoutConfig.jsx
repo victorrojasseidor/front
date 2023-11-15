@@ -81,19 +81,17 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
 
       <NavigationPages title={t['Digital employees']}>
 
+        <ImageSvg name='Products' />
         <Link href='/product'>
-          <ImageSvg name='Products' />
+          Home
+          <ImageSvg name='Navegación' />
           <p>
+
             {idEmpresa && NameEmpresa(idEmpresa)}
           </p>
         </Link>
 
         <ImageSvg name='Navegación' />
-
-        {/* <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`}>
-          {NameAcount ? <p> {product?.sName} </p> : <span>  {product?.sName}</span>}
-
-        </Link> */}
 
         <span>
           {product?.sName}
@@ -167,7 +165,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                 {activeTab === 3 && <div>
                   {/* {component?.documentation} */}
 
-                </div>}
+                                    </div>}
               </div>
             </div>
 

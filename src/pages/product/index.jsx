@@ -254,12 +254,50 @@ export default function Products () {
 
       <div className='products'>
         <NavigationPages title={t['Digital employees']}>
-          {/* <div>
-            <Link href='/product'>
-              <ImageSvg name='Products' />
-            </Link>
-          </div> */}
+
+          <Link href='/product'>
+            {/* <ImageSvg name='Products' /> */}
+            Home
+          </Link>
+
         </NavigationPages>
+
+        <div className='products_home'>
+
+          <div className='welcome'>
+            <h1> Welcome {session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</h1>
+            <p> Our digital employees work to improve your productivity</p>
+
+          </div>
+          <div className='reporting-box'>
+
+            <div className='report-content'>
+              <div className='report'>
+
+                <div className='report_icon'>
+
+                  <ImageSvg name='Time' />
+
+                </div>
+
+                <div className='report_data'>
+                  <p>Digital employees  </p>
+                  <h3> 2</h3>
+                  <p> <ImageSvg name='Time' />  working for you </p>
+                </div>
+
+              </div>
+
+              <div className='report'>
+                uno
+              </div>
+              <div className='report'>
+                uno
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         <div className='box-empresa'>
 

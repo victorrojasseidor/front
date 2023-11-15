@@ -7,24 +7,24 @@ export default function NavigationPages ({ title, children }) {
     <div className='navigation-box'>
       <div className='header-box'>
         <div className='titlePage'>
-          <div>
-            <h3>
-              {title}
-            </h3>
-          </div>
+
           <div className='navegation'>
             {children}
+          </div>
+          <div>
+            <h2 className='navegation_title'>
+              {title}
+            </h2>
           </div>
 
         </div>
 
-        <div className='buttons'>
-
-          <Cloud imgButton='Notifications' cloudText='Notifications' />
+        <div className='languajes-box'>
 
           <Lang />
 
         </div>
+
       </div>
 
     </div>
