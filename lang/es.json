@@ -94,7 +94,7 @@
     "Pending": "Pendiente",
     "Not hired": "No contratado",
     "Search": "Buscar......",
-    "ARI Finance to": "Finanzas ARI para",
+    "ARI Finance to": "ARI finanzas para",
     "Setup": "Configurar",
     "Edit": "Editar",
     "Free Trial": "Prueba gratuita",
@@ -107,10 +107,18 @@
     "Apiconfuguración": "Apiconfuguración",
     "Documentation": "Documentación",
     "Admin confuguratión": "Admin configuración",
-    "Try free": "Probar gratis",
-    "Contact technical support":"Contactar a soporte técnico",
+    "Try free": "Probar ",
+    "Contact technical support":"Contactar a soporte",
     "Permit expired ago":"Permiso expiró hace",
-    "days":"días"
+    "days":"días",
+    "Our digital employees work to improve your productivity": "Nuestros empleados digitales trabajan para mejorar tu productividad",
+    "working": "trabajando",
+"for you": "para ti",
+"Time saved": "Tiempo ahorrado",
+"this month": "este mes",
+"Bussines agility": "Agilidad empresarial",
+"more": "más"
+
   },
   "Apiconfuguration": {
     "Service configuration status": "Estado de configuración del servicio",

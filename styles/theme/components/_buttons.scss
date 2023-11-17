@@ -5,7 +5,7 @@
 
   &_primary {
     margin-top: 1rem;
-    border-radius: brd(2);
+    border-radius: brd(3);
     border-style: none;
     width: auto;
     background-color: get-color(blue_p1);
@@ -52,7 +52,7 @@
   &_secundary {
     margin-top: 1rem;
     border-style: none;
-    border-radius: brd(2);
+    border-radius: brd(3);
     background-color: get-color(white_s1);
     color: get-color(blue_p1);
      padding: 0.8rem 1.25rem;
@@ -154,6 +154,52 @@
       // transform: translateY(-2px);
       font-size: 1rem;
       color: get-color(blue_p1);
+    }
+  }
+
+  &_filter {
+    border-style: none;
+    @include center-container;
+    border-radius: brd(3);
+    background-color: transparent;
+    color: get-color(blue_p1);
+    padding: 1rem;
+    font-weight: 500;
+    width: 10rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+
+    
+    @include media(tablet) {
+      width: 7.5rem;
+      font-size: 1rem;
+      height: 2.5em;
+      padding: 0rem 0.25rem;
+    }
+
+    &.active {
+      background-color: get-color(white_s1);
+   
+    }
+
+    &.pending {
+      color: get-color(t1-blue);
+      justify-content: flex-start;
+    cursor:default;
+      
+    }
+    
+    &.configured {
+      color: get-color(blue_p1);
+      justify-content: flex-start;
+      cursor:default;
+    }
+    
+    &.not-hired {
+      color: get-color(grey2_s4);
+      justify-content: flex-start;
+      cursor:default;
+    
     }
   }
   
@@ -258,10 +304,7 @@
  
 }
 
-.delete{
-  
-  // background: rgba(get-color(t3-red), 0.1);
- }
+
 
 
 //modificador para botones pequeños
@@ -357,5 +400,52 @@ button:hover + .cloud {
   align-items: center;
   justify-content: center;
  
+}
+  
+
+  .searchButton {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: get-color(white_s1);
+    height: 2.5em;
+    border-radius: brd(3);
+
+    @include media(tablet) {
+      max-width: 18rem;
+    }
+
+  
+    input {
+      font-size: 1rem;
+      height: 1.5em;
+      color: get-color(t1-blue);
+      background-color: transparent;
+      font-weight: 500;
+      border-style: none;
+      padding: 1em;
+      &::placeholder{
+        color:#8F9BBA;
+        font-weight: 400;
+         }
+      
+    }
+    
+  
+    button {
+      border-style: none;
+      display: flex;
+      background-color: transparent;
+      justify-content: center;
+      align-items: center;
+      
+    
+      padding-left: 1rem;
+      svg {
+        color: get-color(t1-blue);
+        pointer-events: none;
+  
+      }
+    }
   }
   

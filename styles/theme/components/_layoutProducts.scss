@@ -4,7 +4,6 @@
   flex-direction: row;
   height: 200vh;
   width: 100vw;
-  
 
   background-color: get-color(bg-cles);
   // background-image: src;
@@ -15,14 +14,13 @@
     height: 120vh;
     width: 100%;
     background-size: 120%, auto;
-   
   }
 
   .menu {
     z-index: 6;
     top: 90px;
     height: fit-content;
-    
+
     border-radius: brd(2);
     visibility: visible;
     // height: 100vh;
@@ -30,15 +28,12 @@
     box-shadow: bsh(2);
     position: fixed;
     padding-top: 1rem;
-    
-   
-    
 
     @include media(tablet) {
       height: 100vh;
       z-index: 0;
       top: 0;
-     margin-left: 0;
+      margin-left: 0;
       max-width: 15rem;
       border-radius: 0;
       box-shadow: none;
@@ -49,30 +44,24 @@
       border-style: none;
       background-color: get-color(white_s1);
       backdrop-filter: blur(20px);
-      justify-content:space-between;
+      justify-content: space-between;
       flex-direction: column;
       display: flex;
       overflow-y: auto; /* Agregamos desplazamiento vertical si es necesario */
-      height: 100svh; 
-   
-     
-      
+      height: 100svh;
     }
 
     &_Account {
-
-     
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap:2rem;
+      gap: 2rem;
       padding: 0rem 1.5rem;
       position: relative;
       border-bottom: 1px solid get-color(grey1_s3);
       padding-bottom: 0.5rem;
-     
-     
+
       p {
         font-size: small;
       }
@@ -89,41 +78,26 @@
         }
       }
 
-     
-
-
       .imgPerfil {
+        display: none;
+        @include media(tablet) {
+          display: flex;
+          flex-direction: row;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
 
-       display: none;
-       @include media(tablet) {
-        
-        display: flex;
-        flex-direction: row;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-
-        &_logo {
-     
-          img{
-            height:  100px;
-            width: auto;
-            padding-top: 1rem;
-         
+          &_logo {
+            img {
+              height: 100px;
+              width: auto;
+              padding-top: 2rem;
+            }
           }
-          
         }
-
-        
       }
-      }
-
-
-    
-
-     
     }
 
     &_nav {
@@ -145,15 +119,13 @@
 
         li {
           display: flex;
-          padding: 0.5rem 1rem 1rem 0rem; 
+          padding: 0.5rem 1rem 1rem 0rem;
           flex-direction: row;
           justify-content: flex-start;
           align-items: flex-start;
           color: get-color(grey2_s4);
           position: relative;
           font-size: small;
-          
-
 
           svg {
             width: 20px;
@@ -162,11 +134,12 @@
               fill: get-color(grey2_s4);
             }
           }
-          button{
+          button {
             background-color: transparent;
             border-style: none;
           }
-          a, button {
+          a,
+          button {
             display: flex;
             gap: 0.5rem;
             flex-direction: row;
@@ -205,27 +178,16 @@
     }
 
     &_profile {
+      border-top: 1px solid get-color(grey1_s3);
+    }
 
-    
-        border-top: 1px solid get-color(grey1_s3);
-
-      }
-     
-
-     
-
-      
-    
-
-   
     .box-name {
       display: flex;
       justify-content: flex-start;
       flex-direction: row;
       gap: 0.25rem;
-      
-     width: 100%;
-      
+
+      width: 100%;
 
       &_person {
         background-color: get-color(blue_p1);
@@ -273,14 +235,10 @@
       border: 1px solid get-color(grey1_s3);
       right: 1px;
       bottom: -15px;
-      
-      svg{
-       
-          stroke:get-color(blue_p1);
-          width: 3rem;
-          
-         
-        
+
+      svg {
+        stroke: get-color(blue_p1);
+        width: 3rem;
       }
     }
     .active {
@@ -324,16 +282,12 @@
       }
     }
 
-
-
-
-
     &.menu-close {
       // background-color: #ff6b6b;
-      max-width: 100px;
+      max-width: 92px;
       height: fit-content;
-      justify-content:space-between;
-      gap:1rem;
+      justify-content: space-between;
+      gap: 1rem;
       margin-left: 1rem;
 
       @include media(tablet) {
@@ -341,26 +295,16 @@
         margin-left: 0rem;
       }
 
-
-     
-    
-      .menu_Account{
+      .menu_Account {
         width: 100%;
-        margin:  0rem;
-        gap:1rem;
+        margin: 0rem;
+        gap: 1rem;
+        padding-bottom: 1rem;
       }
 
-    
-
-      
-
       .menu_nav {
-        
-      
-       padding: 0.5rem 0rem;
-    
-        
-  
+        padding: 0.5rem 0rem;
+
         li {
           justify-content: center;
           h5 {
@@ -369,46 +313,41 @@
         }
       }
 
-     
-
-      
-
       .username {
         display: none;
       }
 
-
-      .box-name{
+      .box-name {
         justify-content: center;
       }
-         
-
 
       .box-name_name {
         display: none;
       }
 
-   .action-open-close{
-  
-    left:  10px;
-    border: 1px solid get-color(lilac_p3);
-   
-   }
-      
+      .action-open-close {
+        left: 10px;
+        border: 1px solid get-color(lilac_p3);
+      }
 
       h5 {
         display: none;
         font-weight: 300;
       }
 
-      
+      .imgPerfil_logo {
+        img {
+          height: 90px;
+        }
+      }
 
-
+      .fondoPerfil {
+        display: none;
+      }
 
       .img_perfil {
-        
         display: none;
-       
+
         span {
           display: none;
         }
@@ -426,16 +365,10 @@
       //   }
       // }
 
-      
-
-      
-
       .imgPerfil {
-     
         img {
           width: auto;
-        padding: 1rem;
-          
+          padding: 1rem;
         }
       }
     }
@@ -444,6 +377,7 @@
       width: 100%;
       // padding: 0.5rem;
       gap: 1em;
+      
 
       .childrenTilte {
         display: flex;
@@ -457,6 +391,7 @@
         width: 100%;
         justify-content: space-evenly;
         align-items: center;
+        height: 5.5rem;
 
         @include media(tablet) {
           display: none;
@@ -522,8 +457,11 @@
 
       .children {
         padding: 6rem 2rem;
+        background-color: get-color(bg-cles);
+      height: auto;
         @include media(tablet) {
           padding: 2rem 3rem;
+
         }
       }
     }
@@ -572,27 +510,24 @@
   }
 }
 
-
-.fondoPerfil{
+.fondoPerfil {
   //  background-image: src;
   // background-image: url("../../../public/img/fondo_Perfil.png");
   // background-size: 6rem;
   background-color: rgba(get-color(t2-ligthBlue), 0.2) !important;
   // border-radius: brd(f) !important;
- 
 
-  &_color{
-    p{
-      color:get-color(grey2_s4) !important;
-    }
-  }
-  
-  svg{
-    path{
-      fill:get-color(t2-ligthBlue);
+  &_color {
+    p {
+      color: get-color(grey2_s4) !important;
     }
   }
 
+  svg {
+    path {
+      fill: get-color(t2-ligthBlue);
+    }
+  }
 }
 
 .perfil-select {
@@ -637,8 +572,6 @@
     }
   }
 }
-
-
 
 .container-lang-hambuerger {
   display: flex;

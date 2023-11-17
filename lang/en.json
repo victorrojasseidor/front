@@ -125,10 +125,20 @@
     "Apiconfuguración": "Apiconfuguración",
     "Documentation": "Documentation",
     "Admin confuguratión": "Admin configuratión",
-    "Try free": "Try free",
-    "Contact technical support":"Contact technical support",
-    "Permit expired ago":"permit expired ago",
-    "days":"days"
+    "Try free": "Try",
+    "Contact technical support":"Contact support",
+    "Permit expired ago":"Expired ago",
+    "days":"days",
+    "Our digital employees work to improve your productivity":"Our digital employees work to improve your productivity",
+    "working":"working",
+    "for you":"for you",
+    "Time saved":"Time saved",
+    "this month ":"this month ",
+    "Bussines agility":" Bussines agility",
+    "more":" more"
+  
+
+
   },
   "Apiconfuguration": {
     "Service configuration status": "Service configuration status",

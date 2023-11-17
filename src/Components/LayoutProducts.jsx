@@ -47,7 +47,7 @@ const LayoutProducts = ({ children, menu }) => {
       if (isMenuLateralOpen) {
         setMargen('13rem')
       } else {
-        setMargen('6rem')
+        setMargen('5rem')
       }
     }
 
@@ -188,7 +188,7 @@ const LayoutProducts = ({ children, menu }) => {
 
               <Link href='/support'>
                 <ImageSvg name='Support' /> <h5> {t.Support}
-                </h5>
+                                            </h5>
               </Link>
             </li>
 

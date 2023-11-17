@@ -7,9 +7,9 @@ import { useAuth } from '@/Context/DataContext'
 import { getProducts } from '@/helpers/auth'
 import NavigationPages from '@/Components/NavigationPages'
 import Loading from '@/Components/Atoms/Loading'
-import imgEstractos from '../../../public/img/prod-estractos.png'
+import imgEstractos from '../../../public/img/prod-estractos.jpg'
 import imgInvoice from '../../../public/img/prod-invoice.png'
-import imgTipo from '../../../public/img/prod-tipo.png'
+import imgTipo from '../../../public/img/prod-tipo.jpg'
 import imgSunat from '../../../public/img/prod-sunat.png'
 import imgProd from '../../../public/img/prod-default.png'
 import Image from 'next/image'
@@ -172,7 +172,7 @@ export default function Products () {
     } else if (id === 3) {
       return imgSunat
     } else if (id === 4) {
-      return imgInvoice
+      return imgProd
     } else return imgProd
   }
 
@@ -236,8 +236,7 @@ export default function Products () {
     } else if (dayLef <= 0) {
       return (
         <>
-
-          <Link href='https://www.innovativa.la/contacto'> <p> {t['Contact technical support']}  </p> </Link>
+          <Link href='https://www.innovativa.la/contacto'> {t['Contact technical support']} </Link>
         </>
       )
     } else {
@@ -265,45 +264,84 @@ export default function Products () {
         <div className='products_home'>
 
           <div className='welcome'>
-            <h1> Welcome {session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</h1>
-            <p> Our digital employees work to improve your productivity</p>
+            <h1> {t.Welcome} {session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</h1>
+            <p>  {t['Our digital employees work to improve your productivity']}</p>
 
           </div>
           <div className='reporting-box'>
 
             <div className='report-content'>
-              <div className='report'>
+              <div className='report green'>
 
-                <div className='report_icon'>
+                <div className='report_icon  '>
 
-                  <ImageSvg name='Time' />
+                  <ImageSvg name='ReportDigital' />
 
                 </div>
 
                 <div className='report_data'>
-                  <p>Digital employees  </p>
-                  <h3> 2</h3>
-                  <p> <ImageSvg name='Time' />  working for you </p>
+
+                  <article>
+                    {t['Digital employees']}
+
+                  </article>
+                  <h2> 2</h2>
+                  <p> <ImageSvg name='ArrowUp' />  <span>  {t.working}  </span>    {t['for you']} </p>
                 </div>
 
               </div>
 
-              <div className='report'>
-                uno
+              <div className='liner' />
+
+              <div className='report blue'>
+
+                <div className='report_icon  '>
+
+                  <ImageSvg name='ReportTime' />
+
+                </div>
+
+                <div className='report_data'>
+
+                  <article>
+                    {t['Time saved']}
+
+                  </article>
+                  <h2> 240 hrs </h2>
+                  <p> <ImageSvg name='ArrowUp' />  <span> 2%  </span>    {t['this month']} </p>
+                </div>
+
               </div>
-              <div className='report'>
-                uno
+              <div className='liner' />
+
+              <div className='report red'>
+
+                <div className='report_icon  '>
+
+                  <ImageSvg name='ReportBussines' />
+
+                </div>
+
+                <div className='report_data'>
+
+                  <article>
+                    {t['Bussines agility']}
+
+                  </article>
+                  <h2> 79%</h2>
+                  <p> <ImageSvg name='ArrowUp' />  <span> 4%  </span>    {t.more} </p>
+                </div>
+
               </div>
+
             </div>
 
           </div>
         </div>
 
-        <div className='box-empresa'>
+        <div className='products_empresa'>
 
-          <span> {t.Welcome} 👋, {t['Digital employees']}  </span>
-
-          <div className=''>
+          <div className='box-empresa'>
 
             {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
             <Autocomplete
@@ -322,26 +360,29 @@ export default function Products () {
         </div>
 
         <div className='products_filterSearch'>
-          <div className='filterButtons'>
-            <button onClick={() => handleFilter(null)} className={selectedFilter === null ? 'active' : ''}>
-              {t.All}
-            </button>
-            <button onClick={() => handleFilter(23)} className={selectedFilter === 23 ? 'active' : ''}>
-              {t.Configured}
-            </button>
-            <button onClick={() => handleFilter(25)} className={selectedFilter === 25 || selectedFilter === 27 || selectedFilter === 28 ? 'active' : ''}>
-              {t.Pending}
-            </button>
-            <button onClick={() => handleFilter(31)} className={selectedFilter === 31 ? 'active' : ''}>
-              {t['Not hired']}
-            </button>
-          </div>
           <div className='searchButton'>
-            <input type='text' placeholder={t.Search} value={searchQuery} onChange={handleInputChange} />
             <button onClick={handleSearch}>
               <ImageSvg name='Search' />
             </button>
+            <input type='text' placeholder={t.Search} value={searchQuery} onChange={handleInputChange} />
+
           </div>
+
+          <div className='filterButtons'>
+            <button onClick={() => handleFilter(null)} className={`btn_filter ${selectedFilter === null ? 'active' : ''}`}>
+              {t.All}
+            </button>
+            <button onClick={() => handleFilter(23)} className={`btn_filter ${selectedFilter === 23 ? 'active' : ''}`}>
+              {t.Configured}
+            </button>
+            <button onClick={() => handleFilter(25)} className={`btn_filter ${selectedFilter === 25 || selectedFilter === 27 || selectedFilter === 28 ? 'active' : ''}`}>
+              {t.Pending}
+            </button>
+            <button onClick={() => handleFilter(31)} className={`btn_filter ${selectedFilter === 31 ? 'active' : ''}`}>
+              {t['Not hired']}
+            </button>
+          </div>
+
         </div>
 
         {isLoading && <Loading />}
@@ -350,59 +391,51 @@ export default function Products () {
           ? (
             <div className='products_cards'>
               <div className='sub-title'>
-                <h5> {t['ARI Finance to']} {empresa?.razon_social_empresa}</h5>
+                <h3> {t['ARI Finance to']} {empresa?.razon_social_empresa}</h3>
               </div>
 
               <ul>
                 {searchResults.map((product) => (
                   <li key={product.iId} className='card'>
 
-                    <div className='card-status'>
-                      {/* <span>
-                        Status:
-                      </span> */}
-                      <p className={`${product.iCodeStatus === 23 ? 'configured' : ''} ${product.iCodeStatus === 28 ? 'pending' : 'not-hired'}`}>  {product.sDescStatus}
-                      </p>
-
-                      {session?.sPerfilCode == 'ADMIN' &&
-
-                        <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p className='admin'>  <ImageSvg name='Admin' /> Admin </p> </Link>}
-
-                    </div>
-
                     <div className='card-title'>
 
                       <div className='box-img'>
-                        <Image src={imgProduct(product.iId)} width={100} alt='imgProducts' />
+                        <Image src={imgProduct(product.iId)} width={500} alt='imgProducts' />
+                        {session?.sPerfilCode == 'ADMIN' &&
+
+                          <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p className='report blue  green admin'>  <ImageSvg name='Admin' /> Admin </p> </Link>}
+
                       </div>
 
                       <div className='box-name'>
                         <h4> {product.sName}</h4>
 
-                        {(product.iCodeStatus === 23 || product.iCodeStatus === 28) && (
-                          calcularDiasRestantes(product.sDateEnd) >= 0
-                            ? (
-                              <p className='dayLetf'>
-                                <ImageSvg name='Time' />
-                                {t['Days left:']} <span style={{ color: 'blue' }}>{calcularDiasRestantes(product.sDateEnd)}</span>
-                              </p>
-                              )
-                            : (
-                              <p className='dayLetf'>
-                                <ImageSvg name='Time' />
-                                <span className='errorMessage' style={{ color: 'red' }}>     {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days} </span>
+                        {(product.iCodeStatus === 23 || product.iCodeStatus === 28) &&
 
-                              </p>
-                              )
-                        )}
+                          <p className='dayLetf'>
+                            <ImageSvg name='Time' />
+                            {calcularDiasRestantes(product.sDateEnd) >= 0
+                              ? <span style={{ color: 'blue' }}>    {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}</span>
+                              : (
+                                <span className='' style={{ color: 'red' }}>   {t['Permit expired ago']}   {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days} </span>)}
+                          </p>}
 
                       </div>
 
                     </div>
 
-                    <div className='box-buttons'>
+                    <div className='card-actions'>
+                      <div className='card-status'>
+
+                        <p className={`btn_filter ${product.iCodeStatus === 23 ? 'configured' : (product.iCodeStatus === 28 ? 'pending' : 'not-hired')}`}>
+                          {product.sDescStatus}
+                        </p>
+
+                      </div>
                       {renderButtons(product)}
                     </div>
+
                   </li>
                 ))}
 
@@ -410,16 +443,9 @@ export default function Products () {
 
                 <li className='card' style={{ gap: '1rem', visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
-                  <div className='card-status'>
-
-                    <p className='not-hired'>  {t['Not hired']}
-                    </p>
-
-                  </div>
-
                   <div className='card-title'>
                     <div className='box-img'>
-                      <Image src={imgProduct(3)} width={100} alt='imgProducts' />
+                      <Image src={imgProduct(3)} width={1000} alt='imgProducts' />
 
                     </div>
 
@@ -435,7 +461,13 @@ export default function Products () {
 
                   </div>
 
-                  <div className='box-buttons'>
+                  <div className='card-actions'>
+                    <div className='card-status'>
+
+                      <p className='btn_filter not-hired'>  {t['Not hired']}
+                      </p>
+
+                    </div>
                     <Link href='https://www.innovativa.la/digitalemployee'>
                       {t['View more']}
                     </Link>
@@ -443,17 +475,11 @@ export default function Products () {
                 </li>
 
                 <li className='card' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
-                  <div className='card-status'>
-
-                    <p className='not-hired'> {t['Not hired']}
-                    </p>
-
-                  </div>
 
                   <div className='card-title'>
 
                     <div className='box-img'>
-                      <Image src={imgProduct(4)} width={100} alt='imgProducts' />
+                      <Image src={imgProduct(4)} width={1000} alt='imgProducts' />
 
                     </div>
 
@@ -469,7 +495,14 @@ export default function Products () {
 
                   </div>
 
-                  <div className='box-buttons'>
+                  <div className='card-actions'>
+                    <div className='card-status'>
+
+                      <p className='btn_filter not-hired'>  {t['Not hired']}
+                      </p>
+
+                    </div>
+
                     <Link href='https://www.innovativa.la/digitalemployee'>
                       {t['View more']}
                     </Link>
