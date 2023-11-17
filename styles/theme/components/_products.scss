@@ -195,9 +195,10 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
-
     padding: 1em 0rem;
     gap: 1em;
+   
+
 
     @include media(tablet) {
       flex-direction: row;
@@ -210,11 +211,41 @@
       justify-content: space-between;
     }
 
+
+
+
     .filterButtons {
       @include center-container;
+      max-width: 18rem;
+      padding: 0rem 0.5rem;
       flex-direction: row;
-      flex-wrap: wrap;
+      overflow-x: scroll;
+      -webkit-overflow-scrolling: touch;
+
+      overflow-x: auto;
+      &::-webkit-scrollbar {
+        width: 8px;     /* Tamaño del scroll en vertical */
+        height: 8px;    /* Tamaño del scroll en horizontal */
+        /* Ocultar scroll */
     }
+   
+    @include media(tablet) {
+      max-width:none;
+      padding: none;
+    }
+  
+ 
+   
+      
+    }
+
+    //select material ui
+
+    .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root{
+    width: 95%;
+    }
+
+
   }
 
   &_cards {
@@ -223,6 +254,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     gap: 1em;
+    width: auto;
 
     ul {
       display: flex;
@@ -233,6 +265,7 @@
 
       @include media(tablet) {
         justify-content: space-evenly;
+        width: 100%;
       }
 
       @include media(desktop) {
@@ -250,17 +283,18 @@
   display: flex;
   background: get-color(white_s1);
   flex-direction: column;
-  width: 20rem;
-  padding: 1em 2rem;
-  gap: 2em;
+  width: 18rem;
+  padding: 1em 3rem;
   border-radius: brd(2);
   @include media(tablet) {
     width: 20rem;
     gap: 1em;
+    padding: 1em 2rem;
   }
 
   @include media(desktop) {
     width: 18rem;
+  
   }
 
   @include media(extradesktop) {
@@ -286,10 +320,15 @@
       align-items: center;
 
       img[alt="imgProducts"] {
-        width: 17rem;
-        height: 12rem;
+        width: 15rem;
+        height: 10rem;
         padding: 0.5rem;
         border-radius: 20px 20px 0px 0px;
+
+        @include media(tablet) {
+          width: 17rem;
+          height: 12rem;
+        }
       }
     }
 
@@ -352,9 +391,19 @@
       justify-content: space-between;
     }
 
+
+
     button {
       margin-top: 0;
     }
+
+    // .card-status{
+    // width: 40%;
+    // }
+
+    
+
+    
 
     a {
       text-align: center;
