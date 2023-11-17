@@ -2,6 +2,7 @@
 $small: 425px;
 $medium: 768px;
 $large: 1024px;
+$Extralarge: 1440px;
 
 @mixin media($types...) {
   @each $type in $types {
@@ -21,6 +22,12 @@ $large: 1024px;
 
     //desktop up
     @if $type == desktop {
+      @media only screen and (min-width: $large) {
+        @content;
+      }
+    }
+
+    @if $type == extradesktop {
       @media only screen and (min-width: $large) {
         @content;
       }

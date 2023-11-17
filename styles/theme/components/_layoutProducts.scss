@@ -29,7 +29,9 @@
     position: fixed;
     padding-top: 1rem;
 
+
     @include media(tablet) {
+      padding-top: 0rem;
       height: 100vh;
       z-index: 0;
       top: 0;
@@ -107,9 +109,9 @@
       gap: 0.5rem;
       width: 100%;
 
-      @include media(tablet) {
-        gap: 1rem;
-      }
+      // @include media(tablet) {
+      //   gap: 1rem;
+      // }
 
       ul {
         display: flex;
@@ -326,7 +328,7 @@
       }
 
       .action-open-close {
-        left: 10px;
+        left: 1px;
         border: 1px solid get-color(lilac_p3);
       }
 

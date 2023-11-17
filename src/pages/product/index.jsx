@@ -271,7 +271,7 @@ export default function Products () {
           <div className='reporting-box'>
 
             <div className='report-content'>
-              <div className='report green'>
+              <div className='report blue'>
 
                 <div className='report_icon  '>
 
@@ -293,7 +293,7 @@ export default function Products () {
 
               <div className='liner' />
 
-              <div className='report blue'>
+              <div className='report green'>
 
                 <div className='report_icon  '>
 
@@ -308,7 +308,7 @@ export default function Products () {
 
                   </article>
                   <h2> 240 hrs </h2>
-                  <p> <ImageSvg name='ArrowUp' />  <span> 2%  </span>    {t['this month']} </p>
+                  <p> <ImageSvg name='ArrowUp' />   <span>  2%  </span>    {t['this month']} </p>
                 </div>
 
               </div>
@@ -359,7 +359,7 @@ export default function Products () {
 
         </div>
 
-        <div className='products_filterSearch'>
+        <div className='products_box-filterSearch'>
           <div className='searchButton'>
             <button onClick={handleSearch}>
               <ImageSvg name='Search' />
@@ -411,15 +411,17 @@ export default function Products () {
                       <div className='box-name'>
                         <h4> {product.sName}</h4>
 
-                        {(product.iCodeStatus === 23 || product.iCodeStatus === 28) &&
+                        {(product.iCodeStatus === 23 || product.iCodeStatus === 28)
+                          ? (
 
-                          <p className='dayLetf'>
-                            <ImageSvg name='Time' />
-                            {calcularDiasRestantes(product.sDateEnd) >= 0
-                              ? <span style={{ color: 'blue' }}>    {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}</span>
-                              : (
-                                <span className='' style={{ color: 'red' }}>   {t['Permit expired ago']}   {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days} </span>)}
-                          </p>}
+                            <p className='dayLetf'>
+                              <ImageSvg name='Time' />
+                              {calcularDiasRestantes(product.sDateEnd) >= 0
+                                ? <span style={{ color: 'blue' }}>    {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}</span>
+                                : (
+                                  <span className='' style={{ color: 'red' }}>   {t['Permit expired ago']}   {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days} </span>)}
+                            </p>)
+                          : <p className='dayLetf' style={{ color: 'white' }}>.......</p>}
 
                       </div>
 

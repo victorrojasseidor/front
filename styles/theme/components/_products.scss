@@ -3,7 +3,7 @@
   // margin: 0em 1em 0 0;
   display: flex;
   flex-direction: column;
-  gap:1rem;
+  gap: 1rem;
 
   &_home {
     background-color: get-color(blue_p1);
@@ -17,7 +17,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    gap:2rem;
+    gap: 2rem;
     background-position: left bottom;
 
     .welcome {
@@ -26,7 +26,7 @@
       justify-content: space-around;
       flex-direction: column;
       align-items: flex-end;
-      gap:1rem;
+      gap: 1rem;
 
       h1 {
         color: get-color(white_s1);
@@ -40,11 +40,10 @@
       width: 100%;
       justify-content: flex-end;
       align-items: flex-end;
-      box-shadow: drop-shadow(0px 8.316115379333496px 49.89669418334961px rgba(226, 236, 249, 0.50));
-
+      box-shadow: drop-shadow(0px 8.316115379333496px 49.89669418334961px rgba(226, 236, 249, 0.5));
 
       .report-content {
-        width: 100%;
+        width: auto;
         display: flex;
         background-color: get-color(white_s1);
         border-radius: brd(2);
@@ -52,19 +51,21 @@
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
-        padding: 2rem;
+        padding: 1rem;
         gap: 1rem;
-      
 
         @include media(tablet) {
-          width: 55%;
-          height: auto;
+          padding: 2rem;
+
           justify-content: flex-start;
-        
         }
 
         @include media(desktop) {
-          width: 80%;
+          height: auto;
+          justify-content: space-around;
+        }
+
+        @include media(extradesktop) {
           height: auto;
           justify-content: space-around;
         }
@@ -74,91 +75,70 @@
           flex-direction: row;
           @include center-container;
           padding: 1rem;
-          gap:0.5rem;
+          gap: 0.8rem;
           justify-content: space-between;
-        
-          
-        @include media(desktop) {
-          padding: 0rem 1rem;
-        }
-       
+
+          @include media(desktop) {
+            padding: 0rem 1rem;
+          }
+
           &_icon {
-         
             border-radius: brd(f);
             @include center-container;
+            align-items: center;
+            justify-content: center;
+            width: 4.25rem;
+            height: 4.25rem;
 
-              width: 3.75rem;
-              height: 3.75rem;
+            img {
+              @include center-container;
+              width: 1.6rem;
+              height: auto;
+            }
 
-              svg{
-                 
-                 width: 1.6em;
-                 height: 1.6em;
-               
-              
-              }
-            
+            svg {
+              width: 1.6em;
+              height: 1.6em;
+            }
           }
 
           &_data {
             @include center-container;
             align-items: flex-start;
-            gap: 0.25rem;
-            flex-direction: column;
 
+            flex-direction: column;
 
             article {
               color: get-color(grey2_s4);
               @include center-container;
-            
             }
 
-
-           p{
-            color:get-color(t1-blue)
-           }
-            
+            p {
+              color: get-color(t1-blue);
+              font-size: 1rem;
+            }
 
             svg {
-              width: 1rem;
-              height: 1rem;
-              
+              width: 0.9rem;
+              height: 0.9rem;
             }
-
-            // span {
-            //   color: get-color(t6-green2);
-            // }
-
-         
-
-
-
-
-
-
           }
         }
 
-        .liner{
+        .liner {
           @include media(desktop) {
             width: 0.832px;
             height: 72.35px;
-                      background-color: get-color(grey1_s3);
+            background-color: get-color(grey1_s3);
           }
-         
         }
       }
     }
   }
 
-  .green{
-
-    
-   
-
-    .report_icon{
-
-      background-image:  linear-gradient(201deg, #D3FFE7 3.14%, #EFFFF6 86.04%);
+  .green {
+    .report_icon {
+      background-image: linear-gradient(201deg, #d3ffe7 3.14%, #effff6 86.04%);
     }
 
     span {
@@ -166,27 +146,15 @@
     }
 
     svg {
-      
       path {
         fill: get-color(t6-green2);
       }
     }
-
-    
-   
   }
 
-  
-
-
-
-  .blue{
-    
-
-    .report_icon{
-
-      background-image:  linear-gradient(201deg, #CAF1FF 3.14%, #CDF4FF 86.04%);
-      
+  .blue {
+    .report_icon {
+      background-image: linear-gradient(201deg, #caf1ff 3.14%, #cdf4ff 86.04%);
     }
 
     span {
@@ -194,21 +162,15 @@
     }
 
     svg {
-      
       path {
         fill: get-color(blue_p1);
       }
     }
-
   }
 
-  .red{
-   
-    .report_icon{
-
-      background-image:  linear-gradient(201deg, #FFA3CF 3.14%, #FFD4F3 86.04%);
-
-
+  .red {
+    .report_icon {
+      background-image: linear-gradient(201deg, #ffa3cf 3.14%, #ffd4f3 86.04%);
     }
 
     span {
@@ -216,25 +178,19 @@
     }
 
     svg {
-      
       path {
         fill: get-color(t3-red);
       }
     }
-
   }
 
+  &_empresa {
+    padding-top: 1rem;
+    @include center-container;
+    justify-content: flex-start;
+  }
 
-
-&_empresa{
-  padding-top: 1rem;
-@include center-container;
-justify-content:flex-start
-}
-
-
-
-  &_filterSearch {
+  &_box-filterSearch {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -245,16 +201,16 @@ justify-content:flex-start
 
     @include media(tablet) {
       flex-direction: row;
+      align-items: flex-start;
       justify-content: space-between;
     }
 
     @include media(desktop) {
-   
       flex-direction: row;
       justify-content: space-between;
     }
 
-    .filterButtons{
+    .filterButtons {
       @include center-container;
       flex-direction: row;
       flex-wrap: wrap;
@@ -266,7 +222,6 @@ justify-content:flex-start
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: flex-start;
-    
     gap: 1em;
 
     ul {
@@ -278,19 +233,18 @@ justify-content:flex-start
 
       @include media(tablet) {
         justify-content: space-evenly;
-      
       }
 
       @include media(desktop) {
         justify-content: space-evenly;
       }
+
+      @include media(extradesktop) {
+        justify-content: flex-start;
+      }
     }
   }
 }
-
-
-
-
 
 .card {
   display: flex;
@@ -298,12 +252,19 @@ justify-content:flex-start
   flex-direction: column;
   width: 20rem;
   padding: 1em 2rem;
-    gap: 2em;
-   
+  gap: 2em;
   border-radius: brd(2);
   @include media(tablet) {
-    width: 18rem;
+    width: 20rem;
     gap: 1em;
+  }
+
+  @include media(desktop) {
+    width: 18rem;
+  }
+
+  @include media(extradesktop) {
+    width: 20rem;
   }
 
   &-status {
@@ -316,7 +277,7 @@ justify-content:flex-start
     position: relative;
     justify-content: flex-start;
     flex-direction: column;
-    gap:1rem;
+    gap: 1rem;
 
     .box-img {
       height: auto;
@@ -326,7 +287,7 @@ justify-content:flex-start
 
       img[alt="imgProducts"] {
         width: 17rem;
-        height:12rem;
+        height: 12rem;
         padding: 0.5rem;
         border-radius: 20px 20px 0px 0px;
       }
@@ -337,9 +298,9 @@ justify-content:flex-start
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-
-      justify-content: center;
-      gap:0.25rem;
+      justify-content: flex-start;
+      gap: 0.25rem;
+      min-height: 5.5rem;
 
       h4 {
         // color:get-color(white_s1);
@@ -358,15 +319,14 @@ justify-content:flex-start
       align-items: center;
       font-size: 0.8rem;
       color: get-color(grey2_s4);
-      gap:0.25rem;
+      gap: 0.25rem;
 
       svg {
         color: get-color(grey2_s4);
         font-size: 1rem;
         display: inline-block;
-        path{
-          
-          fill:get-color(grey2_s4)
+        path {
+          fill: get-color(grey2_s4);
         }
       }
 
@@ -384,23 +344,23 @@ justify-content:flex-start
   .card-actions {
     display: flex;
     width: 100%;
-    justify-content: space-between;
+
     align-items: center;
-    
+    justify-content: center;
 
-   
+    @include media(tablet) {
+      justify-content: space-between;
+    }
 
-    button{
+    button {
       margin-top: 0;
     }
 
     a {
-   text-align: center;
+      text-align: center;
       // padding: 0.5rem 1rem;
       border-radius: brd(2);
     }
-
-    
   }
 }
 
@@ -412,18 +372,16 @@ justify-content:flex-start
   -webkit-box-orient: vertical;
 }
 
-
-
 .admin {
   position: absolute;
-  z-index: 1;  
+  z-index: 1;
   right: 2px;
   bottom: 98px;
- @include center-container;
+  @include center-container;
   color: get-color(grey2_s4);
   padding: 0.25rem 1rem;
   border-radius: brd(f);
-  background-image:  linear-gradient(201deg, #CAF1FF 3.14%, #CDF4FF 86.04%);
+  background-image: linear-gradient(201deg, #caf1ff 3.14%, #cdf4ff 86.04%);
   path {
     fill: get-color(grey1_s3);
   }
@@ -467,7 +425,6 @@ justify-content:flex-start
     flex-direction: row;
     justify-content: space-between;
     padding-bottom: 1rem;
-    // border-bottom: 1px solid get-color(forms_s6);
 
     .languajes-box {
       display: none;
@@ -531,9 +488,7 @@ justify-content:flex-start
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    // text-transform: uppercase;
     font-style: normal;
-
     font-size: 0.875rem;
     color: inherit;
     text-align: center;
@@ -551,8 +506,6 @@ justify-content:flex-start
       width: 100%;
     }
   }
-
-
 }
 
 .box-empresa {
@@ -563,33 +516,24 @@ justify-content:flex-start
   align-items: flex-start;
 
   .css-1yhyf2r-MuiAutocomplete-root {
-    
     min-width: 18rem;
     @include media(tablet) {
       min-width: 25rem;
     }
   }
 
-  .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root{
-    color:get-color(grey2_s4);
+  .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
+    color: get-color(grey2_s4);
   }
-
-  
 }
 
 .sub-title {
   // padding: 1rem 0rem;
 
-  h3{
+  h3 {
     justify-content: center;
     @include media(tablet) {
-  
-      
-    justify-content: flex-start;
-  
-     
+      justify-content: flex-start;
     }
   }
- 
 }
-
