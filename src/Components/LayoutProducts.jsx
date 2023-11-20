@@ -89,9 +89,6 @@ const LayoutProducts = ({ children, menu }) => {
                 : <Image src={ari} width={80} alt='logo' priority />}
             </div>
 
-            {/* <button className='imgPerfil_close' onClick={toggleMenu}>
-              <ImageSvg name={isMenuLateralOpen ? 'CloseMenu' : 'OpenMenu'} />
-            </button> */}
           </div>
 
           <div className='box-name'>
@@ -227,17 +224,6 @@ const LayoutProducts = ({ children, menu }) => {
 
       <section className='menu_children' style={{ marginLeft: margen }}>
         <div className='childrenTilte'>
-          <nav className='menu-header'>
-            <ul>
-              <li className='hamburgerMenu'>
-                <button className='btn_icons hamburger' onClick={toggleMenuMobile}>
-                  <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
-                </button>
-
-              </li>
-
-            </ul>
-          </nav>
 
           <div className='titleMenu'>
             <div>
@@ -250,11 +236,28 @@ const LayoutProducts = ({ children, menu }) => {
             </div>
 
           </div>
-
           <div className='logo-oscuro'>
             <Image src={logoOscuro} width='100' alt='logoOscuro' priority />
 
           </div>
+
+          <div className='lang-box'>
+
+            <Lang />
+
+          </div>
+
+          <nav className='menu-header'>
+            <ul>
+              <li className='hamburgerMenu'>
+                <button className='btn_crud' onClick={toggleMenuMobile}>
+                  <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
+                </button>
+
+              </li>
+
+            </ul>
+          </nav>
 
         </div>
 

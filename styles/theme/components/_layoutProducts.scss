@@ -18,20 +18,26 @@
 
   .menu {
     z-index: 6;
+    // right: 2px;
     top: 90px;
     height: fit-content;
-
-    border-radius: brd(2);
+    border-radius: brd(1);
     visibility: visible;
-    // height: 100vh;
     background-color: get-color(white_s1);
     box-shadow: bsh(2);
     position: fixed;
     padding-top: 1rem;
+    width: 100%;
+    height:fit-content;
+
+ 
+   
+
 
 
     @include media(tablet) {
       padding-top: 0rem;
+    
       height: 100vh;
       z-index: 0;
       top: 0;
@@ -40,9 +46,7 @@
       border-radius: 0;
       box-shadow: none;
       align-items: center;
-      height: fit-content;
-      // padding-bottom: 1.5rem;
-      position: fixed;
+       position: fixed;
       border-style: none;
       background-color: get-color(white_s1);
       backdrop-filter: blur(20px);
@@ -52,6 +56,8 @@
       overflow-y: auto; /* Agregamos desplazamiento vertical si es necesario */
       height: 100svh;
     }
+
+
 
     &_Account {
       display: flex;
@@ -223,6 +229,8 @@
     }
 
     .action-open-close {
+     display: none;
+      @include media(tablet) {
       background-color: get-color(white_s1);
       border-style: none;
       position: absolute;
@@ -243,6 +251,8 @@
         width: 3rem;
       }
     }
+
+  }
     .active {
       color: get-color(blue_p1);
 
@@ -261,6 +271,11 @@
       }
 
       &:before {
+display: none;
+
+@include media(tablet) {
+ display: block;
+
         content: "";
 
         position: absolute;
@@ -271,6 +286,7 @@
         border-radius: brd(2);
         background-color: get-color(blue_p1); /* Cambia este color al que desees */
       }
+    }
     }
 
     &_logo {
@@ -285,17 +301,17 @@
     }
 
     &.menu-close {
-      // background-color: #ff6b6b;
-      max-width: 92px;
-      height: fit-content;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-left: 1rem;
+         
 
       @include media(tablet) {
-        height: 100vh;
+      
         margin-left: 0rem;
-      }
+        max-width: 92px;
+        height: fit-content;
+        justify-content: space-between;
+        gap: 1rem;
+        // margin-left: 1rem;
+        height: 100vh;
 
       .menu_Account {
         width: 100%;
@@ -305,6 +321,10 @@
       }
 
       .menu_nav {
+
+
+        
+
         padding: 0.5rem 0rem;
 
         li {
@@ -355,17 +375,7 @@
         }
       }
 
-      // .languaje {
-      //   width: 10px;
-      // }
-
-      // .lang {
-      //   display: flex;
-      //   flex-direction: column;
-      //   .languajes{
-      //     flex-direction: column;
-      //   }
-      // }
+     
 
       .imgPerfil {
         img {
@@ -373,6 +383,10 @@
           padding: 1rem;
         }
       }
+
+      }
+
+
     }
 
     &_children {
@@ -387,13 +401,16 @@
         flex-direction: row;
         align-items: center;
         background-color: get-color(blue_p1);
+        background-color: rgba(get-color(blue_p1), 0.8);
         color: get-color(white_s1);
         position: fixed;
         z-index: 5;
         width: 100%;
-        justify-content: space-evenly;
+        justify-content: space-around;
         align-items: center;
         height: 5.5rem;
+        backdrop-filter: blur(10px);
+
 
         @include media(tablet) {
           display: none;
@@ -410,7 +427,89 @@
             color: get-color(blue_p1);
           }
         }
+
+        .menu-header {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          flex-direction: row;
+          // position: fixed;
+          // z-index: 999;
+        
+          .hamburgerMenu {
+            display: block;
+
+        
+            // button {
+            //   background-color: transparent;
+            //   color: get-color(white_s1);
+            //   height:  3rem;
+
+             
+            // }
+
+            .btn_crud{
+              background-color: transparent;
+             color: get-color(white_s1);
+           
+              svg{
+             
+                height:  30px;
+                width: 30px;
+ 
+              }
+             }
+        
+            @include media(tablet) {
+              display: none;
+            }
+          }
+        
+          @include media(tablet) {
+            justify-content: flex-end;
+          }
+          @include media(desktop) {
+            justify-content: flex-end;
+          }
+        
+          ul {
+            align-items: flex-start;
+        
+            display: flex;
+            flex-direction: row;
+            gap: 0.5em;
+          }
+        
+          li {
+            background-color: transparent;
+          }
+        }
+
+        .lang-box{
+        
+          display: flex;
+
+          svg{
+            path{
+              fill:get-color(white_s1)
+            }
+          }
+
+          svg,button{
+            color:get-color(lilac_p3)
+          }
+
+
+
+          
+          .lang_active{
+            color:get-color(white_s1)
+          }
+
+        }
       }
+
+
 
       .welcomeSpan {
         display: none;
@@ -425,6 +524,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          height: 7rem;
         }
 
         @include media(tablet) {
@@ -433,7 +533,11 @@
       }
 
       .titleMenu {
-        display: flex;
+
+        display: none;
+
+        @include media(tablet) {
+          display: flex;
         flex-direction: column;
         gap: 0.5rem;
         align-items: center;
@@ -445,6 +549,9 @@
             color: get-color(black_p2);
           }
         }
+        }
+        
+       
 
         .company {
           display: block;
@@ -470,47 +577,9 @@
   }
 }
 
-.menu-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-  // position: fixed;
-  // z-index: 999;
 
-  .hamburgerMenu {
-    display: block;
 
-    button {
-      background-color: get-color(white_s1);
-      color: get-color(blue_p1);
-      width: 5rem;
-    }
 
-    @include media(tablet) {
-      display: none;
-    }
-  }
-
-  @include media(tablet) {
-    justify-content: flex-end;
-  }
-  @include media(desktop) {
-    justify-content: flex-end;
-  }
-
-  ul {
-    align-items: flex-start;
-
-    display: flex;
-    flex-direction: row;
-    gap: 0.5em;
-  }
-
-  li {
-    background-color: transparent;
-  }
-}
 
 .fondoPerfil {
   //  background-image: src;
@@ -623,3 +692,5 @@
   color: get-color(blue_p1);
   border-bottom: 1px solid get-color(lilac_p3) !important;
 }
+
+

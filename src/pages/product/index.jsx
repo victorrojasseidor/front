@@ -255,7 +255,6 @@ export default function Products () {
         <NavigationPages title={t['Digital employees']}>
 
           <Link href='/product'>
-            {/* <ImageSvg name='Products' /> */}
             Home
           </Link>
 
@@ -267,10 +266,31 @@ export default function Products () {
             <h1> {t.Welcome} {session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</h1>
             <p>  {t['Our digital employees work to improve your productivity']}</p>
 
+            <div className='products_empresa'>
+
+              <div className='box-empresa'>
+
+                {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
+                <Autocomplete
+                  value={selectedCompany}
+                  onChange={handleCompanyInputChange}
+                  sx={{ minWidth: 370 }}
+                  options={companyOptions}
+                  getOptionLabel={(option) => option.razon_social_empresa}
+                  renderInput={(params) => (
+                    <TextField {...params} label={t['To company:']} />
+                  )}
+                />
+
+              </div>
+
+            </div>
+
           </div>
           <div className='reporting-box'>
 
             <div className='report-content'>
+
               <div className='report blue'>
 
                 <div className='report_icon  '>
@@ -337,26 +357,6 @@ export default function Products () {
             </div>
 
           </div>
-        </div>
-
-        <div className='products_empresa'>
-
-          <div className='box-empresa'>
-
-            {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
-            <Autocomplete
-              value={selectedCompany}
-              onChange={handleCompanyInputChange}
-              sx={{ minWidth: 370 }}
-              options={companyOptions}
-              getOptionLabel={(option) => option.razon_social_empresa}
-              renderInput={(params) => (
-                <TextField {...params} label={t['To company:']} />
-              )}
-            />
-
-          </div>
-
         </div>
 
         <div className='products_box-filterSearch'>

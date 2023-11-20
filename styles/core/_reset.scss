@@ -208,7 +208,22 @@ p {
 
 .css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input{
   color:get-color(t1-blue);
+  font-weight: 700;
   font-family: $font-poppins;
+
+ .MuiSvgIcon-root{
+  path{
+    fill:get-color(blue_p1);
+    stroke: aqua;
+  }
+ }
+
+  svg{
+    path{
+      fill:get-color(blue_p1);
+      stroke: aqua;
+    }
+  }
  
    }
 
