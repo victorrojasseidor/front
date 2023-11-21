@@ -18,8 +18,8 @@
 
   .menu {
     z-index: 6;
-    // right: 2px;
-    top: 90px;
+    top: 85px;
+    right: -4px;
     height: fit-content;
     border-radius: brd(1);
     visibility: visible;
@@ -27,17 +27,13 @@
     box-shadow: bsh(2);
     position: fixed;
     padding-top: 1rem;
-    width: 100%;
+    width: 60%;
     height:fit-content;
-
- 
-   
-
-
+    
 
     @include media(tablet) {
       padding-top: 0rem;
-    
+      left: 0;
       height: 100vh;
       z-index: 0;
       top: 0;
@@ -301,9 +297,7 @@ display: none;
     }
 
     &.menu-close {
-         
-
-      @include media(tablet) {
+        @include media(tablet) {
       
         margin-left: 0rem;
         max-width: 92px;
@@ -321,10 +315,6 @@ display: none;
       }
 
       .menu_nav {
-
-
-        
-
         padding: 0.5rem 0rem;
 
         li {
@@ -389,11 +379,17 @@ display: none;
 
     }
 
+  
+    
+
     &_children {
       width: 100%;
       // padding: 0.5rem;
       gap: 1em;
+
       
+
+     
 
       .childrenTilte {
         display: flex;
@@ -404,7 +400,7 @@ display: none;
         background-color: rgba(get-color(blue_p1), 0.8);
         color: get-color(white_s1);
         position: fixed;
-        z-index: 5;
+        z-index: 10;
         width: 100%;
         justify-content: space-around;
         align-items: center;
@@ -568,6 +564,11 @@ display: none;
         padding: 6rem 2rem;
         background-color: get-color(bg-cles);
       height: auto;
+   
+
+     
+   
+
         @include media(tablet) {
           padding: 2rem 3rem;
 
@@ -577,6 +578,25 @@ display: none;
   }
 }
 
+
+.children_after{
+  padding: 6rem 2rem;
+  background-color: get-color(bg-cles);
+height: auto;
+position: relative;
+
+  &::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom:  0;
+    right: 0;
+    width: 100%;
+    height: 100%; /* Altura del área anterior al menú */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo gris con opacidad */
+    z-index: 1; /* Colócalo detrás del menú */
+  }
+}
 
 
 

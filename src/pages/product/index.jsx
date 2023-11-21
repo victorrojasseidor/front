@@ -10,8 +10,8 @@ import Loading from '@/Components/Atoms/Loading'
 import imgEstractos from '../../../public/img/prod-estractos.jpg'
 import imgInvoice from '../../../public/img/prod-invoice.png'
 import imgTipo from '../../../public/img/prod-tipo.jpg'
-import imgSunat from '../../../public/img/prod-sunat.png'
-import imgProd from '../../../public/img/prod-default.png'
+import imgSunat from '../../../public/img/prod-sunat.jpg'
+import imgProd from '../../../public/img/prod-default.jpg'
 import Image from 'next/image'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
@@ -274,7 +274,10 @@ export default function Products () {
                 <Autocomplete
                   value={selectedCompany}
                   onChange={handleCompanyInputChange}
-                  sx={{ minWidth: 370 }}
+                  // sx={{ minWidth: 370 }}
+                  sx={{
+                    minWidth: 350, '.MuiOutlinedInput-notchedOutline': { borderStyle: 'none' }
+                  }}
                   options={companyOptions}
                   getOptionLabel={(option) => option.razon_social_empresa}
                   renderInput={(params) => (

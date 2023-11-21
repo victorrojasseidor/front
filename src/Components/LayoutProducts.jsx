@@ -185,7 +185,7 @@ const LayoutProducts = ({ children, menu }) => {
 
               <Link href='/support'>
                 <ImageSvg name='Support' /> <h5> {t.Support}
-                                            </h5>
+                </h5>
               </Link>
             </li>
 
@@ -261,7 +261,7 @@ const LayoutProducts = ({ children, menu }) => {
 
         </div>
 
-        <section className='children'>{children}</section>
+        <section className={`children ${isOpenMobile ? 'children_after' : 'children'}`}>{children}</section>
       </section>
 
       <div>{modalToken && session && <RefreshToken />}</div>
