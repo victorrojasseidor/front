@@ -360,6 +360,20 @@
 
   "Reporting": {
     "Reporting": "Reporting",
+    "Total revenue": "Total revenue",
+    "Total expenses": "Total expenses",
+    "Result": "Result",
+    "this month": "this month",
+    "utility": "utility",
+    "Exchange rate": "Exchange rate",
+    "Result per days": "Result per days",
+    "Balance by companies": "Balance by companies",
+    "Companies": "Companies",
+    "Search": "Search",
+    "Income": "Income",
+    "Expenses": "Expenses",
+    "Asset": "Asset",
+
     "ARI Finance to": "ARI Finance to",
     "Balance report": "Balance report",
     "Movement report": "Movement report",
