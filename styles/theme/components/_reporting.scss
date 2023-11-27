@@ -80,8 +80,12 @@
                 flex-wrap: wrap;
                 gap:1rem;
                 border-radius: brd(2);
-                box-shadow: bsh(3);
+              
                 justify-content: flex-start;
+
+                &:hover , :focus {
+                    box-shadow: bsh(3);
+                }
 img{
     width: 3.75rem;
 height: 3.75rem;
@@ -223,4 +227,14 @@ border-radius: brd(1);
            
    
 
+}
+
+
+.graphic{
+    max-width: 100%;
+    padding: 1rem;
+
+   
+
+  
 }

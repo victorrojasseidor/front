@@ -1,20 +1,28 @@
 import { useState, useEffect } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
-// import logo from '../../public/img/logoseidor.png'
+
 import logo from '../../public/img/logoGift.gif'
 import ari from '../../public/img/ari.gif'
-import carita from '../../public/img/carita.png'
+
 import Image from 'next/image'
-import perfil from '../../public/img/perfil.jpg'
-import IconEN from '../../public/icons/eeuu.svg'
-import IconES from '../../public/icons/spain.svg'
+
 import RefreshToken from './RefresToken'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 import { useAuth } from '@/Context/DataContext'
-import Cloud from './Atoms/Cloud'
+
 import logoOscuro from '../../public/img/logoOscuro.png'
 import Lang from './Atoms/Lang'
+
+// import { useState, useEffect } from 'react';
+// import ImageSvg from '@/helpers/ImageSVG';
+// import Link from 'next/link';
+// import Image from 'next/image';
+// import RefreshToken from './RefresToken';
+
+// import { useAuth } from '@/Context/DataContext';
+// import logoOscuro from '../../public/img/logoOscuro.png';
+// import Lang from './Atoms/Lang';
 
 const LayoutProducts = ({ children, menu }) => {
   const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
@@ -22,20 +30,33 @@ const LayoutProducts = ({ children, menu }) => {
   const [isMobile, setIsMobile] = useState(false)
   const [margen, setMargen] = useState('0rem')
   const [titlePage, setTitlePage] = useState('')
+  const [submenuOpen, setSubmenuOpen] = useState({
+    Product: menu === 'Product',
+    Reporting: menu == 'Reporting'
+  })
+
+  const [activeMenu, setActiveMenu] = useState('')
+  const [activeSubmenu, setActiveSubmenu] = useState('')
+
+  const { session, modalToken, logout, l } = useAuth()
+  const { asPath } = useRouter()
+  const t = l.header
+
+  const toggleSubmenu = (menuItem) => {
+    setSubmenuOpen((prevState) => ({
+      ...prevState,
+      [menuItem]: !prevState[menuItem]
+    }))
+  }
 
   const toggleMenu = () => {
     setMenuLateralOpen(!isMenuLateralOpen)
   }
 
-  const { session, modalToken, logout, l } = useAuth()
-
-  const t = l.header
-
   const toggleMenuMobile = () => {
     setIsOpenMobile(!isOpenMobile)
   }
 
-  // detectar que la pantalla estpa en modo
   const checkScreenWidth = () => {
     setIsMobile(window.innerWidth <= 768)
   }
@@ -44,11 +65,7 @@ const LayoutProducts = ({ children, menu }) => {
     if (isMobile) {
       setMargen('0rem')
     } else {
-      if (isMenuLateralOpen) {
-        setMargen('13rem')
-      } else {
-        setMargen('5rem')
-      }
+      setMargen(isMenuLateralOpen ? '15rem' : '5rem')
     }
 
     checkScreenWidth()
@@ -59,50 +76,95 @@ const LayoutProducts = ({ children, menu }) => {
     }
   }, [isMobile, isMenuLateralOpen])
 
-  const handleLogout = () => {
-    logout()
-  }
-
-  const router = useRouter()
   useEffect(() => {
     if (!session) {
-      router.push('/login')
+      useRouter().push('/login')
     }
   }, [session])
 
   useEffect(() => {
-    if ((menu == 'Product')) {
-      setTitlePage(t['Digital employees'])
-    } else {
-      setTitlePage(t[menu])
-    }
+    Object.keys(menuItems).forEach((menuItem) => {
+      const menuPath = menuItems[menuItem].path
+
+      if (asPath.startsWith(menuPath)) {
+        setActiveMenu(menuItem)
+
+        if (menuItems[menuItem].submenus.length > 0) {
+          menuItems[menuItem].submenus.forEach((submenuItem) => {
+            const submenuPath = submenuItem.path
+            if (asPath === submenuPath) {
+              setActiveSubmenu(submenuPath)
+            }
+          })
+        }
+      }
+    })
+  }, [asPath])
+
+  const handleLogout = () => {
+    logout()
+  }
+
+  useEffect(() => {
+    setTitlePage(menu === 'Product' ? t['Digital employees'] : t[menu])
   }, [menu])
+
+  const menuItems = {
+    Product: {
+      label: t['Digital employees'],
+      icon: 'Products',
+      path: '/#',
+      submenus: [
+        { label: t.All, path: '/product' },
+        { label: t['Finance and accounting'], path: '/product' },
+        { label: t.Technology, path: '/product' },
+        { label: t['Human Resources'], path: '/product' }
+      ]
+    },
+    Reporting: {
+      label: t.Reporting,
+      icon: 'Reporting',
+      path: '/#',
+      submenus: [
+        { label: t.All, path: '/reporting' },
+        { label: t.Balance, path: '/reporting/balance' },
+        { label: t.Movement, path: '/reporting/movement' }
+      ]
+    },
+    Profile: {
+      label: t.Profile,
+      icon: 'Users',
+      path: '/profile',
+      submenus: [
+
+      ]
+    },
+    chatbot: {
+      label: 'Chatbot',
+      icon: 'ChatBot',
+      path: 'https://seidor.mensajea.chat/',
+      submenus: []
+    }
+  }
 
   return (
     <section className='layoutProducts'>
-      <section className={`menu ${isMenuLateralOpen ? ' ' : 'menu-close '}`} style={{ visibility: isMobile ? (isOpenMobile ? 'visible' : 'hidden') : 'visible' }}>
+      <section className={`menu ${isMenuLateralOpen ? '' : 'menu-close '}`} style={{ visibility: isMobile ? (isOpenMobile ? 'visible' : 'hidden') : 'visible' }}>
         <div className='menu_Account'>
           <div className='imgPerfil'>
             <div className='imgPerfil_logo'>
-              {isMenuLateralOpen
-                ? <Image src={logo} width={500} alt='logo' priority />
-                : <Image src={ari} width={80} alt='logo' priority />}
+              <Image src={isMenuLateralOpen ? logo : ari} width={isMenuLateralOpen ? 500 : 80} alt='logo' priority />
             </div>
-
           </div>
 
           <div className='box-name'>
             <div className='box-name_person'>
-
               <ImageSvg name='Person' />
-
             </div>
             <div className='box-name_name'>
-              <p>{session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
+              <p>{session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
               <span>{session?.sCorreo}</span>
-
             </div>
-
           </div>
 
           <div>
@@ -110,155 +172,94 @@ const LayoutProducts = ({ children, menu }) => {
               <ImageSvg name={isMenuLateralOpen ? 'CloseMenu' : 'OpenMenu'} />
             </button>
           </div>
-
         </div>
 
         <nav className='menu_nav'>
 
-          <ul>
-            <li className={menu === 'Product' ? 'active' : ''}>
+          {Object.keys(menuItems).map((menuItem, index) => (
 
-              <Link href='/product'>
-                <ImageSvg name='Products' />
-                <h5>
-                  {t['Digital employees']}
-                </h5>
+            // eslint-disable-next-line react/jsx-key
+            <ul className='list-content'>
+              {menuItems[menuItem].submenus.length > 0
+                ? <li key={index}>
+                  <button onClick={() => toggleSubmenu(menuItem)}>
+                    <ImageSvg name={menuItems[menuItem].icon} />
+                    <h5>{menuItems[menuItem].label}</h5>
+                    {menuItems[menuItem].submenus.length > 0 && <div className='img-down'> <ImageSvg name={submenuOpen[menuItem] ? 'Down' : 'Up'} /></div>}
+                  </button>
 
-              </Link>
-            </li>
+                  {menuItems[menuItem].submenus.length > 0 && (
+                    <ul className='list-content submenu' style={{ display: submenuOpen[menuItem] ? 'flex' : 'none' }}>
+                      {menuItems[menuItem].submenus.map((submenuItem, subIndex) => (
+                        <li key={subIndex} className={`${asPath === submenuItem.path || activeSubmenu === submenuItem.path ? 'active' : ''}`}>
+                          <span className='pellet'> </span>
 
-            <li className={menu === 'Reporting' ? 'active' : ''}>
+                          <Link href={submenuItem.path}>
+                            <h5>{submenuItem.label}</h5>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
 
-              <Link href='/reporting'>
-                <ImageSvg name='Reporting' />
-                <h5> {t.Reporting}
-                </h5>
+                : <li key={index} className={menu === menuItem ? 'active' : ''}>
 
-              </Link>
+                  <Link href={menuItems[menuItem].path}>
+                    <ImageSvg name={menuItems[menuItem].icon} />
+                    <h5>{menuItems[menuItem].label}</h5>
+                  </Link>
+                </li>}
 
-            </li>
-            <li className={menu === 'chatbot' ? 'active' : ''}>
-
-              <Link href='https://seidor.mensajea.chat/'>
-                <ImageSvg name='ChatBot' />
-                <h5>
-                  Chatbot
-                </h5>
-
-              </Link>
-            </li>
-
-            <li style={{ display: 'none' }}>
-
-              <Link href='/APIS'>
-                <ImageSvg name='APIS' />
-                <h5>
-
-                  APIS
-                </h5>
-              </Link>
-            </li>
-
-            <li style={{ display: 'none' }}>
-              <Link href='/Schedule'>
-                <ImageSvg name='Schedule' />
-                <h5>
-                  {t.Schedule}
-                </h5>
-              </Link>
-            </li>
-
-          </ul>
-
-          <ul>
-
-            <li className={menu === 'Profile' ? 'active' : ''}>
-              <Link href='/profile'>
-                <ImageSvg name='Users' />
-                <h5>
-                  {t.Profile}
-                </h5>
-              </Link>
-            </li>
-
-            <li className={menu === 'Support' ? 'active' : ''}>
-
-              <Link href='/support'>
-                <ImageSvg name='Support' /> <h5> {t.Support}
-                </h5>
-              </Link>
-            </li>
-
-          </ul>
+            </ul>))}
 
         </nav>
 
         <nav className='menu_nav  menu_profile'>
           <div className='box-name '>
             <div className='box-name_person fondoPerfil'>
-
               <ImageSvg name='Users' />
-
             </div>
             <div className='box-name_name fondoPerfil_color'>
               <p>{session?.sUserName}</p>
               <span>{session?.sLastName}</span>
-
             </div>
-
           </div>
 
-          <ul>
+          <ul className='list-content'>
             <li>
-              <button onClick={() => handleLogout()}>
+              <button onClick={handleLogout}>
                 <ImageSvg name='SignOut' />
-                <h5>
-                  {t['Sign Out']}
-                </h5>
+                <h5>{t['Sign Out']}</h5>
               </button>
             </li>
           </ul>
         </nav>
-
       </section>
 
       <section className='menu_children' style={{ marginLeft: margen }}>
         <div className='childrenTilte'>
-
           <div className='titleMenu'>
             <div>
               <h3>{titlePage}</h3>
             </div>
-            <div className='company'>
-
-              {session?.jCompany.razon_social_company}
-
-            </div>
-
+            <div className='company'>{session?.jCompany.razon_social_company}</div>
           </div>
           <div className='logo-oscuro'>
             <Image src={logoOscuro} width='100' alt='logoOscuro' priority />
-
           </div>
-
           <div className='lang-box'>
-
             <Lang />
-
           </div>
-
           <nav className='menu-header'>
             <ul>
               <li className='hamburgerMenu'>
                 <button className='btn_crud' onClick={toggleMenuMobile}>
                   <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
                 </button>
-
               </li>
-
             </ul>
           </nav>
-
         </div>
 
         <section className={`children ${isOpenMobile ? 'children_after' : 'children'}`}>{children}</section>

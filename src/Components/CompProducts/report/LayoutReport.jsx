@@ -37,7 +37,7 @@ const LayouReport = ({ defaultTab, children }) => {
 
   return (
     <LayoutProducts menu='Reporting'>
-      <NavigationPages title='Digital employees'>
+      <NavigationPages title={defaultTab == 0 ? t.Balance : t.Movement}>
 
         <Link href='/reporting'>
           <ImageSvg name='Dashboard' />

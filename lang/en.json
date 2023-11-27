@@ -100,7 +100,13 @@
     "Spanish": "Spanish",
     "dev": "deven ingles",
     "buttonLenguaje": "Change Lenguaje",
-    "Sign Out": "Sign Out"
+    "Sign Out": "Sign Out",
+    "All": "All",
+    "Finance and accounting":"Finance and accounting",
+    "Technology":"Technology",
+    "Human Resources":"Human Resources",
+    "Balance": "Balance",
+    "Movement":"Movement"  
   },
 
   "Products": {
@@ -135,7 +141,8 @@
     "Time saved":"Time saved",
     "this month ":"this month ",
     "Bussines agility":" Bussines agility",
-    "more":" more"
+    "more":"more"
+
   
 
 

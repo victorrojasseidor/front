@@ -83,7 +83,13 @@
     "Support": "Soporte",
     "English": "Inglés",
     "Spanish": "Español",
-    "Sign Out": "Cerrar sesión"
+    "Sign Out": "Cerrar sesión",  
+    "All": "Todos",  
+"Finance and accounting":"Finanzas y contabilidad",
+"Technology":"Tecnología",
+"Human Resources":"Recursos humanos",
+"Balance": "Saldos",
+"Movement":"Movimientos"  
   },
   "Products": {
     "Digital employees": "Empleados digitales",

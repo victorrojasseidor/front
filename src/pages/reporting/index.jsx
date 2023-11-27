@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import LimitedParagraph from '@/helpers/limitParagraf'
@@ -8,6 +8,9 @@ import { useAuth } from '@/Context/DataContext'
 import reportMovement from '../../../public/img/report-movement.png'
 import reportBalance from '../../../public/img/report-balance.png'
 import Image from 'next/image'
+import BarChart from '@/Components/Grafics/BarChart'
+import TextField from '@mui/material/TextField'
+import MenuItem from '@mui/material/MenuItem'
 
 function index (props) {
   const { session, l } = useAuth()
@@ -111,9 +114,11 @@ function index (props) {
                 </p>
               </div>
 
-              <div>
-                febrero ´¨¨¨
-              </div>
+            </div>
+
+            <div className='graphic'>
+
+              <BarChart />
 
             </div>
 
@@ -237,6 +242,7 @@ function index (props) {
         </div>
 
       </section>
+
     </LayoutProducts>
 
   )

@@ -349,7 +349,7 @@ const Movement = () => {
   }
 
   return (
-    <LayouReport defaultTab={1}>
+    <LayouReport defaultTab={1} menu='Movement'>
       <div className='balance '>
         <div className='layoutReporting-company'>
           <h5>{t['Movement report To']} {session?.jCompany.razon_social_company}</h5>
