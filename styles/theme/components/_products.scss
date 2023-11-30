@@ -6,24 +6,21 @@
   gap: 1rem;
 
   &_home {
- 
     border-radius: brd(2);
     width: 100%;
-    height: auto;
-    padding: 1rem 2rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-end;
     gap: 1rem;
-    background-position: left bottom;
- 
-    background: 
-    url('../../../public/img/home.png') left bottom no-repeat, /* Imagen a la izquierda */
-    linear-gradient(to right, #8e2de2, #4a00e0);
-    background-size: contain; /* Ajusta el tamaño de la imagen al contenedor */
-  background-position: left bottom;
- /* Posiciona la imagen a la izquierda en la parte inferior */
+    position: relative;
+    background-image: linear-gradient(to right, #8e2de2, #4a00e0);
 
+    @include media(tablet) {
+      background: url("../../../public/img/home.JPG") center top no-repeat, transparent;
+      background-size: cove, auto; /* Ajusta el tamaño de la imagen al contenedor */
+      // background-position: left bottom;
+    }
 
     .welcome {
       width: 100%;
@@ -39,15 +36,51 @@
       color: get-color(white_s1);
     }
 
-   
+    
+
+    .outstanding-image {
+      @include media(tablet) {
+        position: absolute;
+        width: 100%;
+        height: 15rem;
+        width: 21rem;
+        right:  0;
+        bottom: 0;
+        transform: scaleX(-1);
+        background: url("../../../public/img/home-2.png") no-repeat;
+        background-size: contain;
+      }
+
+      @include media(desktop) {
+        height: 18rem;
+        left: 0px;
+        bottom: 0;
+        transform: scaleX(1);
+      }
+      @include media(extradesktop) {
+        height: 20rem;
+        width: 20rem
+      }
+    }
   }
 
-  
   &_empresa {
-
-  
     @include center-container;
+
     justify-content: flex-start;
+
+    @include media(tablet) {
+      justify-content: flex-end;
+    }
+  }
+
+  &_filter-types{
+    padding: 0.5rem 0rem;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap:1rem;
+    @include scrollTeme
   }
 
   &_box-filterSearch {
@@ -55,10 +88,8 @@
     flex-direction: column;
     align-items: center;
     align-content: center;
-    padding: 1em 0rem;
+    padding: 0.5em 0rem;
     gap: 1em;
-   
-
 
     @include media(tablet) {
       flex-direction: row;
@@ -71,8 +102,6 @@
       justify-content: space-between;
     }
 
-
-
     .filterButtons {
       @include center-container;
       max-width: 18rem;
@@ -84,29 +113,24 @@
 
       overflow-x: auto;
       &::-webkit-scrollbar {
-        width: 8px;     /* Tamaño del scroll en vertical */
-        height: 8px;    /* Tamaño del scroll en horizontal */
+        width: 8px; /* Tamaño del scroll en vertical */
+        height: 8px; /* Tamaño del scroll en horizontal */
         /* Ocultar scroll */
-    }
-   
-    @include media(tablet) {
-      max-width:none;
-      padding: none;
-    }
-  
- 
-   
-      
+      }
+
+      @include media(tablet) {
+        max-width: none;
+        padding: none;
+      }
     }
 
     //select material ui
 
-    .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root{
-    width: 95%;
+    .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root {
+      width: 95%;
     }
-
-
   }
+
 
   &_cards {
     display: flex;
@@ -139,14 +163,13 @@
   }
 }
 
-
 .reporting-box {
   border-radius: brd(1);
   display: flex;
   width: 100%;
   justify-content: flex-end;
   align-items: flex-end;
-  box-shadow: drop-shadow(0px 10px 60px rgba(226, 236, 249, 0.50));
+  box-shadow: drop-shadow(0px 10px 60px rgba(226, 236, 249, 0.5));
 
   .report-content {
     width: auto;
@@ -161,13 +184,14 @@
     gap: 1rem;
 
     @include media(tablet) {
-      padding: 2rem;
+      padding: 1rem;
 
       justify-content: flex-start;
     }
 
     @include media(desktop) {
       height: auto;
+      padding: 2rem;
       justify-content: space-around;
     }
 
@@ -217,7 +241,6 @@
         article {
           color: get-color(grey2_s4);
           @include center-container;
-          
         }
 
         p {
@@ -288,29 +311,36 @@
       }
     }
   }
-
 }
+
+
+
 
 .card {
   display: flex;
   background: get-color(white_s1);
   flex-direction: column;
   width: 18rem;
-  padding: 1em 3rem;
+  padding: 1em 2rem;
   border-radius: brd(2);
+  position: relative;
+  // // background-image: linear-gradient(201deg, #caf1ff 3.14%, #cdf4ff 86.04%);
+  // // background-image: linear-gradient(201deg, #ffa3cf 3.14%, #ffd4f3 86.04%);
+  // // background-image: linear-gradient(201deg, #d3ffe7 3.14%, #effff6 86.04%);
+  // box-shadow: bsh(3);
+
   @include media(tablet) {
-    width: 20rem;
-    gap: 1em;
-    padding: 1em 2rem;
+    width: 18rem;
+    gap: 0.5em;
+    padding: 1em 1.5em;
   }
 
   @include media(desktop) {
-    width: 18rem;
-  
+    width: 16rem;
   }
 
   @include media(extradesktop) {
-    width: 20rem;
+    width: 18rem;
   }
 
   &-status {
@@ -318,23 +348,66 @@
     justify-content: space-between;
   }
 
+  &_type{
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5rem;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius:10px 0px 10px 0px;
+
+   
+  }
+
   &-title {
     display: flex;
-    position: relative;
+ 
     justify-content: flex-start;
     flex-direction: column;
     gap: 0.5rem;
+    
+    
 
     .box-img {
-      height: auto;
+      
+     padding-top: 2rem;
       display: flex;
-      justify-content: center;
+      justify-content:center;
+      background-color: get-color(white_s1); 
+      flex-direction: column;
       align-items: center;
+
+
+
+      .type_icon{
+       
+       height: 5rem;
+        width: 40%;
+        @include center-container;
+        border-radius: brd(2);
+        padding: 0.5rem;
+        justify-content: center;
+        // @include cardStyleIcon(blue_p1);
+       
+        svg{
+          justify-content: center;
+          width: 4rem;
+          height: 4rem;
+         
+        }
+
+      }
+
+     
+
 
       img[alt="imgProducts"] {
         width: 15rem;
         height: 10rem;
-    
+
         border-radius: 20px 20px 0px 0px;
 
         @include media(tablet) {
@@ -342,7 +415,14 @@
           height: 13rem;
         }
       }
+
+
+
     }
+
+
+
+    
 
     .box-name {
       // height: 5rem;
@@ -352,6 +432,8 @@
       justify-content: flex-start;
       gap: 0.25rem;
       min-height: 5.5rem;
+      position: relative;
+     
 
       h4 {
         // color:get-color(white_s1);
@@ -393,10 +475,26 @@
     }
   }
 
+  .admin {
+    position: absolute;
+    z-index: 1;
+    left:  40%;
+    top: 32%;
+      
+    @include center-container;
+    color: get-color(blue_p1);
+    padding: 0.25rem 0.5rem ;
+    border-radius: brd(2);
+    border: 1px solid get-color(blue_p1);
+    background-color: get-color(white_s1);
+    path {
+      fill: get-color(blue_p1);
+    }
+  }
+
   .card-actions {
     display: flex;
     width: 100%;
-
     align-items: center;
     justify-content: center;
 
@@ -404,19 +502,14 @@
       justify-content: space-between;
     }
 
-
-
     button {
       margin-top: 0;
+      padding: 0.75em 1em;
     }
 
     // .card-status{
     // width: 40%;
     // }
-
-    
-
-    
 
     a {
       text-align: center;
@@ -426,6 +519,24 @@
   }
 }
 
+ .financy{
+
+  
+    @include cardStyleType(blue_p1);
+  
+}
+
+.tecnology{
+  
+  @include cardStyleType(t2-ligthBlue);
+}
+
+.human{
+  @include cardStyleType(t5-green);
+}
+
+
+
 .limited-paragraph {
   white-space: nowrap;
   // overflow: hidden;
@@ -434,20 +545,7 @@
   -webkit-box-orient: vertical;
 }
 
-.admin {
-  position: absolute;
-  z-index: 1;
-  right: 2px;
-  bottom: 98px;
-  @include center-container;
-  color: get-color(grey2_s4);
-  padding: 0.25rem 1rem;
-  border-radius: brd(f);
-  background-image: linear-gradient(201deg, #caf1ff 3.14%, #cdf4ff 86.04%);
-  path {
-    fill: get-color(grey1_s3);
-  }
-}
+
 
 .card-reporting {
   div {
@@ -578,22 +676,17 @@
   align-items: flex-start;
   margin-top: 1rem;
 
- 
-
   .css-17l143u-MuiAutocomplete-root {
     min-width: 16rem;
     @include media(tablet) {
-      min-width: 25rem;
+      min-width: 22rem;
     }
- 
-
   }
 
-  .css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input{
+  .css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
     color: get-color(white_s1);
-      padding-top: 1rem;
-      color: get-color(t1-blue);
-   
+    padding-top: 1rem;
+    color: get-color(t1-blue);
   }
 
   .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
@@ -603,34 +696,33 @@
     padding: 0.5rem 1rem;
     font-size: 1rem;
     transform: translate(10px, -16px) scale(0.75);
-   
   }
 
-  
-
-  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-17l143u-MuiAutocomplete-root .MuiOutlinedInput-root{
+  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-17l143u-MuiAutocomplete-root .MuiOutlinedInput-root {
     // background-image: radial-gradient(circle at -20.44% 43.84%, #bbeebb 0, #b3efc1 12.5%, #abf1c7 25%, #a4f1ce 37.5%, #9df2d5 50%, #96f2dc 62.5%, #91f3e3 75%, #8cf3ea 87.5%, #88f3f1 100%);
-    color: get-color(white_s1);
-    font-weight: 600;
+    color: get-color(t1-blue);
+    font-weight: 500;
     border-radius: brd(3);
-    padding:  0.5rem 1rem;
+    padding: 0.5rem 1rem;
     background-color: transparent;
     border: 1px solid rgba(get-color(lilac_p3), 0.9);
+    max-width: 22.5rem;
+    @include media(tablet) {
+      width: auto;
+    }
   }
 
-  .css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator{
-   background-color: rgba(get-color(lilac_p3), 0.5);;
+  .css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator {
+    background-color: rgba(get-color(lilac_p3), 0.5);
     border-radius: brd(1);
-    margin:  -1rem 0.5rem;
+    margin: -1rem 0.5rem;
 
-    svg{
-      width:  25px;
+    svg {
+      width: 25px;
       height: 30px;
-      
-      path{
-       
-        fill:get-color(white_s1);
-       
+
+      path {
+        fill: get-color(white_s1);
       }
     }
   }

@@ -13,6 +13,7 @@ import { useAuth } from '@/Context/DataContext'
 
 import logoOscuro from '../../public/img/logoOscuro.png'
 import Lang from './Atoms/Lang'
+import Cloud from './Atoms/Cloud'
 
 // import { useState, useEffect } from 'react';
 // import ImageSvg from '@/helpers/ImageSVG';
@@ -116,9 +117,9 @@ const LayoutProducts = ({ children, menu }) => {
       path: '/#',
       submenus: [
         { label: t.All, path: '/product' },
-        { label: t['Finance and accounting'], path: '/product' },
-        { label: t.Technology, path: '/product' },
-        { label: t['Human Resources'], path: '/product' }
+        { label: t['Finance and accounting'], path: '/product/Finance' },
+        { label: t.Technology, path: '/product/Tecnology' },
+        { label: t['Human Resources'], path: '/product/Human' }
       ]
     },
     Reporting: {
@@ -174,7 +175,7 @@ const LayoutProducts = ({ children, menu }) => {
           </div>
         </div>
 
-        <nav className='menu_nav'>
+        <nav className='menu_nav' style={{ minHeight: '24rem', justifyContent: 'flex-start' }}>
 
           {Object.keys(menuItems).map((menuItem, index) => (
 
@@ -189,17 +190,21 @@ const LayoutProducts = ({ children, menu }) => {
                   </button>
 
                   {menuItems[menuItem].submenus.length > 0 && (
-                    <ul className='list-content submenu' style={{ display: submenuOpen[menuItem] ? 'flex' : 'none' }}>
-                      {menuItems[menuItem].submenus.map((submenuItem, subIndex) => (
-                        <li key={subIndex} className={`${asPath === submenuItem.path || activeSubmenu === submenuItem.path ? 'active' : ''}`}>
-                          <span className='pellet'> </span>
+                    <div className='submenu' style={{ display: submenuOpen[menuItem] ? 'flex' : 'none' }}>
 
-                          <Link href={submenuItem.path}>
-                            <h5>{submenuItem.label}</h5>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                      <ul className='list-content '>
+                        {menuItems[menuItem].submenus.map((submenuItem, subIndex) => (
+                          <li key={subIndex} className={`${asPath === submenuItem.path || activeSubmenu === submenuItem.path ? 'active' : ''}`}>
+                            <span className='pellet'> </span>
+
+                            <Link href={submenuItem.path}>
+                              <h5>{submenuItem.label}</h5>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
                   )}
                 </li>
 

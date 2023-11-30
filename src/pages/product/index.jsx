@@ -7,11 +7,7 @@ import { useAuth } from '@/Context/DataContext'
 import { getProducts } from '@/helpers/auth'
 import NavigationPages from '@/Components/NavigationPages'
 import Loading from '@/Components/Atoms/Loading'
-import imgEstractos from '../../../public/img/prod-estractos.jpg'
-import imgInvoice from '../../../public/img/prod-invoice.jpg'
-import imgTipo from '../../../public/img/prod-tipo.jpg'
-import imgSunat from '../../../public/img/prod-sunat.jpg'
-import imgProd from '../../../public/img/prod-default.jpg'
+
 import Image from 'next/image'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
@@ -21,6 +17,7 @@ export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [selectedFilter, setSelectedFilter] = useState(null)
+  const [selectedFilterType, setSelectedFilterType] = useState(null)
   const [product, setProduct] = useState({})
   const [requestError, setRequestError] = useState('')
   const [empresa, setEmpresa] = useState('')
@@ -159,6 +156,10 @@ export default function Products () {
     setSelectedFilter(filter)
   }
 
+  const handleFilterType = (filter) => {
+    setSelectedFilterType(filter)
+  }
+
   const handleSearch = () => {
     setSearchQuery('')
     setSelectedFilter(null)
@@ -166,14 +167,14 @@ export default function Products () {
 
   const imgProduct = (id) => {
     if (id === 1) {
-      return imgEstractos
+      return 'IconEstractos'
     } else if (id === 2) {
-      return imgTipo
+      return 'IconTipo'
     } else if (id === 3) {
-      return imgSunat
+      return 'IconSunat'
     } else if (id === 4) {
-      return imgProd
-    } else return imgProd
+      return 'IconInvoce'
+    } else return 'IconCard'
   }
 
   function calcularDiasRestantes (day) {
@@ -260,36 +261,39 @@ export default function Products () {
 
         </NavigationPages>
 
+        <div className='products_empresa'>
+
+          <div className='box-empresa'>
+
+            {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
+            <Autocomplete
+              value={selectedCompany}
+              onChange={handleCompanyInputChange}
+                  // sx={{ minWidth: 370 }}
+              sx={{
+                minWidth: 350, '.MuiOutlinedInput-notchedOutline': { borderStyle: 'none' }
+              }}
+              options={companyOptions}
+              getOptionLabel={(option) => option.razon_social_empresa}
+              renderInput={(params) => (
+                <TextField {...params} label={t['To company:']} />
+              )}
+            />
+
+          </div>
+
+        </div>
+
         <div className='products_home'>
+
+          <span className='outstanding-image' />
 
           <div className='welcome'>
             <h1> {t.Welcome} {session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</h1>
             <p>  {t['Our digital employees work to improve your productivity']}</p>
 
-            <div className='products_empresa'>
-
-              <div className='box-empresa'>
-
-                {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
-                <Autocomplete
-                  value={selectedCompany}
-                  onChange={handleCompanyInputChange}
-                  // sx={{ minWidth: 370 }}
-                  sx={{
-                    minWidth: 350, '.MuiOutlinedInput-notchedOutline': { borderStyle: 'none' }
-                  }}
-                  options={companyOptions}
-                  getOptionLabel={(option) => option.razon_social_empresa}
-                  renderInput={(params) => (
-                    <TextField {...params} label={t['To company:']} />
-                  )}
-                />
-
-              </div>
-
-            </div>
-
           </div>
+
           <div className='reporting-box'>
 
             <div className='report-content'>
@@ -361,6 +365,27 @@ export default function Products () {
 
           </div>
         </div>
+        <div className='sub-title'>
+          <h3> {t['Digital employees']} {empresa?.razon_social_empresa}</h3>
+        </div>
+
+        <div className='products_filter-types'>
+          <button onClick={() => handleFilterType(null)} className={`btn_filter ${selectedFilterType === null ? 'active' : ''}`}>
+            <ImageSvg name='All' />  <p> {t.All} </p>
+          </button>
+          <button onClick={() => handleFilterType(23)} className={`btn_filter ${selectedFilterType === 23 ? 'active' : ''}`}>
+            <div className='btn_filter'><ImageSvg name='Financy' />  <p>{t['Finance and accounting']} </p>  </div>
+          </button>
+          <button onClick={() => handleFilterType(25)} className={`btn_filter ${selectedFilterType === 25 || selectedFilterType === 27 || selectedFilterType === 28 ? 'active' : ''}`}>
+
+            <ImageSvg name='Tecnology' />  <p> {t.Technology}</p>
+
+          </button>
+          <button onClick={() => handleFilterType(31)} className={`btn_filter ${selectedFilterType === 31 ? 'active' : ''}`}>
+            <ImageSvg name='Human' /> <p> {t['Human Resources']}
+                                      </p>
+          </button>
+        </div>
 
         <div className='products_box-filterSearch'>
           <div className='searchButton'>
@@ -392,19 +417,25 @@ export default function Products () {
 
         {searchResults.length > 0
           ? (
-            <div className='products_cards'>
-              <div className='sub-title'>
-                <h3> {t['ARI Finance to']} {empresa?.razon_social_empresa}</h3>
-              </div>
+            <div className='products_cards '>
 
               <ul>
                 {searchResults.map((product) => (
-                  <li key={product.iId} className='card'>
+                  <li key={product.iId} className='card financy'>
+
+                    <span className='card_type'>
+                      {t['Finance and accounting']}
+                    </span>
 
                     <div className='card-title'>
 
                       <div className='box-img'>
-                        <Image src={imgProduct(product.iId)} width={500} alt='imgProducts' />
+
+                        <div className='type_icon'>
+
+                          <ImageSvg name={imgProduct(product.iId)} />
+                        </div>
+
                         {session?.sPerfilCode == 'ADMIN' &&
 
                           <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p className='report blue  green admin'>  <ImageSvg name='Admin' /> Admin </p> </Link>}
@@ -418,7 +449,7 @@ export default function Products () {
                           ? (
 
                             <p className='dayLetf'>
-                              <ImageSvg name='Time' />
+                              {/* <ImageSvg name='Time' /> */}
                               {calcularDiasRestantes(product.sDateEnd) >= 0
                                 ? <span style={{ color: 'blue' }}>    {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}</span>
                                 : (
@@ -446,11 +477,17 @@ export default function Products () {
 
                 {/* productos añadidos por el momento */}
 
-                <li className='card' style={{ gap: '1rem', visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+                <li className='card tecnology' style={{ gap: '1rem', visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
+                  <span className='card_type'>
+                    {t.Technology}
+                  </span>
                   <div className='card-title'>
                     <div className='box-img'>
-                      <Image src={imgProduct(3)} width={1000} alt='imgProducts' />
+                      <div className='type_icon'>
+
+                        <ImageSvg name={imgProduct(3)} />
+                      </div>
 
                     </div>
 
@@ -458,7 +495,7 @@ export default function Products () {
                       <h4> {t['Download SUNAT Tax Status Registers']}</h4>
 
                       <p className='dayLetf'>
-                        <ImageSvg name='Time' />
+                        {/* <ImageSvg name='Time' /> */}
                         {t['Days left:']} ..
                       </p>
 
@@ -479,12 +516,19 @@ export default function Products () {
                   </div>
                 </li>
 
-                <li className='card' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+                <li className='card human' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
+                  <span className='card_type'>
+                    {t['Human Resources']}
+                  </span>
                   <div className='card-title'>
 
                     <div className='box-img'>
-                      <Image src={imgProduct(4)} width={1000} alt='imgProducts' />
+
+                      <div className='type_icon'>
+
+                        <ImageSvg name={imgProduct(4)} />
+                      </div>
 
                     </div>
 
@@ -492,7 +536,7 @@ export default function Products () {
                       <h4> {t['Invoice register']} </h4>
 
                       <p className='dayLetf'>
-                        <ImageSvg name='Time' />
+                        {/* <ImageSvg name='Time' /> */}
                         {t['Days left:']} ..
                       </p>
 

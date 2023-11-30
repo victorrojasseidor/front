@@ -176,35 +176,6 @@ p {
 }
 
 
-// select {
-//   /* Estilos generales para el select */
-//   width: 100%;
-//   color:get-color(blue_p1);
-//   padding: 0.8rem 1rem;
-//   border: brd(1);
-//   border-radius: 4px;
-//   background-color: get-color(white_s1);
-//   border: 1px solid #e5e5ea;
-//   border-radius: 0.3125rem;
-//   border-bottom: 2px solid #ddd;
-//   margin: 1em 0;
-//   cursor: pointer;
-
-//   &:focus {
-//     outline: none;
-//   }
-
-//   &:active,
-//   &:hover {
-//     transform: translateY(2px);
-
-//     option {
-//       background-color: get-color(white_s1);
-//     }
-//   }
-// }
-
-//select
 
 .css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input{
   color:get-color(t1-blue);
