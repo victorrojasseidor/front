@@ -59,28 +59,6 @@
 
 }
 
-// @mixin cardStyle($color) {
-//   background-color: rgba(get-color($color), 0.2);
-
-//   color: darken(get-color($color), 1%);
- 
-  
-
-// }
-
-// @mixin cardStyleIcon($color) {
-
-//   border: 1px solid get-color($color);
-//   svg{
-
-//     path{
-//       fill: get-color($color);
-//     }
-//   }
- 
-  
-
-// }
 
 
 @mixin cardStyleType($color) {

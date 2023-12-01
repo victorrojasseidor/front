@@ -15,39 +15,34 @@
     display: flex;
     font-weight: 600;
     align-items: center;
-    gap:0.5rem;
+    gap: 0.5rem;
     justify-content: center;
     cursor: pointer;
-  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-  box-shadow: 0 2px 8px get-color(pink_s5);
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    box-shadow: 0 2px 8px get-color(pink_s5);
 
-    svg{
-      path,polyline{
-        stroke:get-color(white_s1);
-        color:get-color(white_s1)
+    svg {
+      path,
+      polyline {
+        stroke: get-color(white_s1);
+        color: get-color(white_s1);
       }
-   
     }
 
     a {
       color: get-color(white_s1);
     }
 
-
     &:focus {
       outline: 0;
-      
     }
-  
-   
+
     &:active {
       transform: scale(0.9);
-      background-color: darken(get-color(t1-blue) , 5%);
+      background-color: darken(get-color(t1-blue), 5%);
       box-shadow: 0 2px 25px get-color(lilac_p3);
     }
-
   }
-
 
   &_secundary {
     margin-top: 1rem;
@@ -55,7 +50,7 @@
     border-radius: brd(3);
     background-color: get-color(white_s1);
     color: get-color(blue_p1);
-     padding: 0.8rem 1.25rem;
+    padding: 0.8rem 1.25rem;
     min-width: 7rem;
     border: 2px solid get-color(lilac_p3);
     font-weight: 600;
@@ -64,25 +59,26 @@
     align-items: center;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
     box-shadow: 0 2px 25px get-color(bg-cles);
-    svg{
-      path,polyline{
-        stroke:get-color(blue_p1);
-        color:get-color(blue_p1)
+    svg {
+      path,
+      polyline {
+        stroke: get-color(blue_p1);
+        color: get-color(blue_p1);
       }
     }
-   
 
     &:hover {
       background-color: get-color(blue_p1);
       color: get-color(white_s1);
       font-size: 1rem;
-  
+
       border-style: none;
 
-      svg{
-        path,polyline{
-          stroke:get-color(white_s1);
-          color:get-color(white_s1)
+      svg {
+        path,
+        polyline {
+          stroke: get-color(white_s1);
+          color: get-color(white_s1);
         }
       }
     }
@@ -92,14 +88,9 @@
 
     &:active {
       transform: scale(0.9);
-      background-color: darken(get-color(blue_p1) , 5%);
+      background-color: darken(get-color(blue_p1), 5%);
       box-shadow: 0 2px 25px get-color(bg-cles);
     }
-    
-    
-    
-   
-
   }
   &_crud {
     border-style: none;
@@ -107,25 +98,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-     color:get-color(blue_p1);
-     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-     border-radius: brd(f);
+    color: get-color(blue_p1);
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+    border-radius: brd(f);
     background-color: transparent;
-     height: auto;
+    height: auto;
     //  background: rgba(get-color(blue_p1), 0.1);
 
-     
-  
-      &:hover, &:focus{
-
-        svg, img{
-          // filter: brightness(0);
-          width: 0.9rem;
-          height: auto;         
-        }
-        
-      
-
+    &:hover,
+    &:focus {
+      svg,
+      img {
+        // filter: brightness(0);
+        width: 0.9rem;
+        height: auto;
+      }
     }
   }
 
@@ -159,98 +146,80 @@
 
   &_filter {
     border-style: none;
-    @include center-container;
-    border-radius: brd(3);
-    background-color: transparent;
-    color: get-color(grey2_s4);
-    padding: 1rem 2rem;
-    font-weight: 500;
-   
-    cursor: pointer;
-    font-size: 0.8rem;
-    gap:0.5rem;
-    width: 100%;
-    align-items: center;
     display: flex;
     justify-content: center;
+    background-color: transparent;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
     flex-direction: row;
-    div{
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      // background-color: aquamarine;
-      padding: 1rem !important;
+    padding: 0.5rem 1rem;
+    border-radius: brd(3);
+    cursor: pointer;
+    color: get-color(grey2_s4);
+    min-width: 10em;
+    @include media(tablet) {
+      width: auto;
+      min-width: 5em;
+      padding: 0.75rem 1rem;
     }
 
-    svg{
-      flex: 0.5;
-      width: 3rem;
+    svg {
+     
+      width: 2rem;
       height: 2rem;
+      @include media(tablet) {
+        width: 1.5rem;
+        height: 1.5rem;
+       
+      }
 
-      path{
+      path {
         stroke: get-color(grey2_s4);
       }
     }
-
-    p{
+    p {
       display: flex;
-      font-weight: 500;
-      flex:1.5;
-      line-height: 1;
-      text-align:left;
-      width: 100%;
+      justify-content: flex-start;
 
-
-    
-   
-      
-
+      align-items: flex-start;
+      text-align: start;
+      @include media(desktop) {
+        text-align: center;
+      }
     }
-    
 
-    
-    @include media(tablet) {
-      width: 7.5rem;
-      font-size: 1rem;
-      height: 2.5em;
-      padding: 0rem 0.25rem;
-    }
+
+
 
     &.active {
-   
       background-color: get-color(white_s1);
       color: get-color(blue_p1);
-      svg{
-        path{
+      svg {
+        path {
           stroke: get-color(blue_p1);
         }
       }
-   
     }
 
     &.pending {
       color: get-color(t1-blue);
       justify-content: flex-start;
-    cursor:default;
-      
+      cursor: default;
     }
-    
+
     &.configured {
       color: get-color(blue_p1);
       justify-content: flex-start;
-      cursor:default;
+      cursor: default;
     }
-    
+
     &.not-hired {
       color: get-color(grey2_s4);
       justify-content: flex-start;
-      cursor:default;
-    
+      cursor: default;
     }
   }
-  
 
   &_black {
     display: flex;
@@ -264,15 +233,13 @@
     border-radius: brd(3);
     background: get-color(black_p2);
     color: get-color(white_s1);
-    gap:1rem;
+    gap: 1rem;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
     @include media(tablet) {
       font-size: medium;
       padding: 0.8rem 1.25rem;
       gap: 1em;
     }
-
-
 
     &:focus {
       outline: 0;
@@ -283,7 +250,7 @@
       background-color: get-color(white_s1);
       color: get-color(black_p2);
       border: 1px solid get-color(black_p2);
-      transform: scale(0.9);   
+      transform: scale(0.9);
       box-shadow: 0 2px 25px get-color(bg-cles);
     }
   }
@@ -297,63 +264,50 @@
     height: 45px;
     display: flex;
     justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      color:get-color(grey2_s4);
-      img{
-        width: 25px;
-      }
-   
-      &:hover,
-      &:active {
-        border: 2px solid get-color(pink_s5);
-        font-size: 1rem;
-        background-color: get-color(black_p2);
-        color:get-color(white_s1);
-    
-        svg {
-          color: get-color(white_s1);
-          font-size: 1.2rem;
-          
-        }
-       
+    align-items: center;
+    flex-direction: column;
+    color: get-color(grey2_s4);
+    img {
+      width: 25px;
+    }
 
-       
+    &:hover,
+    &:active {
+      border: 2px solid get-color(pink_s5);
+      font-size: 1rem;
+      background-color: get-color(black_p2);
+      color: get-color(white_s1);
+
+      svg {
+        color: get-color(white_s1);
+        font-size: 1.2rem;
       }
+    }
   }
 
-  
+  &_green {
+    background-color: get-color(t5-green);
+    padding: 0.25rem 0.5rem;
+    border-radius: brd(2);
+    border-style: none;
+    &:hover {
+      padding: 0.25rem 1rem;
+      font-weight: 600;
+    }
+  }
 
-  &_green{
-    background-color:get-color(t5-green);
-       padding: 0.25rem 0.5rem;
-       border-radius: brd(2);
-       border-style: none;
-       &:hover {
-       
-        padding: 0.25rem 1rem;
-        font-weight: 600;
-      }
-     }
-   
-     &_red{
-   background-color:get-color(t3-red);
-       padding: 0.25rem 0.5rem;
-       color:get-color(forms_s6);
-       border-radius: brd(2);
-       border-style: none;
-       &:hover {
-       
-        padding: 0.25rem 1rem;
-        font-weight: 600;
-      }
-       
-     }
- 
+  &_red {
+    background-color: get-color(t3-red);
+    padding: 0.25rem 0.5rem;
+    color: get-color(forms_s6);
+    border-radius: brd(2);
+    border-style: none;
+    &:hover {
+      padding: 0.25rem 1rem;
+      font-weight: 600;
+    }
+  }
 }
-
-
-
 
 //modificador para botones pequeños
 .small {
@@ -363,12 +317,10 @@
   max-width: 200px;
 }
 
-
-
 .black {
   background-color: get-color(black_p2);
   color: get-color(white_s1);
- 
+
   &:hover {
     background-color: get-color(white_s1);
     color: get-color(black_p2);
@@ -382,7 +334,7 @@
   background-color: get-color(white_s1);
   color: get-color(black_p2);
   border: 1px solid get-color(grey1_s3);
- 
+
   &:hover {
     background-color: get-color(black_p2);
     color: get-color(white_s1);
@@ -391,9 +343,6 @@
   }
 }
 
-
-
-
 .disabled {
   opacity: 0.5;
   border-style: none;
@@ -401,99 +350,83 @@
   pointer-events: none; /* Desactiva eventos de puntero */
 }
 
-.desactivo{
+.desactivo {
   opacity: 0.8;
   background-color: get-color(grey1_s3);
   cursor: not-allowed;
   border-style: none;
-  color:get-color(white_s1)
-
+  color: get-color(white_s1);
 }
-
-
 
 .cloudContainer {
   position: relative;
 
+  .cloud {
+    position: absolute;
+    background-color: get-color(pink_s5);
+    padding: 0.5rem;
+    border-radius: 11px 10px 10px 10px;
+    box-shadow: bsh(2);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1;
+    top: -36px;
+    left: 0;
 
-.cloud {
-  position: absolute;
-  background-color: get-color(pink_s5);
-  padding: 0.5rem;
-  border-radius: 11px 10px 10px 10px;
-  box-shadow:bsh(2);
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  z-index: 1;
-  top:-36px;
-  left: 0;
- 
-  color:get-color(blue_p1);
-  filter: drop-shadow(0px 0px 1px get-color(pink_s5)) ;
-}
-
-
-
+    color: get-color(blue_p1);
+    filter: drop-shadow(0px 0px 1px get-color(pink_s5));
+  }
 }
 
 button:hover + .cloud {
   opacity: 1; /* Se hace visible cuando el botón está en :hover */
 }
 
-
-.box-buttons{
+.box-buttons {
   display: flex;
   flex-direction: row;
   width: 100%;
   align-items: center;
   justify-content: center;
- 
 }
-  
 
-  .searchButton {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background-color: get-color(white_s1);
-    height: 2.5em;
-    border-radius: brd(3);
+.searchButton {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: get-color(white_s1);
+  height: 2.5em;
+  border-radius: brd(3);
 
-    @include media(tablet) {
-      max-width: 18rem;
-    }
+  @include media(tablet) {
+    max-width: 18rem;
+  }
 
-  
-    input {
-      font-size: 1rem;
-      height: 1.5em;
-      color: get-color(t1-blue);
-      background-color: transparent;
-      font-weight: 500;
-      border-style: none;
-      padding: 1em;
-      &::placeholder{
-        color:#8F9BBA;
-        font-weight: 400;
-         }
-      
-    }
-    
-  
-    button {
-      border-style: none;
-      display: flex;
-      background-color: transparent;
-      justify-content: center;
-      align-items: center;
-      
-    
-      padding-left: 1rem;
-      svg {
-        color: get-color(t1-blue);
-        pointer-events: none;
-  
-      }
+  input {
+    font-size: 1rem;
+    height: 1.5em;
+    color: get-color(t1-blue);
+    background-color: transparent;
+    font-weight: 500;
+    border-style: none;
+    padding: 1em;
+    &::placeholder {
+      color: #8f9bba;
+      font-weight: 400;
     }
   }
-  
+
+  button {
+    border-style: none;
+    display: flex;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+
+    padding-left: 1rem;
+    svg {
+      color: get-color(t1-blue);
+      pointer-events: none;
+    }
+  }
+}

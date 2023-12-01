@@ -372,16 +372,17 @@ export default function Products () {
         <div className='products_filter-types'>
           <button onClick={() => handleFilterType(null)} className={`btn_filter ${selectedFilterType === null ? 'active' : ''}`}>
             <ImageSvg name='All' />  <p> {t.All} </p>
+
           </button>
           <button onClick={() => handleFilterType(23)} className={`btn_filter ${selectedFilterType === 23 ? 'active' : ''}`}>
-            <div className='btn_filter'><ImageSvg name='Financy' />  <p>{t['Finance and accounting']} </p>  </div>
+            <ImageSvg name='Financy' />  <p>{t['Finance and accounting']} </p>
           </button>
-          <button onClick={() => handleFilterType(25)} className={`btn_filter ${selectedFilterType === 25 || selectedFilterType === 27 || selectedFilterType === 28 ? 'active' : ''}`}>
+          <button onClick={() => handleFilterType(25)} className='btn_filter disabled'>
 
             <ImageSvg name='Tecnology' />  <p> {t.Technology}</p>
 
           </button>
-          <button onClick={() => handleFilterType(31)} className={`btn_filter ${selectedFilterType === 31 ? 'active' : ''}`}>
+          <button onClick={() => handleFilterType(31)} className='btn_filter disabled'>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
                                       </p>
           </button>
@@ -477,10 +478,10 @@ export default function Products () {
 
                 {/* productos añadidos por el momento */}
 
-                <li className='card tecnology' style={{ gap: '1rem', visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+                <li className='card financy' style={{ gap: '1rem', visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
                   <span className='card_type'>
-                    {t.Technology}
+                    {t['Finance and accounting']}
                   </span>
                   <div className='card-title'>
                     <div className='box-img'>
@@ -516,10 +517,10 @@ export default function Products () {
                   </div>
                 </li>
 
-                <li className='card human' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+                <li className='card financy' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
                   <span className='card_type'>
-                    {t['Human Resources']}
+                    {t['Finance and accounting']}
                   </span>
                   <div className='card-title'>
 

@@ -27,6 +27,7 @@
     box-shadow: bsh(2);
     position: fixed;
     padding-top: 1rem;
+    padding-bottom: 1rem;
     width: 60%;
     height: fit-content;
 
@@ -117,7 +118,6 @@
       .list-content {
         display: flex;
         flex-direction: column;
-        gap: 1em;
         justify-content: center;
 
         li {
@@ -270,7 +270,8 @@
 
     &_profile {
       border-top: 1px solid get-color(grey1_s3);
-      overflow-y: hidden;
+      overflow-y:initial;
+
     }
 
     .box-name {

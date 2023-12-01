@@ -18,7 +18,7 @@
 
     @include media(tablet) {
       background: url("../../../public/img/home.JPG") center top no-repeat, transparent;
-      background-size: cove, auto; /* Ajusta el tamaño de la imagen al contenedor */
+      background-size: cover, auto; /* Ajusta el tamaño de la imagen al contenedor */
       // background-position: left bottom;
     }
 
@@ -42,24 +42,27 @@
       @include media(tablet) {
         position: absolute;
         width: 100%;
-        height: 15rem;
-        width: 21rem;
-        right:  0;
+        height: 25rem;
+        width: 25rem;
+        z-index: 1;
+        left:  0;
         bottom: 0;
-        transform: scaleX(-1);
+    
         background: url("../../../public/img/home-2.png") no-repeat;
         background-size: contain;
       }
 
       @include media(desktop) {
-        height: 18rem;
-        left: 0px;
-        bottom: 0;
-        transform: scaleX(1);
+        height: 27rem;
+     
+     
+      
+        
       }
       @include media(extradesktop) {
-        height: 20rem;
-        width: 20rem
+        height: 22rem;
+        width: 25rem;
+      
       }
     }
   }
@@ -182,10 +185,10 @@
     align-items: center;
     padding: 1rem;
     gap: 1rem;
+    z-index: 1;
 
     @include media(tablet) {
       padding: 1rem;
-
       justify-content: flex-start;
     }
 
@@ -193,6 +196,7 @@
       height: auto;
       padding: 2rem;
       justify-content: space-around;
+  
     }
 
     @include media(extradesktop) {
@@ -690,10 +694,11 @@
   }
 
   .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
-    color: get-color(t1-blue);
-    background-color: rgba(get-color(white_s1), 0.9);
+    color: get-color(grey2_s4);
+    background-color: rgba(get-color(white_s1), 0.1);
     border-radius: brd(2);
-    padding: 0.5rem 1rem;
+    padding: -1.2rem  -1.2rem;
+    margin-left: 0.20rem;
     font-size: 1rem;
     transform: translate(10px, -16px) scale(0.75);
   }
@@ -701,28 +706,32 @@
   .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-17l143u-MuiAutocomplete-root .MuiOutlinedInput-root {
     // background-image: radial-gradient(circle at -20.44% 43.84%, #bbeebb 0, #b3efc1 12.5%, #abf1c7 25%, #a4f1ce 37.5%, #9df2d5 50%, #96f2dc 62.5%, #91f3e3 75%, #8cf3ea 87.5%, #88f3f1 100%);
     color: get-color(t1-blue);
-    font-weight: 500;
-    border-radius: brd(3);
-    padding: 0.5rem 1rem;
-    background-color: transparent;
-    border: 1px solid rgba(get-color(lilac_p3), 0.9);
+    // font-weight: 600;
+    border-radius: brd(2);
+    padding: 0.35rem 0.5rem;
+    background-color:get-color(white_s1);
+    border: 1px solid rgba(get-color(t2-ligthBlue), 0.1);
     max-width: 22.5rem;
     @include media(tablet) {
-      width: auto;
+      max-width: 25rem;
     }
   }
 
   .css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator {
-    background-color: rgba(get-color(lilac_p3), 0.5);
-    border-radius: brd(1);
-    margin: -1rem 0.5rem;
+  
+    margin: -1rem 0rem -1rem 0rem;
 
     svg {
-      width: 25px;
-      height: 30px;
+     
+      width: 2rem;
+      height: 2rem;
+      
 
       path {
-        fill: get-color(white_s1);
+       
+        fill: get-color(t2-ligthBlue);
+        border-radius: brd(3);
+      
       }
     }
   }
@@ -732,9 +741,10 @@
   // padding: 1rem 0rem;
 
   h3 {
-    justify-content: center;
-    @include media(tablet) {
+    
+      padding-top: 1rem;
       justify-content: flex-start;
-    }
+      font-size: 2rem;
+    
   }
 }

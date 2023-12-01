@@ -15,16 +15,6 @@ import logoOscuro from '../../public/img/logoOscuro.png'
 import Lang from './Atoms/Lang'
 import Cloud from './Atoms/Cloud'
 
-// import { useState, useEffect } from 'react';
-// import ImageSvg from '@/helpers/ImageSVG';
-// import Link from 'next/link';
-// import Image from 'next/image';
-// import RefreshToken from './RefresToken';
-
-// import { useAuth } from '@/Context/DataContext';
-// import logoOscuro from '../../public/img/logoOscuro.png';
-// import Lang from './Atoms/Lang';
-
 const LayoutProducts = ({ children, menu }) => {
   const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
   const [isOpenMobile, setIsOpenMobile] = useState(false)
@@ -117,9 +107,9 @@ const LayoutProducts = ({ children, menu }) => {
       path: '/#',
       submenus: [
         { label: t.All, path: '/product' },
-        { label: t['Finance and accounting'], path: '/product/Finance' },
-        { label: t.Technology, path: '/product/Tecnology' },
-        { label: t['Human Resources'], path: '/product/Human' }
+        { label: t['Finance and accounting'], path: '/product/Finance' }
+        // { label: t.Technology, path: '/product/Tecnology' },
+        // { label: t['Human Resources'], path: '/product/Human' }
       ]
     },
     Reporting: {
@@ -175,7 +165,7 @@ const LayoutProducts = ({ children, menu }) => {
           </div>
         </div>
 
-        <nav className='menu_nav' style={{ minHeight: '24rem', justifyContent: 'flex-start' }}>
+        <nav className='menu_nav' style={{ minHeight: '21rem', justifyContent: 'flex-start' }}>
 
           {Object.keys(menuItems).map((menuItem, index) => (
 
