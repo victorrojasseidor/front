@@ -40,18 +40,23 @@
 
 
 @mixin scrollTeme {
+
+ 
  /* Personalización de las barras de desplazamiento */
  &::-webkit-scrollbar {
-  width: 0.24rem;
-  max-height: 4rem;
+  width: 0.14rem;
+  height: 0.3rem; 
 }
 
 &::-webkit-scrollbar-thumb {
-  background-image: linear-gradient(201deg, #caf1ff 3.14%, #cdf4ff 86.04%);
+  background-image: linear-gradient(to right, #8e2de2, #4a00e0);
+  background-image: linear-gradient(to right, rgba(get-color(lilac_p3),0.3), rgba(get-color(blue_p1), 0.4));
+  
   
   border-radius: brd(3);
   &:hover {
-    background-color: get-color(lilac_p3); /* Cambio de color al pasar el cursor */
+    
+    background-image: linear-gradient(to right, #8e2de2, #4a00e0);/* Cambio de color al pasar el cursor */
     background-image: linear-gradient(201deg, #ffa3cf 3.14%, #ffd4f3 86.04%);
     background-image: linear-gradient(201deg, #d3ffe7 3.14%, #effff6 86.04%);
   }
@@ -62,6 +67,8 @@
 
 
 @mixin cardStyleType($color) {
+
+  
 
   // border: 0.1px solid rgba(get-color($color), 0.4);
   box-shadow:   -1.83697e-16px 3px 10px rgba(get-color($color), 0.12);

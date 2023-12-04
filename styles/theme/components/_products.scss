@@ -83,13 +83,15 @@
     flex-direction: row;
     overflow-x: auto;
     gap:1rem;
-    @include scrollTeme
+    @include scrollTeme;
+
+    
   }
 
   &_box-filterSearch {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     align-content: center;
     padding: 0.5em 0rem;
     gap: 1em;
@@ -107,23 +109,29 @@
 
     .filterButtons {
       @include center-container;
-      max-width: 18rem;
-      padding: 0rem 0.5rem;
+      width: 100%;
+      padding-bottom: 0.5rem;
+    
       flex-direction: row;
       justify-content: flex-start;
-      // overflow-x: scroll;
-      -webkit-overflow-scrolling: touch;
+     
+      overflow-x: scroll;
+      @include scrollTeme;
+      // -webkit-overflow-scrolling: touch;
 
-      overflow-x: auto;
-      &::-webkit-scrollbar {
-        width: 8px; /* Tamaño del scroll en vertical */
-        height: 8px; /* Tamaño del scroll en horizontal */
-        /* Ocultar scroll */
-      }
+      // overflow-x: auto;
+      // &::-webkit-scrollbar {
+      //   width: 8px; /* Tamaño del scroll en vertical */
+      //   height: 8px; /* Tamaño del scroll en horizontal */
+      //   /* Ocultar scroll */
+      // }
+
+     
 
       @include media(tablet) {
         max-width: none;
         padding: none;
+        padding: 0rem 0.5rem;
       }
     }
 
@@ -324,7 +332,7 @@
   display: flex;
   background: get-color(white_s1);
   flex-direction: column;
-  width: 18rem;
+  width: 16rem;
   padding: 1em 2rem;
   border-radius: brd(2);
   position: relative;
@@ -344,7 +352,7 @@
   }
 
   @include media(extradesktop) {
-    width: 18rem;
+    width: 17rem;
   }
 
   &-status {
@@ -376,11 +384,11 @@
     
 
     .box-img {
-      
+    
      padding-top: 2rem;
       display: flex;
       justify-content:center;
-      background-color: get-color(white_s1); 
+   
       flex-direction: column;
       align-items: center;
 
@@ -442,7 +450,7 @@
       h4 {
         // color:get-color(white_s1);
         color: get-color(t1-blue);
-        font-size: 1.1rem;
+     
         height: 4rem;
 
         &:focus {
@@ -482,17 +490,17 @@
   .admin {
     position: absolute;
     z-index: 1;
-    left:  40%;
-    top: 32%;
+    right:  32.5%;
+    top: 34%;
       
     @include center-container;
-    color: get-color(blue_p1);
-    padding: 0.25rem 0.5rem ;
+    color: get-color(white_s1);
+    padding: 0.25rem 0.75rem ;
     border-radius: brd(2);
-    border: 1px solid get-color(blue_p1);
-    background-color: get-color(white_s1);
+
+    background-color: get-color(t1-blue);
     path {
-      fill: get-color(blue_p1);
+      fill: get-color(white_s1);
     }
   }
 
@@ -508,7 +516,8 @@
 
     button {
       margin-top: 0;
-      padding: 0.75em 1em;
+      padding: 0.5em 0.75em;
+      // font-size: 0.9rem;
     }
 
     // .card-status{
@@ -697,10 +706,10 @@
     color: get-color(grey2_s4);
     background-color: rgba(get-color(white_s1), 0.1);
     border-radius: brd(2);
-    padding: -1.2rem  -1.2rem;
+ 
     margin-left: 0.20rem;
     font-size: 1rem;
-    transform: translate(10px, -16px) scale(0.75);
+    transform: translate(9px, -19px) scale(0.76);
   }
 
   .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-17l143u-MuiAutocomplete-root .MuiOutlinedInput-root {
@@ -744,7 +753,7 @@
     
       padding-top: 1rem;
       justify-content: flex-start;
-      font-size: 2rem;
+     
     
   }
 }

@@ -104,10 +104,11 @@ const LayoutProducts = ({ children, menu }) => {
     Product: {
       label: t['Digital employees'],
       icon: 'Products',
-      path: '/#',
+      path: '/product',
+
       submenus: [
         { label: t.All, path: '/product' },
-        { label: t['Finance and accounting'], path: '/product/Finance' }
+        { label: t['Finance and accounting'], path: '/product/#' }
         // { label: t.Technology, path: '/product/Tecnology' },
         // { label: t['Human Resources'], path: '/product/Human' }
       ]
@@ -115,7 +116,7 @@ const LayoutProducts = ({ children, menu }) => {
     Reporting: {
       label: t.Reporting,
       icon: 'Reporting',
-      path: '/#',
+      path: '/reporting',
       submenus: [
         { label: t.All, path: '/reporting' },
         { label: t.Balance, path: '/reporting/balance' },
@@ -171,8 +172,9 @@ const LayoutProducts = ({ children, menu }) => {
 
             // eslint-disable-next-line react/jsx-key
             <ul className='list-content'>
+
               {menuItems[menuItem].submenus.length > 0
-                ? <li key={index}>
+                ? <li key={index} className={`${asPath.startsWith(menuItems[menuItem].path) ? 'activeIcon' : ''}`}>
                   <button onClick={() => toggleSubmenu(menuItem)}>
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
@@ -184,7 +186,7 @@ const LayoutProducts = ({ children, menu }) => {
 
                       <ul className='list-content '>
                         {menuItems[menuItem].submenus.map((submenuItem, subIndex) => (
-                          <li key={subIndex} className={`${asPath === submenuItem.path || activeSubmenu === submenuItem.path ? 'active' : ''}`}>
+                          <li key={subIndex} className={`${asPath === submenuItem.path || activeSubmenu === submenuItem.path || (menuItems[menuItem] === 'Product' && asPath.startsWith(submenuItem.path)) ? 'active' : ''}`}>
                             <span className='pellet'> </span>
 
                             <Link href={submenuItem.path}>
@@ -198,7 +200,7 @@ const LayoutProducts = ({ children, menu }) => {
                   )}
                 </li>
 
-                : <li key={index} className={menu === menuItem ? 'active' : ''}>
+                : <li key={index} className={`${asPath === menuItem.path || menu === menuItem ? 'active' : ''}`}>
 
                   <Link href={menuItems[menuItem].path}>
                     <ImageSvg name={menuItems[menuItem].icon} />

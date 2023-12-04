@@ -22,6 +22,7 @@ export default function Products () {
   const [requestError, setRequestError] = useState('')
   const [empresa, setEmpresa] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [hiredProduct, setHiredProduct] = useState('0')
 
   const { session, setModalToken, logout, l } = useAuth()
 
@@ -77,6 +78,12 @@ export default function Products () {
         setProduct(data)
         setModalToken(false)
         setRequestError(null)
+
+        const filterHiredProduct = responseData.oResults.filter(
+          (product) =>
+            product.iCodeStatus === 23 || product.iCodeStatus === 28
+        )
+        setHiredProduct(filterHiredProduct.length)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)
       } else if (responseData.oAuditResponse?.iCode === 4) {
@@ -312,7 +319,7 @@ export default function Products () {
                     {t['Digital employees']}
 
                   </article>
-                  <h2> 2</h2>
+                  <h2> {hiredProduct}</h2>
                   <p> <ImageSvg name='ArrowUp' />  <span>  {t.working}  </span>    {t['for you']} </p>
                 </div>
 
@@ -452,7 +459,7 @@ export default function Products () {
                             <p className='dayLetf'>
                               {/* <ImageSvg name='Time' /> */}
                               {calcularDiasRestantes(product.sDateEnd) >= 0
-                                ? <span style={{ color: 'blue' }}>    {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}</span>
+                                ? <span style={{ color: '#7D86A2' }}>    {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}</span>
                                 : (
                                   <span className='' style={{ color: 'red' }}>   {t['Permit expired ago']}   {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days} </span>)}
                             </p>)
@@ -478,7 +485,7 @@ export default function Products () {
 
                 {/* productos añadidos por el momento */}
 
-                <li className='card financy' style={{ gap: '1rem', visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+                <li className='card financy' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
                   <span className='card_type'>
                     {t['Finance and accounting']}
@@ -497,7 +504,7 @@ export default function Products () {
 
                       <p className='dayLetf'>
                         {/* <ImageSvg name='Time' /> */}
-                        {t['Days left:']} ..
+                        {/* {t['Days left:']} .. */}
                       </p>
 
                     </div>
@@ -538,7 +545,7 @@ export default function Products () {
 
                       <p className='dayLetf'>
                         {/* <ImageSvg name='Time' /> */}
-                        {t['Days left:']} ..
+                        {/* {t['Days left:']} .. */}
                       </p>
 
                     </div>
