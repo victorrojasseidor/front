@@ -37,9 +37,10 @@
         &-exchange{
             background-color: get-color(white_s1);
             flex:1;
-            padding: 1rem;
+            padding: 1rem 2rem;
             border-radius: brd(2);
             box-shadow: bsh(3);
+            width: 100%;
            
             @include media(tablet) {
                 flex:2
@@ -52,6 +53,32 @@
                 justify-content: space-between;
               }
 
+              .grafics{
+                width: 100%;
+      
+       
+
+               canvas{
+
+                height: auto;
+  
+  @include media(tablet) {
+                
+    width: 100% !important;
+  }
+ 
+               }
+
+               @include scrollTeme;
+
+               @include media(tablet) {
+                
+                width: 100%;
+              }
+
+
+              }
+
 
 
 
@@ -60,7 +87,7 @@
 
         &-menu{
             background-color: get-color(white_s1);
-            padding: 1rem;
+            padding: 1rem 2rem;
             border-radius: brd(2);
             box-shadow: bsh(3);
             flex:1;

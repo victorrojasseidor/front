@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useAuth } from '@/Context/DataContext'
 import { Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -21,11 +22,55 @@ ChartJS.register(
   Filler
 )
 
+// Función para generar datos aleatorios
+function generateRandomData () {
+  return Array.from({ length: 31 }, () => Math.random() * 2)
+}
+
 const typeOfChangeData = {
-  Enero: [1.2, 1.1, 1.3, 1.2, 1.25, 1.3, 1.35, 1.4, 1.38, 1.3, 1.28, 1.25, 1.22, 1.18, 1.15, 1.1, 1.2, 1.3, 1.25, 1.18, 1.15, 0.6, 1.28, 1.3, 1.35, 1.4, 1.38, 1.25, 1.22, 1.18, 1.3, 1.28, 1.0, 1.22, 1.18, 1.15, 1.1, 1.2, 1.25, 1.3],
-  Febrero: [1.3, 1.28, 1.25, 1.22, 1.18, 1.15, 1.1, 1.2, 1.25, 1.3, 1.35, 1.4, 1.38, 1.3, 1.28, 1.25, 1.22, 1.18, 1.15, 1.1, 1.2, 1.3, 1.2, 1.25, 1.3, 1.35, 1.4, 1.38, 1.3, 1.28, 1.3, 1.28, 1.25, 1.22, 1.18, 1.15, 1.1, 1.2, 1.25, 1.3],
-  Marzo: [1.1, 1.2, 1.25, 1.3, 1.35, 1.4, 1.38, 1.3, 1.28, 1.25, 1.22, 1.18, 1.15, 1.1, 1.2, 1.3, 1.28, 1.25, 1.22, 1.18, 1.15, 1.1, 1.2, 1.2, 1.25, 1.3, 1.35, 1.4, 1.38, 1.3, 1.28, 1.25, 1.22, 1.18, 1.15, 1.1, 1.2, 1.3]
-  // ... Datos para los demás meses
+  2021: {
+    Enero: generateRandomData(),
+    Febrero: generateRandomData(),
+    Marzo: generateRandomData(),
+    Abril: generateRandomData(),
+    Mayo: generateRandomData(),
+    Junio: generateRandomData(),
+    Julio: generateRandomData(),
+    Agosto: generateRandomData(),
+    Septiembre: generateRandomData(),
+    Octubre: generateRandomData(),
+    Noviembre: generateRandomData(),
+    Diciembre: generateRandomData()
+  },
+  2022: {
+    Enero: generateRandomData(),
+    Febrero: generateRandomData(),
+    Marzo: generateRandomData(),
+    Abril: generateRandomData(),
+    Mayo: generateRandomData(),
+    Junio: generateRandomData(),
+    Julio: generateRandomData(),
+    Agosto: generateRandomData(),
+    Septiembre: generateRandomData(),
+    Octubre: generateRandomData(),
+    Noviembre: generateRandomData(),
+    Diciembre: generateRandomData()
+  },
+  2023: {
+    Enero: generateRandomData(),
+    Febrero: generateRandomData(),
+    Marzo: generateRandomData(),
+    Abril: generateRandomData(),
+    Mayo: generateRandomData(),
+    Junio: generateRandomData(),
+    Julio: generateRandomData(),
+    Agosto: generateRandomData(),
+    Septiembre: generateRandomData(),
+    Octubre: generateRandomData(),
+    Noviembre: generateRandomData(),
+    Diciembre: generateRandomData()
+  }
+  // ... puedes seguir añadiendo más años
 }
 
 const misoptions = {
@@ -44,16 +89,18 @@ const misoptions = {
   scales: {
     y: {
       min: 0,
-      max: 1.6,
+      max: 2,
       stepSize: 0.5,
       grid: {
         display: false
       }
     },
     x: {
+      min: 1,
+      stepSize: 2,
       type: 'linear',
       position: 'bottom',
-      ticks: { color: '#5932EA' },
+      ticks: { color: '#4F4F4F' },
       grid: {
         display: false
       }
@@ -63,16 +110,25 @@ const misoptions = {
 
 export default function LineChart () {
   const [selectedMonth, setSelectedMonth] = useState('Enero')
+  const [selectedYear, setSelectedYear] = useState('2022')
+
+  const { session, l } = useAuth()
+
+  const t = l.Reporting
 
   const handleMonthChange = (event) => {
     setSelectedMonth(event.target.value)
   }
 
-  const maxDaysToShow = 20
+  const handleYearChange = (event) => {
+    setSelectedYear(event.target.value)
+  }
+
+  const maxDaysToShow = 30
   const daysToShow = Array.from({ length: maxDaysToShow }, (_, i) => i + 1)
 
   console.log({ daysToShow })
-  const dataToShow = typeOfChangeData[selectedMonth].slice(0, maxDaysToShow)
+  const dataToShow = typeOfChangeData[selectedYear][selectedMonth].slice(0, maxDaysToShow)
 
   // Resaltar el día 10 con un color diferente
   const highlightedColor = '#5DB92C'
@@ -84,30 +140,67 @@ export default function LineChart () {
       {
         label: 'Type of change',
         data: dataToShow,
-        tension: 0.2,
-        fill: true,
+        tension: 0.5,
+        fill: 'start',
         borderColor,
-        backgroundColor: 'red', // Cambia el color degradado según tus preferencias
+        backgroundColor: (context) => {
+          const gradient = context.chart.ctx.createLinearGradient(0, 0, 0, context.chart.height)
+          gradient.addColorStop(0, 'rgba(89, 50, 234, 0.3)') // Color inicial
+          gradient.addColorStop(1, 'rgba(255, 255, 255, 0)') // Color final con opacidad cero
+          return gradient
+        },
         pointBackgroundColor: '#5932EA',
         pointBorderColor: '#5932EA',
-        pointRadius: 4,
-        pointHoverRadius: 6
+        pointRadius: 2,
+        pointHoverRadius: 5
       }
     ]
   }
 
+  // Array de años (puedes ajustar el rango según tus necesidades)
+  const years = Array.from({ length: 3 }, (_, index) => (new Date().getFullYear() - index).toString())
+
   return (
-    <div style={{ overflowX: 'auto', maxWidth: '800px' }}>
-      <label htmlFor='monthSelect'>Selecciona un mes:</label>
-      <select id='monthSelect' value={selectedMonth} onChange={handleMonthChange}>
-        <option value='Enero'>Enero</option>
-        <option value='Febrero'>Febrero</option>
-        <option value='Marzo'>Marzo</option>
-        {/* Agrega opciones para los demás meses */}
-      </select>
-      <div style={{ overflowX: 'auto' }}>
+
+    <div>
+
+      <div className='rates-description'>
+
+        <div>
+          <h3>
+            {t['Exchange rate']}
+          </h3>
+          <p>
+            {t['Result per days']}
+          </p>
+        </div>
+
+        <div>
+          <label htmlFor='monthSelect'>mes:</label>
+          <select id='monthSelect' value={selectedMonth} onChange={handleMonthChange}>
+            <option value='Enero'>Enero</option>
+            <option value='Febrero'>Febrero</option>
+            <option value='Marzo'>Marzo</option>
+            {/* Agrega opciones para los demás meses */}
+          </select>
+
+          <label htmlFor='yearSelect'> año:</label>
+          <select id='yearSelect' value={selectedYear} onChange={handleYearChange}>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </div>
+
+      </div>
+
+      <div className='grafics' style={{ overflowX: 'auto' }}>
         <Line data={midata} options={misoptions} />
       </div>
+
     </div>
+
   )
 }

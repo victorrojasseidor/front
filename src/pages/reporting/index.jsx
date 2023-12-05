@@ -8,7 +8,7 @@ import { useAuth } from '@/Context/DataContext'
 import reportMovement from '../../../public/img/report-movement.png'
 import reportBalance from '../../../public/img/report-balance.png'
 import Image from 'next/image'
-import BarChart from '@/Components/Grafics/BarChart'
+import LineChart from '@/Components/Grafics/BarChart'
 import TextField from '@mui/material/TextField'
 import MenuItem from '@mui/material/MenuItem'
 
@@ -103,24 +103,7 @@ function index (props) {
 
           <div className='reporting_rates-exchange'>
 
-            <div className='rates-description'>
-
-              <div>
-                <h3>
-                  {t['Exchange rate']}
-                </h3>
-                <p>
-                  {t['Result per days']}
-                </p>
-              </div>
-
-            </div>
-
-            <div className='graphic'>
-
-              <BarChart />
-
-            </div>
+            <LineChart />
 
           </div>
 

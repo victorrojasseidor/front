@@ -28,7 +28,7 @@ const LayoutProducts = ({ children, menu }) => {
 
   const [activeMenu, setActiveMenu] = useState('')
   const [activeSubmenu, setActiveSubmenu] = useState('')
-
+  const router = useRouter()
   const { session, modalToken, logout, l } = useAuth()
   const { asPath } = useRouter()
   const t = l.header
@@ -69,7 +69,7 @@ const LayoutProducts = ({ children, menu }) => {
 
   useEffect(() => {
     if (!session) {
-      useRouter().push('/login')
+      router.push('/login')
     }
   }, [session])
 
@@ -145,6 +145,7 @@ const LayoutProducts = ({ children, menu }) => {
         <div className='menu_Account'>
           <div className='imgPerfil'>
             <div className='imgPerfil_logo'>
+
               <Image src={isMenuLateralOpen ? logo : ari} width={isMenuLateralOpen ? 500 : 80} alt='logo' priority />
             </div>
           </div>
@@ -154,8 +155,12 @@ const LayoutProducts = ({ children, menu }) => {
               <ImageSvg name='Person' />
             </div>
             <div className='box-name_name'>
+
               <p>{session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
+
               <span>{session?.sCorreo}</span>
+              {session?.sPerfilCode === 'ADMIN' && <p> Ari v1.1</p>}
+
             </div>
           </div>
 
@@ -198,7 +203,7 @@ const LayoutProducts = ({ children, menu }) => {
                     </div>
 
                   )}
-                </li>
+                  </li>
 
                 : <li key={index} className={`${asPath === menuItem.path || menu === menuItem ? 'active' : ''}`}>
 
@@ -206,18 +211,20 @@ const LayoutProducts = ({ children, menu }) => {
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
                   </Link>
-                </li>}
+                  </li>}
 
             </ul>))}
 
         </nav>
 
         <nav className='menu_nav  menu_profile'>
+
           <div className='box-name '>
             <div className='box-name_person fondoPerfil'>
               <ImageSvg name='Users' />
             </div>
             <div className='box-name_name fondoPerfil_color'>
+
               <p>{session?.sUserName}</p>
               <span>{session?.sLastName}</span>
             </div>
