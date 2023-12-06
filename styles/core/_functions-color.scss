@@ -68,23 +68,39 @@
 
 @mixin cardStyleType($color) {
 
-  
-
-  // border: 0.1px solid rgba(get-color($color), 0.4);
   box-shadow:   -1.83697e-16px 3px 10px rgba(get-color($color), 0.12);
-  .card_type{
-    background-color: rgba(get-color($color), 0.2);
 
-    color: darken(get-color($color), 1%);
+  .card_type{
+    background-color: rgba(get-color($color), 0.05);
+
+    color: darken(get-color($color), 2%);
   }
   
+  .card_actions{
+    background: linear-gradient(to right, rgba(get-color($color), 0.6), rgba(get-color($color), 1));
+   
+  }
+
+  .admin{
+    svg{
+ 
+  
+      path{
+        fill: darken(get-color($color), 2%);
+        
+      }
+    }
+  }
+ 
+
   .type_icon{
-    border: 1px solid get-color($color);
+    
   svg{
-    height: 10rem;
+    height: 8rem;
 
     path{
-      fill: get-color($color);
+      fill: darken(get-color($color), 50%);
+      
     }
   }
   }

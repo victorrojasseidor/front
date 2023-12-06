@@ -391,7 +391,7 @@ export default function Products () {
           </button>
           <button onClick={() => handleFilterType(31)} className='btn_filter disabled'>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
-                                      </p>
+            </p>
           </button>
         </div>
 
@@ -425,7 +425,7 @@ export default function Products () {
 
         {searchResults.length > 0
           ? (
-            <div className='products_cards '>
+            <div className='products_cards'>
 
               <ul>
                 {searchResults.map((product) => (
@@ -433,9 +433,31 @@ export default function Products () {
 
                     <span className='card_type'>
                       {t['Finance and accounting']}
+
+                      {session?.sPerfilCode == 'ADMIN' &&
+
+                        <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p className='report blue  green admin'>  <ImageSvg name='Admin' />  </p> </Link>}
+
                     </span>
 
-                    <div className='card-title'>
+                    <div className='card_name'>
+                      <h4> {product.sName}</h4>
+
+                      {(product.iCodeStatus === 23 || product.iCodeStatus === 28)
+                        ? (
+
+                          <p className='dayLetf'>
+                            {/* <ImageSvg name='Time' /> */}
+                            {calcularDiasRestantes(product.sDateEnd) >= 0
+                              ? <span style={{ color: '#7D86A2' }}>    {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}</span>
+                              : (
+                                <span className='' style={{ color: 'red' }}>   {t['Permit expired ago']}   {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days} </span>)}
+                          </p>)
+                        : <p className='dayLetf' style={{ color: 'white' }}>.......</p>}
+
+                    </div>
+
+                    <div className='card_actions'>
 
                       <div className='box-img'>
 
@@ -444,40 +466,18 @@ export default function Products () {
                           <ImageSvg name={imgProduct(product.iId)} />
                         </div>
 
-                        {session?.sPerfilCode == 'ADMIN' &&
-
-                          <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p className='report blue  green admin'>  <ImageSvg name='Admin' /> Admin </p> </Link>}
-
                       </div>
 
-                      <div className='box-name'>
-                        <h4> {product.sName}</h4>
+                      <div className='status-box'>
 
-                        {(product.iCodeStatus === 23 || product.iCodeStatus === 28)
-                          ? (
-
-                            <p className='dayLetf'>
-                              {/* <ImageSvg name='Time' /> */}
-                              {calcularDiasRestantes(product.sDateEnd) >= 0
-                                ? <span style={{ color: '#7D86A2' }}>    {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}</span>
-                                : (
-                                  <span className='' style={{ color: 'red' }}>   {t['Permit expired ago']}   {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days} </span>)}
-                            </p>)
-                          : <p className='dayLetf' style={{ color: 'white' }}>.......</p>}
-
-                      </div>
-
-                    </div>
-
-                    <div className='card-actions'>
-                      <div className='card-status'>
-
-                        <p className={`btn_filter ${product.iCodeStatus === 23 ? 'configured' : (product.iCodeStatus === 28 ? 'pending' : 'not-hired')}`}>
+                        <p>
                           {product.sDescStatus}
                         </p>
 
+                        {renderButtons(product)}
+
                       </div>
-                      {renderButtons(product)}
+
                     </div>
 
                   </li>
@@ -490,7 +490,19 @@ export default function Products () {
                   <span className='card_type'>
                     {t['Finance and accounting']}
                   </span>
-                  <div className='card-title'>
+
+                  <div className='card_name'>
+                    <h4> {t['Download SUNAT Tax Status Registers']}</h4>
+
+                    <p className='dayLetf'>
+                      {/* <ImageSvg name='Time' /> */}
+                      {/* {t['Days left:']} .. */}
+                    </p>
+
+                  </div>
+
+                  <div className='card_actions'>
+
                     <div className='box-img'>
                       <div className='type_icon'>
 
@@ -499,28 +511,15 @@ export default function Products () {
 
                     </div>
 
-                    <div className='box-name'>
-                      <h4> {t['Download SUNAT Tax Status Registers']}</h4>
+                    <div className='status-box'>
 
-                      <p className='dayLetf'>
-                        {/* <ImageSvg name='Time' /> */}
-                        {/* {t['Days left:']} .. */}
+                      <p>  {t['Not hired']}
                       </p>
-
+                      <Link href='https://www.innovativa.la/digitalemployee'>
+                        {t['View more']}
+                      </Link>
                     </div>
 
-                  </div>
-
-                  <div className='card-actions'>
-                    <div className='card-status'>
-
-                      <p className='btn_filter not-hired'>  {t['Not hired']}
-                      </p>
-
-                    </div>
-                    <Link href='https://www.innovativa.la/digitalemployee'>
-                      {t['View more']}
-                    </Link>
                   </div>
                 </li>
 
@@ -529,10 +528,20 @@ export default function Products () {
                   <span className='card_type'>
                     {t['Finance and accounting']}
                   </span>
-                  <div className='card-title'>
+
+                  <div className='card_name'>
+                    <h4> {t['Invoice register']}</h4>
+
+                    <p className='dayLetf'>
+                      {/* <ImageSvg name='Time' /> */}
+                      {/* {t['Days left:']} .. */}
+                    </p>
+
+                  </div>
+
+                  <div className='card_actions'>
 
                     <div className='box-img'>
-
                       <div className='type_icon'>
 
                         <ImageSvg name={imgProduct(4)} />
@@ -540,29 +549,14 @@ export default function Products () {
 
                     </div>
 
-                    <div className='box-name'>
-                      <h4> {t['Invoice register']} </h4>
+                    <div className='status-box'>
 
-                      <p className='dayLetf'>
-                        {/* <ImageSvg name='Time' /> */}
-                        {/* {t['Days left:']} .. */}
+                      <p>  {t['Not hired']}
                       </p>
-
+                      <Link href='https://www.innovativa.la/digitalemployee'>
+                        {t['View more']}
+                      </Link>
                     </div>
-
-                  </div>
-
-                  <div className='card-actions'>
-                    <div className='card-status'>
-
-                      <p className='btn_filter not-hired'>  {t['Not hired']}
-                      </p>
-
-                    </div>
-
-                    <Link href='https://www.innovativa.la/digitalemployee'>
-                      {t['View more']}
-                    </Link>
 
                   </div>
                 </li>

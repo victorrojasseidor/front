@@ -333,14 +333,14 @@
   display: flex;
   background: get-color(white_s1);
   flex-direction: column;
-  width: 16rem;
-  padding: 1em 2rem;
+  width: 19rem;
+  padding: 1em;
   border-radius: brd(2);
-  position: relative;
-  // // background-image: linear-gradient(201deg, #caf1ff 3.14%, #cdf4ff 86.04%);
-  // // background-image: linear-gradient(201deg, #ffa3cf 3.14%, #ffd4f3 86.04%);
-  // // background-image: linear-gradient(201deg, #d3ffe7 3.14%, #effff6 86.04%);
-  // box-shadow: bsh(3);
+ gap:1rem;
+ position: relative;
+
+  
+
 
   @include media(tablet) {
     width: 18rem;
@@ -349,117 +349,61 @@
   }
 
   @include media(desktop) {
-    width: 16rem;
+    width: 18rem;
   }
 
   @include media(extradesktop) {
-    width: 17rem;
+    width: 18rem;
+    gap:1rem;
   }
 
-  &-status {
-    display: flex;
-    justify-content: space-between;
-  }
+ 
 
   &_type{
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0.5rem;
-    width: auto;
+   
+    
     display: flex;
     align-items: center;
+    padding: 0.5rem;
+    font-size: 0.875rem;
     justify-content: flex-start;
-    border-radius:10px 0px 10px 0px;
+    border-radius:brd(1);
+
+    @include media(tablet) {
+      width: 72%;
+    }
+ 
 
    
   }
 
-  &-title {
-    display: flex;
- 
-    justify-content: flex-start;
-    flex-direction: column;
-    gap: 1rem;
-    
-    
+  
 
-    .box-img {
-    
-     padding-top: 2rem;
-      display: flex;
-      justify-content:center;
+  &_name {
    
-      flex-direction: column;
-      align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.25rem;
+  
 
 
-
-      .type_icon{
-       
-       height: 5rem;
-        width: 40%;
-        @include center-container;
-        border-radius: brd(2);
-        padding: 0.5rem;
-        justify-content: center;
-        // @include cardStyleIcon(blue_p1);
-       
-        svg{
-          justify-content: center;
-          width: 4rem;
-          height: 4rem;
-         
-        }
-
-      }
-
-     
-
-
-      img[alt="imgProducts"] {
-        width: 15rem;
-        height: 10rem;
-
-        border-radius: 20px 20px 0px 0px;
-
-        @include media(tablet) {
-          width: 18rem;
-          height: 13rem;
-        }
-      }
-
-
-
+    @include media(tablet) {
+      height: 7rem;
     }
 
 
+    h4 {
 
-    
+      color: get-color(t1-blue);
+     font-size: 1.5rem;
+      
 
-    .box-name {
-      // height: 5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 0.25rem;
-      min-height: 5.5rem;
-      position: relative;
-     
-
-      h4 {
-        // color:get-color(white_s1);
-        color: get-color(t1-blue);
-     
-        height: 4rem;
-
-        &:focus {
-          background-color: get-color(bg-cles);
-        }
+      &:focus {
+        background-color: get-color(bg-cles);
       }
     }
-
     .dayLetf {
       display: flex;
       justify-content: center;
@@ -491,47 +435,114 @@
   .admin {
     position: absolute;
     z-index: 1;
-    right:  32.5%;
-    top: 34%;
+    right:  0%;
+    top: 0%;
+   
       
     @include center-container;
-    color: get-color(white_s1);
-    padding: 0.25rem 0.75rem ;
-    border-radius: brd(2);
-
-    background-color: get-color(t1-blue);
-    path {
-      fill: get-color(white_s1);
+  
+    padding: 0.25rem  ;
+  
+    svg{
+      width: 2rem;
     }
+
+   
+
   }
 
-  .card-actions {
+  &_actions {
+    height: 7.5rem;
+    padding: 0.5rem;
     display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+ 
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border-radius: brd(2);
+    gap:1rem;
+    @include center-container;
 
-    @include media(tablet) {
+    .status-box{
+  
+      display: flex;
       justify-content: space-between;
-    }
+      align-items: center;
+      flex-direction: column;
+      gap:0.25rem;
 
-    button {
-      margin-top: 0;
-      padding: 0.5em 0.75em;
-      // font-size: 0.9rem;
-    }
+      color:get-color(white_s1);
+      
+      a{
+        color:get-color(white_s1);
+        @include center-container;
+        text-align: center;
+        font-weight: 500;
+      }
 
-    // .card-status{
-    // width: 40%;
-    // }
+      .btn_primary{
+        background-color: transparent;
+        border-style: none;
+        border: 1.5px solid get-color(white_s1);
+        box-shadow: none;
+        padding: 0.5rem ;
+      }
 
-    a {
-      text-align: center;
-      // padding: 0.5rem 1rem;
-      border-radius: brd(2);
+
+      }
+   
+    
+    .box-img {
+     
+   display: flex;
+   justify-content:center;
+   flex-direction: column;
+   align-items: center;
+
+
+  
+
+   
+
+
+
+  
+
+
+   
+
+
+
+ }
+
+ .type_icon{
+ 
+  width: 100%;
+  @include center-container;
+  border-radius: brd(2);
+  
+  padding: 0.5rem;
+  justify-content: center;
+   
+  svg{
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    
+    path{
+     fill:get-color(white_s1)
     }
+   
+  }
+
+}
+
+   
   }
 }
+
+
+
+
 
  .financy{
 
@@ -553,7 +564,6 @@
 
 .limited-paragraph {
   white-space: nowrap;
-  // overflow: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;

@@ -203,29 +203,7 @@
       }
     }
 
-    &.pending {
-      color: get-color(t1-blue);
-      justify-content: flex-start;
-      padding: 0.5rem 0rem;
-      font-size: 0.8rem;
-      cursor: default;
-    }
-
-    &.configured {
-      color: get-color(blue_p1);
-      justify-content: flex-start;
-      padding: 0.5rem 0rem;
-      font-size: 0.8rem;
-      cursor: default;
-    }
-
-    &.not-hired {
-      color: get-color(grey2_s4);
-      justify-content: flex-start;
-      padding: 0.5rem 0rem;
-      font-size: 0.8rem;
-      cursor: default;
-    }
+   
   }
 
   &_black {
