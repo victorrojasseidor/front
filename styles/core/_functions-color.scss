@@ -77,8 +77,8 @@
   }
   
   .card_actions{
-    background: linear-gradient(to right, rgba(get-color($color), 0.6), rgba(get-color($color), 1));
-    background-color: rgba(get-color($color), 1);
+    background: linear-gradient(to right, rgba(get-color($color), 0.3), rgba(get-color($color), 1));
+    // background-color: rgba(get-color($color), 1);
   }
 
   .admin{
@@ -99,8 +99,8 @@
     height: 8rem;
 
     path{
-      fill: lighten(get-color($color), 100%);
-      box-shadow:   -1.83697e-16px 3px 10px rgba(get-color(white_s1), 0.12);
+      fill: darken(get-color($color), 100%);
+      box-shadow:   -1.83697e-16px 3px 10px rgba(get-color(t1-blue), 0.12);
 
       
     }

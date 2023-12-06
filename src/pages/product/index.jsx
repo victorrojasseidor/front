@@ -40,7 +40,6 @@ export default function Products () {
   }, [session])
 
   const handleCompanyInputChange = (event, newValue) => {
-    console.log({ newValue })
     // Actualiza la empresa seleccionada
     if (newValue) {
       setSelectedCompany(newValue)
@@ -241,6 +240,10 @@ export default function Products () {
 
         </button>
       )
+    } else if (status === 27) {
+      return (
+        <p />
+      )
     } else if (dayLef <= 0) {
       return (
         <>
@@ -254,6 +257,8 @@ export default function Products () {
       return <Link href='#'> <p>  </p> </Link>
     }
   }
+
+  console.log({ product })
 
   // autocomplete
 
@@ -488,7 +493,7 @@ export default function Products () {
 
                 {/* productos añadidos por el momento */}
 
-                <li className='card financy' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+                <li className='card human' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
                   <span className='card_type'>
                     {t['Finance and accounting']}
@@ -526,7 +531,7 @@ export default function Products () {
                   </div>
                 </li>
 
-                <li className='card financy' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+                <li className='card tecnology' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
                   <span className='card_type'>
                     {t['Finance and accounting']}
