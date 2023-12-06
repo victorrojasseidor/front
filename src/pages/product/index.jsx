@@ -394,7 +394,7 @@ export default function Products () {
           </button>
           <button onClick={() => handleFilterType(31)} className='btn_filter disabled'>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
-            </p>
+                                      </p>
           </button>
         </div>
 
