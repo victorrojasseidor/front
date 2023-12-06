@@ -233,7 +233,7 @@ export default function Products () {
     } else if (status === 31) {
       return (
         <button
-          className='btn_secundary'
+          className='btn_primary'
           onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}
         >
 
@@ -244,7 +244,10 @@ export default function Products () {
     } else if (dayLef <= 0) {
       return (
         <>
-          <Link href='https://www.innovativa.la/contacto'> {t['Contact technical support']} </Link>
+          <button className='btn_primary'>
+            <Link href='https://www.innovativa.la/contacto'> {t['Contact technical support']} </Link>
+          </button>
+
         </>
       )
     } else {

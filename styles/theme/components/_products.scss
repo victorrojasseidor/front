@@ -465,10 +465,10 @@
     .status-box{
   
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       flex-direction: column;
-      gap:0.25rem;
+      gap:1rem;
 
       color:get-color(white_s1);
       
@@ -485,6 +485,8 @@
         border: 1.5px solid get-color(white_s1);
         box-shadow: none;
         padding: 0.5rem ;
+        margin-top: 0;
+        min-width: 6rem;
       }
 
 
