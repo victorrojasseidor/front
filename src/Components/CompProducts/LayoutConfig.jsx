@@ -15,7 +15,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   const [activeTab, setActiveTab] = useState(defaultTab || 0)
   const [component, setComponent] = useState(null)
 
-  const { session, setModalToken, l } = useAuth()
+  const { session, setModalToken, l, logout } = useAuth()
 
   const router = useRouter()
 
@@ -55,11 +55,17 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
     try {
       const token = session.sToken
       const responseData = await getProducts(idEmpresa, token)
+      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults
         const selectedProduct = data.find((p) => p.iId === parseInt(id))
         setProduct(selectedProduct)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+        // setModalToken(true)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         setModalToken(true)

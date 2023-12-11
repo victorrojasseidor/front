@@ -240,8 +240,8 @@
         }
 
         svg {
-          width: 1.6em;
-          height: 1.6em;
+          width: 1.8em;
+          height: 1.8em;
         }
       }
 
@@ -289,7 +289,9 @@
     svg {
       path {
         fill: get-color(t6-green2);
+       
       }
+
     }
   }
 
@@ -305,6 +307,7 @@
     svg {
       path {
         fill: get-color(blue_p1);
+  
       }
     }
   }
@@ -316,6 +319,7 @@
 
     span {
       color: get-color(t3-red);
+  
     }
 
     svg {
@@ -440,8 +444,8 @@
    
       
     @include center-container;
-  
-    padding: 0.25rem  ;
+    padding: 0.5rem;
+    transform: rotate(-90deg);
   
     svg{
       width: 2rem;

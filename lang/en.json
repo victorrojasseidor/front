@@ -376,7 +376,7 @@
     "this month": "this month",
     "utility": "utility",
     "Exchange rate": "Exchange rate",
-    "Result per days": "Result per days",
+    "Result obtained according to the SBS": "Result obtained according to the SBS",
     "Balance by companies": "Balance by companies",
     "Companies": "Companies",
     "Search": "Search",
@@ -425,8 +425,18 @@
     "RUC": "RUC",
     "There is no data": "There is no data",
     "Page": "Page",
-    "of": "of"
-  },
+    "of": "of",
+    "Month": "Month",
+    "Year":"Year",
+    "From PEN to":"From PEN to",
+    "Currency origin":"Currency of origin",
+    "Target currency": "Target currency",
+    "for the companies": "for the companies",
+    "Total Accounts":"Total Accounts",
+    "Total Banks":"Total Banks",
+    "Today":"Today"
+
+    },
   "Modal": {
     "Your session is about to expire!": "Your session is about to expire!",
     "Please confirm to refresh your token and continue": "Please confirm to refresh your token and continue"

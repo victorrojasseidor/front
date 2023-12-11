@@ -7,8 +7,6 @@ import { useAuth } from '@/Context/DataContext'
 import { getProducts } from '@/helpers/auth'
 import NavigationPages from '@/Components/NavigationPages'
 import Loading from '@/Components/Atoms/Loading'
-
-import Image from 'next/image'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 // import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
@@ -399,7 +397,7 @@ export default function Products () {
           </button>
           <button onClick={() => handleFilterType(31)} className='btn_filter disabled'>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
-                                      </p>
+            </p>
           </button>
         </div>
 

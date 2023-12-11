@@ -370,7 +370,7 @@
     "this month": "este mes",
     "utility": "utilidad",
     "Exchange rate": "Tipo de cambio",
-    "Result per days": "Resultado por días",
+    "Result obtained according to the SBS": "Resultado obtenido según la SBS",
     "Balance by companies": "Balance por empresas",
     "Companies": "Empresas",
     "Search": "Buscar",
@@ -418,7 +418,16 @@
     "RUC": "RUC",
     "There is no data": "No hay datos",
     "Page": "Página",
-    "of": "de"
+    "of": "de",
+    "Month": "Mes",
+    "Year":"Año",
+    "From PEN to": "De PEN a",
+    "Currency origin":"Moneda origen",
+    "Target currency": "Moneda destino",
+    "for the companies": "de las empresas",
+    "Total Accounts":"Total de cuentas",
+    "Total Banks":"Total de Bancos",
+    "Today":"Today"
   },
   "Modal": {
     "Your session is about to expire!": "¡Su sesión está a punto de caducar!",

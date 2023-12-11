@@ -1,267 +1,257 @@
-.reporting{
+.reporting {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
+  &_dashboard {
+    width: 100%;
+
+    .report-content {
+      width: 100%;
+    }
+  }
+
+  &_rates {
     display: flex;
     flex-direction: column;
+
+    width: 100%;
+    justify-content: space-between;
     gap: 1rem;
-  
-   
 
-    &_dashboard{
-      
-        width: 100%;
-
-        .report-content{
-            width: 100%;
-        }
+    @include media(tablet) {
+      gap: 2rem;
+      flex-direction: row;
+      flex-wrap: wrap;
     }
 
-    &_rates{
-    
+    &-exchange {
+      background-color: get-color(white_s1);
+      flex: 1;
+      padding: 1rem 2rem;
+      border-radius: brd(2);
+      box-shadow: bsh(3);
+      width: 100%;
+
+      @include media(tablet) {
+        flex: 2;
+      }
+
+      .rates-description {
         display: flex;
-        flex-direction: column;
-       
-        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
         justify-content: space-between;
-        gap:1rem;
+        padding-bottom: 1rem;
+        
+        width: 100%;
+
+        p{
+          color:get-color(grey2_s4)
+        }
+
+        .country-svg {
+          display: flex;
+          width: 100%;
+          justify-content: flex-start;
+          gap: 1rem;
+          color: get-color(t1-blue);
+          padding-bottom: 0.5rem;
+        
+
+          span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+      
+          }
+
+          svg {
+            path {
+              fill: get-color(blue_p1);
+            }
+          }
+        }
+
+        .box-filter {
+          label {
+            border-radius: brd(2);
+          }
+
+          .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
+            height: 1rem;
+            padding: 1rem 2rem 0.75rem 1rem;
+            border-style: none;
+          }
+          .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+            // background-color: get-color(grey1_s3);
+            margin-top: 0px;
+            border-radius: brd(1);
+            border-style: none;
+            border-color: 1px solid red !important;
+          }
+          .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root:hover .MuiOutlinedInput-notchedOutline {
+            // background-color: get-color(grey1_s3);
+            // border: 1px solid get-color(grey1_s3);
+
+            &:hover,
+            :focus {
+              background-color: aquamarine;
+            }
+          }
+        }
+      }
+
+      .grafics {
+        width: 100%;
+
+        canvas {
+          height: auto;
+
+          @include media(tablet) {
+            width: 100% !important;
+          }
+        }
+
+        @include scrollTeme;
 
         @include media(tablet) {
-            gap:2rem;
-            flex-direction: row;
-            flex-wrap: wrap;
-          }
-
-
-        
-        
-
-        &-exchange{
-            background-color: get-color(white_s1);
-            flex:1;
-            padding: 1rem 2rem;
-            border-radius: brd(2);
-            box-shadow: bsh(3);
-            width: 100%;
-           
-            @include media(tablet) {
-                flex:2
-              }
-
-              .rates-description{
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: space-between;
-              }
-
-              .grafics{
-                width: 100%;
-      
-       
-
-               canvas{
-
-                height: auto;
-  
-  @include media(tablet) {
-                
-    width: 100% !important;
-  }
- 
-               }
-
-               @include scrollTeme;
-
-               @include media(tablet) {
-                
-                width: 100%;
-              }
-
-
-              }
-
-
-
-
-
+          width: 100%;
         }
-
-        &-menu{
-            background-color: get-color(white_s1);
-            padding: 1rem 2rem;
-            border-radius: brd(2);
-            box-shadow: bsh(3);
-            flex:1;
-
-            .menu-list{
-
-                display: flex;
-                flex-direction: column;
-                gap:1rem;
-                
-                
-               .box-option{
-                background-color: get-color(white_s1);
-                display: flex;
-                padding: 1rem 0.5rem;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap:1rem;
-                border-radius: brd(2);
-              
-                justify-content: flex-start;
-
-                &:hover , :focus {
-                    box-shadow: bsh(3);
-                }
-img{
-    width: 3.75rem;
-height: 3.75rem;
-border-radius: brd(1);
-}
-
-                }
-
-            }
-           
-        }
-
-    }
-
-    &-list{
-        display: flex;
-        justify-content:flex-start !important;
-       
-    }
-
-    .description{
-   
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        flex-direction: column;
-   
-        
-        .maybe {
-            padding: 0rem;
-            color:get-color(grey2_s4);
-        }
-       
-    }
- 
-    
-}
-
-
-   
-
-
-.layoutReporting {
- 
-    &-company{
-        padding: 1rem 0rem;
-        
-          p{
-              color:get-color(grey2_s4);
-              display: flex;
-              justify-content: flex-start;
-              align-items:last baseline;
-         
-          }
-          span{
-              font-weight: 600;
-          }
       }
-}
+    }
 
+    &-menu {
+      background-color: get-color(white_s1);
+      padding: 1rem 2rem;
+      border-radius: brd(2);
+      box-shadow: bsh(3);
+      flex: 0.5;
 
+      .menu-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
 
-.balance{
-    width: 100%;
+        .box-option {
+          background-color: get-color(white_s1);
+          display: flex;
+          padding: 1rem 0.5rem;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 1rem;
+          border-radius: brd(2);
+
+          justify-content: flex-start;
+
+          &:hover,
+          :focus {
+            box-shadow: bsh(3);
+          }
+          img {
+            width: 3.75rem;
+            height: 3.75rem;
+            border-radius: brd(1);
+          }
+        }
+      }
+    }
+
+    
+  }
+
+  &-list {
+    display: flex;
+    justify-content: flex-start !important;
+  }
+
+  
+
+  .description {
     display: flex;
     justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
-    
-   
-    .spanReporting{
-        font-size: 0.8rem;
-        text-rendering: geometricPrecision;
+
+    .maybe {
+      padding: 0rem;
+      color: get-color(grey2_s4);
     }
-    
+  }
+}
 
- 
- }
+.layoutReporting {
+  &-company {
+    padding: 1rem 0rem;
 
-    .container-filters{
-        display: flex;
-        flex-direction: column;
-        gap:1rem;
+    p {
+      color: get-color(grey2_s4);
+      display: flex;
+      justify-content: flex-start;
+      align-items: last baseline;
     }
-
-    
-  
-    
-
-.searchReporting{
-    height: 3rem;
-    color:get-color(black_p2)
-}
-
-
-.movement-table{
-   
-        width: 100%;
-        @include media(tablet) {
-            width: 90% ;
-          }
-}
-
-
-
-
-
-
-
-.box-clear{
-    display: flex;
-    align-items: center;
-    height: 4rem;
-    padding-left: 1rem;
-    justify-content:center;
-}
-
-
-
-
-.rowTable { 
-    tr{
-       
-        &:hover,:focus {
-            background-color: get-color(bg-cles) !important;
-        }
+    span {
+      font-weight: 600;
     }
-
-    .cuenta{
-
-        width: 8rem !important;
-    
-          }
-        
-           .importe{
-       
-        text-align: right !important;
-           }
-
-           
-   
-
+  }
 }
 
+.balance {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 
-.graphic{
-    max-width: 100%;
-    padding: 1rem;
+  .spanReporting {
+    font-size: 0.8rem;
+    text-rendering: geometricPrecision;
+  }
+}
 
-   
+.container-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
-  
+.searchReporting {
+  height: 3rem;
+  color: get-color(black_p2);
+}
+
+.movement-table {
+  width: 100%;
+  @include media(tablet) {
+    width: 90%;
+  }
+}
+
+.box-clear {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  padding-left: 1rem;
+  justify-content: center;
+}
+
+.rowTable {
+  tr {
+    &:hover,
+    :focus {
+      background-color: get-color(bg-cles) !important;
+    }
+  }
+
+  .cuenta {
+    width: 8rem !important;
+  }
+
+  .importe {
+    text-align: right !important;
+  }
+}
+
+.graphic {
+  max-width: 100%;
+  padding: 1rem;
 }

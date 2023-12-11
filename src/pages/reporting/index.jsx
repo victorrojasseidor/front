@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import LimitedParagraph from '@/helpers/limitParagraf'
@@ -11,11 +11,66 @@ import Image from 'next/image'
 import LineChart from '@/Components/Grafics/BarChart'
 import TextField from '@mui/material/TextField'
 import MenuItem from '@mui/material/MenuItem'
+import { fetchConTokenPost } from '@/helpers/fetch'
+import dayjs from 'dayjs'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import Loading from '@/Components/Atoms/Loading'
 
 function index (props) {
-  const { session, l } = useAuth()
+  const { session, setModalToken, logout, l } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
+  const [requestError, setRequestError] = useState()
+  const [dataInitialSelect, setInitialDataselect] = useState([])
 
   const t = l.Reporting
+
+  useEffect(() => {
+    getBalancesInitial()
+  }, [])
+
+  console.log('dataInitialSelect', dataInitialSelect)
+
+  async function getBalancesInitial () {
+    setIsLoading(true)
+    const body = {
+      oResults: {}
+    }
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetInitSaldos', body, token)
+
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const dataInit = responseData.oResults
+        setInitialDataselect(dataInit)
+        setModalToken(false)
+        setRequestError(null)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null)
+        }, 2000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setModalToken(true)
+      setRequestError(error)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 1000)
+    } finally {
+      setIsLoading(false) // Ocultar señal de carga
+    }
+  }
 
   return (
     <LayoutProducts menu='Reporting'>
@@ -36,18 +91,18 @@ function index (props) {
 
               <div className='report_icon  '>
 
-                <ImageSvg name='ReportRevenue' />
+                <ImageSvg name='Bank' />
 
               </div>
 
               <div className='report_data'>
 
                 <article>
-                  {t['Total revenue']}
+                  {t['Total Banks']}
 
                 </article>
-                <h2> $198k </h2>
-                <p> <ImageSvg name='ArrowUp' /> <span> 37.8% </span>  {t['this month']}    </p>
+                <h2> {dataInitialSelect.oBanco?.length} </h2>
+                <p> <ImageSvg name='ArrowUp' />   {t['for the companies']}    </p>
               </div>
 
             </div>
@@ -58,18 +113,18 @@ function index (props) {
 
               <div className='report_icon  '>
 
-                <ImageSvg name='ReportRevenue' />
+                <ImageSvg name='Account' />
 
               </div>
 
               <div className='report_data'>
 
                 <article>
-                  {t['Total expenses']}
+                  {t['Total Accounts']}
 
                 </article>
-                <h2> $2.4k </h2>
-                <p> <ImageSvg name='ArrowUp' />   <span>  2%  </span>    {t['this month']} </p>
+                <h2>{dataInitialSelect.oCuenta?.length} </h2>
+                <p> <ImageSvg name='ArrowUp' />       {t['for the companies']} </p>
               </div>
 
             </div>
@@ -79,18 +134,18 @@ function index (props) {
 
               <div className='report_icon  '>
 
-                <ImageSvg name='ReportTotal' />
+                <ImageSvg name='IconTipo' />
 
               </div>
 
               <div className='report_data'>
 
                 <article>
-                  {t.Result}
+                  {t['Exchange rate']}
 
                 </article>
-                <h2> $89k</h2>
-                <p> <ImageSvg name='ArrowUp' />  <span> 4%  </span>    {t.utility} </p>
+                <h2> 3.87</h2>
+                <p>  <span> Today  </span>     PEN  <ImageSvg name='ArrowLeft' />  USD </p>
               </div>
 
             </div>
@@ -151,77 +206,10 @@ function index (props) {
 
               </div>
 
-              {/* <div className='products_cards'>
-                <ul className='reporting-list'>
-                  <li className='card'>
-                    <div className='card-title'>
-                      <span>
-                        <ImageSvg name='Dashboard' />
-                      </span>
-                      <Link href='/reporting/balance'>
-                        <h4> {t['Balance report']} </h4>
-                      </Link>
-                    </div>
-                    <div />
-                    <div className='card-status description'>
-                      <span>
-                        {t['Made by Digital Employes:']}
-                      </span>
-                      <span className='maybe'>
-                        <LimitedParagraph text={t['Download the daily bank statement']} limit={40} />
-                      </span>
-
-                    </div>
-
-                    <div>
-
-                      <Link href='/reporting/balance'>
-                        <p> {t['View reporting']} </p>
-                      </Link>
-
-                    </div>
-                  </li>
-
-                  <li className='card card-reporting'>
-                    <div className='card-title'>
-                      <span>
-                        <ImageSvg name='Dashboard' />
-                      </span>
-                      <Link href='/reporting/movement'>
-                        <h4> {t['Movement report']} </h4>
-                      </Link>
-                    </div>
-                    <div />
-                    <div className='card-status description'>
-                      <span>
-                        {t['Made by Digital Employes:']}
-                      </span>
-                      <span className='maybe'>
-                        <LimitedParagraph text={t['Download the daily bank statement']} limit={40} />
-                      </span>
-
-                    </div>
-
-                    <div>
-                      <Link href='/reporting/movement'>
-                        <p> {t['View reporting']}</p>
-                      </Link>
-
-                    </div>
-                  </li>
-
-                </ul>
-
-              </div> */}
-
             </div>
 
           </div>
 
-        </div>
-
-        <div className='sub-title'>
-          <h5> {t['ARI Finance to']} {session?.jCompany.razon_social_company} </h5>
         </div>
 
       </section>

@@ -204,6 +204,7 @@
     top: 0px;
     left: -4px;
     background: get-color(white_s1);
+    color:get-color(grey2_s4);
     padding: 0.5rem 0.5rem 0 0.5rem;
   }
   .css-1869usk-MuiFormControl-root {
@@ -213,6 +214,7 @@
       left: -4px;
       background: get-color(white_s1);
       padding: 0rem 0.5rem 0 0.5rem;
+      color:get-color(grey2_s4)
     }
 
     .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
@@ -248,7 +250,13 @@
 
   .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
     padding: 15.5px 9px;
+  color:get-color(t1-blue)
   }
+
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select{
+ color:get-color(t1-blue);
+  }
+ 
 }
 
 .errorMessage {

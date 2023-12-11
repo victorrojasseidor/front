@@ -411,8 +411,7 @@
 
           li {
             justify-content: center;
-            
-         
+                   
         
             &:hover , &:active{
               .submenu {
@@ -474,17 +473,10 @@
 
         .submenu{
           display: none;
-
-          
-        
+               
           .active{
 
-     
-    /* top: 0; */
-  
-
-
-            &::before{
+              &::before{
         
              right: 6px;
 
