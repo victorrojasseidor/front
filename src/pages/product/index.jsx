@@ -245,8 +245,8 @@ export default function Products () {
     } else if (dayLef <= 0) {
       return (
         <>
-          <button className='btn_primary'>
-            <Link href='https://www.innovativa.la/contacto'> {t['Contact technical support']} </Link>
+          <button className='btn_primary' onClick={() => handleLink('https://www.innovativa.la/contacto')}>
+            {t['Contact technical support']}
           </button>
 
         </>
@@ -302,7 +302,9 @@ export default function Products () {
           <span className='outstanding-image' />
 
           <div className='welcome'>
-            <h1> {t.Welcome} {session?.sPerfilCode == 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</h1>
+            <h1> <span> {t.Welcome}
+            </span>{empresa?.razon_social_empresa}
+            </h1>
             <p>  {t['Our digital employees work to improve your productivity']}</p>
 
           </div>
@@ -378,9 +380,9 @@ export default function Products () {
 
           </div>
         </div>
-        <div className='sub-title'>
-          <h3> {t['Digital employees']} {empresa?.razon_social_empresa}</h3>
-        </div>
+        {/* <div className='sub-title'>
+          <h2> {t['Digital employees']} {empresa?.razon_social_empresa}</h2>
+        </div> */}
 
         <div className='products_filter-types'>
           <button onClick={() => handleFilterType(null)} className={`btn_filter ${selectedFilterType === null ? 'active' : ''}`}>
@@ -397,7 +399,7 @@ export default function Products () {
           </button>
           <button onClick={() => handleFilterType(31)} className='btn_filter disabled'>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
-            </p>
+                                      </p>
           </button>
         </div>
 

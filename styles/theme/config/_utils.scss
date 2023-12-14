@@ -101,6 +101,7 @@
   color: get-color(black_p2);
   position: relative;
   justify-content: baseline;
+  flex:1;
 
   input[type="text"],
   input[type="email"],
@@ -113,7 +114,7 @@
     border: 1px solid get-color(forms_s6);
     border-radius: brd(1);
     height: 3em;
-    color: get-color(blue_p1);
+    color: get-color(t1-blue);
     line-height: none;
     width: 100%;
 

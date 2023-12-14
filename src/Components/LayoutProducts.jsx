@@ -171,7 +171,7 @@ const LayoutProducts = ({ children, menu }) => {
           </div>
         </div>
 
-        <nav className='menu_nav' style={{ minHeight: '21rem', justifyContent: 'flex-start' }}>
+        <nav className='menu_nav' style={{ minHeight: '24rem', justifyContent: 'flex-start' }}>
 
           {Object.keys(menuItems).map((menuItem, index) => (
 
@@ -203,7 +203,7 @@ const LayoutProducts = ({ children, menu }) => {
                     </div>
 
                   )}
-                  </li>
+                </li>
 
                 : <li key={index} className={`${asPath === menuItem.path || menu === menuItem ? 'active' : ''}`}>
 
@@ -211,7 +211,7 @@ const LayoutProducts = ({ children, menu }) => {
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
                   </Link>
-                  </li>}
+                </li>}
 
             </ul>))}
 

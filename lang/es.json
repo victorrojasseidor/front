@@ -68,7 +68,10 @@
     "Update": "Actualizar",
     "Estatus": "Estado",
     "Corporation": "Corporación",
-    "Companies": "Empresas"
+    "Companies": "Empresas",
+    "Company profiles": "Perfiles de empresas",
+    "Digital employees":"Empleados Digitales",
+    "Cancel":"Cancelar"
   },
   "header": {
     "Edit profile": "Editar perfil",

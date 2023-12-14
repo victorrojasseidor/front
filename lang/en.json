@@ -80,9 +80,13 @@
     "Company": "Company",
     "Code": "Code",
     "Update": "Update",
-    "Estatus": "Estatus",
+    "Estatus": "State",
     "Corporation": "Corporation",
-    "Companies": "Companies"
+    "Companies": "Companies",
+    "Company profiles": "Company profiles",
+    "Digital employees":"Digital employees",
+    "Cancel":"Cancel"
+
   },
 
   "header": {
@@ -284,8 +288,7 @@
     "Exchange rate record already exists":"This exchange rate record already exists",
     "Select":"Select",
     "Select different currencies":"Select different currencies",
- 
-    "Added Emails":"Added Emails",
+     "Added Emails":"Added Emails",
     "Add emails":"Add emails",
     "Emails were added successfully":"Emails were added successfully",
     "Daily exchange rate": "Daily exchange rate",
