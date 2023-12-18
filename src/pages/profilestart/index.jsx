@@ -3,24 +3,14 @@ import React, { useState, useEffect } from 'react'
 import logo from '../../../public/img/logoseidor.png'
 
 import Image from 'next/image'
-import ImageSvg from '@/helpers/ImageSVG'
 import ProgressRegister from '@/Components/progressRegister'
-import Loading from '@/Components/Atoms/Loading'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 import Cloud from '@/Components/Atoms/Cloud'
 import Lang from '@/Components/Atoms/Lang'
 
 export default function Profilestart () {
-  // const [user, setUser] = useState({})
-
   const { dataProfileStart, logout, l } = useAuth()
   const t = l.profile
-
-  // useEffect(() => {
-  //   const localStorageData = JSON.parse(localStorage.getItem('user'))
-  //   setUser(localStorageData)
-  // }, [])
 
   const router = useRouter()
 

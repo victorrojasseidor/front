@@ -68,8 +68,14 @@ const LayoutProducts = ({ children, menu }) => {
   }, [isMobile, isMenuLateralOpen])
 
   useEffect(() => {
-    if (!session) {
-      router.push('/login')
+    console.log('sessionLayput', session)
+    const storedSessionLayput = localStorage.getItem('session')
+    console.log({ storedSessionLayput })
+
+    if (!storedSessionLayput & !session) {
+      setTimeout(() => {
+        router.push('/login')
+      }, 3000)
     }
   }, [session])
 

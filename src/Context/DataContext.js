@@ -42,6 +42,7 @@ export const DataContextProvider = ({ children }) => {
         response.oAuditResponse?.iCode === 4 ||
         response.oAuditResponse?.iCode === 9
       ) {
+        console.log('ejecutaste logout')
         router.push('/login')
         setdataProfileStart(null)
         setSession(null)
@@ -58,13 +59,21 @@ export const DataContextProvider = ({ children }) => {
   // UseEffect para cargar la sesión desde el almacenamiento local al montar el componente
   useEffect(() => {
     const storedSession = localStorage.getItem('session')
+    console.log('storedSessionconetxt', storedSession)
     if (storedSession) {
       setSession(JSON.parse(storedSession))
+    } else {
+      console.log('no hay datos en local')
     }
   }, [])
 
-  // UseEffect para guardar la sesión en el almacenamiento local cuando cambie
   useEffect(() => {
+    console.log('sesioncontext', session)
+
+    // Clear existing session data
+    localStorage.removeItem('session')
+
+    // Store new session data
     if (session) {
       localStorage.setItem('session', JSON.stringify(session))
     }

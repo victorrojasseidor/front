@@ -46,9 +46,36 @@ const ProgressRegister = ({ userData }) => {
   const handlePreviousStep = () => {
     setStep(step - 1)
   }
+
+  const isLastStep = step === 3
+
   const handleCountryChange = (event) => {
     const valueSelect = event.target.value
     setCountrySelect(valueSelect)
+  }
+
+  async function login (email, password) {
+    const dataRegister = {
+      oResults: {
+        sEmail: email,
+        sPassword: password
+      }
+    }
+    try {
+      const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
+      console.log({ responseData })
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const userData = responseData.oResults
+        console.log({ userData })
+        setSession(userData)
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        setErrorLogin(errorMessage)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setErrorLogin('Service error')
+    }
   }
 
   async function handleSumbit (values, { setSubmitting, setStatus }) {
@@ -80,16 +107,34 @@ const ProgressRegister = ({ userData }) => {
     try {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarUsuarioEnd', body, tok)
       console.log('responseDataProfilestar', responseData)
-      if (responseData.oAuditResponse.iCode == 1) {
-        localStorage.removeItem('session')
-        const userDataNew = responseData.oResults
-        setSession(userDataNew)
-        localStorage.setItem('session', JSON.stringify(userDataNew))
+      if (responseData.oAuditResponse.iCode === 1) {
         setStatus(null)
         setModalToken(false)
+        setSession(null)
+        const userData = responseData.oResults
+        console.log({ userData })
+        setSession(userData)
         setConfirmRegister(true)
-      } else if (responseData.oAuditResponse.iCode == 30) {
-        setConfirmRegister(true)
+
+        setTimeout(() => {
+          router.push('/product')
+        }, 1000)
+
+        // const storedCredential = localStorage.getItem('Credential')
+        // if (storedCredential) {
+        //   const credentialObject = JSON.parse(storedCredential)
+        //   const password = credentialObject.sPassword
+        //   login(body.oResults.sEmail, password)
+        // } else {
+        //   console.log('no hay password')
+        // }
+
+        // if (session) {
+        //   setTimeout(() => {
+        //
+        //   }, 1000)
+        // }
+      } else if (responseData.oAuditResponse.iCode === 30) {
         setStatus(null)
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 27) {
@@ -110,14 +155,13 @@ const ProgressRegister = ({ userData }) => {
     } catch (error) {
       console.error('Error:', error)
       setConfirmRegister(false)
-
       throw new Error('Hubo un error en la operación asincrónica.')
     } finally {
-      setIsLoading(false) // Ocultar el indicador de carga después de que la petición se complete
+      setIsLoading(false)
     }
   }
 
-  console.log('sesion profilestar', session)
+  // console.log('sesionProfilestar', session)
 
   return (
     <>
@@ -138,8 +182,11 @@ const ProgressRegister = ({ userData }) => {
           }}
           validate={validateFormprofilestart} // Use the custom validation function here
           onSubmit={(values, { setSubmitting, setStatus }) => {
-            setFormValues(values)
-            handleSumbit(values, { setSubmitting, setStatus })
+            if (isLastStep) {
+              handleSumbit(values, { setSubmitting, setStatus })
+            } else {
+              handleNextStep()
+            }
           }}
           enableReinitialize
         >
@@ -190,7 +237,7 @@ const ProgressRegister = ({ userData }) => {
 
                   <div className='box-buttons'>
                     {values.phoneNumber && values.lastName && (
-                      <button className={`btn_secundary small ${'lastName' in errors || 'phoneNumber' in errors ? 'disabled' : ''}`} disabled={!values.phoneNumber || !values.lastName} type='submit' onClick={handleNextStep}>
+                      <button className={`btn_secundary small ${'lastName' in errors || 'phoneNumber' in errors ? 'disabled' : ''}`} disabled={!values.phoneNumber || !values.lastName} onClick={handleNextStep}>
                         {t.Next}
                         <ImageSvg name='Next' />
                       </button>
@@ -261,10 +308,16 @@ const ProgressRegister = ({ userData }) => {
                       <ImageSvg name='Back' />
                       {t.Previous}
                     </button>
-                    <button type='submit' className='btn_primary small' disabled={isSubmitting}>
-                      {t.Next}
-                      <ImageSvg name='Next' />
-                    </button>
+                    {isLastStep && (
+                      <button
+                        type='submit'
+                        className='btn_primary small'
+                        disabled={isSubmitting}
+                      >
+                        {t.Next}
+                        <ImageSvg name='Next' />
+                      </button>
+                    )}
                   </div>
 
                   <div className='contentError'>
@@ -287,10 +340,6 @@ const ProgressRegister = ({ userData }) => {
             <div>
               <h3>{t['Completed profile']}</h3>
             </div>
-
-            {session && <button type='submit' className='btn_primary small' onClick={() => router.push('/product')}>
-              {t.Next}
-                        </button>}
 
             {errorLogin && <div className='errorMessage'> {errorLogin} </div>}
           </Modal>

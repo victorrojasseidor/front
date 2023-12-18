@@ -118,7 +118,7 @@ export default function Products () {
       setEmpresa(firstEmpresa)
       setSelectedCompany(firstEmpresa) // Inicializa selectedCompany con el valor
     }
-  }, [])
+  }, [session])
 
   useEffect(() => {
     if (product && product.length > 0) {
@@ -256,9 +256,7 @@ export default function Products () {
     }
   }
 
-  console.log({ product })
-
-  // autocomplete
+  console.log('sesionprod', session)
 
   return (
     <LayoutProducts menu='Product'>
@@ -493,7 +491,7 @@ export default function Products () {
 
                 {/* productos añadidos por el momento */}
 
-                <li className='card human' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+                <li className='card financy' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
                   <span className='card_type'>
                     {t['Finance and accounting']}
@@ -531,7 +529,7 @@ export default function Products () {
                   </div>
                 </li>
 
-                <li className='card tecnology' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+                <li className='card financy' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
                   <span className='card_type'>
                     {t['Finance and accounting']}
@@ -539,6 +537,81 @@ export default function Products () {
 
                   <div className='card_name'>
                     <h4> {t['Invoice register']}</h4>
+
+                    <p className='dayLetf'>
+                      {/* <ImageSvg name='Time' /> */}
+                      {/* {t['Days left:']} .. */}
+                    </p>
+
+                  </div>
+
+                  <div className='card_actions'>
+
+                    <div className='box-img'>
+                      <div className='type_icon'>
+
+                        <ImageSvg name={imgProduct(4)} />
+                      </div>
+
+                    </div>
+
+                    <div className='status-box'>
+
+                      <p>  {t['Not hired']}
+                      </p>
+                      <Link href='https://www.innovativa.la/digitalemployee'>
+                        {t['View more']}
+                      </Link>
+                    </div>
+
+                  </div>
+                </li>
+
+                <li className='card financy' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+
+                  <span className='card_type'>
+                    {t['Finance and accounting']}
+                  </span>
+
+                  <div className='card_name'>
+                    <h4> {t['Download account statements']}</h4>
+
+                    <p className='dayLetf'>
+                      {/* <ImageSvg name='Time' /> */}
+                      {/* {t['Days left:']} .. */}
+                    </p>
+
+                  </div>
+
+                  <div className='card_actions'>
+
+                    <div className='box-img'>
+                      <div className='type_icon'>
+
+                        <ImageSvg name={imgProduct(4)} />
+                      </div>
+
+                    </div>
+
+                    <div className='status-box'>
+
+                      <p>  {t['Not hired']}
+                      </p>
+                      <Link href='https://www.innovativa.la/digitalemployee'>
+                        {t['View more']}
+                      </Link>
+                    </div>
+
+                  </div>
+                </li>
+                <li className='card human' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+
+                  <span className='card_type'>
+                    {t['Human Resources']}
+                  </span>
+
+                  <div className='card_name'>
+                    <h4> {t['AFP validation']}</h4>
 
                     <p className='dayLetf'>
                       {/* <ImageSvg name='Time' /> */}

@@ -38,10 +38,9 @@ export default function Login () {
     try {
       const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
       if (responseData.oAuditResponse?.iCode === 1) {
+        localStorage.setItem('Credential', JSON.stringify(dataRegister.oResults))
         setStatus(null)
-
         const userData = responseData.oResults
-
         if (responseData.oResults.iEstado == 28) {
           setdataProfileStart(userData)
           router.push('/profilestart')

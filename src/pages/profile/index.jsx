@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'
 import { countryOptions } from '@/helpers/contry'
 import { validateFormprofilestart } from '@/helpers/validateForms'
-import { fetchConTokenPost } from '@/helpers/fetch'
+import { fetchConTokenPost, fetchNoTokenPost } from '@/helpers/fetch'
 import { refresToken } from '@/helpers/auth'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -22,17 +22,30 @@ import Loading from '@/Components/Atoms/Loading'
 export default function profile () {
   const [edit, setEdit] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
   const [formValues, setFormValues] = useState({})
   const [country, setCountrySelect] = useState('')
+  const [requestError, setRequestError] = useState('')
+
+  // Nuevo estado para la empresa seleccionada
+  const [selectedCompanies, setSelectedCompanies] = useState([])
 
   const { session, setSession, setModalToken, logout, l } = useAuth()
 
   const t = l.profile
+  const router = useRouter()
 
   const handleCountryChange = (event) => {
     const valueSelect = event.target.value
     setCountrySelect(valueSelect)
+  }
+
+  const toggleCompanySelection = (companyId) => {
+    if (selectedCompanies.includes(companyId)) {
+      const seletcompany = selectedCompanies.filter((id) => id !== companyId)
+      setSelectedCompanies(seletcompany)
+    } else {
+      setSelectedCompanies([...selectedCompanies, companyId])
+    }
   }
 
   // enviar formulario
@@ -50,13 +63,20 @@ export default function profile () {
     const body = {
       oResults: {
         sEmail: session.sCorreo,
-        sUserName: session.sUserName,
+        sUserName: values.name,
         sLastName: values.lastName,
         sCodePhone: values.countryCode.value,
-        sPhone: values.phoneNumber,
+        sPhone: Number(values.phoneNumber),
         bCodeNotEmail: true,
         bCodeNotBpas: true,
-        oEmpresa: oEmpresaSelect
+        oEmpresa: [{
+          iIdEmpresa: 1,
+          sRucEmpresa: '20477840427'
+        },
+        {
+          iIdEmpresa: 2,
+          sRucEmpresa: '20101039910'
+        }]
       }
     }
 
@@ -65,9 +85,10 @@ export default function profile () {
     console.log({ body })
 
     try {
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarUsuarioEnd', body, tok)
+      const responseData = await fetchConTokenPost('dev/General/?Accion=ActualizarDatosUsuario', body, tok)
       console.log('Response', responseData)
       if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1) {
+        login(body.oResults.sEmail, responseData.oResults.password)
         setStatus(null)
         setModalToken(false)
         setEdit(false)
@@ -87,11 +108,35 @@ export default function profile () {
 
       throw new Error('Hubo un error en la operación asincrónica.')
     } finally {
-      setIsLoading(false) // Ocultar el indicador de carga después de que la petición se complete
+      setIsLoading(false)
     }
   }
 
   console.log({ session })
+
+  async function login (email, password) {
+    const dataRegister = {
+      oResults: {
+        sEmail: email,
+        sPassword: password
+      }
+    }
+    try {
+      const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
+      console.log({ responseData })
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const userData = responseData.oResults
+        router.push('/profile')
+        setSession(userData)
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        setRequestError(errorMessage)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setRequestError('Service error')
+    }
+  }
 
   return (
     <LayoutProducts menu='Profile'>
@@ -181,6 +226,34 @@ export default function profile () {
 
                       </div>
 
+                      <div className='companies-container'>
+                        <h3> {t['Company profile']} </h3>
+
+                        <div>
+                          <div>
+                            <p>
+                              {t.Corporation}: <span>{session?.jCompany.razon_social_company}</span>
+                            </p>
+                          </div>
+
+                          <div>
+                            <p>{t['Select the Profile to company']}:</p>
+                          </div>
+
+                          <div className='companies'>
+                            {session?.oEmpresa.map((option) => (
+                              <div className={`box-companies ${selectedCompanies.includes(option) ? 'selected' : ''}`} key={option.id_empresa} onClick={() => toggleCompanySelection(option)}>
+                                <div className='card'>
+                                  <span className='initial'>{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
+                                </div>
+                                <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                      </div>
+
                       <div className='notification-container'>
                         <h3>{t.Notifications}</h3>
                         <p>{t['Select how you want to be notified']}</p>
@@ -206,11 +279,10 @@ export default function profile () {
                           {t.Update}
                         </button>
                       </div>
-
                     </div>
 
                     <div className='contentError'>
-                      <div className='errorMessage'>{status}</div>
+                      <div className='errorMessage'>{status || requestError}</div>
                     </div>
                   </Form>
                 )}
