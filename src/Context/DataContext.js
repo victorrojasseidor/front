@@ -68,7 +68,7 @@ export const DataContextProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    console.log('sesioncontext', session)
+    // console.log('sesioncontext', session)
 
     // Clear existing session data
     localStorage.removeItem('session')

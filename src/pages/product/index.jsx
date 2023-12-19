@@ -61,7 +61,7 @@ export default function Products () {
     if (session) {
       getProductscard()
     }
-  }, [session, empresa, l])
+  }, [session, empresa, l, selectedFilterType])
 
   async function getProductscard () {
     setIsLoading(true)
@@ -69,10 +69,17 @@ export default function Products () {
       const token = session?.sToken
       const idEmpresa = empresa.id_empresa
       const responseData = await getProducts(idEmpresa, token)
-      console.log('getproduc', responseData)
+      console.log('getProduc', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
-        setProduct(data)
+        if (selectedFilterType === 'CLA_01' || selectedFilterType === 'CLA_02' || selectedFilterType === 'CLA_03') {
+          const filtertypeProduct = data.filter((product) => product.sCodeClasificacion === String(selectedFilterType))
+          console.log({ filtertypeProduct })
+          setProduct(filtertypeProduct)
+        } else {
+          setProduct(data)
+        }
+
         setModalToken(false)
         setRequestError(null)
 
@@ -105,6 +112,8 @@ export default function Products () {
     }
   }
 
+  console.log('filter', selectedFilterType, selectedFilter)
+
   useEffect(() => {
     // Comprobar si hay una empresa seleccionada en el localStorage
     const storedEmpresa = localStorage.getItem('selectedEmpresa')
@@ -121,36 +130,33 @@ export default function Products () {
   }, [session])
 
   useEffect(() => {
-    if (product && product.length > 0) {
-      const filterResults = () => {
-        let results = product
-
-        if (selectedFilter !== null) {
-          if (selectedFilter === 25) {
-            results = results.filter(
-              (product) =>
-                product.iCodeStatus === 27 || product.iCodeStatus === 28
-            )
-          } else {
-            results = results.filter(
-              (product) =>
-                product.iCodeStatus === selectedFilter
-            )
-          }
-        }
-
-        if (searchQuery) {
-          results = results.filter((product) =>
-            product.sName.toLowerCase().includes(searchQuery.toLowerCase())
+    const filterResults = () => {
+      let results = product
+      if (selectedFilter !== null) {
+        if (selectedFilter === 25) {
+          results = results.filter(
+            (product) =>
+              product.iCodeStatus === 27 || product.iCodeStatus === 28
+          )
+        } else {
+          results = results.filter(
+            (product) =>
+              product.iCodeStatus === selectedFilter
           )
         }
-
-        setSearchResults(results)
       }
 
-      filterResults()
+      if (searchQuery) {
+        results = results.filter((product) =>
+          product.sName.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      }
+
+      setSearchResults(results)
     }
-  }, [searchQuery, selectedFilter, product])
+
+    filterResults()
+  }, [searchQuery, selectedFilter, product, selectedFilterType])
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value)
@@ -256,7 +262,7 @@ export default function Products () {
     }
   }
 
-  console.log('sesionprod', session)
+  console.log({ selectedFilter }, { selectedFilterType }, searchResults)
 
   return (
     <LayoutProducts menu='Product'>
@@ -301,7 +307,7 @@ export default function Products () {
 
           <div className='welcome'>
             <h1> <span> {t.Welcome}
-            </span>{empresa?.razon_social_empresa}
+                 </span>{empresa?.razon_social_empresa}
             </h1>
             <p>  {t['Our digital employees work to improve your productivity']}</p>
 
@@ -387,17 +393,18 @@ export default function Products () {
             <ImageSvg name='All' />  <p> {t.All} </p>
 
           </button>
-          <button onClick={() => handleFilterType(23)} className={`btn_filter ${selectedFilterType === 23 ? 'active' : ''}`}>
+          <button onClick={() => handleFilterType('CLA_01')} className={`btn_filter ${selectedFilterType === 'CLA_01' ? 'active' : ''}`}>
             <ImageSvg name='Financy' />  <p>{t['Finance and accounting']} </p>
           </button>
-          <button onClick={() => handleFilterType(25)} className='btn_filter disabled'>
+
+          <button onClick={() => handleFilterType('CLA_02')} className={`btn_filter ${selectedFilterType === 'CLA_02' ? 'active' : ''}`}>
 
             <ImageSvg name='Tecnology' />  <p> {t.Technology}</p>
 
           </button>
-          <button onClick={() => handleFilterType(31)} className='btn_filter disabled'>
+          <button onClick={() => handleFilterType('CLA_03')} className={`btn_filter ${selectedFilterType === 'CLA_03' ? 'active' : ''}`}>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
-                                      </p>
+            </p>
           </button>
         </div>
 
@@ -429,225 +436,223 @@ export default function Products () {
 
         {isLoading && <Loading />}
 
-        {searchResults.length > 0
-          ? (
-            <div className='products_cards'>
+        <div className='products_cards'>
 
-              <ul>
-                {searchResults.map((product) => (
-                  <li key={product.iId} className='card financy'>
+          <ul>
+            {searchResults.length > 0 && searchResults.map((product) => (
+              <li key={product.iId} className='card financy'>
 
-                    <span className='card_type'>
-                      {t['Finance and accounting']}
+                <span className='card_type'>
+                  {product.sClasificacion}
 
-                      {session?.sPerfilCode == 'ADMIN' &&
+                  {session?.sPerfilCode == 'ADMIN' &&
 
-                        <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p className='report blue  green admin'>  <ImageSvg name='Admin' />  </p> </Link>}
+                    <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p className='report blue  green admin'>  <ImageSvg name='Admin' />  </p> </Link>}
 
-                    </span>
+                </span>
 
-                    <div className='card_name'>
-                      <h4> {product.sName}</h4>
+                <div className='card_name'>
+                  <h4> {product.sName}</h4>
 
-                      {(product.iCodeStatus === 23 || product.iCodeStatus === 28)
-                        ? (
+                  {(product.iCodeStatus === 23 || product.iCodeStatus === 28)
+                    ? (
 
-                          <p className='dayLetf'>
-                            {/* <ImageSvg name='Time' /> */}
-                            {calcularDiasRestantes(product.sDateEnd) >= 0
-                              ? <span style={{ color: '#7D86A2' }}>    {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}</span>
-                              : (
-                                <span className='' style={{ color: 'red' }}>   {t['Permit expired ago']}   {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days} </span>)}
-                          </p>)
-                        : <p className='dayLetf' style={{ color: 'white' }}>.......</p>}
+                      <p className='dayLetf'>
+                        {/* <ImageSvg name='Time' /> */}
+                        {calcularDiasRestantes(product.sDateEnd) >= 0
+                          ? <span style={{ color: '#7D86A2' }}>    {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}</span>
+                          : (
+                            <span className='' style={{ color: 'red' }}>   {t['Permit expired ago']}   {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days} </span>)}
+                      </p>)
+                    : <p className='dayLetf' style={{ color: 'white' }}>.......</p>}
 
+                </div>
+
+                <div className='card_actions'>
+
+                  <div className='box-img'>
+
+                    <div className='type_icon'>
+
+                      <ImageSvg name={imgProduct(product.iId)} />
                     </div>
 
-                    <div className='card_actions'>
+                  </div>
 
-                      <div className='box-img'>
+                  <div className='status-box'>
 
-                        <div className='type_icon'>
-
-                          <ImageSvg name={imgProduct(product.iId)} />
-                        </div>
-
-                      </div>
-
-                      <div className='status-box'>
-
-                        <p>
-                          {product.sDescStatus}
-                        </p>
-
-                        {renderButtons(product)}
-
-                      </div>
-
-                    </div>
-
-                  </li>
-                ))}
-
-                {/* productos añadidos por el momento */}
-
-                <li className='card financy' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
-
-                  <span className='card_type'>
-                    {t['Finance and accounting']}
-                  </span>
-
-                  <div className='card_name'>
-                    <h4> {t['Download SUNAT Tax Status Registers']}</h4>
-
-                    <p className='dayLetf'>
-                      {/* <ImageSvg name='Time' /> */}
-                      {/* {t['Days left:']} .. */}
+                    <p>
+                      {product.sDescStatus}
                     </p>
 
-                  </div>
-
-                  <div className='card_actions'>
-
-                    <div className='box-img'>
-                      <div className='type_icon'>
-
-                        <ImageSvg name={imgProduct(3)} />
-                      </div>
-
-                    </div>
-
-                    <div className='status-box'>
-
-                      <p>  {t['Not hired']}
-                      </p>
-                      <Link href='https://www.innovativa.la/digitalemployee'>
-                        {t['View more']}
-                      </Link>
-                    </div>
-
-                  </div>
-                </li>
-
-                <li className='card financy' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
-
-                  <span className='card_type'>
-                    {t['Finance and accounting']}
-                  </span>
-
-                  <div className='card_name'>
-                    <h4> {t['Invoice register']}</h4>
-
-                    <p className='dayLetf'>
-                      {/* <ImageSvg name='Time' /> */}
-                      {/* {t['Days left:']} .. */}
-                    </p>
+                    {renderButtons(product)}
 
                   </div>
 
-                  <div className='card_actions'>
+                </div>
 
-                    <div className='box-img'>
-                      <div className='type_icon'>
+              </li>
+            ))}
 
-                        <ImageSvg name={imgProduct(4)} />
-                      </div>
+            {/* productos añadidos por el momento */}
 
-                    </div>
+            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) ? 'flex' : 'none' }}>
 
-                    <div className='status-box'>
+              <span className='card_type'>
+                {t['Finance and accounting']}
+              </span>
 
-                      <p>  {t['Not hired']}
-                      </p>
-                      <Link href='https://www.innovativa.la/digitalemployee'>
-                        {t['View more']}
-                      </Link>
-                    </div>
+              <div className='card_name'>
+                <h4> {t['Download SUNAT Tax Status Registers']}</h4>
 
-                  </div>
-                </li>
+                <p className='dayLetf'>
+                  {/* <ImageSvg name='Time' /> */}
+                  {/* {t['Days left:']} .. */}
+                </p>
 
-                <li className='card financy' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
+              </div>
 
-                  <span className='card_type'>
-                    {t['Finance and accounting']}
-                  </span>
+              <div className='card_actions'>
 
-                  <div className='card_name'>
-                    <h4> {t['Download account statements']}</h4>
+                <div className='box-img'>
+                  <div className='type_icon'>
 
-                    <p className='dayLetf'>
-                      {/* <ImageSvg name='Time' /> */}
-                      {/* {t['Days left:']} .. */}
-                    </p>
-
+                    <ImageSvg name={imgProduct(3)} />
                   </div>
 
-                  <div className='card_actions'>
+                </div>
 
-                    <div className='box-img'>
-                      <div className='type_icon'>
+                <div className='status-box'>
 
-                        <ImageSvg name={imgProduct(4)} />
-                      </div>
+                  <p>  {t['Not hired']}
+                  </p>
+                  <Link href='https://www.innovativa.la/digitalemployee'>
+                    {t['View more']}
+                  </Link>
+                </div>
 
-                    </div>
+              </div>
+            </li>
 
-                    <div className='status-box'>
+            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) ? 'flex' : 'none' }}>
 
-                      <p>  {t['Not hired']}
-                      </p>
-                      <Link href='https://www.innovativa.la/digitalemployee'>
-                        {t['View more']}
-                      </Link>
-                    </div>
+              <span className='card_type'>
+                {t['Finance and accounting']}
+              </span>
 
+              <div className='card_name'>
+                <h4> {t['Invoice register']}</h4>
+
+                <p className='dayLetf'>
+                  {/* <ImageSvg name='Time' /> */}
+                  {/* {t['Days left:']} .. */}
+                </p>
+
+              </div>
+
+              <div className='card_actions'>
+
+                <div className='box-img'>
+                  <div className='type_icon'>
+
+                    <ImageSvg name={imgProduct(4)} />
                   </div>
-                </li>
-                <li className='card human' style={{ visibility: selectedFilter == 31 || !selectedFilter ? 'visible' : 'hidden' }}>
 
-                  <span className='card_type'>
-                    {t['Human Resources']}
-                  </span>
+                </div>
 
-                  <div className='card_name'>
-                    <h4> {t['AFP validation']}</h4>
+                <div className='status-box'>
 
-                    <p className='dayLetf'>
-                      {/* <ImageSvg name='Time' /> */}
-                      {/* {t['Days left:']} .. */}
-                    </p>
+                  <p>  {t['Not hired']}
+                  </p>
+                  <Link href='https://www.innovativa.la/digitalemployee'>
+                    {t['View more']}
+                  </Link>
+                </div>
 
+              </div>
+            </li>
+
+            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) ? 'flex' : 'none' }}>
+
+              <span className='card_type'>
+                {t['Finance and accounting']}
+              </span>
+
+              <div className='card_name'>
+                <h4> {t['Download account statements']}</h4>
+
+                <p className='dayLetf'>
+                  {/* <ImageSvg name='Time' /> */}
+                  {/* {t['Days left:']} .. */}
+                </p>
+
+              </div>
+
+              <div className='card_actions'>
+
+                <div className='box-img'>
+                  <div className='type_icon'>
+
+                    <ImageSvg name={imgProduct(4)} />
                   </div>
 
-                  <div className='card_actions'>
+                </div>
 
-                    <div className='box-img'>
-                      <div className='type_icon'>
+                <div className='status-box'>
 
-                        <ImageSvg name={imgProduct(4)} />
-                      </div>
+                  <p>  {t['Not hired']}
+                  </p>
+                  <Link href='https://www.innovativa.la/digitalemployee'>
+                    {t['View more']}
+                  </Link>
+                </div>
 
-                    </div>
+              </div>
+            </li>
 
-                    <div className='status-box'>
+            <li className='card human' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_03' || !selectedFilterType) ? 'flex' : 'none' }}>
+              <span className='card_type'>
+                {t['Human Resources']}
+              </span>
 
-                      <p>  {t['Not hired']}
-                      </p>
-                      <Link href='https://www.innovativa.la/digitalemployee'>
-                        {t['View more']}
-                      </Link>
-                    </div>
+              <div className='card_name'>
+                <h4> {t['AFP validation']}</h4>
 
+                <p className='dayLetf'>
+                  {/* <ImageSvg name='Time' /> */}
+                  {/* {t['Days left:']} .. */}
+                </p>
+
+              </div>
+
+              <div className='card_actions'>
+
+                <div className='box-img'>
+                  <div className='type_icon'>
+
+                    <ImageSvg name={imgProduct(4)} />
                   </div>
-                </li>
 
-              </ul>
-            </div>
-            )
+                </div>
+
+                <div className='status-box'>
+
+                  <p>  {t['Not hired']}
+                  </p>
+                  <Link href='https://www.innovativa.la/digitalemployee'>
+                    {t['View more']}
+                  </Link>
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+        </div>
+        {/* )
           : (
             <p>{t['No results found']}</p>
-            )}
+            )} */}
       </div>
 
       {requestError && <p className='errorMessage'>{requestError.message}</p>}
