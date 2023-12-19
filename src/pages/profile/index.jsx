@@ -1,5 +1,5 @@
 /* eslint-disable multiline-ternary */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LayoutProducts from '@/Components/LayoutProducts'
 import { useAuth } from '@/Context/DataContext'
 import NavigationPages from '@/Components/NavigationPages'
@@ -27,7 +27,7 @@ export default function profile () {
   const [requestError, setRequestError] = useState('')
 
   // Nuevo estado para la empresa seleccionada
-  const [selectedCompanies, setSelectedCompanies] = useState([])
+  const [selectedCompanies, setSelectedCompanies] = useState()
 
   const { session, setSession, setModalToken, logout, l } = useAuth()
 
@@ -48,17 +48,25 @@ export default function profile () {
     }
   }
 
+  useEffect(() => {
+    setSelectedCompanies(session?.oEmpresa)
+  }, [])
+
   // enviar formulario
   async function handleSumbit (values, { setSubmitting, setStatus }) {
-    const oEmpresaSelect = values.companies.map((companyId) => {
-      const company = session.oEmpresa.find((option) => option.id_empresa === companyId)
+    const transfOempresa = selectedCompanies.map((company) => {
       return {
         iIdEmpresa: company.id_empresa,
         sRucEmpresa: company.ruc_empresa
+
       }
     })
 
+    // console.log({ transfOempresa })
+
     setIsLoading(true)
+
+    console.log({ values })
 
     const body = {
       oResults: {
@@ -67,16 +75,9 @@ export default function profile () {
         sLastName: values.lastName,
         sCodePhone: values.countryCode.value,
         sPhone: Number(values.phoneNumber),
-        bCodeNotEmail: true,
-        bCodeNotBpas: true,
-        oEmpresa: [{
-          iIdEmpresa: 1,
-          sRucEmpresa: '20477840427'
-        },
-        {
-          iIdEmpresa: 2,
-          sRucEmpresa: '20101039910'
-        }]
+        bCodeNotEmail: values.emailNotifications,
+        bCodeNotBpas: values.notificationsInBpass,
+        oEmpresa: transfOempresa
       }
     }
 
@@ -173,14 +174,13 @@ export default function profile () {
                   emailNotifications: session?.bCodeNotEmail,
                   companies: []
                 }}
-                // validate={validateFormprofilestart} // Use the custom validation function here
                 onSubmit={(values, { setSubmitting, setStatus }) => {
                   setFormValues(values)
                   handleSumbit(values, { setSubmitting, setStatus })
                 }}
                 enableReinitialize
               >
-                {({ isSubmitting, status, values, setFieldValue }) => (
+                {({ isSubmitting, status, values, setFieldValue, resetForm }) => (
                   <Form className='form-container'>
                     <div className='form-container_editProfile'>
                       <div>
@@ -192,7 +192,7 @@ export default function profile () {
                           </div>
 
                           <div className='input-box'>
-                            <Field type='text' name='lastName' placeholder=' ' />
+                            <Field type='text' name='lastName' placeholder=' ' readOnly />
                             <label htmlFor='lastName'>{t['Last Name']}</label>
                             <ErrorMessage className='errorMessage' name='lastName' component='div' />
                           </div>
@@ -267,11 +267,17 @@ export default function profile () {
                             <Field type='checkbox' className='checkboxId' name='emailNotifications' />
                             <label htmlFor='emailNotifications'>{t['Email notifications']}</label>
                           </div>
+
                         </ul>
                       </div>
 
                       <div className='box-buttons'>
-                        <button type='submit' className='btn_secundary small' onClick={() => setEdit(false)}>
+                        <button
+                          type='submit' className='btn_secundary small' onClick={() => {
+                            resetForm() // Reset the form to its initial values
+                            setEdit(false)
+                          }}
+                        >
                           {t.Cancel}
                         </button>
 
@@ -377,10 +383,12 @@ export default function profile () {
                   <h3> {t.Notifications}</h3>
 
                   <ul>
-                    <li>{t['Notifications in ARI']}</li>
-                    <li>{t['Email notifications']}</li>
+                    {session?.bCodeNotBpas && <li>{t['Notifications in ARI']}</li>}
+                    {session?.bCodeNotEmail && <li>{t['Email notifications']}</li>}
                   </ul>
+
                 </div>
+
               </div>
             </div>
           )}
