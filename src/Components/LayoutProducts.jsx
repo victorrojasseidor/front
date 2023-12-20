@@ -72,11 +72,11 @@ const LayoutProducts = ({ children, menu }) => {
     console.log('storelaypru', JSON.parse(storedSessionLayput))
     setSession(JSON.parse(storedSessionLayput))
 
-    if (!session) {
-      setTimeout(() => {
-        router.push('/login')
-      }, 3000)
-    }
+    // if (!session) {
+    //   setTimeout(() => {
+    //     router.push('/login')
+    //   }, 4000)
+    // }
   }, [])
 
   console.log('sessionLayput', session)
@@ -211,7 +211,7 @@ const LayoutProducts = ({ children, menu }) => {
                     </div>
 
                   )}
-                  </li>
+                </li>
 
                 : <li key={index} className={`${asPath === menuItem.path || menu === menuItem ? 'active' : ''}`}>
 
@@ -219,7 +219,7 @@ const LayoutProducts = ({ children, menu }) => {
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
                   </Link>
-                  </li>}
+                </li>}
 
             </ul>))}
 
@@ -240,7 +240,7 @@ const LayoutProducts = ({ children, menu }) => {
 
           <ul className='list-content'>
             <li>
-              <button onClick={handleLogout}>
+              <button onClick={() => handleLogout()}>
                 <ImageSvg name='SignOut' />
                 <h5>{t['Sign Out']}</h5>
               </button>

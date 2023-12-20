@@ -66,8 +66,8 @@ const ProgressRegister = ({ userData }) => {
       console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         const userData = responseData.oResults
-        console.log({ userData })
         setSession(userData)
+        router.push('/product')
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         setErrorLogin(errorMessage)
@@ -111,29 +111,14 @@ const ProgressRegister = ({ userData }) => {
         setStatus(null)
         setModalToken(false)
         setSession(null)
-        const userData = responseData.oResults
-        console.log({ userData })
-        setSession(userData)
-        setConfirmRegister(true)
-
-        setTimeout(() => {
-          router.push('/product')
-        }, 1000)
-
-        // const storedCredential = localStorage.getItem('Credential')
-        // if (storedCredential) {
-        //   const credentialObject = JSON.parse(storedCredential)
-        //   const password = credentialObject.sPassword
-        //   login(body.oResults.sEmail, password)
-        // } else {
-        //   console.log('no hay password')
-        // }
-
-        // if (session) {
-        //   setTimeout(() => {
-        //
-        //   }, 1000)
-        // }
+        const storedCredential = localStorage.getItem('Credential')
+        if (storedCredential) {
+          const credentialObject = JSON.parse(storedCredential)
+          const password = credentialObject.sPassword
+          login(body.oResults.sEmail, password)
+        } else {
+          console.log('no hay password')
+        }
       } else if (responseData.oAuditResponse.iCode === 30) {
         setStatus(null)
         setModalToken(false)

@@ -33,7 +33,7 @@ export default function Products () {
   useEffect(() => {
     // Actualiza las opciones de búsqueda de empresas cuando cambia la lista de empresas en session
     if (session?.oEmpresa) {
-      setCompanyOptions(session.oEmpresa)
+      setCompanyOptions(session?.oEmpresa)
     }
   }, [session])
 
@@ -56,7 +56,7 @@ export default function Products () {
 
   const t = l.Products
 
-  console.log('sessiProduct', session)
+  console.log('sessionProduct', session)
 
   const router = useRouter()
   useEffect(() => {
