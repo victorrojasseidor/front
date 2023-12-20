@@ -64,8 +64,6 @@ export default function profile () {
 
     setIsLoading(true)
 
-    console.log({ values })
-
     const body = {
       oResults: {
         sEmail: session.sCorreo,
@@ -85,7 +83,7 @@ export default function profile () {
 
     try {
       const responseData = await fetchConTokenPost('dev/General/?Accion=ActualizarDatosUsuario', body, tok)
-      console.log('Response', responseData)
+      console.log('ResponseDatosusruaio', responseData)
       if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1) {
         login(body.oResults.sEmail, responseData.oResults.password)
         setStatus(null)
@@ -111,8 +109,6 @@ export default function profile () {
     }
   }
 
-  console.log({ session })
-
   async function login (email, password) {
     const dataRegister = {
       oResults: {
@@ -122,7 +118,7 @@ export default function profile () {
     }
     try {
       const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
-      console.log({ responseData })
+      console.log('responseDataLogin', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         const userData = responseData.oResults
         router.push('/profile')
@@ -135,6 +131,29 @@ export default function profile () {
       console.error('error', error)
       setRequestError('Service error')
     }
+  }
+
+  function eliminarDuplicadosPorPropiedad (array, propiedad) {
+    const setUnicos = new Set()
+    const arrayResultado = array.filter((elemento) => {
+      const valorPropiedad = elemento[propiedad]
+      if (!setUnicos.has(valorPropiedad)) {
+        setUnicos.add(valorPropiedad)
+        return true
+      }
+      return false
+    })
+    return arrayResultado
+  }
+
+  const empresasofcompaniTotal = eliminarDuplicadosPorPropiedad(session?.oEmpresaTotal, 'id_empresa')
+
+  function validarExistenciaEmpresa (option, selectCompany) {
+    return selectCompany.some((company) =>
+      option.id_empresa === company.id_empresa &&
+    option.ruc_empresa === company.ruc_empresa
+
+    )
   }
 
   return (
@@ -239,9 +258,11 @@ export default function profile () {
                           </div>
 
                           <div className='companies'>
-                            {session?.oEmpresa.map((option) => (
-                              <div className={`box-companies ${selectedCompanies.includes(option) ? 'selected' : ''}`} key={option.id_empresa} onClick={() => toggleCompanySelection(option)}>
+                            {empresasofcompaniTotal.map((option) => (
+
+                              <div className={`box-companies ${validarExistenciaEmpresa(option, selectedCompanies) ? 'selected' : ''}`} key={option.id_empresa} onClick={() => toggleCompanySelection(option)}>
                                 <div className='card'>
+
                                   <span className='initial'>{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
                                 </div>
                                 <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
