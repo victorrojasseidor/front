@@ -62,8 +62,6 @@ export default function profile () {
       }
     })
 
-    // console.log({ transfOempresa })
-
     setIsLoading(true)
 
     console.log({ values })
@@ -187,12 +185,12 @@ export default function profile () {
                         <h3> {t['Personal information']}</h3>
                         <div className='box-forms'>
                           <div className='input-box'>
-                            <Field type='text' name='name' placeholder=' ' />
+                            <Field type='text' name='name' placeholder=' ' readOnly />
                             <label htmlFor='name'>{t.Username}</label>
                           </div>
 
                           <div className='input-box'>
-                            <Field type='text' name='lastName' placeholder=' ' readOnly />
+                            <Field type='text' name='lastName' placeholder=' ' />
                             <label htmlFor='lastName'>{t['Last Name']}</label>
                             <ErrorMessage className='errorMessage' name='lastName' component='div' />
                           </div>

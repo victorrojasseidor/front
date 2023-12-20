@@ -56,8 +56,6 @@ const Movement = () => {
     }
   }, [apply])
 
-  console.log('dataInitialSelect', dataInitialSelect)
-
   async function getMovementInitial () {
     setIsLoading(true)
     const body = {
@@ -230,25 +228,25 @@ const Movement = () => {
     )
   }
 
-  function formatNumberToCurrency (number) {
+  function formatNumberToCurrency (row) {
+    const sign = row.id_tipo === 1 ? 1 : -1
     // Divide el número en parte entera y decimal
-    const parts = number.toFixed(2).toString().split('.')
-    const integerPart = parts[0]
+    const parts = (row.importe * sign).toFixed(2).toString().split('.')
+    const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     const decimalPart = parts[1]
-
-    // Agrega comas como separadores de miles a la parte entera
-    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
     // Si el número original no tenía decimales, agrega ".00"
     const formattedDecimal = decimalPart === '00' ? '.00' : `.${decimalPart}`
 
     // Combina la parte entera y la parte decimal formateadas
-    const formattedNumber = formattedInteger + formattedDecimal
+    const formattedNumber = integerPart + formattedDecimal
 
     return formattedNumber
   }
 
   const exportToExcel = () => {
+    console.log({ movement })
+
     if (movement && movement.oConfCuentaMov.length > 0) {
       const filteredData = movement.oConfCuentaMov.map((row) => ({
         Date: formatDate(row.fecha),
@@ -259,7 +257,7 @@ const Movement = () => {
         Descripcion: row.descripcion,
         Type: row.descripcion_tipo,
         Operation_No: row.operacion,
-        Amount: formatNumberToCurrency(row.importe),
+        Amount: row.id_tipo === 1 ? 1 * row.importe : -1 * row.importe,
         Reference: row.referencia,
         UTC: row.utc,
         RUC: row.ruc
@@ -584,7 +582,7 @@ const Movement = () => {
                             <td>{row.descripcion}</td>
                             <td style={{ color: row.id_tipo === 1 ? '#008f39' : '#FF0000' }}>{row.descripcion_tipo}</td>
                             <td>{row.operacion}</td>
-                            <td className='importe'>{formatNumberToCurrency(row.importe)}</td>
+                            <td className='importe'>{formatNumberToCurrency(row)}</td>
                             <td>{row.referencia}</td>
                             <td>{row.utc}</td>
                             <td>{row.ruc}</td>

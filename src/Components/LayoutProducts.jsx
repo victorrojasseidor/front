@@ -29,7 +29,7 @@ const LayoutProducts = ({ children, menu }) => {
   const [activeMenu, setActiveMenu] = useState('')
   const [activeSubmenu, setActiveSubmenu] = useState('')
   const router = useRouter()
-  const { session, modalToken, logout, l } = useAuth()
+  const { session, modalToken, logout, l, setSession } = useAuth()
   const { asPath } = useRouter()
   const t = l.header
 
@@ -68,16 +68,18 @@ const LayoutProducts = ({ children, menu }) => {
   }, [isMobile, isMenuLateralOpen])
 
   useEffect(() => {
-    console.log('sessionLayput', session)
     const storedSessionLayput = localStorage.getItem('session')
-    console.log({ storedSessionLayput })
+    console.log('storelaypru', JSON.parse(storedSessionLayput))
+    setSession(JSON.parse(storedSessionLayput))
 
-    if (!storedSessionLayput & !session) {
+    if (!session) {
       setTimeout(() => {
         router.push('/login')
       }, 3000)
     }
-  }, [session])
+  }, [])
+
+  console.log('sessionLayput', session)
 
   useEffect(() => {
     Object.keys(menuItems).forEach((menuItem) => {
@@ -209,7 +211,7 @@ const LayoutProducts = ({ children, menu }) => {
                     </div>
 
                   )}
-                </li>
+                  </li>
 
                 : <li key={index} className={`${asPath === menuItem.path || menu === menuItem ? 'active' : ''}`}>
 
@@ -217,7 +219,7 @@ const LayoutProducts = ({ children, menu }) => {
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
                   </Link>
-                </li>}
+                  </li>}
 
             </ul>))}
 

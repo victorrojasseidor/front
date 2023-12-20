@@ -56,6 +56,8 @@ export default function Products () {
 
   const t = l.Products
 
+  console.log('sessiProduct', session)
+
   const router = useRouter()
   useEffect(() => {
     if (session) {
@@ -112,17 +114,23 @@ export default function Products () {
     }
   }
 
-  console.log('filter', selectedFilterType, selectedFilter)
+  // useEffect(() => {
+  //   // Comprobar si hay una empresa seleccionada en el localStorage
+  //   const storedEmpresa = localStorage.getItem('selectedEmpresa')
+  //   if (storedEmpresa) {
+  //     const selectedEmpresa = JSON.parse(storedEmpresa)
+  //     setEmpresa(selectedEmpresa)
+  //     setSelectedCompany(selectedEmpresa) // Inicializa selectedCompany con el valor
+  //   } else if (session?.oEmpresa.length > 0) {
+  //     const firstEmpresa = session?.oEmpresa[0]
+  //     setEmpresa(firstEmpresa)
+  //     setSelectedCompany(firstEmpresa) // Inicializa selectedCompany con el valor
+  //   }
+  // }, [session])
 
   useEffect(() => {
     // Comprobar si hay una empresa seleccionada en el localStorage
-    const storedEmpresa = localStorage.getItem('selectedEmpresa')
-    if (storedEmpresa) {
-      const selectedEmpresa = JSON.parse(storedEmpresa)
-      setEmpresa(selectedEmpresa)
-      setSelectedCompany(selectedEmpresa) // Inicializa selectedCompany con el valor
-    } else if (session?.oEmpresa.length > 0) {
-      // Si no hay una empresa en el localStorage, utiliza la primera empresa de session.oEmpresa
+    if (session?.oEmpresa.length > 0) {
       const firstEmpresa = session?.oEmpresa[0]
       setEmpresa(firstEmpresa)
       setSelectedCompany(firstEmpresa) // Inicializa selectedCompany con el valor
@@ -262,8 +270,6 @@ export default function Products () {
     }
   }
 
-  console.log({ selectedFilter }, { selectedFilterType }, searchResults)
-
   return (
     <LayoutProducts menu='Product'>
 
@@ -307,7 +313,7 @@ export default function Products () {
 
           <div className='welcome'>
             <h1> <span> {t.Welcome}
-            </span>{empresa?.razon_social_empresa}
+                 </span>{empresa?.razon_social_empresa}
             </h1>
             <p>  {t['Our digital employees work to improve your productivity']}</p>
 
@@ -404,7 +410,7 @@ export default function Products () {
           </button>
           <button onClick={() => handleFilterType('CLA_03')} className={`btn_filter ${selectedFilterType === 'CLA_03' ? 'active' : ''}`}>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
-                                      </p>
+            </p>
           </button>
         </div>
 
