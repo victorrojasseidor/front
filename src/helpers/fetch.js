@@ -62,7 +62,42 @@ const fetchConTokenPost = async (endpoint, data, tok) => {
   }
 }
 
+const decodeText = async (valor) => {
+  // Token y clave secreta
+  const token = 'a2VzdGVmby9IS2xvbG9wYW4xODA3OTck'
+  const secretKey = 'LkzMK8wEA38Qdzc22Y0nhaNMU0IYGokq66tOPqf9'
+
+  // Crear el objeto settings para la solicitud fetch
+  const settings = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      saplicacion: 'BPAS',
+      stoken: token,
+      'x-api-key': secretKey
+    },
+    body: JSON.stringify({
+      sText: valor
+    })
+  }
+
+  try {
+    const response = await fetch('https://3r6vgy8p58.execute-api.us-east-2.amazonaws.com/dev/General/?Accion=DecodificarTexto', settings)
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok')
+    }
+
+    const responseData = await response.json()
+
+    return responseData
+  } catch (error) {
+    console.error('error', error)
+    throw error
+  }
+}
+
 export {
-  fetchNoTokenPost, fetchConTokenPost
+  fetchNoTokenPost, fetchConTokenPost, decodeText
 
 }

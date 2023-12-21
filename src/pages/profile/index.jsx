@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'
 import { countryOptions } from '@/helpers/contry'
 import { validateFormprofilestart } from '@/helpers/validateForms'
-import { fetchConTokenPost, fetchNoTokenPost } from '@/helpers/fetch'
+import { fetchConTokenPost, fetchNoTokenPost, decodeText } from '@/helpers/fetch'
 import { refresToken } from '@/helpers/auth'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -85,11 +85,12 @@ export default function profile () {
       const responseData = await fetchConTokenPost('dev/General/?Accion=ActualizarDatosUsuario', body, tok)
       console.log('ResponseDatosusruaio', responseData)
       if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1) {
-        login(body.oResults.sEmail, responseData.oResults.password)
+        const secretPasw = await decodeText(responseData.oResults.password)
+        login(body.oResults.sEmail, secretPasw.oResults)
         setStatus(null)
         setModalToken(false)
         setEdit(false)
-        // setSession()
+        setSession()
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout()
       } else if (responseData.oAuditResponse?.iCode === 27) {
@@ -135,7 +136,7 @@ export default function profile () {
 
   function eliminarDuplicadosPorPropiedad (array, propiedad) {
     const setUnicos = new Set()
-    const arrayResultado = array.filter((elemento) => {
+    const arrayResultado = array?.filter((elemento) => {
       const valorPropiedad = elemento[propiedad]
       if (!setUnicos.has(valorPropiedad)) {
         setUnicos.add(valorPropiedad)
@@ -258,7 +259,7 @@ export default function profile () {
                           </div>
 
                           <div className='companies'>
-                            {empresasofcompaniTotal.map((option) => (
+                            {empresasofcompaniTotal?.map((option) => (
 
                               <div className={`box-companies ${validarExistenciaEmpresa(option, selectedCompanies) ? 'selected' : ''}`} key={option.id_empresa} onClick={() => toggleCompanySelection(option)}>
                                 <div className='card'>

@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { countryOptions } from '@/helpers/contry'
 import { validateFormprofilestart } from '@/helpers/validateForms'
 import { useRouter } from 'next/navigation'
-import { fetchConTokenPost, fetchNoTokenPost } from '@/helpers/fetch'
+import { fetchConTokenPost, fetchNoTokenPost, decodeText } from '@/helpers/fetch'
 import { useAuth } from '@/Context/DataContext'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
@@ -111,14 +111,8 @@ const ProgressRegister = ({ userData }) => {
         setStatus(null)
         setModalToken(false)
         setSession(null)
-        const storedCredential = localStorage.getItem('Credential')
-        if (storedCredential) {
-          const credentialObject = JSON.parse(storedCredential)
-          const password = credentialObject.sPassword
-          login(body.oResults.sEmail, password)
-        } else {
-          console.log('no hay password')
-        }
+        const secretPasw = await decodeText(responseData.oResults.password)
+        login(body.oResults.sEmail, secretPasw.oResults)
       } else if (responseData.oAuditResponse.iCode === 30) {
         setStatus(null)
         setModalToken(false)
