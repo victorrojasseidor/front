@@ -24,8 +24,6 @@ async function getProducts (idEmpresa, token) {
     }
   }
 
-  console.log({ body }, token)
-
   try {
     const resp = await fetchConTokenPost('dev/BPasS/?Accion=ConsultaProductoEmpresa', body, token)
     return resp

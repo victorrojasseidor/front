@@ -87,7 +87,6 @@ export default function Register () {
         <div className='navRegister_head'>
           <div className='container-lang'>      <Lang /> </div>
           <div className='navRegister_logo'>
-
             <Image src={logo} width={100} alt='imgRegister' />
 
           </div>

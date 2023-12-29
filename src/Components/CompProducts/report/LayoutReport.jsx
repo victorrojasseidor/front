@@ -4,6 +4,7 @@ import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
 import NavigationPages from '@/Components/NavigationPages'
 import { useAuth } from '@/Context/DataContext'
+import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 
 const LayouReport = ({ defaultTab, children }) => {
   const [activeTab, setActiveTab] = useState(defaultTab || 0)
@@ -11,7 +12,7 @@ const LayouReport = ({ defaultTab, children }) => {
 
   const today = new Date().toISOString().substr(0, 10) // Fecha de hoy en formato YYYY-MM-DD
   const defaultStartDate = '2023-01-01'
-
+  const router = useRouter()
   const t = l.Reporting
   function obtenerFechaAnterior () {
     // Obtén la fecha actual
@@ -55,7 +56,7 @@ const LayouReport = ({ defaultTab, children }) => {
       </NavigationPages>
       <section className='layoutReporting'>
 
-        <div className='layoutReporting-company'>
+        {/* <div className='layoutReporting-company'>
           <h5>
             {session?.jCompany.razon_social_company}
           </h5>
@@ -64,29 +65,23 @@ const LayouReport = ({ defaultTab, children }) => {
               {obtenerFechaAnterior()}
             </span>
           </p>
-        </div>
+        </div> */}
 
         <div className='horizontalTabs'>
           <div className='tab-header '>
-            <Link href='/reporting/balance'>
-              <button className={activeTab === 0 ? 'active ' : ''} onClick={() => handleTabClick(0)}>
-                {/* <h4>Free Trial</h4> */}
 
-                <h4>{t.Balance}</h4>
+            <button className={activeTab === 0 ? 'active ' : ''} onClick={() => { handleTabClick(0); router.push('/reporting/balance') }}>
 
-              </button>
-            </Link>
+              <h4>{t.Balance}</h4>
 
-            <Link
-              href='/reporting/movement'
+            </button>
+
+            <button
+
+              className={activeTab === 1 ? 'active ' : ''} onClick={() => { handleTabClick(1); router.push('/reporting/movement') }}
             >
-              <button
-
-                className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}
-              >
-                <h4> {t.Movement}</h4>
-              </button>
-            </Link>
+              <h4> {t.Movement}</h4>
+            </button>
 
           </div>
           <div className='tab-content'>
@@ -96,7 +91,7 @@ const LayouReport = ({ defaultTab, children }) => {
               </div>
             )}
             {activeTab === 1 && (
-              <div>
+              <div className='tabOne'>
 
                 {defaultTab == 1 && children}
 

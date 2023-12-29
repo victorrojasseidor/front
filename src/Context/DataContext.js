@@ -59,7 +59,6 @@ export const DataContextProvider = ({ children }) => {
   // UseEffect para cargar la sesión desde el almacenamiento local al montar el componente
   useEffect(() => {
     const storedSession = localStorage.getItem('session')
-    console.log('storedSessionconetxt', storedSession)
     if (storedSession) {
       setSession(JSON.parse(storedSession))
     } else {

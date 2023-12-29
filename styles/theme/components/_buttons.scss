@@ -220,6 +220,14 @@
     color: get-color(white_s1);
     gap: 1rem;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+
+    svg{
+      path{
+        fill:get-color(white_s1);
+
+        
+      }
+    }
     @include media(tablet) {
       font-size: medium;
       padding: 0.8rem 1.25rem;
@@ -237,6 +245,14 @@
       border: 1px solid get-color(black_p2);
       transform: scale(0.9);
       box-shadow: 0 2px 25px get-color(bg-cles);
+
+      svg{
+        path{
+          fill:get-color(black_p2);
+  
+          
+        }
+      }
     }
   }
 

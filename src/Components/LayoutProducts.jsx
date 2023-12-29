@@ -69,7 +69,6 @@ const LayoutProducts = ({ children, menu }) => {
 
   useEffect(() => {
     const storedSessionLayput = localStorage.getItem('session')
-    console.log('storelaypru', JSON.parse(storedSessionLayput))
     setSession(JSON.parse(storedSessionLayput))
 
     // if (!session) {
@@ -78,8 +77,6 @@ const LayoutProducts = ({ children, menu }) => {
     //   }, 4000)
     // }
   }, [])
-
-  console.log('sessionLayput', session)
 
   useEffect(() => {
     Object.keys(menuItems).forEach((menuItem) => {

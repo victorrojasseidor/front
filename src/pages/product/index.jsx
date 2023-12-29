@@ -56,8 +56,6 @@ export default function Products () {
 
   const t = l.Products
 
-  console.log('sessionProduct', session)
-
   const router = useRouter()
   useEffect(() => {
     if (session) {
@@ -65,11 +63,14 @@ export default function Products () {
     }
   }, [session, empresa, l, selectedFilterType])
 
+  console.log('empresa', empresa)
+
   async function getProductscard () {
     setIsLoading(true)
     try {
       const token = session?.sToken
       const idEmpresa = empresa.id_empresa
+      console.log(idEmpresa, token)
       const responseData = await getProducts(idEmpresa, token)
       console.log('getProduc', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
@@ -147,7 +148,7 @@ export default function Products () {
               product.iCodeStatus === 27 || product.iCodeStatus === 28
           )
         } else {
-          results = results.filter(
+          results = results?.filter(
             (product) =>
               product.iCodeStatus === selectedFilter
           )
@@ -210,6 +211,8 @@ export default function Products () {
 
     return diasRestantes
   }
+
+  console.log(session)
 
   const renderButtons = (data) => {
     const handleLink = (ruta) => {
@@ -451,9 +454,9 @@ export default function Products () {
                 <span className='card_type'>
                   {product.sClasificacion}
 
-                  {session?.sPerfilCode == 'ADMIN' &&
+                  {session?.sPerfilCode === 'ADMIN' &&
 
-                    <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p className='report blue  green admin'>  <ImageSvg name='Admin' />  </p> </Link>}
+                    <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}> <p className='admin'>  <ImageSvg name='Admin' />   </p> </Link>}
 
                 </span>
 

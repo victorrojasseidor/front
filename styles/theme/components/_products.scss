@@ -387,6 +387,8 @@
     @include media(tablet) {
       width: 75%;
     }
+
+    
  
 
    
@@ -452,6 +454,7 @@
     z-index: 1;
     right:  0%;
     top: 0%;
+    
    
       
     @include center-container;

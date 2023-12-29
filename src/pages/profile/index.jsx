@@ -79,8 +79,6 @@ export default function profile () {
 
     const tok = session?.sToken
 
-    console.log({ body })
-
     try {
       const responseData = await fetchConTokenPost('dev/General/?Accion=ActualizarDatosUsuario', body, tok)
       console.log('ResponseDatosusruaio', responseData)
