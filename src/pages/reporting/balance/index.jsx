@@ -16,10 +16,8 @@ import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import * as XLSX from 'xlsx'
 import ImageSvg from '@/helpers/ImageSVG'
-import Table from '@/Components/CompProducts/report/TableComponent'
 import Loading from '@/Components/Atoms/Loading'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+
 import { TextField, IconButton, InputAdornment } from '@mui/material'
 
 const Balance = () => {

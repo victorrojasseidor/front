@@ -365,13 +365,9 @@
 
   @include container;
 
-  .pagination,
-  .box-search {
-    // position: sticky;
-    top: 0; // Ajusta el valor superior según sea necesario
-    z-index: 2; // Asegura que estos elementos estén por encima del contenido de la tabla
-    background-color: white; // Opcional: Establece el fondo para que se destaque
-  }
+
+
+ 
 
   .tableContainer {
    
@@ -420,6 +416,8 @@
   border-radius: brd(2);
   box-shadow: bsh(3);
 
+  
+
   thead {
    
     background-color: transparent;
@@ -451,11 +449,17 @@
       text-align: start;
       // white-space: nowrap;
       width: max-content;
+      border: 1px solid get-color(pink_s5);
 
       button {
         display: inline-block;
         margin-left: 0.5rem;
       }
+    }
+
+    .th-search{
+      min-width: 18rem;
+
     }
   }
 

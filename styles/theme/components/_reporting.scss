@@ -261,3 +261,27 @@
   max-width: 100%;
   padding: 1rem;
 }
+
+
+.container-search{
+  background-color: get-color(bg-cles);
+  border-radius: brd(1);
+  padding: 0rem 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  
+ 
+  
+  ::placeholder{
+    color:get-color(forms_s6);
+  }
+ 
+
+
+  button{
+    height: 1.8rem;
+    border-radius: brd(3);
+  }
+}

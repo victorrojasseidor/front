@@ -182,6 +182,10 @@ export default function LineChart () {
   const highlightedColor = '#5DB92C'
   const borderColor = daysToShow.map((day) => (day === 10 ? highlightedColor : '#5932EA'))
 
+  console.log({ daysToShow })
+
+  console.log({ dataToShow })
+
   const midata = {
     labels: daysToShow,
     datasets: [

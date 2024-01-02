@@ -46,6 +46,11 @@ const Movement = () => {
   const [isOperationSorted, setIsOperationSorted] = useState(false)
   const [isRucSorted, setIsRucSorted] = useState(false)
   const [apply, setApply] = useState(false)
+  const [searchDes, setSearchDes] = useState(false)
+  const [searchOpe, setSearchOpe] = useState(false)
+  // buscar por description
+  const [descripcion, setDescripcion] = useState('')
+  const [operacion, setOperacion] = useState('')
 
   const t = l.Reporting
 
@@ -117,7 +122,7 @@ const Movement = () => {
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
-        setMovement(data)
+        setMovement(data.oConfCuentaMov)
         setModalToken(false)
         setRequestError(null)
       } else if (responseData.oAuditResponse?.iCode === 27) {
@@ -167,7 +172,7 @@ const Movement = () => {
       setFilteredBank([])
       setFilteredAccounts([])
     } else {
-      const BankForSelectedCompany = movement?.oConfCuentaMov.filter(
+      const BankForSelectedCompany = movement?.filter(
         (bank) => bank.id_empresa === selectCompanyValue
       )
 
@@ -231,12 +236,6 @@ const Movement = () => {
     )
   }
 
-  const filterDate = () => {
-    return (
-      console.log('filter')
-    )
-  }
-
   function formatNumberToCurrency (row) {
     const sign = row.id_tipo === 1 ? 1 : -1
     // Divide el número en parte entera y decimal
@@ -256,8 +255,8 @@ const Movement = () => {
   const exportToExcel = () => {
     console.log({ movement })
 
-    if (movement && movement.oConfCuentaMov.length > 0) {
-      const filteredData = movement.oConfCuentaMov.map((row) => ({
+    if (movement && movement.length > 0) {
+      const filteredData = movement.map((row) => ({
         Date: formatDate(row.fecha),
         Company: row.razon_social_empresa,
         Bank: row.nombre_banco,
@@ -286,7 +285,7 @@ const Movement = () => {
     setIsSorted((prevIsSorted) => !prevIsSorted)
 
     setMovement((prevBalances) => {
-      const sortedData = [...prevBalances.oConfCuentaMov]
+      const sortedData = [...prevBalances]
 
       if (prevIsSorted) {
         sortedData.sort((a, b) => a[columnName].localeCompare(b[columnName]))
@@ -294,10 +293,7 @@ const Movement = () => {
         sortedData.sort((a, b) => b[columnName].localeCompare(a[columnName]))
       }
 
-      return {
-        ...prevBalances,
-        oConfCuentaMov: sortedData
-      }
+      return sortedData
     })
   }
 
@@ -306,7 +302,7 @@ const Movement = () => {
     setIsSorted((prevIsSorted) => !prevIsSorted)
 
     setMovement((prevBalances) => {
-      const sortedData = [...prevBalances.oConfCuentaMov]
+      const sortedData = [...prevBalances]
 
       if (prevIsSorted) {
         sortedData.sort((a, b) => a[columnName] - b[columnName])
@@ -314,10 +310,7 @@ const Movement = () => {
         sortedData.sort((a, b) => b[columnName] - a[columnName])
       }
 
-      return {
-        ...prevBalances,
-        oConfCuentaMov: sortedData
-      }
+      return sortedData
     })
   }
 
@@ -326,7 +319,7 @@ const Movement = () => {
     setIsDateSorted(!isDateSorted)
 
     setMovement((prevBalances) => {
-      const sortedData = [...prevBalances.oConfCuentaMov]
+      const sortedData = [...prevBalances]
 
       if (isDateSorted) {
         sortedData.sort((a, b) => new Date(a.fecha) - new Date(b.fecha))
@@ -334,10 +327,7 @@ const Movement = () => {
         sortedData.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
       }
 
-      return {
-        ...prevBalances,
-        oConfCuentaMov: sortedData
-      }
+      return sortedData
     })
   }
 
@@ -388,6 +378,44 @@ const Movement = () => {
       tableRef.current.scrollLeft = tableRef.current.scrollWidth
     }
   }, []) // El efecto se ejecuta solo una vez al montar el componente
+
+  const handleInputChangeSearchDescription = (e) => {
+    const inputValue = e.target.value
+    setDescripcion(inputValue)
+    searchDescription(inputValue, 'descripcion')
+  }
+
+  const handleInputChangeSearchOperation = (e) => {
+    const inputValue = e.target.value
+    setOperacion(inputValue)
+    searchDescription(inputValue, 'operacion')
+  }
+
+  const searchDescription = (word, key) => {
+    // Verifica si movement.oConfCuentaMov existe antes de intentar acceder a sus propiedades
+
+    if (word === null || word === '') {
+      setApply(!apply)
+    } else {
+      if (movement) {
+        const filteredItems = movement.filter(producto =>
+          producto[key].toLowerCase().includes(word.toLowerCase())
+        )
+        if (filteredItems) {
+          console.log({ filteredItems })
+          setMovement(filteredItems)
+        } else {
+          console.log('no hay movment')
+        }
+      }
+    }
+  }
+
+  console.log({ movement })
+
+  // if (descripcion === '') {
+  //   setApply(!apply)
+  // }
 
   return (
     <LayouReport defaultTab={1} menu='Movement'>
@@ -609,19 +637,71 @@ const Movement = () => {
                   </th>
                   <th>
                     {t.Currency}
+
                     <button className='btn_crud' onClick={() => orderDataAlphabetically('moneda', setIsCurrencySorted, isCurrencySorted)}>
                       <ImageSvg name={isCurrencySorted ? 'OrderZA' : 'OrderAZ'} />
                     </button>
 
                   </th>
-                  <th>{t.Description}</th>
+                  <th className='th-search'>
+
+                    {t.Description}
+
+                    <button className='btn_crud' onClick={() => setSearchDes(!searchDes)}>
+                      <ImageSvg name={searchDes ? ' ' : 'Search'} />
+                    </button>
+
+                    {searchDes &&
+
+                      <div className='container-search'>
+
+                        <div className='input-box'>
+                          <input
+                            // type='text'
+                            // placeholder='Buscar por descripción'
+                            // value={descripcion}
+                            // onChange={handleInputChange}
+                            type='text'
+                            placeholder='Buscar por descripción'
+                            value={descripcion}
+                            onChange={handleInputChangeSearchDescription}
+                          />
+                        </div>
+
+                        {/* <button className='btn_green' onClick={handleSearchClick}> <ImageSvg name='Search' /> </button> */}
+                        <button className='btn_green' onClick={() => { setDescripcion(''); setSearchDes(!searchDes); setApply(!apply) }}> X </button>
+                      </div>}
+
+                  </th>
                   <th>{t.Type} </th>
 
-                  <th>
+                  <th className='th-search'>
                     {t['Operation No.']}
+
+                    <button className='btn_crud' onClick={() => setSearchOpe(!searchOpe)}>
+                      <ImageSvg name='Search' />
+                    </button>
+
                     <button className='btn_crud' onClick={() => orderDataNumerically('operacion', setIsOperationSorted, isOperationSorted)}>
                       <ImageSvg name={isOperationSorted ? 'OrderDown' : 'OrderUP'} />
                     </button>
+
+                    {searchOpe &&
+
+                      <div className='container-search'>
+
+                        <div className='input-box'>
+                          <input
+                            type='text'
+                            placeholder='Buscar por operacion'
+                            value={operacion}
+                            onChange={handleInputChangeSearchOperation}
+                          />
+                        </div>
+
+                        {/* <button className='btn_green' onClick={handleSearchClick}> <ImageSvg name='Search' /> </button> */}
+                        <button className='btn_green' onClick={() => { setOperacion(''); setSearchOpe(!searchOpe); setApply(!apply) }}> X </button>
+                      </div>}
 
                   </th>
 
@@ -645,9 +725,9 @@ const Movement = () => {
                 </tr>
               </thead>
               <tbody className='rowTable'>
-                {movement.oConfCuentaMov.length > 0
+                {movement?.length > 0
                   ? (
-                      movement.oConfCuentaMov
+                      movement
                         .slice((page - 1) * itemsPerPage, page * itemsPerPage) // Slice the array based on the current page
                         .map((row) => (
                           <tr key={row.id_movimientos}>
@@ -681,10 +761,10 @@ const Movement = () => {
           <Stack spacing={2}>
             <div className='pagination'>
               <Typography>
-                {t.Page} {page} {t.of} {Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)}
+                {t.Page} {page} {t.of} {Math.ceil(movement?.length / itemsPerPage)}
               </Typography>
               <Pagination
-                count={Math.ceil(movement.oConfCuentaMov.length / itemsPerPage)} // Calculate the total number of pages
+                count={Math.ceil(movement?.length / itemsPerPage)} // Calculate the total number of pages
                 page={page}
                 onChange={handleChangePage}
               />

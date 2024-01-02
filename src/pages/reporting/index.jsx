@@ -30,7 +30,8 @@ function index (props) {
     getBalancesInitial()
   }, [])
 
-  console.log('dataInitialSelect', dataInitialSelect)
+  // console.log('dataInitialSelect', dataInitialSelect)
+  console.log(session)
 
   async function getBalancesInitial () {
     setIsLoading(true)
