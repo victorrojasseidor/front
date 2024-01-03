@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormHelperText from '@mui/material/FormHelperText'
@@ -11,8 +11,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { styled } from '@mui/system'
 import { outlinedInputClasses, selectClasses } from '@mui/material'
+import LoadingComponent from '../Atoms/LoadingComponent'
 import { useAuth } from '@/Context/DataContext'
 import ImageSvg from '@/helpers/ImageSVG'
+import { IconArrow } from '@/helpers/report'
 import { Line } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
@@ -42,50 +44,20 @@ function generateRandomData () {
   return Array.from({ length: 31 }, () => Math.random() * (max - min) + min)
 }
 
-const typeOfChangeData = {
-  2021: {
-    Enero: generateRandomData(),
-    Febrero: generateRandomData(),
-    Marzo: generateRandomData(),
-    Abril: generateRandomData(),
-    Mayo: generateRandomData(),
-    Junio: generateRandomData(),
-    Julio: generateRandomData(),
-    Agosto: generateRandomData(),
-    Septiembre: generateRandomData(),
-    Octubre: generateRandomData(),
-    Noviembre: generateRandomData(),
-    Diciembre: generateRandomData()
-  },
-  2022: {
-    Enero: generateRandomData(),
-    Febrero: generateRandomData(),
-    Marzo: generateRandomData(),
-    Abril: generateRandomData(),
-    Mayo: generateRandomData(),
-    Junio: generateRandomData(),
-    Julio: generateRandomData(),
-    Agosto: generateRandomData(),
-    Septiembre: generateRandomData(),
-    Octubre: generateRandomData(),
-    Noviembre: generateRandomData(),
-    Diciembre: generateRandomData()
-  },
-  2023: {
-    Enero: generateRandomData(),
-    Febrero: generateRandomData(),
-    Marzo: generateRandomData(),
-    Abril: generateRandomData(),
-    Mayo: generateRandomData(),
-    Junio: generateRandomData(),
-    Julio: generateRandomData(),
-    Agosto: generateRandomData(),
-    Septiembre: generateRandomData(),
-    Octubre: generateRandomData(),
-    Noviembre: generateRandomData(),
-    Diciembre: generateRandomData()
+const currentYear = new Date().getFullYear()
+
+const typeOfChangeData = generateDataForYears(2022, currentYear)
+
+function generateDataForYears (startYear, endYear) {
+  const data = {}
+  for (let year = startYear; year <= endYear; year++) {
+    data[year] = {}
+    for (let month = 1; month <= 12; month++) {
+      const monthName = dayjs().month(month - 1).format('MMMM')
+      data[year][monthName] = generateRandomData()
+    }
   }
-  // ... puedes seguir añadiendo más años
+  return data
 }
 
 const typeOfCurrency = [
@@ -153,38 +125,148 @@ const misoptions = {
 }
 
 export default function LineChart () {
-  const [selectedMonth, setSelectedMonth] = useState('Enero')
-  const [selectedYear, setSelectedYear] = useState('2022')
-  const [selectedCurrency, setSelectedCurrency] = useState('usd')
+  const months = [
+    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+  ]
 
-  const { session, l } = useAuth()
+  const currentYear = new Date().getFullYear()
+  const currentMonth = new Date().getMonth() + 1 // Suma 1 porque los meses en JavaScript van de 0 a 11
+
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth - 1)
+  const [selectedYear, setSelectedYear] = useState(currentYear)
+  const [dates, setDates] = useState({})
+  const [selectedCurrency, setSelectedCurrency] = useState('usd')
+  const [requestError, setRequestError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  const { session, setModalToken, logout, l } = useAuth()
 
   const t = l.Reporting
 
-  const handleMonthChange = (event) => {
-    setSelectedMonth(event.target.value)
-  }
+  useEffect(() => {
+    // Lógica para obtener las fechas iniciales
+    const initialMonth = currentMonth - 1
+    const initialYear = currentYear
+    const initialDates = getMonthDates(initialYear, initialMonth)
 
-  const handleYearChange = (event) => {
-    setSelectedYear(event.target.value)
-  }
+    // Actualizar el estado dates con las fechas iniciales
+    setDates(initialDates)
+
+    if (dates) {
+      GetTipoCambioRate()
+    }
+
+    // Puedes realizar otras operaciones de inicialización aquí si es necesario
+  }, [selectedMonth, selectedYear, selectedCurrency])
 
   const handleCurrencyChange = (event) => {
     setSelectedCurrency(event.target.value)
   }
 
+  const getMonthDates = (year, monthIndex) => {
+    const startDate = dayjs(`${year}-${monthIndex + 1}-01`).format('DD/MM/YYYY') // Suma 1 para ajustarse a los índices de los meses
+    const endDate = dayjs(`${year}-${monthIndex + 1}-${dayjs(`${year}-${monthIndex + 1}`).daysInMonth()}`).format('DD/MM/YYYY')
+    return { sFechaDesde: startDate, sFechaHasta: endDate }
+  }
+
+  // Función para manejar el cambio de mes
+  const handleMonthChange = (event) => {
+    const newMonth = event.target.value
+    const newDates = getMonthDates(selectedYear, newMonth)
+    setSelectedMonth(newMonth)
+    setDates(newDates)
+  }
+  console.log({ dates })
+  // Función para manejar el cambio de año
+  const handleYearChange = (event) => {
+    const newYear = event.target.value
+    const newDates = getMonthDates(newYear, selectedMonth)
+    setSelectedYear(newYear)
+    setDates(newDates)
+  }
+
+  async function GetExchangeRate () {
+    setIsLoading(true)
+
+    const body = {
+      oResults: {
+        sFechaDesde: dates?.sFechaDesde,
+        sFechaHasta: dates?.sFechaHasta,
+        oIdEmpresa: [5]
+      }
+    }
+
+    const tok = session?.sToken
+
+    try {
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExchangeRate', body, tok)
+      console.log('ResponseGetEXchangeRate', responseData)
+      if (responseData.oAuditResponse.iCode == 1) {
+        setRequestError(null)
+        setModalToken(false)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else {
+        const message = responseData?.oAuditResponse.sMessage
+        setRequestError(message)
+        setModalToken(false)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      throw new Error('Hubo un error en la operación asincrónica.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  async function GetTipoCambioRate () {
+    setIsLoading(true)
+
+    const body = {
+      oResults: {
+        sFechaDesde: dates?.sFechaDesde,
+        sFechaHasta: dates?.sFechaHasta,
+        iMoneda: 1
+      }
+    }
+
+    const tok = session?.sToken
+    console.log({ body })
+    try {
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTipoCambioRate', body, tok)
+      console.log('ResponseGetTipoCambioRate', responseData)
+      if (responseData.oAuditResponse.iCode == 1) {
+        setRequestError(null)
+        setModalToken(false)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else {
+        const message = responseData?.oAuditResponse.sMessage
+        setRequestError(message)
+        setModalToken(false)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      throw new Error('Hubo un error en la operación asincrónica.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // lógica para la gráfica
   const maxDaysToShow = 30
   const daysToShow = Array.from({ length: maxDaysToShow }, (_, i) => i + 1)
 
-  const dataToShow = typeOfChangeData[selectedYear][selectedMonth].slice(0, maxDaysToShow)
+  const dataToShow = typeOfChangeData[selectedYear]?.[selectedMonth]?.slice(0, maxDaysToShow) || []
 
   // Resaltar el día 10 con un color diferente
   const highlightedColor = '#5DB92C'
   const borderColor = daysToShow.map((day) => (day === 10 ? highlightedColor : '#5932EA'))
-
-  console.log({ daysToShow })
-
-  console.log({ dataToShow })
 
   const midata = {
     labels: daysToShow,
@@ -209,8 +291,10 @@ export default function LineChart () {
     ]
   }
 
-  // Array de años (puedes ajustar el rango según tus necesidades)
-  const years = Array.from({ length: 3 }, (_, index) => (new Date().getFullYear() - index).toString())
+  const currentYearMonths = Number(currentYear) == Number(selectedYear) ? months.slice(0, currentMonth) : months
+
+  // Array de años (desde 2022 hasta el año actual)
+  const years = Array.from({ length: currentYear - 2021 }, (_, index) => (2022 + index).toString())
 
   return (
 
@@ -255,6 +339,7 @@ export default function LineChart () {
               labelId='account-label'
               value={selectedYear}
               onChange={handleYearChange}
+              IconComponent={IconArrow}
             >
 
               {/* <MenuItem value=''>
@@ -276,23 +361,16 @@ export default function LineChart () {
               labelId='account-label'
               value={selectedMonth}
               onChange={handleMonthChange}
+              IconComponent={IconArrow}
 
             >
 
-              {/* <MenuItem value=''>
-                <em>{t['All Accounts']}</em>
-              </MenuItem> */}
-
-              <MenuItem key='enero' value='Enero'>
-                Enero
-              </MenuItem>
-
-              <MenuItem key='enero' value='Febrero'>
-                Febrero
-              </MenuItem>
-              <MenuItem key='Marzo' value='Marzo'>
-                Marzo
-              </MenuItem>
+              {
+currentYearMonths?.map((month, index) => (
+  <MenuItem key={month} value={index}>
+    {month}
+  </MenuItem>))
+              }
 
             </Select>
 
@@ -304,11 +382,9 @@ export default function LineChart () {
               labelId='currencySelect'
               value={selectedCurrency}
               onChange={handleCurrencyChange}
+              IconComponent={IconArrow}
             >
 
-              {/* <MenuItem value=''>
-                <em>USD</em>
-              </MenuItem> */}
               {typeOfCurrency.map((coin) => (
                 <MenuItem key={coin.id} value={coin.id}>
                   <div> {coin.symbol} </div>
@@ -323,8 +399,11 @@ export default function LineChart () {
       </div>
 
       <div className='grafics' style={{ overflowX: 'auto' }}>
+        {isLoading && <LoadingComponent />}
         <Line data={midata} options={misoptions} />
       </div>
+
+      {requestError && <div className='errorMessage'> {requestError}</div>}
 
     </div>
 
