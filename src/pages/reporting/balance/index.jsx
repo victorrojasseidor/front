@@ -19,6 +19,7 @@ import ImageSvg from '@/helpers/ImageSVG'
 import Loading from '@/Components/Atoms/Loading'
 
 import { TextField, IconButton, InputAdornment } from '@mui/material'
+import OrderTable from '@/Components/CompProducts/report/OrderTable'
 
 const Balance = () => {
   const { session, setModalToken, logout, l } = useAuth()
@@ -404,6 +405,8 @@ const Balance = () => {
   return (
     <LayouReport defaultTab={0}>
       <div className='balance'>
+
+        {/* <OrderTable /> */}
 
         {dataInitialSelect && (
           <div className='container-filters'>
