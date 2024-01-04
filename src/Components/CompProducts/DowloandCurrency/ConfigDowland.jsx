@@ -265,50 +265,88 @@ export default function ConfigDowland () {
     setShowAccounts(true)
   }
 
-  const runShedule = async () => {
-    setIsLoadingComponent(true)
-    const url = 'https://cloud.uipath.com/seidovnzrjnf/Tenant_BPaaS/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs'
-    const bodyP = {
-      startInfo: {
-        ReleaseKey: '9d06a0b6-56fe-41eb-b40e-932b1afe385e',
-        JobsCount: 1,
-        JobPriority: null,
-        SpecificPriorityValue: null,
-        Strategy: 'ModernJobsCount',
-        ResumeOnSameContext: false,
-        RuntimeType: 'Unattended',
-        RunAsMe: false,
-        InputArguments: '{}',
-        MachineSessionIds: [125660],
-        RobotIds: [5055]
-      }
-    }
+  // obtener el token
 
+  const getToken = async () => {
     try {
-      const response = await fetch(url, {
+      const myHeaders = new Headers()
+      myHeaders.append('Content-Type', 'application/x-www-form-urlencoded')
+      myHeaders.append('Cookie', '__cf_bm=GMHDiUtTatiuiC1CXX.28tdsv3OeMMonu3iKj9ZmFK8-1704317969-1-ASvMCfPQ97jY6Rj+FLd72sxRp8HOgXzu88b/MnxyMhN/VOYZlfTylTB9J+qzNCMJCPv28mR4ikOrTdwfaYzmLzU=')
+
+      const urlencoded = new URLSearchParams()
+      urlencoded.append('grant_type', 'client_credentials')
+      urlencoded.append('client_id', 'dde9aed6-97b2-4cb7-b61c-3602cfa9fd18')
+      urlencoded.append('client_secret', 't#qdBDY$7A*(HKH%')
+      urlencoded.append('scope', 'OR.Jobs OR.Jobs.Read OR.Jobs.Write')
+
+      const requestOptions = {
         method: 'POST',
-        body: JSON.stringify(bodyP),
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      }
 
-        headers: {
-          Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJUTkVOMEl5T1RWQk1UZEVRVEEzUlRZNE16UkJPVU00UVRRM016TXlSalUzUmpnMk4wSTBPQSJ9.eyJodHRwczovL3VpcGF0aC9lbWFpbCI6Imp2aWxjYW5xdWlAc2VpZG9yLmVzIiwiaHR0cHM6Ly91aXBhdGgvZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vYWNjb3VudC51aXBhdGguY29tLyIsInN1YiI6Im9hdXRoMnxVaVBhdGgtQUFEVjJ8YWIwMzBhMDAtODkxYS00NGJkLWJiNTEtNjhiNjA2MWEzOTQ0IiwiYXVkIjpbImh0dHBzOi8vb3JjaGVzdHJhdG9yLmNsb3VkLnVpcGF0aC5jb20iLCJodHRwczovL3VpcGF0aC5ldS5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjk1MTc3MDIyLCJleHAiOjE2OTUyNjM0MjIsImF6cCI6IjhERXYxQU1OWGN6VzN5NFUxNUxMM2pZZjYyaks5M241Iiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCBvZmZsaW5lX2FjY2VzcyJ9.UQFksgkq3nYZt83ySjOoqb4zA9odpq-2wKCSojv60L6HehD1XiNdN10YORUffS_IjGUHCB53WqudMiQabKap2IavqYceaKCE7Xg62mMVGA47LxENOYsCap2xXs8hEC5qzllUZ-rKpnLZ9FHNxQe1hdjfx89Iugc2uZKspaa3QII6svgPJugETxMJsBpjdo8eHWYYUDSG4eQvVbRHcSt-wR9t1XHuC_Y5QmMowsHVVzfLu3_7BQIXH5WEIUrypEzGVHB-LtTCZa07bSP4MktnQAVxTcNAzn22hw2mhCnab2yt0_blvMT3SEvI878QQD-lYEullkUCi8kj-gQFyP5GyA',
-          'Content-Type': 'application/json',
-          'X-UIPATH-TenantName': 'Tenant_BPaaS',
-          'X-UIPATH-OrganizationUnitId': '172516',
+      const response = await fetch('https://cloud.uipath.com/identity_/connect/token', requestOptions)
+      const result = await response.text()
+      const resultJSON = JSON.parse(result)
+      return resultJSON
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  }
 
-          Cookie: '__cf_bm=G2aRGtZF1xEjwPAfgJtiMEo0JT6p9oo1xZpEVjJgM54-1695220323-0-AUvpwiYDiFDHAG/c/Z76VpcEyoY98/QuVsR6sYpOeyZRVdYMwd/3Ux8U0DiyxZ1IiLKY2BLXFBAmiQyTe0CROdE='
+  const runSchedule = async () => {
+    try {
+      // Obtiene el token utilizando la función getToken
+      const obtainedToken = await getToken()
+
+      console.log({ obtainedToken })
+      const token = obtainedToken?.access_token
+      const toke = 'eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2RTAyOEZCRDk1MzlFNTY3MjU2MjY1OTZGRkQyQjk0OUU3MjEwMkIiLCJ4NXQiOiJodUFvLTlsVG5sWnlWaVpaYl8wcmxKNXlFQ3MiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2Nsb3VkLnVpcGF0aC5jb20vaWRlbnRpdHlfIiwibmJmIjoxNzA0MzE3NjY5LCJpYXQiOjE3MDQzMTc5NjksImV4cCI6MTcwNDMyMTU2OSwiYXVkIjoiVWlQYXRoLk9yY2hlc3RyYXRvciIsInNjb3BlIjpbIk9SLkpvYnMiLCJPUi5Kb2JzLlJlYWQiLCJPUi5Kb2JzLldyaXRlIl0sInN1Yl90eXBlIjoic2VydmljZS5leHRlcm5hbCIsInBydF9pZCI6IjAwNDg1YWQwLWY3M2EtNGJiZS1iZmRkLTJkZDg2NzE3ZjRlMiIsImNsaWVudF9pZCI6ImRkZTlhZWQ2LTk3YjItNGNiNy1iNjFjLTM2MDJjZmE5ZmQxOCIsImp0aSI6IjYzODJFQThBMTBGMENGNDAzNjI1NEQzMEFBQzdCQ0JGIn0.KXfyKw_sOOgHcW2pqfGI1sPkTdCoEh_B47GNy0KTMrS0KxMrgtS96poGBSWoMDYSG_gigVjxVxxBzgdWw98N9y7jHYUS36P46H69Rh5S_Qz-E1d4VUlEGZ3JwO90mPV6aajXOf4jZnuQXbewiuuQG7p7T8nI1ZYNHlB7OG49rgq20bSjfxqfhlvNaVZRm31eZUTwXeEvTtjUHr_pCpNlAvhZ6_A3Dzs5GjqN4XIftwKb49j4fbeJVyO0py7_lvYECM45NR3Og42ojFE58gEcAoWyl-fPCERSnrYiB6QXdidsqDpbpjSnriWBuvfrchDTASsD9iMr0YrrZmqt_Ng5eg'
+
+      console.log(token)
+      // Configuración de los encabezados de la solicitud
+      const myHeaders = new Headers()
+      myHeaders.append('Authorization', `Bearer ${token}`)
+      myHeaders.append('X-UIPATH-TenantName', 'DefaultTenant')
+      myHeaders.append('X-UIPATH-OrganizationUnitId', '3785083')
+      myHeaders.append('Content-Type', 'application/json')
+      myHeaders.append('Cookie', '__cf_bm=GMHDiUtTatiuiC1CXX.28tdsv3OeMMonu3iKj9ZmFK8-1704317969-1-ASvMCfPQ97jY6Rj+FLd72sxRp8HOgXzu88b/MnxyMhN/VOYZlfTylTB9J+qzNCMJCPv28mR4ikOrTdwfaYzmLzU=')
+
+      // Cuerpo de la solicitud
+      const raw = JSON.stringify({
+        startInfo: {
+          ReleaseKey: '2b717bf0-65bb-451d-a267-7ea101572091',
+          RobotIds: [],
+          JobsCount: 1,
+          JobPriority: 'Normal',
+          Strategy: 'ModernJobsCount',
+          RuntimeType: 'Unattended',
+          InputArguments: ''
         }
       })
 
-      if (response.ok) {
-        const result = await response.text()
-        console.log({ result })
-      } else {
-        console.log('Error en la solicitud:', response, response.statusText)
+      // Configuración de las opciones de la solicitud
+      const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        // mode: 'no-cors', // Agrega esta línea para activar el modo "no-cors"
+        redirect: 'follow'
       }
+
+      // Realiza la solicitud a la API utilizando fetch
+      const apiUrl = 'https://cloud.uipath.com/demo_rch/DefaultTenant/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs'
+      const apiResponse = await fetch(apiUrl, requestOptions)
+
+      // Procesa la respuesta de la API
+      const responseDataSchedule = await apiResponse.text()
+      console.log(responseDataSchedule)
+
+      const resultJSON = JSON.parse(responseDataSchedule)
+      return resultJSON
     } catch (error) {
-      console.error('Error en la solicitud:', error.message)
-    } finally {
-      setIsLoadingComponent(false)
+      console.error('Error al realizar la solicitud:', error)
     }
   }
 
@@ -658,7 +696,7 @@ export default function ConfigDowland () {
                 ? <button
                     type='button'
                     className={`btn_primary small ${completeShedule ? ' ' : 'disabled'}`}
-                    onClick={runShedule}
+                    onClick={runSchedule}
                     disabled={!completeShedule}
                   >
                   <ImageSvg name='Automation' />

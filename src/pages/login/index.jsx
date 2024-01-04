@@ -61,6 +61,7 @@ export default function Login () {
         setEmailFieldEnabled(true)
         setTimeout(() => {
           resetForm()
+          setStatus(errorMessage)
         }, 200000)
       }
     } catch (error) {
