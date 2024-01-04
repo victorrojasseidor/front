@@ -53,20 +53,19 @@ const nextConfig = {
   async headers () {
     return [
       {
+        source: '/api/uipath-jobs/:path*', // Ajusta la ruta según tus necesidades
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: 'https://cloud.uipath.com/demo_rch/DefaultTenant/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs' },
+          { key: 'Access-Control-Allow-Methods', value: 'GET, POST, OPTIONS, PUT, DELETE' },
+          { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' }]
+      },
+      {
         source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Origin', value: 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com' },
           { key: 'Access-Control-Allow-Methods', value: 'GET, POST, OPTIONS, PUT, DELETE' },
           { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' }
         ]
-      },
-      {
-        source: '/api/uipath-jobs/:path*', // Ajusta la ruta según tus necesidades
-        headers: [
-          { key: 'Access-Control-Allow-Origin', value: 'https://cloud.uipath.com/demo_rch/DefaultTenant/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs' },
-          // Agrega otros encabezados según sea necesario
-          { key: 'Access-Control-Allow-Methods', value: 'GET, POST, OPTIONS, PUT, DELETE' },
-          { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' }]
       }
     ]
   },
