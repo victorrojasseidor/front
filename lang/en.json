@@ -389,6 +389,10 @@
     "Income": "Income",
     "Expenses": "Expenses",
     "Asset": "Asset",
+    "Purchase": "Purchase",
+    "Selling":"Selling",
+    "Exchange rate today":"Exchange rate today",
+
 
     "ARI Finance to": "ARI Finance to",
     "Balance report": "Balance report",

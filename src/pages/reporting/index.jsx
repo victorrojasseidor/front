@@ -17,21 +17,21 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import Loading from '@/Components/Atoms/Loading'
+import { format, getDay, addDays } from 'date-fns'
 
 function index (props) {
   const { session, setModalToken, logout, l } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const [requestError, setRequestError] = useState()
   const [dataInitialSelect, setInitialDataselect] = useState([])
+  const [todaytype, setTodaytype] = useState(null)
 
   const t = l.Reporting
 
   useEffect(() => {
     getBalancesInitial()
+    GetTipoCambioToday()
   }, [])
-
-  // console.log('dataInitialSelect', dataInitialSelect)
-  console.log(session)
 
   async function getBalancesInitial () {
     setIsLoading(true)
@@ -70,6 +70,54 @@ function index (props) {
       }, 1000)
     } finally {
       setIsLoading(false) // Ocultar señal de carga
+    }
+  }
+
+  async function GetTipoCambioToday () {
+    const currentDate = new Date()
+
+    //  fecha actual
+    const dateToday = format(currentDate, 'dd/MM/yyyy')
+
+    // Sumar un día a la fecha actual
+    const tomorrow = addDays(currentDate, 1)
+
+    // Formatear la fecha de mañana en el formato deseado
+    const dateTomorrow = format(tomorrow, 'dd/MM/yyyy')
+
+    setIsLoading(true)
+    const body = {
+      oResults: {
+        sFechaDesde: '7/01/2024',
+        sFechaHasta: '8/01/2024',
+        iMoneda: 2 // solar
+      }
+    }
+
+    const tok = session?.sToken
+    try {
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTipoCambioRate', body, tok)
+      if (responseData.oAuditResponse.iCode == 1) {
+        setRequestError(null)
+        setTodaytype(responseData.oResults[0])
+        setModalToken(false)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else {
+        const message = responseData?.oAuditResponse.sMessage
+        setRequestError(message)
+        setModalToken(false)
+        setTimeout(() => {
+          setRequestError(null)
+        }, 1000)
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      throw new Error('Hubo un error en la operación asincrónica.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -142,11 +190,12 @@ function index (props) {
               <div className='report_data'>
 
                 <article>
-                  {t['Exchange rate']}
+                  {t['Exchange rate today']}
 
                 </article>
-                <h2> 3.87</h2>
-                <p>  <span> Today  </span>     PEN  <ImageSvg name='ArrowLeft' />  USD </p>
+                <h2> {todaytype?.tipo_cambio_venta}
+                </h2>
+                <p>  <span>  Venta </span>     PEN  <ImageSvg name='ArrowLeft' />  USD </p>
               </div>
 
             </div>

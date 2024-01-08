@@ -10,6 +10,7 @@ import Loading from '@/Components/Atoms/Loading'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 // import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { IconArrow } from '@/helpers/report'
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -301,6 +302,7 @@ export default function Products () {
               }}
               options={companyOptions}
               getOptionLabel={(option) => option.razon_social_empresa}
+              IconComponent={IconArrow}
               renderInput={(params) => (
                 <TextField {...params} label={t['To company:']} />
               )}
@@ -316,7 +318,7 @@ export default function Products () {
 
           <div className='welcome'>
             <h1> <span> {t.Welcome}
-                 </span>{empresa?.razon_social_empresa}
+            </span>{empresa?.razon_social_empresa}
             </h1>
             <p>  {t['Our digital employees work to improve your productivity']}</p>
 
@@ -413,7 +415,7 @@ export default function Products () {
           </button>
           <button onClick={() => handleFilterType('CLA_03')} className={`btn_filter ${selectedFilterType === 'CLA_03' ? 'active' : ''}`}>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
-            </p>
+                                      </p>
           </button>
         </div>
 

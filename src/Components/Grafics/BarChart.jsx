@@ -34,7 +34,6 @@ export default function LineChart () {
   const [dataType, setDataType] = useState(null)
   const [requestError, setRequestError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [todaytype, setTodaytype] = useState(null)
 
   const { session, setModalToken, logout, l } = useAuth()
 
@@ -43,26 +42,17 @@ export default function LineChart () {
   useEffect(() => {
     const initialDates = getMonthDates(selectedYear, selectedMonth)
     setDates(initialDates)
+  }, [selectedMonth, selectedYear])
 
-    console.log(dates?.sFechaDesde, dates?.sFechaHasta, selectedCurrency)
+  useEffect(() => {
     if (dates?.sFechaDesde && dates?.sFechaHasta && selectedCurrency) {
       GetTipoCambioRate(dates?.sFechaDesde, dates?.sFechaHasta, selectedCurrency)
     }
-
-    // Puedes realizar otras operaciones de inicialización aquí si es necesario
-  }, [selectedMonth, selectedYear, selectedCurrency])
-
-  console.log({ dates })
+  }, [dates, selectedCurrency])
 
   const handleCurrencyChange = (event) => {
     setSelectedCurrency(event.target.value)
   }
-
-  // const getMonthDates = (year, monthIndex) => {
-  //   const startDate = dayjs(`${year}-${monthIndex + 1}-01`).format('DD/MM/YYYY') // Suma 1 para ajustarse a los índices de los meses
-  //   const endDate = dayjs(`${year}-${monthIndex + 1}-${dayjs(`${year}-${monthIndex + 1}`).daysInMonth()}`).format('DD/MM/YYYY')
-  //   return { sFechaDesde: startDate, sFechaHasta: endDate }
-  // }
 
   const getMonthDates = (year, monthIndex) => {
     // Obtener el último día del mes anterior
@@ -108,7 +98,9 @@ export default function LineChart () {
       console.log('ResponseGetTipoCambioRate', responseData)
       if (responseData.oAuditResponse.iCode == 1) {
         setRequestError(null)
+
         setDataType(responseData.oResults)
+
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout()
@@ -130,28 +122,37 @@ export default function LineChart () {
     }
   }
 
-  // lógica para la gráfica
-  // const maxDaysToShow = 30
-  // const daysToShow = Array.from({ length: maxDaysToShow }, (_, i) => i + 1)
-
-  // const dataToShow = typeOfChangeData[selectedYear]?.[selectedMonth]?.slice(0, maxDaysToShow) || []
-
   // procesar datos
+
+  function getArrayDays (anio, mes) {
+  // Obtener el último día del mes anterior
+    const primerDiaMesActual = new Date(anio, mes, 1)
+    const ultimoDiaMesAnterior = new Date(primerDiaMesActual - 1).getDate()
+    const diasArray = [ultimoDiaMesAnterior]
+    // Agregar los días desde el último día del mes anterior + 1 hasta el último día del mes actual
+    for (let dia = 1; dia <= ultimoDiaMesAnterior; dia++) {
+      diasArray.push(dia)
+    }
+
+    return diasArray
+  }
+
+  // const diasDelMes = getArrayDays(selectedYear, selectedMonth)
 
   const dataTypeTranform = dataType?.map((entry, i, array) => {
     const dateType = new Date(entry.fecha_tipo_cambio).getUTCDate()
 
-    // Verificar si no es el primer elemento antes de calcular la variación porcentual
     if (i > 0) {
-      const compratype = ((entry.tipo_cambio_compra - array[i - 1].tipo_cambio_compra) / array[i - 1].tipo_cambio_compra) * 100
-      const ventaType = ((entry.tipo_cambio_venta - array[i - 1].tipo_cambio_venta) / array[i - 1].tipo_cambio_venta) * 100
+      const compratype = ((entry.tipo_cambio_compra - array[i - 1].tipo_cambio_compra) / entry.tipo_cambio_compra) * 100
+      const ventaType = ((entry.tipo_cambio_venta - array[i - 1].tipo_cambio_venta) / entry.tipo_cambio_venta) * 100
+
       return { date: dateType, compra: compratype, venta: ventaType }
     }
-
-    // Si es el primer elemento, simplemente devuelve la fecha
+    // Si es el primer elemento o no tiene valores, simplemente devuelve la fecha
     return { date: dateType, compra: null, venta: null }
   })
 
+  // trasnsformarDatos para la gráfica
   const dataCompra = dataTypeTranform?.map(entry => entry.compra)?.slice(1)
   const dataVenta = dataTypeTranform?.map(entry => entry.venta)?.slice(1)
   const dataFecha = dataTypeTranform?.map(entry => entry.date)?.slice(1)
@@ -167,9 +168,16 @@ export default function LineChart () {
   const valorMinimoFecha = dataFecha && Math.min(...dataFecha)
   const valorMaximoFecha = dataFecha && Math.max(...dataFecha)
 
-  const years = Array.from({ length: currentYear - 2021 }, (_, index) => (2022 + index).toString())
+  // Aplicar descuento del 0.1% al menor valor
+  const minValueY = menorValor + (menorValor * 0.05)
 
-  console.log({ dataTypeTranform }, menorValor, mayorValor)
+  // Aplicar aumento del 0.1% al mayor valor
+  const maxValueY = mayorValor + (mayorValor * 0.1)
+
+  const minDateX = valorMinimoFecha - (valorMinimoFecha * 0.04)
+  const maxDateX = valorMaximoFecha + (valorMaximoFecha * 0.005)
+
+  const years = Array.from({ length: currentYear - 2022 }, (_, index) => (2023 + index).toString())
 
   // // Resaltar el día 10 con un color diferente
 
@@ -179,9 +187,10 @@ export default function LineChart () {
 
   const midata = {
     labels: dataFecha,
+
     datasets: [
       {
-        label: 'compra',
+        label: t.Purchase,
         data: dataCompra,
         tension: 0.5,
         fill: 'start',
@@ -199,7 +208,7 @@ export default function LineChart () {
         pointHoverRadius: 5
       },
       {
-        label: 'venta',
+        label: t.Selling,
         data: dataVenta,
         tension: 0.6,
         fill: 'start',
@@ -234,20 +243,32 @@ export default function LineChart () {
     },
     scales: {
       y: {
-        min: menorValor,
-        max: mayorValor,
+        min: minValueY,
+        max: maxValueY,
         stepSize: 1,
         grid: {
           display: false
         }
       },
+
       x: {
-        min: valorMinimoFecha,
-        max: valorMaximoFecha,
+        min: minDateX,
+        max: maxDateX,
         stepSize: 1,
         type: 'linear',
         position: 'bottom',
-        ticks: { color: '#4F4F4F' },
+
+        ticks: {
+          autoSkip: true,
+          precision: 0,
+          maxTicksLimit: 10, // Puedes ajustar este valor según tus necesidades
+          callback: function (value, index, values) {
+            // Puedes personalizar el texto según tus necesidades
+            const currentMon = currentYearMonths[0]?.slice(0, 3)
+            return ` ${Math.round(value)} ${currentMon}`
+          }
+          // Establecer la precisión a 0 para mostrar solo valores enteros
+        },
         grid: {
           display: false
         }
@@ -309,11 +330,13 @@ export default function LineChart () {
           <FormControl sx={{ m: 1, minWidth: 100 }}>
             <InputLabel id='currencySelect'>{t['From PEN to']}</InputLabel>
             <Select labelId='currencySelect' value={selectedCurrency} onChange={handleCurrencyChange} IconComponent={IconArrow}>
-              {session?.oMoneda.map((coin) => (
-                <MenuItem key={coin.id_moneda} value={coin.id_moneda}>
-                  <div> {coin.codigo_moneda} </div>
-                </MenuItem>
-              ))}
+              {session?.oMoneda
+                .filter((coin) => coin.id_moneda !== 1) // Excluir moneda con id=1 osea el sol
+                .map((coin) => (
+                  <MenuItem key={coin.id_moneda} value={coin.id_moneda}>
+                    <div>{coin.codigo_moneda}</div>
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
         </div>
