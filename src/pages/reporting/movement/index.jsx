@@ -386,12 +386,6 @@ const Movement = () => {
     }
   }
 
-  console.log({ movement })
-
-  // if (descripcion === '') {
-  //   setApply(!apply)
-  // }
-
   return (
     <LayouReport defaultTab={1} menu='Movement'>
       <div className='balance '>

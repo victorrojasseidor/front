@@ -122,29 +122,12 @@ export default function LineChart () {
     }
   }
 
-  // procesar datos
-
-  function getArrayDays (anio, mes) {
-  // Obtener el último día del mes anterior
-    const primerDiaMesActual = new Date(anio, mes, 1)
-    const ultimoDiaMesAnterior = new Date(primerDiaMesActual - 1).getDate()
-    const diasArray = [ultimoDiaMesAnterior]
-    // Agregar los días desde el último día del mes anterior + 1 hasta el último día del mes actual
-    for (let dia = 1; dia <= ultimoDiaMesAnterior; dia++) {
-      diasArray.push(dia)
-    }
-
-    return diasArray
-  }
-
-  // const diasDelMes = getArrayDays(selectedYear, selectedMonth)
-
   const dataTypeTranform = dataType?.map((entry, i, array) => {
     const dateType = new Date(entry.fecha_tipo_cambio).getUTCDate()
 
     if (i > 0) {
-      const compratype = ((entry.tipo_cambio_compra - array[i - 1].tipo_cambio_compra) / entry.tipo_cambio_compra) * 100
-      const ventaType = ((entry.tipo_cambio_venta - array[i - 1].tipo_cambio_venta) / entry.tipo_cambio_venta) * 100
+      const compratype = entry.tipo_cambio_compra
+      const ventaType = entry.tipo_cambio_venta
 
       return { date: dateType, compra: compratype, venta: ventaType }
     }
@@ -159,6 +142,12 @@ export default function LineChart () {
 
   const currentYearMonths = Number(currentYear) == Number(selectedYear) ? months.slice(0, currentMonth) : months
 
+  // const currentYearMonths = (Number(selectedYear) === 2023)
+  //   ? months.slice(10) // Start from November 2023
+  //   : (Number(selectedYear) === Number(currentYear))
+  //       ? months.slice(0, currentMonth + 1) // Include current month
+  //       : months
+
   const valorMinimoTipeCompra = dataCompra && Math.min(...dataCompra)
   const valorMaximoTipeCompra = dataCompra && Math?.max(...dataCompra)
   const valorMinimoTipeVenta = dataVenta && Math.min(...dataVenta)
@@ -169,10 +158,10 @@ export default function LineChart () {
   const valorMaximoFecha = dataFecha && Math.max(...dataFecha)
 
   // Aplicar descuento del 0.1% al menor valor
-  const minValueY = menorValor + (menorValor * 0.05)
+  const minValueY = menorValor - (menorValor * 0.001)
 
   // Aplicar aumento del 0.1% al mayor valor
-  const maxValueY = mayorValor + (mayorValor * 0.1)
+  const maxValueY = mayorValor + (mayorValor * 0.001)
 
   const minDateX = valorMinimoFecha - (valorMinimoFecha * 0.04)
   const maxDateX = valorMaximoFecha + (valorMaximoFecha * 0.005)
@@ -180,10 +169,7 @@ export default function LineChart () {
   const years = Array.from({ length: currentYear - 2022 }, (_, index) => (2023 + index).toString())
 
   // // Resaltar el día 10 con un color diferente
-
   const borderColorCompra = dataType?.map((day) => (day === currentDay ? '#5DB92C' : '#5DB92C'))
-
-  const borderColorVenta = dataType?.map((day) => (day === currentDay ? '#5DB92C' : '#05CD99'))
 
   const midata = {
     labels: dataFecha,
@@ -261,13 +247,12 @@ export default function LineChart () {
         ticks: {
           autoSkip: true,
           precision: 0,
-          maxTicksLimit: 10, // Puedes ajustar este valor según tus necesidades
+          maxTicksLimit: 10,
           callback: function (value, index, values) {
             // Puedes personalizar el texto según tus necesidades
             const currentMon = currentYearMonths[0]?.slice(0, 3)
             return ` ${Math.round(value)} ${currentMon}`
           }
-          // Establecer la precisión a 0 para mostrar solo valores enteros
         },
         grid: {
           display: false

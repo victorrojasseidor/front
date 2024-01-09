@@ -2,6 +2,7 @@ import React from 'react'
 import ConfigCurrency from './Currency/ConfigCurrency'
 import ConfigDowland from '@/Components/CompProducts/DowloandCurrency/ConfigDowland'
 import DocDowland from './DowloandCurrency/DocDowland'
+import ConfigPattern from './Pattern/ConfigPattern'
 
 export const componentsProduct = [
   {
@@ -24,6 +25,6 @@ export const componentsProduct = [
     documentation: 'documentation 3',
     freeTrial: 'fretrial 3',
     apiConfiguration: 'apiconfiguration 3',
-    configuration: 'configuration id 3'
+    configuration: <ConfigPattern />
   }
 ]

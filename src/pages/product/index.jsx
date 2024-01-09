@@ -38,6 +38,8 @@ export default function Products () {
     }
   }, [session])
 
+  console.log({ product })
+
   const handleCompanyInputChange = (event, newValue) => {
     // Actualiza la empresa seleccionada
     if (newValue) {
@@ -63,8 +65,6 @@ export default function Products () {
       getProductscard()
     }
   }, [session, empresa, l, selectedFilterType])
-
-  console.log('empresa', empresa)
 
   async function getProductscard () {
     setIsLoading(true)
@@ -318,7 +318,7 @@ export default function Products () {
 
           <div className='welcome'>
             <h1> <span> {t.Welcome}
-            </span>{empresa?.razon_social_empresa}
+                 </span>{empresa?.razon_social_empresa}
             </h1>
             <p>  {t['Our digital employees work to improve your productivity']}</p>
 
@@ -415,7 +415,7 @@ export default function Products () {
           </button>
           <button onClick={() => handleFilterType('CLA_03')} className={`btn_filter ${selectedFilterType === 'CLA_03' ? 'active' : ''}`}>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
-                                      </p>
+            </p>
           </button>
         </div>
 
@@ -506,44 +506,6 @@ export default function Products () {
             ))}
 
             {/* productos añadidos por el momento */}
-
-            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) ? 'flex' : 'none' }}>
-
-              <span className='card_type'>
-                {t['Finance and accounting']}
-              </span>
-
-              <div className='card_name'>
-                <h4> {t['Download SUNAT Tax Status Registers']}</h4>
-
-                <p className='dayLetf'>
-                  {/* <ImageSvg name='Time' /> */}
-                  {/* {t['Days left:']} .. */}
-                </p>
-
-              </div>
-
-              <div className='card_actions'>
-
-                <div className='box-img'>
-                  <div className='type_icon'>
-
-                    <ImageSvg name={imgProduct(3)} />
-                  </div>
-
-                </div>
-
-                <div className='status-box'>
-
-                  <p>  {t['Not hired']}
-                  </p>
-                  <Link href='https://www.innovativa.la/digitalemployee'>
-                    {t['View more']}
-                  </Link>
-                </div>
-
-              </div>
-            </li>
 
             <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) ? 'flex' : 'none' }}>
 

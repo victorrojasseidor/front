@@ -15,7 +15,7 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import Modal from '../Modal'
 import ImageSvg from '@/helpers/ImageSVG'
 import { getProducts } from '@/helpers/auth'
-
+import { IconDate } from '@/helpers/report'
 export default function Apiconfiguration ({ nameEmpresa }) {
   const { session, setModalToken, logout, l } = useAuth()
   const [product, setProduct] = useState(null)
@@ -249,7 +249,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
         </div>
 
         {valueState == 'AprobarSolProducto' || valueState == 'ConfirmarConfiguracionProducto'
-          ? <div className='date'>
+          ? <div className='box-filter' style={{ flexDirection: 'row' }}>
+
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={t.From}
@@ -262,6 +263,13 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                 }}
                 onChange={handleStartDateChange}
                 format='DD-MM-YYYY'
+                components={{
+                  OpenPickerIcon: IconDate,
+                  CalendarIcon: IconDate
+                }}
+                renderInput={(params) => (
+                  <TextField {...params} />
+                )}
               />
             </LocalizationProvider>
 
@@ -277,10 +285,17 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                 }}
                 onChange={handleEndDateChange}
                 format='DD-MM-YYYY'
+                components={{
+                  OpenPickerIcon: IconDate,
+                  CalendarIcon: IconDate
+                }}
+                renderInput={(params) => (
+                  <TextField {...params} />
+                )}
               />
             </LocalizationProvider>
 
-          </div>
+            </div>
           : ''}
 
         {valueState !== stateInitial || startDate || endDate
@@ -306,7 +321,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
             </button>
 
-          </div>
+            </div>
           : ''}
 
         {isLoading && <Loading />}
