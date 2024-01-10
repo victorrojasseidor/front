@@ -170,10 +170,12 @@ export default function ConfigPattern () {
 
   const handleDeleteConfirmation = async () => {
     if (selectedRowToDelete) {
-      await handleDeletePadrones(selectedRowToDelete.id_servicio_padrones_documentos)
+      await handleDeletePadrones(selectedRowToDelete?.id_principal)
       setSelectedRowToDelete(null)
     }
   }
+
+  console.log({ selectedRowToDelete })
 
   const handleDeletePadrones = async (id) => {
     setIsLoadingComponent(true)
@@ -186,6 +188,8 @@ export default function ConfigPattern () {
 
       }
     }
+
+    console.log(body)
 
     try {
       const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarPadrones', body, token)
@@ -349,14 +353,14 @@ export default function ConfigPattern () {
                               </tr>
                             ))}
 
-                          </tbody>
+                            </tbody>
                           : <div className=' '>
 
                             <p className='errorMessage'>
                               {t['Add patterns']}
                             </p>
 
-                            </div>
+                          </div>
                       }
 
                     </table>
