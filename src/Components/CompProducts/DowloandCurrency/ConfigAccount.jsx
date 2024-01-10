@@ -273,83 +273,81 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
           </div>
 
-          <div className='box-search'>
-            <div>
-              <h3>{t.Accounts} </h3>
-              <p> {t['Register accounts for bank credentials']} </p>
+          <div className='contaniner-tables  '>
+            <div className='box-search'>
+              <div>
+                <h3>{t.Accounts} </h3>
+                <p> {t['Register accounts for bank credentials']} </p>
+              </div>
+
+              <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
+                {showForm ? t['Close Form'] : t['+ Add Account']}
+              </button>
             </div>
 
-            <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
-              {showForm ? t['Close Form'] : t['+ Add Account']}
-            </button>
-          </div>
+            {data?.oListCuentas.length > 0 && <div className='boards'>
+              <div className='tableContainer  '>
 
-          {
-            data?.oListCuentas.length > 0 && <div className='contaniner-tables  '>
+                <table className='dataTable '>
+                  <thead>
+                    <tr>
+                      <th>{t.Accounts}</th>
+                      <th>{t['Account Description']}</th>
+                      <th>{t.Company}</th>
+                      <th>{t['Company Description']}</th>
+                      <th>{t.RUC}</th>
+                      <th>{t.File}</th>
+                      <th>{t.Currency}</th>
+                      <th>{t['Description currency']}</th>
+                      <th>{t.State}</th>
+                      <th>{t.Actions}</th>
 
-              <div className='boards'>
-                <div className='tableContainer  '>
-                  <table className='dataTable '>
-                    <thead>
-                      <tr>
-                        <th>{t.Accounts}</th>
-                        <th>{t['Account Description']}</th>
-                        <th>{t.Company}</th>
-                        <th>{t['Company Description']}</th>
-                        <th>{t.RUC}</th>
-                        <th>{t.File}</th>
-                        <th>{t.Currency}</th>
-                        <th>{t['Description currency']}</th>
-                        <th>{t.State}</th>
-                        <th>{t.Actions}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data?.oListCuentas?.map((row) => (
+                      <tr key={row.id_eb_conf_cuentas}>
+                        <td>{row.cuenta}</td>
+                        <td>{row.descripcion_cuenta}</td>
+                        <td>{row.empresa}</td>
+                        <td>{row.descripcion_empresa}</td>
+                        <td>{row.ruc}</td>
+                        <td>{row.nombre_tipo_archivo}</td>
+                        <td>{row.moneda}</td>
+                        <td>{row.descripcion_moneda}</td>
+                        <td>
+                          <span className={row.estado == '23' ? 'status-active' : 'status-disabled'}>{row.estado == '23' ? 'Active' : 'Disabled'}</span>
+                        </td>
+                        <td className='box-actions'>
+                          <button className='btn_crud' onClick={() => handleEdit(row)}>
+                            {' '}
+                            <ImageSvg name='Edit' />{' '}
+                          </button>
+                          <button className='btn_crud' onClick={() => setSelectedRowToDelete(row)}>
+                            {' '}
+                            <ImageSvg name='Delete' />
+                          </button>
+
+                        </td>
 
                       </tr>
-                    </thead>
-                    <tbody>
-                      {data?.oListCuentas?.map((row) => (
-                        <tr key={row.id_eb_conf_cuentas}>
-                          <td>{row.cuenta}</td>
-                          <td>{row.descripcion_cuenta}</td>
-                          <td>{row.empresa}</td>
-                          <td>{row.descripcion_empresa}</td>
-                          <td>{row.ruc}</td>
-                          <td>{row.nombre_tipo_archivo}</td>
-                          <td>{row.moneda}</td>
-                          <td>{row.descripcion_moneda}</td>
-                          <td>
-                            <span className={row.estado == '23' ? 'status-active' : 'status-disabled'}>{row.estado == '23' ? 'Active' : 'Disabled'}</span>
-                          </td>
-                          <td className='box-actions'>
-                            <button className='btn_crud' onClick={() => handleEdit(row)}>
-                              {' '}
-                              <ImageSvg name='Edit' />{' '}
-                            </button>
-                            <button className='btn_crud' onClick={() => setSelectedRowToDelete(row)}>
-                              {' '}
-                              <ImageSvg name='Delete' />
-                            </button>
-
-                          </td>
-
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-
-                </div>
+                    ))}
+                  </tbody>
+                </table>
 
               </div>
 
-              {requestError && <div className='errorMessage'> {
+                                              </div>}
+
+            {requestError && <div className='errorMessage'> {
             requestError
 
             }
-                               </div>}
+                             </div>}
 
-              {isLoadingComponent && <LoadingComponent />}
+            {isLoadingComponent && <LoadingComponent />}
 
-                                             </div>
-          }
+          </div>
 
           {selectedRowToDelete && (
             <Modal close={() => {

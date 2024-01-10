@@ -607,7 +607,7 @@ export default function ConfigCurrency () {
                      </div>
 
                      )}
-               </div>
+                                                            </div>
 }
 
             </div>}

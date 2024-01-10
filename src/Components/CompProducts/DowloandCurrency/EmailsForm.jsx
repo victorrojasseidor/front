@@ -136,7 +136,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
       oResults: {
         sProd: sProduct,
         iIdProdEnv: parseInt(iIdProdEnv),
-        iIdPais: 1,
+        iIdPais: 1, // id pais
         oCorreo: listEmailsTO.concat(listEmailsCCo)
       }
     }
@@ -226,7 +226,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
 
             </div>
 
-          </div>
+            </div>
           : <div className='box-emails-update'>
             <h3 className='title-Config'> {t['Register emails']} </h3>
 
@@ -350,10 +350,10 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
                   {t.Cancel}
                 </button>
 
-                </div>
+              </div>
               : ''}
 
-          </div>}
+            </div>}
 
         {isLoadingComponent && <LoadingComponent />}
 

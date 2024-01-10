@@ -251,11 +251,11 @@
   }
 
   &-header {
-    display: flex;
-    flex-direction: row;
-    margin-right: 1.5rem;
-    background-color:transparent ;
-   border-right: 2px solid get-color(bg-cles);
+  //   display: flex;
+  //   flex-direction: row;
+  //   margin-right: 1.5rem;
+  //   background-color:transparent ;
+  //  border-right: 2px solid get-color(bg-cles);
     @include media(tablet) {
       flex-direction: column;
     }

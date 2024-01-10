@@ -14,7 +14,6 @@
     "Please enter your email": "Please enter your email ",
     "to confirm registration": "to confirm registration"
   },
-
   "login": {
     "Log in": "Log in",
     "Log in Digital Employees": "Log in Digital Employees",
@@ -29,7 +28,6 @@
     "successfully": "successfully",
     "Next": "Next"
   },
-
   "recover_password": {
     "Recover password": "Recover password",
     "Please enter your email. A link will be sent to you to change your password": "Please enter your email. A link will be sent to you to change your password",
@@ -42,7 +40,6 @@
     "Please enter your email to uptdate password": "Please enter your email to confirm registration",
     "OK": "OK"
   },
-
   "update_password": {
     "Have an account?": "Have an account?",
     "Log in": "Log in",
@@ -54,7 +51,6 @@
     "Password validated: contains more than 8 characters between uppercase, lowercase and numbers": "Password validated: contains more than 8 characters between uppercase, lowercase and numbers",
     "UPDATE": "UPDATE"
   },
-
   "profile": {
     "Welcome to ARI Seidor!": "Welcome to ARI Seidor!",
     "Robots and people work better together": "Robots and people work better together",
@@ -84,11 +80,9 @@
     "Corporation": "Corporation",
     "Companies": "Companies",
     "Company profiles": "Company profiles",
-    "Digital employees":"Digital employees",
-    "Cancel":"Cancel"
-
+    "Digital employees": "Digital employees",
+    "Cancel": "Cancel"
   },
-
   "header": {
     "Edit profile": "Edit profile",
     "Products": "Products",
@@ -106,13 +100,12 @@
     "buttonLenguaje": "Change Lenguaje",
     "Sign Out": "Sign Out",
     "All": "All",
-    "Finance and accounting":"Finance and accounting",
-    "Technology":"Technology",
-    "Human Resources":"Human Resources",
+    "Finance and accounting": "Finance and accounting",
+    "Technology": "Technology",
+    "Human Resources": "Human Resources",
     "Balance": "Balance",
-    "Movement":"Movement"  
+    "Movement": "Movement"
   },
-
   "Products": {
     "Digital employees": "Digital employees",
     "Welcome": "Welcome",
@@ -123,9 +116,9 @@
     "Not hired": "Not hired",
     "Search": "Search....",
     "ARI Finance to": "ARI Finance to",
-    "Finance and accounting":"Finance and accounting",
-    "Technology":"Technology",
-    "Human Resources":"Human Resources",
+    "Finance and accounting": "Finance and accounting",
+    "Technology": "Technology",
+    "Human Resources": "Human Resources",
     "Setup": "Setup",
     "Edit": "Edit",
     "Free Trial": "Free Trial",
@@ -139,63 +132,51 @@
     "Documentation": "Documentation",
     "Admin confuguratión": "Admin configuratión",
     "Try free": "Try free",
-    "Contact technical support":"Contact",
-    "Permit expired ago":"Expired ago",
-    "days":"days",
-    "Our digital employees work to improve your productivity":"Our digital employees work to improve your productivity",
-    "working":"working",
-    "for you":"for you",
-    "Time saved":"Time saved",
-    "this month ":"this month ",
-    "Bussines agility":" Bussines agility",
-    "more":"more",
-    "Download account statements":"Download account statements",
-    "AFP validation":"AFP validation"
-
-
-  
-
-
+    "Contact technical support": "Contact",
+    "Permit expired ago": "Expired ago",
+    "days": "days",
+    "Our digital employees work to improve your productivity": "Our digital employees work to improve your productivity",
+    "working": "working",
+    "for you": "for you",
+    "Time saved": "Time saved",
+    "this month ": "this month ",
+    "Bussines agility": " Bussines agility",
+    "more": "more",
+    "Download account statements": "Download account statements",
+    "AFP validation": "AFP validation"
   },
   "Apiconfuguration": {
     "Service configuration status": "Service configuration status",
     "Approve configuration request": "Approve configuration request",
-     "Digital employees": "Digital employees",
-      "Company": "Company",
-   
+    "Digital employees": "Digital employees",
+    "Company": "Company",
     "Configuration": "Configuration",
-    
     "State": "State",
     "Configured": "Configured",
     "Pending": "Pending",
     "Not hired": "Not hired",
-    "Update the status":"Update the status",
+    "Update the status": "Update the status",
     "Free Trial": "Free Trial",
-    
-   "Update the status of digital employees": "Select the status of digital employees",
-   "Do you want to update the status?":"Do you want to update the status?",
-   "Update": "Update",
-   "Message" : "Message",
-   "optional":"optional",
-   "Cancel":"Cancel",
-     
-      "Service date ranges": "Service date ranges",
-      "Select service date ranges": "Select service date ranges",
-      "Service start date": "Service start date",
-      "End of service date": "End of service date",
-
-      "From": "From",
-      "To": "To",
-      "Yees": "Yes",
-      "No": "No"
-
+    "Update the status of digital employees": "Select the status of digital employees",
+    "Do you want to update the status?": "Do you want to update the status?",
+    "Update": "Update",
+    "Message": "Message",
+    "optional": "optional",
+    "Cancel": "Cancel",
+    "Service date ranges": "Service date ranges",
+    "Select service date ranges": "Select service date ranges",
+    "Service start date": "Service start date",
+    "End of service date": "End of service date",
+    "From": "From",
+    "To": "To",
+    "Yees": "Yes",
+    "No": "No"
   },
-
   "Download": {
     "Digital employees": "Digital employees",
     "Status and emails": "Status and emails",
     "Bank and Accounts": "Bank and Accounts",
-    "Emails were added successfully":"Emails were added successfully",
+    "Emails were added successfully": "Emails were added successfully",
     "Start service:": "Start service",
     "End service:": "End service",
     "Country": "Country",
@@ -274,26 +255,25 @@
     "Activate or deactivate the download of bank statements for this credential": "Activate or deactivate the download of bank statements for this credential",
     "Add": "Add"
   },
-
   "Currency": {
     "Digital employees": "Digital employees",
     "Currency Exchange rates automation": "Currency Exchange rates automation",
     "Start service:": "Start service",
     "End service:": "End service",
     "Status and emails": "Status and emails",
-    "Enter one or more emails either separated by spaces, commas or semicolons":"Enter one or more emails either separated by spaces, commas or semicolons",
-    "Save and continue":"Save and continue",
-    "Save":"Save",
-    "Cancel":"Cancel",
-   "Yeah":"Yes",
-    "No":"No",
-    "Do you want to delete this record":"Do you want to delete this record?",
-    "Exchange rate record already exists":"This exchange rate record already exists",
-    "Select":"Select",
-    "Select different currencies":"Select different currencies",
-     "Added Emails":"Added Emails",
-    "Add emails":"Add emails",
-    "Emails were added successfully":"Emails were added successfully",
+    "Enter one or more emails either separated by spaces, commas or semicolons": "Enter one or more emails either separated by spaces, commas or semicolons",
+    "Save and continue": "Save and continue",
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "Yeah": "Yes",
+    "No": "No",
+    "Do you want to delete this record": "Do you want to delete this record?",
+    "Exchange rate record already exists": "This exchange rate record already exists",
+    "Select": "Select",
+    "Select different currencies": "Select different currencies",
+    "Added Emails": "Added Emails",
+    "Add emails": "Add emails",
+    "Emails were added successfully": "Emails were added successfully",
     "Daily exchange rate": "Daily exchange rate",
     "Monthly exchange rate": "Monthly exchange rate",
     "Start service": "Start service",
@@ -329,15 +309,51 @@
     "Set your  Monthly exchange rate": "Set your  Monthly exchange rate",
     "Was successfully configured!": "was successfully configured!",
     "Please tell us which email addresses we should send our digital employee traceability reports to": "Please tell us which email addresses we should send our digital employee traceability reports to",
-    "Traceability information will be sent to the following emails":"Traceability information will be sent to the following emails",
+    "Traceability information will be sent to the following emails": "Traceability information will be sent to the following emails",
     "Edit exchange rate": "Edit exchange rate",
-    "Add exchange rate":"Add exchange rate",
-    "Register the daily exchange rates":"Register the daily exchange rates",
-    "click on Add":"click on Add",
+    "Add exchange rate": "Add exchange rate",
+    "Register the daily exchange rates": "Register the daily exchange rates",
+    "click on Add": "click on Add",
     "optional": "optional",
     "Day explication": "Additional days adjusts the SBS exchange rate date as needed. For example, if the original date is 11/12/2023 and 1 day is added, the result will be 11/13/2023, making it easier to obtain updated information."
   },
+  "Pattern": {
+    "Digital employees": "Digital employees",
+    "Start service:": "Start service",
+    "End service:": "End service",
+    "Status and emails": "Status and emails",
+    "Enter one or more emails either separated by spaces, commas or semicolons": "Enter one or more emails either separated by spaces, commas or semicolons",
+    "Save and continue": "Save and continue",
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "Yeah": "Yes",
+    "No": "No",
+    "Country": "Country",
+    "State": "State",
+    "To": "To",
+    "Cco": "CC-(copy)",
+    "Add":"Add",
+    "Emails for notifications": "Emails for notifications",
+    "Register emails": "Register emails",
+    "Next": "Next",
+    "Previus": "Previus",
+    "Close Form": "Close Form",
+    "Active": "Active",
+    "Disabled": "Disabled",
+    "Close": "Close",
+    "Update": "Update",
+    "Pattern": "Pattern",
+    "Add Registers": "Add Registers",
+    "Actions": "Actions",
+    "Select the type of pattern": "Select the type of pattern",
+    "Do you want to delete this record":"Do you want to delete this record",
+    "Edit patterns":"Edit patterns",
+    "Add patterns":"Add patterns",
+    "These patterns already exist, select another":"These patterns already exist, select another",
+    "Successful configuration":"Successful configuration"
+    
 
+  },
   "Support": {
     "Support": "Support",
     "Contact us": "Contact us",
@@ -356,7 +372,6 @@
     "is our top": "is our top",
     "priority": "priority"
   },
-
   "freeTrial": {
     "Free trial": "Free trial ",
     "To be able to request the digital employee": "To be able to request the digital employee",
@@ -373,7 +388,6 @@
     "priority": "priority",
     "Return to DE": "Return to DE"
   },
-
   "Reporting": {
     "Reporting": "Reporting",
     "Total revenue": "Total revenue",
@@ -390,10 +404,8 @@
     "Expenses": "Expenses",
     "Asset": "Asset",
     "Purchase": "Purchase",
-    "Selling":"Selling",
-    "Exchange rate today":"Exchange rate today",
-
-
+    "Selling": "Selling",
+    "Exchange rate today": "Exchange rate today",
     "ARI Finance to": "ARI Finance to",
     "Balance report": "Balance report",
     "Movement report": "Movement report",
@@ -437,21 +449,19 @@
     "Page": "Page",
     "of": "of",
     "Month": "Month",
-    "Year":"Year",
-    "From PEN to":"From PEN to",
-    "Currency origin":"Currency of origin",
+    "Year": "Year",
+    "From PEN to": "From PEN to",
+    "Currency origin": "Currency of origin",
     "Target currency": "Target currency",
     "for the companies": "for the companies",
-    "Total Accounts":"Total Accounts",
-    "Total Banks":"Total Banks",
-    "Today":"Today"
-
-    },
+    "Total Accounts": "Total Accounts",
+    "Total Banks": "Total Banks",
+    "Today": "Today"
+  },
   "Modal": {
     "Your session is about to expire!": "Your session is about to expire!",
     "Please confirm to refresh your token and continue": "Please confirm to refresh your token and continue"
   },
-
   "validation": {
     "Corporate email is required": "Corporate email is required",
     "Password is required": "Password is required",

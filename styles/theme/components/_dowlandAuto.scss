@@ -11,6 +11,7 @@
     flex-direction: column;
     width: 100%;
     align-items: center;
+   
   }
 }
 
@@ -23,7 +24,7 @@
   align-items: flex-start;
 
   .status-config {
-    width: 100%;
+    width: 90%;
     display: flex;
     gap:0.25rem;
     flex-direction: column;
@@ -46,7 +47,7 @@
 
       p:nth-of-type(3) {
         /* Estilos para el segundo elemento <p> */
-        color: get-color(black_p2);
+        color: get-color(t1-blue);
         width: 100%;
         display: flex;
         justify-content: flex-start;
@@ -339,9 +340,7 @@
 
 .subtitle {
   padding-top: 1rem;
-  .sub {
-    color: get-color(black_p2);
-  }
+ 
   .description {
     color: get-color(grey2_s4);
   }
@@ -473,5 +472,5 @@
 }
 
 .name-blue {
-  color: get-color(lilac_p3) !important;
+  color:get-color(blue_p1);
 }

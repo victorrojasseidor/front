@@ -94,7 +94,7 @@
   }
   &_crud {
     border-style: none;
-    padding: 0.8em;
+    padding: 0.75em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,7 +103,8 @@
     border-radius: brd(f);
     background-color: transparent;
     height: auto;
-    //  background: rgba(get-color(blue_p1), 0.1);
+    //  background: rgba(get-color(blue_p1), 0.05);
+    // border: 1px solid rgba(get-color(blue_p1), 0.1);
 
     &:hover,
     &:focus {
@@ -288,7 +289,7 @@
 
   &_green {
     background-color: get-color(t5-green);
-    padding: 0.25rem 0.5rem;
+    padding:  0.5rem;
     border-radius: brd(2);
     border-style: none;
     &:hover {
@@ -299,8 +300,8 @@
 
   &_red {
     background-color: get-color(t3-red);
-    padding: 0.25rem 0.5rem;
-    color: get-color(forms_s6);
+    padding:  0.5rem;
+    color: get-color(white_s1);
     border-radius: brd(2);
     border-style: none;
     &:hover {

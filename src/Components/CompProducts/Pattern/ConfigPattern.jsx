@@ -8,11 +8,12 @@ import Modal from '@/Components/Modal'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 import { getProducts } from '@/helpers/auth'
 import { formatDate } from '@/helpers/report'
+import FormPatters from './FormPatters'
 
 export default function ConfigPattern () {
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
-  const [dataTypeChange, setDataTypeChange] = useState(null)
+  const [dataPadrones, setDataPadrones] = useState(null)
   const [dataCardProduct, setdataCardProduct] = useState(null)
   const [showForm, setShowForm] = useState(false)
   const [requestError, setRequestError] = useState('')
@@ -21,10 +22,9 @@ export default function ConfigPattern () {
   const [isLoadingComponent, setIsLoadingComponent] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
   const [completeEmails, setcompleteEmails] = useState(false)
-  const [completeConfigDayly, setCompleteConfigDayly] = useState(false)
-  const [completeConfigMontly, setCompleteConfigMontly] = useState(false)
-  const [typeOfChange, setTypeofChange] = useState(0)
-  const [updateEmails, setUpdateEmails] = useState(false)
+  const [completePadrones, setcompletePadrones] = useState(false)
+  const [updateEmails, setUpdateEmails] = useState(true)
+  const [confirmedConfigured, setConfirmedConfigured] = useState(false)
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -40,7 +40,7 @@ export default function ConfigPattern () {
 
   const { session, setModalToken, logout, l } = useAuth()
 
-  const t = l.Currency
+  const t = l.Pattern
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -58,60 +58,57 @@ export default function ConfigPattern () {
     }
   };
 
-  //   async function handleAgregar (values) {
-  //     setIsLoadingComponent(true)
+  async function handleAgregar (values) {
+    setIsLoadingComponent(true)
 
-  //     const body = {
-  //       oResults: {
+    const body = {
+      oResults: {
 
-  //         oTipoCambio: [
-  //           {
+        oPadrones: [
+          {
 
-  //             iIdTipCamb: parseInt(iIdProdEnv),
-  //             iIdPais: values.country,
-  //             iIdMonedaOrigen: values.coinOrigin,
-  //             iIdMonedaDestino: values.coinDestiny,
-  //             iIdFuente: values.fuente,
-  //             iDiasAdicional: values.days,
-  //             iIdTiempoTipoCambio: typeOfChange,
-  //             bEstado: values.state === 'Active'
-  //           }
-  //         ]
-  //       }
+            iIdPadrones: parseInt(iIdProdEnv),
+            iIdDocumento: values.Pattern,
+            iIdPais: values.country,
+            bEstado: true
+            // bEstado: values.state === 'Active'
+          }
+        ]
+      }
 
-  //     }
+    }
 
-  //     console.log({ body })
+    console.log({ body })
 
-  //     try {
-  //       const token = session.sToken
+    try {
+      const token = session.sToken
 
-  //       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarTipoCambio', body, token)
-  //       console.log({ responseData })
-  //       if (responseData.oAuditResponse?.iCode === 1) {
-  //         // const data = responseData.oResults
-  //         setTimeout(() => {
-  //           setModalToken(false)
-  //           setShowForm(false)
-  //           setRequestError(null)
-  //         }, 1000)
-  //       } else {
-  //         await handleCommonCodes(responseData)
-  //         setShowForm(true)
-  //       }
-  //     } catch (error) {
-  //       console.error('error', error)
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarPadrones', body, token)
+      console.log({ responseData })
+      if (responseData.oAuditResponse?.iCode === 1) {
+        // const data = responseData.oResults
+        setTimeout(() => {
+          setModalToken(false)
+          setShowForm(false)
+          setRequestError(null)
+        }, 1000)
+      } else {
+        await handleCommonCodes(responseData)
+        setShowForm(true)
+      }
+    } catch (error) {
+      console.error('error', error)
 
-  //       setShowForm(true)
-  //       setRequestError(error)
-  //     } finally {
-  //       setIsLoadingComponent(false)
-  //     }
-  //   }
+      setShowForm(true)
+      setRequestError(error)
+    } finally {
+      setIsLoadingComponent(false)
+    }
+  }
 
   useEffect(() => {
     if (session) {
-    //   getTipCambio()
+      getPadrones()
     }
   }, [updateEmails, showForm, selectedRowToDelete])
 
@@ -124,7 +121,6 @@ export default function ConfigPattern () {
     try {
       const token = session.sToken
       const responseData = await getProducts(idEmpresa, token)
-
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults
@@ -140,8 +136,78 @@ export default function ConfigPattern () {
     }
   }
 
+  async function getPadrones () {
+    setIsLoadingComponent(true)
+    const body = {
+      oResults: {
+        iIdPadrones: iIdProdEnv, // [1]
+        iIdPais: dataCardProduct?.iCountry || 1
+      }
+    }
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetPadrones', body, token)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setModalToken(false)
+        const dataRes = responseData.oResults
+        setDataPadrones(dataRes)
+        if (dataRes.oCorreo.length > 0) {
+          setcompleteEmails(true)
+        }
+        if (dataRes.oPadrones.length > 0) {
+          setcompletePadrones(true)
+        }
+      } else {
+        await handleCommonCodes(responseData)
+      }
+    } catch (error) {
+      console.error('error', error)
+    } finally {
+      setIsLoadingComponent(false)
+    }
+  }
+
+  const handleDeleteConfirmation = async () => {
+    if (selectedRowToDelete) {
+      await handleDeletePadrones(selectedRowToDelete.id_servicio_padrones_documentos)
+      setSelectedRowToDelete(null)
+    }
+  }
+
+  const handleDeletePadrones = async (id) => {
+    setIsLoadingComponent(true)
+    const token = session.sToken
+    const body = {
+      oResults: {
+        oIdRegistro: [
+          id
+        ]
+
+      }
+    }
+
+    try {
+      const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarPadrones', body, token)
+      console.error('res', response)
+      if (response.oAuditResponse?.iCode === 1) {
+        setModalToken(false)
+        setTimeout(() => {
+        }, 1000)
+      } else {
+        await handleCommonCodes(response)
+      }
+    } catch (error) {
+      console.error('Error en la solicitud de eliminación', error)
+    } finally {
+      setIsLoadingComponent(false)
+    }
+  }
+
+  console.log({ dataPadrones })
+
   return (
-    <div className='currency_configurations'>
+    <div className='pattern-configuration'>
 
       <div className='Tabsumenu'>
         <div className='Tabsumenu-header '>
@@ -150,9 +216,13 @@ export default function ConfigPattern () {
             <h4> {t['Status and emails']} </h4>
           </button>
 
-          <button style={{ visibility: completeEmails ? 'visible' : 'hidden' }} className={` ${activeTab === 1 ? 'activeST' : ''} ${completeConfigDayly ? 'completeST' : ''}`} onClick={() => handleTabClick(1)}>
+          <button
+            style={{ visibility: completeEmails ? 'visible' : 'hidden' }}
+            className={` ${activeTab === 1 ? 'activeST' : ''} ${completePadrones ? 'completeST' : ''}`}
+            onClick={() => handleTabClick(1)}
+          >
             <ImageSvg name='Check' />
-            <h4>  {t['Daily exchange rate']}  </h4>
+            <h4>  {t.Pattern}  </h4>
           </button>
 
         </div>
@@ -198,7 +268,7 @@ export default function ConfigPattern () {
                 </ul>
               </div>
 
-              <EmailsForm dataEmails={dataTypeChange?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
+              <EmailsForm dataEmails={dataPadrones?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
 
               <div className='box-buttons'>
                 <button
@@ -216,20 +286,138 @@ export default function ConfigPattern () {
 
           {activeTab === 1 &&
 
-            <div>
-              aqui va configuiration
+            <div className='config-Automated--tables'>
+
+              <div className='contaniner-tables'>
+
+                <div className='box-search'>
+                  <div>
+                    <h3> {dataCardProduct?.sName}  </h3>
+                    <p> {t['This exchange rate is used for the monthly accounting closing']} </p>
+                  </div>
+
+                  <button
+                    className='btn_black'
+                  // style={{ display: initialEdit !== null ? 'none' : 'block' }}
+                    onClick={() => { toggleForm() }}
+                  >
+                    {showForm ? t.Close : t.Add}
+                  </button>
+
+                </div>
+
+                <div className='boards'>
+                  <div className='tableContainer'>
+
+                    <table className='dataTable'>
+
+                      <thead>
+                        <tr>
+                          <th>{t.Pattern} </th>
+                          <th> {t.Country}</th>
+                          {/*
+                          <th>{t.State} </th> */}
+
+                          <th>{t.Actions} </th>
+                        </tr>
+                      </thead>
+
+                      {
+                        dataPadrones?.oPadrones.length > 0
+                          ? <tbody>
+
+                            {dataPadrones?.oPadrones?.map((row) => (
+                              <tr key={row.id_servicio_padrones_documentos}>
+                                <td>{row.desc_documento}</td>
+                                <td>{row.id_pais == 1 ? 'Perú' : row.id_pais} </td>
+
+                                {/* <td>
+                              <span className={row.estado == '23' ? 'status-active' : 'status-disabled'}>{row.estado == '23' ? 'Active' : 'Disabled'}</span>
+                            </td> */}
+
+                                <td className='box-actions'>
+
+                                  <button
+                                    className='btn_crud delete' onClick={() => {
+                                      setSelectedRowToDelete(row)
+                                    }}
+                                  >
+                                    <ImageSvg name='Delete' />
+                                  </button>
+                                </td>
+
+                              </tr>
+                            ))}
+
+                          </tbody>
+                          : <div className=' '>
+
+                            <p className='errorMessage'>
+                              {t['Add patterns']}
+                            </p>
+
+                            </div>
+                      }
+
+                    </table>
+
+                  </div>
+                  {isLoadingComponent && <LoadingComponent />}
+
+                </div>
+
+                {requestError && <div className='errorMessage'>{requestError}</div>}
+
+              </div>
+
+              <div>
+                {completePadrones
+                  ? (
+                    <div className='box-buttons'>
+                      <button
+                        type='button'
+                        className='btn_secundary small'
+                        onClick={() => handleTabClick(0)}
+                      >
+                        <ImageSvg name='Back' />
+
+                        {t.Previus}
+                      </button>
+                      <button
+                        className={`btn_secundary small  ${completePadrones ? ' ' : 'disabled'}`}
+                        onClick={() => setConfirmedConfigured(true)}
+                        disabled={!completePadrones}
+                      >
+                        {t.Next}
+                        <ImageSvg name='Next' />
+                      </button>
+                    </div>
+
+                    )
+                  : (
+
+                    <div className='noti'>
+                      <p> {t['Register the daily exchange rates']}
+
+                      </p>
+                      <p> <span> {t['click on Add']} </span> </p>
+                    </div>
+
+                    )}
+              </div>
+
             </div>}
 
         </div>
 
-        {/* {showForm &&
+        {showForm &&
 
-          <FormCurrency
-            onAgregar={handleAgregar} dataTypeChange={dataTypeChange} initialVal={isEditing ? initialEdit : null}
+          <FormPatters
+            onAgregar={handleAgregar} dataPadrones={dataPadrones} initialVal={isEditing ? initialEdit : null}
             setIinitialEdit={setIinitialEdit}
-            handleEditCurrency={handleEditCurrency}
+            // handleEditCurrency={handleEditCurrency}
             setShowForm={setShowForm}
-            typeOfChange={typeOfChange}
+
           />}
 
         {selectedRowToDelete && (
@@ -255,7 +443,25 @@ export default function ConfigPattern () {
               </div>
             </div>
           </Modal>
-        )} */}
+        )}
+
+        {
+          confirmedConfigured &&
+          (
+            <Modal close={() => {
+              setConfirmedConfigured(false)
+            }}
+            >
+              <ImageSvg name='Check' />
+
+              <div>
+                <h3>{t['Successful configuration']}</h3>
+
+              </div>
+            </Modal>
+          )
+
+        }
 
       </div>
 

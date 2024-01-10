@@ -5,7 +5,6 @@
   width: 100%;
   height: 100%;
   background-color:#00000085;
- 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,6 +18,7 @@
     box-shadow: bsh(1);
     display: flex;
     flex-direction: column;
+    position: relative;
 
     @include media(mobile) {
       width: 80vw;
@@ -37,7 +37,6 @@
       flex-direction: column;
       padding-bottom: 1rem;
       
-
       h2,h4,h3 {
          
         display: flex;
@@ -60,12 +59,7 @@
 
       }
     
-      // div{
-      //   display: flex;
-      //   align-items: center;
-      //   flex-direction: column;
-        
-      // }
+  
 
       svg {
         fill: get-color(lilac_p3);
@@ -73,12 +67,6 @@
         width: 3rem;
       }
 
-      // p:nth-child(2) {
-      //   padding-top: 1em;
-      //   font-size: larger;
-      //   font-weight: 500;
-      //   color: get-color(blue_p1);
-      // }
 
     }
 
@@ -96,19 +84,20 @@
 .closeform {
   display: flex;
   justify-content: flex-end;
+  position: absolute;
+  z-index: 9999999999999;
+    top: 2%;
+    right:  2%;
 
   button {
-    position: fixed;
-    z-index: 9999999999999;
-    top: 30px;
-    background-color: get-color(pink_s5);
-    // border-color: get-color(pink_s5);
+      
+    background-color: rgba(get-color(t3-red),0.05);
     border-style: none;
     border-radius: brd(f);
-    color: get-color(lilac_p3);
+    color: get-color(t3-red);
     font-weight: 700;
-    height: 40px;
-    width: 40px;
+    height: 2.2rem;
+    width: 2.2rem;
     &:focus,
     &:hover {
       border-color: get-color(lilac_p3);
@@ -118,26 +107,12 @@
   }
 }
 
+
+
 .close {
   display: flex;
   justify-content: flex-end;
 
-  // button {
-  //   background-color: get-color(pink_s5);
-  //   // border-color: get-color(pink_s5);
-  //   border-style: none;
-  //   border-radius: brd(f);
-  //   color: get-color(lilac_p3);
-  //   font-weight: 700;
-  //   height: 40px;
-  //   width: 40px;
-  //   &:focus,
-  //   &:hover {
-  //     border-color: get-color(lilac_p3);
-  //     background-color: get-color(white_s1);
-  //     border: 1px solid get-color(lilac_p3);
-  //   }
-  // }
 }
 
 
@@ -158,37 +133,37 @@
   height: 98vh;
    overflow: auto; 
    background-color: get-color(white_s1);
-    width: 90%;
-    padding: 1em;
-    border-radius: 19px;
-    box-shadow: bsh(1);
+    width: 90%;  
+    box-shadow: bsh(2);
     display: flex;
     flex-direction: column;
-  border: 1px solid #ccc;
+   @include scrollTeme;
+  @include container;
+  position: relative;
 
     @include media(tablet) {
       width: 80vw;
       height: 98vh;
-      // overflow: overlay;
       overflow: auto;
     }
-    /* Personalización de las barras de desplazamiento */
-    &::-webkit-scrollbar {
-      width: 0.5rem;
-      max-height: 5rem;
-    }
+    
+    // /* Personalización de las barras de desplazamiento */
+    // &::-webkit-scrollbar {
+    //   width: 0.5rem;
+    //   max-height: 5rem;
+    // }
   
-    &::-webkit-scrollbar-thumb {
-      background-color:get-color(pink_s5);
-      border-radius: 5px;
-      &:hover {
-        background-color:get-color(blue_p1); /* Cambio de color al pasar el cursor */
-      }
-    }
+    // &::-webkit-scrollbar-thumb {
+    //   background-color:get-color(pink_s5);
+    //   border-radius: 5px;
+    //   &:hover {
+    //     background-color:get-color(blue_p1); /* Cambio de color al pasar el cursor */
+    //   }
+    // }
   
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
+    // &::-webkit-scrollbar-track {
+    //   background-color: transparent;
+    // }
   }
 
   .css-6hp17o-MuiList-root-MuiMenu-list{
