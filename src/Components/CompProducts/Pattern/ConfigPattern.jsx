@@ -331,7 +331,7 @@ export default function ConfigPattern () {
                           ? <tbody>
 
                             {dataPadrones?.oPadrones?.map((row) => (
-                              <tr key={row.id_servicio_padrones_documentos}>
+                              <tr key={row.id_principal}>
                                 <td>{row.desc_documento}</td>
                                 <td>{row.id_pais == 1 ? 'Perú' : row.id_pais} </td>
 
@@ -353,14 +353,14 @@ export default function ConfigPattern () {
                               </tr>
                             ))}
 
-                            </tbody>
+                          </tbody>
                           : <div className=' '>
 
                             <p className='errorMessage'>
                               {t['Add patterns']}
                             </p>
 
-                          </div>
+                            </div>
                       }
 
                     </table>
