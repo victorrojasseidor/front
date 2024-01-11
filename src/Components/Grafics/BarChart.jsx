@@ -92,10 +92,9 @@ export default function LineChart () {
     }
 
     const tok = session?.sToken
-    console.log({ body })
     try {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTipoCambioRate', body, tok)
-      console.log('ResponseGetTipoCambioRate', responseData)
+      // console.log('ResponseGetTipoCambioRate', responseData)
       if (responseData.oAuditResponse.iCode == 1) {
         setRequestError(null)
 
@@ -122,7 +121,11 @@ export default function LineChart () {
     }
   }
 
-  const dataTypeTranform = dataType?.map((entry, i, array) => {
+  const dataOrderTODate = dataType?.sort((a, b) =>
+    a.fecha_tipo_cambio.localeCompare(b.fecha_tipo_cambio)
+  )
+
+  const dataTypeTranform = dataOrderTODate?.map((entry, i, array) => {
     const dateType = new Date(entry.fecha_tipo_cambio).getUTCDate()
 
     if (i > 0) {
@@ -171,6 +174,9 @@ export default function LineChart () {
   // // Resaltar el día 10 con un color diferente
   const borderColorCompra = dataType?.map((day) => (day === currentDay ? '#5DB92C' : '#5DB92C'))
 
+  console.log({ dataType })
+  console.log({ dataFecha }, { dataCompra })
+
   const midata = {
     labels: dataFecha,
 
@@ -178,7 +184,7 @@ export default function LineChart () {
       {
         label: t.Purchase,
         data: dataCompra,
-        tension: 0.5,
+        tension: 0.4,
         fill: 'start',
         borderColorCompra,
         borderColor: 'rgba(5, 205, 153, 0.50)',
@@ -196,7 +202,7 @@ export default function LineChart () {
       {
         label: t.Selling,
         data: dataVenta,
-        tension: 0.6,
+        tension: 0.4,
         fill: 'start',
         borderColor: 'rgba(67, 24, 255, 0.60)',
         backgroundColor: (context) => {

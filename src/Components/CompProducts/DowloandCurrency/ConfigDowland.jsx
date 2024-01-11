@@ -660,50 +660,8 @@ export default function ConfigDowland () {
                 </label>
               </div>
 
-              <div className='repository'>
-
-                <h5>
-                  {t.Repository}
-                </h5>
-
-                <Formik
-                  initialValues={{
-                    Repository: 'https://drive.google.com/drive/u/2/folders/1s2Ot16GFkN7d534ur12hNj7PPVv7alDs'
-
-                  }}
-
-                  onSubmit={() => { console.log('inout ') }}
-                >
-                  {({ isSubmitting }) => (
-                    <Form style={{ width: '70%' }}>
-                      <div className='input-box'>
-                        <Field type='text' name='repository' placeholder='' readOnly />
-                        <label htmlFor='repository'>{t['Repository path']}</label>
-                        <Link href='https://drive.google.com/drive/u/2/folders/1s2Ot16GFkN7d534ur12hNj7PPVv7alDs'>
-                          {t['See repository']}
-                        </Link>
-                        <ErrorMessage className='errorMessage' name='repository' component='div' />
-
-                      </div>
-
-                    </Form>
-                  )}
-                </Formik>
-
-              </div>
-
               <div />
-              {session.jCompany.id_company == 4
-                ? <button
-                    type='button'
-                    className={`btn_primary small ${completeShedule ? ' ' : 'disabled'}`}
-                    onClick={runSchedule}
-                    disabled={!completeShedule}
-                  >
-                  <ImageSvg name='Automation' />
-                  {t['Run automation']}
-                </button>
-                : ''}
+
               <div className='box-buttons'>
                 <button
                   type='button'
