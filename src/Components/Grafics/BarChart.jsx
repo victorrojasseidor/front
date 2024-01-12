@@ -253,7 +253,8 @@ export default function LineChart () {
           maxTicksLimit: 10,
           callback: function (value, index, values) {
             // Puedes personalizar el texto según tus necesidades
-            const currentMon = currentYearMonths[0]?.slice(0, 3)
+            const Mont = months[selectedMonth]
+            const currentMon = Mont?.slice(0, 3)
             return ` ${Math.round(value)} ${currentMon}`
           }
         },

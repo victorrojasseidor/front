@@ -17,7 +17,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import Loading from '@/Components/Atoms/Loading'
-import { format, getDay, addDays } from 'date-fns'
+import { format, getDay, addDays, startOfMonth, differenceInDays, parseISO } from 'date-fns'
 
 function index (props) {
   const { session, setModalToken, logout, l } = useAuth()
@@ -79,17 +79,17 @@ function index (props) {
     //  fecha actual
     const dateToday = format(currentDate, 'dd/MM/yyyy')
 
-    // Sumar un día a la fecha actual
-    const tomorrow = addDays(currentDate, 1)
+    // Obtener la fecha del primero de este mes
+    const firstDayOfMonth = startOfMonth(currentDate)
 
-    // Formatear la fecha de mañana en el formato deseado
-    const dateTomorrow = format(tomorrow, 'dd/MM/yyyy')
+    // Formatear la fecha del primero de este mes en el formato deseado
+    const formattedFirstDayOfMonth = format(firstDayOfMonth, 'dd/MM/yyyy')
 
     setIsLoading(true)
     const body = {
       oResults: {
-        sFechaDesde: '7/01/2024',
-        sFechaHasta: '8/01/2024',
+        sFechaDesde: formattedFirstDayOfMonth,
+        sFechaHasta: dateToday,
         iMoneda: 2 // solar
       }
     }
@@ -99,7 +99,11 @@ function index (props) {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTipoCambioRate', body, tok)
       if (responseData.oAuditResponse.iCode == 1) {
         setRequestError(null)
-        setTodaytype(responseData.oResults[0])
+        const data = responseData.oResults
+        const dataOrderTODate = data?.sort((a, b) =>
+          b.fecha_tipo_cambio.localeCompare(a.fecha_tipo_cambio)
+        )
+        setTodaytype(dataOrderTODate[0])
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout()
@@ -119,6 +123,16 @@ function index (props) {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  console.log({ todaytype })
+
+  function formatearFecha (fecha) {
+    const fechaParseada = new Date(fecha)
+    const dia = fechaParseada.getUTCDate().toString().padStart(2, '0')
+    const mes = (fechaParseada.getUTCMonth() + 1).toString().padStart(2, '0')
+    const anio = fechaParseada.getUTCFullYear().toString()
+    return `${dia}/${mes}/${anio}`
   }
 
   return (
@@ -190,12 +204,12 @@ function index (props) {
               <div className='report_data'>
 
                 <article>
-                  {t['Exchange rate today']}
+                  {t['Exchange rate']} ({t.Selling})
 
                 </article>
                 <h2> {todaytype?.tipo_cambio_venta}
                 </h2>
-                <p>  <span>  Venta </span>     PEN  <ImageSvg name='ArrowLeft' />  USD </p>
+                <p>  <span> {todaytype && formatearFecha(todaytype?.fecha_tipo_cambio)} </span>     PEN  <ImageSvg name='ArrowLeft' />  USD </p>
               </div>
 
             </div>
