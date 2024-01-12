@@ -253,7 +253,8 @@
     "Add Credential": "Add Credential",
     "Register your credentials": "Register your credentials",
     "Activate or deactivate the download of bank statements for this credential": "Activate or deactivate the download of bank statements for this credential",
-    "Add": "Add"
+    "Add": "Add",
+    "Select the currency":"Select the currency"
   },
   "Currency": {
     "Digital employees": "Digital employees",
@@ -316,6 +317,7 @@
     "click on Add": "click on Add",
     "optional": "optional",
     "Day explication": "Additional days adjusts the SBS exchange rate date as needed. For example, if the original date is 11/12/2023 and 1 day is added, the result will be 11/13/2023, making it easier to obtain updated information."
+    
   },
   "Pattern": {
     "Digital employees": "Digital employees",

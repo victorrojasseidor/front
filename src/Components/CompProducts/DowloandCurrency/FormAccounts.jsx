@@ -9,6 +9,9 @@ import ModalForm from '@/Components/Atoms/ModalForm'
 
 const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAccount, setShowForm, showForm, showcomponent }) => {
   const [fileTypeOptions, setFileTypeOptions] = useState(null)
+  const [selectedCoin, setSelectedCoin] = useState(initialVal?.moneda)
+
+  console.log(selectedCoin)
 
   const router = useRouter()
   // const id = router.query.iId
@@ -48,20 +51,32 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     }
   }
 
+  console.log(initialVal)
+
   const initialValues = {
     Account: initialVal?.cuenta || '',
     DesAccount: initialVal?.descripcion_cuenta || '', // Usamos los valores iniciales si están disponibles
     Company: initialVal?.empresa || '',
     DesCompany: initialVal?.descripcion_empresa || '',
     Ruc: initialVal?.ruc || '',
-    Coin: initialVal?.moneda || '',
+    Coin: selectedCoin,
     DesCoin: initialVal?.descripcion_moneda || '',
     TypeFile: null,
-    state: initialVal && initialVal.estado == '23' ? 'Active' : (initialVal ? 'Disabled' : 'Active')
+    state: initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
   }
 
+  const coinOptions = session?.oMoneda.map((coin) => ({
+    value: coin.codigo_moneda,
+    label: coin.codigo_moneda
+  }))
+
   return (
-    <ModalForm close={() => { setIinitialEdit(null); setShowForm(false) }}>
+    <ModalForm
+      close={() => {
+        setIinitialEdit(null)
+        setShowForm(false)
+      }}
+    >
       <div className='Form-listCredential'>
         <h2 className='box'>{initialVal ? t['Edit record'] : t['Add account']}</h2>
         <Formik
@@ -78,26 +93,26 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
         >
           {({ values, isValid, setFieldValue }) => (
             <Form className='form-container formCredential'>
-
               <div className='content'>
                 <div className='subtitle'>
                   <h5 className='sub'> 1. {t['Register your Account']} </h5>
-
                 </div>
 
                 <div className='group'>
-                  {showcomponent?.bAccount &&
+                  {showcomponent?.bAccount && (
                     <div className='input-box'>
                       <Field type='text' name='Account' placeholder=' ' />
                       <label htmlFor='Account'>{showcomponent.sAccount}</label>
                       <ErrorMessage name='Account' component='span' className='errorMessage' />
-                    </div>}
-                  {showcomponent?.bAccountDescription &&
+                    </div>
+                  )}
+                  {showcomponent?.bAccountDescription && (
                     <div className='input-box'>
                       <Field type='text' name='DesAccount' placeholder=' ' />
                       <label htmlFor='DesAccount'>{showcomponent.sAccountDescription}</label>
                       <ErrorMessage name='DesAccount' component='span' className='errorMessage' />
-                    </div>}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -109,26 +124,27 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                   </p> */}
                 </div>
                 <div className='group'>
-                  {showcomponent?.bCompany &&
+                  {showcomponent?.bCompany && (
                     <div className='input-box'>
                       <Field type='text' name='Company' placeholder=' ' />
                       <label htmlFor='Company'>{showcomponent.sCompany}</label>
                       <ErrorMessage name='Company' component='span' className='errorMessage' />
-                    </div>}
-                  {showcomponent?.bCompanyDescription &&
+                    </div>
+                  )}
+                  {showcomponent?.bCompanyDescription && (
                     <div className='input-box'>
                       <Field type='text' name='DesCompany' placeholder=' ' />
                       <label htmlFor='DesCompany'> {showcomponent.sCompanyDescription}</label>
                       <ErrorMessage name='DesCompany' component='span' className='errorMessage' />
-                    </div>}
-                  {showcomponent?.bRuc &&
+                    </div>
+                  )}
+                  {showcomponent?.bRuc && (
                     <div className='input-box'>
-
                       <Field type='number' name='Ruc' placeholder=' ' />
                       <label htmlFor='Ruc'>{showcomponent.sRuc}</label>
                       <ErrorMessage name='Ruc' component='span' className='errorMessage' />
-                    </div>}
-
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -140,20 +156,35 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                   </p> */}
                 </div>
                 <div className='group'>
-                  {showcomponent?.bCoin &&
-                    <div className='input-box'>
-                      <Field type='text' name='Coin' placeholder=' ' />
-                      <label htmlFor='Coin'>{showcomponent.sCoin}</label>
+
+                  {showcomponent?.bCoin && (
+                    <div className='bank-box'>
+                      <label htmlFor='coin'>{showcomponent.sCoin}</label>
+                      <Select
+                        options={coinOptions}
+                        name='Coin'
+                        placeholder={t['Select the currency']}
+                        isClearable
+                        value={coinOptions.find(option => option.value === selectedCoin)}
+                        onChange={(selectedOption) => {
+                          const newValue = selectedOption?.value || null
+                          setSelectedCoin(newValue)
+                          setFieldValue('Coin', newValue)
+                        }}
+                      />
+
                       <ErrorMessage name='Coin' component='span' className='errorMessage' />
-                    </div>}
-                  {showcomponent?.bCoinDescription &&
+                    </div>
+                  )}
+                  {showcomponent?.bCoinDescription && (
                     <div className='input-box'>
                       <Field type='text' name='DesCoin' placeholder=' ' />
                       <label htmlFor='DesCoin'>{showcomponent.sCoinDescription}</label>
                       <ErrorMessage name='DesCoin' component='span' className='errorMessage' />
-                    </div>}
-                </div>
+                    </div>
+                  )}
 
+                </div>
               </div>
 
               <div className='content'>
@@ -164,9 +195,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                   </p> */}
                 </div>
                 <div className='group'>
-
-                  {showcomponent?.bType &&
-
+                  {showcomponent?.bType && (
                     <div className='bank-box'>
                       <label htmlFor='bank'>{showcomponent.sType}</label>
                       <Select
@@ -175,29 +204,22 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                         placeholder={t['Select a type of file']}
                         isClearable
                         // value={(initialVal && fileTypeOptions && TypeFile===null )?fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo) : values.TypeFile}
-                        value={
-                          (initialVal && fileTypeOptions && !values.TypeFile)
-                            ? fileTypeOptions.find(option => option.value === initialVal.id_tipo_archivo)
-                            : values.TypeFile
-                        }
+                        value={initialVal && fileTypeOptions && !values.TypeFile ? fileTypeOptions.find((option) => option.value === initialVal.id_tipo_archivo) : values.TypeFile}
                         onChange={(selectedOption) => {
                           setFieldValue('TypeFile', selectedOption)
                         }}
                       />
 
                       <ErrorMessage name='TypeFile' component='span' className='errorMessage' />
-
-                    </div>}
-
+                    </div>
+                  )}
                 </div>
               </div>
 
               <div className='content'>
                 <div className='subtitle'>
-                  <h5 className='sub'> 5. {t.State}  </h5>
-                  <p className='description'>
-                    {t['Activate or deactivate your Account']}
-                  </p>
+                  <h5 className='sub'> 5. {t.State} </h5>
+                  <p className='description'>{t['Activate or deactivate your Account']}</p>
                 </div>
 
                 <div className='state-box'>
@@ -216,17 +238,21 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
               </div>
 
               <div className='submit-box'>
-
-                <button type='submit' className='btn_secundary small' onClick={() => { setIinitialEdit(null); setShowForm(false) }}>
+                <button
+                  type='submit'
+                  className='btn_secundary small'
+                  onClick={() => {
+                    setIinitialEdit(null)
+                    setShowForm(false)
+                  }}
+                >
                   {t.Close}
                 </button>
 
                 <button type='submit' className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>
                   {initialVal ? t.Update : t.Add}
                 </button>
-
               </div>
-
             </Form>
           )}
         </Formik>

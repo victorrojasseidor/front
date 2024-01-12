@@ -330,7 +330,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   {t['Exchange rate record already exists']}
                 </p>
 
-                                    </div>}
+              </div>}
 
               <div className='submit-box'>
 

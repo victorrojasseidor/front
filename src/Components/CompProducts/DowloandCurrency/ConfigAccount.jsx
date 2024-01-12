@@ -165,6 +165,8 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
   async function handleEditListAccount (values) {
     setIsLoadingComponent(true)
 
+    console.log(values)
+
     const body = {
       oResults: {
         iIdExtBanc: parseInt(iIdProdEnv),
@@ -181,6 +183,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
         bCodeEnabled: values?.state == 'Active'
       }
     }
+    console.log({ body })
 
     try {
       const token = session.sToken
@@ -337,13 +340,13 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
               </div>
 
-                                              </div>}
+            </div>}
 
             {requestError && <div className='errorMessage'> {
             requestError
 
             }
-                             </div>}
+            </div>}
 
             {isLoadingComponent && <LoadingComponent />}
 
