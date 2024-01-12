@@ -148,6 +148,7 @@ export default function ConfigPattern () {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetPadrones', body, token)
+      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults
@@ -212,7 +213,6 @@ export default function ConfigPattern () {
 
   return (
     <div className='pattern-configuration'>
-
       <div className='Tabsumenu'>
         <div className='Tabsumenu-header '>
           <button className={` ${activeTab === 0 ? 'activeST' : ''} ${completeEmails ? 'completeST' : ''}`} onClick={() => handleTabClick(0)}>
@@ -353,14 +353,14 @@ export default function ConfigPattern () {
                               </tr>
                             ))}
 
-                          </tbody>
+                            </tbody>
                           : <div className=' '>
 
                             <p className='errorMessage'>
                               {t['Add patterns']}
                             </p>
 
-                            </div>
+                          </div>
                       }
 
                     </table>

@@ -174,9 +174,6 @@ export default function LineChart () {
   // // Resaltar el día 10 con un color diferente
   const borderColorCompra = dataType?.map((day) => (day === currentDay ? '#5DB92C' : '#5DB92C'))
 
-  console.log({ dataType })
-  console.log({ dataFecha }, { dataCompra })
-
   const midata = {
     labels: dataFecha,
 
