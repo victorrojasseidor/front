@@ -4,16 +4,21 @@ import Select from 'react-select'
 import { validateFormAddListBank } from '@/helpers/validateForms'
 import ModalForm from '@/Components/Atoms/ModalForm'
 import { useAuth } from '@/Context/DataContext'
+import ImageSvg from '@/helpers/ImageSVG'
 
 const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, handleEditListBank, setShowForm }) => {
   const [countryOptions, setCountryOptions] = useState([])
   const [bankOptions, setBankOptions] = useState([])
   const [country, setCountry] = useState(null)
   const [showcomponent, setShowComponent] = useState(null)
+  const [showPassword, setShowPassword] = useState(false)
   const { l } = useAuth()
   const t = l.Download
 
   const countryData = dataUser?.oPaisBanco
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
 
   useEffect(() => {
     // Cargar las opciones del país en el estado usando useEffect
@@ -47,6 +52,8 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
     country: initialVal?.country || null,
     state: initialVal && initialVal.estado_c == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
   }
+
+  console.log(initialVal)
 
   useEffect(() => {
     if (initialVal && bankOptions) {
@@ -102,6 +109,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                       placeholder={t['Select a country']}
                       isClearable
                       value={countryOptions[0]}
+                      isDisabled={!!initialVal?.oListCuentas.length > 0}
                       // value={country}
                       onChange={(selectedOption) => {
                         setCountry(selectedOption)
@@ -123,12 +131,15 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                         setShowComponent(selectedOption?.jConfCredencial)
                         setFieldValue('bank', selectedOption)
                       }}
-                      isDisabled={!country}
+                      isDisabled={initialVal?.oListCuentas.length > 0 ? true : !country}
                     />
                   </div>
 
                   <div className='input-box'>
-                    <Field type='password' name='password' placeholder=' ' />
+                    <span className='iconPassword' onClick={togglePasswordVisibility}>
+                      <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
+                    </span>
+                    <Field type={showPassword ? 'text' : 'password'} name='password' placeholder='' />
                     <label htmlFor='password'>{initialVal ? t['Update old password'] : t.Password}</label>
                     <ErrorMessage name='password' component='span' className='errorMessage' />
                   </div>

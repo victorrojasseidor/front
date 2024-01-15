@@ -183,6 +183,44 @@
   }
 }
 
+
+.bank-box, .country-box{
+
+  label{
+  
+    color:get-color(grey2_s4);
+    font-size: 0.8rem;
+    background-color: get-color(white_s1);
+    padding-left: 1.1rem;
+
+  }
+
+  .css-1dimb5e-singleValue{
+
+    color:get-color(t1-blue);
+    padding-left: 0.5rem;
+  }
+
+  .css-13cymwt-control{
+ 
+    border-radius: brd(1);
+    height: 2.8em
+   
+  }
+ 
+
+  .css-qbdosj-Input{
+  
+    &::placeholder{
+      color:get-color(grey2_s4)
+     }
+  }
+  
+  
+}
+
+
+
 .box-filter {
   display: flex;
   flex-direction: row;
