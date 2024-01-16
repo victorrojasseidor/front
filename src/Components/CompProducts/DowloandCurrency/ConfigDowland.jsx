@@ -418,7 +418,8 @@ export default function ConfigDowland () {
                     <p>{t['Digital employees']}</p>
                     <p>:</p>
                     <p className='name-blue'>
-                      {dataCardProduct?.sName}
+
+                      <h5>{dataCardProduct?.sName}</h5>
                     </p>
 
                   </li>
@@ -479,7 +480,7 @@ export default function ConfigDowland () {
                   {bankCredential?.nombre}
                 </span>
 
-                                </div>
+              </div>
             }
 
               {showAccounts
@@ -497,7 +498,7 @@ export default function ConfigDowland () {
                     </button>
 
                   </div>
-                  </>
+                </>
 
                 : <>
 
@@ -562,13 +563,13 @@ export default function ConfigDowland () {
                                 </tr>
                               ))}
                             </tbody>
-                          </table>
+                            </table>
                           : <div>
                             <p> {t['Register your bank Credentials']}
 
                             </p>
 
-                          </div>}
+                            </div>}
 
                       </div>
                       {isLoadingComponent && <LoadingComponent />}
@@ -638,10 +639,10 @@ export default function ConfigDowland () {
                         </div>
 
                         )}
-                                                            </div>
+                  </div>
                 }
 
-                  </>}
+                </>}
 
             </div>}
 

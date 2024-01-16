@@ -312,7 +312,8 @@ export default function ConfigCurrency () {
                     <p>{t['Digital employees']}</p>
                     <p>:</p>
                     <p className='name-blue'>
-                      {dataCardProduct?.sName}
+                      <h5> {dataCardProduct?.sName}</h5>
+
                     </p>
 
                   </li>
@@ -607,7 +608,7 @@ export default function ConfigCurrency () {
                      </div>
 
                      )}
-                                                            </div>
+               </div>
 }
 
             </div>}

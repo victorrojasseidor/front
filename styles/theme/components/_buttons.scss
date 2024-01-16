@@ -4,19 +4,20 @@
   cursor: pointer;
 
   &_primary {
-    margin-top: 1rem;
+    // margin-top: 1rem;
     border-radius: brd(3);
     border-style: none;
     width: auto;
     background-color: get-color(blue_p1);
     color: get-color(white_s1);
     padding: 0.8rem 1.25rem;
+    min-width: 7rem;
     max-width: 500px;
     display: flex;
     font-weight: 600;
     align-items: center;
     gap: 0.5rem;
-    justify-content: center;
+        justify-content: center;
     cursor: pointer;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
     box-shadow: 0 2px 8px get-color(pink_s5);
@@ -45,7 +46,7 @@
   }
 
   &_secundary {
-    margin-top: 1rem;
+    // margin-top: 1rem;
     border-style: none;
     border-radius: brd(3);
     background-color: get-color(white_s1);
@@ -315,7 +316,6 @@
 .small {
   margin: 0.5rem;
   padding: 0.625rem 2rem;
-  max-width: 300px;
   max-width: 200px;
 }
 

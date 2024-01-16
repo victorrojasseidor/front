@@ -183,7 +183,7 @@
     "Bank": "Banco",
     "Accounts": "Cuentas",
     "Actions": "Acciones",
-    "Show Accounts": "Mostrar cuentas",
+    "Show Accounts": "Ver cuentas",
     "Add Accounts": "Agregar cuentas",
     "Register your bank Credentials": "Registrar tus credenciales bancarias",
     "Do you want to delete this credential bank ?": "¿Deseas eliminar esta credencial bancaria?",
@@ -448,7 +448,8 @@
   },
   "Modal": {
     "Your session is about to expire!": "¡Su sesión está a punto de caducar!",
-    "Please confirm to refresh your token and continue": "Confirma para actualizar tu token y continuar"
+    "Please confirm to refresh your token and continue": "Confirma para actualizar tu token y continuar",
+    "Confirm": "Confirmar"
   },
   "validation": {
     "Corporate email is required": "Se requiere correo electrónico corporativo",

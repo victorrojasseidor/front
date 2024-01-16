@@ -10,7 +10,7 @@ function Modal ({ close, children }) {
       <div className='modal'>
         <div className='content'>
           <div className='close'>
-            <button className='btn_circle' onClick={handleCloseModal}> X </button>
+            <button className='' onClick={handleCloseModal}> X </button>
           </div>
 
           <div className='message'>

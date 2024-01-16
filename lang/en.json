@@ -462,7 +462,8 @@
   },
   "Modal": {
     "Your session is about to expire!": "Your session is about to expire!",
-    "Please confirm to refresh your token and continue": "Please confirm to refresh your token and continue"
+    "Please confirm to refresh your token and continue": "Please confirm to refresh your token and continue",
+    "Confirm": "Confirm"
   },
   "validation": {
     "Corporate email is required": "Corporate email is required",

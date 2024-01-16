@@ -32,10 +32,14 @@ function RefreshToken () {
           <div>
             <ImageSvg name='Refresh' />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <div className='actions'>
             <h2>{t['Your session is about to expire!']}</h2>
             <div>{t['Please confirm to refresh your token and continue']}</div>
-            <button className='btn_primary' onClick={handleConfirmRefresh}>Confirm</button>
+
+            <div className='box-buttons'>
+              <button className='btn_primary' onClick={handleConfirmRefresh}>{t.Confirm}</button>
+            </div>
+
           </div>
         </Modal>
       )}

@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color:#00000085;
+  background-color: #00000085;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,13 +19,12 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    @include container;
 
     @include media(mobile) {
       width: 80vw;
       min-height: 40vh;
     }
-
-    
 
     .message {
       display: flex;
@@ -35,31 +34,29 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      padding-bottom: 1rem;
-      
-      h2,h4,h3 {
-         
+      color:get-color(grey2_s4);
+    
+
+      h2,
+      h4,
+      h3 {
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
         // padding: 0rem 0rem 1rem 0rem;
-  
       }
 
-      p{
+      p {
         color: get-color(grey2_s4);
         padding-bottom: 1rem;
       }
 
-      span{
-        color:get-color(lilac_p3);
+      span {
+        color: get-color(lilac_p3);
         font-weight: 500;
         font-size: medium;
-
       }
-    
-  
 
       svg {
         fill: get-color(lilac_p3);
@@ -67,31 +64,36 @@
         width: 3rem;
       }
 
-
+      
     }
 
     .actions {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       align-content: center;
+
+    }
+
+    .box-buttons{
+ padding-top: 1rem;
+ 
     }
   }
 }
 
-
-
-.closeform {
+.closeform,
+.close {
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  z-index: 9999;
-    top: 2%;
-    right:  2%;
-
+  z-index: 99;
+  top: 4%;
+  right: 2%;
+  
   button {
-      
-    background-color: rgba(get-color(t3-red),0.05);
+    background-color: rgba(get-color(t3-red), 0.05);
     border-style: none;
     border-radius: brd(f);
     color: get-color(t3-red);
@@ -107,52 +109,42 @@
   }
 }
 
-
-
-.close {
-  display: flex;
-  justify-content: flex-end;
-
-}
-
-
-
 .modalForm {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color:#00000085;
+  background-color: #00000085;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
 
- .contentForm{
-  // height: 98vh;
-   overflow: auto; 
-   background-color: get-color(white_s1);
-    width: 90%;  
+  .contentForm {
+    // height: 98vh;
+    overflow: auto;
+    background-color: get-color(white_s1);
+    width: 90%;
     box-shadow: bsh(2);
     display: flex;
     flex-direction: column;
-   @include scrollTeme;
-  @include container;
-  position: relative;
+    @include scrollTeme;
+    @include container;
+    position: relative;
 
     @include media(tablet) {
       width: 80vw;
       max-height: 98vh;
       overflow: auto;
     }
-    
+
     // /* Personalización de las barras de desplazamiento */
     // &::-webkit-scrollbar {
     //   width: 0.5rem;
     //   max-height: 5rem;
     // }
-  
+
     // &::-webkit-scrollbar-thumb {
     //   background-color:get-color(pink_s5);
     //   border-radius: 5px;
@@ -160,13 +152,13 @@
     //     background-color:get-color(blue_p1); /* Cambio de color al pasar el cursor */
     //   }
     // }
-  
+
     // &::-webkit-scrollbar-track {
     //   background-color: transparent;
     // }
   }
 
-  .css-6hp17o-MuiList-root-MuiMenu-list{
+  .css-6hp17o-MuiList-root-MuiMenu-list {
     z-index: 200;
-    }
+  }
 }
