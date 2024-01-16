@@ -149,8 +149,6 @@ export const validateFormAddAccount = (values, initialVal, showcomponent) => {
 
   const errors = {}
 
-  console.log(initialVal)
-
   if (!values.Account && showcomponent.bAccount) {
     errors.Account = t['Account is required']
   }
@@ -181,9 +179,6 @@ export const validateFormCurrency = (values) => {
   const t = l.validation
 
   const errors = {}
-
-  console.log('values', values)
-  console.log({ errors })
 
   if (!values.country) {
     errors.country = 'no hay pais'

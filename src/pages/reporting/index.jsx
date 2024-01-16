@@ -125,7 +125,7 @@ function index (props) {
     }
   }
 
-  console.log({ todaytype })
+  console.log({ dataInitialSelect })
 
   function formatearFecha (fecha) {
     const fechaParseada = new Date(fecha)

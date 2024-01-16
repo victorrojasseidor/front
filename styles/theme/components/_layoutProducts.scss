@@ -565,9 +565,10 @@
 
 
     &_children {
-      width: 100%;
-      // padding: 0.5rem;
+     
       gap: 1em;
+      
+      flex: 1;
 
       .childrenTilte {
         display: flex;
@@ -723,9 +724,12 @@
         padding: 6rem 2rem;
         background-color: get-color(bg-cles);
         height: auto;
-
+        width: 100%;
+        
+       
         @include media(tablet) {
           padding: 2rem;
+          
         }
       }
     }

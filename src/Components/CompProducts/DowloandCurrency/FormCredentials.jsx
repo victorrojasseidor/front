@@ -53,8 +53,6 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
     state: initialVal && initialVal.estado_c == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
   }
 
-  console.log(initialVal)
-
   useEffect(() => {
     if (initialVal && bankOptions) {
       const bankinintial = bankOptions.find((option) => option.id === initialVal.id_banco)

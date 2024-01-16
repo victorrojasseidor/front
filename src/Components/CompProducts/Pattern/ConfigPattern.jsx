@@ -25,6 +25,7 @@ export default function ConfigPattern () {
   const [completePadrones, setcompletePadrones] = useState(false)
   const [updateEmails, setUpdateEmails] = useState(true)
   const [confirmedConfigured, setConfirmedConfigured] = useState(false)
+  const [get, setGet] = useState(false)
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -78,11 +79,10 @@ export default function ConfigPattern () {
 
     }
 
-    console.log({ body })
+    // console.log({ body })
 
     try {
       const token = session.sToken
-
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarPadrones', body, token)
       console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
@@ -90,6 +90,7 @@ export default function ConfigPattern () {
         setTimeout(() => {
           setModalToken(false)
           setShowForm(false)
+          setGet(!get)
           setRequestError(null)
         }, 1000)
       } else {
@@ -110,7 +111,7 @@ export default function ConfigPattern () {
     if (session) {
       getPadrones()
     }
-  }, [updateEmails, showForm, selectedRowToDelete])
+  }, [updateEmails, get])
 
   useEffect(() => {
     getDataProduct()
@@ -126,6 +127,7 @@ export default function ConfigPattern () {
         const data = responseData.oResults
         const selectedProduct = data.find((p) => p.iId === parseInt(iId))
         setdataCardProduct(selectedProduct)
+        // setGet(!get)
       } else {
         await handleCommonCodes(responseData)
       }
@@ -148,7 +150,7 @@ export default function ConfigPattern () {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetPadrones', body, token)
-      console.log({ responseData })
+      console.log('getpadrones', { responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults
@@ -176,8 +178,6 @@ export default function ConfigPattern () {
     }
   }
 
-  console.log({ selectedRowToDelete })
-
   const handleDeletePadrones = async (id) => {
     setIsLoadingComponent(true)
     const token = session.sToken
@@ -190,13 +190,12 @@ export default function ConfigPattern () {
       }
     }
 
-    console.log(body)
-
     try {
       const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarPadrones', body, token)
       console.error('res', response)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
+        setGet(!get)
         setTimeout(() => {
         }, 1000)
       } else {
@@ -208,8 +207,6 @@ export default function ConfigPattern () {
       setIsLoadingComponent(false)
     }
   }
-
-  console.log({ dataPadrones })
 
   return (
     <div className='pattern-configuration'>
@@ -353,14 +350,14 @@ export default function ConfigPattern () {
                               </tr>
                             ))}
 
-                            </tbody>
+                          </tbody>
                           : <div className=' '>
 
                             <p className='errorMessage'>
                               {t['Add patterns']}
                             </p>
 
-                          </div>
+                            </div>
                       }
 
                     </table>

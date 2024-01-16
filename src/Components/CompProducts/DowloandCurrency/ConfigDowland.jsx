@@ -34,6 +34,7 @@ export default function ConfigDowland () {
   const [showAccounts, setShowAccounts] = useState(false)
   const [bankCredential, setBankCredential] = useState(null)
   const [updateEmails, setUpdateEmails] = useState(false)
+  const [get, setGet] = useState(false)
 
   // Estado para almacenar si el checkbox está marcado o no
   const [isChecked, setIsChecked] = useState(false)
@@ -107,6 +108,7 @@ export default function ConfigDowland () {
         setTimeout(() => {
           // setDataList(data)
           setModalToken(false)
+          setGet(!get)
           setShowForm(false)
           setRequestError(null)
         }, 1000)
@@ -161,6 +163,7 @@ export default function ConfigDowland () {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
+        setGet(!get)
         setShowForm(false)
         setIsEditing(false)
         setTimeout(() => {
@@ -189,7 +192,7 @@ export default function ConfigDowland () {
     if (session) {
       getExtrBanc()
     }
-  }, [initialEdit, showForm, idEmpresa, selectedRowToDelete, showAccounts, updateEmails])
+  }, [get, idEmpresa, updateEmails])
 
   async function getExtrBanc () {
     setIsLoadingComponent(true)
@@ -203,11 +206,11 @@ export default function ConfigDowland () {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      console.log('get', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults
         setData(dataRes)
-
         if (dataRes.oCorreoEB.length > 0) {
           setcompleteEmails(true)
         }
@@ -248,6 +251,7 @@ export default function ConfigDowland () {
       console.error('res', response)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
+        setGet(!get)
         setTimeout(() => {
         }, 1000)
       } else {
@@ -422,12 +426,12 @@ export default function ConfigDowland () {
 
                     <p>{t['Start service:']}</p>
                     <p>:</p>
-                    <p> {formatDate(dataCardProduct?.sDateEnd)}</p>
+                    <p> {formatDate(dataCardProduct?.sDateInit)}</p>
                   </li>
                   <li>
                     <p>{t['End service:']}</p>
                     <p>:</p>
-                    <p> {formatDate(dataCardProduct?.sDateInit)} </p>
+                    <p> {formatDate(dataCardProduct?.sDateEnd)} </p>
                   </li>
                   <li>
                     <p>{t.Country} </p>
@@ -475,7 +479,7 @@ export default function ConfigDowland () {
                   {bankCredential?.nombre}
                 </span>
 
-              </div>
+                                </div>
             }
 
               {showAccounts
@@ -493,7 +497,7 @@ export default function ConfigDowland () {
                     </button>
 
                   </div>
-                </>
+                  </>
 
                 : <>
 
@@ -558,13 +562,13 @@ export default function ConfigDowland () {
                                 </tr>
                               ))}
                             </tbody>
-                            </table>
+                          </table>
                           : <div>
                             <p> {t['Register your bank Credentials']}
 
                             </p>
 
-                            </div>}
+                          </div>}
 
                       </div>
                       {isLoadingComponent && <LoadingComponent />}
@@ -634,10 +638,10 @@ export default function ConfigDowland () {
                         </div>
 
                         )}
-                  </div>
+                                                            </div>
                 }
 
-                </>}
+                  </>}
 
             </div>}
 

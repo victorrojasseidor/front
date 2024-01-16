@@ -137,6 +137,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       body.oResults.sFechaEnd = endDate || product?.sDateEnd
     }
 
+    console.log({ body })
+
     try {
       const token = session?.sToken
 
@@ -295,7 +297,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
               />
             </LocalizationProvider>
 
-            </div>
+          </div>
           : ''}
 
         {valueState !== stateInitial || startDate || endDate
@@ -321,7 +323,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
             </button>
 
-            </div>
+          </div>
           : ''}
 
         {isLoading && <Loading />}

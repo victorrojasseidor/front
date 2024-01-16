@@ -38,8 +38,6 @@ export default function Products () {
     }
   }, [session])
 
-  console.log({ product })
-
   const handleCompanyInputChange = (event, newValue) => {
     // Actualiza la empresa seleccionada
     if (newValue) {
@@ -213,7 +211,7 @@ export default function Products () {
     return diasRestantes
   }
 
-  console.log(session)
+  // console.log(session)
 
   const renderButtons = (data) => {
     const handleLink = (ruta) => {
@@ -507,7 +505,7 @@ export default function Products () {
 
             {/* productos añadidos por el momento */}
 
-            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) ? 'flex' : 'none' }}>
+            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
 
               <span className='card_type'>
                 {t['Finance and accounting']}
@@ -545,7 +543,7 @@ export default function Products () {
               </div>
             </li>
 
-            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) ? 'flex' : 'none' }}>
+            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
 
               <span className='card_type'>
                 {t['Finance and accounting']}
@@ -583,7 +581,7 @@ export default function Products () {
               </div>
             </li>
 
-            <li className='card human' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_03' || !selectedFilterType) ? 'flex' : 'none' }}>
+            <li className='card human' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_03' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
               <span className='card_type'>
                 {t['Human Resources']}
               </span>

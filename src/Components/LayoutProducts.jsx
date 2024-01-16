@@ -246,7 +246,7 @@ const LayoutProducts = ({ children, menu }) => {
         </nav>
       </section>
 
-      <section className='menu_children' style={{ marginLeft: margen }}>
+      <section className='menu_children' style={{ marginLeft: margen, width: isMobile ? '100%' : '85%' }}>
         <div className='childrenTilte'>
           <div className='titleMenu'>
             <div>

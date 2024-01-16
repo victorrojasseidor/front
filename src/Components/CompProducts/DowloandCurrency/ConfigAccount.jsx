@@ -19,6 +19,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingComponent, setIsLoadingComponent] = useState(false)
+  const [get, setGet] = useState(false)
 
   const { session, setModalToken, logout, l } = useAuth()
 
@@ -49,7 +50,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
     if (session) {
       getExtrBancAccount()
     }
-  }, [initialEdit, showForm, selectedRowToDelete])
+  }, [get])
 
   async function getExtrBancAccount () {
     setIsLoadingComponent(true)
@@ -64,6 +65,8 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
       const token = session.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      console.log('get', { responseData })
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults.oListBancoCredendicial
         const filterData = data.filter(account => account.id_banco_credencial == idbancoCredential)
@@ -103,6 +106,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
       const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarCuentaExtBancario', body, token)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
+        setGet(!get)
         setSelectedRowToDelete(null)
       } else {
         await handleCommonCodes(response)
@@ -136,8 +140,8 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
       const token = session.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCuentaExtBancario', body, token)
-
       if (responseData.oAuditResponse?.iCode === 1) {
+        setGet(!get)
         setTimeout(() => {
           setModalToken(false)
           setShowForm(false)
@@ -191,6 +195,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
       console.log('respoedit', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
+        setGet(!get)
         setShowForm(false)
         setIsEditing(false)
         setTimeout(() => {

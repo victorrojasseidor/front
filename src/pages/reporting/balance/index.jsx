@@ -530,7 +530,7 @@ const Balance = () => {
         <div className='contaniner-tables'>
           <div className='boards'>
             <div className='box-search'>
-              <h3>{t['Balance Report']} </h3>
+              <h3>{t.Balance} </h3>
               <button className='btn_black ' onClick={exportToExcel}>
                 <ImageSvg name='Download' /> {t['Export to Excel']}
               </button>
