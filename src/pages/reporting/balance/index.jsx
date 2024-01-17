@@ -60,6 +60,13 @@ const Balance = () => {
     }
   }, [apply])
 
+  // useEffect(() => {
+  //   if (dataInitialSelect) {
+  //     setPage(1) // Establece la página en 1 al aplicar un filtro
+  //     getBalancesReport()
+  //   }
+  // }, [selectedCompany, selectedBank, selectedAccount, apply])
+
   const handleDragStart = (e, columnName) => {
     e.dataTransfer.setData('text/plain', '') // Necesario para permitir el arrastre
     setDraggedColumn(columnName)
@@ -152,6 +159,7 @@ const Balance = () => {
         setBalances(data)
         setModalToken(false)
         setRequestError(null)
+        setPage(1)
         // orderDataByDate('fecha', true)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true)

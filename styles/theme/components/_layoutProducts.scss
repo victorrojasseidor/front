@@ -172,12 +172,9 @@
             color: get-color(grey2_s4);
             font-weight: 500;
           }
-
-         
         }
       }
 
-     
       .submenu {
         padding: 1rem 0rem 1rem 0.5rem;
         gap: 0rem;
@@ -246,18 +243,16 @@
         padding-right: 1rem;
         right: 0;
 
-        svg{
+        svg {
           width: 15px !important;
           height: 10px;
-        
         }
       }
     }
 
     &_profile {
       border-top: 1px solid get-color(grey1_s3);
-      overflow-y:initial;
-
+      overflow-y: initial;
     }
 
     .box-name {
@@ -323,10 +318,9 @@
         }
       }
     }
-    
+
     .active {
       color: get-color(blue_p1);
-    
 
       border-radius: brd(1);
 
@@ -361,8 +355,6 @@
       }
     }
 
-   
-
     &_logo {
       padding-top: 2rem;
       display: flex;
@@ -381,7 +373,7 @@
         height: fit-content;
         justify-content: space-between;
         gap: 1rem;
-        
+
         height: 100vh;
 
         .menu_Account {
@@ -391,7 +383,7 @@
           padding-bottom: 1rem;
         }
 
-        .activeIcon{
+        .activeIcon {
           svg {
             path {
               fill: get-color(blue_p1) !important;
@@ -399,113 +391,104 @@
           }
         }
 
-
         .menu_nav {
           padding: 0.5rem 0rem;
           align-items: center;
-          gap:1rem;
+          gap: 1rem;
           overflow-y: initial;
           position: relative;
 
-          
-
           li {
             justify-content: center;
-                   
-        
-            &:hover , &:active{
-              .submenu {
-                display: block;
-                position: absolute;
-              z-index: 40;
-              width: max-content; 
-              // left: 100%;
-              left: 100%; /* Adjust the position as needed */
-              top: 0px; /* Adjust the position as needed */
-              background-color: get-color(white_s1);
-              border-radius: brd(2);
-              box-shadow: bsh(2);
-              justify-content: flex-start;
-              margin-left: 0.2rem;
 
-               
+            &:hover,
+            &:active {
+              // .submenu {
+              //   display: block;
+              //   position: absolute;
+              //   z-index: 40;
+              //   width: max-content;
+              //   left: 100%;
+              //   top: 0px;
+              //   background-color: get-color(white_s1);
+              //   border-radius: brd(2);
+              //   box-shadow: bsh(2);
+              //   justify-content: flex-start;
+              //   margin-left: 0.2rem;
 
-                h5{
-                  display: block;
-                } 
+              //   h5 {
+              //     display: block;
+              //   }
 
-                .list-content{
-                  display: block;
-                  gap:1rem;
-                  max-width: auto;
-                  
-               
-                  
+              //   .list-content {
+              //     display: block;
+              //     gap: 1rem;
+              //     max-width: auto;
 
-                  li{
-                    display: flex;
-                    // padding: 0.5rem;
-                    gap:0.5rem;
-                  
-                  justify-content: flex-start;
-                    align-items: center;
+              //     li {
+              //       display: flex;
+              //       // padding: 0.5rem;
+              //       gap: 0.5rem;
 
-                    
-                  }
-
-
-                  
-
-
-                  
-
-                 
-                 
-                }
-              }
+              //       justify-content: flex-start;
+              //       align-items: center;
+              //     }
+              //   }
+              // }
             }
-        
+
             h5 {
               display: none;
             }
           }
         }
 
-        .submenu{
-          display: none;
-               
-          .active{
+        .submenu {
+          max-width: 1.1rem;
+          padding: 1rem 0rem 0rem 0rem;
 
-              &::before{
-        
-             right: 6px;
-
+          .list-content {
+            .activeIcon {
+              display: flex;
+              justify-content: center;
+              align-items: center;
             }
+
+            li {
+              max-width: 2rem;
+
+              gap: 0.25rem;
+
+              display: flex;
+              justify-content: flex-start;
             }
-  
-          
 
+            .active {
+              .pellet {
+                background-color: get-color(blue_p1);
+              }
 
-          .list-content{
-            display: none;
+              &::before {
+                display: none;
+              }
+            }
 
+            h5 {
+              max-width: 2em;
+              display: block;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
           }
         }
 
-
-      
-       
-
-        .active{
-              &::before{
-                
-              //  background-color: get-color(lilac_p3);
-               right: -36px;
-                
-              }
-    
-            }
-        
+        .active {
+          &::before {
+            //  background-color: get-color(lilac_p3);
+            right: -36px;
+          }
+        }
 
         .img-down {
           display: none;
@@ -527,8 +510,6 @@
           left: 30px;
           border: 1px solid get-color(lilac_p3);
         }
-
-       
 
         .imgPerfil_logo {
           img {
@@ -557,17 +538,9 @@
       }
     }
 
-
-
-
-
-
-
-
     &_children {
-     
       gap: 1em;
-      
+
       flex: 1;
 
       .childrenTilte {
@@ -588,7 +561,6 @@
 
         @include media(tablet) {
           display: none;
-     
         }
 
         p {
@@ -725,11 +697,9 @@
         background-color: get-color(bg-cles);
         height: auto;
         width: 100%;
-        
-       
+
         @include media(tablet) {
           padding: 2rem;
-          
         }
       }
     }

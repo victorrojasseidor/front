@@ -123,6 +123,7 @@ const Movement = () => {
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setMovement(data.oConfCuentaMov)
+        setPage(1)
         setModalToken(false)
         setRequestError(null)
       } else if (responseData.oAuditResponse?.iCode === 27) {
