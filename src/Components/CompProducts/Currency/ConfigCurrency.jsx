@@ -26,6 +26,7 @@ export default function ConfigCurrency () {
   const [completeConfigMontly, setCompleteConfigMontly] = useState(false)
   const [typeOfChange, setTypeofChange] = useState(0)
   const [updateEmails, setUpdateEmails] = useState(false)
+  const [confirmConfigured, setConfirmedConfiguration] = useState(false)
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -589,10 +590,10 @@ export default function ConfigCurrency () {
                        </button>
                        <button
                          className={`btn_secundary small  ${completeConfigDayly ? ' ' : 'disabled'}`}
-                         onClick={() => handleTabClick(2)}
+                         onClick={() => setConfirmedConfiguration(true)}
                          disabled={!completeConfigDayly}
                        >
-                         {t.Next}
+                         {t.Finish}
                          <ImageSvg name='Next' />
                        </button>
                      </div>
@@ -608,7 +609,7 @@ export default function ConfigCurrency () {
                      </div>
 
                      )}
-               </div>
+                                                            </div>
 }
 
             </div>}
@@ -650,6 +651,38 @@ export default function ConfigCurrency () {
           </Modal>
         )}
       </div>
+
+      {confirmConfigured && (
+        <Modal close={() => {
+          setConfirmedConfiguration(false)
+        }}
+        >
+          <div>
+            <ImageSvg name='Check' />
+          </div>
+          <div>
+
+            <h2>{t.Configured}  </h2>
+
+            <p>
+              {dataCardProduct?.sName}
+            </p>
+
+            <div className='box-buttons'>
+
+              <button
+                type='button'
+                className='btn_primary small'
+                onClick={() => { router.push('/product'); setConfirmedConfiguration(false) }}
+              >
+                {t['Return a home']}
+              </button>
+
+            </div>
+
+          </div>
+        </Modal>
+      )}
 
     </div>
   )

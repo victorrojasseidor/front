@@ -89,7 +89,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
 
         <ImageSvg name='Products' />
         <Link href='/product'>
-          Home
+          {t.Home}
           <ImageSvg name='Navegación' />
           <p>
 
@@ -171,7 +171,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                 {activeTab === 3 && <div>
                   {/* {component?.documentation} */}
 
-                </div>}
+                                    </div>}
               </div>
             </div>
 

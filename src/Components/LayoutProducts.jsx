@@ -13,7 +13,7 @@ import { useAuth } from '@/Context/DataContext'
 
 import logoOscuro from '../../public/img/logoOscuro.png'
 import Lang from './Atoms/Lang'
-import Cloud from './Atoms/Cloud'
+// import Cloud from './Atoms/Cloud'
 
 const LayoutProducts = ({ children, menu }) => {
   const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
@@ -27,6 +27,7 @@ const LayoutProducts = ({ children, menu }) => {
   })
 
   const [activeMenu, setActiveMenu] = useState('')
+  const [isHomeActive, setIsHomeActive] = useState(false)
   const [activeSubmenu, setActiveSubmenu] = useState('')
   const router = useRouter()
   const { session, modalToken, logout, l, setSession } = useAuth()
@@ -68,6 +69,10 @@ const LayoutProducts = ({ children, menu }) => {
   }, [isMobile, isMenuLateralOpen])
 
   useEffect(() => {
+    setIsHomeActive(asPath === '/product' || asPath.startsWith('/product/product'))
+  }, [asPath])
+
+  useEffect(() => {
     const storedSessionLayput = localStorage.getItem('session')
     setSession(JSON.parse(storedSessionLayput))
 
@@ -88,14 +93,20 @@ const LayoutProducts = ({ children, menu }) => {
         if (menuItems[menuItem].submenus.length > 0) {
           menuItems[menuItem].submenus.forEach((submenuItem) => {
             const submenuPath = submenuItem.path
+            console.log(submenuItem.path == '/product')
             if (asPath === submenuPath) {
               setActiveSubmenu(submenuPath)
+            }
+            if (menuPath === '/product' || asPath.startsWith('/product/product')) {
+              setActiveSubmenu('/product')
             }
           })
         }
       }
     })
   }, [asPath])
+
+  console.log(asPath.startsWith('/product/product'))
 
   const handleLogout = () => {
     logout()
@@ -112,8 +123,8 @@ const LayoutProducts = ({ children, menu }) => {
       path: '/product',
 
       submenus: [
-        { label: t.All, path: '/product' },
-        { label: t['Finance and accounting'], path: '/product/#' }
+        { label: t.Home, path: '/product' }
+        // { label: t['Finance and accounting'], path: '/product/#' }
         // { label: t.Technology, path: '/product/Tecnology' },
         // { label: t['Human Resources'], path: '/product/Human' }
       ]
@@ -208,7 +219,7 @@ const LayoutProducts = ({ children, menu }) => {
                     </div>
 
                   )}
-                </li>
+                  </li>
 
                 : <li key={index} className={`${asPath === menuItem.path || menu === menuItem ? 'active' : ''}`}>
 
@@ -216,7 +227,7 @@ const LayoutProducts = ({ children, menu }) => {
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
                   </Link>
-                </li>}
+                  </li>}
 
             </ul>))}
 

@@ -181,21 +181,21 @@ export const validateFormCurrency = (values) => {
   const errors = {}
 
   if (!values.country) {
-    errors.country = 'no hay pais'
+    errors.country = t['There is no country']
   }
   if (!values.fuente) {
-    errors.fuente = 'seleccione fuente'
+    errors.fuente = t['Select source']
   }
   if (!values.coinOrigin) {
-    errors.coinOrigin = 'seleccione moneda de ring'
+    errors.coinOrigin = t['Select origin currency']
   }
   if (!values.coinDestiny) {
-    errors.coinDestiny = 'seleccione moneda de destino'
+    errors.coinDestiny = t['Select destination currency']
   }
 
   if (values.coinDestiny === values.coinOrigin) {
-    errors.coinDestiny = 'las monedas no pueden ser iguales'
-    errors.coinOrigin = 'seleccione una moneda diferente'
+    errors.coinDestiny = t['Currency cannot be equeal']
+    errors.coinOrigin = t['Select a different currency']
   }
 
   return errors

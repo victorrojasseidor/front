@@ -50,7 +50,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
     if (session) {
       getExtrBancAccount()
     }
-  }, [get])
+  }, [get, l])
 
   async function getExtrBancAccount () {
     setIsLoadingComponent(true)
@@ -65,7 +65,6 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
       const token = session.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
-      console.log('get', { responseData })
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults.oListBancoCredendicial
@@ -168,8 +167,6 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
   async function handleEditListAccount (values) {
     setIsLoadingComponent(true)
-
-    console.log(values)
 
     const body = {
       oResults: {
@@ -345,13 +342,13 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
               </div>
 
-            </div>}
+                                              </div>}
 
             {requestError && <div className='errorMessage'> {
             requestError
 
             }
-            </div>}
+                             </div>}
 
             {isLoadingComponent && <LoadingComponent />}
 

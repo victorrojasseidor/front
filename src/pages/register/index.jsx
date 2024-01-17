@@ -172,10 +172,14 @@ export default function Register () {
           <Modal close={() => setShowM(false)}>
             <ImageSvg name='Check' />
 
-            {t['Please enter your email']}
-            <h2> {data.oResults.sEmail}</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
 
-            {t['to confirm registration']}
+              {t['Please enter your email']}
+              <h2> {data.oResults.sEmail}</h2>
+
+              {t['to confirm registration']}
+
+            </div>
 
           </Modal>
         )}

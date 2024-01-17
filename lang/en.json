@@ -37,7 +37,7 @@
     "Password validated: contains more than 8 characters between uppercase, lowercase and numbers": "Password validated: contains more than 8 characters between uppercase, lowercase and numbers",
     "Log in": "Log in",
     "We´ve sent a verefication link to": "We´ve sent a verefication link to",
-    "Please enter your email to uptdate password": "Please enter your email to confirm registration",
+    "Please enter your email to uptdate password": "Please enter your email to confirm registration, check your inbox or spam",
     "OK": "OK"
   },
   "update_password": {
@@ -104,13 +104,15 @@
     "Technology": "Technology",
     "Human Resources": "Human Resources",
     "Balance": "Balance",
-    "Movement": "Movement"
+    "Movement": "Movement",
+    "Home":"Home"
   },
   "Products": {
     "Digital employees": "Digital employees",
     "Welcome": "Welcome",
     "To company:": "Select the company",
     "All": "All",
+    "Home":"Home",
     "Configured": "Configured",
     "Pending": "Pending",
     "Not hired": "Not hired",
@@ -191,6 +193,7 @@
     "Download automated Bank Statements": "Download automated Bank Statements",
     "List Bank Credential": "List Bank Credential",
     "Previus": "Previus",
+    "Finish":"Finish",
     "Name": "Name",
     "Principal user": "Principal user",
     "Bank": "Bank",
@@ -213,7 +216,7 @@
     "Repository path": "Repository path",
     "Run automation": "Run automation",
     "Configured": "Configured",
-    "Return a Digital Employees": "Return a Digital Employees",
+    "Return a home": "Return a home",
     "Credentials": "Credentials",
     "Register accounts for bank credentials": "Register accounts for bank credentials",
     "Account Description": "Account Description",
@@ -292,6 +295,7 @@
     "Disabled": "Disabled",
     "Close": "Close",
     "Update": "Update",
+    "Finish":"Finish",
     "Settings for Daily exchange rate": "Settings for Daily exchange rate",
     "Add": "Add",
     "Add the setting for Daily exchange rate": "Add the setting for Daily exchange rate",
@@ -316,6 +320,9 @@
     "Register the daily exchange rates": "Register the daily exchange rates",
     "click on Add": "click on Add",
     "optional": "optional",
+    "Return a home":"Return a Home",
+    "Configured":"Configured",
+    "The following emails are invalid":"The following emails are invalid",
     "Day explication": "Additional days adjusts the SBS exchange rate date as needed. For example, if the original date is 11/12/2023 and 1 day is added, the result will be 11/13/2023, making it easier to obtain updated information."
     
   },
@@ -343,8 +350,11 @@
     "Active": "Active",
     "Disabled": "Disabled",
     "Close": "Close",
+    "Finish":"Finish",
     "Update": "Update",
     "Pattern": "Pattern",
+    "Return a home":"Return a Home",
+    "Configured":"Configured",
     "Add Registers": "Add Registers",
     "Actions": "Actions",
     "Select the type of pattern": "Select the type of pattern",
@@ -354,7 +364,6 @@
     "These patterns already exist, select another":"These patterns already exist, select another",
     "Successful configuration":"Successful configuration"
     
-
   },
   "Support": {
     "Support": "Support",
@@ -486,6 +495,12 @@
     "Coin is required": "Coin is required",
     "Type of file is required": "Type of file is required",
     "Last Name is required": "Last Name is required",
-    "Phone number is required": "Phone number is required"
+    "Phone number is required": "Phone number is required",
+    "There is no country":"There is no country",
+    "Select source":"Select source",
+    "Select origin currency":"Select origin currency",
+    "Select destination currency":"Select destination currency",
+    "Currency cannot be equeal":"Currency cannot be equeal",
+    "Select a different currency":"Select a different currency"
   }
 }

@@ -350,14 +350,14 @@ export default function ConfigPattern () {
                               </tr>
                             ))}
 
-                          </tbody>
+                            </tbody>
                           : <div className=' '>
 
                             <p className='errorMessage'>
                               {t['Add patterns']}
                             </p>
 
-                            </div>
+                          </div>
                       }
 
                     </table>
@@ -389,7 +389,7 @@ export default function ConfigPattern () {
                         onClick={() => setConfirmedConfigured(true)}
                         disabled={!completePadrones}
                       >
-                        {t.Next}
+                        {t.Finish}
                         <ImageSvg name='Next' />
                       </button>
                     </div>
@@ -457,6 +457,18 @@ export default function ConfigPattern () {
 
               <div>
                 <h3>{t['Successful configuration']}</h3>
+
+                <div className='box-buttons'>
+
+                  <button
+                    type='button'
+                    className='btn_primary small'
+                    onClick={() => { router.push('/product'); setConfirmedConfigured(false) }}
+                  >
+                    {t['Return a home']}
+                  </button>
+
+                </div>
 
               </div>
             </Modal>

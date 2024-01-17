@@ -11,8 +11,6 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
   const [fileTypeOptions, setFileTypeOptions] = useState(null)
   const [selectedCoin, setSelectedCoin] = useState(initialVal?.moneda)
 
-  console.log(selectedCoin)
-
   const router = useRouter()
   // const id = router.query.iId
   const iIdProdEnv = router.query.iIdProdEnv
@@ -50,8 +48,6 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
       console.error('error', error)
     }
   }
-
-  console.log(initialVal)
 
   const initialValues = {
     Account: initialVal?.cuenta || '',
@@ -159,7 +155,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
 
                   {showcomponent?.bCoin && (
                     <div className='bank-box'>
-                      <label htmlFor='coin'>{showcomponent.sCoin}</label>
+                      <label htmlFor='coin'>{t.Currency} </label>
                       <Select
                         options={coinOptions}
                         name='Coin'
@@ -197,7 +193,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                 <div className='group'>
                   {showcomponent?.bType && (
                     <div className='bank-box'>
-                      <label htmlFor='bank'>{showcomponent.sType}</label>
+                      <label htmlFor='bank'>{t.File}</label>
                       <Select
                         options={fileTypeOptions}
                         name='TypeFile'

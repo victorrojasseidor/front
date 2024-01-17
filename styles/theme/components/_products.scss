@@ -737,22 +737,23 @@
 
   .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
     color: get-color(grey2_s4);
-    background-color: rgba(get-color(white_s1), 0.1);
+    // background-color: rgba(get-color(white_s1), 0.1);
     border-radius: brd(2);
- 
     margin-left: 0.20rem;
-    font-size: 1rem;
-    transform: translate(9px, -19px) scale(0.76);
+    
+    font-size: 1.2rem;
+    background-color: get-colro(white_s1);
+    transform: translate(10px, -22px) scale(0.76);
   }
 
   .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-17l143u-MuiAutocomplete-root .MuiOutlinedInput-root {
     // background-image: radial-gradient(circle at -20.44% 43.84%, #bbeebb 0, #b3efc1 12.5%, #abf1c7 25%, #a4f1ce 37.5%, #9df2d5 50%, #96f2dc 62.5%, #91f3e3 75%, #8cf3ea 87.5%, #88f3f1 100%);
     color: get-color(t1-blue);
-    // font-weight: 600;
+    font-weight: 500;
     border-radius: brd(2);
     padding: 0.35rem 0.5rem;
     background-color:get-color(white_s1);
-    border: 1px solid rgba(get-color(t2-ligthBlue), 0.1);
+    border: 1px solid rgba(get-color(blue_p1), 0.3);
     max-width: 22.5rem;
     @include media(tablet) {
       max-width: 25rem;
@@ -767,13 +768,28 @@
      
       width: 2rem;
       height: 2rem;
+      position: relative;
       
 
       path {
        
-        fill: get-color(t2-ligthBlue);
+        fill: get-color(white_s1);
         border-radius: brd(3);
+        stroke:rgba(get-color(blue_p1), 0.3)
       
+      }
+
+      &::before {
+        content: 'roroo';
+        font-weight: 900; /* Ajusta el peso de la fuente según sea necesario */
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        /* Otros estilos según tus preferencias */
+        color: #007bff; /* Color del ícono */
+        font-size: 24px; /* Tamaño del ícono */
+        /* Puedes agregar más estilos según tus necesidades */
       }
     }
   }

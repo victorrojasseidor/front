@@ -348,7 +348,9 @@
           top: 0;
           right: 0px;
           width: 3px; /* Cambia este valor según el ancho del borde que desees */
-          height: 100%;
+          height: 60%;
+          display: flex;
+          align-items: center;
           border-radius: brd(2);
           background-color: get-color(blue_p1); /* Cambia este color al que desees */
         }
@@ -448,6 +450,7 @@
           padding: 1rem 0rem 0rem 0rem;
 
           .list-content {
+            
             .activeIcon {
               display: flex;
               justify-content: center;
@@ -455,15 +458,20 @@
             }
 
             li {
-              max-width: 2rem;
-
-              gap: 0.25rem;
-
-              display: flex;
+              flex-direction: column;
+              // background-color: aqua;
               justify-content: flex-start;
+              max-width: 2rem;
+              flex-direction: column;
+              align-items: flex-start;
+              // gap: 0.25rem;
+              display: flex;
+              // justify-content: flex-start;
             }
 
             .active {
+              flex-direction: column;
+              align-items: flex-start;
               .pellet {
                 background-color: get-color(blue_p1);
               }
@@ -474,7 +482,9 @@
             }
 
             h5 {
-              max-width: 2em;
+              max-width: 3em;
+              background-color: get-color(white_s1);
+              // margin-left: -0.5rem;
               display: block;
               white-space: nowrap;
               overflow: hidden;

@@ -280,7 +280,7 @@ export default function Products () {
         <NavigationPages title={t['Digital employees']}>
 
           <Link href='/product'>
-            Home
+            {t.Home}
           </Link>
 
         </NavigationPages>

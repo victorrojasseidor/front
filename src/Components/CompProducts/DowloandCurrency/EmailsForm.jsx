@@ -69,7 +69,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
     setEmailsTo([...emailsTo, ...validEmails])
     setValueEmailTo('')
 
-    setErrorTo(invalidEmails.length > 0 ? `The following emails are invalid: ${invalidEmails.join(', ')}` : '')
+    setErrorTo(invalidEmails.length > 0 ? `${t['The following emails are invalid']}: ${invalidEmails.join(', ')}` : '')
     setTimeout(function () {
       setErrorTo('')
     }, 10000)
@@ -109,7 +109,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
     setEmailsCco([...emailsCco, ...validEmails])
     setValueEmailCco('')
 
-    setErrorCco(invalidEmails.length > 0 ? `The following emails are invalid: ${invalidEmails.join(', ')}` : '')
+    setErrorCco(invalidEmails.length > 0 ? `${t['The following emails are invalid']}: ${invalidEmails.join(', ')}` : '')
     setTimeout(function () {
       setErrorCco('')
     }, 10000)
@@ -258,9 +258,9 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
                   </div>
 
                   <div className='box-add'>
-                    <button type='button' className='btn_icons black' onClick={() => { handleAddEmailsTo() }}>
-                      {/* {t.Add} */}
-                      +
+                    <button type='button' className='btn_primary black' onClick={() => { handleAddEmailsTo() }}>
+                      + {t.Add}
+
                     </button>
                   </div>
 
@@ -310,9 +310,9 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
                   </div>
 
                   <div className='box-add'>
-                    <button type='button' className='btn_icons black' onClick={handleAddEmailsCco}>
-                      {/* {t.Add} */}
-                      +
+                    <button type='button' className='btn_primary black ' onClick={handleAddEmailsCco}>
+                      + {t.Add}
+
                     </button>
                   </div>
 

@@ -480,7 +480,7 @@ export default function ConfigDowland () {
                   {bankCredential?.nombre}
                 </span>
 
-              </div>
+                                </div>
             }
 
               {showAccounts
@@ -498,7 +498,7 @@ export default function ConfigDowland () {
                     </button>
 
                   </div>
-                </>
+                  </>
 
                 : <>
 
@@ -563,13 +563,13 @@ export default function ConfigDowland () {
                                 </tr>
                               ))}
                             </tbody>
-                            </table>
+                          </table>
                           : <div>
                             <p> {t['Register your bank Credentials']}
 
                             </p>
 
-                            </div>}
+                          </div>}
 
                       </div>
                       {isLoadingComponent && <LoadingComponent />}
@@ -639,10 +639,10 @@ export default function ConfigDowland () {
                         </div>
 
                         )}
-                  </div>
+                                                            </div>
                 }
 
-                </>}
+                  </>}
 
             </div>}
 
@@ -682,7 +682,7 @@ export default function ConfigDowland () {
                   className='btn_primary small'
                   onClick={() => setModalConfirmationShedule(true)}
                 >
-                  {t.Next}
+                  {t.Finish}
                   <ImageSvg name='Next' />
                 </button>
               </div>
@@ -713,7 +713,7 @@ export default function ConfigDowland () {
                 className='btn_primary small'
                 onClick={() => { router.push('/product'); setModalConfirmationShedule(false) }}
               >
-                {t['Return a Digital Employees']}
+                {t['Return a home']}
               </button>
 
             </div>

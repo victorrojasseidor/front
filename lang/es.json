@@ -12,8 +12,8 @@
     "I accept": " Acepto los",
     "ARI SEIDOR Terms and Conditions and Privacy Policy": "Términos, Condiciones y la Política de Privacidad de ARI SEIDOR",
     "We´ve sent a verefication link to": "Hemos enviado un enlace de verificación a ",
-    "Please enter your email": "Por favor ingrese a su correo electrónico ",
-    "to confirm registration": "para confirmar su registro"
+    "Please enter your email": "Por favor ingrese a su correo electrónico",
+    "to confirm registration": "para confirmar su registro, verifique su bandeja de entrada o spam"
   },
   "login": {
     "Log in": "Iniciar sesión",
@@ -92,13 +92,15 @@
     "Technology": "Tecnología",
     "Human Resources": "Recursos humanos",
     "Balance": "Saldos",
-    "Movement": "Movimientos"
+    "Movement": "Movimientos",
+    "Home":"Inicio"
   },
   "Products": {
     "Digital employees": "Empleados digitales",
     "Welcome": "Bienvenido",
     "To company:": "Selecciona la empresa",
     "All": "Todos",
+    "Home":"Inicio",
     "Configured": "Configurado",
     "Pending": "Pendiente",
     "Not hired": "No contratado",
@@ -178,6 +180,7 @@
     "Download automated Bank Statements": "Descargar extractos bancarios automatizados",
     "List Bank Credential": "Listar credenciales bancarias",
     "Previus": "Anterior",
+    "Finish":"Finalizar",
     "Name": "Nombre",
     "Principal user": "Usuario principal",
     "Bank": "Banco",
@@ -200,7 +203,7 @@
     "Repository path": "Ruta del repositorio",
     "Run automation": "Ejecutar automatización",
     "Configured": "Configurado",
-    "Return a Digital Employees": "Volver a Empleados Digitales",
+    "Return a home": "Volver a Inicio",
     "Credentials": "Credenciales",
     "Register accounts for bank credentials": "Registrar cuentas para las credenciales bancarias",
     "Account Description": "Descripción de la cuenta",
@@ -264,6 +267,7 @@
     "Save and continue": "Guardar y continuar",
     "Emails were added successfully": "Los correos fueron añadidos con éxito",
     "Added Emails": "Correos agregados",
+    "The following emails are invalid":"Los siguientes correos electrónicos no son válidos",
     "Add emails": "Agregar correos",
     "Next": "Siguiente",
     "Previus": "Anterior",
@@ -274,6 +278,9 @@
     "Update": "Actualizar",
     "Save": "Guardar",
     "Cancel": "Cancelar",
+    "Finish":"Finalizar",
+    "Return a home": "Volver a Inicio",
+    "Configured":"Configurado",
     "Yeah": "Sí",
     "Do you want to delete this record": "Quieres borrar  este registro",
     "No": "No",
@@ -333,6 +340,9 @@
     "Close": "Cerrar",
     "Update": "Actualizar",
     "Pattern": "Padrones",
+    "Finish":"Finalizar",
+    "Return a home": "Volver a Inicio",
+    "Configured":"Configurado",
     "Add Registers": "Agregar registros",
     "Actions": "Acciones",
     "Select the type of pattern": "Seleccionar el tipo de Documento",
@@ -374,7 +384,7 @@
     "Your satisfaction": "Tu satisfacción",
     "is our top": "es nuestra",
     "priority": "prioridad",
-    "Return to DE": "Retornar a DE"
+    "Return to DE": "Retornar a home"
   },
   "Reporting": {
     "Reporting": "Reportes",
@@ -472,7 +482,13 @@
     "Coin is required": "Se requiere la moneda",
     "Type of file is required": "Se requiere el tipo de archivo",
     "Last Name is required": "Se requiere el apellido",
-    "Phone number is required": "Se requiere el número de teléfono"
+    "Phone number is required": "Se requiere el número de teléfono",
+    "There is no country": "No hay país",
+    "Select source": "Seleccionar origen",
+    "Select origin currency": "Seleccionar moneda de origen",
+    "Select destination currency": "Seleccionar moneda de destino",
+    "Currency cannot be equeal": "Las monedas no pueden ser iguales",
+    "Select a different currency": "Seleccionar una moneda diferente"
   },
   "dev": "deven ingles",
   "buttonLenguaje": "Cambiar idioma"
