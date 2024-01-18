@@ -299,7 +299,7 @@
     padding: 15.5px 9px;
     color: get-color(t1-blue);
   }
-  .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+  .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root, .css-fvipm8 {
     padding-right: 0.5rem;
     border-radius: brd(2);
     svg{
@@ -313,12 +313,11 @@
 
   .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
     color: get-color(t1-blue);
-
-    
+   
 
   }
 
-  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select ,.css-qiwgdb {
     color: get-color(t1-blue);
     padding-right: 1rem;
     padding: 20px 10.5px 12px 12px;
@@ -343,11 +342,10 @@
   justify-content: flex-start;
   gap: 1rem;
   flex-direction: row;
-  align-items: self-end;
-
+  // align-items: self-end;
   margin-top: 0.2rem;
 
-  .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+  .css-1u3bzj6-MuiFormControl-root-MuiTextField-root, .css-i44wyl {
     width: 9rem;
   }
 
@@ -355,7 +353,7 @@
     height: 3.3rem;
   }
 
-  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root , .css-1bn53lx{
     border-radius: brd(2);
     margin-top: 0rem;
     height: 3.3rem;
