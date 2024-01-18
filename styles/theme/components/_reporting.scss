@@ -73,33 +73,33 @@
           }
         }
 
-        .box-filter {
-          label {
-            border-radius: brd(2);
-          }
+        // .box-filter {
+        //   label {
+        //     border-radius: brd(2);
+        //   }
 
-          .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
-            height: 1rem;
-            padding: 1rem 2rem 0.75rem 1rem;
-            border-style: none;
-          }
-          .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
-            // background-color: get-color(grey1_s3);
-            margin-top: 0px;
-            border-radius: brd(1);
-            border-style: none;
-            border-color: 1px solid red !important;
-          }
-          .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root:hover .MuiOutlinedInput-notchedOutline {
-            // background-color: get-color(grey1_s3);
-            // border: 1px solid get-color(grey1_s3);
+        //   .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
+        //     height: 1rem;
+        //     padding: 1rem 2rem 0.75rem 1rem;
+        //     border-style: none;
+        //   }
+        //   .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+        //     // background-color: get-color(grey1_s3);
+        //     margin-top: 0px;
+        //     border-radius: brd(1);
+        //     border-style: none;
+            
+        //   }
+        //   .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root:hover .MuiOutlinedInput-notchedOutline {
+        //     // background-color: get-color(grey1_s3);
+        //     // border: 1px solid get-color(grey1_s3);
 
-            &:hover,
-            :focus {
-              background-color: aquamarine;
-            }
-          }
-        }
+        //     &:hover,
+        //     :focus {
+        //       background-color: aquamarine;
+        //     }
+        //   }
+        // }
       }
 
       .grafics {

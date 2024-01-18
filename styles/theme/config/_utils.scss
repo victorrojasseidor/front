@@ -226,11 +226,13 @@
   
 }
 
+
+
+//box filter
 .box-filter {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: last baseline;
   align-items: flex-start;
   gap: 1rem;
 
