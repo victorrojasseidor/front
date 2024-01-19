@@ -9,8 +9,6 @@ import NavigationPages from '@/Components/NavigationPages'
 import Loading from '@/Components/Atoms/Loading'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
-// import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-// import { IconArrow } from '@/helpers/report'
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -32,7 +30,7 @@ export default function Products () {
 
   const router = useRouter()
   useEffect(() => {
-    if (session) {
+    if (session && empresa) {
       getProductscard()
     }
   }, [session, empresa, l, selectedFilterType])

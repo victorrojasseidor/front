@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
-import FormHelperText from '@mui/material/FormHelperText'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import dayjs from 'dayjs'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import { styled } from '@mui/system'
-import { outlinedInputClasses, selectClasses } from '@mui/material'
+
 import LoadingComponent from '../Atoms/LoadingComponent'
 import { useAuth } from '@/Context/DataContext'
 import ImageSvg from '@/helpers/ImageSVG'
@@ -22,7 +17,8 @@ import { Chart as ChartJS, LinearScale, PointElement, LineElement, Title, Toolti
 ChartJS.register(LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler)
 
 export default function LineChart () {
-  const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+  const { session, setModalToken, logout, l } = useAuth()
+
   const currentDay = new Date().getDate()
   const currentYear = new Date().getFullYear()
   const currentMonth = new Date().getMonth() + 1 // Suma 1 porque los meses en JavaScript van de 0 a 11
@@ -35,9 +31,9 @@ export default function LineChart () {
   const [requestError, setRequestError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const { session, setModalToken, logout, l } = useAuth()
-
   const t = l.Reporting
+
+  const months = [t.January, t.February, t.March, t.April, t.May, t.June, t.July, t.August, t.September, t.October, t.November, t.December]
 
   useEffect(() => {
     const initialDates = getMonthDates(selectedYear, selectedMonth)

@@ -468,7 +468,20 @@
     "for the companies": "for the companies",
     "Total Accounts": "Total Accounts",
     "Total Banks": "Total Banks",
-    "Today": "Today"
+    "Today": "Today",
+       "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December"
+
   },
   "Modal": {
     "Your session is about to expire!": "Your session is about to expire!",

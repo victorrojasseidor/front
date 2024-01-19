@@ -455,7 +455,19 @@
     "for the companies": "de las empresas",
     "Total Accounts": "Total de cuentas",
     "Total Banks": "Total de Bancos",
-    "Today": "Today"
+    "Today": "Today",
+    "January": "Enero",
+    "February": "Febrero",
+    "March": "Marzo",
+    "April": "Abril",
+    "May": "Mayo",
+    "June": "Junio",
+    "July": "Julio",
+    "August": "Agosto",
+    "September": "Septiembre",
+    "October": "Octubre",
+    "November": "Noviembre",
+    "December": "Diciembre"
   },
   "Modal": {
     "Your session is about to expire!": "¡Su sesión está a punto de caducar!",
