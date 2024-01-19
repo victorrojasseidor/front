@@ -75,12 +75,6 @@ const LayoutProducts = ({ children, menu }) => {
   useEffect(() => {
     const storedSessionLayput = localStorage.getItem('session')
     setSession(JSON.parse(storedSessionLayput))
-
-    // if (!session) {
-    //   setTimeout(() => {
-    //     router.push('/login')
-    //   }, 4000)
-    // }
   }, [])
 
   useEffect(() => {
@@ -93,7 +87,6 @@ const LayoutProducts = ({ children, menu }) => {
         if (menuItems[menuItem].submenus.length > 0) {
           menuItems[menuItem].submenus.forEach((submenuItem) => {
             const submenuPath = submenuItem.path
-            console.log(submenuItem.path == '/product')
             if (asPath === submenuPath) {
               setActiveSubmenu(submenuPath)
             }
@@ -105,8 +98,6 @@ const LayoutProducts = ({ children, menu }) => {
       }
     })
   }, [asPath])
-
-  console.log(asPath.startsWith('/product/product'))
 
   const handleLogout = () => {
     logout()
@@ -187,7 +178,7 @@ const LayoutProducts = ({ children, menu }) => {
           </div>
         </div>
 
-        <nav className='menu_nav' style={{ minHeight: '24rem', justifyContent: 'flex-start' }}>
+        <nav className='menu_nav' style={{ minHeight: '20rem', justifyContent: 'flex-start' }}>
 
           {Object.keys(menuItems).map((menuItem, index) => (
 

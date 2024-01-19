@@ -92,7 +92,11 @@
     align-items: center;
     flex-direction: row;
     width: 100%;
-    max-width: 30px;
+
+
+    @include media(tablet) {
+         max-width: 30px;
+    }
 
     h4 {
       color: get-color(grey2_s4);
@@ -105,10 +109,15 @@
       border-style: none;
       justify-content: center;
       align-items: center;
-      // padding: 1em 1em 0.5em 1em;
+      padding: 1em;
       align-items: center;
       background-color: get-color(white_s1);
       width: 100%;
+      
+
+      @include media(tablet) {
+        padding: 1em ;
+   }
 
       &:first-child {
         border-radius: 10px 0px 0px 10px;

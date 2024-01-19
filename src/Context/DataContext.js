@@ -21,7 +21,7 @@ export const DataContextProvider = ({ children }) => {
   const [modalToken, setModalToken] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [dataProfileStart, setdataProfileStart] = useState(null)
-
+  const [empresa, setEmpresa] = useState(null)
   // lang
 
   const router = useRouter()
@@ -89,6 +89,8 @@ export const DataContextProvider = ({ children }) => {
         logout,
         modalToken,
         setModalToken,
+        empresa,
+        setEmpresa,
         l
 
       }}

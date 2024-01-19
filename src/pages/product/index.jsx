@@ -10,7 +10,7 @@ import Loading from '@/Components/Atoms/Loading'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 // import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { IconArrow } from '@/helpers/report'
+// import { IconArrow } from '@/helpers/report'
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -19,41 +19,14 @@ export default function Products () {
   const [selectedFilterType, setSelectedFilterType] = useState(null)
   const [product, setProduct] = useState({})
   const [requestError, setRequestError] = useState('')
-  const [empresa, setEmpresa] = useState('')
+  // const [empresa, setEmpresa] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [hiredProduct, setHiredProduct] = useState('0')
 
-  const { session, setModalToken, logout, l } = useAuth()
+  const { session, setModalToken, logout, l, empresa, setEmpresa } = useAuth()
 
   // Nuevo estado para opciones de búsqueda de empresas
   const [companyOptions, setCompanyOptions] = useState([])
-
-  // Nuevo estado para la empresa seleccionada
-  const [selectedCompany, setSelectedCompany] = useState(null)
-
-  useEffect(() => {
-    // Actualiza las opciones de búsqueda de empresas cuando cambia la lista de empresas en session
-    if (session?.oEmpresa) {
-      setCompanyOptions(session?.oEmpresa)
-    }
-  }, [session])
-
-  const handleCompanyInputChange = (event, newValue) => {
-    // Actualiza la empresa seleccionada
-    if (newValue) {
-      setSelectedCompany(newValue)
-      const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === newValue.razon_social_empresa
-      )
-      const selectedEmpresa = {
-        id_empresa: DataEmpresa.id_empresa,
-        razon_social_empresa: DataEmpresa.razon_social_empresa,
-        ruc_empresa: DataEmpresa.ruc_empresa
-      }
-      // Guardar la empresa seleccionada en el localStorage
-      localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
-      setEmpresa(selectedEmpresa)
-    }
-  }
 
   const t = l.Products
 
@@ -113,28 +86,43 @@ export default function Products () {
     }
   }
 
-  // useEffect(() => {
-  //   // Comprobar si hay una empresa seleccionada en el localStorage
-  //   const storedEmpresa = localStorage.getItem('selectedEmpresa')
-  //   if (storedEmpresa) {
-  //     const selectedEmpresa = JSON.parse(storedEmpresa)
-  //     setEmpresa(selectedEmpresa)
-  //     setSelectedCompany(selectedEmpresa) // Inicializa selectedCompany con el valor
-  //   } else if (session?.oEmpresa.length > 0) {
-  //     const firstEmpresa = session?.oEmpresa[0]
-  //     setEmpresa(firstEmpresa)
-  //     setSelectedCompany(firstEmpresa) // Inicializa selectedCompany con el valor
-  //   }
-  // }, [session])
+  useEffect(() => {
+    // Actualiza las opciones de búsqueda de empresas cuando cambia la lista de empresas en session
+    if (session?.oEmpresa) {
+      setCompanyOptions(session?.oEmpresa)
+    }
+  }, [session])
+
+  const handleCompanyInputChange = (event, newValue) => {
+    // Actualiza la empresa seleccionada
+    if (newValue) {
+      // setEmpresa(newValue)
+      const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === newValue.razon_social_empresa
+      )
+      const selectedEmpresa = {
+        id_empresa: DataEmpresa.id_empresa,
+        razon_social_empresa: DataEmpresa.razon_social_empresa,
+        ruc_empresa: DataEmpresa.ruc_empresa
+      }
+      // Guardar la empresa seleccionada en el localStorage
+      localStorage.setItem('selectedEmpresa', JSON.stringify(selectedEmpresa))
+      setEmpresa(selectedEmpresa)
+    }
+  }
 
   useEffect(() => {
     // Comprobar si hay una empresa seleccionada en el localStorage
-    if (session?.oEmpresa.length > 0) {
+    const storedEmpresa = localStorage.getItem('selectedEmpresa')
+    if (storedEmpresa) {
+      const selectedEmpresa = JSON.parse(storedEmpresa)
+      setEmpresa(selectedEmpresa)
+    } else {
       const firstEmpresa = session?.oEmpresa[0]
       setEmpresa(firstEmpresa)
-      setSelectedCompany(firstEmpresa) // Inicializa selectedCompany con el valor
     }
-  }, [session])
+  }, [])
+
+  console.log({ empresa })
 
   useEffect(() => {
     const filterResults = () => {
@@ -291,7 +279,7 @@ export default function Products () {
 
             {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
             <Autocomplete
-              value={selectedCompany}
+              value={empresa}
               onChange={handleCompanyInputChange}
                   // sx={{ minWidth: 370 }}
               sx={{
@@ -299,7 +287,6 @@ export default function Products () {
               }}
               options={companyOptions}
               getOptionLabel={(option) => option.razon_social_empresa}
-              IconComponent={IconArrow}
               renderInput={(params) => (
                 <TextField {...params} label={t['To company:']} />
               )}
@@ -315,7 +302,7 @@ export default function Products () {
 
           <div className='welcome'>
             <h1> <span> {t.Welcome}
-                 </span>{empresa?.razon_social_empresa}
+            </span>{empresa?.razon_social_empresa}
             </h1>
             <p>  {t['Our digital employees work to improve your productivity']}</p>
 
@@ -392,9 +379,6 @@ export default function Products () {
 
           </div>
         </div>
-        {/* <div className='sub-title'>
-          <h2> {t['Digital employees']} {empresa?.razon_social_empresa}</h2>
-        </div> */}
 
         <div className='products_filter-types'>
           <button onClick={() => handleFilterType(null)} className={`btn_filter ${selectedFilterType === null ? 'active' : ''}`}>
@@ -412,7 +396,7 @@ export default function Products () {
           </button>
           <button onClick={() => handleFilterType('CLA_03')} className={`btn_filter ${selectedFilterType === 'CLA_03' ? 'active' : ''}`}>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
-            </p>
+                                      </p>
           </button>
         </div>
 

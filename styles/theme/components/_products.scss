@@ -30,24 +30,27 @@
       align-items: flex-end;
       gap: 1rem;
 
-      h1 {       
-        display: inline-flex;
-        gap:0.25rem;
+      h1 {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
         color: get-color(white_s1);
 
-        // @include media(tablet) { 
-        //   color: darken(get-color(t2-ligthBlue), 1%);
-        // }
+        @include media(tablet) {
+          display: inline-flex;
+          flex-direction: row;
+        }
 
-       span{
-        color:get-color(white_s1)
-       }
-       
+        span {
+          color: rgba(get-color(white_s1), 0.7);
+
+          @include media(tablet) {
+            color: get-color(white_s1);
+          }
+        }
       }
       color: get-color(white_s1);
     }
-
-    
 
     .outstanding-image {
       @include media(tablet) {
@@ -56,24 +59,19 @@
         height: 25rem;
         width: 25rem;
         z-index: 1;
-        left:  0;
+        left: 0;
         bottom: 0;
-    
+
         background: url("../../../public/img/home-2.png") no-repeat;
         background-size: contain;
       }
 
       @include media(desktop) {
         height: 27rem;
-     
-     
-      
-        
       }
       @include media(extradesktop) {
         height: 22rem;
         width: 25rem;
-      
       }
     }
   }
@@ -88,15 +86,13 @@
     }
   }
 
-  &_filter-types{
+  &_filter-types {
     padding: 0.5rem 0rem;
     display: flex;
     flex-direction: row;
     overflow-x: auto;
-    gap:1rem;
+    gap: 1rem;
     @include scrollTeme;
-
-    
   }
 
   &_box-filterSearch {
@@ -121,23 +117,13 @@
     .filterButtons {
       @include center-container;
       width: 100%;
-      padding-bottom: 0.5rem;
-    
+      padding-bottom: 1rem;
+
       flex-direction: row;
       justify-content: flex-start;
-     
+
       overflow-x: scroll;
       @include scrollTeme;
-      // -webkit-overflow-scrolling: touch;
-
-      // overflow-x: auto;
-      // &::-webkit-scrollbar {
-      //   width: 8px; /* Tamaño del scroll en vertical */
-      //   height: 8px; /* Tamaño del scroll en horizontal */
-      //   /* Ocultar scroll */
-      // }
-
-     
 
       @include media(tablet) {
         max-width: none;
@@ -153,7 +139,6 @@
       width: 95%;
     }
   }
-
 
   &_cards {
     display: flex;
@@ -216,7 +201,6 @@
       height: auto;
       padding: 2rem;
       justify-content: space-around;
-  
     }
 
     @include media(extradesktop) {
@@ -300,9 +284,7 @@
     svg {
       path {
         fill: get-color(t6-green2);
-       
       }
-
     }
   }
 
@@ -318,7 +300,6 @@
     svg {
       path {
         fill: get-color(blue_p1);
-  
       }
     }
   }
@@ -330,7 +311,6 @@
 
     span {
       color: get-color(t3-red);
-  
     }
 
     svg {
@@ -341,9 +321,6 @@
   }
 }
 
-
-
-
 .card {
   display: flex;
   background: get-color(white_s1);
@@ -351,11 +328,8 @@
   width: 19rem;
   padding: 1em;
   border-radius: brd(2);
- gap:1rem;
- position: relative;
-
-  
-
+  gap: 1rem;
+  position: relative;
 
   @include media(tablet) {
     width: 18rem;
@@ -369,53 +343,36 @@
 
   @include media(extradesktop) {
     width: 18rem;
-    gap:1rem;
+    gap: 1rem;
   }
 
- 
-
-  &_type{
-   
-    
+  &_type {
     display: flex;
     align-items: center;
     padding: 0.5rem;
     font-size: 0.875rem;
     justify-content: flex-start;
-    border-radius:brd(2);
+    border-radius: brd(2);
 
     @include media(tablet) {
       width: 75%;
     }
-
-    
- 
-
-   
   }
 
-  
-
   &_name {
-   
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
     gap: 0.25rem;
-  
-
 
     @include media(tablet) {
       height: 5.5rem;
     }
 
-
     h4 {
-
       color: get-color(t1-blue);
-     font-size: 1.2rem;
-      
+      font-size: 1.2rem;
 
       &:focus {
         background-color: get-color(bg-cles);
@@ -452,137 +409,97 @@
   .admin {
     position: absolute;
     z-index: 1;
-    right:  0%;
+    right: 0%;
     top: 0%;
-    
-   
-      
+
     @include center-container;
     padding: 0.5rem;
     transform: rotate(-90deg);
-  
-    svg{
+
+    svg {
       width: 2rem;
     }
-
-   
-
   }
 
   &_actions {
     height: 7.5rem;
     padding: 0.5rem;
     display: flex;
- 
+
     flex-direction: row;
     flex-wrap: nowrap;
     border-radius: brd(2);
-    gap:1rem;
+    gap: 1rem;
     @include center-container;
 
-    .status-box{
-  
+    .status-box {
       display: flex;
       justify-content: flex-start;
-    
+
       align-items: center;
       flex-direction: column;
-      gap:1rem;
+      gap: 1rem;
 
-      color:get-color(white_s1);
-      
-      a{
-        color:get-color(white_s1);
+      color: get-color(white_s1);
+
+      a {
+        color: get-color(white_s1);
         @include center-container;
         text-align: center;
         font-weight: 500;
         padding: 0.25rem;
       }
 
-      .btn_primary{
+      .btn_primary {
         background-color: transparent;
         border-style: none;
         border: 1.5px solid get-color(white_s1);
         box-shadow: none;
-        padding: 0.5rem ;
+        padding: 0.5rem;
         margin-top: 0;
         min-width: 6rem;
       }
-
-
-      }
-   
-    
-    .box-img {
-     
-   display: flex;
-   justify-content:center;
-   flex-direction: column;
-   align-items: center;
-
-
-  
-
-   
-
-
-
-  
-
-
-   
-
-
-
- }
-
- .type_icon{
- 
-  width: 100%;
-  @include center-container;
-  border-radius: brd(2);
-  
-  padding: 0.5rem;
-  justify-content: center;
-   
-  svg{
-    justify-content: center;
-    width: 4rem;
-    height: 4rem;
-    
-    path{
-     fill:get-color(white_s1)
     }
-   
+
+    .box-img {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .type_icon {
+      width: 100%;
+      @include center-container;
+      border-radius: brd(2);
+
+      padding: 0.5rem;
+      justify-content: center;
+
+      svg {
+        justify-content: center;
+        width: 4rem;
+        height: 4rem;
+
+        path {
+          fill: get-color(white_s1);
+        }
+      }
+    }
   }
-
 }
 
-   
-  }
+.financy {
+  @include cardStyleType(blue_p1);
 }
 
-
-
-
-
- .financy{
-
-  
-    @include cardStyleType(blue_p1);
-  
-}
-
-.tecnology{
-  
+.tecnology {
   @include cardStyleType(t2-ligthBlue);
 }
 
-.human{
+.human {
   @include cardStyleType(t5-green);
 }
-
-
 
 .limited-paragraph {
   white-space: nowrap;
@@ -590,8 +507,6 @@
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
-
-
 
 .card-reporting {
   div {
@@ -721,6 +636,14 @@
   flex-direction: column;
   align-items: flex-start;
   margin-top: 1rem;
+  position: relative;
+
+  .icon_arrow {
+    // background-color: #8cf3ea;
+    position: absolute;
+    right: 5%;
+    top: 35%;
+  }
 
   .css-17l143u-MuiAutocomplete-root {
     min-width: 16rem;
@@ -735,18 +658,20 @@
     color: get-color(t1-blue);
   }
 
-  .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root, .css-1ald77x {
+  .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root,
+  .css-1ald77x {
     color: get-color(grey2_s4);
     // background-color: rgba(get-color(white_s1), 0.1);
     border-radius: brd(2);
-    margin-left: 0.20rem;
-    
+    margin-left: 0.2rem;
+
     font-size: 1.2rem;
     background-color: get-colro(white_s1);
     transform: translate(10px, -22px) scale(0.76);
   }
 
-  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-17l143u-MuiAutocomplete-root .MuiOutlinedInput-root ,.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-154wcn3 .MuiOutlinedInput-root {
+  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-17l143u-MuiAutocomplete-root .MuiOutlinedInput-root,
+  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-154wcn3 .MuiOutlinedInput-root {
     // background-image: radial-gradient(circle at -20.44% 43.84%, #bbeebb 0, #b3efc1 12.5%, #abf1c7 25%, #a4f1ce 37.5%, #9df2d5 50%, #96f2dc 62.5%, #91f3e3 75%, #8cf3ea 87.5%, #88f3f1 100%);
     //cpodigo
 
@@ -754,7 +679,7 @@
     font-weight: 500;
     border-radius: brd(2);
     padding: 0.35rem 0.5rem;
-    background-color:get-color(white_s1);
+    background-color: get-color(white_s1);
     border: 1px solid rgba(get-color(blue_p1), 0.3);
     max-width: 22.5rem;
     @include media(tablet) {
@@ -763,35 +688,19 @@
   }
 
   .css-qzbt6i-MuiButtonBase-root-MuiIconButton-root-MuiAutocomplete-popupIndicator {
-  
     margin: -1rem 0rem -1rem 0rem;
 
     svg {
-     
-      width: 2rem;
-      height: 2rem;
+      width: 1.5rem;
+      height: 1.5rem;
       position: relative;
-      
+      background-image: url('../../../public/icons/arrow.svg');
+      background-size: contain; /* Ajusta el tamaño del fondo para cubrir el contenedor */
+      display: inline-block;
 
       path {
-       
-        fill: get-color(white_s1);
+        fill: transparent;
         border-radius: brd(3);
-        stroke:rgba(get-color(blue_p1), 0.3)
-      
-      }
-
-      &::before {
-        content: 'roroo';
-        font-weight: 900; /* Ajusta el peso de la fuente según sea necesario */
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        /* Otros estilos según tus preferencias */
-        color: #007bff; /* Color del ícono */
-        font-size: 24px; /* Tamaño del ícono */
-        /* Puedes agregar más estilos según tus necesidades */
       }
     }
   }
@@ -801,10 +710,7 @@
   // padding: 1rem 0rem;
 
   h3 {
-    
-      padding-top: 1rem;
-      justify-content: flex-start;
-     
-    
+    padding-top: 1rem;
+    justify-content: flex-start;
   }
 }

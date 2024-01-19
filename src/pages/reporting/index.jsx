@@ -9,14 +9,9 @@ import reportMovement from '../../../public/img/report-movement.png'
 import reportBalance from '../../../public/img/report-balance.png'
 import Image from 'next/image'
 import LineChart from '@/Components/Grafics/BarChart'
-import TextField from '@mui/material/TextField'
-import MenuItem from '@mui/material/MenuItem'
+
 import { fetchConTokenPost } from '@/helpers/fetch'
-import dayjs from 'dayjs'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import Loading from '@/Components/Atoms/Loading'
+
 import { format, getDay, addDays, startOfMonth, differenceInDays, parseISO } from 'date-fns'
 
 function index (props) {
@@ -34,14 +29,20 @@ function index (props) {
   }, [])
 
   async function getBalancesInitial () {
+    const idcompany = session?.jCompany.id_company
+    const idEmpresa = session?.oEmpresa.map((em) => em.id_empresa)
+
     setIsLoading(true)
     const body = {
-      oResults: {}
+      oResults: {
+        iIdCompany: idcompany,
+        oIdEmpresa: idEmpresa
+      }
     }
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetInitSaldos', body, token)
+      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTotalBanco', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const dataInit = responseData.oResults
@@ -125,7 +126,7 @@ function index (props) {
     }
   }
 
-  console.log({ dataInitialSelect })
+  // console.log({ dataInitialSelect })
 
   function formatearFecha (fecha) {
     const fechaParseada = new Date(fecha)
@@ -141,7 +142,7 @@ function index (props) {
       <NavigationPages title={t.Reporting}>
 
         <Link href='/product'>
-          Home
+          {t.Home}
         </Link>
 
       </NavigationPages>
@@ -164,7 +165,7 @@ function index (props) {
                   {t['Total Banks']}
 
                 </article>
-                <h2> {dataInitialSelect.oBanco?.length} </h2>
+                <h2> {dataInitialSelect?.iBanco} </h2>
                 <p> <ImageSvg name='ArrowUp' />   {t['for the companies']}    </p>
               </div>
 
@@ -186,7 +187,7 @@ function index (props) {
                   {t['Total Accounts']}
 
                 </article>
-                <h2>{dataInitialSelect.oCuenta?.length} </h2>
+                <h2>{dataInitialSelect?.iConfCuenta} </h2>
                 <p> <ImageSvg name='ArrowUp' />       {t['for the companies']} </p>
               </div>
 
