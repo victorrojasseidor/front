@@ -255,6 +255,10 @@
     color: get-color(grey2_s4);
     padding: 0.4rem 0.2rem 0 0.2rem;
   }
+
+  .css-p0rm37{
+    transform: translate(14px, 10px) scale(1);
+  }
   .css-1869usk-MuiFormControl-root {
     margin: 0px;
 
@@ -326,7 +330,7 @@
    
   }
 
-  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input{
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input ,.css-qiwgdb.css-qiwgdb.css-qiwgdb{
     padding-right: 0.5rem;
   }
 
@@ -366,6 +370,7 @@
   .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root , .css-1bn53lx , .css-1v4ccyo{
     border-radius: brd(1);
     margin-top: 0rem;
+    color:get-color(t1-blue);
     height: 3rem;
   }
 }
