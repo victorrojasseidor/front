@@ -159,8 +159,6 @@ export default function ConfigCurrency () {
         setModalToken(false)
         const dataRes = responseData.oResults
         setDataTypeChange(dataRes)
-        // Verificar si al menos un objeto tiene datos
-        console.log(dataRes.oDailyExchange.length, dataRes.oMonthExchange.length)
 
         if (dataRes.oCorreo.length > 0) {
           setcompleteEmails(true)
@@ -609,7 +607,7 @@ export default function ConfigCurrency () {
                      </div>
 
                      )}
-                                                            </div>
+               </div>
 }
 
             </div>}

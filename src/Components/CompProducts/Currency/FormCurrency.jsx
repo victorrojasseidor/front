@@ -57,7 +57,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
     }
 
     if (initialVal) {
-      console.log({ initialVal })
+      // console.log({ initialVal })
       const dataInitial = {
         country: initialVal.id_pais,
         fuente: initialVal.id_fuente,
@@ -70,8 +70,6 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
       const formValuesString = JSON.stringify(formValues)
       // Comparar cadenas JSON
       const sonIguales = dataInitialString === formValuesString
-
-      console.log({ sonIguales })
 
       if (isIncluded && !sonIguales) {
         setRegisterDuplicate(true)
@@ -150,7 +148,14 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
           validate={(values) => validateFormCurrency(values)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
-              handleEditCurrency(values)
+              handleEditCurrency({
+                country: parseInt(selectedCountry), // Usamos los valores iniciales si están disponibles
+                fuente: parseInt(selectedPortal),
+                coinOrigin: parseInt(selectedCoinOrigin),
+                coinDestiny: parseInt(selectedCoinDestiny),
+                days: parseInt(selectedDays),
+                state: valueState
+              })
             } else {
               onAgregar({
                 country: parseInt(selectedCountry), // Usamos los valores iniciales si están disponibles
@@ -272,7 +277,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
                 <div className='box-filter'>
 
-                  <FormControl sx={{ m: 1, minWidth: 100 }}>
+                  <FormControl sx={{ m: 1, minWidth: 80 }}>
                     <InputLabel id='days'> {t.Days}</InputLabel>
                     <Select
                       labelId='days'
@@ -336,7 +341,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   {t['Exchange rate record already exists']}
                 </p>
 
-                                    </div>}
+              </div>}
 
               <div className='submit-box'>
 

@@ -110,6 +110,9 @@
       width: 100%;
       overflow-y: auto;
       @include scrollTeme;
+      &::-webkit-scrollbar { 
+        width: 0.14rem;
+      }
 
       // @include media(tablet) {
       //   gap: 1rem;

@@ -100,8 +100,12 @@
   &_configurations{
 
     .contentForm{
-      width: 70vw;
-    height: 85vh;
+      width: 95vw;
+    height: 90vh;
+
+    @include media(extradesktop) {
+      width: 90vw;
+    }
 
     .closeform {
       button{
