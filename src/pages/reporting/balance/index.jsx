@@ -18,9 +18,7 @@ import * as XLSX from 'xlsx'
 import ImageSvg from '@/helpers/ImageSVG'
 import Loading from '@/Components/Atoms/Loading'
 import { IconArrow, IconDate } from '@/helpers/report'
-
 import { TextField, IconButton, InputAdornment } from '@mui/material'
-import OrderTable from '@/Components/CompProducts/report/OrderTable'
 
 const Balance = () => {
   const { session, setModalToken, logout, l } = useAuth()
@@ -59,13 +57,6 @@ const Balance = () => {
       getBalancesReport()
     }
   }, [apply])
-
-  // useEffect(() => {
-  //   if (dataInitialSelect) {
-  //     setPage(1) // Establece la página en 1 al aplicar un filtro
-  //     getBalancesReport()
-  //   }
-  // }, [selectedCompany, selectedBank, selectedAccount, apply])
 
   const handleDragStart = (e, columnName) => {
     e.dataTransfer.setData('text/plain', '') // Necesario para permitir el arrastre
@@ -256,6 +247,8 @@ const Balance = () => {
     setSelectedCompany('')
     setSelectedBank('')
     setSelectedAccount('')
+    setStartDate(dayjs().startOf('month').format('DD/MM/YYYY'))
+    setEndDate(dayjs().subtract(1, 'day').format('DD/MM/YYYY'))
     setApply(!apply)
   }
 
@@ -263,7 +256,9 @@ const Balance = () => {
     return (
       selectedCompany !== '' ||
       selectedBank !== '' ||
-      selectedAccount !== ''
+      selectedAccount !== '' ||
+      startDate !== dayjs().startOf('month').format('DD/MM/YYYY') ||
+      endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY')
     )
   }
 
@@ -293,13 +288,14 @@ const Balance = () => {
         Bank: row.nombre_banco,
         Account: row.desc_cuenta_conf_cuenta,
         Currency: row.moneda,
-        Balance: formatNumberToCurrency(row.saldo)
+        Balance: row.saldo
 
       }))
 
       if (filteredData.length > 0) {
         const ws = XLSX.utils.json_to_sheet(filteredData)
         const wb = XLSX.utils.book_new()
+
         XLSX.utils.book_append_sheet(wb, ws, 'Balance Report')
         XLSX.writeFile(wb, 'balance_report.xlsx')
       }
@@ -378,13 +374,6 @@ const Balance = () => {
     const fechaFormateada = `${dia}/${mes}/${año}`
     return fechaFormateada
   }
-
-  const columns = ['Name', 'Age', 'City']
-  const data = [
-    { Name: 'John', Age: 25, City: 'New York' },
-    { Name: 'Jane', Age: 30, City: 'San Francisco' },
-    { Name: 'Bob', Age: 22, City: 'Los Angeles' }
-  ]
 
   return (
     <LayouReport defaultTab={0}>
@@ -612,7 +601,7 @@ const Balance = () => {
                           <td>{row.nombre_banco}</td>
                           <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
                           <td>{row.moneda}</td>
-                          <td className='importe'>{formatNumberToCurrency(row.saldo)}</td>
+                          <td className='importe' style={{ color: row.saldo < 0 ? '#E31A1A' : '' }}>{formatNumberToCurrency(row.saldo)}</td>
 
                         </tr>
                       ))

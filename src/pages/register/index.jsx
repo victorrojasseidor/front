@@ -12,6 +12,7 @@ import { fetchNoTokenPost } from '@/helpers/fetch'
 import Modal from '@/Components/Modal'
 import Lang from '@/Components/Atoms/Lang'
 import Button from '@/Components/Atoms/Buttons'
+import ModalForm from '@/Components/Atoms/ModalForm'
 
 export default function Register () {
   const [showPassword, setShowPassword] = useState(false)
@@ -20,7 +21,7 @@ export default function Register () {
   // const [error, setError] = useState(null);
   const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true)
   const [ShowM, setShowM] = useState(false)
-  // const [infoModal,setInfomodal]= useState(null);
+  const [conditions, setConditions] = useState(false)
 
   const { l } = useAuth()
 
@@ -151,10 +152,14 @@ export default function Register () {
 
               <div className='input-box'>
                 <label className='checkbox'>
-                  <Field className='checkboxId' id='acceptTerms' type='checkbox' name='acceptTerms' disabled={isSubmitting} />
+                  <div className='box-term'>
+                    <Field className='checkboxId' id='acceptTerms' type='checkbox' name='acceptTerms' disabled={isSubmitting} />
+                    <button className='button-conditions' onClick={() => setConditions(!conditions)}>
+                      {t['I accept']}
+                      {t['ARI SEIDOR Terms and Conditions and Privacy Policy']}
+                    </button>
+                  </div>
 
-                  <span> {t['I accept']}</span>
-                  <span> {t['ARI SEIDOR Terms and Conditions and Privacy Policy']}</span>
                 </label>
                 <ErrorMessage className='errorMessage' name='acceptTerms' component='span' />
               </div>
@@ -171,7 +176,6 @@ export default function Register () {
         {ShowM && data && (
           <Modal close={() => setShowM(false)}>
             <ImageSvg name='Check' />
-
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
 
               {t['Please enter your email']}
@@ -182,6 +186,40 @@ export default function Register () {
             </div>
 
           </Modal>
+        )}
+
+        {conditions && (
+
+          <div className='Conditions'>
+
+            <ModalForm close={() => setConditions(false)}>
+              {/* <ImageSvg name='Check' /> */}
+
+              <div className='Conditions-list'>
+                <h3>1. {t['Conditions of User']}</h3>
+                <p>{t['By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.']}</p>
+
+                <h3>2. {t.Privacy}</h3>
+                <p>{t['All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.']}</p>
+
+                <h3>3. {t['Industrial and Intellectual Property']}</h3>
+                <p>{t['Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.']}</p>
+
+                <h3>4. {t.Responsibility}</h3>
+                <p>{t['Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.']}</p>
+
+                <h3>5. {t['User Restrictions']}</h3>
+                <p>{t['Users agree not to use the site for illegal purposes and not to take actions that violate the terms.']}</p>
+
+                <h3>6. {t['Third-Party Links']}</h3>
+                <p>{t['Seidor does not control or is responsible for the content of third parties accessed through links on the site.']}</p>
+
+                <h3>7. {t.Modifications}</h3>
+                <p>{t['Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible.']}</p>
+              </div>
+
+            </ModalForm>
+          </div>
         )}
 
         <ul className='navRegister_question'>

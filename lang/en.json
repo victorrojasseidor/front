@@ -9,10 +9,31 @@
     "Company email": "Company email",
     "Password": "Password",
     "Confirm password": "Confirm password ",
-    "I accept": " I accept",
-    "ARI SEIDOR Terms and Conditions and Privacy Policy": "ARI SEIDOR Terms and Conditions and Privacy Policy",
+    "I accept": " I accept ",
+    "ARI SEIDOR Terms and Conditions and Privacy Policy": "the privacy policy of ARI SEIDOR",
     "Please enter your email": "Please enter your email ",
-    "to confirm registration": "to confirm registration"
+    "to confirm registration": "to confirm registration",
+      "Conditions of User": "Conditions of User",
+  "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.":
+    "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.",
+  "Privacy": "Privacy",
+  "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.":
+    "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.",
+  "Industrial and Intellectual Property": "Industrial and Intellectual Property",
+  "Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.":
+    "Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.",
+  "Responsibility": "Responsibility",
+  "Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.":
+    "Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.",
+  "User Restrictions": "User Restrictions",
+  "Users agree not to use the site for illegal purposes and not to take actions that violate the terms.":
+    "Users agree not to use the site for illegal purposes and not to take actions that violate the terms.",
+  "Third-Party Links": "Third-Party Links",
+  "Seidor does not control or is responsible for the content of third parties accessed through links on the site.":
+    "Seidor does not control or is responsible for the content of third parties accessed through links on the site.",
+  "Modifications": "Modifications",
+  "Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible.":
+    "Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible."
   },
   "login": {
     "Log in": "Log in",
@@ -105,7 +126,8 @@
     "Human Resources": "Human Resources",
     "Balance": "Balance",
     "Movement": "Movement",
-    "Home":"Home"
+    "Home":"Home",
+    "Closing session":"Closing session"
   },
   "Products": {
     "Digital employees": "Digital employees",

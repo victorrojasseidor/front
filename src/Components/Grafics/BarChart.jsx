@@ -141,12 +141,6 @@ export default function LineChart () {
 
   const currentYearMonths = Number(currentYear) == Number(selectedYear) ? months.slice(0, currentMonth) : months
 
-  // const currentYearMonths = (Number(selectedYear) === 2023)
-  //   ? months.slice(10) // Start from November 2023
-  //   : (Number(selectedYear) === Number(currentYear))
-  //       ? months.slice(0, currentMonth + 1) // Include current month
-  //       : months
-
   const valorMinimoTipeCompra = dataCompra && Math.min(...dataCompra)
   const valorMaximoTipeCompra = dataCompra && Math?.max(...dataCompra)
   const valorMinimoTipeVenta = dataVenta && Math.min(...dataVenta)
@@ -304,11 +298,14 @@ export default function LineChart () {
           <FormControl sx={{ m: 1, minWidth: 100 }}>
             <InputLabel id='account-label'>{t.Month}</InputLabel>
             <Select labelId='account-label' value={selectedMonth} onChange={handleMonthChange} IconComponent={IconArrow}>
-              {currentYearMonths?.map((month, index) => (
-                <MenuItem key={month} value={index}>
-                  {month}
-                </MenuItem>
-              ))}
+              {currentYearMonths
+                ?.filter((_, index) => selectedYear == 2023 ? index >= 10 : index >= 0) // Mostrar solo noviembre y diciembre si el año es 2023
+                .map((month, index) => (
+
+                  <MenuItem key={month} value={index + (selectedYear === '2023' ? 10 : 0)}>
+                    {month}
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
 

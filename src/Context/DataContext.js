@@ -20,6 +20,7 @@ export const DataContextProvider = ({ children }) => {
   const [session, setSession] = useState(null)
   const [modalToken, setModalToken] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isLogout, setIsLogout] = useState(false)
   const [dataProfileStart, setdataProfileStart] = useState(null)
   const [empresa, setEmpresa] = useState(null)
   // lang
@@ -31,6 +32,7 @@ export const DataContextProvider = ({ children }) => {
   // Función para manejar el cierre de sesión
   async function logout () {
     setIsLoading(true)
+    setIsLogout(true)
     try {
       const token = session.sToken
       const body = {
@@ -48,6 +50,7 @@ export const DataContextProvider = ({ children }) => {
         setSession(null)
         localStorage.removeItem('session')
         localStorage.removeItem('selectedEmpresa')
+        setIsLogout(false)
       }
     } catch (error) {
       console.log('error en logout del servicio', error)
@@ -91,7 +94,9 @@ export const DataContextProvider = ({ children }) => {
         setModalToken,
         empresa,
         setEmpresa,
-        l
+        l,
+        isLogout,
+        setIsLogout
 
       }}
     >

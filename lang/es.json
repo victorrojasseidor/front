@@ -9,11 +9,36 @@
     "Company email": "Correo corporativo",
     "Password": "Contraseña",
     "Confirm password": "Confirmar contraseña",
-    "I accept": " Acepto los",
-    "ARI SEIDOR Terms and Conditions and Privacy Policy": "Términos, Condiciones y la Política de Privacidad de ARI SEIDOR",
+    "I accept": " Acepto ",
+    "ARI SEIDOR Terms and Conditions and Privacy Policy": "las políticas de privacidad de ARI SEIDOR",
     "We´ve sent a verefication link to": "Hemos enviado un enlace de verificación a ",
     "Please enter your email": "Por favor ingrese a su correo electrónico",
-    "to confirm registration": "para confirmar su registro, verifique su bandeja de entrada o spam"
+    "to confirm registration": "para confirmar su registro, verifique su bandeja de entrada o spam",
+
+    "Conditions of User": "Condiciones de Usuario",
+    "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.":
+      "Al acceder al sitio, el usuario acepta todas las disposiciones del Aviso Legal, incluyendo la Política de Privacidad.",
+    "Privacy": "Privacidad",
+    "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.":
+      "Todos los datos proporcionados a Seidor se tratarán con respeto a la confidencialidad, según la Política de Privacidad.",
+    "Industrial and Intellectual Property": "Propiedad Industrial e Intelectual",
+    "Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.":
+      "Seidor posee los derechos de propiedad intelectual e industrial del sitio, y cualquier uso no autorizado está prohibido.",
+    "Responsibility": "Responsabilidad",
+    "Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.":
+      "Seidor no garantiza la disponibilidad continua del sitio y no se hace responsable de daños derivados del acceso y uso.",
+    "User Restrictions": "Restricciones de los Usuarios",
+    "Users agree not to use the site for illegal purposes and not to take actions that violate the terms.":
+      "Los usuarios se comprometen a no utilizar el sitio para propósitos ilegales y a no realizar acciones que violen los términos.",
+    "Third-Party Links": "Enlaces a Terceros",
+    "Seidor does not control or is responsible for the content of third parties accessed through links on the site.":
+      "Seidor no controla ni es responsable de los contenidos de terceros a los que se accede a través de enlaces en el sitio.",
+    "Modifications": "Modificaciones",
+    "Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible.":
+      "Seidor puede modificar los textos legales sin previo aviso, y dichas modificaciones serán efectivas al publicarse en el sitio. Además, Seidor puede dar por terminados o suspender los servicios del portal, con advertencia cuando sea posible."
+
+
+
   },
   "login": {
     "Log in": "Iniciar sesión",
@@ -93,7 +118,8 @@
     "Human Resources": "Recursos humanos",
     "Balance": "Saldos",
     "Movement": "Movimientos",
-    "Home":"Inicio"
+    "Home":"Inicio",
+    "Closing session":"Cerrando sessión"
   },
   "Products": {
     "Digital employees": "Empleados digitales",

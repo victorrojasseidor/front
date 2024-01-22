@@ -6,6 +6,7 @@ import logo from '../../public/img/logoGift.gif'
 import ari from '../../public/img/ari.gif'
 
 import Image from 'next/image'
+import Modal from './Modal'
 
 import RefreshToken from './RefresToken'
 import { useRouter } from 'next/router'
@@ -30,7 +31,7 @@ const LayoutProducts = ({ children, menu }) => {
   const [isHomeActive, setIsHomeActive] = useState(false)
   const [activeSubmenu, setActiveSubmenu] = useState('')
   const router = useRouter()
-  const { session, modalToken, logout, l, setSession } = useAuth()
+  const { session, modalToken, logout, l, setSession, isLogout, setIsLogout } = useAuth()
   const { asPath } = useRouter()
   const t = l.header
 
@@ -210,7 +211,7 @@ const LayoutProducts = ({ children, menu }) => {
                     </div>
 
                   )}
-                  </li>
+                </li>
 
                 : <li key={index} className={`${asPath === menuItem.path || menu === menuItem ? 'active' : ''}`}>
 
@@ -218,7 +219,7 @@ const LayoutProducts = ({ children, menu }) => {
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
                   </Link>
-                  </li>}
+                </li>}
 
             </ul>))}
 
@@ -277,6 +278,18 @@ const LayoutProducts = ({ children, menu }) => {
       </section>
 
       <div>{modalToken && session && <RefreshToken />}</div>
+
+      {isLogout && (
+        <Modal close={() => setIsLogout(false)}>
+
+          <div className='message'>
+            <ImageSvg name='SignOut' />
+          </div>
+
+          <h3> {t['Closing session']} </h3>
+
+        </Modal>
+      )}
     </section>
   )
 }

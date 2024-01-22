@@ -13,6 +13,7 @@ import FormHelperText from '@mui/material/FormHelperText'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
+import { IconArrow } from '@/helpers/report'
 
 const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm, typeOfChange }) => {
   const [selectedCountry, setSelectedCountry] = useState(initialVal?.id_pais || '')
@@ -181,6 +182,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                         labelId='country'
                         name='country' // Make sure this matches the Field name
                         value={selectedCountry}
+                        IconComponent={IconArrow}
                         onChange={(values) => { handleCountryChange(values); setFieldValue('country', values.target.value) }}
                       >
 
@@ -198,6 +200,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                       <Select
                         labelId='fuente'
                         value={selectedPortal}
+                        IconComponent={IconArrow}
                         onChange={(values) => { handlePortalChange(values); setFieldValue('fuente', values.target.value) }}
                       >
 
@@ -217,6 +220,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                       <Select
                         labelId='coinOrigin'
                         value={selectedCoinOrigin}
+                        IconComponent={IconArrow}
                         onChange={(values) => { handleCoinOriginChange(values); setFieldValue('coinOrigin', values.target.value) }}
                       >
 
@@ -237,6 +241,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                       <Select
                         labelId='coinDestiny'
                         value={selectedCoinDestiny}
+                        IconComponent={IconArrow}
                         onChange={(values) => { handleCoinDestinyChange(values); setFieldValue('coinDestiny', values.target.value) }}
                       >
 
@@ -272,6 +277,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                     <Select
                       labelId='days'
                       value={selectedDays}
+                      IconComponent={IconArrow}
                       onChange={(values) => { handleDaysChange(values); setFieldValue('days', values.target.value) }}
                     >
 
@@ -330,7 +336,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   {t['Exchange rate record already exists']}
                 </p>
 
-              </div>}
+                                    </div>}
 
               <div className='submit-box'>
 

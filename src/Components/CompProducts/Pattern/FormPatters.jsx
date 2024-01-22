@@ -13,6 +13,7 @@ import FormHelperText from '@mui/material/FormHelperText'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
+import { IconArrow } from '@/helpers/report'
 
 const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
   const [selectedCountry, setSelectedCountry] = useState(1 || '')
@@ -109,6 +110,7 @@ const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
                         labelId='country'
                         name='country' // Make sure this matches the Field name
                         value={selectedCountry}
+                        IconComponent={IconArrow}
                         onChange={(values) => { handleCountryChange(values); setFieldValue('country', values.target.value) }}
                       >
 
@@ -126,6 +128,7 @@ const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
                       <Select
                         labelId='fuente'
                         value={selectedPattern}
+                        IconComponent={IconArrow}
                         onChange={(values) => { handlePatternChange(values); setFieldValue('Pattern', values.target.value) }}
                       >
 
@@ -189,7 +192,7 @@ const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
                   {t['These patterns already exist, select another']}
                 </p>
 
-              </div>}
+                                    </div>}
 
               <div className='submit-box'>
 

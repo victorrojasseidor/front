@@ -27,6 +27,10 @@
     flex-direction: column;
     @include container;
 
+    .name-blue{
+      font-weight: 600;
+    }
+
     ul {
       display: flex;
       flex-direction: column;

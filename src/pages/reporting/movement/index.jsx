@@ -3,7 +3,6 @@ import LayouReport from '@/Components/CompProducts/report/LayoutReport'
 import { useAuth } from '@/Context/DataContext'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
-import FormHelperText from '@mui/material/FormHelperText'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import { fetchConTokenPost } from '@/helpers/fetch'
@@ -19,7 +18,6 @@ import ImageSvg from '@/helpers/ImageSVG'
 import Loading from '@/Components/Atoms/Loading'
 import { IconArrow, IconDate } from '@/helpers/report'
 import { TextField, IconButton, InputAdornment } from '@mui/material'
-import EventIcon from '@mui/icons-material/Event' // Importa el ícono que desees
 
 const Movement = () => {
   const { session, setModalToken, logout, l } = useAuth()
@@ -225,6 +223,8 @@ const Movement = () => {
     setSelectedType('')
     setSelectedBank('')
     setSelectedAccount('')
+    setStartDate(dayjs().startOf('month').format('DD/MM/YYYY'))
+    setEndDate(dayjs().subtract(1, 'day').format('DD/MM/YYYY'))
     setApply(!apply)
   }
 
@@ -233,7 +233,9 @@ const Movement = () => {
       selectedCompany !== '' ||
       selectedtype !== '' ||
       selectedBank !== '' ||
-      selectedAccount !== ''
+      selectedAccount !== '' ||
+      startDate !== dayjs().startOf('month').format('DD/MM/YYYY') ||
+      endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY')
     )
   }
 
