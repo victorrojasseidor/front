@@ -41,12 +41,12 @@ export default function Products () {
       const token = session?.sToken
       const idEmpresa = empresa.id_empresa
       const responseData = await getProducts(idEmpresa, token)
-      // console.log('getProduc', responseData)
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         if (selectedFilterType === 'CLA_01' || selectedFilterType === 'CLA_02' || selectedFilterType === 'CLA_03') {
           const filtertypeProduct = data.filter((product) => product.sCodeClasificacion === String(selectedFilterType))
-          console.log({ filtertypeProduct })
+
           setProduct(filtertypeProduct)
         } else {
           setProduct(data)
@@ -119,8 +119,6 @@ export default function Products () {
       setEmpresa(firstEmpresa)
     }
   }, [])
-
-  console.log({ empresa })
 
   useEffect(() => {
     const filterResults = () => {
@@ -195,8 +193,6 @@ export default function Products () {
 
     return diasRestantes
   }
-
-  // console.log(session)
 
   const renderButtons = (data) => {
     const handleLink = (ruta) => {
@@ -300,7 +296,7 @@ export default function Products () {
 
           <div className='welcome'>
             <h1> <span> {t.Welcome}
-            </span>{empresa?.razon_social_empresa}
+                 </span>{empresa?.razon_social_empresa}
             </h1>
             <p>  {t['Our digital employees work to improve your productivity']}</p>
 
@@ -394,7 +390,7 @@ export default function Products () {
           </button>
           <button onClick={() => handleFilterType('CLA_03')} className={`btn_filter ${selectedFilterType === 'CLA_03' ? 'active' : ''}`}>
             <ImageSvg name='Human' /> <p> {t['Human Resources']}
-                                      </p>
+            </p>
           </button>
         </div>
 

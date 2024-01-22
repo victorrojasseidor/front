@@ -48,13 +48,11 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
       }
     }
 
-    console.log({ body })
-
     try {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=SolicitarProducto', body, token)
-      console.log({ responseData })
+
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data= responseData.oResults;
         SetError(null)

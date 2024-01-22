@@ -126,8 +126,6 @@ function index (props) {
     }
   }
 
-  // console.log({ dataInitialSelect })
-
   function formatearFecha (fecha) {
     const fechaParseada = new Date(fecha)
     const dia = fechaParseada.getUTCDate().toString().padStart(2, '0')

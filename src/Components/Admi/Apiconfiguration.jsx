@@ -137,13 +137,11 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       body.oResults.sFechaEnd = endDate || product?.sDateEnd
     }
 
-    console.log({ body })
-
     try {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost(`dev/BPasS/?Accion=${valueState}`, body, token)
-      console.log({ responseData })
+
       if (responseData.oAuditResponse?.iCode === 1) {
         // setModalFreeTrial(false)
         setModalConfirmed(false)
@@ -297,7 +295,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
               />
             </LocalizationProvider>
 
-          </div>
+            </div>
           : ''}
 
         {valueState !== stateInitial || startDate || endDate
@@ -323,7 +321,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
             </button>
 
-          </div>
+            </div>
           : ''}
 
         {isLoading && <Loading />}

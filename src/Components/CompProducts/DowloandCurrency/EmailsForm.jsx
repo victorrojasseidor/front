@@ -145,7 +145,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCorreoProducto', body, token)
-      console.log({ responseData })
+
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data= responseData.oResults;
         setModalConfirmationEmail(true)
@@ -226,7 +226,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
 
             </div>
 
-            </div>
+          </div>
           : <div className='box-emails-update'>
             <h3 className='title-Config'> {t['Register emails']} </h3>
 
@@ -350,10 +350,10 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
                   {t.Cancel}
                 </button>
 
-              </div>
+                </div>
               : ''}
 
-            </div>}
+          </div>}
 
         {isLoadingComponent && <LoadingComponent />}
 

@@ -184,12 +184,11 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
         bCodeEnabled: values?.state == 'Active'
       }
     }
-    console.log({ body })
 
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarCuentaExtBancario', body, token)
-      console.log('respoedit', responseData)
+
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         setGet(!get)
@@ -342,13 +341,13 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
               </div>
 
-                                              </div>}
+            </div>}
 
             {requestError && <div className='errorMessage'> {
             requestError
 
             }
-                             </div>}
+            </div>}
 
             {isLoadingComponent && <LoadingComponent />}
 

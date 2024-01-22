@@ -57,7 +57,6 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
     }
 
     if (initialVal) {
-      // console.log({ initialVal })
       const dataInitial = {
         country: initialVal.id_pais,
         fuente: initialVal.id_fuente,
@@ -341,7 +340,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   {t['Exchange rate record already exists']}
                 </p>
 
-              </div>}
+                                    </div>}
 
               <div className='submit-box'>
 

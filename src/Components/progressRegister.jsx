@@ -63,7 +63,7 @@ const ProgressRegister = ({ userData }) => {
     }
     try {
       const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
-      console.log({ responseData })
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const userData = responseData.oResults
         setSession(userData)
@@ -139,8 +139,6 @@ const ProgressRegister = ({ userData }) => {
       setIsLoading(false)
     }
   }
-
-  // console.log('sesionProfilestar', session)
 
   return (
     <>

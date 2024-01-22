@@ -90,7 +90,6 @@ export default function LineChart () {
     const tok = session?.sToken
     try {
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTipoCambioRate', body, tok)
-      // console.log('ResponseGetTipoCambioRate', responseData)
       if (responseData.oAuditResponse.iCode == 1) {
         setRequestError(null)
 

@@ -256,8 +256,6 @@ const Movement = () => {
   }
 
   const exportToExcel = () => {
-    console.log({ movement })
-
     if (movement && movement.length > 0) {
       const filteredData = movement.map((row) => ({
         Date: formatDate(row.fecha),
@@ -380,10 +378,9 @@ const Movement = () => {
           producto[key].toLowerCase().includes(word.toLowerCase())
         )
         if (filteredItems) {
-          console.log({ filteredItems })
           setMovement(filteredItems)
         } else {
-          console.log('no hay movment')
+          console.log('no hay movement')
         }
       }
     }

@@ -79,12 +79,10 @@ export default function ConfigPattern () {
 
     }
 
-    // console.log({ body })
-
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarPadrones', body, token)
-      console.log({ responseData })
+
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
         setTimeout(() => {
@@ -150,7 +148,7 @@ export default function ConfigPattern () {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetPadrones', body, token)
-      console.log('getpadrones', { responseData })
+
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults
@@ -350,14 +348,14 @@ export default function ConfigPattern () {
                               </tr>
                             ))}
 
-                            </tbody>
+                          </tbody>
                           : <div className=' '>
 
                             <p className='errorMessage'>
                               {t['Add patterns']}
                             </p>
 
-                          </div>
+                            </div>
                       }
 
                     </table>
