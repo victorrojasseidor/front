@@ -55,7 +55,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
     try {
       const token = session.sToken
       const responseData = await getProducts(idEmpresa, token)
-      // console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults
