@@ -357,25 +357,26 @@ export default function ConfigCurrency () {
           {activeTab === 1 &&
             <div className='config-Automated--tables'>
 
-              <div className='box-search'>
-                <div>
-                  <h3>{t['Daily exchange rate']} </h3>
-                  <p> {t['Add the setting for Daily exchange rate']} </p>
-                </div>
-
-                <button
-                  className='btn_black'
-                  style={{ display: initialEdit !== null ? 'none' : 'block' }}
-                  onClick={() => { toggleForm(); setTypeofChange(1) }}
-                >
-                  {showForm ? t.Close : t.Add}
-                </button>
-              </div>
-
               <div className='contaniner-tables'>
 
-                <div className='boards'>
-                  <div className='tableContainer'>
+                <div className='tableContainer'>
+
+                  <div className='boards'>
+
+                    <div className='box-search'>
+                      <div>
+                        <h3>{t['Daily exchange rate']} </h3>
+                        <p> {t['Add the setting for Daily exchange rate']} </p>
+                      </div>
+
+                      <button
+                        className='btn_black'
+                        style={{ display: initialEdit !== null ? 'none' : 'block' }}
+                        onClick={() => { toggleForm(); setTypeofChange(1) }}
+                      >
+                        {showForm ? t.Close : t.Add}
+                      </button>
+                    </div>
 
                     <table className='dataTable'>
 
@@ -483,26 +484,27 @@ export default function ConfigCurrency () {
           {activeTab === 2 &&
             <div className='config-Automated--tables'>
 
-              <div className='box-search'>
-                <div>
-                  <h3>{t['Monthly exchange rate']}  <span>( {t.optional} )  </span>
-                  </h3>
-                  <p> {t['This exchange rate is used for the monthly accounting closing']} </p>
-                </div>
-
-                <button
-                  className='btn_black'
-                  // style={{ display: initialEdit !== null ? 'none' : 'block' }}
-                  onClick={() => { toggleForm(); setTypeofChange(2) }}
-                >
-                  {showForm ? t.Close : t.Add}
-                </button>
-
-              </div>
-
               <div className='contaniner-tables'>
 
                 <div className='boards'>
+
+                  <div className='box-search'>
+                    <div>
+                      <h3>{t['Monthly exchange rate']}  <span>( {t.optional} )  </span>
+                      </h3>
+                      <p> {t['This exchange rate is used for the monthly accounting closing']} </p>
+                    </div>
+
+                    <button
+                      className='btn_black'
+                  // style={{ display: initialEdit !== null ? 'none' : 'block' }}
+                      onClick={() => { toggleForm(); setTypeofChange(2) }}
+                    >
+                      {showForm ? t.Close : t.Add}
+                    </button>
+
+                  </div>
+
                   <div className='tableContainer'>
 
                     <table className='dataTable'>
