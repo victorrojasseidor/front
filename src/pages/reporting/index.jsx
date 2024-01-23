@@ -208,7 +208,7 @@ function index (props) {
                 </article>
                 <h2> {todaytype?.tipo_cambio_venta}
                 </h2>
-                <p>  <span> {todaytype && formatearFecha(todaytype?.fecha_tipo_cambio)} </span>     PEN  <ImageSvg name='ArrowLeft' />  USD </p>
+                <p>  <span> {todaytype && formatearFecha(todaytype?.fecha_tipo_cambio)} </span>  USD     <ImageSvg name='ArrowLeft' />  PEN  </p>
               </div>
 
             </div>

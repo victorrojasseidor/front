@@ -150,10 +150,12 @@ export default function LineChart () {
   const valorMaximoFecha = dataFecha && Math.max(...dataFecha)
 
   // Aplicar descuento del 0.1% al menor valor
-  const minValueY = menorValor - (menorValor * 0.001)
+  const rangos = mayorValor - menorValor
+
+  const minValueY = menorValor - (menorValor * (rangos >= 2 ? 0.5 : 0.01))
 
   // Aplicar aumento del 0.1% al mayor valor
-  const maxValueY = mayorValor + (mayorValor * 0.001)
+  const maxValueY = mayorValor + (mayorValor * (rangos >= 2 ? 0.05 : 0.02))
 
   const minDateX = valorMinimoFecha - (valorMinimoFecha * 0.04)
   const maxDateX = valorMaximoFecha + (valorMaximoFecha * 0.005)
@@ -264,7 +266,7 @@ export default function LineChart () {
           <p className='country-svg'>
             <span>
               <ImageSvg name='IconTipo' />
-              {t['Currency origin']}: PEN (soles)
+              {t['Target currency']}: PEN (soles)
             </span>
 
             <span>
@@ -309,7 +311,7 @@ export default function LineChart () {
           </FormControl>
 
           <FormControl sx={{ m: 1, minWidth: 100 }}>
-            <InputLabel id='currencySelect'>{t['From PEN to']}</InputLabel>
+            <InputLabel id='currencySelect'>{t.Currency}</InputLabel>
             <Select labelId='currencySelect' value={selectedCurrency} onChange={handleCurrencyChange} IconComponent={IconArrow}>
               {session?.oMoneda
                 .filter((coin) => coin.id_moneda !== 1) // Excluir moneda con id=1 osea el sol
