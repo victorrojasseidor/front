@@ -70,7 +70,7 @@ const Movement = () => {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetInitMovimientos', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetInitMovimientos', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const dataInit = responseData.oResults
         setInitialDataselect(dataInit)
@@ -116,7 +116,7 @@ const Movement = () => {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetReporteMovimientos', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetReporteMovimientos', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults

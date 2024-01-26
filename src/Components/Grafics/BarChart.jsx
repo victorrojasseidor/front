@@ -89,7 +89,7 @@ export default function LineChart () {
 
     const tok = session?.sToken
     try {
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTipoCambioRate', body, tok)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetTipoCambioRate', body, tok)
       if (responseData.oAuditResponse.iCode == 1) {
         setRequestError(null)
 
@@ -123,20 +123,16 @@ export default function LineChart () {
   const dataTypeTranform = dataOrderTODate?.map((entry, i, array) => {
     const dateType = new Date(entry.fecha_tipo_cambio).getUTCDate()
 
-    if (i > 0) {
-      const compratype = entry.tipo_cambio_compra
-      const ventaType = entry.tipo_cambio_venta
+    const compratype = entry.tipo_cambio_compra
+    const ventaType = entry.tipo_cambio_venta
 
-      return { date: dateType, compra: compratype, venta: ventaType }
-    }
-    // Si es el primer elemento o no tiene valores, simplemente devuelve la fecha
-    return { date: dateType, compra: null, venta: null }
+    return { date: dateType, compra: compratype, venta: ventaType }
   })
 
   // trasnsformarDatos para la gráfica
-  const dataCompra = dataTypeTranform?.map(entry => entry.compra)?.slice(1)
-  const dataVenta = dataTypeTranform?.map(entry => entry.venta)?.slice(1)
-  const dataFecha = dataTypeTranform?.map(entry => entry.date)?.slice(1)
+  const dataCompra = dataTypeTranform?.map(entry => entry.compra)
+  const dataVenta = dataTypeTranform?.map(entry => entry.venta)
+  const dataFecha = dataTypeTranform?.map(entry => entry.date)
 
   const currentYearMonths = Number(currentYear) == Number(selectedYear) ? months.slice(0, currentMonth) : months
 
@@ -157,7 +153,7 @@ export default function LineChart () {
   // Aplicar aumento del 0.1% al mayor valor
   const maxValueY = mayorValor + (mayorValor * (rangos >= 2 ? 0.05 : 0.02))
 
-  const minDateX = valorMinimoFecha - (valorMinimoFecha * 0.04)
+  const minDateX = valorMinimoFecha - (valorMinimoFecha * 0.001)
   const maxDateX = valorMaximoFecha + (valorMaximoFecha * 0.005)
 
   const years = Array.from({ length: currentYear - 2022 }, (_, index) => (2023 + index).toString())

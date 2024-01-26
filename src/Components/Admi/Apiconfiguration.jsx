@@ -140,7 +140,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     try {
       const token = session?.sToken
 
-      const responseData = await fetchConTokenPost(`dev/BPasS/?Accion=${valueState}`, body, token)
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${valueState}`, body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         // setModalFreeTrial(false)

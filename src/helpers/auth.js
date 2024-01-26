@@ -8,7 +8,7 @@ async function refresToken (token) {
   }
 
   try {
-    const resp = await fetchConTokenPost('dev/General/?Accion=RefreshToken', bodyToken, token)
+    const resp = await fetchConTokenPost('General/?Accion=RefreshToken', bodyToken, token)
     return resp
   } catch (error) {
     console.error('Error:', error)
@@ -25,7 +25,7 @@ async function getProducts (idEmpresa, token) {
   }
 
   try {
-    const resp = await fetchConTokenPost('dev/BPasS/?Accion=ConsultaProductoEmpresa', body, token)
+    const resp = await fetchConTokenPost('BPasS/?Accion=ConsultaProductoEmpresa', body, token)
     return resp
   } catch (error) {
     console.error('Error:', error)

@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 import { fetchConTokenPost } from '@/helpers/fetch'
 
-export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
+export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct, get, setGet }) {
   const [haveEmails, setHaveEmails] = useState(false) // hay correos ?
   const [valueEmailTo, setValueEmailTo] = useState('')
   const [valueEmailCco, setValueEmailCco] = useState('')
@@ -144,10 +144,10 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct }) {
     try {
       const token = session?.sToken
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCorreoProducto', body, token)
-
+      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarCorreoProducto', body, token)
+      console.log('email', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
-        // const data= responseData.oResults;
+        setGet(!get)
         setModalConfirmationEmail(true)
         setUpdateEmails(true)
         setModalToken(false)

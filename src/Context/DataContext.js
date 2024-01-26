@@ -38,7 +38,7 @@ export const DataContextProvider = ({ children }) => {
       const body = {
         oResults: {}
       }
-      const response = await fetchConTokenPost('dev/BPasS/??Accion=SalidaUsuario', body, token)
+      const response = await fetchConTokenPost('BPasS/?Accion=SalidaUsuario', body, token)
       if (
         response.oAuditResponse?.iCode === 1 ||
         response.oAuditResponse?.iCode === 4 ||

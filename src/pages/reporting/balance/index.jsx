@@ -97,7 +97,7 @@ const Balance = () => {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetInitSaldos', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetInitSaldos', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const dataInit = responseData.oResults
         setInitialDataselect(dataInit)
@@ -142,7 +142,7 @@ const Balance = () => {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetReporteSaldos', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetReporteSaldos', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setBalances(data)

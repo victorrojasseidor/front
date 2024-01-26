@@ -1,4 +1,4 @@
-const baseApiUrl = 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/'
+const baseApiUrl = 'https://api.ariapp.ai/bpass/'
 
 const fetchNoTokenPost = async (endpoint, data) => {
   // const url = `${CORS_PROXY_URL}${baseApiUrl}${endpoint}`;
@@ -65,14 +65,14 @@ const fetchConTokenPost = async (endpoint, data, tok) => {
 const decodeText = async (valor) => {
   // Token y clave secreta
   const token = 'a2VzdGVmby9IS2xvbG9wYW4xODA3OTck'
-  const secretKey = 'LkzMK8wEA38Qdzc22Y0nhaNMU0IYGokq66tOPqf9'
+  const secretKey = '21sQjPq9bM4IUgWwrIhNp1xDHkqWBV8D2v1Oe33g'
 
   // Crear el objeto settings para la solicitud fetch
   const settings = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      saplicacion: 'BPAS',
+      saplicacion: 'RPA',
       stoken: token,
       'x-api-key': secretKey
     },
@@ -82,7 +82,7 @@ const decodeText = async (valor) => {
   }
 
   try {
-    const response = await fetch('https://3r6vgy8p58.execute-api.us-east-2.amazonaws.com/dev/General/?Accion=DecodificarTexto', settings)
+    const response = await fetch('https://api.ariapp.ai/rpa/General/?Accion=DecodificarTexto', settings)
 
     if (!response.ok) {
       throw new Error('Network response was not ok')

@@ -101,7 +101,7 @@ export default function ConfigDowland () {
     try {
       const token = session.sToken
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarExtBancario', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarExtBancario', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
@@ -160,7 +160,7 @@ export default function ConfigDowland () {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarExtBancario', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         setGet(!get)
@@ -205,7 +205,7 @@ export default function ConfigDowland () {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetExtBancario', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -247,7 +247,7 @@ export default function ConfigDowland () {
       }
     }
     try {
-      const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarBancoCredencialExtBancario', body, token)
+      const response = await fetchConTokenPost('BPasS/?Accion=EliminarBancoCredencialExtBancario', body, token)
       console.error('res', response)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -392,7 +392,7 @@ export default function ConfigDowland () {
                 </ul>
               </div>
 
-              <EmailsForm dataEmails={data?.oCorreoEB} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
+              <EmailsForm dataEmails={data?.oCorreoEB} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 
               <div className='box-buttons'>
                 <button

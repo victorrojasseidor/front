@@ -45,7 +45,7 @@ export default function Register () {
     }
 
     try {
-      const responseData = await fetchNoTokenPost('dev/General/?Accion=RegistrarUsuarioInit', dataRegister && dataRegister)
+      const responseData = await fetchNoTokenPost('General/?Accion=RegistrarUsuarioInit', dataRegister && dataRegister)
       if (responseData.oAuditResponse?.iCode === 1) {
         setData(dataRegister)
         setShowM(true)

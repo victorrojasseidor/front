@@ -80,8 +80,7 @@ export default function profile () {
     const tok = session?.sToken
 
     try {
-      const responseData = await fetchConTokenPost('dev/General/?Accion=ActualizarDatosUsuario', body, tok)
-
+      const responseData = await fetchConTokenPost('General/?Accion=ActualizarDatosUsuario', body, tok)
       if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1) {
         const secretPasw = await decodeText(responseData.oResults.password)
         login(body.oResults.sEmail, secretPasw.oResults)
@@ -116,7 +115,7 @@ export default function profile () {
       }
     }
     try {
-      const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
+      const responseData = await fetchNoTokenPost('BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
       if (responseData.oAuditResponse?.iCode === 1) {
         const userData = responseData.oResults
         router.push('/profile')
