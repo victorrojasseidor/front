@@ -62,7 +62,7 @@ const nextConfig = {
       {
         source: '/api/:path*',
         headers: [
-          { key: 'Access-Control-Allow-Origin', value: 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com' },
+          { key: 'Access-Control-Allow-Origin', value: 'https://api.ariapp.ai/bpass/' },
           { key: 'Access-Control-Allow-Methods', value: 'GET, POST, OPTIONS, PUT, DELETE' },
           { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' }
         ]
