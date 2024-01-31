@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import LayoutLogin from '@/Components/LayoutLogin'
-// import "../../../styles/styles.scss";
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import React, { useState } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
@@ -36,7 +35,7 @@ export default function Login () {
     }
 
     try {
-      const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
+      const responseData = await fetchNoTokenPost('BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
       if (responseData.oAuditResponse?.iCode === 1) {
         localStorage.setItem('Credential', JSON.stringify(dataRegister.oResults))
         setStatus(null)

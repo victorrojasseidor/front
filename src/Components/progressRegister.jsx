@@ -38,6 +38,8 @@ const ProgressRegister = ({ userData }) => {
     }
   }
 
+  console.log({ userData })
+
   // steps funciones
   const handleNextStep = () => {
     setStep(step + 1)
@@ -62,8 +64,7 @@ const ProgressRegister = ({ userData }) => {
       }
     }
     try {
-      const responseData = await fetchNoTokenPost('dev/BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
-
+      const responseData = await fetchNoTokenPost('BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister)
       if (responseData.oAuditResponse?.iCode === 1) {
         const userData = responseData.oResults
         setSession(userData)
@@ -105,8 +106,7 @@ const ProgressRegister = ({ userData }) => {
     const tok = userData.sToken
 
     try {
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarUsuarioEnd', body, tok)
-      console.log('responseDataProfilestar', responseData)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarUsuarioEnd', body, tok)
       if (responseData.oAuditResponse.iCode === 1) {
         setStatus(null)
         setModalToken(false)

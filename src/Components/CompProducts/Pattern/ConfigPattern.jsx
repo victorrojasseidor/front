@@ -81,7 +81,7 @@ export default function ConfigPattern () {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarPadrones', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarPadrones', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
@@ -147,7 +147,7 @@ export default function ConfigPattern () {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetPadrones', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetPadrones', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -189,7 +189,7 @@ export default function ConfigPattern () {
     }
 
     try {
-      const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarPadrones', body, token)
+      const response = await fetchConTokenPost('BPasS/?Accion=EliminarPadrones', body, token)
       console.error('res', response)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -267,7 +267,7 @@ export default function ConfigPattern () {
                 </ul>
               </div>
 
-              <EmailsForm dataEmails={dataPadrones?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
+              <EmailsForm dataEmails={dataPadrones?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 
               <div className='box-buttons'>
                 <button

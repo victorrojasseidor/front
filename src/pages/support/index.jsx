@@ -35,7 +35,7 @@ function Support () {
       const token = session?.sToken
 
       setIsLoading(true)
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=EnvioCorreoSoporteSmtp', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=EnvioCorreoSoporteSmtp', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         SetError(null)
         setModalToken(false)

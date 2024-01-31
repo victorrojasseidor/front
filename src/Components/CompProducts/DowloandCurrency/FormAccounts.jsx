@@ -33,7 +33,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     }
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults.oTipoArchivo
         setFileTypeOptions(data.map((file) => ({ value: file.id_tipo_archivo, label: file.nombre })))

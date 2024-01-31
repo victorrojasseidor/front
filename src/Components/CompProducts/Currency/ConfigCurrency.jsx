@@ -27,6 +27,7 @@ export default function ConfigCurrency () {
   const [typeOfChange, setTypeofChange] = useState(0)
   const [updateEmails, setUpdateEmails] = useState(false)
   const [confirmConfigured, setConfirmedConfiguration] = useState(false)
+  const [get, setGet] = useState(false)
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -86,7 +87,7 @@ export default function ConfigCurrency () {
     try {
       const token = session.sToken
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarTipoCambio', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarTipoCambio', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
@@ -151,7 +152,7 @@ export default function ConfigCurrency () {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTipCambio', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetTipCambio', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -201,7 +202,7 @@ export default function ConfigCurrency () {
       }
     }
     try {
-      const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarTipoCambio', body, token)
+      const response = await fetchConTokenPost('BPasS/?Accion=EliminarTipoCambio', body, token)
       console.error('res', response)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -248,7 +249,7 @@ export default function ConfigCurrency () {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarTipoCambio', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarTipoCambio', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         setShowForm(false)
@@ -338,7 +339,7 @@ export default function ConfigCurrency () {
                 </ul>
               </div>
 
-              <EmailsForm dataEmails={dataTypeChange?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} />
+              <EmailsForm dataEmails={dataTypeChange?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 
               <div className='box-buttons'>
                 <button

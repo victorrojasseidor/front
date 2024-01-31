@@ -1,12 +1,17 @@
 'use client'
 import Register from '@/pages/register'
 import Head from 'next/head'
+import { useAuth } from '@/Context/DataContext'
 
 export default function Home () {
+  const { l } = useAuth()
+
+  const t = l.login
+
   return (
     <>
       <Head>
-        <title>ARI</title>
+        <title>Ari/{t['Leader in automated processes']}</title>
         <meta name='description' content='Ari Seidor' />
         {/* Agrega aquí otros elementos del head, como enlaces a hojas de estilo, fuentes, etc. */}
         <link

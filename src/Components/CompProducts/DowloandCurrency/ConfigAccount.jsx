@@ -64,7 +64,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
     try {
       const token = session.sToken
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetExtBancario', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetExtBancario', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults.oListBancoCredendicial
@@ -102,7 +102,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
     }
 
     try {
-      const response = await fetchConTokenPost('dev/BPasS/?Accion=EliminarCuentaExtBancario', body, token)
+      const response = await fetchConTokenPost('BPasS/?Accion=EliminarCuentaExtBancario', body, token)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         setGet(!get)
@@ -138,7 +138,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
     try {
       const token = session.sToken
 
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=RegistrarCuentaExtBancario', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarCuentaExtBancario', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         setGet(!get)
         setTimeout(() => {
@@ -187,7 +187,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=ActualizarCuentaExtBancario', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarCuentaExtBancario', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from '@/Components/Modal'
 import Login from '..'
 import ImageSvg from '@/helpers/ImageSVG'
@@ -30,7 +30,7 @@ function LoginConfirmed () {
     }
 
     try {
-      const responseData = await fetchConTokenPost('dev/General/?Accion=RegistrarUsuarioPendConf', body, token)
+      const responseData = await fetchConTokenPost('General/?Accion=RegistrarUsuarioPendConf', body, token)
       if (responseData.oAuditResponse.iCode == 29 || responseData.oAuditResponse.iCode == 1) {
         setIsconfirmed(true)
         setError(null)
@@ -49,8 +49,8 @@ function LoginConfirmed () {
     }
   }
 
-  if (show) {
-    setTimeout(() => {
+  useEffect(() => {
+    if (show) {
       const tok = router.query.token
       const correo = router.query.correo
       if (correo && tok) {
@@ -59,8 +59,8 @@ function LoginConfirmed () {
       }
 
       handleSubmit(correo, tok)
-    }, 1000)
-  }
+    }
+  }, [])
 
   if (isLoading) {
     return (

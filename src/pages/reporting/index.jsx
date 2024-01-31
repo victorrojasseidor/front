@@ -42,7 +42,7 @@ function index (props) {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTotalBanco', body, token)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetTotalBanco', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const dataInit = responseData.oResults
@@ -97,7 +97,8 @@ function index (props) {
 
     const tok = session?.sToken
     try {
-      const responseData = await fetchConTokenPost('dev/BPasS/?Accion=GetTipoCambioRate', body, tok)
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetTipoCambioRate', body, tok)
+
       if (responseData.oAuditResponse.iCode == 1) {
         setRequestError(null)
         const data = responseData.oResults
