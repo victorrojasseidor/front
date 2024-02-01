@@ -55,6 +55,20 @@
     "Next": "Siguiente",
     "Leader in automated processes":"Lider en procesos automatizados"
   },
+
+  "update_password":{
+    "Update password":"Actualizar contraseña",
+    "Current password":"Contraseña actualmente usada",
+    "New password":"Contraseña nueva deseada",
+    "Update":"Actualizar",
+    "Profile":"Perfil",
+    "Please enter the correct current password and the desired new password": "Por favor ingrese la contraseña actual correcta y la nueva contraseña deseada",
+    "Update failed. The current password is incorrect":"La actualización falló. La contraseña actual es incorrecta",
+    "Go to profile":"Ir a perfil",
+    "Password updated successfully":"Contraseña actualizada con éxito"
+    
+  },
+
   "recover_password": {
     "Recover password": "Recuperar contraseña",
     "Please enter your email. A link will be sent to you to change your password": "Por favor coloque su correo electrónico. Se le enviará un link para cambiar su contraseña",
@@ -97,7 +111,12 @@
     "Companies": "Empresas",
     "Company profiles": "Perfiles de empresas",
     "Digital employees": "Empleados Digitales",
-    "Cancel": "Cancelar"
+    "Cancel": "Cancelar",
+    "Update password": "Actualizar contraseña",
+    "Password":"Contraseña",
+    "About the account": "A cerca de la cuenta",
+    "Profile": "Perfil",
+    "Home":"Inicio"
   },
   "header": {
     "Edit profile": "Editar perfil",
@@ -505,7 +524,7 @@
   "validation": {
     "Corporate email is required": "Se requiere correo electrónico corporativo",
     "Password is required": "Se requiere contraseña",
-    "The password must have more than 8 characters between uppercase": "La contraseña debe tener más de 8 caracteres entre mayúsculas",
+    "The password must have more than 8 characters between uppercase": "La contraseña debe contener minimo 8 caracteres entre minusculas, mayusculas y números ",
     "The email must be from the company": "El correo electrónico debe ser de una empresa",
     "The name is required": "El nombre es obligatorio",
     "Your name must not contain numbers or other special characters,allow up to 2 names": "Su nombre no debe contener números ni otros caracteres especiales, se permiten hasta 2 nombres",

@@ -71,6 +71,29 @@ export const validateFormLogin = (values) => {
   return errors
 }
 
+export const validateFormUpdatePassword = (values) => {
+  const localeSpanish = window.location.href
+  const localeES = localeSpanish.includes('/es/')
+  const l = localeES ? es : en
+  const t = l.validation
+
+  const errors = {}
+
+  if (!values.passwordold) {
+    errors.passwordold = t['Password is required']
+  } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(values.passwordold)) {
+    errors.passwordold = t['The password must have more than 8 characters between uppercase']
+  }
+
+  if (!values.passwordnew) {
+    errors.passwornew = t['Password is required']
+  } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(values.passwordnew)) {
+    errors.passwordnew = t['The password must have more than 8 characters between uppercase']
+  }
+
+  return errors
+}
+
 export const validateFormprofilestart = (values) => {
   const localeSpanish = window.location.href
   const localeES = localeSpanish.includes('/es/')
