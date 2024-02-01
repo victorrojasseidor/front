@@ -50,6 +50,17 @@
     "Next": "Next",
     "Leader in automated processes":"Leader in automated processes"
   },
+  "update_password": {
+    "Update password": "Update password",
+    "Current password": "Password actually used",
+    "New password": "New Desired Password",
+    "Update": "Update",
+    "Profile": "Profile",
+    "Please enter the correct current password and the desired new password": "Please enter the correct current password and the desired new password",
+    "Update failed. The current password is incorrect": "Update failed. The current password is incorrect",
+    "Go to profile":"Go to profile",
+    "Password updated successfully":"Password updated successfully"
+  },
   "recover_password": {
     "Recover password": "Recover password",
     "Please enter your email. A link will be sent to you to change your password": "Please enter your email. A link will be sent to you to change your password",
@@ -62,17 +73,7 @@
     "Please enter your email to uptdate password": "Please enter your email to confirm registration, check your inbox or spam",
     "OK": "OK"
   },
-  "update_password": {
-    "Have an account?": "Have an account?",
-    "Log in": "Log in",
-    "Recover password": "Recover password",
-    "Create your new password": "Create your new password",
-    "Company email": "Company email",
-    "Password": "Password",
-    "Confirm password": "Confirm password",
-    "Password validated: contains more than 8 characters between uppercase, lowercase and numbers": "Password validated: contains more than 8 characters between uppercase, lowercase and numbers",
-    "UPDATE": "UPDATE"
-  },
+  
   "profile": {
     "Welcome to ARI Seidor!": "Welcome to ARI Seidor!",
     "Robots and people work better together": "Robots and people work better together",
@@ -103,7 +104,15 @@
     "Companies": "Companies",
     "Company profiles": "Company profiles",
     "Digital employees": "Digital employees",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "Update password": "Update password",
+    "About the account": "About the account",
+    "Password":"Password",
+    "Profile": "Profile",
+    "Home":"Home"
+
+
+
   },
   "header": {
     "Edit profile": "Edit profile",

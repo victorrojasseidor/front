@@ -18,6 +18,7 @@ import Link from 'next/link'
 import Button from '@mui/material/Button'
 import ImageSvg from '@/helpers/ImageSVG'
 import Loading from '@/Components/Atoms/Loading'
+import { IconArrow } from '@/helpers/report'
 
 export default function profile () {
   const [edit, setEdit] = useState(false)
@@ -39,14 +40,14 @@ export default function profile () {
     setCountrySelect(valueSelect)
   }
 
-  const toggleCompanySelection = (companyId) => {
-    if (selectedCompanies.includes(companyId)) {
-      const seletcompany = selectedCompanies.filter((id) => id !== companyId)
-      setSelectedCompanies(seletcompany)
-    } else {
-      setSelectedCompanies([...selectedCompanies, companyId])
-    }
-  }
+  // const toggleCompanySelection = (companyId) => {
+  //   if (selectedCompanies.includes(companyId)) {
+  //     const seletcompany = selectedCompanies.filter((id) => id !== companyId)
+  //     setSelectedCompanies(seletcompany)
+  //   } else {
+  //     setSelectedCompanies([...selectedCompanies, companyId])
+  //   }
+  // }
 
   useEffect(() => {
     setSelectedCompanies(session?.oEmpresa)
@@ -155,222 +156,186 @@ export default function profile () {
 
   return (
     <LayoutProducts menu='Profile'>
-      <NavigationPages title='Profile'>
-        <Link href='/product'>Home</Link>
+      <NavigationPages title={t.Profile}>
+        <Link href='/product'>{t.Home}</Link>
       </NavigationPages>
 
       <div className='profile'>
-        <div className='box-action'>
-          {edit
-            ? (
-                ''
-              )
-            : (
-              <button className='btn_primary small' onClick={() => setEdit(!edit)}>
-                {' '}
-                {t['Edit profile']}
-              </button>
-              )}
-        </div>
+        {isLoading && <Loading />}
 
-        <div>
-          {edit ? (
-            <div className='edit-profile style-container'>
-              <h2> {t['Edit profile']} </h2>
+        <div className='profile-perfil'>
 
-              <Formik
-                initialValues={{
-                  name: session?.sUserName,
-                  lastName: session?.sLastName,
-                  countryCode: countryOptions[0], // Valor inicial de Perú
-                  phoneNumber: session?.sPhone,
-                  notificationsInBpass: session?.bCodeNotBpas,
-                  emailNotifications: session?.bCodeNotEmail,
-                  companies: []
-                }}
-                onSubmit={(values, { setSubmitting, setStatus }) => {
-                  setFormValues(values)
-                  handleSumbit(values, { setSubmitting, setStatus })
-                }}
-                enableReinitialize
-              >
-                {({ isSubmitting, status, values, setFieldValue, resetForm }) => (
-                  <Form className='form-container'>
-                    <div className='form-container_editProfile'>
-                      <div>
-                        <h3> {t['Personal information']}</h3>
-                        <div className='box-forms'>
-                          <div className='input-box'>
-                            <Field type='text' name='name' placeholder=' ' readOnly />
-                            <label htmlFor='name'>{t.Username}</label>
-                          </div>
+          <div>
+            {edit ? (
+              <div className='edit-profile style-container'>
+                <h2> {t['Edit profile']} </h2>
 
-                          <div className='input-box'>
-                            <Field type='text' name='lastName' placeholder=' ' />
-                            <label htmlFor='lastName'>{t['Last Name']}</label>
-                            <ErrorMessage className='errorMessage' name='lastName' component='div' />
-                          </div>
-
-                          <div className='box-phone'>
-                            <div className='box-filter'>
-                              <FormControl sx={{ m: 1, minWidth: 120 }}>
-                                <InputLabel id='company-label'>{t.Code}</InputLabel>
-                                <Select labelId='company-label' value={country || countryOptions[0]?.value} onChange={handleCountryChange} className='delimite-text'>
-                                  {countryOptions?.map((comp) => (
-                                    <MenuItem key={comp.value} value={comp.value}>
-                                      <div> {comp.label}</div>
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
+                <Formik
+                  initialValues={{
+                    name: session?.sUserName,
+                    lastName: session?.sLastName,
+                    countryCode: countryOptions[0], // Valor inicial de Perú
+                    phoneNumber: session?.sPhone,
+                    notificationsInBpass: session?.bCodeNotBpas,
+                    emailNotifications: session?.bCodeNotEmail,
+                    companies: []
+                  }}
+                  onSubmit={(values, { setSubmitting, setStatus }) => {
+                    setFormValues(values)
+                    handleSumbit(values, { setSubmitting, setStatus })
+                  }}
+                  enableReinitialize
+                >
+                  {({ isSubmitting, status, values, setFieldValue, resetForm }) => (
+                    <Form className='form-container'>
+                      <div className='form-container_editProfile'>
+                        <div>
+                          <h3> {t['Personal information']}</h3>
+                          <div className='box-forms'>
+                            <div className='input-box'>
+                              <Field type='text' name='name' placeholder=' ' readOnly />
+                              <label htmlFor='name'>{t.Username}</label>
                             </div>
 
                             <div className='input-box'>
-                              <Field type='text' id='phoneNumber' name='phoneNumber' placeholder=' ' />
-                              <label htmlFor='phoneNumber'>{t['Phone Number']}</label>
-                              <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
+                              <Field type='text' name='lastName' placeholder=' ' />
+                              <label htmlFor='lastName'>{t['Last Name']}</label>
+                              <ErrorMessage className='errorMessage' name='lastName' component='div' />
+                            </div>
+
+                            <div className='box-phone'>
+                              <div className='box-filter'>
+                                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                                  <InputLabel id='company-label'>{t.Code}</InputLabel>
+                                  <Select labelId='company-label' value={country || countryOptions[0]?.value} onChange={handleCountryChange} className='delimite-text' IconComponent={IconArrow}>
+                                    {countryOptions?.map((comp) => (
+                                      <MenuItem key={comp.value} value={comp.value}>
+                                        <div> {comp.label}</div>
+                                      </MenuItem>
+                                    ))}
+                                  </Select>
+                                </FormControl>
+                              </div>
+
+                              <div className='input-box'>
+                                <Field type='text' id='phoneNumber' name='phoneNumber' placeholder=' ' />
+                                <label htmlFor='phoneNumber'>{t['Phone Number']}</label>
+                                <ErrorMessage className='errorMessage' name='phoneNumber' component='div' />
+                              </div>
+                            </div>
+
+                            <div className='input-box'>
+                              <Field type='email' name='corporateEmail' placeholder=' ' value={session?.sCorreo || ''} readOnly />
+                              <label htmlFor='corporateEmail'>{t['Company email']}</label>
                             </div>
                           </div>
 
-                          <div className='input-box'>
-                            <Field type='email' name='corporateEmail' placeholder=' ' value={session?.sCorreo || ''} readOnly />
-                            <label htmlFor='corporateEmail'>{t['Company email']}</label>
-                          </div>
                         </div>
 
-                      </div>
-
-                      <div className='companies-container'>
-                        <h3> {t['Company profile']} </h3>
-
-                        <div>
-                          <div>
-                            <p>
-                              {t.Corporation}: <span>{session?.jCompany.razon_social_company}</span>
-                            </p>
-                          </div>
+                        <div className='companies-container'>
+                          <h3> {t['Company profile']} </h3>
 
                           <div>
-                            <p>{t['Select the Profile to company']}:</p>
-                          </div>
+                            <div>
+                              <p>
+                                {t.Corporation}: <span>{session?.jCompany.razon_social_company}</span>
+                              </p>
+                            </div>
 
-                          <div className='companies'>
-                            {empresasofcompaniTotal?.map((option) => (
+                            <div>
+                              <p>{t['Select the Profile to company']}:</p>
+                            </div>
 
-                              <div className={`box-companies ${validarExistenciaEmpresa(option, selectedCompanies) ? 'selected' : ''}`} key={option.id_empresa} onClick={() => toggleCompanySelection(option)}>
-                                <div className='card'>
+                            <div className='companies'>
+                              {empresasofcompaniTotal?.map((option) => (
 
-                                  <span className='initial'>{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
+                                <div className={`box-companies ${validarExistenciaEmpresa(option, selectedCompanies) ? 'selected' : ''}`} key={option.id_empresa}>
+                                  <div className='card'>
+
+                                    <span className='initial'>{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
+                                  </div>
+                                  <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
                                 </div>
-                                <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
-                              </div>
-                            ))}
+                              ))}
+                            </div>
                           </div>
+
                         </div>
 
+                        <div className='notification-container'>
+                          <h3>{t.Notifications}</h3>
+                          <p>{t['Select how you want to be notified']}</p>
+                          <ul>
+                            <div className='box-notification'>
+                              <Field type='checkbox' className='checkboxId' name='notificationsInBpass' />
+                              <label htmlFor='notificationsInBpass'>{t['Notifications in ARI']}</label>
+                            </div>
+
+                            <div className='box-notification'>
+                              <Field type='checkbox' className='checkboxId' name='emailNotifications' />
+                              <label htmlFor='emailNotifications'>{t['Email notifications']}</label>
+                            </div>
+
+                          </ul>
+                        </div>
+
+                        <div className='box-buttons'>
+                          <button
+                            type='submit' className='btn_secundary small' onClick={() => {
+                              resetForm() // Reset the form to its initial values
+                              setEdit(false)
+                            }}
+                          >
+                            {t.Cancel}
+                          </button>
+
+                          <button type='submit' className='btn_primary small' disabled={isSubmitting}>
+                            {t.Update}
+                          </button>
+                        </div>
                       </div>
 
-                      <div className='notification-container'>
-                        <h3>{t.Notifications}</h3>
-                        <p>{t['Select how you want to be notified']}</p>
-                        <ul>
-                          <div className='box-notification'>
-                            <Field type='checkbox' className='checkboxId' name='notificationsInBpass' />
-                            <label htmlFor='notificationsInBpass'>{t['Notifications in ARI']}</label>
-                          </div>
-
-                          <div className='box-notification'>
-                            <Field type='checkbox' className='checkboxId' name='emailNotifications' />
-                            <label htmlFor='emailNotifications'>{t['Email notifications']}</label>
-                          </div>
-
-                        </ul>
+                      <div className='contentError'>
+                        <div className='errorMessage'>{status || requestError}</div>
                       </div>
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+            ) : (
+              <div className='data-profile'>
+                <div className='info-personal style-container'>
+                  <div className='box-name'>
+                    <div className='box-img'>
+                      <span className='img'>
+                        {' '}
+                        <ImageSvg name='Person' />
+                      </span>
 
-                      <div className='box-buttons'>
-                        <button
-                          type='submit' className='btn_secundary small' onClick={() => {
-                            resetForm() // Reset the form to its initial values
-                            setEdit(false)
-                          }}
-                        >
-                          {t.Cancel}
-                        </button>
-
-                        <button type='submit' className='btn_primary small' disabled={isSubmitting}>
-                          {t.Update}
-                        </button>
-                      </div>
+                      <h3>
+                        {' '}
+                        {session?.sUserName} {session?.sLastName}{' '}
+                      </h3>
+                      <p>{session?.sPerfilCode}</p>
                     </div>
 
-                    <div className='contentError'>
-                      <div className='errorMessage'>{status || requestError}</div>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
-            </div>
-          ) : (
-            <div className='data-profile'>
-              <div className='info-personal style-container'>
-                <div className='box-name'>
-                  <div className='box-img'>
-                    <span className='img'>
-                      {' '}
-                      <ImageSvg name='Person' />
-                    </span>
+                    <ul className='list-personal'>
 
-                    <h3>
-                      {' '}
-                      {session?.sUserName} {session?.sLastName}{' '}
-                    </h3>
-                    <p>{session?.sPerfilCode}</p>
+                      <li>
+                        <h2> 1</h2>
+                        <p>{t.Corporation} </p>
+                      </li>
+
+                      <li>
+                        <h2> {session?.oEmpresa.length}</h2>
+                        <p>{t.Companies} </p>
+                      </li>
+                    </ul>
                   </div>
 
-                  <ul className='list-personal'>
-                    <li>
-                      <h2> 2</h2>
-                      <p>{t.Companies} </p>
-                    </li>
-                    <li>
-                      <h2> 3</h2>
-                      <p>{t['Digital employees']} </p>
-                    </li>
-                  </ul>
-                </div>
+                  <div className='info-companies style-container'>
+                    <h3> {t['Company profile']}</h3>
 
-                <div className='box-information'>
-                  <h3> {t['Personal information']}</h3>
-                  <ul className='list-information'>
-                    <li className='card-perfil'>
-                      <span>{t.Username}</span>
-                      <p> {session?.sUserName}</p>
-                    </li>
-
-                    <li className='card-perfil'>
-                      <span>{t['Last Name']}</span>
-                      <p> {session?.sLastName}</p>
-                    </li>
-
-                    <li className='card-perfil'>
-                      <span>{t['Phone Number']}</span>
-                      <p> {session?.sPhone}</p>
-                    </li>
-
-                    <li className='card-perfil'>
-                      <span>{t['Company email']}</span>
-                      <p> {session?.sCorreo}</p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className='box-companies'>
-                <div className='info-companies style-container'>
-                  <h3> {t['Company profile']}</h3>
-                  {/* <p> bdbkjrndlkdmldkd </p> */}
-
-                  <ul className='box-cards'>
                     <li className='card-perfil'>
                       <span>{t.Corporation}</span>
                       <p> {session?.jCompany.razon_social_company || 'Admin'}</p>
@@ -380,36 +345,98 @@ export default function profile () {
                       <span>{t.Estatus}</span>
                       <p> {session?.sDescription}</p>
                     </li>
-                  </ul>
 
-                  <ul>
-                    <li className='card-perfil companies'>
-                      <span>{t.Companies}</span>
+                    <ul>
+                      <li className='card-perfil companies'>
+                        <span>{t.Companies}</span>
 
-                      <div className=''>
-                        {session?.oEmpresa.map((em, index) => (
-                          <p key={em.id_empresa}>{em.razon_social_empresa}</p>
-                        ))}
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className='info-notifi style-container'>
-                  <h3> {t.Notifications}</h3>
-
-                  <ul>
-                    {session?.bCodeNotBpas && <li>{t['Notifications in ARI']}</li>}
-                    {session?.bCodeNotEmail && <li>{t['Email notifications']}</li>}
-                  </ul>
+                        <div className=''>
+                          {session?.oEmpresa.map((em, index) => (
+                            <p key={em.id_empresa}>{em.razon_social_empresa}</p>
+                          ))}
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
 
                 </div>
 
+                <div className='box-companies'>
+
+                  <div className='box-information style-container'>
+
+                    <div className='profile-action'>
+                      <h3> {t['Personal information']}</h3>
+                      <button className='btn_primary small' onClick={() => setEdit(!edit)}>
+
+                        {t['Edit profile']}
+                      </button>
+
+                    </div>
+                    <ul className='list-information'>
+                      <li className='card-perfil'>
+                        <span>{t.Username}</span>
+                        <p> {session?.sUserName}</p>
+                      </li>
+
+                      <li className='card-perfil'>
+                        <span>{t['Last Name']}</span>
+                        <p> {session?.sLastName}</p>
+                      </li>
+
+                      <li className='card-perfil'>
+                        <span>{t['Phone Number']}</span>
+                        <p> {session?.sPhone}</p>
+                      </li>
+
+                    </ul>
+                  </div>
+
+                  <div className='info-notifi style-container'>
+                    <h3> {t.Notifications}</h3>
+
+                    <ul>
+                      {session?.bCodeNotBpas && <li>{t['Notifications in ARI']}</li>}
+                      {session?.bCodeNotEmail && <li>{t['Email notifications']}</li>}
+                    </ul>
+
+                  </div>
+
+                  <div className='data-profile style-container'>
+                    <div className='profile-action'>
+                      <h3> {t['About the account']} </h3>
+
+                      <button className='btn_primary small' onClick={() => router.push('/profile/update')}>
+
+                        {t['Update password']}
+
+                      </button>
+
+                    </div>
+                    <ul className='list-information'>
+
+                      <li className='card-perfil'>
+                        <span>{t['Company email']}</span>
+                        <p> {session?.sCorreo}</p>
+                      </li>
+
+                      <li className='card-perfil'>
+                        <span>{t.Password}</span>
+                        <p> ************</p>
+                      </li>
+
+                    </ul>
+                  </div>
+
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+
         </div>
-        {isLoading && <Loading />}
+
+        <div className='profile-perfil' />
+
       </div>
     </LayoutProducts>
   )
