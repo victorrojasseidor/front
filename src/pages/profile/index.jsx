@@ -336,15 +336,19 @@ export default function profile () {
                   <div className='info-companies style-container'>
                     <h3> {t['Company profile']}</h3>
 
-                    <li className='card-perfil'>
-                      <span>{t.Corporation}</span>
-                      <p> {session?.jCompany.razon_social_company || 'Admin'}</p>
-                    </li>
+                    <ul className='info-container'>
 
-                    <li className='card-perfil'>
-                      <span>{t.Estatus}</span>
-                      <p> {session?.sDescription}</p>
-                    </li>
+                      <li className='card-perfil'>
+                        <span>{t.Corporation}</span>
+                        <p> {session?.jCompany.razon_social_company || 'Admin'}</p>
+                      </li>
+
+                      <li className='card-perfil'>
+                        <span>{t.Estatus}</span>
+                        <p> {session?.sDescription}</p>
+                      </li>
+
+                    </ul>
 
                     <ul>
                       <li className='card-perfil companies'>

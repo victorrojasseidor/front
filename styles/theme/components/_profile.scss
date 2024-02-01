@@ -299,6 +299,7 @@
     justify-content: flex-start;
     box-shadow: bsh(3);
     border-radius: brd(2);
+    width: 100%;
 
     span {
       color: get-color(grey2_s4);
@@ -358,10 +359,25 @@
     }
   }
 
+
+  .info-container{
+    display: flex;
+    gap:1rem;
+      flex-direction: row;
+    flex-wrap: wrap;
+   
+    .card-perfil{
+      flex:1
+    }
+    
+
+  }
+
   .list-information {
     display: flex;
     flex-direction: column;
     gap:1rem;
+ 
 
     @include media(tablet) {
       grid-gap: 1rem;
