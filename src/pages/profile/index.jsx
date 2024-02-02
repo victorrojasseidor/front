@@ -410,7 +410,7 @@ export default function profile () {
                     <div className='profile-action'>
                       <h3> {t['About the account']} </h3>
 
-                      <button className='btn_primary small' onClick={() => router.push('/profile/update')}>
+                      <button className='btn_primary small' onClick={() => router.push('/profile/changepassword')}>
 
                         {t['Update password']}
 

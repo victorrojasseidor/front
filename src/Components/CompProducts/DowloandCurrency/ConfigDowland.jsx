@@ -219,8 +219,10 @@ export default function ConfigDowland () {
 
         if (atLeastOneAccount) {
           setCompleteconfigBank(true)
+          setCompleteShedule(true)
         } else {
           setCompleteconfigBank(false)
+          setCompleteShedule(false)
         }
       } else {
         await handleCommonCodes(responseData)
@@ -267,36 +269,6 @@ export default function ConfigDowland () {
   const handleAcount = (row) => {
     setBankCredential(row)
     setShowAccounts(true)
-  }
-
-  // obtener el token
-
-  const getToken = async () => {
-    try {
-      const myHeaders = new Headers()
-      myHeaders.append('Content-Type', 'application/x-www-form-urlencoded')
-      myHeaders.append('Cookie', '__cf_bm=GMHDiUtTatiuiC1CXX.28tdsv3OeMMonu3iKj9ZmFK8-1704317969-1-ASvMCfPQ97jY6Rj+FLd72sxRp8HOgXzu88b/MnxyMhN/VOYZlfTylTB9J+qzNCMJCPv28mR4ikOrTdwfaYzmLzU=')
-
-      const urlencoded = new URLSearchParams()
-      urlencoded.append('grant_type', 'client_credentials')
-      urlencoded.append('client_id', 'dde9aed6-97b2-4cb7-b61c-3602cfa9fd18')
-      urlencoded.append('client_secret', 't#qdBDY$7A*(HKH%')
-      urlencoded.append('scope', 'OR.Jobs OR.Jobs.Read OR.Jobs.Write')
-
-      const requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: urlencoded,
-        redirect: 'follow'
-      }
-
-      const response = await fetch('https://cloud.uipath.com/identity_/connect/token', requestOptions)
-      const result = await response.text()
-      const resultJSON = JSON.parse(result)
-      return resultJSON
-    } catch (error) {
-      console.error('Error:', error)
-    }
   }
 
   // Función para verificar si un objeto tiene datos en oListCuentas

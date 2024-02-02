@@ -51,10 +51,10 @@
     "Leader in automated processes":"Leader in automated processes"
   },
   "update_password": {
-    "Update password": "Update password",
+    "Update password": "Change password",
     "Current password": "Password actually used",
     "New password": "New Desired Password",
-    "Update": "Update",
+    "Update": "Change",
     "Profile": "Profile",
     "Please enter the correct current password and the desired new password": "Please enter the correct current password and the desired new password",
     "Update failed. The current password is incorrect": "Update failed. The current password is incorrect",
@@ -105,7 +105,7 @@
     "Company profiles": "Company profiles",
     "Digital employees": "Digital employees",
     "Cancel": "Cancel",
-    "Update password": "Update password",
+    "Update password": "Change password",
     "About the account": "About the account",
     "Password":"Password",
     "Profile": "Profile",
