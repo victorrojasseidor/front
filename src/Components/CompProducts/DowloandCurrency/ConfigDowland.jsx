@@ -35,7 +35,7 @@ export default function ConfigDowland () {
   const [bankCredential, setBankCredential] = useState(null)
   const [updateEmails, setUpdateEmails] = useState(false)
   const [get, setGet] = useState(false)
-
+  const [chageAc, setChangeA] = useState(false)
   // Estado para almacenar si el checkbox está marcado o no
   const [isChecked, setIsChecked] = useState(false)
 
@@ -402,7 +402,7 @@ export default function ConfigDowland () {
 
               {showAccounts
                 ? <>
-                  <ConfigAccount idbancoCredential={bankCredential?.id_banco_credencial} setShowAccounts={setShowAccounts} OptionBanks={data?.oPaisBanco} />
+                  <ConfigAccount idbancoCredential={bankCredential?.id_banco_credencial} setShowAccounts={setShowAccounts} OptionBanks={data?.oPaisBanco} setGet={setGet} get={get} />
 
                   <div className='box-buttons'>
                     <button
