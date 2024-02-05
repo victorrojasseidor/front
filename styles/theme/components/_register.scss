@@ -38,6 +38,7 @@
   justify-content: flex-start;
   align-items:first baseline;
   gap:0.25rem;
+  padding-bottom: 1rem;
 
   @include media(tablet) {
     gap:0.25rem;
