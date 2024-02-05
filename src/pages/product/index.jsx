@@ -28,6 +28,8 @@ export default function Products () {
 
   const t = l.Products
 
+  console.log({ product })
+
   const router = useRouter()
   useEffect(() => {
     if (session && empresa) {
