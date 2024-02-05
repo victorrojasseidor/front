@@ -17,7 +17,7 @@ import ImageSvg from '@/helpers/ImageSVG'
 import { getProducts } from '@/helpers/auth'
 import { IconDate } from '@/helpers/report'
 export default function Apiconfiguration ({ nameEmpresa }) {
-  const { session, setModalToken, logout, l } = useAuth()
+  const { session, setModalToken, logout, l, idCountry } = useAuth()
   const [product, setProduct] = useState(null)
   const router = useRouter()
 
@@ -33,7 +33,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     setIsLoading(true)
     try {
       const token = session.sToken
-      const responseData = await getProducts(idEmpresa, token)
+      const responseData = await getProducts(idEmpresa, token, idCountry)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults

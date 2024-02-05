@@ -41,7 +41,7 @@ export default function ConfigCurrency () {
   const iId = router.query.iId
   const idEmpresa = router.query.idEmpresa
 
-  const { session, setModalToken, logout, l } = useAuth()
+  const { session, setModalToken, logout, l, idCountry } = useAuth()
 
   const t = l.Currency
 
@@ -124,7 +124,7 @@ export default function ConfigCurrency () {
     setIsLoading(true)
     try {
       const token = session.sToken
-      const responseData = await getProducts(idEmpresa, token)
+      const responseData = await getProducts(idEmpresa, token, idCountry)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -146,7 +146,7 @@ export default function ConfigCurrency () {
     const body = {
       oResults: {
         iIdTipCamb: iIdProdEnv,
-        iIdPais: 1
+        iIdPais: idCountry
       }
     }
 

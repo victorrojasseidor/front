@@ -35,7 +35,7 @@ export default function ConfigDowland () {
   const [bankCredential, setBankCredential] = useState(null)
   const [updateEmails, setUpdateEmails] = useState(false)
   const [get, setGet] = useState(false)
-  const [chageAc, setChangeA] = useState(false)
+
   // Estado para almacenar si el checkbox está marcado o no
   const [isChecked, setIsChecked] = useState(false)
 
@@ -61,7 +61,7 @@ export default function ConfigDowland () {
   const iId = router.query.iId
   const idEmpresa = router.query.idEmpresa
 
-  const { session, setModalToken, logout, l } = useAuth()
+  const { session, setModalToken, logout, l, idCountry } = useAuth()
 
   const t = l.Download
 
@@ -87,7 +87,7 @@ export default function ConfigDowland () {
       oResults: {
         iIdEmpresa: idEmpresa,
         sName: values.name,
-        iIdPais: 1,
+        iIdPais: idCountry,
         iBanco: values.bank.id,
         sPassword: values.password,
         sCredencial: values.principalCredential,
@@ -147,7 +147,7 @@ export default function ConfigDowland () {
         iIdCredencial: initialEdit?.id_credenciales,
         iIdBancoCredencial: initialEdit?.id_banco_credencial,
         sName: values.name,
-        iIdPais: 1,
+        iIdPais: idCountry,
         iBanco: values.bank ? values.bank.id : (initialEdit ? initialEdit.id_banco : null),
         ...(values.password && { sPassword: values.password }),
         sCredencial: values.principalCredential,
@@ -199,7 +199,7 @@ export default function ConfigDowland () {
     const body = {
       oResults: {
         iIdExtBanc: iIdProdEnv,
-        iIdPais: 1
+        iIdPais: idCountry
       }
     }
 
@@ -284,7 +284,7 @@ export default function ConfigDowland () {
     setIsLoading(true)
     try {
       const token = session.sToken
-      const responseData = await getProducts(idEmpresa, token)
+      const responseData = await getProducts(idEmpresa, token, idCountry)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults

@@ -21,7 +21,7 @@ export default function Products () {
   const [isLoading, setIsLoading] = useState(false)
   const [hiredProduct, setHiredProduct] = useState('0')
 
-  const { session, setModalToken, logout, l, empresa, setEmpresa } = useAuth()
+  const { session, setModalToken, logout, l, empresa, setEmpresa, idCountry } = useAuth()
 
   // Nuevo estado para opciones de búsqueda de empresas
   const [companyOptions, setCompanyOptions] = useState([])
@@ -40,7 +40,7 @@ export default function Products () {
     try {
       const token = session?.sToken
       const idEmpresa = empresa.id_empresa
-      const responseData = await getProducts(idEmpresa, token)
+      const responseData = await getProducts(idEmpresa, token, idCountry)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults

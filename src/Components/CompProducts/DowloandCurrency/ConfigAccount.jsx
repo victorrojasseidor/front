@@ -20,7 +20,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingComponent, setIsLoadingComponent] = useState(false)
   const [getAccounts, setGetAccounts] = useState(false)
-  const { session, setModalToken, logout, l } = useAuth()
+  const { session, setModalToken, logout, l, idCountry } = useAuth()
 
   const router = useRouter()
   const iIdProdEnv = router.query.iIdProdEnv
@@ -54,7 +54,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
     const body = {
       oResults: {
         iIdExtBanc: iIdProdEnv,
-        iIdPais: 1
+        iIdPais: idCountry
       }
     }
 

@@ -39,7 +39,7 @@ export default function ConfigPattern () {
   const iId = router.query.iId
   const idEmpresa = router.query.idEmpresa
 
-  const { session, setModalToken, logout, l } = useAuth()
+  const { session, setModalToken, logout, l, idCountry } = useAuth()
 
   const t = l.Pattern
 
@@ -119,7 +119,7 @@ export default function ConfigPattern () {
     setIsLoading(true)
     try {
       const token = session.sToken
-      const responseData = await getProducts(idEmpresa, token)
+      const responseData = await getProducts(idEmpresa, token, idCountry)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults
@@ -141,7 +141,7 @@ export default function ConfigPattern () {
     const body = {
       oResults: {
         iIdPadrones: iIdProdEnv, // [1]
-        iIdPais: dataCardProduct?.iCountry || 1
+        iIdPais: idCountry || dataCardProduct?.iCountry
       }
     }
 

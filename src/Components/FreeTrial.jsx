@@ -14,7 +14,7 @@ import { getProducts } from '@/helpers/auth'
 function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
   const [error, SetError] = useState(null)
   const [confirm, SetConfirm] = useState(false)
-  const { session, setModalToken, l, logout } = useAuth()
+  const { session, setModalToken, l, logout, idCountry } = useAuth()
   const [product, setProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [requestError, setRequestError] = useState()
@@ -82,7 +82,7 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
     setIsLoading(true)
     try {
       const token = session.sToken
-      const responseData = await getProducts(idEmpresa, token)
+      const responseData = await getProducts(idEmpresa, token, idCountry)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults

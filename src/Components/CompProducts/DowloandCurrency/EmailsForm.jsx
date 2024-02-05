@@ -22,7 +22,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct, get
   const iId = router.query.iId
   const idEmpresa = router.query.idEmpresa
 
-  const { session, setModalToken, logout, l } = useAuth()
+  const { session, setModalToken, logout, l, idCountry } = useAuth()
   const t = l.Currency
 
   useEffect(() => {
@@ -136,7 +136,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct, get
       oResults: {
         sProd: sProduct,
         iIdProdEnv: parseInt(iIdProdEnv),
-        iIdPais: 1, // id pais
+        iIdPais: idCountry, // id pais
         oCorreo: listEmailsTO.concat(listEmailsCCo)
       }
     }

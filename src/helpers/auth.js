@@ -16,11 +16,11 @@ async function refresToken (token) {
   }
 }
 
-async function getProducts (idEmpresa, token) {
+async function getProducts (idEmpresa, token, idCountry) {
   const body = {
     oResults: {
       iIdEmpresa: idEmpresa,
-      iIdPais: 1
+      iIdPais: idCountry
     }
   }
 
