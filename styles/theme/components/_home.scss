@@ -1,23 +1,186 @@
-
-.home{
-
+.home {
 
 
-    &-client{
+  nav{
 
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        background-image: url("../../../public/img/testimonials/map.png");
-        background-repeat: no-repeat;
-        background-size:contain;
-        height: 80vh;
-        width: 100vw;
-        background-position: center;
-    
+    padding: 2rem;
 
+    @include center-container;
+    flex-direction: row;
+    justify-content: space-between;
 
+    ul{
+     
+     @include center-container;
+    flex-direction: row;
+    gap: 1rem;
     }
     
-   
+    .languajes-box{
+      @include center-container;
+      flex-direction: row;
+    }
+
+
+  }
+
+
+
+
+  .container{
+    padding: 1rem;
+    margin: 1rem;
+
+    @include media(tablet) {
+      padding: 2rem;
+    margin: 2rem;
+    }
+  }
+
+  .subtitle{
+
+    font-size: 48px;
+    
+
+    @include center-container;
+    
+
+  }
+
+  &-client {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap:3rem;
+    background-image: url("../../../public/img/testimonials/map.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+       background-position: center;
+
+    @include media(tablet) {
+      height: 90vh;
+    }
+  }
+
+  .testimonials-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container-img {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    width: 400px;
+    height: 400px;
+    border-radius: brd(f);
+    border: 5px solid get-color(blue_p1);
+    position: relative;
+
+    button {
+      border-style: none;
+      background-color: transparent;
+    }
+
+    img {
+      border-radius: brd(f);
+      position: absolute;
+      bottom: 100%;
+      right: 30%;
+      width: 60px;
+      height: 60px;
+      &:hover,
+      :active,
+      :focus {
+        border: 2px solid get-color(blue_p1);
+        box-shadow: bsh(3);
+        // width: 80px;
+        // height: 80px;
+      }
+    }
+
+    .active {
+      border: 2px solid get-color(blue_p1);
+      box-shadow: bsh(3);
+      // width: 80px;
+      // height: 80px;
+    }
+  }
+
+  .testimony {
+    width: 85vw;
+    flex-direction: column;
+    @include center-container;
+    gap: 1rem;
+    position: absolute;
+    bottom:  18%;
+    z-index: 3;
+
+    @include media(tablet) {
+      max-width: 45vw;
+      bottom:  -4%;
+    }
+
+    @include media(extradesktop) {
+      max-width: 45vw;
+      bottom:  -5%;
+    }
+
+
+
+    &-img {
+      button {
+        border-style: none;
+        background-color: transparent;
+      }
+
+      img {
+        border-radius: brd(f);
+        width: 100px;
+      height: 100px;
+      border: 2px solid get-color(blue_p1);
+      box-shadow: bsh(3);
+      }
+    }
+
+    &-message{
+      @include container;
+      @include center-container;
+      flex-direction: column;
+  
+      p {
+        display: flex;
+        color: get-color(grey2_s4);
+        text-align: center;
+      }
+  
+      span {
+        color: get-color(t1-blue);
+        font-size: smaller;
+      }
+
+
+  // Pseudoelemento ::before para la punta superior del globo
+  &::before {
+    content: '';
+    position: absolute;
+    top: 39%;  // Ajusta la posición vertical de la punta
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width:  0 28px 28px 28px;  // Modificado para hacer un triángulo invertido con rotación
+    border-color: transparent transparent #ffffff transparent; 
+    background-color: transparent; // Mismo color que el fondo del mensaje
+  }
+    }
+
+ 
+
+  }
 }
