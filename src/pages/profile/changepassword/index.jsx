@@ -12,7 +12,7 @@ import Modal from '@/Components/Modal'
 
 import { fetchConTokenPost } from '@/helpers/fetch'
 
-export default function update () {
+export default function changepassword () {
   const [showPasswordOld, setShowPasswordOld] = useState(false)
   const [showPasswordNew, setShowPasswordNew] = useState(false)
   const [isLoading, setIsLoading] = useState(false)

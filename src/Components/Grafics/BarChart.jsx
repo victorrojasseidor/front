@@ -51,11 +51,14 @@ export default function LineChart () {
   }
 
   const getMonthDates = (year, monthIndex) => {
-    // Obtener el último día del mes anterior
-    const startDate = dayjs(`${year}-${monthIndex + 1}-01`).subtract(1, 'day').format('DD/MM/YYYY')
+    // Obtener el primer día del mes
+    const startDate = dayjs(`${year}-${monthIndex + 1}-01`).format('DD/MM/YYYY')
 
-    // Obtener el último día del mes actual
-    const endDate = dayjs(`${year}-${monthIndex + 1}-${dayjs(`${year}-${monthIndex + 1}`).daysInMonth()}`).format('DD/MM/YYYY')
+    // Obtener el último día del mes
+    const lastDay = dayjs(`${year}-${monthIndex + 1}`).endOf('month').format('DD')
+
+    // Obtener la fecha final con el último día del mes
+    const endDate = dayjs(`${year}-${monthIndex + 1}-${lastDay}`).format('DD/MM/YYYY')
 
     return { sFechaDesde: startDate, sFechaHasta: endDate }
   }
@@ -86,6 +89,7 @@ export default function LineChart () {
         iMoneda: monedaDestino
       }
     }
+    console.log({ body })
 
     const tok = session?.sToken
     try {
@@ -233,17 +237,21 @@ export default function LineChart () {
         stepSize: 1,
         type: 'linear',
         position: 'bottom',
-
         ticks: {
           autoSkip: true,
           precision: 0,
-          maxTicksLimit: 10,
+          maxTicksLimit: 30,
           callback: function (value, index, values) {
-            // Puedes personalizar el texto según tus necesidades
             const Mont = months[selectedMonth]
             const currentMon = Mont?.slice(0, 3)
+            // Verificar si la etiqueta actual es igual a la etiqueta anterior
+            if (index > 0 && value === values[index - 1]) {
+              return '' // Devolver cadena vacía para evitar duplicados
+            }
+
             return ` ${Math.round(value)} ${currentMon}`
           }
+
         },
         grid: {
           display: false

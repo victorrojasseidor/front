@@ -23,7 +23,7 @@ export const DataContextProvider = ({ children }) => {
   const [isLogout, setIsLogout] = useState(false)
   const [dataProfileStart, setdataProfileStart] = useState(null)
   const [empresa, setEmpresa] = useState(null)
-  // lang
+  const [idCountry, setIdCountry] = useState(1)
 
   const router = useRouter()
   const { locale } = router
@@ -31,21 +31,24 @@ export const DataContextProvider = ({ children }) => {
 
   // Función para manejar el cierre de sesión
   async function logout () {
-    setIsLoading(true)
     setIsLogout(true)
+    setIsLoading(true)
     try {
+      router.push('/login')
       const token = session.sToken
       const body = {
         oResults: {}
       }
+
       const response = await fetchConTokenPost('BPasS/?Accion=SalidaUsuario', body, token)
+
       if (
         response.oAuditResponse?.iCode === 1 ||
         response.oAuditResponse?.iCode === 4 ||
         response.oAuditResponse?.iCode === 9
       ) {
         console.log('ejecutaste logout')
-        router.push('/login')
+
         setdataProfileStart(null)
         setSession(null)
         localStorage.removeItem('session')
@@ -94,7 +97,9 @@ export const DataContextProvider = ({ children }) => {
         setEmpresa,
         l,
         isLogout,
-        setIsLogout
+        setIsLogout,
+        idCountry,
+        setIdCountry
 
       }}
     >

@@ -57,7 +57,7 @@
   },
 
   "update_password":{
-    "Update password":"Actualizar contraseña",
+    "Update password":"Cambiar contraseña",
     "Current password":"Contraseña actualmente usada",
     "New password":"Contraseña nueva deseada",
     "Update":"Actualizar",
@@ -112,7 +112,7 @@
     "Company profiles": "Perfiles de empresas",
     "Digital employees": "Empleados Digitales",
     "Cancel": "Cancelar",
-    "Update password": "Actualizar contraseña",
+    "Update password": "Cambiar contraseña",
     "Password":"Contraseña",
     "About the account": "A cerca de la cuenta",
     "Profile": "Perfil",

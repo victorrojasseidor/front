@@ -46,7 +46,7 @@
       border-style: none;
       background-color: get-color(white_s1);
       backdrop-filter: blur(20px);
-      justify-content: space-between;
+      justify-content: space-around;
       flex-direction: column;
       display: flex;
       // overflow-y: auto; /* Agregamos desplazamiento vertical si es necesario */
@@ -58,7 +58,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
       padding: 0rem 1.5rem;
       position: relative;
       border-bottom: 1px solid get-color(grey1_s3);
@@ -93,10 +93,10 @@
 
           &_logo {
             img {
-              height: 100px;
+              height: 85px;
               width: auto;
-              padding-top: 2rem;
-            }
+              padding-top: 1rem;
+              }
           }
         }
       }

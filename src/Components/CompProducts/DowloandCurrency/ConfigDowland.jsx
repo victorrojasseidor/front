@@ -61,7 +61,7 @@ export default function ConfigDowland () {
   const iId = router.query.iId
   const idEmpresa = router.query.idEmpresa
 
-  const { session, setModalToken, logout, l } = useAuth()
+  const { session, setModalToken, logout, l, idCountry } = useAuth()
 
   const t = l.Download
 
@@ -87,7 +87,7 @@ export default function ConfigDowland () {
       oResults: {
         iIdEmpresa: idEmpresa,
         sName: values.name,
-        iIdPais: 1,
+        iIdPais: idCountry,
         iBanco: values.bank.id,
         sPassword: values.password,
         sCredencial: values.principalCredential,
@@ -147,7 +147,7 @@ export default function ConfigDowland () {
         iIdCredencial: initialEdit?.id_credenciales,
         iIdBancoCredencial: initialEdit?.id_banco_credencial,
         sName: values.name,
-        iIdPais: 1,
+        iIdPais: idCountry,
         iBanco: values.bank ? values.bank.id : (initialEdit ? initialEdit.id_banco : null),
         ...(values.password && { sPassword: values.password }),
         sCredencial: values.principalCredential,
@@ -199,7 +199,7 @@ export default function ConfigDowland () {
     const body = {
       oResults: {
         iIdExtBanc: iIdProdEnv,
-        iIdPais: 1
+        iIdPais: idCountry
       }
     }
 
@@ -219,8 +219,10 @@ export default function ConfigDowland () {
 
         if (atLeastOneAccount) {
           setCompleteconfigBank(true)
+          setCompleteShedule(true)
         } else {
           setCompleteconfigBank(false)
+          setCompleteShedule(false)
         }
       } else {
         await handleCommonCodes(responseData)
@@ -269,36 +271,6 @@ export default function ConfigDowland () {
     setShowAccounts(true)
   }
 
-  // obtener el token
-
-  const getToken = async () => {
-    try {
-      const myHeaders = new Headers()
-      myHeaders.append('Content-Type', 'application/x-www-form-urlencoded')
-      myHeaders.append('Cookie', '__cf_bm=GMHDiUtTatiuiC1CXX.28tdsv3OeMMonu3iKj9ZmFK8-1704317969-1-ASvMCfPQ97jY6Rj+FLd72sxRp8HOgXzu88b/MnxyMhN/VOYZlfTylTB9J+qzNCMJCPv28mR4ikOrTdwfaYzmLzU=')
-
-      const urlencoded = new URLSearchParams()
-      urlencoded.append('grant_type', 'client_credentials')
-      urlencoded.append('client_id', 'dde9aed6-97b2-4cb7-b61c-3602cfa9fd18')
-      urlencoded.append('client_secret', 't#qdBDY$7A*(HKH%')
-      urlencoded.append('scope', 'OR.Jobs OR.Jobs.Read OR.Jobs.Write')
-
-      const requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: urlencoded,
-        redirect: 'follow'
-      }
-
-      const response = await fetch('https://cloud.uipath.com/identity_/connect/token', requestOptions)
-      const result = await response.text()
-      const resultJSON = JSON.parse(result)
-      return resultJSON
-    } catch (error) {
-      console.error('Error:', error)
-    }
-  }
-
   // Función para verificar si un objeto tiene datos en oListCuentas
   const haveAccounts = (data) => data?.oListBancoCredendicial.some(
     (objeto) => objeto.oListCuentas && objeto.oListCuentas.length > 0
@@ -312,7 +284,7 @@ export default function ConfigDowland () {
     setIsLoading(true)
     try {
       const token = session.sToken
-      const responseData = await getProducts(idEmpresa, token)
+      const responseData = await getProducts(idEmpresa, token, idCountry)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const data = responseData.oResults
@@ -430,7 +402,7 @@ export default function ConfigDowland () {
 
               {showAccounts
                 ? <>
-                  <ConfigAccount idbancoCredential={bankCredential?.id_banco_credencial} setShowAccounts={setShowAccounts} OptionBanks={data?.oPaisBanco} />
+                  <ConfigAccount idbancoCredential={bankCredential?.id_banco_credencial} setShowAccounts={setShowAccounts} OptionBanks={data?.oPaisBanco} setGet={setGet} get={get} />
 
                   <div className='box-buttons'>
                     <button

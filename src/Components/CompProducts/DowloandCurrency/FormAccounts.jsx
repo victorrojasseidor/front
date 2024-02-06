@@ -15,7 +15,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
   // const id = router.query.iId
   const iIdProdEnv = router.query.iIdProdEnv
 
-  const { session, setModalToken, l } = useAuth()
+  const { session, setModalToken, l, idCountry } = useAuth()
   const t = l.Download
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     const body = {
       oResults: {
         iIdExtBanc: iIdProdEnv,
-        iIdPais: 1
+        iIdPais: idCountry
       }
     }
     try {

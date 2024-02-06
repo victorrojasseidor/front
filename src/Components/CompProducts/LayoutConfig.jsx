@@ -15,7 +15,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   const [activeTab, setActiveTab] = useState(defaultTab || 0)
   const [component, setComponent] = useState(null)
 
-  const { session, setModalToken, l, logout } = useAuth()
+  const { session, setModalToken, l, logout, idCountry } = useAuth()
 
   const router = useRouter()
 
@@ -54,7 +54,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   async function getDataProduct () {
     try {
       const token = session.sToken
-      const responseData = await getProducts(idEmpresa, token)
+      const responseData = await getProducts(idEmpresa, token, idCountry)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)

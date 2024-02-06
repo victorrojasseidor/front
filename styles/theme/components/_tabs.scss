@@ -92,11 +92,9 @@
     align-items: center;
     flex-direction: row;
     width: 100%;
-
-
-    @include media(tablet) {
-         max-width: 30px;
-    }
+    border-radius: 0px 10px 10px 0px;
+    background-color:get-color(white_s1);
+    width:fit-content;
 
     h4 {
       color: get-color(grey2_s4);
@@ -111,21 +109,14 @@
       align-items: center;
       padding: 1em;
       align-items: center;
-      background-color: get-color(white_s1);
       width: 100%;
       
 
       @include media(tablet) {
         padding: 1em ;
-   }
+     }
 
-      &:first-child {
-        border-radius: 10px 0px 0px 10px;
-      }
-
-      &:last-of-type {
-        border-radius: 0px 10px 10px 0px;
-      }
+    
 
       &.active {
         color: get-color(white_s1);
@@ -135,8 +126,14 @@
           color: get-color(white_s1);
           font-weight: 600;
         }
+        &:last-child {
+        
+          border-radius: 0 10px 10px 0; /* Aplica bordes redondeados solo al lado derecho del último botón */
+        }
+        
       }
     }
+
   }
 }
 

@@ -336,15 +336,19 @@ export default function profile () {
                   <div className='info-companies style-container'>
                     <h3> {t['Company profile']}</h3>
 
-                    <li className='card-perfil'>
-                      <span>{t.Corporation}</span>
-                      <p> {session?.jCompany.razon_social_company || 'Admin'}</p>
-                    </li>
+                    <ul className='info-container'>
 
-                    <li className='card-perfil'>
-                      <span>{t.Estatus}</span>
-                      <p> {session?.sDescription}</p>
-                    </li>
+                      <li className='card-perfil'>
+                        <span>{t.Corporation}</span>
+                        <p> {session?.jCompany.razon_social_company || 'Admin'}</p>
+                      </li>
+
+                      <li className='card-perfil'>
+                        <span>{t.Estatus}</span>
+                        <p> {session?.sDescription}</p>
+                      </li>
+
+                    </ul>
 
                     <ul>
                       <li className='card-perfil companies'>
@@ -406,7 +410,7 @@ export default function profile () {
                     <div className='profile-action'>
                       <h3> {t['About the account']} </h3>
 
-                      <button className='btn_primary small' onClick={() => router.push('/profile/update')}>
+                      <button className='btn_primary small' onClick={() => router.push('/profile/changepassword')}>
 
                         {t['Update password']}
 

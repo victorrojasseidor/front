@@ -9,7 +9,7 @@ import FormAccounts from '@/Components/CompProducts/DowloandCurrency/FormAccount
 import Loading from '@/Components/Atoms/Loading'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 
-export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
+export default function ConfigAccount ({ idbancoCredential, setShowAccounts, setGet, get }) {
   const [data, setData] = useState(null)
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
@@ -19,14 +19,11 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingComponent, setIsLoadingComponent] = useState(false)
-  const [get, setGet] = useState(false)
-
-  const { session, setModalToken, logout, l } = useAuth()
+  const [getAccounts, setGetAccounts] = useState(false)
+  const { session, setModalToken, logout, l, idCountry } = useAuth()
 
   const router = useRouter()
   const iIdProdEnv = router.query.iIdProdEnv
-  const iId = router.query.iId
-  const idEmpresa = router.query.idEmpresa
 
   const t = l.Download
 
@@ -36,7 +33,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
     } else if (response.oAuditResponse?.iCode === 4) {
       await logout()
     } else {
-      const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete '
+      const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in service'
       console.log('errok, ', errorMessage)
       setModalToken(false)
       setRequestError(errorMessage)
@@ -50,14 +47,14 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
     if (session) {
       getExtrBancAccount()
     }
-  }, [get, l])
+  }, [getAccounts, l])
 
   async function getExtrBancAccount () {
     setIsLoadingComponent(true)
     const body = {
       oResults: {
         iIdExtBanc: iIdProdEnv,
-        iIdPais: 1
+        iIdPais: idCountry
       }
     }
 
@@ -67,7 +64,9 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetExtBancario', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
+        setGet(!get)
         const data = responseData.oResults.oListBancoCredendicial
+
         const filterData = data.filter(account => account.id_banco_credencial == idbancoCredential)
         setData(filterData[0])
         const filterOptionsBanks = responseData.oResults.oPaisBanco[0].banks
@@ -105,7 +104,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
       const response = await fetchConTokenPost('BPasS/?Accion=EliminarCuentaExtBancario', body, token)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
-        setGet(!get)
+        setGetAccounts(!getAccounts)
         setSelectedRowToDelete(null)
       } else {
         await handleCommonCodes(response)
@@ -139,8 +138,9 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
       const token = session.sToken
 
       const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarCuentaExtBancario', body, token)
+      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
-        setGet(!get)
+        setGetAccounts(!getAccounts)
         setTimeout(() => {
           setModalToken(false)
           setShowForm(false)
@@ -191,7 +191,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
-        setGet(!get)
+        setGetAccounts(!getAccounts)
         setShowForm(false)
         setIsEditing(false)
         setTimeout(() => {
@@ -343,10 +343,8 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts }) {
 
             </div>}
 
-            {requestError && <div className='errorMessage'> {
-            requestError
-
-            }
+            {requestError && <div className='errorMessage'>
+              {requestError.message || ' error service'}
             </div>}
 
             {isLoadingComponent && <LoadingComponent />}
