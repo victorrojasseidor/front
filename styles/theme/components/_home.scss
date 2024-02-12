@@ -33,10 +33,20 @@
     }
   }
 
+
   .subtitle {
     font-size: 48px;
     @include center-container;
   }
+
+  // .box-home{
+  //   display: flex;
+  //   justify-content: center;
+  //   flex-direction: column;
+  //   gap:2rem;
+  // }
+
+
 
   &-front {
     display: flex;
@@ -257,7 +267,7 @@
 
    .box-account{
 
-    width: 100%;
+    width: 80%;
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -265,8 +275,8 @@
     background-color: get-color(blue_p1);
     border-radius: brd(2);
     box-shadow: bsh(3);
-    padding: 1rem 2rem;
-    gap:2rem;
+    padding: 2rem 1rem;
+    gap:1rem;
 
     li{
       display: flex;
@@ -359,12 +369,56 @@ text-align: center;
 
   
   footer{
-    background-color: get-color(t1-blue);
+    background-color: get-color(black_p2);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+
+    .home-contact{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 2rem;
+      
+
+      .contact-message{
+        flex:1.5;
+      }
+
+      .contact-form{
+        flex:1;
+        width: 100%;
+        @include container;
+        background-color: rgba(get-color(white_s1),0.2);
+
+        h2{
+          color:get-color(white_s1) !important;
+        }
+
+        p{
+          color:get-color(grey2_s4)
+        }
+
+        .form-container{
+
+         
 
 
-   .contact-form{
-    background-color: get-color(white_s1);
-   }
+
+       
+      
+
+        }
+       }
+
+    }
+   
+   
 
   }
 

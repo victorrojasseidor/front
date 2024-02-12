@@ -15,10 +15,19 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import Modal from '../Modal'
 import ImageSvg from '@/helpers/ImageSVG'
 import { getProducts } from '@/helpers/auth'
-import { IconDate } from '@/helpers/report'
+import { IconDate, IconArrow } from '@/helpers/report'
+import Box from '@mui/material/Box'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+
+import FormHelperText from '@mui/material/FormHelperText'
+import Select from '@mui/material/Select'
+
 export default function Apiconfiguration ({ nameEmpresa }) {
   const { session, setModalToken, logout, l, idCountry } = useAuth()
   const [product, setProduct] = useState(null)
+  const [selectContract, setSelectContract] = useState('other')
+
   const router = useRouter()
 
   const iIdProdEnv = router.query.iIdProdEnv
@@ -79,12 +88,23 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     getDataProduct()
   }, [pStatus, valueState, modalConfirmed, startDate, endDate])
 
+  useEffect(() => {
+    if (product) {
+      GetHistoricoProducto()
+    }
+  }, [product])
+
   const handleChangemessage = (event) => {
     setMessage(event.target.value)
   }
 
   const handleChangeState = (event) => {
     setValueState(event.target.value)
+  }
+
+  const handleContractChange = (event) => {
+    const selectValue = event.target.value
+    setSelectContract(selectValue)
   }
 
   useEffect(() => {
@@ -111,6 +131,56 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     setEndDate(newValue.format('YYYY-MM-DDTHH:mm:ss.SSSZ'))
   }
 
+  async function GetHistoricoProducto () {
+    setIsLoading(true)
+
+    const body = {
+      oResults: {
+        sCodigoProducto: product?.sProd,
+        iIdEmpresa: Number(idEmpresa)
+      }
+
+    }
+
+    try {
+      const token = session?.sToken
+
+      console.log({ body })
+
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetHistoricoProducto', body, token)
+      console.log('GetHistoricoProducto', { responseData })
+      if (responseData.oAuditResponse?.iCode === 1) {
+        // setModalFreeTrial(false)
+        // setModalConfirmed(false)
+        // setEndDate(null)
+        // setStartDate(null)
+        // setMessage(null)
+
+        setModalToken(false)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null)
+        }, 2000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setRequestError(error.message)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 3000)
+    } finally {
+      setIsLoading(false) // Ocultar señal de carga
+    }
+  }
+
   async function handleServiceChange () {
     setIsLoading(true)
 
@@ -118,8 +188,9 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       oResults: {
         sProd: product?.sProd,
         iIdProdEnv: product?.iIdProdEnv,
-        sMessage: message || 'Mensaje de prueba'
-
+        sMessage: message || 'Mensaje de prueba',
+        sContrato: 'Contrato prueba',
+        iIdEmpresa: Number(idEmpresa)
       }
 
     }
@@ -139,9 +210,9 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
     try {
       const token = session?.sToken
-
+      console.log({ body })
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${valueState}`, body, token)
-
+      console.log('handleServiceChange', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         // setModalFreeTrial(false)
         setModalConfirmed(false)
@@ -165,14 +236,15 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       }
     } catch (error) {
       console.error('error', error)
-      setRequestError(error)
+      setRequestError(error.message)
       setTimeout(() => {
         setRequestError(null)
-      }, 1000)
+      }, 3000)
     } finally {
       setIsLoading(false) // Ocultar señal de carga
     }
   }
+
   const formatDate = (date) => {
     // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
     const fechaObjeto = new Date(date)
@@ -186,6 +258,18 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     const fechaFormateada = `${dia}/${mes}/${año}`
     return fechaFormateada
   }
+
+  const datacontract = [
+    {
+      id_contrato: 'ABC123'
+    },
+    {
+      id_contrato: 'XYZ789'
+    },
+    {
+      id_contrato: '123DEF'
+    }
+  ]
 
   return (
     <>
@@ -326,52 +410,85 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
         {isLoading && <Loading />}
 
+        {modalConfirmed && (
+          <Modal close={() => { setModalConfirmed(false) }}>
+            <ImageSvg name='Question' />
+
+            <h3>
+              {t['Do you want to update the status?']}
+            </h3>
+
+            <div className='box-filter'>
+
+              <FormControl sx={{ m: 1, minWidth: 150 }}>
+                <InputLabel id='contract' name='contract'>Contract </InputLabel>
+                <Select
+                  labelId='contract'
+                  name='contract' // Make sure this matches the Field name
+                  value={selectContract}
+                  IconComponent={IconArrow}
+                  onChange={(values) => { handleContractChange(values) }}
+                >
+
+                  {/* Opción por defecto vacía */}
+                  <MenuItem value='other'>
+                    <em>Other</em>
+                  </MenuItem>
+
+                  {/* Opciones dinámicas desde datacontract */}
+                  {/* {datacontract?.map((contract) => (
+                    <MenuItem key={contract.id_contrato} value={contract.id_contrato}>
+                      {contract.id_contrato}
+                    </MenuItem>)
+                  )} */}
+
+                  <MenuItem value='otraOpcion1'>Otra Opción 1</MenuItem>
+                  <MenuItem value='otraOpcion2'>Otra Opción 2</MenuItem>
+
+                </Select>
+                <FormHelperText> {selectContract ? '' : t.Select} </FormHelperText>
+              </FormControl>
+
+            </div>
+
+            <div className='input-box'>
+
+              <textarea
+                value={message}
+                onChange={handleChangemessage}
+                placeholder=''
+                rows={4}
+                cols={40}
+                style={{ height: 'auto', minHeight: '3rem' }}
+              />
+              <label htmlFor='message'> {t.Message}   </label>
+
+            </div>
+
+            {message &&
+              <div className='box-buttons'>
+                <button
+                  type='button'
+                  className='btn_primary small'
+                  onClick={() => { handleServiceChange() }}
+                >
+                  {t.Yees}
+                </button>
+
+                <button
+                  type='button'
+                  className='btn_secundary small'
+                  onClick={() => { setModalConfirmed(false) }}
+                >
+                  {t.No}
+                </button>
+
+              </div>}
+
+          </Modal>
+        )}
+
       </div>
-
-      {modalConfirmed && (
-        <Modal close={() => { setModalConfirmed(false) }}>
-          <ImageSvg name='Question' />
-
-          <h3>
-            {t['Do you want to update the status?']}
-          </h3>
-
-          <div className='input-box'>
-
-            <textarea
-              value={message}
-              onChange={handleChangemessage}
-              placeholder=''
-              rows={4}
-              cols={40}
-              style={{ height: 'auto', minHeight: '3rem' }}
-            />
-            <label htmlFor='message'> {t.Message}   </label>
-
-          </div>
-
-          {message &&
-            <div className='box-buttons'>
-              <button
-                type='button'
-                className='btn_primary small'
-                onClick={() => { handleServiceChange() }}
-              >
-                {t.Yees}
-              </button>
-
-              <button
-                type='button'
-                className='btn_secundary small'
-                onClick={() => { setModalConfirmed(false) }}
-              >
-                {t.No}
-              </button>
-
-            </div>}
-
-        </Modal>
-      )}
 
       {requestError && <div className='errorMessage'> {requestError}</div>}
 

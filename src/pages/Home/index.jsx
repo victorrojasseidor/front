@@ -20,13 +20,15 @@ import ftp from '../../../public/img/testimonials/ftp.png'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { validateFormRegister } from '@/helpers/validateForms'
 import { useAuth } from '@/Context/DataContext'
+import Modal from '@/Components/Modal'
 
 const Home = () => {
   const [selectImage, setSelectImage] = useState(null)
   const [rotation, setRotation] = useState(0)
   const [message, setMessage] = useState(null)
-  const { l } = useAuth()
+  const [showM, setShowM] = useState(false)
 
+  const { l } = useAuth()
   const t = l.signup
 
   const testimonials = [
@@ -158,7 +160,7 @@ const Home = () => {
         </nav>
       </header>
 
-      <main className='container'>
+      <main className='box-home container'>
 
         <section className='home-front'>
 
@@ -359,9 +361,9 @@ const Home = () => {
       </main>
 
       <footer>
-        <section className='home-contact'>
+        <section className='home-contact container'>
 
-          <div>
+          <div className='contact-message'>
 
             <h1> Contact us</h1>
 
@@ -373,82 +375,68 @@ const Home = () => {
 
           <div className='contact-form'>
 
-            <div className='register'>
-              <h1> Send email</h1>
-              <p> Please enter your information in the contact form and we will contact you as soon as possible </p>
+            <h2> Send email</h2>
+            <p> Please enter your information in the contact form and we will contact you as soon as possible </p>
 
-              <Formik
-                initialValues={{
-                  corporateEmail: '',
-                  password: '',
-                  confirmPassword: '',
-                  acceptTerms: false,
-                  name: ''
-                }}
+            <Formik
+              initialValues={{
+                corporateEmail: '',
+                message: ''
+              }}
 
                 // validate={(values) => validateFormRegister(values, l.validation)}
-                onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
-                  // same shape as initial values
-                  // handleSubmit(values, { setSubmitting, setStatus, resetForm })
-                }}
-                enableReinitialize
-              >
-                {({ isValid, isSubmitting, status }) => (
-                  <Form className='form-container'>
+              onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
+                // same shape as initial values
+                // handleSubmit(values, { setSubmitting, setStatus, resetForm })
+                setShowM(true)
+              }}
+              enableReinitialize
+            >
+              {({ isValid, isSubmitting, status }) => (
+                <Form className='form-container'>
 
-                    <div className='input-box'>
-                      <Field type='email' name='corporateEmail' id='corporateEmail' placeholder=' ' disabled={isSubmitting} />
-                      <label htmlFor='corporateEmail'>Email</label>
-                      <ErrorMessage className='errorMessage' name='corporateEmail' component='span' />
-                    </div>
+                  <div className='input-box'>
+                    <Field type='email' name='corporateEmail' id='corporateEmail' placeholder=' ' disabled={isSubmitting} />
+                    <label htmlFor='corporateEmail'>Email</label>
+                    <ErrorMessage className='errorMessage' name='corporateEmail' component='span' />
+                  </div>
 
-                    <div className='input-box'>
+                  <div className='input-box'>
 
-                      <textarea
-                        value={message}
-                        onChange={handleChangemessage}
-                        placeholder=''
-                        rows={4}
-                        cols={40}
-                        style={{ height: 'auto', minHeight: '3rem' }}
-                      />
-                      <label htmlFor='message'> Message  </label>
+                    <textarea
+                      value={message}
+                      onChange={handleChangemessage}
+                      placeholder=''
+                      rows={4}
+                      cols={40}
+                      style={{ height: 'auto', minHeight: '3rem' }}
+                    />
+                    <label htmlFor='message'> Message  </label>
 
-                    </div>
+                  </div>
 
-                    <button className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => console.log('vonnn')} disabled={isSubmitting}>
-                      Send
-                    </button>
+                  <button className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => console.log('vonnn')} disabled={isSubmitting}>
+                    Send
+                  </button>
 
-                    <div className='contentError'>
-                      <div className='errorMessage'>{status}</div>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
+                  <div className='contentError'>
+                    <div className='errorMessage'>{status}</div>
+                  </div>
+                </Form>
+              )}
+            </Formik>
 
-              {/* {ShowM && data && (
-          <Modal close={() => setShowM(false)}>
-            <ImageSvg name='Check' />
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
+            {showM && (
+              <Modal close={() => setShowM(false)}>
+                <ImageSvg name='Check' />
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
 
-              {t['Please enter your email']}
-              <h2> {data.oResults.sEmail}</h2>
+                  Message sent succesfully
+                </div>
 
-              {t['to confirm registration']}
+              </Modal>
+            )}
 
-            </div>
-
-          </Modal>
-        )} */}
-
-              <ul className='navRegister_question'>
-
-                wuertsion
-
-              </ul>
-
-            </div>
           </div>
 
         </section>

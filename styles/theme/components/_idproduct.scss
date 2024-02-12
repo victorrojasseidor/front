@@ -174,14 +174,21 @@ flex-direction: column;
   }
   
   
+  .modal{
+    z-index: 2;
+  }
 
   .content{
-    display: flex;
-    justify-content:flex-start;
-    width: 100%;
-    gap:2rem;
-
+    // display: flex;
+    // justify-content:flex-start;
+    // width: 100%;
+    // gap:2rem;
     
+  }
+
+
+  .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+    z-index: 99999999999;
   }
   
 }

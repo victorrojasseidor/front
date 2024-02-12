@@ -82,8 +82,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
     return filterEmpresa?.razon_social_empresa
   }
 
-  console.log({ product })
-
   return (
     <LayoutProducts menu='Product'>
 
