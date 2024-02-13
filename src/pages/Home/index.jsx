@@ -250,6 +250,179 @@ const Home = () => {
           </div>
         </section>
 
+        <section className='home-how container'>
+
+          <div className='home-how-description'>
+
+            <div className='discover'>
+              <p>
+                Discover our automation process
+              </p>
+
+              <h1 className='subtitle'>
+                How do we do it?
+              </h1>
+
+              <p>
+                ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes
+              </p>
+
+              <button className='btn_primary'>
+                Get Started
+
+              </button>
+
+            </div>
+
+            <figure>
+              <Image
+                src={logo}
+                alt='Descripción del GIF'
+                width={300}
+                height={200}
+              />
+              {/* <figcaption>Descripción adicional o leyenda</figcaption> */}
+            </figure>
+
+          </div>
+
+          <div className='home-how-steps'>
+
+            <div className='curvedLine'>
+
+              {/* Contenido del componente */}
+
+              <svg
+                class='vector-335'
+                width='936'
+                height='470'
+                viewBox='0 0 936 470'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <g filter='url(#filter0_d_2849_20728)'>
+                  <path
+                    d='M35.9981 103C79.7321 146.155 -8.91664 250.127 62.4951 254.499C151.76 259.964 192.171 173.263 328.489 187.52C464.807 201.777 536.347 319.192 664.637 244.142C792.927 169.092 800.071 191.553 932.624 241.862'
+                    stroke='#4318FF'
+                    stroke-width='5'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  />
+                </g>
+                <defs>
+                  <filter
+                    id='filter0_d_2849_20728'
+                    x='7.01562'
+                    y='100.5'
+                    width='952.109'
+                    height='219.007'
+                    filterUnits='userSpaceOnUse'
+                    color-interpolation-filters='sRGB'
+                  >
+                    <feFlood flood-opacity='0' result='BackgroundImageFix' />
+                    <feColorMatrix
+                      in='SourceAlpha'
+                      type='matrix'
+                      values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
+                      result='hardAlpha'
+                    />
+                    <feOffset dy='24' />
+                    <feGaussianBlur stdDeviation='12' />
+                    <feComposite in2='hardAlpha' operator='out' />
+                    <feColorMatrix
+                      type='matrix'
+                      values='0 0 0 0 0.215686 0 0 0 0 0.203922 0 0 0 0 0.662745 0 0 0 0.3 0'
+                    />
+                    <feBlend
+                      mode='normal'
+                      in2='BackgroundImageFix'
+                      result='effect1_dropShadow_2849_20728'
+                    />
+                    <feBlend
+                      mode='normal'
+                      in='SourceGraphic'
+                      in2='effect1_dropShadow_2849_20728'
+                      result='shape'
+                    />
+                  </filter>
+                </defs>
+              </svg>
+
+            </div>
+
+            <div className='step'>
+
+              <div className='box-circle'>
+                <div className='circle' />
+              </div>
+
+              <div className='process'>
+                <span>
+                  1
+                </span>
+
+                <div className='text'>
+                  <h3> Customize your process</h3>
+                  <p>
+                    Access the Ari.app application easily and securely, configure your digital employees
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className='step'>
+
+              <div className='box-circle'>
+                <div className='circle' />
+              </div>
+
+              <div className='process'>
+                <span>
+                  2
+                </span>
+
+                <div className='text'>
+                  <h3> Automated process </h3>
+                  <p>
+                    This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className='step'>
+
+              <div className='box-circle'>
+                <div className='circle' />
+              </div>
+
+              <div className='process'>
+                <span>
+                  3
+                </span>
+
+                <div className='text'>
+                  <h3> Work delivered </h3>
+                  <p>
+                    After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
         <section className='home-account container'>
 
           <ul className='box-account'>

@@ -4,6 +4,10 @@
   background-size: contain;
   background-position: top;
 
+  p {
+    color: get-color(grey2_s4);
+  }
+
   nav {
     padding: 2rem;
 
@@ -33,7 +37,6 @@
     }
   }
 
-
   .subtitle {
     font-size: 48px;
     @include center-container;
@@ -46,8 +49,6 @@
   //   gap:2rem;
   // }
 
-
-
   &-front {
     display: flex;
     flex-direction: row;
@@ -55,8 +56,7 @@
     height: 70vh;
     position: relative;
 
-
-    .subtitle{
+    .subtitle {
       font-size: 4.2rem;
     }
 
@@ -64,65 +64,53 @@
       width: 50%;
       display: flex;
       flex-direction: column;
-      gap:1rem;
-      
+      gap: 1rem;
 
-      p{
-        color:get-color(t1-blue);
+      p {
+        color: get-color(t1-blue);
         text-align: justify;
-
       }
 
-      &-actions{
+      &-actions {
         display: flex;
         flex-direction: row;
       }
 
-      .account{
-        color:get-color(grey2_s4);
+      .account {
+        color: get-color(grey2_s4);
         display: flex;
         flex-direction: row;
         width: 100%;
         gap: 0.25rem;
-    
-        a{
-          color:get-color(blue_p1);
+
+        a {
+          color: get-color(blue_p1);
         }
       }
 
-      .record{
-      
+      .record {
+        background-color: transparent;
+        display: flex;
+        gap: 0.25rem;
+        border-style: none;
+        color: get-color(blue_p1);
+        align-items: center;
 
- 
-          background-color: transparent;
-          display: flex;  gap:0.25rem;
-          border-style: none;
-          color:get-color(blue_p1);
-          align-items: center;
-        
-  
-        path{
+        path {
           padding: 0.25rem;
           // fill:get-color(blue_p1);
           stroke: get-color(blue_p1);
-         
         }
       }
     }
 
     .image-container {
-      
       width: 50%;
       background-image: url("../../../public/img/front.png");
       background-repeat: no-repeat;
       background-size: 98vh;
       background-position: top;
-  
-
-      
     }
-
-
   }
 
   &-client {
@@ -257,118 +245,217 @@
     }
   }
 
-
-
-  &-account{
-
+  &-account {
     width: 100%;
     @include center-container;
-  
 
-   .box-account{
-
-    width: 80%;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    flex-wrap: wrap;
-    background-color: get-color(blue_p1);
-    border-radius: brd(2);
-    box-shadow: bsh(3);
-    padding: 2rem 1rem;
-    gap:1rem;
-
-    li{
+    .box-account {
+      width: 80%;
       display: flex;
-      align-items: center;
-      flex-direction: column;
+      justify-content: space-around;
+      flex-direction: row;
+      flex-wrap: wrap;
+      background-color: get-color(blue_p1);
+      border-radius: brd(2);
+      box-shadow: bsh(3);
+      padding: 2rem 1rem;
+      gap: 1rem;
+      margin-top: 6rem;
+
+      li {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      h1,
+      p {
+        color: get-color(white_s1);
+        text-align: center;
+      }
     }
-    
-
-    h1, p {
-      color:get-color(white_s1);
-text-align: center;
-
-    }
-      
-
-    }
-
-
-
   }
 
-  &-digitals{
-    
+  &-digitals {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
     justify-content: space-between;
 
-    
-    .description{
+    .description {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       flex-direction: column;
-      gap:1rem;
+      gap: 1rem;
       max-width: 50%;
 
-      p{
-        color:get-color(grey2_s4);
-       
+      p {
+        color: get-color(grey2_s4);
       }
-
     }
 
-    .digital-image{
-    // height: 50vh;
+    .digital-image {
+      // height: 50vh;
     }
-
-
-
-
-
   }
 
-  
-
-  &-enables{
+  &-enables {
     @include center-container;
-    gap:1rem;
+    gap: 1rem;
     flex-direction: column;
-    h1{
+    h1 {
       text-align: center;
       width: 100%;
       @include center-container;
-
     }
 
-    .box-enables{
+    .box-enables {
       @include center-container;
       flex-direction: row;
       flex-wrap: wrap;
-      gap:2rem;
-   
-     button{
-      background-color: transparent;
-      border-style: none;
-      display: flex;
-      box-shadow: bsh(3);
-      padding: 1rem;
-      border-radius: brd(2);
-     
+      gap: 2rem;
 
-     }
-
+      button {
+        background-color: transparent;
+        border-style: none;
+        display: flex;
+        box-shadow: bsh(3);
+        padding: 1rem;
+        border-radius: brd(2);
+      }
     }
   }
 
+  &-how {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    &-description {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      flex-wrap: wrap;
 
+      .discover {
+        flex: 1;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 1rem;
+
+        h1 {
+          justify-content: flex-start;
+        }
+
+        button {
+          max-width: 9rem;
+        }
+
+        p {
+          display: flex;
+          text-align: justify;
+          text-wrap: wrap;
+          // max-width: 10rem;
+        }
+      }
+
+      figure {
+        background-color: aqua;
+        display: flex;
+        flex: 1.5;
+      }
+    }
+
+    &-steps {
+      display: flex;
+      flex-direction: row;
+      // flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+
+
+      .curvedLine{
+      
   
-  footer{
+        position: absolute;
+        z-index: -3;
+        bottom: -21%;
+        left: 0%;
+      }
+
+
+      .step {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        position: relative;
+
+        .box-circle {
+          background-color: get-color(t5-green);
+          border-radius: brd(2);
+          padding: 1rem;
+
+          .circle {
+            width: 1rem;
+            height: 1rem;
+            border-radius: brd(f);
+            background-color: get-color(blue_p1);
+          }
+
+          // &::after {
+          //   content: "";
+          //   position: absolute;
+          //   top: 10%; // Ajusta según tus necesidades
+          //   left: 50%;
+          //   transform: translate(-50%, -50%);
+          //   width: 100%; // Ancho de la línea, ajusta según tus necesidades
+          //   height: 3px; // Altura de la línea, ajusta según tus necesidades
+          //   background-color: #3498db; // Color de la línea, ajusta según tus necesidades
+          //   z-index: -1;
+          // }
+        }
+
+
+       
+
+
+
+        .process {
+          max-width: 100%;
+
+          @include center-container;
+          flex-direction: column;
+          position: relative;
+
+          span {
+            font-size: 10rem;
+            font-weight: 900;
+            color: get-color(grey1_s3);
+            text-align: center;
+          }
+        }
+
+        .text {
+          position: absolute;
+          z-index: 3;
+          top: 5%;
+          left: 40%;
+          p {
+            min-width: 12rem;
+          }
+        }
+      }
+    }
+  }
+
+  footer {
     background-color: get-color(black_p2);
     width: 100%;
     display: flex;
@@ -377,72 +464,56 @@ text-align: center;
     flex-wrap: wrap;
     margin-top: 2rem;
 
-    .home-contact{
+    .home-contact {
       width: 100%;
       display: flex;
       justify-content: center;
       flex-direction: column;
       flex-wrap: wrap;
       padding: 2rem;
-      gap:1rem;
+      gap: 1rem;
 
       @include media(tablet) {
         flex-direction: row;
       }
-      
 
-      .contact-message{
-        flex:0.7;
+      .contact-message {
+        flex: 0.7;
         display: flex;
         justify-content: center;
 
         align-items: flex-start;
         flex-direction: column;
 
-
-        h1{
-          color:get-color(white_s1);
-
+        h1 {
+          color: get-color(white_s1);
         }
 
-
-        p{
-          color:rgba(get-color(white_s1),0.6)
+        p {
+          color: rgba(get-color(white_s1), 0.6);
         }
-
-
-        
       }
 
-      .contact-form{
-        flex:1;
+      .contact-form {
+        flex: 1;
         width: 100%;
         @include container;
-        background-color: rgba(get-color(white_s1),1);
+        background-color: rgba(get-color(white_s1), 1);
 
-       .group{
-       
-        width: 100%;
+        .group {
+          width: 100%;
           gap: 1rem; /* Adjust the gap between columns */
 
-        @include media(tablet) {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
-        }
-       }
-
-        p{
-          color:get-color(grey2_s4)
+          @include media(tablet) {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
+          }
         }
 
-        
-       }
-
+        p {
+          color: get-color(grey2_s4);
+        }
+      }
     }
-   
-   
-
   }
-
-
 }
