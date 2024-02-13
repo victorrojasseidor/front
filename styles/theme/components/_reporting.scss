@@ -294,8 +294,12 @@
 
 
   button{
-    height: 1.8rem;
+    height: auto;
     border-radius: brd(3);
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 

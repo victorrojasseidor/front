@@ -177,7 +177,9 @@
     "Bussines agility": " Bussines agility",
     "more": "more",
     "Download account statements": "Download account statements",
-    "AFP validation": "AFP validation"
+    "AFP validation": "AFP validation",
+    "Captcha Solving Service": "Captcha Solving Service",
+    "Image text extraction Service":"Image text extraction Service"
   },
   "Apiconfuguration": {
     "Service configuration status": "Service configuration status",

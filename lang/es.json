@@ -179,7 +179,9 @@
     "Bussines agility": "Agilidad empresarial",
     "more": "más",
     "Download account statements": "Descarga de estados de cuenta",
-    "AFP validation": "Validación de AFP"
+    "AFP validation": "Validación de AFP",
+    "Captcha Solving Service": "Servicio de resolución de captcha",
+    "Image text extraction Service":"Servicio de Extracción de textos de imágenes"
   },
   "Apiconfuguration": {
     "Service configuration status": "Estado de configuración del servicio",

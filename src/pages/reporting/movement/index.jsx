@@ -62,6 +62,8 @@ const Movement = () => {
     }
   }, [apply])
 
+  console.log({ dataInitialSelect })
+
   async function getMovementInitial () {
     setIsLoading(true)
     const body = {
