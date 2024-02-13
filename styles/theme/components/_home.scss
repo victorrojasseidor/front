@@ -381,39 +381,61 @@ text-align: center;
       width: 100%;
       display: flex;
       justify-content: center;
-      flex-direction: row;
+      flex-direction: column;
       flex-wrap: wrap;
       padding: 2rem;
+      gap:1rem;
+
+      @include media(tablet) {
+        flex-direction: row;
+      }
       
 
       .contact-message{
-        flex:1.5;
+        flex:0.7;
+        display: flex;
+        justify-content: center;
+
+        align-items: flex-start;
+        flex-direction: column;
+
+
+        h1{
+          color:get-color(white_s1);
+
+        }
+
+
+        p{
+          color:rgba(get-color(white_s1),0.6)
+        }
+
+
+        
       }
 
       .contact-form{
         flex:1;
         width: 100%;
         @include container;
-        background-color: rgba(get-color(white_s1),0.2);
+        background-color: rgba(get-color(white_s1),1);
 
-        h2{
-          color:get-color(white_s1) !important;
+       .group{
+       
+        width: 100%;
+          gap: 1rem; /* Adjust the gap between columns */
+
+        @include media(tablet) {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
         }
+       }
 
         p{
           color:get-color(grey2_s4)
         }
 
-        .form-container{
-
-         
-
-
-
-       
-      
-
-        }
+        
        }
 
     }

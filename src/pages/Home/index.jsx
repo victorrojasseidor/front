@@ -365,11 +365,35 @@ const Home = () => {
 
           <div className='contact-message'>
 
-            <h1> Contact us</h1>
+            <h1 className='subtitle'> Contact us</h1>
 
             <p>
               Find out which AUTOMATION SOLUTIONS can help you.
             </p>
+
+            <div className='social-media'>
+
+              <div className='report blue'>
+
+                <div className='report_icon  '>
+
+                  <ImageSvg name='ReportDigital' />
+
+                </div>
+
+                <div className='report_data'>
+
+                  <article>
+                    {t['Digital employees']}
+
+                  </article>
+
+                  <p> <ImageSvg name='ArrowUp' />  <span>  {t.working}  </span>    {t['for you']} </p>
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
@@ -381,7 +405,11 @@ const Home = () => {
             <Formik
               initialValues={{
                 corporateEmail: '',
-                message: ''
+                message: '',
+                firstName: '',
+                company: '',
+                position: ''
+
               }}
 
                 // validate={(values) => validateFormRegister(values, l.validation)}
@@ -399,6 +427,34 @@ const Home = () => {
                     <Field type='email' name='corporateEmail' id='corporateEmail' placeholder=' ' disabled={isSubmitting} />
                     <label htmlFor='corporateEmail'>Email</label>
                     <ErrorMessage className='errorMessage' name='corporateEmail' component='span' />
+                  </div>
+
+                  <div className='group'>
+
+                    <div className='input-box'>
+                      <Field type='text' name='firstName' id='firstName' placeholder=' ' disabled={isSubmitting} />
+                      <label htmlFor='firstName'>First Name</label>
+                      <ErrorMessage className='errorMessage' name='firstName' component='span' />
+                    </div>
+
+                    <div className='input-box'>
+                      <Field type='text' name='lastName' id='lastName' placeholder=' ' disabled={isSubmitting} />
+                      <label htmlFor='lastName'>Last Name</label>
+                      <ErrorMessage className='errorMessage' name='lastName' component='span' />
+                    </div>
+
+                    <div className='input-box'>
+                      <Field type='text' name='company' id='company' placeholder=' ' disabled={isSubmitting} />
+                      <label htmlFor='company'>Company</label>
+                      <ErrorMessage className='errorMessage' name='company' component='span' />
+                    </div>
+
+                    <div className='input-box'>
+                      <Field type='text' name='position' id='position' placeholder=' ' disabled={isSubmitting} />
+                      <label htmlFor='position'>Position</label>
+                      <ErrorMessage className='errorMessage' name='position' component='span' />
+                    </div>
+
                   </div>
 
                   <div className='input-box'>
