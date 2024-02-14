@@ -22,6 +22,7 @@ import MenuItem from '@mui/material/MenuItem'
 
 import FormHelperText from '@mui/material/FormHelperText'
 import Select from '@mui/material/Select'
+import { GiH2O } from 'react-icons/gi'
 
 export default function Apiconfiguration ({ nameEmpresa }) {
   const { session, setModalToken, logout, l, idCountry } = useAuth()
@@ -83,6 +84,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
   const [stateInitial, setStateInitial] = useState(null)
   const [modalConfirmed, setModalConfirmed] = useState(false)
   const [message, setMessage] = useState(null)
+  const [historical, setHistorical] = useState(null)
 
   useEffect(() => {
     getDataProduct()
@@ -92,7 +94,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     if (product) {
       GetHistoricoProducto()
     }
-  }, [product])
+  }, [product, modalConfirmed])
 
   const handleChangemessage = (event) => {
     setMessage(event.target.value)
@@ -131,6 +133,20 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     setEndDate(newValue.format('YYYY-MM-DDTHH:mm:ss.SSSZ'))
   }
 
+  function getStatusDescription (pStatus) {
+    if (pStatus == 31) {
+      return 'NotHiredProducto'
+    } else if (pStatus == 27) {
+      return 'SolicitarProducto'
+    } else if (pStatus == 28) {
+      return 'AprobarSolProducto'
+    } else if (pStatus == 23) {
+      return 'ConfirmarConfiguracionProducto'
+    } else {
+      return 'Indefinido' // Puedes manejar un valor predeterminado o lanzar una excepción si es necesario
+    }
+  }
+
   async function GetHistoricoProducto () {
     setIsLoading(true)
 
@@ -150,7 +166,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetHistoricoProducto', body, token)
       console.log('GetHistoricoProducto', { responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
-        // setModalFreeTrial(false)
+        setHistorical(responseData.oResults)
         // setModalConfirmed(false)
         // setEndDate(null)
         // setStartDate(null)
@@ -275,138 +291,298 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     <>
       <div className='apiconfiguration'>
 
-        <h3 className='title-Config'>{t['Service configuration status']}</h3>
+        <div className='admin'>
+          <div className='admin-product '>
 
-        <div className='name-product'>
-          <p> <span> {t.Company}:  </span>{nameEmpresa}</p>
-          <p> <span>  {t['Digital employees']}: </span>{product?.sName}</p>
-          <p className='state'> <span>  {t.State}: </span> {pStatus} - {product?.sDescStatus}  </p>
-          <p> <span>  {t['Service start date']}: </span>{formatDate(product?.sDateInit)}</p>
-          <p> <span>  {t['End of service date']}: </span>{formatDate(product?.sDateEnd)}</p>
-        </div>
+            <div className='reporting-box '>
+              <div className='report-content'>
 
-        <div className='subtitle'>
-          <h5 className='sub'> {t['Update the status']} </h5>
-          <p className='description'> {t['Update the status of digital employees']}  </p>
+                <div className='report red'>
 
-          <div className='content'>
+                  <div className='report_icon  '>
 
-            <FormControl>
+                    <ImageSvg name='Profile' />
 
-              <RadioGroup
-                row
-                aria-labelledby='demo-form-control-label-placement'
-                name='position'
-                value={valueState}
-                onChange={handleChangeState}
-              >
+                  </div>
 
-                <FormControlLabel
-                  value='NotHiredProducto'
-                  control={<Radio />}
-                  label={t['Not hired']}
-                />
+                  <div className='report_data'>
 
-                <FormControlLabel
-                  value='SolicitarProducto'
-                  control={<Radio color='success' />}
-                  label={t['Free Trial']}
-                />
+                    <article>
+                      {t.Company}:
 
-                <FormControlLabel
-                  value='AprobarSolProducto'
-                  control={<Radio />}
-                  label={t.Pending}
-                />
+                    </article>
+                    <h4> {nameEmpresa}</h4>
 
-                <FormControlLabel
-                  value='ConfirmarConfiguracionProducto'
-                  control={<Radio />}
-                  label={t.Configured}
-                />
+                  </div>
 
-              </RadioGroup>
+                </div>
 
-            </FormControl>
+                <div className='report green '>
+
+                  <div className='report_icon  '>
+
+                    <ImageSvg name='Account' />
+
+                  </div>
+
+                  <div className='report_data'>
+
+                    <article>
+                      {t['Digital employees']}:
+
+                    </article>
+                    <h4>{product?.sName} </h4>
+
+                  </div>
+
+                </div>
+
+                <div className='report  blue'>
+
+                  <div className='report_icon  '>
+
+                    <ImageSvg name='Support' />
+
+                  </div>
+
+                  <div className='report_data'>
+
+                    <article>
+                      {t.State}:
+                    </article>
+                    <h4>  {pStatus} - {product?.sDescStatus}
+                    </h4>
+
+                    <p> <span>  {t['Service start date']}: </span>{formatDate(product?.sDateInit)}</p>
+                    <p> <span>  {t['End of service date']}: </span>{formatDate(product?.sDateEnd)}</p>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
+
+          <div className='admin-update'>
+
+            <div className=''>
+              <h3 className='sub'> {t['Update the status']} </h3>
+              <p className='description'> {t['Update the status of digital employees']}  </p>
+
+              <div className='content'>
+
+                <FormControl>
+
+                  <RadioGroup
+                    row
+                    aria-labelledby='demo-form-control-label-placement'
+                    name='position'
+                    value={valueState}
+                    onChange={handleChangeState}
+                  >
+
+                    <FormControlLabel
+                      value='NotHiredProducto'
+                      control={<Radio />}
+                      label={t['Not hired']}
+                    />
+
+                    <FormControlLabel
+                      value='SolicitarProducto'
+                      control={<Radio color='success' />}
+                      label={t['Free Trial']}
+                    />
+
+                    <FormControlLabel
+                      value='AprobarSolProducto'
+                      control={<Radio />}
+                      label={t.Pending}
+                    />
+
+                    <FormControlLabel
+                      value='ConfirmarConfiguracionProducto'
+                      control={<Radio />}
+                      label={t.Configured}
+                    />
+
+                  </RadioGroup>
+
+                </FormControl>
+
+              </div>
+            </div>
+
+            {valueState == 'AprobarSolProducto' || valueState == 'ConfirmarConfiguracionProducto'
+              ? <div className='box-filter' style={{ flexDirection: 'row' }}>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label={t.From}
+                    value={dayjs(parsedStartDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
+                    slotProps={{
+                      textField: {
+                        helperText: t['Service start date']
+                      }
+
+                    }}
+                    onChange={handleStartDateChange}
+                    format='DD-MM-YYYY'
+                    components={{
+                      OpenPickerIcon: IconDate,
+                      CalendarIcon: IconDate
+                    }}
+                    renderInput={(params) => (
+                      <TextField {...params} />
+                    )}
+                  />
+                </LocalizationProvider>
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label={t.To}
+                    value={dayjs(parsedEndDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
+                    slotProps={{
+                      textField: {
+                        helperText: t['End of service date']
+                      }
+
+                    }}
+                    onChange={handleEndDateChange}
+                    format='DD-MM-YYYY'
+                    components={{
+                      OpenPickerIcon: IconDate,
+                      CalendarIcon: IconDate
+                    }}
+                    renderInput={(params) => (
+                      <TextField {...params} />
+                    )}
+                  />
+                </LocalizationProvider>
+
+                </div>
+              : ''}
+
+            {valueState !== stateInitial || startDate || endDate
+              ? <div className='box-buttons' style={{ justifyContent: 'flex-start' }}>
+                <button
+                  type='button'
+                  className='btn_primary small'
+                  onClick={() => { setModalConfirmed(true) }}
+                >
+                  {t.Update}
+
+                </button>
+
+                <button
+                  type='button'
+                  className='btn_secundary small'
+                  onClick={() => {
+                    setValueState(stateInitial); setEndDate(null)
+                    setStartDate(null)
+                  }}
+                >
+                  {t.Cancel}
+
+                </button>
+
+                </div>
+              : ''}
+          </div>
+
         </div>
 
-        {valueState == 'AprobarSolProducto' || valueState == 'ConfirmarConfiguracionProducto'
-          ? <div className='box-filter' style={{ flexDirection: 'row' }}>
+        <div className='historical'>
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label={t.From}
-                value={dayjs(parsedStartDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
-                slotProps={{
-                  textField: {
-                    helperText: t['Service start date']
-                  }
+          <div className='contaniner-tables'>
+            <div className='boards'>
+              <div className='box-search'>
+                <h3>
+                  History of changes
+                </h3>
 
-                }}
-                onChange={handleStartDateChange}
-                format='DD-MM-YYYY'
-                components={{
-                  OpenPickerIcon: IconDate,
-                  CalendarIcon: IconDate
-                }}
-                renderInput={(params) => (
-                  <TextField {...params} />
-                )}
-              />
-            </LocalizationProvider>
+              </div>
+              <div className='tableContainer'>
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label={t.To}
-                value={dayjs(parsedEndDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
-                slotProps={{
-                  textField: {
-                    helperText: t['End of service date']
-                  }
+                <table className='dataTable Account'>
+                  <thead>
+                    <tr>
+                      <th
+                      // onClick={() => orderDataByDate()}
+                        draggable
+                      >
+                        Date modification
+                        <button className='btn_crud'>
+                          {/* <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} /> */}
+                        </button>
+                      </th>
 
-                }}
-                onChange={handleEndDateChange}
-                format='DD-MM-YYYY'
-                components={{
-                  OpenPickerIcon: IconDate,
-                  CalendarIcon: IconDate
-                }}
-                renderInput={(params) => (
-                  <TextField {...params} />
-                )}
-              />
-            </LocalizationProvider>
+                      <th>
+                        Star date
 
+                      </th>
+
+                      <th>End date </th>
+                      <th> State </th>
+                      <th> Contract </th>
+                      <th>
+                        Message
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody className='rowTable'>
+                    {historical?.length > 0
+                      ? historical
+                        .map((row) => (
+                          <tr key={row.id_historico_producto}>
+                            <td>{formatDate(row.fecha_modifica)}</td>
+                            <td>
+                              {row.fecha_inicio_servicio}
+                            </td>
+
+                            <td>  {row.fecha_fin_servicio}</td>
+                            <td>{row.codigo_proceso}</td>
+                            <td>
+                              {row.contrato}
+                            </td>
+                            <td>
+                              {row.mensaje}
+                            </td>
+
+                          </tr>
+                        ))
+                      : (
+                        <tr>
+                          <td colSpan='6'>
+                            {t['There is no data']}
+                          </td>
+                        </tr>
+                        )}
+                  </tbody>
+                </table>
+
+              </div>
+
+              {/* <Stack spacing={2}>
+              <div className='pagination'>
+
+                <Typography>
+                  {t.Page} {page} {t.of} {Math.ceil(balances.oSaldos.length / itemsPerPage)}
+                </Typography>
+                <Pagination
+                  count={Math.ceil(balances.oSaldos.length / itemsPerPage)} // Calculate the total number of pages
+                  page={page}
+                  onChange={handleChangePage}
+                />
+              </div>
+            </Stack> */}
             </div>
-          : ''}
+          </div>
 
-        {valueState !== stateInitial || startDate || endDate
-          ? <div className='box-buttons' style={{ justifyContent: 'flex-start' }}>
-            <button
-              type='button'
-              className='btn_primary small'
-              onClick={() => { setModalConfirmed(true) }}
-            >
-              {t.Update}
-
-            </button>
-
-            <button
-              type='button'
-              className='btn_secundary small'
-              onClick={() => {
-                setValueState(stateInitial); setEndDate(null)
-                setStartDate(null)
-              }}
-            >
-              {t.Cancel}
-
-            </button>
-
-            </div>
-          : ''}
+        </div>
 
         {isLoading && <Loading />}
 
