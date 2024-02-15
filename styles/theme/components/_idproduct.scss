@@ -169,6 +169,10 @@ flex-direction: column;
           width: 2rem;
           height: 2rem;
         }
+
+        span{
+          color:get-color(grey2_s4);
+        }
       }
 
 
@@ -178,7 +182,11 @@ flex-direction: column;
     &-update{
 
       @include container;
-      flex:1.2
+      flex:1.2;
+
+      .content{
+        color:get-color(t1-blue);
+      }
     }
 
 
