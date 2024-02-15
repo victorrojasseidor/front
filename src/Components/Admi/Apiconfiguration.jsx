@@ -153,13 +153,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetHistoricoProducto', body, token)
-      // console.log('GetHistoricoProducto', { responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         setHistorical(responseData.oResults)
-        // setModalConfirmed(false)
-        // setEndDate(null)
-        // setStartDate(null)
-        // setMessage(null)
 
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 27) {
@@ -215,7 +210,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
     try {
       const token = session?.sToken
-      console.log('change', { body })
+
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${valueState}`, body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {

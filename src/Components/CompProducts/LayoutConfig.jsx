@@ -122,9 +122,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                   href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`}
                 >
                   <button
-                    // style={{
-                    //   display: product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'block' : 'none'
-                    // }}
+
                     style={{ display: session?.sPerfilCode === 'ADMIN' ? 'block' : product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'block' : 'none' }}
                     className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}
                   >
@@ -134,7 +132,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
 
                 <Link
                   href={`/product/product?type=apiconfiguration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`}
-                  style={{ visibility: session?.sPerfilCode === 'ADMIN' ? 'visible' : 'hidden' }}
+                  style={{ display: session?.sPerfilCode === 'ADMIN' ? 'block' : 'none' }}
                 >
                   <button className={activeTab === 2 ? 'active' : ''} onClick={() => handleTabClick(2)}>
                     <h4> {t['Admin confuguratión']}</h4>

@@ -28,8 +28,6 @@ export default function Products () {
 
   const t = l.Products
 
-  console.log({ product })
-
   const router = useRouter()
   useEffect(() => {
     if (session && empresa) {
@@ -177,6 +175,10 @@ export default function Products () {
       return 'IconSunat'
     } else if (id === 4) {
       return 'IconInvoce'
+    } else if (id === 5) {
+      return 'IconCaptcha'
+    } else if (id === 6) {
+      return 'IconImage'
     } else return 'IconCard'
   }
 
@@ -544,6 +546,76 @@ export default function Products () {
                   <div className='type_icon'>
 
                     <ImageSvg name={imgProduct(4)} />
+                  </div>
+
+                </div>
+
+                <div className='status-box'>
+
+                  <p>  {t['Not hired']}
+                  </p>
+                  <Link href='https://www.innovativa.la/digitalemployee'>
+                    {t['View more']}
+                  </Link>
+                </div>
+
+              </div>
+            </li>
+
+            <li className='card tecnology' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_02' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
+
+              <span className='card_type'>
+                {t.Technology}
+              </span>
+
+              <div className='card_name'>
+                <h4> {t['Captcha Solving Service']}</h4>
+
+                <p className='dayLetf' />
+
+              </div>
+
+              <div className='card_actions'>
+
+                <div className='box-img'>
+                  <div className='type_icon'>
+
+                    <ImageSvg name={imgProduct(5)} />
+                  </div>
+
+                </div>
+
+                <div className='status-box'>
+
+                  <p>  {t['Not hired']}
+                  </p>
+                  <Link href='https://www.innovativa.la/digitalemployee'>
+                    {t['View more']}
+                  </Link>
+                </div>
+
+              </div>
+            </li>
+
+            <li className='card tecnology' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_02' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
+
+              <span className='card_type'>
+                {t.Technology}
+              </span>
+
+              <div className='card_name'>
+                <h4> {t['Image text extraction Service']}</h4>
+
+                <p className='dayLetf' />
+
+              </div>
+
+              <div className='card_actions'>
+
+                <div className='box-img'>
+                  <div className='type_icon'>
+
+                    <ImageSvg name={imgProduct(6)} />
                   </div>
 
                 </div>

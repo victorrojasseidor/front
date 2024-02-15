@@ -45,7 +45,6 @@ export default function changepassword () {
 
     try {
       const responseData = await fetchConTokenPost('BPasS?Accion=CambioPassword', body, tok)
-      console.log({ responseData })
       if (responseData.oAuditResponse.iCode == 1) {
         setStatus(null)
         setModalToken(false)

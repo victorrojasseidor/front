@@ -13,8 +13,8 @@
     "ARI SEIDOR Terms and Conditions and Privacy Policy": "the privacy policy of ARI SEIDOR",
     "Please enter your email": "Please enter your email ",
     "to confirm registration": "to confirm registration",
-    "Conditions of User": "Conditions of User",
-    "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.": "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.",
+      "Conditions of User": "Conditions of User",
+     "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.": "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.",
     "Privacy": "Privacy",
     "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.": "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.",
     "Industrial and Intellectual Property": "Industrial and Intellectual Property",
@@ -166,7 +166,9 @@
     "Bussines agility": " Bussines agility",
     "more": "more",
     "Download account statements": "Download account statements",
-    "AFP validation": "AFP validation"
+    "AFP validation": "AFP validation",
+    "Captcha Solving Service": "Captcha Solving Service",
+    "Image text extraction Service":"Image text extraction Service"
   },
   "Apiconfuguration": {
     "Service configuration status": "Service configuration status",

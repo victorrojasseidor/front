@@ -89,7 +89,6 @@ export default function LineChart () {
         iMoneda: monedaDestino
       }
     }
-    console.log({ body })
 
     const tok = session?.sToken
     try {

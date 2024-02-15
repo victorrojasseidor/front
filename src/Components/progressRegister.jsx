@@ -38,8 +38,6 @@ const ProgressRegister = ({ userData }) => {
     }
   }
 
-  console.log({ userData })
-
   // steps funciones
   const handleNextStep = () => {
     setStep(step + 1)
