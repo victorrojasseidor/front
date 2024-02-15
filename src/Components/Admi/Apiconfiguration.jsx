@@ -19,7 +19,7 @@ import { IconDate, IconArrow } from '@/helpers/report'
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
-
+import TextField from '@mui/material/TextField'
 import FormHelperText from '@mui/material/FormHelperText'
 import Select from '@mui/material/Select'
 import { GiH2O } from 'react-icons/gi'
@@ -28,6 +28,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
   const { session, setModalToken, logout, l, idCountry } = useAuth()
   const [product, setProduct] = useState(null)
   const [selectContract, setSelectContract] = useState('other')
+  const [contracOther, setContractOther] = useState('')
 
   const router = useRouter()
 
@@ -96,12 +97,12 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     }
   }, [product, modalConfirmed])
 
-  const handleChangemessage = (event) => {
-    setMessage(event.target.value)
-  }
-
   const handleChangeState = (event) => {
     setValueState(event.target.value)
+  }
+
+  const handleChangemessage = (event) => {
+    setMessage(event.target.value)
   }
 
   const handleContractChange = (event) => {
@@ -109,6 +110,10 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     setSelectContract(selectValue)
   }
 
+  const handleContractChangeOther = (event) => {
+    const selectValue = event.target.value
+    setContractOther(selectValue)
+  }
   useEffect(() => {
     if (pStatus == 31) {
       setValueState('NotHiredProducto')
@@ -133,20 +138,6 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     setEndDate(newValue.format('YYYY-MM-DDTHH:mm:ss.SSSZ'))
   }
 
-  function getStatusDescription (pStatus) {
-    if (pStatus == 31) {
-      return 'NotHiredProducto'
-    } else if (pStatus == 27) {
-      return 'SolicitarProducto'
-    } else if (pStatus == 28) {
-      return 'AprobarSolProducto'
-    } else if (pStatus == 23) {
-      return 'ConfirmarConfiguracionProducto'
-    } else {
-      return 'Indefinido' // Puedes manejar un valor predeterminado o lanzar una excepción si es necesario
-    }
-  }
-
   async function GetHistoricoProducto () {
     setIsLoading(true)
 
@@ -161,10 +152,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     try {
       const token = session?.sToken
 
-      console.log({ body })
-
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetHistoricoProducto', body, token)
-      console.log('GetHistoricoProducto', { responseData })
+      // console.log('GetHistoricoProducto', { responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         setHistorical(responseData.oResults)
         // setModalConfirmed(false)
@@ -204,8 +193,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       oResults: {
         sProd: product?.sProd,
         iIdProdEnv: product?.iIdProdEnv,
-        sMessage: message || 'Mensaje de prueba',
-        sContrato: 'Contrato prueba',
+        sMessage: message || 'sin mensaje',
+        sContrato: selectContract == 'other' ? contracOther : selectContract || 'Contrato no definido',
         iIdEmpresa: Number(idEmpresa)
       }
 
@@ -226,15 +215,16 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
     try {
       const token = session?.sToken
-      console.log({ body })
+      console.log('change', { body })
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${valueState}`, body, token)
-      console.log('handleServiceChange', responseData)
+
       if (responseData.oAuditResponse?.iCode === 1) {
         // setModalFreeTrial(false)
         setModalConfirmed(false)
         setEndDate(null)
         setStartDate(null)
         setMessage(null)
+        setContractOther('')
 
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 27) {
@@ -274,18 +264,6 @@ export default function Apiconfiguration ({ nameEmpresa }) {
     const fechaFormateada = `${dia}/${mes}/${año}`
     return fechaFormateada
   }
-
-  const datacontract = [
-    {
-      id_contrato: 'ABC123'
-    },
-    {
-      id_contrato: 'XYZ789'
-    },
-    {
-      id_contrato: '123DEF'
-    }
-  ]
 
   return (
     <>
@@ -500,7 +478,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
             <div className='boards'>
               <div className='box-search'>
                 <h3>
-                  History of changes
+                  {t['History of changes']}
                 </h3>
 
               </div>
@@ -513,22 +491,22 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                       // onClick={() => orderDataByDate()}
                         draggable
                       >
-                        Date modification
+                        {t['Date modification']}
                         <button className='btn_crud'>
                           {/* <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} /> */}
                         </button>
                       </th>
 
                       <th>
-                        Star date
+                        {t['Star date']}
 
                       </th>
 
-                      <th>End date </th>
-                      <th> State </th>
-                      <th> Contract </th>
+                      <th>  {t['End date']} </th>
+                      <th>   {t.State} </th>
+                      <th>   {t.Contract}</th>
                       <th>
-                        Message
+                        {t.Message}
                       </th>
 
                     </tr>
@@ -566,19 +544,6 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
               </div>
 
-              {/* <Stack spacing={2}>
-              <div className='pagination'>
-
-                <Typography>
-                  {t.Page} {page} {t.of} {Math.ceil(balances.oSaldos.length / itemsPerPage)}
-                </Typography>
-                <Pagination
-                  count={Math.ceil(balances.oSaldos.length / itemsPerPage)} // Calculate the total number of pages
-                  page={page}
-                  onChange={handleChangePage}
-                />
-              </div>
-            </Stack> */}
             </div>
           </div>
 
@@ -587,16 +552,15 @@ export default function Apiconfiguration ({ nameEmpresa }) {
         {isLoading && <Loading />}
 
         {modalConfirmed && (
-          <Modal close={() => { setModalConfirmed(false) }}>
+          <Modal close={() => { setModalConfirmed(false); setContractOther('') }}>
             <ImageSvg name='Question' />
-
             <h3>
               {t['Do you want to update the status?']}
             </h3>
 
             <div className='box-filter'>
 
-              <FormControl sx={{ m: 1, minWidth: 150 }}>
+              <FormControl sx={{ m: 1, minWidth: 200 }}>
                 <InputLabel id='contract' name='contract'>Contract </InputLabel>
                 <Select
                   labelId='contract'
@@ -608,18 +572,12 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
                   {/* Opción por defecto vacía */}
                   <MenuItem value='other'>
-                    <em>Other</em>
+                    <em>{t.Other}</em>
                   </MenuItem>
 
-                  {/* Opciones dinámicas desde datacontract */}
-                  {/* {datacontract?.map((contract) => (
-                    <MenuItem key={contract.id_contrato} value={contract.id_contrato}>
-                      {contract.id_contrato}
-                    </MenuItem>)
-                  )} */}
-
-                  <MenuItem value='otraOpcion1'>Otra Opción 1</MenuItem>
-                  <MenuItem value='otraOpcion2'>Otra Opción 2</MenuItem>
+                  <MenuItem key='freeTrial' value='free trial contract'>
+                    {t['Free trial contract']}
+                  </MenuItem>
 
                 </Select>
                 <FormHelperText> {selectContract ? '' : t.Select} </FormHelperText>
@@ -627,26 +585,49 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
             </div>
 
-            <div className='input-box'>
-
-              <textarea
-                value={message}
-                onChange={handleChangemessage}
-                placeholder=''
-                rows={4}
-                cols={40}
-                style={{ height: 'auto', minHeight: '3rem' }}
-              />
-              <label htmlFor='message'> {t.Message}   </label>
-
+            <div className='box-inputs'>
+              <Box
+                component='form'
+                sx={{
+                  '& .MuiTextField-root': { m: 1, width: '100%' }
+                }}
+                noValidate
+                autoComplete='off'
+              >
+                <div>
+                  {selectContract === 'other' && (
+                    <TextField
+                      id='outlined-multiline-flexible'
+                      label={t['Contract number']}
+                      multiline
+                      maxRows={4}
+                      value={contracOther}
+                      onChange={handleContractChangeOther}
+                    />
+                  )}
+                  <TextField
+                    id='outlined-multiline-flexible'
+                    label={t.Message}
+                    multiline
+                    value={message}
+                    maxRows={6}
+                    onChange={handleChangemessage}
+                  />
+                </div>
+              </Box>
             </div>
 
-            {message &&
+            {message && selectContract &&
+
               <div className='box-buttons'>
+
                 <button
                   type='button'
                   className='btn_primary small'
-                  onClick={() => { handleServiceChange() }}
+                  onClick={() => {
+                    handleServiceChange()
+                    setModalConfirmed(false)
+                  }}
                 >
                   {t.Yees}
                 </button>
@@ -654,11 +635,14 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                 <button
                   type='button'
                   className='btn_secundary small'
-                  onClick={() => { setModalConfirmed(false) }}
+                  onClick={() => {
+                    setModalConfirmed(false)
+                    // Reset contractNumber when modal is closed
+                    setContractOther('')
+                  }}
                 >
                   {t.No}
                 </button>
-
               </div>}
 
           </Modal>

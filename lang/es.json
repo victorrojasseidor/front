@@ -206,7 +206,18 @@
     "From": "Desde",
     "To": "Hasta",
     "Yees": "Sí",
-    "No": "No"
+    "No": "No",
+    "History of changes": "Historial de cambios",
+  "Date modification": "Fecha de modificación",
+  "Star date": "Fecha de inicio",
+  "End date": "Fecha de finalización",
+
+  "Contract": "Contrato",
+  "Other": "Otros",
+  "Free trial contract": "Contrato de prueba gratuita",
+  
+ 
+  "Contract number": "Número de contrato"
   },
   "Download": {
     "Digital employees": "Empleados digitales",

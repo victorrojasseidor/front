@@ -171,7 +171,7 @@ flex-direction: column;
         }
 
         span{
-          color:get-color(grey2_s4);
+          color:get-color(grey2_s4 );
         }
       }
 
@@ -239,15 +239,13 @@ flex-direction: column;
   
   .modal{
     z-index: 2;
+    .box-inputs{
+
+      @include center-container
+    }
   }
 
-  .content{
-    // display: flex;
-    // justify-content:flex-start;
-    // width: 100%;
-    // gap:2rem;
-    
-  }
+ 
 
 
   

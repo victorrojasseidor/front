@@ -13,27 +13,20 @@
     "ARI SEIDOR Terms and Conditions and Privacy Policy": "the privacy policy of ARI SEIDOR",
     "Please enter your email": "Please enter your email ",
     "to confirm registration": "to confirm registration",
-      "Conditions of User": "Conditions of User",
-  "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.":
-    "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.",
-  "Privacy": "Privacy",
-  "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.":
-    "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.",
-  "Industrial and Intellectual Property": "Industrial and Intellectual Property",
-  "Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.":
-    "Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.",
-  "Responsibility": "Responsibility",
-  "Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.":
-    "Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.",
-  "User Restrictions": "User Restrictions",
-  "Users agree not to use the site for illegal purposes and not to take actions that violate the terms.":
-    "Users agree not to use the site for illegal purposes and not to take actions that violate the terms.",
-  "Third-Party Links": "Third-Party Links",
-  "Seidor does not control or is responsible for the content of third parties accessed through links on the site.":
-    "Seidor does not control or is responsible for the content of third parties accessed through links on the site.",
-  "Modifications": "Modifications",
-  "Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible.":
-    "Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible."
+    "Conditions of User": "Conditions of User",
+    "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.": "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.",
+    "Privacy": "Privacy",
+    "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.": "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.",
+    "Industrial and Intellectual Property": "Industrial and Intellectual Property",
+    "Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.": "Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.",
+    "Responsibility": "Responsibility",
+    "Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.": "Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.",
+    "User Restrictions": "User Restrictions",
+    "Users agree not to use the site for illegal purposes and not to take actions that violate the terms.": "Users agree not to use the site for illegal purposes and not to take actions that violate the terms.",
+    "Third-Party Links": "Third-Party Links",
+    "Seidor does not control or is responsible for the content of third parties accessed through links on the site.": "Seidor does not control or is responsible for the content of third parties accessed through links on the site.",
+    "Modifications": "Modifications",
+    "Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible.": "Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible."
   },
   "login": {
     "Log in": "Log in",
@@ -48,7 +41,7 @@
     "was verified": "was verified",
     "successfully": "successfully",
     "Next": "Next",
-    "Leader in automated processes":"Leader in automated processes"
+    "Leader in automated processes": "Leader in automated processes"
   },
   "update_password": {
     "Update password": "Change password",
@@ -58,8 +51,8 @@
     "Profile": "Profile",
     "Please enter the correct current password and the desired new password": "Please enter the correct current password and the desired new password",
     "Update failed. The current password is incorrect": "Update failed. The current password is incorrect",
-    "Go to profile":"Go to profile",
-    "Password updated successfully":"Password updated successfully"
+    "Go to profile": "Go to profile",
+    "Password updated successfully": "Password updated successfully"
   },
   "recover_password": {
     "Recover password": "Recover password",
@@ -73,7 +66,6 @@
     "Please enter your email to uptdate password": "Please enter your email to confirm registration, check your inbox or spam",
     "OK": "OK"
   },
-  
   "profile": {
     "Welcome to ARI Seidor!": "Welcome to ARI Seidor!",
     "Robots and people work better together": "Robots and people work better together",
@@ -107,12 +99,9 @@
     "Cancel": "Cancel",
     "Update password": "Change password",
     "About the account": "About the account",
-    "Password":"Password",
+    "Password": "Password",
     "Profile": "Profile",
-    "Home":"Home"
-
-
-
+    "Home": "Home"
   },
   "header": {
     "Edit profile": "Edit profile",
@@ -136,15 +125,15 @@
     "Human Resources": "Human Resources",
     "Balance": "Balance",
     "Movement": "Movement",
-    "Home":"Home",
-    "Closing session":"Closing session"
+    "Home": "Home",
+    "Closing session": "Closing session"
   },
   "Products": {
     "Digital employees": "Digital employees",
     "Welcome": "Welcome",
     "To company:": "Select the company",
     "All": "All",
-    "Home":"Home",
+    "Home": "Home",
     "Configured": "Configured",
     "Pending": "Pending",
     "Not hired": "Not hired",
@@ -204,7 +193,16 @@
     "From": "From",
     "To": "To",
     "Yees": "Yes",
-    "No": "No"
+    "No": "No",
+    "History of changes": "History of changes",
+    "Date modification": "Date modification",
+    "Star date": "Star date",
+    "End date": "End date",
+    "Contract": "Contract",
+    "Contract number": "Contract number",
+    "Other": "Other",
+  "Free trial contract": "Free trial contract"
+  
   },
   "Download": {
     "Digital employees": "Digital employees",
@@ -225,7 +223,7 @@
     "Download automated Bank Statements": "Download automated Bank Statements",
     "List Bank Credential": "List Bank Credential",
     "Previus": "Previus",
-    "Finish":"Finish",
+    "Finish": "Finish",
     "Name": "Name",
     "Principal user": "Principal user",
     "Bank": "Bank",
@@ -289,7 +287,7 @@
     "Register your credentials": "Register your credentials",
     "Activate or deactivate the download of bank statements for this credential": "Activate or deactivate the download of bank statements for this credential",
     "Add": "Add",
-    "Select the currency":"Select the currency"
+    "Select the currency": "Select the currency"
   },
   "Currency": {
     "Digital employees": "Digital employees",
@@ -327,7 +325,7 @@
     "Disabled": "Disabled",
     "Close": "Close",
     "Update": "Update",
-    "Finish":"Finish",
+    "Finish": "Finish",
     "Settings for Daily exchange rate": "Settings for Daily exchange rate",
     "Add": "Add",
     "Add the setting for Daily exchange rate": "Add the setting for Daily exchange rate",
@@ -352,11 +350,10 @@
     "Register the daily exchange rates": "Register the daily exchange rates",
     "click on Add": "click on Add",
     "optional": "optional",
-    "Return a home":"Return a Home",
-    "Configured":"Configured",
-    "The following emails are invalid":"The following emails are invalid",
+    "Return a home": "Return a Home",
+    "Configured": "Configured",
+    "The following emails are invalid": "The following emails are invalid",
     "Day explication": "Additional days adjusts the SBS exchange rate date as needed. For example, if the original date is 11/12/2023 and 1 day is added, the result will be 11/13/2023, making it easier to obtain updated information."
-    
   },
   "Pattern": {
     "Digital employees": "Digital employees",
@@ -373,7 +370,7 @@
     "State": "State",
     "To": "To",
     "Cco": "CC-(copy)",
-    "Add":"Add",
+    "Add": "Add",
     "Emails for notifications": "Emails for notifications",
     "Register emails": "Register emails",
     "Next": "Next",
@@ -382,20 +379,19 @@
     "Active": "Active",
     "Disabled": "Disabled",
     "Close": "Close",
-    "Finish":"Finish",
+    "Finish": "Finish",
     "Update": "Update",
     "Pattern": "Pattern",
-    "Return a home":"Return a Home",
-    "Configured":"Configured",
+    "Return a home": "Return a Home",
+    "Configured": "Configured",
     "Add Registers": "Add Registers",
     "Actions": "Actions",
     "Select the type of pattern": "Select the type of pattern",
-    "Do you want to delete this record":"Do you want to delete this record",
-    "Edit patterns":"Edit patterns",
-    "Add patterns":"Add patterns",
-    "These patterns already exist, select another":"These patterns already exist, select another",
-    "Successful configuration":"Successful configuration"
-    
+    "Do you want to delete this record": "Do you want to delete this record",
+    "Edit patterns": "Edit patterns",
+    "Add patterns": "Add patterns",
+    "These patterns already exist, select another": "These patterns already exist, select another",
+    "Successful configuration": "Successful configuration"
   },
   "Support": {
     "Support": "Support",
@@ -433,7 +429,7 @@
   },
   "Reporting": {
     "Reporting": "Reporting",
-    "Home":"Home",
+    "Home": "Home",
     "Total revenue": "Total revenue",
     "Total expenses": "Total expenses",
     "Result": "Result",
@@ -501,7 +497,7 @@
     "Total Accounts": "Total Accounts",
     "Total Banks": "Total Banks",
     "Today": "Today",
-       "January": "January",
+    "January": "January",
     "February": "February",
     "March": "March",
     "April": "April",
@@ -513,7 +509,6 @@
     "October": "October",
     "November": "November",
     "December": "December"
-
   },
   "Modal": {
     "Your session is about to expire!": "Your session is about to expire!",
@@ -542,11 +537,11 @@
     "Type of file is required": "Type of file is required",
     "Last Name is required": "Last Name is required",
     "Phone number is required": "Phone number is required",
-    "There is no country":"There is no country",
-    "Select source":"Select source",
-    "Select origin currency":"Select origin currency",
-    "Select destination currency":"Select destination currency",
-    "Currency cannot be equeal":"Currency cannot be equeal",
-    "Select a different currency":"Select a different currency"
+    "There is no country": "There is no country",
+    "Select source": "Select source",
+    "Select origin currency": "Select origin currency",
+    "Select destination currency": "Select destination currency",
+    "Currency cannot be equeal": "Currency cannot be equeal",
+    "Select a different currency": "Select a different currency"
   }
 }
