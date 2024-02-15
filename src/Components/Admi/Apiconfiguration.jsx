@@ -153,6 +153,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetHistoricoProducto', body, token)
+      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         setHistorical(responseData.oResults)
 
@@ -245,6 +246,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       setIsLoading(false) // Ocultar señal de carga
     }
   }
+
+  console.log(session)
 
   const formatDate = (date) => {
     // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
@@ -556,7 +559,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
             <div className='box-filter'>
 
               <FormControl sx={{ m: 1, minWidth: 200 }}>
-                <InputLabel id='contract' name='contract'>Contract </InputLabel>
+                <InputLabel id='contract' name='contract'>{t.Contract} </InputLabel>
                 <Select
                   labelId='contract'
                   name='contract' // Make sure this matches the Field name
