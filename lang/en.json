@@ -43,6 +43,68 @@
     "Next": "Next",
     "Leader in automated processes": "Leader in automated processes"
   },
+
+  
+  "home": {
+    "Optimize your Business Efficiency": "Optimize your Business Efficiency",
+    "Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence":
+      "Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence",
+    "Try free trial": "Try free trial",
+    "View Demo": "View Demo",
+    "You still don't have an account?": "You still don't have an account?",
+    "Sign In": "Sign In",
+    "Customize your process": "Customize your process",
+    "What our client think about us?": "¿What our client think about us?",
+    "How do we do it?": "How do we do it?",
+    "ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes":
+      "ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes",
+    "Get Started": "Get Started",
+    "Digital Employees Automating Your Services": "Digital Employees Automating Your Services",
+    "Included Skills to Digital Employees": "Included Skills to Digital Employees",
+    "business agility": "business agility",
+    "Ari finance": "Ari finance",
+    "The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures":
+      "The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures",
+    "Ari HR": "Ari HR",
+    "The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.":
+      "The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.",
+    "Ari it support": "Ari it support",
+    "The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts.":
+      "The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts.",
+    "Our enablers": "Our enablers",
+    "Contact us": "Contact us",
+    "Find out which AUTOMATION SOLUTIONS can help you.": "Find out which AUTOMATION SOLUTIONS can help you.",
+    "Digital employees": "Digital employees",
+    "working": "working",
+    "for you": "for you",
+    "Send email": "Send email",
+    "Please enter your information in the contact form and we will contact you as soon as possible":
+      "Please enter your information in the contact form and we will contact you as soon as possible",
+    "Message sent succesfully": "Message sent succesfully",
+    "Email": "Email",
+  "First Name": "First Name",
+  "Last Name": "Last Name",
+  "Company": "Company",
+  "Position": "Position",
+  "Message": "Message",
+  "Send": "Send",
+  "Login": "Login",
+  "Sing in": "Sing in",
+    "Access the Ari.app application easily and securely, configure your digital employees": "Access the Ari.app application easily and securely, configure your digital employees",
+    "Automated process": "Automated process",
+    "This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set": "This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set",
+    "Work delivered": "Work delivered",
+    "After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready": "After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready"
+  
+  
+
+
+
+  }
+  , 
+
+
+
   "update_password": {
     "Update password": "Change password",
     "Current password": "Password actually used",

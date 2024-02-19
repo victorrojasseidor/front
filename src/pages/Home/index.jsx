@@ -21,6 +21,42 @@ import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { validateFormRegister } from '@/helpers/validateForms'
 import { useAuth } from '@/Context/DataContext'
 import Modal from '@/Components/Modal'
+import { motion, useAnimation } from 'framer-motion'
+
+const AnimatedSection = ({ children }) => {
+  const controls = useAnimation()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset
+
+      // Ajusta estos valores según la posición en la página que desees para activar la animación
+      const triggerPosition = 500
+      const fadeOutDistance = 100
+
+      // Calcula la opacidad en función de la posición de desplazamiento
+      const opacity = Math.max(0, 1 - (scrollY - triggerPosition) / fadeOutDistance)
+
+      // Ajusta el desplazamiento en el eje x
+      const randomX = Math.floor(Math.random() * 30) - 50
+
+      controls.start({ opacity, x: randomX })
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [controls])
+
+  return (
+    <motion.section
+      initial={{ opacity: 1, x: 0 }}
+      animate={controls}
+      transition={{ duration: 0.5 }}
+    >
+      {children}
+    </motion.section>
+  )
+}
 
 const Home = () => {
   const [selectImage, setSelectImage] = useState(null)
@@ -29,7 +65,7 @@ const Home = () => {
   const [showM, setShowM] = useState(false)
 
   const { l } = useAuth()
-  const t = l.signup
+  const t = l.home
 
   const testimonials = [
     {
@@ -145,13 +181,13 @@ const Home = () => {
 
             <li>
               <Link href='/'>
-                Login
+                {t.Login}
               </Link>
             </li>
 
             <li>
               <button className='btn_black'>
-                Sing in
+                {t['Sing in']}
               </button>
 
             </li>
@@ -165,21 +201,21 @@ const Home = () => {
         <section className='home-front'>
 
           <div className='welcome'>
-            <h1 className='subtitle'>Optimize your Business Efficiency</h1>
-            <p> Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence</p>
+            <h1 className='subtitle'>{t['Optimize your Business Efficiency']}</h1>
+            <p> {t['Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence']}</p>
 
             <div className='welcome-actions'>
-              <button className='btn_primary small'> Try free trial </button>
+              <button className='btn_primary small'> {t['Try free trial']} </button>
               <button className='record'>
 
                 <ImageSvg name='Record' />
 
-                View Demo
+                {t['View Demo']}
 
               </button>
             </div>
 
-            <div className='account'> You still don't have an account?  <Link href='/register'> Sign In</Link></div>
+            <div className='account'> {t['You still don\'t have an account?']}  <Link href='/register'> {t['Sign In']}</Link></div>
 
           </div>
 
@@ -189,7 +225,7 @@ const Home = () => {
 
         <section className='home-client'>
           <div className='subtitle'>
-            <h1>  what our client think about us? </h1>
+            <h1> {t['What our client think about us?']} </h1>
 
           </div>
           <div className='testimonials-container'>
@@ -256,19 +292,19 @@ const Home = () => {
 
             <div className='discover'>
               <p>
-                Discover our automation process
+                {t['Discover our automation process']}
               </p>
 
               <h1 className='subtitle'>
-                How do we do it?
+                {t['How do we do it?']}
               </h1>
 
               <p>
-                ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes
+                {t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}
               </p>
 
               <button className='btn_primary'>
-                Get Started
+                {t['Get Started']}
 
               </button>
 
@@ -292,7 +328,7 @@ const Home = () => {
 
               {/* Contenido del componente */}
 
-              <svg
+              {/* <svg
                 class='vector-335'
                 width='936'
                 height='470'
@@ -346,6 +382,61 @@ const Home = () => {
                     />
                   </filter>
                 </defs>
+              </svg> */}
+              <svg
+                class='vector-337'
+                width='400'
+                height='99'
+                viewBox='0 0 500 99'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <g filter='url(#filter0_d_3005_20834)'>
+                  <path
+                    d='M1.33526 55.41C18.9614 116.909 188.404 -6.38372 268.811 27.2901C443.743 100.55 468.175 17.7603 582.993 27.1431'
+                    stroke='#4318FF'
+                    stroke-width='5'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  />
+                </g>
+                <defs>
+                  <filter
+                    id='filter0_d_3005_20834'
+                    x='-25.1641'
+                    y='18.8525'
+                    width='800.656'
+                    height='104.526'
+                    filterUnits='userSpaceOnUse'
+                    color-interpolation-filters='sRGB'
+                  >
+                    <feFlood flood-opacity='0' result='BackgroundImageFix' />
+                    <feColorMatrix
+                      in='SourceAlpha'
+                      type='matrix'
+                      values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
+                      result='hardAlpha'
+                    />
+                    <feOffset dy='24' />
+                    <feGaussianBlur stdDeviation='12' />
+                    <feComposite in2='hardAlpha' operator='out' />
+                    <feColorMatrix
+                      type='matrix'
+                      values='0 0 0 0 0.215686 0 0 0 0 0.203922 0 0 0 0 0.662745 0 0 0 0.3 0'
+                    />
+                    <feBlend
+                      mode='normal'
+                      in2='BackgroundImageFix'
+                      result='effect1_dropShadow_3005_20834'
+                    />
+                    <feBlend
+                      mode='normal'
+                      in='SourceGraphic'
+                      in2='effect1_dropShadow_3005_20834'
+                      result='shape'
+                    />
+                  </filter>
+                </defs>
               </svg>
 
             </div>
@@ -362,9 +453,9 @@ const Home = () => {
                 </span>
 
                 <div className='text'>
-                  <h3> Customize your process</h3>
+                  <h3> {t['Customize your process']}</h3>
                   <p>
-                    Access the Ari.app application easily and securely, configure your digital employees
+                    {t['Access the Ari.app application easily and securely, configure your digital employees']}
                   </p>
 
                 </div>
@@ -385,9 +476,9 @@ const Home = () => {
                 </span>
 
                 <div className='text'>
-                  <h3> Automated process </h3>
+                  <h3> {t['Automated process']} </h3>
                   <p>
-                    This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set
+                    {t['This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set']}
                   </p>
 
                 </div>
@@ -408,9 +499,9 @@ const Home = () => {
                 </span>
 
                 <div className='text'>
-                  <h3> Work delivered </h3>
+                  <h3> {t['Work delivered']} </h3>
                   <p>
-                    After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready
+                    {t['After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready']}
                   </p>
 
                 </div>
@@ -431,7 +522,7 @@ const Home = () => {
               <h1> 5</h1>
 
               <p>
-                Digital Employees Automating Your Services
+                {t['Digital Employees Automating Your Services']}
               </p>
 
             </li>
@@ -441,7 +532,7 @@ const Home = () => {
               <h1> 20</h1>
 
               <p>
-                Included Skills to Digital Employees
+                {t['Included Skills to Digital Employees']}
               </p>
 
             </li>
@@ -451,7 +542,7 @@ const Home = () => {
               <h1> 78%</h1>
 
               <p>
-                business agility
+                {t['business agility']}
               </p>
 
             </li>
@@ -463,9 +554,9 @@ const Home = () => {
         <section className='home-digitals container'>
 
           <div className='description'>
-            <h1> Ari finance</h1>
+            <h1> {t['Ari finance']}</h1>
 
-            <p> The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures</p>
+            <p> {t['The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures']}</p>
 
           </div>
 
@@ -481,9 +572,9 @@ const Home = () => {
           </div>
           <div className='description'>
 
-            <h1> Ari HR</h1>
+            <h1> {t['Ari HR']}</h1>
 
-            <p> The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.</p>
+            <p> {t['The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.']}</p>
 
           </div>
 
@@ -492,9 +583,9 @@ const Home = () => {
         <section className='home-digitals container'>
 
           <div className='description'>
-            <h1> Ari it support</h1>
+            <h1> {t['Ari it support']}</h1>
 
-            <p> The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts.</p>
+            <p> {t['The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts.']}</p>
 
           </div>
 
@@ -505,7 +596,7 @@ const Home = () => {
         </section>
 
         <section className='home-enables container'>
-          <h1> Our enablers</h1>
+          <h1> {t['Our enablers']}</h1>
 
           <div className='box-enables'>
             <button>
@@ -538,10 +629,10 @@ const Home = () => {
 
           <div className='contact-message'>
 
-            <h1 className='subtitle'> Contact us</h1>
+            <h1 className='subtitle'> {t['Contact us']}</h1>
 
             <p>
-              Find out which AUTOMATION SOLUTIONS can help you.
+              {t['Find out which AUTOMATION SOLUTIONS can help you.']}
             </p>
 
             <div className='social-media'>
@@ -572,8 +663,8 @@ const Home = () => {
 
           <div className='contact-form'>
 
-            <h2> Send email</h2>
-            <p> Please enter your information in the contact form and we will contact you as soon as possible </p>
+            <h2> {t['Send email']}</h2>
+            <p> {t['Please enter your information in the contact form and we will contact you as soon as possible']} </p>
 
             <Formik
               initialValues={{
@@ -585,10 +676,10 @@ const Home = () => {
 
               }}
 
-                // validate={(values) => validateFormRegister(values, l.validation)}
+            // validate={(values) => validateFormRegister(values, l.validation)}
               onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
-                // same shape as initial values
-                // handleSubmit(values, { setSubmitting, setStatus, resetForm })
+              // same shape as initial values
+              // handleSubmit(values, { setSubmitting, setStatus, resetForm })
                 setShowM(true)
               }}
               enableReinitialize
@@ -598,7 +689,7 @@ const Home = () => {
 
                   <div className='input-box'>
                     <Field type='email' name='corporateEmail' id='corporateEmail' placeholder=' ' disabled={isSubmitting} />
-                    <label htmlFor='corporateEmail'>Email</label>
+                    <label htmlFor='corporateEmail'>{t.Email}</label>
                     <ErrorMessage className='errorMessage' name='corporateEmail' component='span' />
                   </div>
 
@@ -606,25 +697,25 @@ const Home = () => {
 
                     <div className='input-box'>
                       <Field type='text' name='firstName' id='firstName' placeholder=' ' disabled={isSubmitting} />
-                      <label htmlFor='firstName'>First Name</label>
+                      <label htmlFor='firstName'>{t['First Name']}</label>
                       <ErrorMessage className='errorMessage' name='firstName' component='span' />
                     </div>
 
                     <div className='input-box'>
                       <Field type='text' name='lastName' id='lastName' placeholder=' ' disabled={isSubmitting} />
-                      <label htmlFor='lastName'>Last Name</label>
+                      <label htmlFor='lastName'>{t['Last Name']}</label>
                       <ErrorMessage className='errorMessage' name='lastName' component='span' />
                     </div>
 
                     <div className='input-box'>
                       <Field type='text' name='company' id='company' placeholder=' ' disabled={isSubmitting} />
-                      <label htmlFor='company'>Company</label>
+                      <label htmlFor='company'>{t.Company}</label>
                       <ErrorMessage className='errorMessage' name='company' component='span' />
                     </div>
 
                     <div className='input-box'>
                       <Field type='text' name='position' id='position' placeholder=' ' disabled={isSubmitting} />
-                      <label htmlFor='position'>Position</label>
+                      <label htmlFor='position'>{t.Position}</label>
                       <ErrorMessage className='errorMessage' name='position' component='span' />
                     </div>
 
@@ -640,13 +731,16 @@ const Home = () => {
                       cols={40}
                       style={{ height: 'auto', minHeight: '3rem' }}
                     />
-                    <label htmlFor='message'> Message  </label>
+                    <label htmlFor='message'> {t.Message}  </label>
 
                   </div>
+                  <div className='box-buttons'>
 
-                  <button className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => console.log('vonnn')} disabled={isSubmitting}>
-                    Send
-                  </button>
+                    <button className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => console.log('vonnn')} disabled={isSubmitting}>
+                      {t.Send}
+                    </button>
+
+                  </div>
 
                   <div className='contentError'>
                     <div className='errorMessage'>{status}</div>
@@ -660,7 +754,7 @@ const Home = () => {
                 <ImageSvg name='Check' />
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
 
-                  Message sent succesfully
+                  {t['Message sent succesfully']}
                 </div>
 
               </Modal>
@@ -671,6 +765,7 @@ const Home = () => {
         </section>
       </footer>
     </div>
+
   )
 }
 

@@ -14,32 +14,21 @@
     "We´ve sent a verefication link to": "Hemos enviado un enlace de verificación a ",
     "Please enter your email": "Por favor ingrese a su correo electrónico",
     "to confirm registration": "para confirmar su registro, verifique su bandeja de entrada o spam",
-
     "Conditions of User": "Condiciones de Usuario",
-    "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.":
-      "Al acceder al sitio, el usuario acepta todas las disposiciones del Aviso Legal, incluyendo la Política de Privacidad.",
+    "By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.": "Al acceder al sitio, el usuario acepta todas las disposiciones del Aviso Legal, incluyendo la Política de Privacidad.",
     "Privacy": "Privacidad",
-    "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.":
-      "Todos los datos proporcionados a Seidor se tratarán con respeto a la confidencialidad, según la Política de Privacidad.",
+    "All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.": "Todos los datos proporcionados a Seidor se tratarán con respeto a la confidencialidad, según la Política de Privacidad.",
     "Industrial and Intellectual Property": "Propiedad Industrial e Intelectual",
-    "Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.":
-      "Seidor posee los derechos de propiedad intelectual e industrial del sitio, y cualquier uso no autorizado está prohibido.",
+    "Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.": "Seidor posee los derechos de propiedad intelectual e industrial del sitio, y cualquier uso no autorizado está prohibido.",
     "Responsibility": "Responsabilidad",
-    "Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.":
-      "Seidor no garantiza la disponibilidad continua del sitio y no se hace responsable de daños derivados del acceso y uso.",
+    "Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.": "Seidor no garantiza la disponibilidad continua del sitio y no se hace responsable de daños derivados del acceso y uso.",
     "User Restrictions": "Restricciones de los Usuarios",
-    "Users agree not to use the site for illegal purposes and not to take actions that violate the terms.":
-      "Los usuarios se comprometen a no utilizar el sitio para propósitos ilegales y a no realizar acciones que violen los términos.",
+    "Users agree not to use the site for illegal purposes and not to take actions that violate the terms.": "Los usuarios se comprometen a no utilizar el sitio para propósitos ilegales y a no realizar acciones que violen los términos.",
     "Third-Party Links": "Enlaces a Terceros",
-    "Seidor does not control or is responsible for the content of third parties accessed through links on the site.":
-      "Seidor no controla ni es responsable de los contenidos de terceros a los que se accede a través de enlaces en el sitio.",
+    "Seidor does not control or is responsible for the content of third parties accessed through links on the site.": "Seidor no controla ni es responsable de los contenidos de terceros a los que se accede a través de enlaces en el sitio.",
     "Modifications": "Modificaciones",
-    "Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible.":
-      "Seidor puede modificar los textos legales sin previo aviso, y dichas modificaciones serán efectivas al publicarse en el sitio. Además, Seidor puede dar por terminados o suspender los servicios del portal, con advertencia cuando sea posible.",
-      "Verifying your registration. A confirmation email will be sent during the course of the day":"Verificando su registro. Se enviará un correo de confirmación en el transcurso del día"
-
-
-
+    "Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible.": "Seidor puede modificar los textos legales sin previo aviso, y dichas modificaciones serán efectivas al publicarse en el sitio. Además, Seidor puede dar por terminados o suspender los servicios del portal, con advertencia cuando sea posible.",
+    "Verifying your registration. A confirmation email will be sent during the course of the day": "Verificando su registro. Se enviará un correo de confirmación en el transcurso del día"
   },
   "login": {
     "Log in": "Iniciar sesión",
@@ -54,22 +43,64 @@
     "was verified": "fue verificado",
     "successfully": "con éxito",
     "Next": "Siguiente",
-    "Leader in automated processes":"Lider en procesos automatizados"
+    "Leader in automated processes": "Lider en procesos automatizados"
   },
-
-  "update_password":{
-    "Update password":"Cambiar contraseña",
-    "Current password":"Contraseña actualmente usada",
-    "New password":"Contraseña nueva deseada",
-    "Update":"Actualizar",
-    "Profile":"Perfil",
+  "home": {
+    "Optimize your Business Efficiency": "Optimiza la eficiencia de tu negocio",
+    "Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence": "Descubre el poder de ARI, la fuerza laboral basada en software con inteligencia artificial",
+    "Try free trial": "Prueba gratuita",
+    "View Demo": "Ver Demo",
+    "You still don't have an account?": "¿Todavía no tienes una cuenta?",
+    "Sign In": "Iniciar sesión",
+    "Customize your process": "Personaliza tu proceso",
+    "What our client think about us?": "¿Qué piensan nuestros clientes sobre nosotros?",
+    "How do we do it?": "¿Cómo lo hacemos?",
+    "ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes": "ARI es trabajo basado en software que aprovecha la inteligencia artificial, incluido el aprendizaje automático, para ejecutar tareas de forma autónoma dentro de procesos complejos de principio a fin",
+    "Get Started": "Comienza",
+    "Digital Employees Automating Your Services": "Empleados digitales automatizando tus servicios",
+    "Included Skills to Digital Employees": "Habilidades incluidas para empleados digitales",
+    "business agility": "agilidad empresarial",
+    "Ari finance": "Ari finanzas",
+    "The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures": "El coordinador de tecnología y soporte facilita procesos de plataforma y operación, incluida la compra e instalación de software, reinicio de servidores, copias de seguridad y configuración de correo electrónico. También se encargan de la configuración de VPN, la configuración de impresoras, restablecimiento de contraseñas y terminación de cuentas para salidas",
+    "Ari HR": "Ari recursos humanos",
+    "The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.": "El coordinador de recursos humanos facilita procesos administrativos como la integración de nuevos empleados, gestión de vacaciones y planes de salud, resolución de problemas de beneficios y apoyo en revisiones de rendimiento",
+    "Ari it support": "Ari soporte de TI",
+    "The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts.": "El coordinador de tecnología y soporte facilita procesos como la compra e instalación de programas, reinicio de servidores, copias de seguridad, configuración de correo, VPN, impresoras, restablecimiento de contraseñas y eliminación de cuentas",
+    "Our enablers": "Nuestros facilitadores",
+    "Contact us": "Contáctanos",
+    "Find out which AUTOMATION SOLUTIONS can help you.": "Descubre qué SOLUCIONES DE AUTOMATIZACIÓN pueden ayudarte",
+    "Digital employees": "Empleados digitales",
+    "working": "trabajando",
+    "for you": "para ti",
+    "Send email": "Enviar correo electrónico",
+    "Please enter your information in the contact form and we will contact you as soon as possible": "Por favor, ingresa tu información en el formulario de contacto y nos pondremos en contacto contigo lo antes posible",
+    "Message sent succesfully": "Mensaje enviado exitosamente",
+    "Email": "Correo Electrónico",
+    "First Name": "Nombre",
+    "Last Name": "Apellido",
+    "Company": "Empresa",
+    "Position": "Cargo",
+    "Message": "Mensaje",
+    "Send": "Enviar",
+    "Login": "Iniciar sesión",
+    "Sing in": "Registrarse",
+    "Access the Ari.app application easily and securely, configure your digital employees": "Accede fácil y seguramente a la aplicación Ari.app, configura a tus empleados digitales",
+    "Automated process": "Proceso automatizado",
+    "This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set": "Este empleado procesa la información, la gestiona y realiza todas las tareas automáticamente todos los días según el horario que hayas establecido",
+    "Work delivered": "Trabajo entregado",
+    "After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready": "Después de procesar la información, el empleado digital te proporciona informes, gráficos, etc., para que tu información esté lista"
+  },
+  "update_password": {
+    "Update password": "Cambiar contraseña",
+    "Current password": "Contraseña actualmente usada",
+    "New password": "Contraseña nueva deseada",
+    "Update": "Actualizar",
+    "Profile": "Perfil",
     "Please enter the correct current password and the desired new password": "Por favor ingrese la contraseña actual correcta y la nueva contraseña deseada",
-    "Update failed. The current password is incorrect":"La actualización falló. La contraseña actual es incorrecta",
-    "Go to profile":"Ir a perfil",
-    "Password updated successfully":"Contraseña actualizada con éxito"
-    
+    "Update failed. The current password is incorrect": "La actualización falló. La contraseña actual es incorrecta",
+    "Go to profile": "Ir a perfil",
+    "Password updated successfully": "Contraseña actualizada con éxito"
   },
-
   "recover_password": {
     "Recover password": "Recuperar contraseña",
     "Please enter your email. A link will be sent to you to change your password": "Por favor coloque su correo electrónico. Se le enviará un link para cambiar su contraseña",
@@ -114,10 +145,10 @@
     "Digital employees": "Empleados Digitales",
     "Cancel": "Cancelar",
     "Update password": "Cambiar contraseña",
-    "Password":"Contraseña",
+    "Password": "Contraseña",
     "About the account": "A cerca de la cuenta",
     "Profile": "Perfil",
-    "Home":"Inicio"
+    "Home": "Inicio"
   },
   "header": {
     "Edit profile": "Editar perfil",
@@ -139,15 +170,15 @@
     "Human Resources": "Recursos humanos",
     "Balance": "Saldos",
     "Movement": "Movimientos",
-    "Home":"Inicio",
-    "Closing session":"Cerrando sessión"
+    "Home": "Inicio",
+    "Closing session": "Cerrando sessión"
   },
   "Products": {
     "Digital employees": "Empleados digitales",
     "Welcome": "Bienvenido",
     "To company:": "Selecciona la empresa",
     "All": "Todos",
-    "Home":"Inicio",
+    "Home": "Inicio",
     "Configured": "Configurado",
     "Pending": "Pendiente",
     "Not hired": "No contratado",
@@ -182,7 +213,7 @@
     "Download account statements": "Descarga de estados de cuenta",
     "AFP validation": "Validación de AFP",
     "Captcha Solving Service": "Servicio de resolución de captcha",
-    "Image text extraction Service":"Servicio de Extracción de textos de imágenes"
+    "Image text extraction Service": "Servicio de Extracción de textos de imágenes"
   },
   "Apiconfuguration": {
     "Service configuration status": "Estado de configuración del servicio",
@@ -211,16 +242,13 @@
     "Yees": "Sí",
     "No": "No",
     "History of changes": "Historial de cambios",
-  "Date modification": "Fecha de modificación",
-  "Star date": "Fecha de inicio",
-  "End date": "Fecha de finalización",
-
-  "Contract": "Contrato",
-  "Other": "Otros",
-  "Free trial contract": "Contrato de prueba gratuita",
-  
- 
-  "Contract number": "Número de contrato"
+    "Date modification": "Fecha de modificación",
+    "Star date": "Fecha de inicio",
+    "End date": "Fecha de finalización",
+    "Contract": "Contrato",
+    "Other": "Otros",
+    "Free trial contract": "Contrato de prueba gratuita",
+    "Contract number": "Número de contrato"
   },
   "Download": {
     "Digital employees": "Empleados digitales",
@@ -240,7 +268,7 @@
     "Download automated Bank Statements": "Descargar extractos bancarios automatizados",
     "List Bank Credential": "Listar credenciales bancarias",
     "Previus": "Anterior",
-    "Finish":"Finalizar",
+    "Finish": "Finalizar",
     "Name": "Nombre",
     "Principal user": "Usuario principal",
     "Bank": "Banco",
@@ -305,7 +333,7 @@
     "Register your credentials": "Registrar tus credenciales",
     "Activate or deactivate the download of bank statements for this credential": "Activar o desactivar la descarga de estados bancarios de esta credencial",
     "Add": "Agregar",
-    "Select the currency":"Selecciona la moneda"
+    "Select the currency": "Selecciona la moneda"
   },
   "Currency": {
     "Digital employees": "Empleados digitales",
@@ -327,7 +355,7 @@
     "Save and continue": "Guardar y continuar",
     "Emails were added successfully": "Los correos fueron añadidos con éxito",
     "Added Emails": "Correos agregados",
-    "The following emails are invalid":"Los siguientes correos electrónicos no son válidos",
+    "The following emails are invalid": "Los siguientes correos electrónicos no son válidos",
     "Add emails": "Agregar correos",
     "Next": "Siguiente",
     "Previus": "Anterior",
@@ -338,9 +366,9 @@
     "Update": "Actualizar",
     "Save": "Guardar",
     "Cancel": "Cancelar",
-    "Finish":"Finalizar",
+    "Finish": "Finalizar",
     "Return a home": "Volver a Inicio",
-    "Configured":"Configurado",
+    "Configured": "Configurado",
     "Yeah": "Sí",
     "Do you want to delete this record": "Quieres borrar  este registro",
     "No": "No",
@@ -372,7 +400,6 @@
     "click on Add": "click en agregar",
     "optional": "opcional",
     "Day explication": "Días adicionales ajusta la fecha del tipo de cambio SBS según necesidad. Por ejemplo, si la fecha original es el 12/11/2023 y se añade 1 día, el resultado será el 13/11/2023, facilitando la obtención de información actualizada"
-   
   },
   "Pattern": {
     "Digital employees": "Empleados digitales",
@@ -389,7 +416,7 @@
     "State": "Estado",
     "To": "Para",
     "Cco": "CCO (Copia)",
-    "Add":"Agregar",
+    "Add": "Agregar",
     "Emails for notifications": "Correos electrónicos para notificaciones",
     "Register emails": "Registrar correos electrónicos",
     "Next": "Siguiente",
@@ -400,17 +427,17 @@
     "Close": "Cerrar",
     "Update": "Actualizar",
     "Pattern": "Padrones",
-    "Finish":"Finalizar",
+    "Finish": "Finalizar",
     "Return a home": "Volver a Inicio",
-    "Configured":"Configurado",
+    "Configured": "Configurado",
     "Add Registers": "Agregar registros",
     "Actions": "Acciones",
     "Select the type of pattern": "Seleccionar el tipo de Documento",
-    "Do you want to delete this record":"Eliminar este registro",
-    "Edit patterns":"Editar padrones",
-    "Add patterns":"Agregar padrones",
-    "These patterns already exist, select another":"Estos padrones ya existen, selecciona otra",
-    "Successful configuration":"Configuración exitosa"
+    "Do you want to delete this record": "Eliminar este registro",
+    "Edit patterns": "Editar padrones",
+    "Add patterns": "Agregar padrones",
+    "These patterns already exist, select another": "Estos padrones ya existen, selecciona otra",
+    "Successful configuration": "Configuración exitosa"
   },
   "Support": {
     "Support": "Soporte",
@@ -448,7 +475,7 @@
   },
   "Reporting": {
     "Reporting": "Reportes",
-    "Home":"Inicio",
+    "Home": "Inicio",
     "Total revenue": "Ingresos totales",
     "Total expenses": "Egresos totales",
     "Result": "Resultado",
@@ -463,8 +490,8 @@
     "Expenses": "Egresos",
     "Asset": "Activo",
     "Purchase": "Compra",
-    "Selling":"Venta",
-    "Exchange rate today":"Tipo de cambio hoy",
+    "Selling": "Venta",
+    "Exchange rate today": "Tipo de cambio hoy",
     "ARI Finance to": "Finanzas ARI para ",
     "Balance report": "Reporte de saldos",
     "Movement report": "Reporte de movimientos",
@@ -511,7 +538,6 @@
     "Year": "Año",
     "From PEN to": "De PEN a",
     "Currency origin": "Moneda origen",
-
     "Target currency": "Moneda destino",
     "for the companies": "de las empresas",
     "Total Accounts": "Total de cuentas",
