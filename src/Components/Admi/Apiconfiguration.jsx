@@ -153,7 +153,6 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetHistoricoProducto', body, token)
-      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         setHistorical(responseData.oResults)
 
@@ -167,9 +166,10 @@ export default function Apiconfiguration ({ nameEmpresa }) {
           ? responseData.oAuditResponse.sMessage
           : 'Error in sending the form'
         setRequestError(errorMessage)
+
         setTimeout(() => {
           setRequestError(null)
-        }, 2000)
+        }, 5000)
       }
     } catch (error) {
       console.error('error', error)
@@ -234,6 +234,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
         setRequestError(errorMessage)
         setTimeout(() => {
           setRequestError(null)
+          setMessage(null)
+          setContractOther('')
         }, 1000)
       }
     } catch (error) {
@@ -246,8 +248,6 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       setIsLoading(false) // Ocultar señal de carga
     }
   }
-
-  console.log(session)
 
   const formatDate = (date) => {
     // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
@@ -636,6 +636,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
                   onClick={() => {
                     setModalConfirmed(false)
                     // Reset contractNumber when modal is closed
+                    setMessage(null)
                     setContractOther('')
                   }}
                 >
