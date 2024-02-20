@@ -556,6 +556,35 @@
     "November": "Noviembre",
     "December": "Diciembre"
   },
+"Captcha": {
+      "Captcha solved": "Captcha Resuelto",
+    "hasta": "Hasta",
+    "Resolved Connections": "Conexiones Resueltas",
+    "Last Months": "Últimos Meses",
+    "Results of the Last 5 Months": "Resultados de los Últimos 5 Meses",
+    "Date": "Fecha",
+    "Number of Captchas Resolved": "Cantidad de Captchas Resueltos",
+    "Filter Statistics": "Filtrar estadísticas",
+    "Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.": "Filtre los reportes y gráficos deseados y, si desea ver la información completa, utilice la opción de exportar.",
+    "Last": "Últimos",
+    "Months": "meses",
+    "Days": "días",
+    "Other Dates": "Otras fechas",
+    "Reports": "Reportes",
+    "Graphs": "gráficos",
+    "2Captcha Report": "Reporte de 2captcha",
+    "Results Obtained from Dates": "Resultado obtenidos de las fechas",
+    "Resolved": "Resuelto",
+    "Not Resolved": "No resuelto",
+    "Captcha Type": "Tipo de captcha",
+    "IP Address": "Dirección IP",
+    "Export": "Exportar",
+    "Total": "Total",
+    "Captcha History": "Historial de Captchas",
+    "Results obtained by": "Results obtenidos desde"
+  },
+
+
   "Modal": {
     "Your session is about to expire!": "¡Su sesión está a punto de caducar!",
     "Please confirm to refresh your token and continue": "Confirma para actualizar tu token y continuar",

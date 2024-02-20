@@ -574,6 +574,35 @@
     "November": "November",
     "December": "December"
   },
+  "Captcha": 
+  {
+    "Captcha solved": "Captcha Solved",
+    "hasta": "Until",
+    "Resolved Connections": "Resolved Connections",
+    "Last Months": "Last Months",
+    "Results of the Last 5 Months": "Results of the Last 5 Months",
+    "Date": "Date",
+    "Number of Captchas Resolved": "Number of Captchas Resolved",
+    "Filter Statistics": "Filter Statistics",
+    "Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.": "Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.",
+    "Last": "Last",
+    "Months": "Months",
+    "Days": "Days",
+    "Other Dates": "Other Dates",
+    "Reports": "Reports",
+    "Graphs": "Graphs",
+    "2Captcha Report": "2Captcha Report",
+    "Results Obtained from Dates": "Results Obtained from Dates",
+    "Resolved": "Resolved",
+    "Not Resolved": "Not Resolved",
+    "Captcha Type": "Captcha Type",
+    "IP Address": "IP Address",
+    "Export": "Export",
+    "Total": "Total",
+    "Captcha History": "Captcha History",
+    "Results obtained by": "Results obtained by"
+  },
+  
   "Modal": {
     "Your session is about to expire!": "Your session is about to expire!",
     "Please confirm to refresh your token and continue": "Please confirm to refresh your token and continue",
