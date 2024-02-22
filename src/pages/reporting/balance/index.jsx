@@ -478,7 +478,7 @@ const Balance = () => {
               </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id='account-label'>{t.Account}</InputLabel>
+                <InputLabel id='account-label'>{t['Account Alias']}</InputLabel>
                 <Select
                   labelId='account-label'
                   value={selectedAccount}
