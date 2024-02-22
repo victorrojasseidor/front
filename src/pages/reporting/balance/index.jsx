@@ -39,6 +39,7 @@ const Balance = () => {
   const [isCompanySorted, setIsCompanySorted] = useState(false)
   const [isBankSorted, setIsBankSorted] = useState(false)
   const [isAccountSorted, setIsAccountSorted] = useState(false)
+  const [isAccountDesSorted, setIsAccounDestSorted] = useState(false)
   const [isCurrencySorted, setIsCurrencySorted] = useState(false)
   const [isBalanceSorted, setIsBalanceSorted] = useState(false)
   const [apply, setApply] = useState(false)
@@ -186,6 +187,10 @@ const Balance = () => {
     setEndDate(newValue.format('DD/MM/YYYY'))
   }
 
+  console.log({ dataInitialSelect })
+
+  console.log({ balances })
+
   const handleCompanyChange = (event) => {
     const selectCompanyValue = event.target.value
     setSelectedCompany(selectCompanyValue)
@@ -226,9 +231,9 @@ const Balance = () => {
       const uniqueBanks = []
 
       accountsForSelectedBank.forEach((report) => {
-        if (!seenIds.has(report.descripcion_cuenta)) {
-          seenIds.add(report.descripcion_cuenta)
-          uniqueBanks.push({ cuenta_conf_cuenta: report.cuenta, desc_cuenta_conf_cuenta: report.descripcion_cuenta, desc_cuenta: report.descripcion_cuenta })
+        if (!seenIds.has(report.cuenta)) {
+          seenIds.add(report.cuenta)
+          uniqueBanks.push({ cuenta_conf_cuenta: report.cuenta, cuenta: report.cuenta, desc_cuenta: report.cuenta })
         }
       })
 
@@ -490,8 +495,8 @@ const Balance = () => {
                     <em>{t['All Accounts']}</em>
                   </MenuItem>
                   {selectedBank && filteredAccounts.map((account) => (
-                    <MenuItem key={account.cuenta_conf_cuenta} value={account.cuenta_conf_cuenta}>
-                      <div> {account.desc_cuenta_conf_cuenta} </div>
+                    <MenuItem key={account.cuenta_conf_cuenta} value={account.cuenta}>
+                      <div> {account.cuenta} </div>
                     </MenuItem>
                   ))}
 
@@ -567,12 +572,21 @@ const Balance = () => {
                         <ImageSvg name={isBankSorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
-                    <th onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
-                      {t.Account}
+
+                    <th onClick={() => orderDataAlphabetically('cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
+                      {t["Account Alias"]}
                       <button className='btn_crud'>
                         <ImageSvg name={isAccountSorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
+
+                    <th onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccounDestSorted, isAccountDesSorted)}>
+                      {t["Account Description"]}
+                      <button className='btn_crud'>
+                        <ImageSvg name={isAccountDesSorted ? 'OrderZA' : 'OrderAZ'} />
+                      </button>
+                    </th>
+ 
                     <th onClick={() => orderDataAlphabetically('moneda', setIsCurrencySorted, isCurrencySorted)}>
                       {t.Currency}
                       <button className='btn_crud'>
@@ -597,6 +611,7 @@ const Balance = () => {
                           <td>{formatDate(row.fecha)}</td>
                           <td>{row.razon_social_empresa}</td>
                           <td>{row.nombre_banco}</td>
+                          <td className='cuenta'>{row.cuenta_conf_cuenta}</td>
                           <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
                           <td>{row.moneda}</td>
                           <td className='importe' style={{ color: row.saldo < 0 ? '#E31A1A' : '' }}>{formatNumberToCurrency(row.saldo)}</td>

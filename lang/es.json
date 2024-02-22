@@ -557,7 +557,8 @@
     "October": "Octubre",
     "November": "Noviembre",
     "December": "Diciembre",
-    "Account Alias":"Alias de la cuenta"
+    "Account Alias":"Alias de la cuenta",
+    "Account Description":"Descripción de cuenta"
   },
 "Captcha": {
       "Captcha solved": "Captcha Resuelto",

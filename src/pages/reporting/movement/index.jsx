@@ -39,6 +39,7 @@ const Movement = () => {
   const [isCompanySorted, setIsCompanySorted] = useState(false)
   const [isBankSorted, setIsBankSorted] = useState(false)
   const [isAccountSorted, setIsAccountSorted] = useState(false)
+  const [isAccountDesSorted, setIsAccounDestSorted] = useState(false)
   const [isCurrencySorted, setIsCurrencySorted] = useState(false)
   const [isAmountSorted, setIsAmountSorted] = useState(false)
   const [isOperationSorted, setIsOperationSorted] = useState(false)
@@ -203,9 +204,9 @@ const Movement = () => {
       const uniqueBanks = []
 
       accountsForSelectedBank.forEach((report) => {
-        if (!seenIds.has(report.descripcion_cuenta)) {
-          seenIds.add(report.descripcion_cuenta)
-          uniqueBanks.push({ cuenta_conf_cuenta: report.cuenta, desc_cuenta_conf_cuenta: report.descripcion_cuenta, desc_cuenta: report.descripcion_cuenta })
+        if (!seenIds.has(report.cuenta)) {
+          seenIds.add(report.cuenta)
+          uniqueBanks.push({ cuenta_conf_cuenta: report.cuenta, cuenta: report.cuenta, desc_cuenta: report.cuenta })
         }
       })
 
@@ -470,27 +471,6 @@ const Movement = () => {
               </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id='company-label'>{t.Type}</InputLabel>
-                <Select
-                  labelId='type-label'
-                  value={selectedtype}
-                  onChange={handleTypeChange}
-                  IconComponent={IconArrow}
-
-                >
-                  <MenuItem value=''>
-                    <em>{t['All types']}</em>
-                  </MenuItem>
-                  {dataInitialSelect.oTipo?.map((comp) => (
-                    <MenuItem key={comp.id_tipo} value={comp.id_tipo}>
-                      <div> {comp.descripcion}</div>
-                    </MenuItem>
-                  ))}
-                </Select>
-                {/* <FormHelperText>{t['Select a type']} </FormHelperText> */}
-              </FormControl>
-
-              <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id='bank-label'>{t.Bank}</InputLabel>
                 <Select
                   labelId='bank-label'
@@ -511,7 +491,7 @@ const Movement = () => {
               </FormControl>
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id='account-label'>{t.Account}</InputLabel>
+                <InputLabel id='account-label'>{t['Account Alias']}</InputLabel>
                 <Select
                   labelId='account-label'
                   value={selectedAccount}
@@ -523,13 +503,34 @@ const Movement = () => {
                     <em>{t['All Accounts']}</em>
                   </MenuItem>
                   {selectedBank && filteredAccounts.map((account) => (
-                    <MenuItem key={account.cuenta_conf_cuenta} value={account.cuenta_conf_cuenta}>
-                      <div> {account.desc_cuenta_conf_cuenta} </div>
+                    <MenuItem key={account.cuenta_conf_cuenta} value={account.cuenta}>
+                      <div> {account.cuenta} </div>
                     </MenuItem>
                   ))}
 
                 </Select>
                 {/* <FormHelperText>{t['Select an account']}</FormHelperText> */}
+              </FormControl>
+
+              <FormControl sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='company-label'>{t.Type}</InputLabel>
+                <Select
+                  labelId='type-label'
+                  value={selectedtype}
+                  onChange={handleTypeChange}
+                  IconComponent={IconArrow}
+
+                >
+                  <MenuItem value=''>
+                    <em>{t['All types']}</em>
+                  </MenuItem>
+                  {dataInitialSelect.oTipo?.map((comp) => (
+                    <MenuItem key={comp.id_tipo} value={comp.id_tipo}>
+                      <div> {comp.descripcion}</div>
+                    </MenuItem>
+                  ))}
+                </Select>
+                {/* <FormHelperText>{t['Select a type']} </FormHelperText> */}
               </FormControl>
 
               <div className='box-clear'>
@@ -599,19 +600,19 @@ const Movement = () => {
                   </th>
                   <th>
                     {t['Account Alias']}
-                    <button className='btn_crud' onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
+                    <button className='btn_crud' onClick={() => orderDataAlphabetically('cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
                       <ImageSvg name={isAccountSorted ? 'OrderZA' : 'OrderAZ'} />
                     </button>
 
                   </th>
 
-                  {/* <th>
-                    {t['Account Alias']}
-                    <button className='btn_crud' onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
+                  <th>
+                    {t['Account Description']}
+                    <button className='btn_crud' onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccounDestSorted, isAccountDesSorted)}>
                       <ImageSvg name={isAccountDesSorted ? 'OrderZA' : 'OrderAZ'} />
                     </button>
 
-                  </th> */}
+                  </th>
                   <th>
                     {t.Currency}
 
@@ -711,6 +712,7 @@ const Movement = () => {
                             <td>{formatDate(row.fecha)}</td>
                             <td>{row.razon_social_empresa}</td>
                             <td>{row.nombre_banco}</td>
+                            <td className='cuenta'>{row.cuenta_conf_cuenta}</td>
                             <td className='cuenta'>{row.desc_cuenta_conf_cuenta}</td>
                             <td>{row.moneda}</td>
                             <td>{row.descripcion}</td>
