@@ -171,7 +171,8 @@
     "Balance": "Saldos",
     "Movement": "Movimientos",
     "Home": "Inicio",
-    "Closing session": "Cerrando sessión"
+    "Closing session": "Cerrando sessión",
+    "Captcha":"Captcha"
   },
   "Products": {
     "Digital employees": "Empleados digitales",
@@ -333,7 +334,8 @@
     "Register your credentials": "Registrar tus credenciales",
     "Activate or deactivate the download of bank statements for this credential": "Activar o desactivar la descarga de estados bancarios de esta credencial",
     "Add": "Agregar",
-    "Select the currency": "Selecciona la moneda"
+    "Select the currency": "Selecciona la moneda",
+    "Account Alias":"Alias de la cuenta"
   },
   "Currency": {
     "Digital employees": "Empleados digitales",
@@ -554,11 +556,15 @@
     "September": "Septiembre",
     "October": "Octubre",
     "November": "Noviembre",
-    "December": "Diciembre"
+    "December": "Diciembre",
+    "Account Alias":"Alias de la cuenta"
   },
 "Captcha": {
       "Captcha solved": "Captcha Resuelto",
     "hasta": "Hasta",
+    "Reporting": "Reportes",
+    "Home":"Inicio",
+    "Captcha":"2Captcha",
     "Resolved Connections": "Conexiones Resueltas",
     "Last Months": "Últimos Meses",
     "Results of the Last 5 Months": "Resultados de los Últimos 5 Meses",
@@ -581,7 +587,9 @@
     "Export": "Exportar",
     "Total": "Total",
     "Captcha History": "Historial de Captchas",
-    "Results obtained by": "Results obtenidos desde"
+    "Results obtained by": "Results obtenidos desde",
+    "Page":"Página",
+    "of":"de"
   },
 
 

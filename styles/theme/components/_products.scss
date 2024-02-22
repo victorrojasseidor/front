@@ -182,13 +182,11 @@
   .report-content {
     width: auto;
     display: flex;
-    background-color: get-color(white_s1);
-    border-radius: brd(2);
+    @include container;
     justify-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    padding: 1rem;
     gap: 1rem;
     z-index: 1;
 

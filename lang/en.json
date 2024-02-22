@@ -188,7 +188,8 @@
     "Balance": "Balance",
     "Movement": "Movement",
     "Home": "Home",
-    "Closing session": "Closing session"
+    "Closing session": "Closing session",
+    "Captcha":"Captcha"
   },
   "Products": {
     "Digital employees": "Digital employees",
@@ -351,7 +352,8 @@
     "Register your credentials": "Register your credentials",
     "Activate or deactivate the download of bank statements for this credential": "Activate or deactivate the download of bank statements for this credential",
     "Add": "Add",
-    "Select the currency": "Select the currency"
+    "Select the currency": "Select the currency",
+    "Account Alias":"Account Alias"
   },
   "Currency": {
     "Digital employees": "Digital employees",
@@ -572,12 +574,16 @@
     "September": "September",
     "October": "October",
     "November": "November",
-    "December": "December"
+    "December": "December",
+    "Account Alias":"Account Alias"
   },
   "Captcha": 
   {
     "Captcha solved": "Captcha Solved",
+    "Reporting": "Reporting",
+    "Home":"Home",
     "hasta": "Until",
+    "Captcha":"2Captcha",
     "Resolved Connections": "Resolved Connections",
     "Last Months": "Last Months",
     "Results of the Last 5 Months": "Results of the Last 5 Months",
@@ -600,7 +606,10 @@
     "Export": "Export",
     "Total": "Total",
     "Captcha History": "Captcha History",
-    "Results obtained by": "Results obtained by"
+    "Results obtained by": "Results obtained by",
+    "Page":"Page",
+    "of":"of"
+
   },
   
   "Modal": {

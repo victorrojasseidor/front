@@ -43,7 +43,11 @@
   padding:  2rem;
 border-radius: brd(2);
 box-shadow: bsh(3);
-background-color:get-color(white_s1)
+background-color:get-color(white_s1);
+
+p{
+  color:get-color(grey2_s4)
+}
 
 }
 

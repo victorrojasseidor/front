@@ -128,7 +128,8 @@ const LayoutProducts = ({ children, menu }) => {
       submenus: [
         { label: t.All, path: '/reporting' },
         { label: t.Balance, path: '/reporting/balance' },
-        { label: t.Movement, path: '/reporting/movement' }
+        { label: t.Movement, path: '/reporting/movement' },
+        { label: t.Captcha, path: '/reporting/captcha' }
       ]
     },
     Profile: {

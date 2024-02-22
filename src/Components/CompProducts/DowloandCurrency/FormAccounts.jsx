@@ -98,7 +98,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
                   {showcomponent?.bAccount && (
                     <div className='input-box'>
                       <Field type='text' name='Account' placeholder=' ' />
-                      <label htmlFor='Account'>{showcomponent.sAccount}</label>
+                      <label htmlFor='Account'>{t['Account Alias']}</label>
                       <ErrorMessage name='Account' component='span' className='errorMessage' />
                     </div>
                   )}

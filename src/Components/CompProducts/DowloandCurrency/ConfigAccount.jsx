@@ -138,7 +138,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
       const token = session.sToken
 
       const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarCuentaExtBancario', body, token)
-      console.log({ responseData })
+
       if (responseData.oAuditResponse?.iCode === 1) {
         setGetAccounts(!getAccounts)
         setTimeout(() => {
@@ -295,7 +295,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
                 <table className='dataTable '>
                   <thead>
                     <tr>
-                      <th>{t.Accounts}</th>
+                      <th>{t['Account Alias']}</th>
                       <th>{t['Account Description']}</th>
                       <th>{t.Company}</th>
                       <th>{t['Company Description']}</th>

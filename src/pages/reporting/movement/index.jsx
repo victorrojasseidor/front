@@ -598,12 +598,20 @@ const Movement = () => {
 
                   </th>
                   <th>
-                    {t.Account}
+                    {t['Account Alias']}
                     <button className='btn_crud' onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
                       <ImageSvg name={isAccountSorted ? 'OrderZA' : 'OrderAZ'} />
                     </button>
 
                   </th>
+
+                  {/* <th>
+                    {t['Account Alias']}
+                    <button className='btn_crud' onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
+                      <ImageSvg name={isAccountDesSorted ? 'OrderZA' : 'OrderAZ'} />
+                    </button>
+
+                  </th> */}
                   <th>
                     {t.Currency}
 
