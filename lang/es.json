@@ -172,7 +172,8 @@
     "Movement": "Movimientos",
     "Home": "Inicio",
     "Closing session": "Cerrando sessión",
-    "Captcha":"Captcha"
+    "Captcha":"Captcha",
+    "Anticapcha":"Anticapcha"
   },
   "Products": {
     "Digital employees": "Empleados digitales",
@@ -561,6 +562,7 @@
   },
 "Captcha": {
       "Captcha solved": "Captcha Resuelto",
+      "Anticapcha":"Anticapcha",
     "hasta": "Hasta",
     "Reporting": "Reportes",
     "Home":"Inicio",

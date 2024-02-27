@@ -1,8 +1,19 @@
 .home {
-  background-image: url("../../../public/img/bghome.png");
+  // background-image: url("../../../public/img/home-oficce.png");
+  background-image: url("../../../public/img/desing.png");
   background-repeat: no-repeat;
-  background-size: contain;
-  background-position: top;
+  background-size:160vh;
+  background-position:left top;
+  @include media(tablet) {
+    background-position: top; 
+    background-size: cover;    
+  }
+
+  .subtitle {
+    font-size: 45px;
+    @include center-container;
+  }
+
 
   p {
     color: get-color(grey2_s4);
@@ -19,11 +30,27 @@
       @include center-container;
       flex-direction: row;
       gap: 1rem;
+      a{
+        color:get-color(forms_s6);
+      }
+
+      
+    
+
+     
     }
 
     .languajes-box {
       @include center-container;
       flex-direction: row;
+      button{
+        color:get-color(forms_s6);
+      }
+
+      path{
+        fill:get-color(forms_s6);
+      }
+      
     }
   }
 
@@ -38,10 +65,7 @@
     }
   }
 
-  .subtitle {
-    font-size: 48px;
-    @include center-container;
-  }
+  
 
   // .box-home{
   //   display: flex;
@@ -58,8 +82,13 @@
     position: relative;
 
     .subtitle {
-      font-size: 4.2rem;
+      font-size: 3.6rem;
+    
+        color:get-color(white_s1);
+     
     }
+
+   
 
     .welcome {
       width: 100%;
@@ -72,7 +101,7 @@
       }
 
       p {
-        color: get-color(t1-blue);
+        color: get-color(forms_s6);
         text-align: justify;
       }
 
@@ -82,14 +111,14 @@
       }
 
       .account {
-        color: get-color(grey2_s4);
+        color: get-color(lilac_p3);
         display: flex;
         flex-direction: row;
         width: 100%;
         gap: 0.25rem;
 
         a {
-          color: get-color(blue_p1);
+          color: get-color(grey1_s3);
         }
       }
 
@@ -98,13 +127,13 @@
         display: flex;
         gap: 0.25rem;
         border-style: none;
-        color: get-color(blue_p1);
+        color: get-color(grey1_s3);
         align-items: center;
 
         path {
           padding: 0.25rem;
           // fill:get-color(blue_p1);
-          stroke: get-color(blue_p1);
+          stroke: get-color(grey1_s3);
         }
       }
     }
@@ -113,10 +142,11 @@
       width: 0%;
       background-image: url("../../../public/img/front.png");
       background-repeat: no-repeat;
-      background-size: 98vh;
+      background-size: contain;
       background-position: top;
+      margin-right: -3rem;
       @include media(tablet) {
-        width: 50%;
+        width: 80%;
       }
     }
   }
@@ -145,6 +175,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    width: 100%;
   }
 
   .container-img {
@@ -152,10 +183,19 @@
     flex-direction: row;
     align-items: center;
     gap: 1rem;
-    width: 400px;
-    height: 400px;
+    width: 250px;
+    height: 250px;
     border-radius: brd(f);
     border: 5px solid get-color(blue_p1);
+
+  
+
+
+    @include media(tablet) {
+      width: 400px;
+      height: 400px;
+    }
+
     // position: relative;
 
     button {
@@ -180,12 +220,25 @@
       }
     }
 
+    .image-container{
+    display: none;
+   max-width: 18rem;
+    height: 18rem;
+      @include media(tablet) {
+        display: flex;
+      }
+
+    }
+
+
     .active {
       border: 2px solid get-color(blue_p1);
       box-shadow: bsh(3);
       // width: 80px;
       // height: 80px;
     }
+
+
   }
 
   .testimony {
@@ -194,10 +247,12 @@
     @include center-container;
     gap: 1rem;
     position: absolute;
-    bottom: 18%;
+    bottom: 10%;
     z-index: 3;
 
+
     @include media(tablet) {
+      bottom: 18%;
       max-width: 45vw;
       bottom: -4%;
     }
@@ -260,7 +315,7 @@
     @include center-container;
 
     .box-account {
-      width: 80%;
+      width: 100%;
       display: flex;
       justify-content: space-around;
       flex-direction: row;
@@ -270,7 +325,12 @@
       box-shadow: bsh(3);
       padding: 2rem 1rem;
       gap: 1rem;
-      margin-top: 6rem;
+    
+
+      @include media(desktop) {
+        width: 80%;
+        margin-top: 6rem;
+      }
 
       li {
         display: flex;
@@ -286,6 +346,9 @@
     }
   }
 
+
+  
+
   &-digitals {
     display: flex;
     flex-direction: row;
@@ -293,18 +356,21 @@
     width: 100%;
     justify-content: space-between;
 
+    
+
     .description {
       flex: 1;
       display: flex;
       justify-content: center;
-   
       flex-direction: column;
       gap: 1rem;
       max-width: 100%;
+      text-align:justify;
       
       @include media(tablet) {
         max-width: 50%;
         align-items: flex-start;
+        text-align:left;
       }
 
       
@@ -315,6 +381,15 @@
 
     .digital-image {
       // height: 50vh;
+    }
+  }
+
+  .hr{
+
+    flex-direction: column-reverse;
+    @include media(tablet) {
+      flex-direction: row;
+      
     }
   }
 
@@ -335,7 +410,7 @@
       gap: 2rem;
 
       button {
-        background-color: transparent;
+        background-color: get-color(white_s1);
         border-style: none;
         display: flex;
         box-shadow: bsh(3);
@@ -427,22 +502,32 @@
 
 
       .curvedLine{
-      
+      display: none;
   
-        position: absolute;
+        
+    @include media(desktop) {
+      position: absolute;
         z-index: -3;
         bottom: 65%;
     left: 17%;
+
+    }
+
+    
       }
 
 
       .step {
         display: flex;
-        align-items: center;
+        align-items:flex-start;
         flex-direction: column;
         gap: 1rem;
         width: 100%;
         position: relative;
+
+        @include media(tablet) {
+          align-items: center;
+        }
 
         .box-circle {
           background-color: get-color(t5-green);
@@ -503,13 +588,18 @@
   }
 
   footer {
-    background-color: get-color(black_p2);
+    // background-color: get-color(black_p2);
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 2rem;
+    margin-top: 6rem;
+  
+  background-image: url("../../../public/img/footer.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
 
     .home-contact {
       width: 100%;
@@ -546,6 +636,7 @@
         width: 100%;
         @include container;
         background-color: rgba(get-color(white_s1), 1);
+        margin-top: -6rem;
 
         .group {
           width: 100%;

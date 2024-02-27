@@ -205,7 +205,7 @@ const Home = () => {
             <p> {t['Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence']}</p>
 
             <div className='welcome-actions'>
-              <button className='btn_primary small'> {t['Try free trial']} </button>
+              <button className='btn_secundary small'> {t['Try free trial']} </button>
               <button className='record'>
 
                 <ImageSvg name='Record' />
@@ -551,7 +551,7 @@ const Home = () => {
 
         </section>
 
-        <section className='home-digitals container'>
+        <section className='home-digitals  container '>
 
           <div className='description'>
             <h1> {t['Ari finance']}</h1>
@@ -566,7 +566,7 @@ const Home = () => {
 
         </section>
 
-        <section className='home-digitals container'>
+        <section className='home-digitals container hr'>
           <div className='digital-image'>
             <Image src={rrhh} width='1000' alt='finance' priority />
           </div>
