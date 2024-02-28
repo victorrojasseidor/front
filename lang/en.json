@@ -595,7 +595,12 @@
     "Sunat standards":"Sunat standards",
     "Standards":"Standards",
     "Update date":"Update date",
-    "Sunat register report":"Sunat register report"
+    "Sunat register report":"Sunat register report",
+    "There is no data":"There is no data",
+    "From": "From",
+    "To": "To",    
+    "Date start": "Date start",
+    "Date end": "Date end"
 
   },
   "Modal": {

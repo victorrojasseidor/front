@@ -7,6 +7,7 @@ import NavigationPages from '@/Components/NavigationPages'
 import { useAuth } from '@/Context/DataContext'
 import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import Typography from '@mui/material/Typography'
+import dayjs from 'dayjs'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import InputLabel from '@mui/material/InputLabel'
@@ -15,6 +16,12 @@ import FormHelperText from '@mui/material/FormHelperText'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import { IconArrow, IconDate } from '@/helpers/report'
+import { fetchConTokenPost } from '@/helpers/fetch'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import * as XLSX from 'xlsx'
+import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 
 const captcha = () => {
   const [activeTab, setActiveTab] = useState(0)
@@ -23,7 +30,42 @@ const captcha = () => {
   const [selectedCompany, setSelectedCompany] = useState(session?.oEmpresa[0].id_empresa)
   const [dataSumary, setDataSumary] = useState(null)
   const [dataCaptcha, setDataCaptcha] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const [itemsPerPage] = useState(32)
+  const [filterDate, setFilterDate] = useState(365)
+  const [startDate, setStartDate] = useState(dayjs().subtract(365, 'day').format('DD/MM/YYYY'))
+  const [endDate, setEndDate] = useState(dayjs().format('DD/MM/YYYY'))
+  const [requestError, setRequestError] = useState()
   const t = l.Captcha
+
+  const rangeDateSelect = (duration) => {
+    const endDate = dayjs()
+    let startDate
+
+    // Calcula la fecha de inicio restando la duración
+    if (duration === 12) {
+      startDate = endDate.subtract(duration, 'month')
+    } else {
+      startDate = endDate.subtract(duration, 'day')
+    }
+
+    const startDateFormatted = startDate.format('DD/MM/YYYY') // Formatea la fecha
+    setStartDate(startDateFormatted)
+    setEndDate(endDate.format('DD/MM/YYYY'))
+
+    setFilterDate(duration)
+  }
+
+  // console.log({ startDate })
+  // console.log({ endDate })
+
+  const handleStartDateChange = (newValue) => {
+    setStartDate(newValue.format('DD/MM/YYYY'))
+  }
+
+  const handleEndDateChange = (newValue) => {
+    setEndDate(newValue.format('DD/MM/YYYY'))
+  }
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -37,198 +79,13 @@ const captcha = () => {
     setSelectedCompany(selectCompanyValue)
   }
 
-  function sumByKey (data, key) {
-    return data.reduce((accumulator, entry) => {
-      accumulator += entry[key]
-      return accumulator
-    }, 0)
+  const sumCaptchaResolved = (data) => Array.isArray(data)
+    ? data.reduce((total, entry) => total + entry.captcha_resolved, 0)
+    : 0
+
+  if (dataCaptcha) {
+    sumCaptchaResolved(dataCaptcha)
   }
-
-  const captchaDataSummary = [
-    {
-      id_captcha_summary: 101,
-      id_empresa: 1,
-      fecha_until: '2022-01-01',
-      captcha_resolved_until_now: 30,
-      captcha_conexion_until_now: 307,
-      data_summary: [
-        {
-          id_data: 201,
-          fecha: 'Febrero-2024',
-          captcha_resolved: 33
-        },
-        {
-          id_data: 202,
-          fecha: 'Enero-2024',
-          captcha_resolved: 37
-        },
-        {
-          id_data: 203,
-          fecha: 'Diciembre-2023',
-          captcha_resolved: 36
-        },
-        {
-          id_data: 204,
-          fecha: 'Noviembre-2023',
-          captcha_resolved: 32
-        },
-        {
-          id_data: 205,
-          fecha: 'Octubre-2023',
-          captcha_resolved: 31
-        },
-        {
-          id_data: 28,
-          fecha: 'Septiembre-2023',
-          captcha_resolved: 36
-        }
-      ]
-    },
-    {
-      id_captcha_data: 101,
-      id_empresa: 2,
-      fecha_until: '2022-01-01',
-      captcha_resolved_until_now: 33,
-      captcha_conexion_until_now: 307,
-      data_summary: [
-        {
-          id_data: 206,
-          fecha: 'Febrero-2024',
-          captcha_resolved: 53
-        },
-        {
-          id_data: 207,
-          fecha: 'Enero-2024',
-          captcha_resolved: 359
-        },
-        {
-          id_data: 208,
-          fecha: 'Diciembre-2023',
-          captcha_resolved: 322
-        },
-        {
-          id_data: 209,
-          fecha: 'Noviembre-2023',
-          captcha_resolved: 333
-        },
-        {
-          id_data: 210,
-          fecha: 'Octubre-2023',
-          captcha_resolved: 222
-        },
-        {
-          id_data: 26,
-          fecha: 'Septiembre-2023',
-          captcha_resolved: 335
-        }
-      ]
-    },
-    {
-      id_captcha_data: 101,
-      id_empresa: 3,
-      fecha_until: '2022-01-01',
-      captcha_resolved_until_now: 37,
-      captcha_conexion_until_now: 307,
-      data_summary: [
-        {
-          id_data: 211,
-          fecha: 'Febrero-2024',
-          captcha_resolved: 332
-        },
-        {
-          id_data: 212,
-          fecha: 'Enero-2024',
-          captcha_resolved: 3733
-        },
-        {
-          id_data: 213,
-          fecha: 'Diciembre-2023',
-          captcha_resolved: 36333
-        },
-        {
-          id_data: 214,
-          fecha: 'Noviembre-2023',
-          captcha_resolved: 324
-        },
-        {
-          id_data: 215,
-          fecha: 'Octubre-2023',
-          captcha_resolved: 333
-        },
-        {
-          id_data: 216,
-          fecha: 'septiembre-2023',
-          captcha_resolved: 3335
-        }
-
-      ]
-    }
-    // Add more captchas for additional companies as needed
-  ]
-
-  const captchaData = [
-    {
-      id_captcha_data: 101,
-      id_empresa: 1,
-      fecha: '2022-01-01',
-      captcha_name: 'ImageCaptcha',
-      captcha_resolved: 30,
-      captcha_not_resolved: 10,
-      captcha_type: 'Text-based',
-      ip_address: '192.168.0.1'
-    },
-    {
-      id_captcha_data: 102,
-      id_empresa: 1,
-      fecha: '2022-01-02',
-      captcha_name: 'AudioCaptcha',
-      captcha_resolved: 20,
-      captcha_not_resolved: 5,
-      captcha_type: 'Audio-based',
-      ip_address: '192.168.0.1'
-    },
-    {
-      id_captcha_data: 105,
-      id_empresa: 1,
-      fecha: '2022-01-03',
-      captcha_name: 'ImageCaptcha',
-      captcha_resolved: 30,
-      captcha_not_resolved: 10,
-      captcha_type: 'Text-based',
-      ip_address: '192.168.0.1'
-    },
-    {
-      id_captcha_data: 105,
-      id_empresa: 1,
-      fecha: '2022-01-04',
-      captcha_name: 'AudioCaptcha',
-      captcha_resolved: 20,
-      captcha_not_resolved: 5,
-      captcha_type: 'Audio-based',
-      ip_address: '192.168.0.1'
-    },
-    {
-      id_captcha_data: 201,
-      id_empresa: 2,
-      fecha: '2022-01-03',
-      captcha_name: 'TextCaptcha',
-      captcha_resolved: 40,
-      captcha_not_resolved: 15,
-      captcha_type: 'Text-based',
-      ip_address: '192.168.0.2'
-    },
-    {
-      id_captcha_data: 202,
-      id_empresa: 2,
-      fecha: '2022-01-04',
-      captcha_name: 'ImageCaptcha',
-      captcha_resolved: 20,
-      captcha_not_resolved: 10,
-      captcha_type: 'Text-based',
-      ip_address: '192.168.0.2'
-    }
-    // Add more captchas for company 2 as needed
-  ]
 
   function filterDataByIdEmpresa (data, idEmpresa) {
     const datasuma = data.filter(company => company.id_empresa === idEmpresa)
@@ -236,8 +93,125 @@ const captcha = () => {
   }
 
   useEffect(() => {
-    filterDataByIdEmpresa(captchaDataSummary, selectedCompany)
+    GetCabeceraCaptcha()
+    GetDetalleCaptcha()
   }, [selectedCompany])
+
+  async function GetCabeceraCaptcha () {
+    setIsLoading(true)
+    const body = {
+      oResults: {
+        // sFechaDesde: startDate,
+        // sFechaHasta: endDate,
+        // oIdEmpresa: selectedCompany ? [selectedCompany] : [],
+
+      }
+    }
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetCabeceraCaptcha', body, token)
+      // console.log('cabecera', { responseData })
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const data = responseData.oResults
+        // setDataSumary(data)
+        filterDataByIdEmpresa(data, selectedCompany)
+        setModalToken(false)
+        setRequestError(null)
+        setPage(1)
+        // orderDataByDate('fecha', true)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null)
+        }, 1000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setRequestError(error)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 1000)
+    } finally {
+      setIsLoading(false) // Ocultar señal de carga
+    }
+  }
+
+  async function GetDetalleCaptcha () {
+    setIsLoading(true)
+    const body = {
+      oResults: {
+        // sFechaDesde: startDate,
+        // sFechaHasta: endDate,
+        // oIdEmpresa: selectedCompany ? [selectedCompany] : [],
+
+      }
+    }
+
+    try {
+      const token = session.sToken
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetDetalleCaptcha', body, token)
+      // console.log('detalle', { responseData })
+      if (responseData.oAuditResponse?.iCode === 1) {
+        const data = responseData.oResults
+        setDataCaptcha(data)
+        setModalToken(false)
+        setRequestError(null)
+        setPage(1)
+        // orderDataByDate('fecha', true)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form'
+        setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null)
+        }, 1000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setRequestError(error)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 1000)
+    } finally {
+      setIsLoading(false) // Ocultar señal de carga
+    }
+  }
+
+  console.log(startDate, endDate)
+
+  const exportToExcel = () => {
+    if (dataCaptcha && dataCaptcha.length > 0) {
+      const filteredData = dataCaptcha.map((row) => ({
+        // Date: formatDate(row.fecha),
+        fecha: row.fecha,
+        Resuelto: row.captcha_resolved,
+        No_Resuelto: row.captcha_not_resolved,
+        Tipo: row.captcha_type,
+        Dirección_IP: row.ip_address
+
+      }))
+
+      if (filteredData.length > 0) {
+        const ws = XLSX.utils.json_to_sheet(filteredData)
+        const wb = XLSX.utils.book_new()
+        XLSX.utils.book_append_sheet(wb, ws, 'Anticaptcha Report')
+        XLSX.writeFile(wb, 'Anticaptcha_report.xlsx')
+      }
+    }
+  }
 
   return (
     <LayoutProducts menu='Reporting'>
@@ -397,14 +371,6 @@ const captcha = () => {
 
                     </tbody>
 
-                    {/* <div className=' '>
-
-                            <p className='errorMessage'>
-                              {t['Add patterns']}
-                            </p>
-
-                            </div> */}
-
                   </table>
 
                 </div>
@@ -423,30 +389,45 @@ const captcha = () => {
           <p> {t['Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.']} </p>
           <div class='box-filters'>
 
-            <button className='btn_filter active'>
+            <button
+              className={`btn_filter ${filterDate === 365 ? 'active' : ''}`}
+              onClick={() => rangeDateSelect(365)}
+            >
 
               {t.Last}  12 {t.Months}
 
             </button>
 
-            <button className='btn_filter '>
+            <button
+              className={`btn_filter ${filterDate === 180 ? 'active' : ''}`}
+              onClick={() => rangeDateSelect(180)}
+            >
 
               {t.Last}  6 {t.Months}
 
             </button>
 
-            <button className='btn_filter '>
+            <button
+              className={`btn_filter ${filterDate === 30 ? 'active' : ''}`}
+              onClick={() => rangeDateSelect(30)}
+            >
 
               {t.Last}  30 {t.Days}
 
             </button>
 
-            <button className='btn_filter '>
+            <button
+              className={`btn_filter ${filterDate === 7 ? 'active' : ''}`}
+              onClick={() => rangeDateSelect(7)}
+            >
 
               {t.Last}  7 {t.Days}
             </button>
 
-            <button className='btn_filter'>
+            <button
+              className={`btn_filter ${filterDate === null ? 'active' : ''}`}
+              onClick={() => setFilterDate(null)}
+            >
 
               {t['Other Dates']}
 
@@ -455,56 +436,67 @@ const captcha = () => {
             </button>
 
           </div>
-        </div>
 
-        <div className='box-tabs'>
-          <div className='reporting-box'>
+          {!filterDate && <div className='box-filters'>
 
-            <div className='report-content'>
+            <div className='date'>
 
-              <div className='report blue'>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={t.From}
+                  value={dayjs(startDate, 'DD/MM/YYYY')}
+                  slotProps={{
+                    textField: {
+                      helperText: t['Date start']
+                    }
 
-                <div className='report_icon  '>
+                  }}
+                  onChange={handleStartDateChange}
+                  format='DD/MM/YYYY'
+                  components={{
+                    OpenPickerIcon: IconDate,
+                    CalendarIcon: IconDate
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} />
+                  )}
+                />
+              </LocalizationProvider>
 
-                  <ImageSvg name='IconCaptcha' />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={t.To}
+                  value={dayjs(endDate, 'DD/MM/YYYY')}
+                  slotProps={{
+                    textField: {
+                      helperText: t['Date end']
+                    }
 
-                </div>
-
-                <div className='report_data'>
-
-                  <article>
-                    {t['Captcha solved']}
-
-                  </article>
-                  <h3> {sumByKey(captchaData, 'captcha_resolved')}
-                  </h3>
-
-                </div>
-
-              </div>
-
-              <div className='report blue '>
-
-                <div className='report_icon  '>
-
-                  <ImageSvg name='IconCaptcha' />
-
-                </div>
-
-                <div className='report_data'>
-
-                  <article>
-                    {t['Resolved Connections']}
-                  </article>
-                  <h3> {sumByKey(captchaData, 'captcha_not_resolved')} </h3>
-
-                </div>
-
-              </div>
-
+                  }}
+                  onChange={handleEndDateChange}
+                  format='DD/MM/YYYY'
+                  components={{
+                    OpenPickerIcon: IconDate,
+                    CalendarIcon: IconDate
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} />
+                  )}
+                />
+              </LocalizationProvider>
             </div>
 
-          </div>
+          </div>}
+
+        </div>
+
+        {requestError && <div className='errorMessage'>
+          {requestError.message || ' error service'}
+        </div>}
+
+        {isLoading && <LoadingComponent />}
+
+        <div className='box-tabs'>
 
           <div className='horizontalTabs'>
             <div className='tab-header'>
@@ -544,7 +536,7 @@ const captcha = () => {
 
                       <div>
 
-                        <button className='btn_black ' onClick={() => console.log('export')}>
+                        <button className='btn_black ' onClick={() => exportToExcel()}>
                           <ImageSvg name='Download' /> {t.Export}
                         </button>
                       </div>
@@ -568,15 +560,24 @@ const captcha = () => {
 
                           <tbody>
 
-                            {captchaData?.map((row) => (
-                              <tr key={row.id_captcha_data}>
-                                <td>{row.fecha}</td>
-                                <td>{row.captcha_resolved} </td>
-                                <td>{row.captcha_not_resolved}</td>
-                                <td>{row.captcha_type}</td>
-                                <td>{row.ip_address}</td>
-                              </tr>
-                            ))}
+                            {dataCaptcha.length > 0
+                              ? dataCaptcha?.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
+                                <tr key={row.id_captcha_data}>
+                                  <td>{row.fecha}</td>
+                                  <td>{row.captcha_resolved} </td>
+                                  <td>{row.captcha_not_resolved}</td>
+                                  <td>{row.captcha_type}</td>
+                                  <td>{row.ip_address}</td>
+                                </tr>
+                              ))
+
+                              : (
+                                <tr>
+                                  <td colSpan='5'>
+                                    {t['There is no data']}
+                                  </td>
+                                </tr>
+                                )}
 
                           </tbody>
 
@@ -588,13 +589,10 @@ const captcha = () => {
                         <div className='pagination'>
 
                           <Typography>
-                            {t.Page} {page} {t.of} 10
-                            {/* {Math.ceil(balances.oSaldos.length / itemsPerPage) */}
-
+                            {t.Page} {page} {t.of} {Math.ceil(dataCaptcha.length / itemsPerPage)}
                           </Typography>
                           <Pagination
-                  // count={Math.ceil(balances.oSaldos.length / itemsPerPage)} // Calculate the total number of pages
-                            count={10}
+                            count={Math.ceil(dataCaptcha.length / itemsPerPage)} // Calculate the total number of pages
                             page={page}
                             onChange={handleChangePage}
                           />
@@ -602,20 +600,43 @@ const captcha = () => {
                       </Stack>
 
                     </div>
-                    {/* <div className=' '>
 
-              <p className='errorMessage'>
-                {t['Add patterns']}
-              </p>
+                    <div className='reporting-box'>
 
-              </div> */}
+                      <div className='report-content' style={{ paddingLeft: '0rem' }}>
+
+                        <div className='report blue'>
+
+                          <div className='report_icon  '>
+
+                            <ImageSvg name='IconCaptcha' />
+
+                          </div>
+
+                          <div className='report_data'>
+
+                            <article>
+                              {t['Captcha solved']}
+
+                            </article>
+                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha)}
+                            </h3>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
                   </div>
                 </div>
               )}
               {activeTab === 1 && (
                 <div className='grafics'>
 
-                  <CaptchaChart captchaData={captchaData} />
+                  <CaptchaChart captchaData={dataCaptcha} />
 
                 </div>
               )}

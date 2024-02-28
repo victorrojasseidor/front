@@ -594,7 +594,12 @@
     "of":"de",
     "Sunat register report":"Reporte de padrones de Sunat",
     "Standards":"Padrones",
-    "Update date":"Fecha de actualización"
+    "Update date":"Fecha de actualización",
+    "There is no data":"No hay datos",
+    "From": "Desde",
+    "To": "Hasta",
+    "Date start": "Fecha de inicio",
+    "Date end": "Fecha fin"
   },
 
 
