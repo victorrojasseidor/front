@@ -26,7 +26,7 @@ const padrones = () => {
 
   return (
     <LayoutProducts menu='Reporting'>
-      <NavigationPages title='padrones'>
+      <NavigationPages title={t.Standards}>
 
         <Link href='/reporting'>
           <ImageSvg name='Dashboard' />
@@ -39,7 +39,7 @@ const padrones = () => {
         <ImageSvg name='Navegación' />
 
         <Link href='#'>
-          Patterns
+          {t.Standards}
         </Link>
 
       </NavigationPages>
@@ -55,7 +55,7 @@ const padrones = () => {
 
                 <div className='box-search'>
                   <div>
-                    <h3>  Reporte de padrones </h3>
+                    <h3>  {t['Sunat register repor']}</h3>
                     <p> {t['Results Obtained from Dates']} </p>
                   </div>
 
@@ -69,8 +69,8 @@ const padrones = () => {
 
                       <thead>
                         <tr>
-                          <th>Padron </th>
-                          <th> Fecha de actualización</th>
+                          <th>{t.Standards} </th>
+                          <th> {t['Update date']}</th>
 
                         </tr>
                       </thead>

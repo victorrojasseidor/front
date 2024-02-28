@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
@@ -9,11 +9,20 @@ import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import Typography from '@mui/material/Typography'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormHelperText from '@mui/material/FormHelperText'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import { IconArrow, IconDate } from '@/helpers/report'
 
 const captcha = () => {
   const [activeTab, setActiveTab] = useState(0)
   const { session, empresa, setModalToken, logout, setEmpresa, l } = useAuth()
   const [page, setPage] = useState(1)
+  const [selectedCompany, setSelectedCompany] = useState(session?.oEmpresa[0].id_empresa)
+  const [dataSumary, setDataSumary] = useState(null)
+  const [dataCaptcha, setDataCaptcha] = useState(1)
   const t = l.Captcha
 
   const handleTabClick = (index) => {
@@ -23,6 +32,212 @@ const captcha = () => {
   const handleChangePage = (event, value) => {
     setPage(value)
   }
+  const handleCompanyChange = (event) => {
+    const selectCompanyValue = event.target.value
+    setSelectedCompany(selectCompanyValue)
+  }
+
+  function sumByKey (data, key) {
+    return data.reduce((accumulator, entry) => {
+      accumulator += entry[key]
+      return accumulator
+    }, 0)
+  }
+
+  const captchaDataSummary = [
+    {
+      id_captcha_summary: 101,
+      id_empresa: 1,
+      fecha_until: '2022-01-01',
+      captcha_resolved_until_now: 30,
+      captcha_conexion_until_now: 307,
+      data_summary: [
+        {
+          id_data: 201,
+          fecha: 'Febrero-2024',
+          captcha_resolved: 33
+        },
+        {
+          id_data: 202,
+          fecha: 'Enero-2024',
+          captcha_resolved: 37
+        },
+        {
+          id_data: 203,
+          fecha: 'Diciembre-2023',
+          captcha_resolved: 36
+        },
+        {
+          id_data: 204,
+          fecha: 'Noviembre-2023',
+          captcha_resolved: 32
+        },
+        {
+          id_data: 205,
+          fecha: 'Octubre-2023',
+          captcha_resolved: 31
+        },
+        {
+          id_data: 28,
+          fecha: 'Septiembre-2023',
+          captcha_resolved: 36
+        }
+      ]
+    },
+    {
+      id_captcha_data: 101,
+      id_empresa: 2,
+      fecha_until: '2022-01-01',
+      captcha_resolved_until_now: 33,
+      captcha_conexion_until_now: 307,
+      data_summary: [
+        {
+          id_data: 206,
+          fecha: 'Febrero-2024',
+          captcha_resolved: 53
+        },
+        {
+          id_data: 207,
+          fecha: 'Enero-2024',
+          captcha_resolved: 359
+        },
+        {
+          id_data: 208,
+          fecha: 'Diciembre-2023',
+          captcha_resolved: 322
+        },
+        {
+          id_data: 209,
+          fecha: 'Noviembre-2023',
+          captcha_resolved: 333
+        },
+        {
+          id_data: 210,
+          fecha: 'Octubre-2023',
+          captcha_resolved: 222
+        },
+        {
+          id_data: 26,
+          fecha: 'Septiembre-2023',
+          captcha_resolved: 335
+        }
+      ]
+    },
+    {
+      id_captcha_data: 101,
+      id_empresa: 3,
+      fecha_until: '2022-01-01',
+      captcha_resolved_until_now: 37,
+      captcha_conexion_until_now: 307,
+      data_summary: [
+        {
+          id_data: 211,
+          fecha: 'Febrero-2024',
+          captcha_resolved: 332
+        },
+        {
+          id_data: 212,
+          fecha: 'Enero-2024',
+          captcha_resolved: 3733
+        },
+        {
+          id_data: 213,
+          fecha: 'Diciembre-2023',
+          captcha_resolved: 36333
+        },
+        {
+          id_data: 214,
+          fecha: 'Noviembre-2023',
+          captcha_resolved: 324
+        },
+        {
+          id_data: 215,
+          fecha: 'Octubre-2023',
+          captcha_resolved: 333
+        },
+        {
+          id_data: 216,
+          fecha: 'septiembre-2023',
+          captcha_resolved: 3335
+        }
+
+      ]
+    }
+    // Add more captchas for additional companies as needed
+  ]
+
+  const captchaData = [
+    {
+      id_captcha_data: 101,
+      id_empresa: 1,
+      fecha: '2022-01-01',
+      captcha_name: 'ImageCaptcha',
+      captcha_resolved: 30,
+      captcha_not_resolved: 10,
+      captcha_type: 'Text-based',
+      ip_address: '192.168.0.1'
+    },
+    {
+      id_captcha_data: 102,
+      id_empresa: 1,
+      fecha: '2022-01-02',
+      captcha_name: 'AudioCaptcha',
+      captcha_resolved: 20,
+      captcha_not_resolved: 5,
+      captcha_type: 'Audio-based',
+      ip_address: '192.168.0.1'
+    },
+    {
+      id_captcha_data: 105,
+      id_empresa: 1,
+      fecha: '2022-01-03',
+      captcha_name: 'ImageCaptcha',
+      captcha_resolved: 30,
+      captcha_not_resolved: 10,
+      captcha_type: 'Text-based',
+      ip_address: '192.168.0.1'
+    },
+    {
+      id_captcha_data: 105,
+      id_empresa: 1,
+      fecha: '2022-01-04',
+      captcha_name: 'AudioCaptcha',
+      captcha_resolved: 20,
+      captcha_not_resolved: 5,
+      captcha_type: 'Audio-based',
+      ip_address: '192.168.0.1'
+    },
+    {
+      id_captcha_data: 201,
+      id_empresa: 2,
+      fecha: '2022-01-03',
+      captcha_name: 'TextCaptcha',
+      captcha_resolved: 40,
+      captcha_not_resolved: 15,
+      captcha_type: 'Text-based',
+      ip_address: '192.168.0.2'
+    },
+    {
+      id_captcha_data: 202,
+      id_empresa: 2,
+      fecha: '2022-01-04',
+      captcha_name: 'ImageCaptcha',
+      captcha_resolved: 20,
+      captcha_not_resolved: 10,
+      captcha_type: 'Text-based',
+      ip_address: '192.168.0.2'
+    }
+    // Add more captchas for company 2 as needed
+  ]
+
+  function filterDataByIdEmpresa (data, idEmpresa) {
+    const datasuma = data.filter(company => company.id_empresa === idEmpresa)
+    setDataSumary(datasuma[0])
+  }
+
+  useEffect(() => {
+    filterDataByIdEmpresa(captchaDataSummary, selectedCompany)
+  }, [selectedCompany])
 
   return (
     <LayoutProducts menu='Reporting'>
@@ -58,18 +273,35 @@ const captcha = () => {
 
                 <div className='report_data'>
 
-                  <article>
-                    empresa
-                  </article>
-                  <h3>
-                    innovativa lab
-                  </h3>
+                  <div className='box-filter'>
 
-                  <p> <ImageSvg name='ArrowDown' />   {t.To} 20/02/2024   </p>
-
-                  <div>
-                    seleccionar las empresas
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                      <InputLabel id='company-label'>{l.Reporting.Company}</InputLabel>
+                      <Select
+                        labelId='company-label'
+                        value={selectedCompany}
+                        onChange={handleCompanyChange}
+                        IconComponent={IconArrow}
+                      >
+                        <MenuItem value=''>
+                          <em>{l.Reporting['All Companys']}</em>
+                        </MenuItem>
+                        {session.oEmpresa?.map((comp) => (
+                          <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
+                            <div> {comp.razon_social_empresa}</div>
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <FormHelperText>{t['Select a company']}</FormHelperText>
+                    </FormControl>
                   </div>
+
+                  {/* <h3>
+                    innovativa lab
+                  </h3> */}
+                  <article>
+                    seleciona la empresa
+                  </article>
 
                 </div>
 
@@ -93,9 +325,9 @@ const captcha = () => {
                     {t['Captcha solved']}
 
                   </article>
-                  <h3> 1114 </h3>
+                  <h3> {dataSumary?.captcha_resolved_until_now} </h3>
 
-                  <p> <ImageSvg name='ArrowUp' />   {t.To} 20/02/2024   </p>
+                  <p> <ImageSvg name='ArrowUp' />   {t.To}  {dataSumary?.fecha_until}  </p>
 
                 </div>
 
@@ -111,14 +343,14 @@ const captcha = () => {
 
                 <div className='report_data'>
 
-                  <h3> 4366 </h3>
+                  <h3> {dataSumary?.captcha_conexion_until_now} </h3>
 
                   <article>
                     {t['Resolved Connections']}
 
                   </article>
 
-                  <p> <ImageSvg name='ArrowUp' />   {t.To}  20/02/2024   </p>
+                  <p> <ImageSvg name='ArrowUp' />   {t.To}  {dataSumary?.fecha_until}   </p>
 
                 </div>
 
@@ -155,44 +387,13 @@ const captcha = () => {
 
                     <tbody>
 
-                      {/* {dataPadrones?.oPadrones?.map((row) => (
-                          <tr key={row.id_principal}>
-                            <td>{row.desc_documento}</td>
-                            <td>{row.id_pais == 1 ? 'Perú' : row.id_pais} </td>
+                      {dataSumary?.data_summary.map((row) => (
+                        <tr key={row.id_data}>
+                          <td>{row.fecha}</td>
+                          <td>{row.captcha_resolved}</td>
 
-                          </tr>
-                        ))} */}
-                      <tr>
-                        <td>septiembre 2021</td>
-                        <td>237021</td>
-
-                      </tr>
-
-                      <tr>
-                        <td>septiembre 2021</td>
-                        <td>237021</td>
-
-                      </tr>
-                      <tr>
-                        <td>septiembre 2021</td>
-                        <td>237021</td>
-
-                      </tr>
-                      <tr>
-                        <td>septiembre 2021</td>
-                        <td>237021</td>
-
-                      </tr>
-                      <tr>
-                        <td>septiembre 2021</td>
-                        <td>237021</td>
-
-                      </tr>
-                      <tr>
-                        <td>septiembre 2021</td>
-                        <td>237021</td>
-
-                      </tr>
+                        </tr>
+                      ))}
 
                     </tbody>
 
@@ -275,7 +476,8 @@ const captcha = () => {
                     {t['Captcha solved']}
 
                   </article>
-                  <h3> 1114 </h3>
+                  <h3> {sumByKey(captchaData, 'captcha_resolved')}
+                  </h3>
 
                 </div>
 
@@ -294,7 +496,7 @@ const captcha = () => {
                   <article>
                     {t['Resolved Connections']}
                   </article>
-                  <h3> 4366 </h3>
+                  <h3> {sumByKey(captchaData, 'captcha_not_resolved')} </h3>
 
                 </div>
 
@@ -361,52 +563,22 @@ const captcha = () => {
                               <th> {t['Not Resolved']}</th>
                               <th> {t['Captcha Type']}</th>
                               <th> {t['IP Address']}</th>
-
                             </tr>
                           </thead>
 
                           <tbody>
 
-                            {/* {dataPadrones?.oPadrones?.map((row) => (
-            <tr key={row.id_principal}>
-              <td>{row.desc_documento}</td>
-              <td>{row.id_pais == 1 ? 'Perú' : row.id_pais} </td>
-
-            </tr>
-          ))} */}
-                            <tr>
-                              <td>01/01/2024</td>
-                              <td>1251</td>
-                              <td>0</td>
-                              <td>normal</td>
-                              <td>1251 6383883 83993</td>
-                            </tr>
-
-                            <tr>
-                              <td>01/01/2024</td>
-                              <td>1251</td>
-                              <td>0</td>
-                              <td>normal</td>
-                              <td>1251 6383883 83993</td>
-                            </tr>
-
-                            <tr>
-                              <td>01/01/2024</td>
-                              <td>1251</td>
-                              <td>0</td>
-                              <td>normal</td>
-                              <td>1251 6383883 83993</td>
-                            </tr>
+                            {captchaData?.map((row) => (
+                              <tr key={row.id_captcha_data}>
+                                <td>{row.fecha}</td>
+                                <td>{row.captcha_resolved} </td>
+                                <td>{row.captcha_not_resolved}</td>
+                                <td>{row.captcha_type}</td>
+                                <td>{row.ip_address}</td>
+                              </tr>
+                            ))}
 
                           </tbody>
-
-                          {/* <div className=' '>
-
-              <p className='errorMessage'>
-                {t['Add patterns']}
-              </p>
-
-              </div> */}
 
                         </table>
 
@@ -430,14 +602,20 @@ const captcha = () => {
                       </Stack>
 
                     </div>
+                    {/* <div className=' '>
 
+              <p className='errorMessage'>
+                {t['Add patterns']}
+              </p>
+
+              </div> */}
                   </div>
                 </div>
               )}
               {activeTab === 1 && (
                 <div className='grafics'>
 
-                  <CaptchaChart />
+                  <CaptchaChart captchaData={captchaData} />
 
                 </div>
               )}

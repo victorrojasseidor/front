@@ -16,7 +16,7 @@ import { Chart as ChartJS, LinearScale, PointElement, LineElement, Title, Toolti
 
 ChartJS.register(LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler)
 
-export default function CaptchaChart () {
+export default function CaptchaChart ({ captchaData }) {
   const { session, setModalToken, logout, l } = useAuth()
 
   const currentDay = new Date().getDate()
@@ -33,133 +33,33 @@ export default function CaptchaChart () {
 
   const t = l.Captcha
 
-  const months = [t.January, t.February, t.March, t.April, t.May, t.June, t.July, t.August, t.September, t.October, t.November, t.December]
-
-  useEffect(() => {
-    const initialDates = getMonthDates(selectedYear, selectedMonth)
-    setDates(initialDates)
-  }, [selectedMonth, selectedYear])
-
-  useEffect(() => {
-    if (dates?.sFechaDesde && dates?.sFechaHasta && selectedCurrency) {
-      GetTipoCambioRate(dates?.sFechaDesde, dates?.sFechaHasta, selectedCurrency)
-    }
-  }, [dates, selectedCurrency])
-
-  const handleCurrencyChange = (event) => {
-    setSelectedCurrency(event.target.value)
-  }
-
-  const getMonthDates = (year, monthIndex) => {
-    // Obtener el primer día del mes
-    const startDate = dayjs(`${year}-${monthIndex + 1}-01`).format('DD/MM/YYYY')
-
-    // Obtener el último día del mes
-    const lastDay = dayjs(`${year}-${monthIndex + 1}`).endOf('month').format('DD')
-
-    // Obtener la fecha final con el último día del mes
-    const endDate = dayjs(`${year}-${monthIndex + 1}-${lastDay}`).format('DD/MM/YYYY')
-
-    return { sFechaDesde: startDate, sFechaHasta: endDate }
-  }
-
-  // Función para manejar el cambio de mes
-  const handleMonthChange = (event) => {
-    const newMonth = event.target.value
-    const newDates = getMonthDates(selectedYear, newMonth)
-    setSelectedMonth(newMonth)
-    setDates(newDates)
-  }
-
-  // Función para manejar el cambio de año
-  const handleYearChange = (event) => {
-    const newYear = event.target.value
-    const newDates = getMonthDates(newYear, selectedMonth)
-    setSelectedYear(newYear)
-    setDates(newDates)
-  }
-
-  async function GetTipoCambioRate (fechaDesde, fechaHasta, monedaDestino) {
-    setIsLoading(true)
-
-    const body = {
-      oResults: {
-        sFechaDesde: fechaDesde,
-        sFechaHasta: fechaHasta,
-        iMoneda: monedaDestino
-      }
-    }
-
-    const tok = session?.sToken
-    try {
-      const responseData = await fetchConTokenPost('BPasS/?Accion=GetTipoCambioRate', body, tok)
-      if (responseData.oAuditResponse.iCode == 1) {
-        setRequestError(null)
-
-        setDataType(responseData.oResults)
-
-        setModalToken(false)
-      } else if (responseData.oAuditResponse?.iCode === 4) {
-        await logout()
-      } else if (responseData.oAuditResponse?.iCode === 27) {
-        setModalToken(true)
-      } else {
-        const message = responseData?.oAuditResponse.sMessage
-        setRequestError(message)
-        setModalToken(false)
-        setTimeout(() => {
-          setRequestError(null)
-        }, 1000)
-      }
-    } catch (error) {
-      console.error('Error:', error)
-      throw new Error('Hubo un error en la operación asincrónica.')
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const dataOrderTODate = dataType?.sort((a, b) =>
-    a.fecha_tipo_cambio.localeCompare(b.fecha_tipo_cambio)
+  const dataOrderTODate = captchaData?.sort((a, b) =>
+    a.fecha.localeCompare(b.fecha)
   )
 
   const dataTypeTranform = dataOrderTODate?.map((entry, i, array) => {
-    const dateType = new Date(entry.fecha_tipo_cambio).getUTCDate()
+    const dateType = new Date(entry.fecha).getUTCDate()
+    const captcharesolved = entry.captcha_resolved
 
-    const compratype = entry.tipo_cambio_compra
-    const ventaType = entry.tipo_cambio_venta
-
-    return { date: dateType, compra: compratype, venta: ventaType }
+    return { fecha: dateType, captcha_resolved: captcharesolved }
   })
 
   // trasnsformarDatos para la gráfica
-  const dataCompra = dataTypeTranform?.map(entry => entry.compra)
-  const dataVenta = dataTypeTranform?.map(entry => entry.venta)
-  const dataFecha = dataTypeTranform?.map(entry => entry.date)
+  const dataResolved = dataTypeTranform?.map(entry => entry.captcha_resolved)
 
-  const currentYearMonths = Number(currentYear) == Number(selectedYear) ? months.slice(0, currentMonth) : months
+  const dataFecha = dataTypeTranform?.map(entry => entry.fecha)
 
-  const valorMinimoTipeCompra = dataCompra && Math.min(...dataCompra)
-  const valorMaximoTipeCompra = dataCompra && Math?.max(...dataCompra)
-  const valorMinimoTipeVenta = dataVenta && Math.min(...dataVenta)
-  const valorMaximoTipeVenta = dataVenta && Math?.max(...dataVenta)
-  const menorValor = Math.min(valorMinimoTipeCompra, valorMinimoTipeVenta)
-  const mayorValor = Math.max(valorMaximoTipeCompra, valorMaximoTipeVenta)
+  const valorMinimoResolved = dataResolved && Math.min(...dataResolved)
+  const valorMaximoResolved = dataResolved && Math?.max(...dataResolved)
+
   const valorMinimoFecha = dataFecha && Math.min(...dataFecha)
   const valorMaximoFecha = dataFecha && Math.max(...dataFecha)
 
-  // Aplicar descuento del 0.1% al menor valor
-  const rangos = mayorValor - menorValor
-
-  const minValueY = menorValor - (menorValor * (rangos >= 2 ? 0.5 : 0.01))
-
-  // Aplicar aumento del 0.1% al mayor valor
-  const maxValueY = mayorValor + (mayorValor * (rangos >= 2 ? 0.05 : 0.02))
-
   const minDateX = valorMinimoFecha - (valorMinimoFecha * 0.001)
-  const maxDateX = valorMaximoFecha + (valorMaximoFecha * 0.005)
+  const maxDateX = valorMaximoFecha + (1)
 
-  const years = Array.from({ length: currentYear - 2022 }, (_, index) => (2023 + index).toString())
+  const minDateY = valorMinimoResolved - (valorMinimoResolved * 0.001)
+  const maxDateY = valorMaximoResolved + (valorMaximoResolved * 0.001)
 
   // // Resaltar el día 10 con un color diferente
   const borderColorCompra = dataType?.map((day) => (day === currentDay ? '#5DB92C' : '#5DB92C'))
@@ -170,7 +70,7 @@ export default function CaptchaChart () {
     datasets: [
       {
         label: t.Purchase,
-        data: dataCompra,
+        data: dataResolved,
         tension: 0.4,
         fill: 'start',
         borderColorCompra,
@@ -185,25 +85,8 @@ export default function CaptchaChart () {
         pointBorderColor: '#05CD99',
         pointRadius: 2,
         pointHoverRadius: 5
-      },
-      {
-        label: t.Selling,
-        data: dataVenta,
-        tension: 0.4,
-        fill: 'start',
-        borderColor: 'rgba(67, 24, 255, 0.60)',
-        backgroundColor: (context) => {
-          const gradient = context.chart.ctx.createLinearGradient(0, 0, 0, context.chart.height)
-          gradient.addColorStop(0, 'rgba(67, 24, 255, 0.0030)') // Primer color inicial con opacidad
-          gradient.addColorStop(0.1, 'rgba(67, 24, 255, 0.0010)') // Segundo color con opacidad
-
-          return gradient
-        },
-        pointBackgroundColor: '#4318FF',
-        pointBorderColor: '#4318FF',
-        pointRadius: 2,
-        pointHoverRadius: 6
       }
+
     ]
   }
 
@@ -222,8 +105,8 @@ export default function CaptchaChart () {
     },
     scales: {
       y: {
-        min: minValueY,
-        max: maxValueY,
+        min: valorMinimoResolved,
+        max: valorMaximoResolved,
         stepSize: 1,
         grid: {
           display: false
@@ -239,17 +122,17 @@ export default function CaptchaChart () {
         ticks: {
           autoSkip: true,
           precision: 0,
-          maxTicksLimit: 30,
-          callback: function (value, index, values) {
-            const Mont = months[selectedMonth]
-            const currentMon = Mont?.slice(0, 3)
-            // Verificar si la etiqueta actual es igual a la etiqueta anterior
-            if (index > 0 && value === values[index - 1]) {
-              return '' // Devolver cadena vacía para evitar duplicados
-            }
+          maxTicksLimit: 30
+          // callback: function (value, index, values) {
+          //   const Mont = months[selectedMonth]
+          //   const currentMon = Mont?.slice(0, 3)
+          //   // Verificar si la etiqueta actual es igual a la etiqueta anterior
+          //   if (index > 0 && value === values[index - 1]) {
+          //     return '' // Devolver cadena vacía para evitar duplicados
+          //   }
 
-            return ` ${Math.round(value)} ${currentMon}`
-          }
+          //   return ` ${Math.round(value)} ${currentMon}`
+          // }
 
         },
         grid: {
