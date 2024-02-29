@@ -31,6 +31,10 @@ export default function CaptchaChart ({ captchaData, exportToExcel }) {
   const [requestError, setRequestError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
+  
+
+
+
   const t = l.Captcha
 
   const dataOrderTODate = captchaData?.sort((a, b) =>

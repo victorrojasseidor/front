@@ -566,10 +566,10 @@
     "Reporting": "Reporting",
     "Home": "Home",
     "hasta": "Until",
-    "Captcha": "2Captcha",
+    "Captcha": "Captcha",
     "Resolved Connections": "Resolved Connections",
     "Last Months": "Last Months",
-    "Results of the Last 5 Months": "Results of the Last 5 Months",
+    "Results of the Last 6 Months": "Results of the Last 6 Months",
     "Date": "Date",
     "Number of Captchas Resolved": "Number of Captchas Resolved",
     "Filter Statistics": "Filter Statistics",
@@ -580,7 +580,7 @@
     "Other Dates": "Other Dates",
     "Reports": "Reports",
     "Graphs": "Graphs",
-    "2Captcha Report": "2Captcha Report",
+    "Anticaptcha report": "Anticaptcha report",
     "Results Obtained from Dates": "Results Obtained from Dates",
     "Resolved": "Resolved",
     "Not Resolved": "Not Resolved",
@@ -600,7 +600,9 @@
     "From": "From",
     "To": "To",    
     "Date start": "Date start",
-    "Date end": "Date end"
+    "Date end": "Date end",
+    "Selected company":"Selected company"
+
 
   },
   "Modal": {

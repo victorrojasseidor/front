@@ -38,6 +38,17 @@ const captcha = () => {
   const [requestError, setRequestError] = useState()
   const t = l.Captcha
 
+  const months = [l.Reporting.January, l.Reporting.February, l.Reporting.March, l.Reporting.April, l.Reporting.May, l.Reporting.June, l.Reporting.July, l.Reporting.August, l.Reporting.September, l.Reporting.October, l.Reporting.November, l.Reporting.December]
+
+  const transformMonthsFormat = () => {
+    const data = '12-2024'
+    const partes = data.split('-')
+    const mes = months[Number(partes[0]-1)]
+
+    return `${mes}-${partes[1]}`
+  }
+
+
   const rangeDateSelect = (duration) => {
     const endDate = dayjs()
     let startDate
@@ -79,16 +90,14 @@ const captcha = () => {
     setSelectedCompany(selectCompanyValue)
   }
 
-  const sumCaptchaResolved = (data) => Array.isArray(data)
-    ? data.reduce((total, entry) => total + entry.captcha_resolved, 0)
-    : 0
+  const sumCaptchaResolved = (data) => (Array.isArray(data) ? data.reduce((total, entry) => total + entry.captcha_resolved, 0) : 0)
 
   if (dataCaptcha) {
     sumCaptchaResolved(dataCaptcha)
   }
 
   function filterDataByIdEmpresa (data, idEmpresa) {
-    const datasuma = data.filter(company => company.id_empresa === idEmpresa)
+    const datasuma = data.filter((company) => company.id_empresa === idEmpresa)
     setDataSumary(datasuma[0])
   }
 
@@ -104,7 +113,6 @@ const captcha = () => {
         // sFechaDesde: startDate,
         // sFechaHasta: endDate,
         // oIdEmpresa: selectedCompany ? [selectedCompany] : [],
-
       }
     }
 
@@ -125,9 +133,7 @@ const captcha = () => {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout()
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form'
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         setRequestError(errorMessage)
         setTimeout(() => {
           setRequestError(null)
@@ -151,7 +157,6 @@ const captcha = () => {
         // sFechaDesde: startDate,
         // sFechaHasta: endDate,
         // oIdEmpresa: selectedCompany ? [selectedCompany] : [],
-
       }
     }
 
@@ -171,9 +176,7 @@ const captcha = () => {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout()
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form'
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         setRequestError(errorMessage)
         setTimeout(() => {
           setRequestError(null)
@@ -201,7 +204,6 @@ const captcha = () => {
         No_Resuelto: row.captcha_not_resolved,
         Tipo: row.captcha_type,
         Dirección_IP: row.ip_address
-
       }))
 
       if (filteredData.length > 0) {
@@ -216,337 +218,230 @@ const captcha = () => {
   return (
     <LayoutProducts menu='Reporting'>
       <NavigationPages title={t.Anticapcha}>
-
         <Link href='/reporting'>
           <ImageSvg name='Dashboard' />
-          <p>
-            {t.Reporting}
-          </p>
+          <p>{t.Reporting}</p>
         </Link>
 
         <ImageSvg name='Navegación' />
 
-        <Link href='#'>
-          {t.Anticapcha}
-        </Link>
-
+        <Link href='#'>{t.Anticapcha}</Link>
       </NavigationPages>
       <section className='captcha'>
-
         <div className='captcha-summary'>
-
           <div className='reporting-box'>
             <div className='report-content'>
               <div className='report  blue'>
-
                 <div className='report_icon  '>
-
                   <ImageSvg name='Profile' />
-
                 </div>
 
                 <div className='report_data'>
-
                   <div className='box-filter'>
-
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
                       <InputLabel id='company-label'>{l.Reporting.Company}</InputLabel>
-                      <Select
-                        labelId='company-label'
-                        value={selectedCompany}
-                        onChange={handleCompanyChange}
-                        IconComponent={IconArrow}
-                      >
+                      <Select labelId='company-label' value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
                         <MenuItem value=''>
                           <em>{l.Reporting['All Companys']}</em>
                         </MenuItem>
-                        {session.oEmpresa?.map((comp) => (
+                        {session?.oEmpresa.map((comp) => (
                           <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
                             <div> {comp.razon_social_empresa}</div>
                           </MenuItem>
                         ))}
                       </Select>
-                      <FormHelperText>{t['Select a company']}</FormHelperText>
+                      {/* <FormHelperText>{t['Selected company']}</FormHelperText> */}
                     </FormControl>
                   </div>
 
-                  {/* <h3>
-                    innovativa lab
-                  </h3> */}
-                  <article>
-                    seleciona la empresa
-                  </article>
-
+                  <article>{t['Selected company']}</article>
                 </div>
-
               </div>
-
             </div>
 
             <div className='report-content'>
-
               <div className='report red'>
-
                 <div className='report_icon  '>
-
                   <ImageSvg name='IconCaptcha' />
-
                 </div>
 
                 <div className='report_data'>
-
-                  <article>
-                    {t['Captcha solved']}
-
-                  </article>
+                  <article>{t['Captcha solved']}</article>
                   <h3> {dataSumary?.captcha_resolved_until_now} </h3>
 
-                  <p> <ImageSvg name='ArrowUp' />   {t.To}  {dataSumary?.fecha_until}  </p>
-
+                  <p>
+                    {' '}
+                    <ImageSvg name='ArrowUp' /> {t.To} {dataSumary?.fecha_until}{' '}
+                  </p>
                 </div>
-
               </div>
 
               <div className='report green '>
-
                 <div className='report_icon  '>
-
                   <ImageSvg name='IconCaptcha' />
-
                 </div>
 
                 <div className='report_data'>
-                  <article>
-                    {t['Resolved Connections']}
-
-                  </article>
+                  <article>{t['Resolved Connections']}</article>
 
                   <h3> {dataSumary?.captcha_conexion_until_now} </h3>
 
-                  <p> <ImageSvg name='ArrowUp' />   {t.To}  {dataSumary?.fecha_until}   </p>
-
+                  <p>
+                    {' '}
+                    <ImageSvg name='ArrowUp' /> {t.To} {dataSumary?.fecha_until}{' '}
+                  </p>
                 </div>
-
               </div>
-
             </div>
-
           </div>
 
           <div className='report-months'>
-
             <div className='contaniner-tables'>
-
               <div className='box-search'>
                 <div>
-                  <h3> {t['Last Months']}  </h3>
-                  <p> {t['Results of the Last 5 Months']} </p>
+                  <h3> {t['Last Months']} </h3>
+                  <p> {t['Results of the Last 6 Months']} </p>
                 </div>
-
               </div>
 
               <div className='boards'>
                 <div className='tableContainer'>
-
                   <table className='dataTable'>
-
                     <thead>
                       <tr>
                         <th>{t.Date} </th>
-                        <th> {t['Number of Captchas Resolved']}</th>
-
+                        <th> {t['Captcha solved']}</th>
+                        <th> {t['Resolved Connections']}</th>
                       </tr>
                     </thead>
 
                     <tbody>
-
                       {dataSumary?.data_summary.map((row) => (
                         <tr key={row.id_data}>
                           <td>{row.fecha}</td>
                           <td>{row.captcha_resolved}</td>
-
+                          <td>{row.captcha_resolved}</td>
                         </tr>
                       ))}
-
                     </tbody>
-
                   </table>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
 
         <div className='captcha-filters'>
-
-          <h3> {t['Filter Statistics']}  </h3>
+          <h3> {t['Filter Statistics']} </h3>
           <p> {t['Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.']} </p>
           <div class='box-filters'>
-
-            <button
-              className={`btn_filter ${filterDate === 365 ? 'active' : ''}`}
-              onClick={() => rangeDateSelect(365)}
-            >
-
-              {t.Last}  12 {t.Months}
-
+            <button className={`btn_filter ${filterDate === 365 ? 'active' : ''}`} onClick={() => rangeDateSelect(365)}>
+              {t.Last} 12 {t.Months}
             </button>
 
-            <button
-              className={`btn_filter ${filterDate === 180 ? 'active' : ''}`}
-              onClick={() => rangeDateSelect(180)}
-            >
-
-              {t.Last}  6 {t.Months}
-
+            <button className={`btn_filter ${filterDate === 180 ? 'active' : ''}`} onClick={() => rangeDateSelect(180)}>
+              {t.Last} 6 {t.Months}
             </button>
 
-            <button
-              className={`btn_filter ${filterDate === 30 ? 'active' : ''}`}
-              onClick={() => rangeDateSelect(30)}
-            >
-
-              {t.Last}  30 {t.Days}
-
+            <button className={`btn_filter ${filterDate === 30 ? 'active' : ''}`} onClick={() => rangeDateSelect(30)}>
+              {t.Last} 30 {t.Days}
             </button>
 
-            <button
-              className={`btn_filter ${filterDate === 7 ? 'active' : ''}`}
-              onClick={() => rangeDateSelect(7)}
-            >
-
-              {t.Last}  7 {t.Days}
+            <button className={`btn_filter ${filterDate === 7 ? 'active' : ''}`} onClick={() => rangeDateSelect(7)}>
+              {t.Last} 7 {t.Days}
             </button>
 
-            <button
-              className={`btn_filter ${filterDate === null ? 'active' : ''}`}
-              onClick={() => setFilterDate(null)}
-            >
-
+            <button className={`btn_filter ${filterDate === null ? 'active' : ''}`} onClick={() => setFilterDate(null)}>
               {t['Other Dates']}
 
               <ImageSvg name='Time' />
-
             </button>
-
           </div>
 
-          {!filterDate && <div className='box-filters'>
+          {!filterDate && (
+            <div className='box-filters'>
+              <div className='date'>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label={t.From}
+                    value={dayjs(startDate, 'DD/MM/YYYY')}
+                    slotProps={{
+                      textField: {
+                        helperText: t['Date start']
+                      }
+                    }}
+                    onChange={handleStartDateChange}
+                    format='DD/MM/YYYY'
+                    components={{
+                      OpenPickerIcon: IconDate,
+                      CalendarIcon: IconDate
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
 
-            <div className='date'>
-
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label={t.From}
-                  value={dayjs(startDate, 'DD/MM/YYYY')}
-                  slotProps={{
-                    textField: {
-                      helperText: t['Date start']
-                    }
-
-                  }}
-                  onChange={handleStartDateChange}
-                  format='DD/MM/YYYY'
-                  components={{
-                    OpenPickerIcon: IconDate,
-                    CalendarIcon: IconDate
-                  }}
-                  renderInput={(params) => (
-                    <TextField {...params} />
-                  )}
-                />
-              </LocalizationProvider>
-
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label={t.To}
-                  value={dayjs(endDate, 'DD/MM/YYYY')}
-                  slotProps={{
-                    textField: {
-                      helperText: t['Date end']
-                    }
-
-                  }}
-                  onChange={handleEndDateChange}
-                  format='DD/MM/YYYY'
-                  components={{
-                    OpenPickerIcon: IconDate,
-                    CalendarIcon: IconDate
-                  }}
-                  renderInput={(params) => (
-                    <TextField {...params} />
-                  )}
-                />
-              </LocalizationProvider>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label={t.To}
+                    value={dayjs(endDate, 'DD/MM/YYYY')}
+                    slotProps={{
+                      textField: {
+                        helperText: t['Date end']
+                      }
+                    }}
+                    onChange={handleEndDateChange}
+                    format='DD/MM/YYYY'
+                    components={{
+                      OpenPickerIcon: IconDate,
+                      CalendarIcon: IconDate
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </LocalizationProvider>
+              </div>
             </div>
-
-          </div>}
-
+          )}
         </div>
 
-        {requestError && <div className='errorMessage'>
-          {requestError.message || ' error service'}
-        </div>}
+        {requestError && <div className='errorMessage'>{requestError.message || ' error service'}</div>}
 
         {isLoading && <LoadingComponent />}
 
         <div className='box-tabs'>
-
           <div className='horizontalTabs'>
             <div className='tab-header'>
-
-              <Link
-                href='#'
-              >
-                <button
-                  className={activeTab === 0 ? 'active' : ''}
-                  onClick={() => handleTabClick(0)}
-                >
+              <Link href='#'>
+                <button className={activeTab === 0 ? 'active' : ''} onClick={() => handleTabClick(0)}>
                   <h4> {t.Reports}</h4>
                 </button>
               </Link>
 
-              <Link
-                href='#'
-              >
+              <Link href='#'>
                 <button className={activeTab === 1 ? 'active' : ''} onClick={() => handleTabClick(1)}>
                   <h4> {t.Graphs}</h4>
-
                 </button>
               </Link>
-
             </div>
             <div className='tab-content'>
               {activeTab === 0 && (
                 <div className='tabOne'>
-
                   <div className='contaniner-tables'>
-
                     <div className='box-search'>
                       <div>
-                        <h3> {t['2Captcha Report']}  </h3>
+                        <h3> {t['Anticaptcha report']} </h3>
                         <p> {t['Results Obtained from Dates']} </p>
                       </div>
 
                       <div>
-
                         <button className='btn_black ' onClick={() => exportToExcel()}>
                           <ImageSvg name='Download' /> {t.Export}
                         </button>
                       </div>
-
                     </div>
 
                     <div className='boards'>
                       <div className='tableContainer'>
-
                         <table className='dataTable'>
-
                           <thead>
                             <tr>
                               <th>{t.Date} </th>
@@ -558,35 +453,29 @@ const captcha = () => {
                           </thead>
 
                           <tbody>
-
                             {dataCaptcha.length > 0
-                              ? dataCaptcha?.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
-                                <tr key={row.id_captcha_data}>
-                                  <td>{row.fecha}</td>
-                                  <td>{row.captcha_resolved} </td>
-                                  <td>{row.captcha_not_resolved}</td>
-                                  <td>{row.captcha_type}</td>
-                                  <td>{row.ip_address}</td>
-                                </tr>
-                              ))
-
+                              ? (
+                                  dataCaptcha?.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
+                                    <tr key={row.id_captcha_data}>
+                                      <td>{row.fecha}</td>
+                                      <td>{row.captcha_resolved} </td>
+                                      <td>{row.captcha_not_resolved}</td>
+                                      <td>{row.captcha_type}</td>
+                                      <td>{row.ip_address}</td>
+                                    </tr>
+                                  ))
+                                )
                               : (
                                 <tr>
-                                  <td colSpan='5'>
-                                    {t['There is no data']}
-                                  </td>
+                                  <td colSpan='5'>{t['There is no data']}</td>
                                 </tr>
                                 )}
-
                           </tbody>
-
                         </table>
-
                       </div>
 
                       <Stack spacing={2}>
                         <div className='pagination'>
-
                           <Typography>
                             {t.Page} {page} {t.of} {Math.ceil(dataCaptcha.length / itemsPerPage)}
                           </Typography>
@@ -597,56 +486,34 @@ const captcha = () => {
                           />
                         </div>
                       </Stack>
-
                     </div>
 
                     <div className='reporting-box'>
-
                       <div className='report-content' style={{ paddingLeft: '0rem' }}>
-
                         <div className='report blue'>
-
                           <div className='report_icon  '>
-
                             <ImageSvg name='IconCaptcha' />
-
                           </div>
 
                           <div className='report_data'>
-
-                            <article>
-                              {t['Captcha solved']}
-
-                            </article>
-                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha)}
-                            </h3>
-
+                            <article>{t['Captcha solved']}</article>
+                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha)}</h3>
                           </div>
-
                         </div>
-
                       </div>
-
                     </div>
-
                   </div>
                 </div>
               )}
               {activeTab === 1 && (
                 <div className='grafics'>
-
                   <CaptchaChart captchaData={dataCaptcha} exportToExcel={exportToExcel} />
-
                 </div>
               )}
-
             </div>
           </div>
-
         </div>
-
       </section>
-
     </LayoutProducts>
   )
 }

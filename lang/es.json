@@ -569,9 +569,9 @@
     "Captcha":"2Captcha",
     "Resolved Connections": "Conexiones Resueltas",
     "Last Months": "Últimos Meses",
-    "Results of the Last 5 Months": "Resultados de los Últimos 5 Meses",
+    "Results of the Last 6 Months": "Resultados de los últimos 6 meses",
     "Date": "Fecha",
-    "Number of Captchas Resolved": "Cantidad de Captchas Resueltos",
+    "Number of Captchas Resolved": "Cantidad de Captchas resueltos",
     "Filter Statistics": "Filtrar estadísticas",
     "Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.": "Filtre los reportes y gráficos deseados y, si desea ver la información completa, utilice la opción de exportar.",
     "Last": "Últimos",
@@ -580,7 +580,7 @@
     "Other Dates": "Otras fechas",
     "Reports": "Reportes",
     "Graphs": "gráficos",
-    "2Captcha Report": "Reporte de 2captcha",
+    "Anticaptcha Report": "Reporte de Anticaptcha",
     "Results Obtained from Dates": "Resultado obtenidos de las fechas",
     "Resolved": "Resuelto",
     "Not Resolved": "No resuelto",
@@ -599,7 +599,8 @@
     "From": "Desde",
     "To": "Hasta",
     "Date start": "Fecha de inicio",
-    "Date end": "Fecha fin"
+    "Date end": "Fecha fin",
+    "Selected company":"Empresa seleccionada"
   },
 
 
