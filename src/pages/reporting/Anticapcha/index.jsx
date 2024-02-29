@@ -316,13 +316,12 @@ const captcha = () => {
                 </div>
 
                 <div className='report_data'>
-
-                  <h3> {dataSumary?.captcha_conexion_until_now} </h3>
-
                   <article>
                     {t['Resolved Connections']}
 
                   </article>
+
+                  <h3> {dataSumary?.captcha_conexion_until_now} </h3>
 
                   <p> <ImageSvg name='ArrowUp' />   {t.To}  {dataSumary?.fecha_until}   </p>
 
@@ -636,7 +635,7 @@ const captcha = () => {
               {activeTab === 1 && (
                 <div className='grafics'>
 
-                  <CaptchaChart captchaData={dataCaptcha} />
+                  <CaptchaChart captchaData={dataCaptcha} exportToExcel={exportToExcel} />
 
                 </div>
               )}

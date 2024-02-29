@@ -16,7 +16,7 @@ import { Chart as ChartJS, LinearScale, PointElement, LineElement, Title, Toolti
 
 ChartJS.register(LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler)
 
-export default function CaptchaChart ({ captchaData }) {
+export default function CaptchaChart ({ captchaData, exportToExcel }) {
   const { session, setModalToken, logout, l } = useAuth()
 
   const currentDay = new Date().getDate()
@@ -160,7 +160,7 @@ export default function CaptchaChart ({ captchaData }) {
         </div>
 
         <div className='box-filter'>
-          <button className='btn_black ' onClick={() => console.log('export')}>
+          <button className='btn_black ' onClick={() => exportToExcel()}>
             <ImageSvg name='Download' /> {t.Export}
           </button>
 
