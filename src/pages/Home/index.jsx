@@ -48,11 +48,7 @@ const AnimatedSection = ({ children }) => {
   }, [controls])
 
   return (
-    <motion.section
-      initial={{ opacity: 1, x: 0 }}
-      animate={controls}
-      transition={{ duration: 0.5 }}
-    >
+    <motion.section initial={{ opacity: 1, x: 0 }} animate={controls} transition={{ duration: 0.5 }}>
       {children}
     </motion.section>
   )
@@ -108,7 +104,7 @@ const Home = () => {
   const changeImage = () => {
     const nextIndex = (selectImage ? selectImage.id : 0) % testimonials.length
     setSelectImage(testimonials[nextIndex])
-    setRotation(rotation + (360 / testimonials.length))
+    setRotation(rotation + 360 / testimonials.length)
   }
 
   const handleChangemessage = (event) => {
@@ -160,46 +156,32 @@ const Home = () => {
 
   return (
     <div className='home'>
-
       <header>
         <nav>
           <ul>
-
             <div className='imgPerfil_logo'>
-
               <Image src={logo} width='100' alt='logo' priority />
             </div>
           </ul>
 
           <ul>
-
             <div className='languajes-box'>
-
               <Lang />
-
             </div>
 
             <li>
-              <Link href='/'>
-                {t.Login}
-              </Link>
+              <Link href='/'>{t.Login}</Link>
             </li>
 
             <li>
-              <button className='btn_black'>
-                {t['Sing in']}
-              </button>
-
+              <button className='btn_black'>{t['Sing in']}</button>
             </li>
-
           </ul>
         </nav>
       </header>
 
       <main className='box-home container'>
-
         <section className='home-front'>
-
           <div className='welcome'>
             <h1 className='subtitle'>{t['Optimize your Business Efficiency']}</h1>
             <p> {t['Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence']}</p>
@@ -207,26 +189,24 @@ const Home = () => {
             <div className='welcome-actions'>
               <button className='btn_secundary small'> {t['Try free trial']} </button>
               <button className='record'>
-
                 <ImageSvg name='Record' />
 
                 {t['View Demo']}
-
               </button>
             </div>
 
-            <div className='account'> {t['You still don\'t have an account?']}  <Link href='/register'> {t['Sign In']}</Link></div>
-
+            <div className='account'>
+              {' '}
+              {t["You still don't have an account?"]} <Link href='/register'> {t['Sign In']}</Link>
+            </div>
           </div>
 
           <div className='image-container'> </div>
-
         </section>
 
         <section className='home-client'>
           <div className='subtitle'>
             <h1> {t['What our client think about us?']} </h1>
-
           </div>
           <div className='testimonials-container'>
             <div className='container-img' style={{ transform: `rotate(${rotation}deg)` }}>
@@ -248,31 +228,17 @@ const Home = () => {
                   }}
                 >
                   <button onClick={() => setSelectImage(testimonial)}>
-                    <Image
-                      className={selectImage && selectImage.id === testimonial.id ? 'active' : ''}
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      width={100}
-                      height={100}
-                    />
+                    <Image className={selectImage && selectImage.id === testimonial.id ? 'active' : ''} src={testimonial.image} alt={testimonial.name} width={100} height={100} />
                   </button>
                 </div>
               ))}
             </div>
 
             {selectImage && (
-
               <div className='testimony'>
-
                 <div className='testimony-img'>
                   <button>
-                    <Image
-                      className='active'
-                      src={selectImage.image}
-                      alt={selectImage.name}
-                      width={100}
-                      height={100}
-                    />
+                    <Image className='active' src={selectImage.image} alt={selectImage.name} width={100} height={100} />
                   </button>
                 </div>
                 <div className='testimony-message'>
@@ -280,290 +246,113 @@ const Home = () => {
                   <h3>{selectImage.name}</h3>
                   <span>{selectImage.position}</span>
                 </div>
-
               </div>
             )}
           </div>
         </section>
 
         <section className='home-how container'>
-
           <div className='home-how-description'>
-
             <div className='discover'>
-              <p>
-                {t['Discover our automation process']}
-              </p>
+              <p>{t['Discover our automation process']}</p>
 
-              <h1 className='subtitle'>
-                {t['How do we do it?']}
-              </h1>
+              <h1 className='subtitle'>{t['How do we do it?']}</h1>
 
-              <p>
-                {t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}
-              </p>
+              <p>{t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}</p>
 
-              <button className='btn_primary'>
-                {t['Get Started']}
-
-              </button>
-
+              <button className='btn_primary'>{t['Get Started']}</button>
             </div>
-
-            <figure>
-              <Image
-                src={logo}
-                alt='Descripción del GIF'
-                width={300}
-                height={200}
-              />
-              {/* <figcaption>Descripción adicional o leyenda</figcaption> */}
-            </figure>
-
           </div>
 
           <div className='home-how-steps'>
-
-            <div className='curvedLine'>
-
-              {/* Contenido del componente */}
-
-              {/* <svg
-                class='vector-335'
-                width='936'
-                height='470'
-                viewBox='0 0 936 470'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <g filter='url(#filter0_d_2849_20728)'>
-                  <path
-                    d='M35.9981 103C79.7321 146.155 -8.91664 250.127 62.4951 254.499C151.76 259.964 192.171 173.263 328.489 187.52C464.807 201.777 536.347 319.192 664.637 244.142C792.927 169.092 800.071 191.553 932.624 241.862'
-                    stroke='#4318FF'
-                    stroke-width='5'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                  />
-                </g>
-                <defs>
-                  <filter
-                    id='filter0_d_2849_20728'
-                    x='7.01562'
-                    y='100.5'
-                    width='952.109'
-                    height='219.007'
-                    filterUnits='userSpaceOnUse'
-                    color-interpolation-filters='sRGB'
-                  >
-                    <feFlood flood-opacity='0' result='BackgroundImageFix' />
-                    <feColorMatrix
-                      in='SourceAlpha'
-                      type='matrix'
-                      values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
-                      result='hardAlpha'
-                    />
-                    <feOffset dy='24' />
-                    <feGaussianBlur stdDeviation='12' />
-                    <feComposite in2='hardAlpha' operator='out' />
-                    <feColorMatrix
-                      type='matrix'
-                      values='0 0 0 0 0.215686 0 0 0 0 0.203922 0 0 0 0 0.662745 0 0 0 0.3 0'
-                    />
-                    <feBlend
-                      mode='normal'
-                      in2='BackgroundImageFix'
-                      result='effect1_dropShadow_2849_20728'
-                    />
-                    <feBlend
-                      mode='normal'
-                      in='SourceGraphic'
-                      in2='effect1_dropShadow_2849_20728'
-                      result='shape'
-                    />
-                  </filter>
-                </defs>
-              </svg> */}
-              <svg
-                class='vector-337'
-                width='400'
-                height='99'
-                viewBox='0 0 500 99'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <g filter='url(#filter0_d_3005_20834)'>
-                  <path
-                    d='M1.33526 55.41C18.9614 116.909 188.404 -6.38372 268.811 27.2901C443.743 100.55 468.175 17.7603 582.993 27.1431'
-                    stroke='#4318FF'
-                    stroke-width='5'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                  />
-                </g>
-                <defs>
-                  <filter
-                    id='filter0_d_3005_20834'
-                    x='-25.1641'
-                    y='18.8525'
-                    width='800.656'
-                    height='104.526'
-                    filterUnits='userSpaceOnUse'
-                    color-interpolation-filters='sRGB'
-                  >
-                    <feFlood flood-opacity='0' result='BackgroundImageFix' />
-                    <feColorMatrix
-                      in='SourceAlpha'
-                      type='matrix'
-                      values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
-                      result='hardAlpha'
-                    />
-                    <feOffset dy='24' />
-                    <feGaussianBlur stdDeviation='12' />
-                    <feComposite in2='hardAlpha' operator='out' />
-                    <feColorMatrix
-                      type='matrix'
-                      values='0 0 0 0 0.215686 0 0 0 0 0.203922 0 0 0 0 0.662745 0 0 0 0.3 0'
-                    />
-                    <feBlend
-                      mode='normal'
-                      in2='BackgroundImageFix'
-                      result='effect1_dropShadow_3005_20834'
-                    />
-                    <feBlend
-                      mode='normal'
-                      in='SourceGraphic'
-                      in2='effect1_dropShadow_3005_20834'
-                      result='shape'
-                    />
-                  </filter>
-                </defs>
-              </svg>
-
-            </div>
-
-            <div className='step'>
-
-              <div className='box-circle'>
-                <div className='circle' />
-              </div>
-
-              <div className='process'>
-                <span>
-                  1
-                </span>
-
-                <div className='text'>
-                  <h3> {t['Customize your process']}</h3>
-                  <p>
-                    {t['Access the Ari.app application easily and securely, configure your digital employees']}
-                  </p>
-
+            <div className='steps-container'>
+              <div className='step'>
+                <div className='box-circle'>
+                  <div className='circle' />
                 </div>
 
+                <div className='process'>
+                  <span>1</span>
+
+                  <div className='text'>
+                    <h3> {t['Customize your process']}</h3>
+                    <p>{t['Access the Ari.app application easily and securely, configure your digital employees']}</p>
+                  </div>
+                </div>
               </div>
 
-            </div>
-
-            <div className='step'>
-
-              <div className='box-circle'>
-                <div className='circle' />
-              </div>
-
-              <div className='process'>
-                <span>
-                  2
-                </span>
-
-                <div className='text'>
-                  <h3> {t['Automated process']} </h3>
-                  <p>
-                    {t['This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set']}
-                  </p>
-
+              <div className='step'>
+                <div className='box-circle'>
+                  <div className='circle' />
+               
                 </div>
 
+                <div className='process'>
+                  <span>2</span>
+
+                  <div className='text'>
+                    <h3> {t['Automated process']} </h3>
+                    <p>{t['This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set']}</p>
+                  </div>
+                </div>
               </div>
 
-            </div>
-
-            <div className='step'>
-
-              <div className='box-circle'>
-                <div className='circle' />
-              </div>
-
-              <div className='process'>
-                <span>
-                  3
-                </span>
-
-                <div className='text'>
-                  <h3> {t['Work delivered']} </h3>
-                  <p>
-                    {t['After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready']}
-                  </p>
-
+              <div className='step'>
+                <div className='box-circle'>
+                  <div className='circle' />
                 </div>
 
-              </div>
+                <div className='process'>
+                  <span>3</span>
 
+                  <div className='text'>
+                    <h3> {t['Work delivered']} </h3>
+                    <p>{t['After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready']}</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
+            <figure className='steps-image'>
+        
+              <Image src={logo} alt='image_steps' width={100} height={100} />
+
+            </figure>
           </div>
-
         </section>
 
         <section className='home-account container'>
-
           <ul className='box-account'>
-
             <li>
               <h1> 5</h1>
 
-              <p>
-                {t['Digital Employees Automating Your Services']}
-              </p>
-
+              <p>{t['Digital Employees Automating Your Services']}</p>
             </li>
 
             <li>
-
               <h1> 20</h1>
 
-              <p>
-                {t['Included Skills to Digital Employees']}
-              </p>
-
+              <p>{t['Included Skills to Digital Employees']}</p>
             </li>
 
             <li>
-
               <h1> 78%</h1>
 
-              <p>
-                {t['business agility']}
-              </p>
-
+              <p>{t['business agility']}</p>
             </li>
-
           </ul>
-
         </section>
 
         <section className='home-digitals  container '>
-
           <div className='description'>
             <h1> {t['Ari finance']}</h1>
 
             <p> {t['The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures']}</p>
-
           </div>
 
           <div className='digital-image'>
             <Image src={finance} width='1000' alt='finance' priority />
           </div>
-
         </section>
 
         <section className='home-digitals container hr'>
@@ -571,28 +360,22 @@ const Home = () => {
             <Image src={rrhh} width='1000' alt='finance' priority />
           </div>
           <div className='description'>
-
             <h1> {t['Ari HR']}</h1>
 
             <p> {t['The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.']}</p>
-
           </div>
-
         </section>
 
         <section className='home-digitals container'>
-
           <div className='description'>
             <h1> {t['Ari it support']}</h1>
 
             <p> {t['The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts.']}</p>
-
           </div>
 
           <div className='digital-image'>
             <Image src={support} width='1000' alt='finance' priority />
           </div>
-
         </section>
 
         <section className='home-enables container'>
@@ -600,9 +383,7 @@ const Home = () => {
 
           <div className='box-enables'>
             <button>
-
               <Image src={cloud} width='1000' alt='cloud' priority />
-
             </button>
 
             <button>
@@ -619,50 +400,35 @@ const Home = () => {
               <Image src={ftp} width='1000' alt='ftp' priority />
             </button>
           </div>
-
         </section>
-
       </main>
 
       <footer>
         <section className='home-contact container'>
-
           <div className='contact-message'>
-
             <h1 className='subtitle'> {t['Contact us']}</h1>
 
-            <p>
-              {t['Find out which AUTOMATION SOLUTIONS can help you.']}
-            </p>
+            <p>{t['Find out which AUTOMATION SOLUTIONS can help you.']}</p>
 
             <div className='social-media'>
-
               <div className='report blue'>
-
                 <div className='report_icon  '>
-
                   <ImageSvg name='ReportDigital' />
-
                 </div>
 
                 <div className='report_data'>
+                  <article>{t['Digital employees']}</article>
 
-                  <article>
-                    {t['Digital employees']}
-
-                  </article>
-
-                  <p> <ImageSvg name='ArrowUp' />  <span>  {t.working}  </span>    {t['for you']} </p>
+                  <p>
+                    {' '}
+                    <ImageSvg name='ArrowUp' /> <span> {t.working} </span> {t['for you']}{' '}
+                  </p>
                 </div>
-
               </div>
-
             </div>
-
           </div>
 
           <div className='contact-form'>
-
             <h2> {t['Send email']}</h2>
             <p> {t['Please enter your information in the contact form and we will contact you as soon as possible']} </p>
 
@@ -673,20 +439,17 @@ const Home = () => {
                 firstName: '',
                 company: '',
                 position: ''
-
               }}
-
-            // validate={(values) => validateFormRegister(values, l.validation)}
+              // validate={(values) => validateFormRegister(values, l.validation)}
               onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
-              // same shape as initial values
-              // handleSubmit(values, { setSubmitting, setStatus, resetForm })
+                // same shape as initial values
+                // handleSubmit(values, { setSubmitting, setStatus, resetForm })
                 setShowM(true)
               }}
               enableReinitialize
             >
               {({ isValid, isSubmitting, status }) => (
                 <Form className='form-container'>
-
                   <div className='input-box'>
                     <Field type='email' name='corporateEmail' id='corporateEmail' placeholder=' ' disabled={isSubmitting} />
                     <label htmlFor='corporateEmail'>{t.Email}</label>
@@ -694,7 +457,6 @@ const Home = () => {
                   </div>
 
                   <div className='group'>
-
                     <div className='input-box'>
                       <Field type='text' name='firstName' id='firstName' placeholder=' ' disabled={isSubmitting} />
                       <label htmlFor='firstName'>{t['First Name']}</label>
@@ -718,28 +480,16 @@ const Home = () => {
                       <label htmlFor='position'>{t.Position}</label>
                       <ErrorMessage className='errorMessage' name='position' component='span' />
                     </div>
-
                   </div>
 
                   <div className='input-box'>
-
-                    <textarea
-                      value={message}
-                      onChange={handleChangemessage}
-                      placeholder=''
-                      rows={4}
-                      cols={40}
-                      style={{ height: 'auto', minHeight: '3rem' }}
-                    />
-                    <label htmlFor='message'> {t.Message}  </label>
-
+                    <textarea value={message} onChange={handleChangemessage} placeholder='' rows={4} cols={40} style={{ height: 'auto', minHeight: '3rem' }} />
+                    <label htmlFor='message'> {t.Message} </label>
                   </div>
                   <div className='box-buttons'>
-
                     <button className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => console.log('vonnn')} disabled={isSubmitting}>
                       {t.Send}
                     </button>
-
                   </div>
 
                   <div className='contentError'>
@@ -752,20 +502,13 @@ const Home = () => {
             {showM && (
               <Modal close={() => setShowM(false)}>
                 <ImageSvg name='Check' />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
-
-                  {t['Message sent succesfully']}
-                </div>
-
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>{t['Message sent succesfully']}</div>
               </Modal>
             )}
-
           </div>
-
         </section>
       </footer>
     </div>
-
   )
 }
 

@@ -425,6 +425,7 @@
     flex-direction: column;
     gap: 2rem;
     margin-bottom: 3rem;
+
     &-description {
       display: flex;
       justify-content: flex-start;
@@ -468,53 +469,68 @@
     }
 
     &-steps {
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-    
-      position: relative;
-      flex-direction: column;
-      gap: 2rem;
+      width: 100%;
+     display: flex;
+     justify-content: space-between;
+     flex-direction: row;
+     flex-wrap: wrap;
 
-      svg{
-        width: 20rem;
-      }
-
-      @include media(tablet) {
-        flex-direction: row;
-        gap: 1rem;
-         justify-content: space-between;
-
-      svg{
-        width: 40rem;
-        height: 8rem;
-        padding: 0rem;
+      .steps-container{
         display: flex;
+        flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
+        position: relative;
+        flex: 1;
+        @include media(tablet) {
+          flex: 0.5;
+          
+        }
+
+
+        svg{
+          width: 40rem;
+          height: 8rem;
+          padding: 0rem;
+          display: flex;
+          align-items: flex-start;
+          justify-content: flex-start; width: 20rem;
+        }
       }
 
+      .steps-image{
+       
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
+        img{
+          width: 20rem;
+          height: auto;
+        }
+       
       }
+     
 
 
 
 
 
-      .curvedLine{
-      display: none;
+    //   .curvedLine{
+    //   display: none;
   
         
-    @include media(desktop) {
-      position: absolute;
-        z-index: -3;
-        bottom: 65%;
-    left: 17%;
+    // @include media(desktop) {
+    //   position: absolute;
+    //     z-index: -3;
+    //     bottom: 65%;
+    // left: 17%;
 
-    }
+    // }
 
     
-      }
+    //   }
 
 
       .step {
@@ -526,7 +542,7 @@
         position: relative;
 
         @include media(tablet) {
-          align-items: center;
+          align-items: flex-start;
         }
 
         .box-circle {
@@ -541,17 +557,7 @@
             background-color: get-color(blue_p1);
           }
 
-          // &::after {
-          //   content: "";
-          //   position: absolute;
-          //   top: 10%; // Ajusta según tus necesidades
-          //   left: 50%;
-          //   transform: translate(-50%, -50%);
-          //   width: 100%; // Ancho de la línea, ajusta según tus necesidades
-          //   height: 3px; // Altura de la línea, ajusta según tus necesidades
-          //   background-color: #3498db; // Color de la línea, ajusta según tus necesidades
-          //   z-index: -1;
-          // }
+         
         }
 
 
@@ -567,7 +573,7 @@
           position: relative;
 
           span {
-            font-size: 10rem;
+            font-size: 8rem;
             font-weight: 900;
             color: get-color(grey1_s3);
             text-align: center;
@@ -580,7 +586,7 @@
           top: 5%;
           left: 40%;
           p {
-            min-width: 12rem;
+            min-width: 15rem;
           }
         }
       }

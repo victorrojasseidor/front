@@ -25,24 +25,23 @@ import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 
 const captcha = () => {
   const [activeTab, setActiveTab] = useState(0)
-  const { session, empresa, setModalToken, logout, setEmpresa, l } = useAuth()
+  const { session, setModalToken, logout, l, idCountry } = useAuth()
   const [page, setPage] = useState(1)
   const [selectedCompany, setSelectedCompany] = useState(session?.oEmpresa[0].id_empresa)
   const [dataSumary, setDataSumary] = useState(null)
   const [dataCaptcha, setDataCaptcha] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   const [itemsPerPage] = useState(32)
-  const [filterDate, setFilterDate] = useState(365)
-  const [startDate, setStartDate] = useState(dayjs().subtract(365, 'day').format('DD/MM/YYYY'))
+  const [filterDate, setFilterDate] = useState(30)
+  const [startDate, setStartDate] = useState(dayjs().subtract(30, 'day').format('DD/MM/YYYY'))
   const [endDate, setEndDate] = useState(dayjs().format('DD/MM/YYYY'))
   const [requestError, setRequestError] = useState()
   const t = l.Captcha
 
   const months = [l.Reporting.January, l.Reporting.February, l.Reporting.March, l.Reporting.April, l.Reporting.May, l.Reporting.June, l.Reporting.July, l.Reporting.August, l.Reporting.September, l.Reporting.October, l.Reporting.November, l.Reporting.December]
 
-  const transformMonthsFormat = () => {
-    const data = '12-2024'
-    const partes = data.split('-')
+  const transformMonthsFormat = (data) => {
+       const partes = data.split('-')
     const mes = months[Number(partes[0]-1)]
 
     return `${mes}-${partes[1]}`
@@ -96,34 +95,43 @@ const captcha = () => {
     sumCaptchaResolved(dataCaptcha)
   }
 
-  function filterDataByIdEmpresa (data, idEmpresa) {
-    const datasuma = data.filter((company) => company.id_empresa === idEmpresa)
-    setDataSumary(datasuma[0])
-  }
+  // function filterDataByIdEmpresa (data, idEmpresa) {
+  //   const datasuma = data.filter((company) => company.id_empresa === idEmpresa)
+  //   setDataSumary(datasuma[0])
+  // }
 
   useEffect(() => {
     GetCabeceraCaptcha()
+  
+  }, [selectedCompany ])
+
+
+  useEffect(() => {
+  
     GetDetalleCaptcha()
-  }, [selectedCompany])
+  }, [selectedCompany , startDate, endDate])
+
+
+  
 
   async function GetCabeceraCaptcha () {
     setIsLoading(true)
     const body = {
       oResults: {
-        // sFechaDesde: startDate,
-        // sFechaHasta: endDate,
-        // oIdEmpresa: selectedCompany ? [selectedCompany] : [],
-      }
+        iIdPais: idCountry || 1,
+        iIdEmpresa: selectedCompany || []
+        }
     }
 
     try {
       const token = session.sToken
+      // console.log(body)
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetCabeceraCaptcha', body, token)
       // console.log('cabecera', { responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
-        // setDataSumary(data)
-        filterDataByIdEmpresa(data, selectedCompany)
+        setDataSumary(data)
+        // filterDataByIdEmpresa(data, selectedCompany)
         setModalToken(false)
         setRequestError(null)
         setPage(1)
@@ -154,14 +162,17 @@ const captcha = () => {
     setIsLoading(true)
     const body = {
       oResults: {
-        // sFechaDesde: startDate,
-        // sFechaHasta: endDate,
-        // oIdEmpresa: selectedCompany ? [selectedCompany] : [],
+        iIdPais: idCountry || 1,
+        sFechaDesde: startDate,
+        sFechaHasta: endDate,
+        iIdEmpresa: selectedCompany || []
+
       }
     }
 
     try {
       const token = session.sToken
+      // console.log(body)
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetDetalleCaptcha', body, token)
       // console.log('detalle', { responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
@@ -193,7 +204,21 @@ const captcha = () => {
     }
   }
 
-  console.log(startDate, endDate)
+  // console.log(startDate, endDate)
+
+  const formatDate = (date) => {
+    // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
+    const fechaObjeto = new Date(date)
+
+    // Obtener las partes de la fecha (mes, día y año)
+    const mes = (fechaObjeto.getUTCMonth() + 1).toString().padStart(2, '0') // +1 porque los meses comienzan en 0
+    const dia = fechaObjeto.getUTCDate().toString().padStart(2, '0')
+    const año = fechaObjeto.getUTCFullYear()
+
+    // Formatear la fecha en el formato deseado (DD/MM/YYYY)
+    const fechaFormateada = `${dia}-${mes}-${año}`
+    return fechaFormateada
+  }
 
   const exportToExcel = () => {
     if (dataCaptcha && dataCaptcha.length > 0) {
@@ -318,9 +343,9 @@ const captcha = () => {
                     <tbody>
                       {dataSumary?.data_summary.map((row) => (
                         <tr key={row.id_data}>
-                          <td>{row.fecha}</td>
+                          <td>{transformMonthsFormat(row.fecha)}</td>
                           <td>{row.captcha_resolved}</td>
-                          <td>{row.captcha_resolved}</td>
+                          <td>{row.captcha_conexion}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -457,7 +482,7 @@ const captcha = () => {
                               ? (
                                   dataCaptcha?.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
                                     <tr key={row.id_captcha_data}>
-                                      <td>{row.fecha}</td>
+                                      <td>{formatDate(row.fecha)}</td>
                                       <td>{row.captcha_resolved} </td>
                                       <td>{row.captcha_not_resolved}</td>
                                       <td>{row.captcha_type}</td>
