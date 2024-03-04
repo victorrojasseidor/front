@@ -73,7 +73,7 @@ export default function CaptchaChart ({ captchaData, exportToExcel }) {
 
     datasets: [
       {
-        label: t.Purchase,
+        label: t.Captcha,
         data: dataResolved,
         tension: 0.4,
         fill: 'start',

@@ -173,7 +173,8 @@
     "Home": "Home",
     "Closing session": "Closing session",
     "Captcha": "Captcha",
-    "Anticapcha":"Anticapcha"
+    "Anticaptcha":"Anticaptcha",
+    "Captcha Solver":"Captcha Solver"
   },
   "Products": {
     "Digital employees": "Digital employees",
@@ -562,8 +563,7 @@
   },
   "Captcha": {
     "Captcha solved": "Captcha Solved",
-    "Anticapcha":"Anticapcha",
-    "Reporting": "Reporting",
+     "Reporting": "Reporting",
     "Home": "Home",
     "hasta": "Until",
     "Captcha": "Captcha",
@@ -601,7 +601,9 @@
     "To": "To",    
     "Date start": "Date start",
     "Date end": "Date end",
-    "Selected company":"Selected company"
+    "Selected company":"Selected company",
+    "Captcha Solver":"Captcha Solver",
+    "Captcha solve report":"Captcha solve report"
 
 
   },

@@ -314,8 +314,14 @@ const Home = () => {
             </div>
 
             <figure className='steps-image'>
-        
+
+              <div className='container-image'>
+
               <Image src={logo} alt='image_steps' width={100} height={100} />
+              </div>
+
+        
+             
 
             </figure>
           </div>

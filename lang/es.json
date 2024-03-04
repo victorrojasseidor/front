@@ -173,7 +173,8 @@
     "Home": "Inicio",
     "Closing session": "Cerrando sessión",
     "Captcha":"Captcha",
-    "Anticapcha":"Anticapcha"
+    "Anticaptcha":"Anticaptcha",
+    "Captcha Solver":"Solucionador de captcha"
   },
   "Products": {
     "Digital employees": "Empleados digitales",
@@ -562,7 +563,7 @@
   },
 "Captcha": {
       "Captcha solved": "Captcha Resuelto",
-      "Anticapcha":"Anticapcha",
+      "Anticapcha":"Anticaptcha",
     "hasta": "Hasta",
     "Reporting": "Reportes",
     "Home":"Inicio",
@@ -579,7 +580,7 @@
     "Days": "días",
     "Other Dates": "Otras fechas",
     "Reports": "Reportes",
-    "Graphs": "gráficos",
+    "Graphs": "Gráficos",
     "Anticaptcha report": "Reporte de Anticaptcha",
     "Results Obtained from Dates": "Resultado obtenidos de las fechas",
     "Resolved": "Resuelto",
@@ -600,7 +601,9 @@
     "To": "Hasta",
     "Date start": "Fecha de inicio",
     "Date end": "Fecha fin",
-    "Selected company":"Empresa seleccionada"
+    "Selected company":"Empresa seleccionada",
+    "Captcha Solver":"Solucionador del Captcha",
+    "Captcha solve report":"Reporte de solucionador del Captcha"
   },
 
 

@@ -129,7 +129,7 @@ const LayoutProducts = ({ children, menu }) => {
         { label: t.All, path: '/reporting' },
         { label: t.Balance, path: '/reporting/balance' },
         { label: t.Movement, path: '/reporting/movement' },
-        { label: t.Anticapcha, path: '/reporting/Anticapcha' }
+        { label: t.Captcha, path: '/reporting/Captcha' }
       ]
     },
     Profile: {
