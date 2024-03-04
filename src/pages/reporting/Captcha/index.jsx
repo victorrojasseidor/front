@@ -22,6 +22,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import * as XLSX from 'xlsx'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
+import LineCaptcha from '@/Components/Grafics/LineCaptcha'
 
 const captcha = () => {
   const [activeTab, setActiveTab] = useState(0)
@@ -536,7 +537,8 @@ const captcha = () => {
               )}
               {activeTab === 1 && (
                 <div className='grafics'>
-                  <CaptchaChart captchaData={dataCaptcha} exportToExcel={exportToExcel} />
+                  {/* <CaptchaChart captchaData={dataCaptcha} exportToExcel={exportToExcel} /> */}
+                  <LineCaptcha captchaData={dataCaptcha} exportToExcel={exportToExcel}/>
                 </div>
               )}
             </div>
