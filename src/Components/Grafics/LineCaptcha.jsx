@@ -5,7 +5,7 @@ import LoadingComponent from "../Atoms/LoadingComponent";
 import { useAuth } from "@/Context/DataContext";
 import ImageSvg from "@/helpers/ImageSVG";
 
-const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate}) => {
+const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate }) => {
   const chartRef = useRef();
   const { l } = useAuth();
   const [usedColors, setUsedColors] = useState([]);
@@ -13,8 +13,7 @@ const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate}) => {
   const t = l.Captcha;
 
   // Obtener la fecha mínima de tus datos
-  const minDate =
-    captchaData && Math.min(...captchaData.map((entry) => new Date(entry.fecha).getTime()));
+  const minDate = captchaData && Math.min(...captchaData.map((entry) => new Date(entry.fecha).getTime()));
 
   // Restar unas horas a la fecha mínima
   const adjustedMinDate = new Date(minDate);
@@ -80,9 +79,7 @@ const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate}) => {
 
       // Agregar datasets al gráfico
       uniqueCaptchaTypes.forEach((captchaType, index) => {
-        const matchingData = Object.values(groupedData).filter(
-          (entry) => entry.captcha_type === captchaType
-        );
+        const matchingData = Object.values(groupedData).filter((entry) => entry.captcha_type === captchaType);
         const borderColor = getRandomColor(index);
         const backgroundColor = getRandomColor(index, 0.03);
 
@@ -125,27 +122,19 @@ const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate}) => {
     <div>
       <div className="rates-description">
         <div>
-        <h3>{t["Captcha History"]}</h3>
-      
+          <h3>{t["Captcha History"]}</h3>
 
-        <p className="dates">
-        
-        
+          <p className="dates">
             <ImageSvg name="Reporting" />
-           {t["Results obtained by"]} {startDate} {t["To"]} {endDate}
-       
-        </p>
-
+            {t["Results obtained by"]} {startDate} {t["To"]} {endDate}
+          </p>
         </div>
-       
 
-         <div>
-         <button className="btn_black " onClick={() => exportToExcel()}>
+        <div>
+          <button className="btn_black " onClick={() => exportToExcel()}>
             <ImageSvg name="Download" /> {t.Export}
           </button>
-         </div>
-         
-      
+        </div>
       </div>
 
       {captchaData ? <canvas ref={chartRef} /> : <LoadingComponent />}
