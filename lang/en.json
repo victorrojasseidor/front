@@ -173,8 +173,8 @@
     "Home": "Home",
     "Closing session": "Closing session",
     "Captcha": "Captcha",
-    "Anticaptcha":"Anticaptcha",
-    "Captcha Solver":"Captcha Solver"
+    "Anticaptcha": "Anticaptcha",
+    "Captcha Solver": "Captcha Solver"
   },
   "Products": {
     "Digital employees": "Digital employees",
@@ -563,7 +563,7 @@
   },
   "Captcha": {
     "Captcha solved": "Captcha Solved",
-     "Reporting": "Reporting",
+    "Reporting": "Reporting",
     "Home": "Home",
     "hasta": "Until",
     "Captcha": "Captcha",
@@ -580,7 +580,6 @@
     "Other Dates": "Other Dates",
     "Reports": "Reports",
     "Graphs": "Graphs",
-    "Anticaptcha report": "Anticaptcha report",
     "Results Obtained from Dates": "Results Obtained from Dates",
     "Resolved": "Resolved",
     "Not Resolved": "Not Resolved",
@@ -592,20 +591,28 @@
     "Results obtained by": "Results obtained by",
     "Page": "Page",
     "of": "of",
-    "Sunat standards":"Sunat standards",
-    "Standards":"Standards",
-    "Update date":"Update date",
-    "Sunat register report":"Sunat register report",
-    "There is no data":"There is no data",
+    "Sunat standards": "Sunat standards",
+    "Standards": "Standards",
+    "Update date": "Update date",
+    "Sunat register report": "Sunat register report",
+    "There is no data": "There is no data",
     "From": "From",
-    "To": "To",    
+    "To": "To",
     "Date start": "Date start",
     "Date end": "Date end",
-    "Selected company":"Selected company",
-    "Captcha Solver":"Captcha Solver",
-    "Captcha solve report":"Captcha solve report"
-
-
+    "Selected company": "Selected company",
+    "Captcha Solver": "Captcha Solver",
+    "Captcha solve report": "Captcha solve report",
+    "Captcha solver settings": "Captcha solver settings",
+    "Configure the captcha solver": "Configure the captcha solver",
+    "API key": "API key",
+    "User": "User",
+    "Password": "Password",
+    "Available balance": "Available balance",
+    "Maximum connections": "Maximum connections",
+    "Connected RPA - description": "Connected RPA - description",
+    "Update": "Update",
+    "optional":"optional"
   },
   "Modal": {
     "Your session is about to expire!": "Your session is about to expire!",

@@ -306,8 +306,8 @@
       gap: 1rem;
 
       @include media(desktop) {
-        width: 80%;
-        margin-top: 6rem;
+        // width: 80%;
+        margin: 4rem  0rem;
       }
 
       li {

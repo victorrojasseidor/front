@@ -17,7 +17,7 @@ import Lang from './Atoms/Lang'
 // import Cloud from './Atoms/Cloud'
 
 const LayoutProducts = ({ children, menu }) => {
-  const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
+  // const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
   const [isOpenMobile, setIsOpenMobile] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [margen, setMargen] = useState('0rem')
@@ -31,7 +31,7 @@ const LayoutProducts = ({ children, menu }) => {
   const [isHomeActive, setIsHomeActive] = useState(false)
   const [activeSubmenu, setActiveSubmenu] = useState('')
   const router = useRouter()
-  const { session, modalToken, logout, l, setSession, isLogout, setIsLogout } = useAuth()
+  const { session, modalToken, logout, l, setSession, isLogout, setIsLogout, isMenuLateralOpen, setMenuLateralOpen } = useAuth()
   const { asPath } = useRouter()
   const t = l.header
 

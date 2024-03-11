@@ -9,6 +9,7 @@ import reportMovement from '../../../public/img/report-movement.png'
 import reportBalance from '../../../public/img/report-balance.png'
 import Image from 'next/image'
 import LineChart from '@/Components/Grafics/BarChart'
+import captcha from '../../../public/img/captcha.jpg'
 
 import { fetchConTokenPost } from '@/helpers/fetch'
 
@@ -54,9 +55,7 @@ function index (props) {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout()
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form'
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
         setRequestError(errorMessage)
         setTimeout(() => {
           setRequestError(null)
@@ -102,9 +101,7 @@ function index (props) {
       if (responseData.oAuditResponse.iCode == 1) {
         setRequestError(null)
         const data = responseData.oResults
-        const dataOrderTODate = data?.sort((a, b) =>
-          b.fecha_tipo_cambio.localeCompare(a.fecha_tipo_cambio)
-        )
+        const dataOrderTODate = data?.sort((a, b) => b.fecha_tipo_cambio.localeCompare(a.fecha_tipo_cambio))
         setTodaytype(dataOrderTODate[0])
         setModalToken(false)
       } else if (responseData.oAuditResponse?.iCode === 4) {
@@ -137,149 +134,113 @@ function index (props) {
 
   return (
     <LayoutProducts menu='Reporting'>
-
       <NavigationPages title={t.Reporting}>
-
-        <Link href='/product'>
-          {t.Home}
-        </Link>
-
+        <Link href='/product'>{t.Home}</Link>
       </NavigationPages>
       <section className='reporting'>
         <div className='reporting-box reporting_dashboard'>
-
           <div className='report-content'>
-
             <div className='report red'>
-
               <div className='report_icon  '>
-
                 <ImageSvg name='Bank' />
-
               </div>
 
               <div className='report_data'>
-
-                <article>
-                  {t['Total Banks']}
-
-                </article>
+                <article>{t['Total Banks']}</article>
                 <h2> {dataInitialSelect?.iBanco} </h2>
-                <p> <ImageSvg name='ArrowUp' />   {t['for the companies']}    </p>
+                <p>
+                  {' '}
+                  <ImageSvg name='ArrowUp' /> {t['for the companies']}{' '}
+                </p>
               </div>
-
             </div>
 
             <div className='liner' />
 
             <div className='report green '>
-
               <div className='report_icon  '>
-
                 <ImageSvg name='Account' />
-
               </div>
 
               <div className='report_data'>
-
-                <article>
-                  {t['Total Accounts']}
-
-                </article>
+                <article>{t['Total Accounts']}</article>
                 <h2>{dataInitialSelect?.iConfCuenta} </h2>
-                <p> <ImageSvg name='ArrowUp' />       {t['for the companies']} </p>
+                <p>
+                  {' '}
+                  <ImageSvg name='ArrowUp' /> {t['for the companies']}{' '}
+                </p>
               </div>
-
             </div>
             <div className='liner' />
 
             <div className='report  blue'>
-
               <div className='report_icon  '>
-
                 <ImageSvg name='IconTipo' />
-
               </div>
 
               <div className='report_data'>
-
                 <article>
                   {t['Exchange rate']} ({t.Selling})
-
                 </article>
-                <h2> {todaytype?.tipo_cambio_venta}
-                </h2>
-                <p>  <span> {todaytype && formatearFecha(todaytype?.fecha_tipo_cambio)} </span>  USD     <ImageSvg name='ArrowLeft' />  PEN  </p>
+                <h2> {todaytype?.tipo_cambio_venta}</h2>
+                <p>
+                  {' '}
+                  <span> {todaytype && formatearFecha(todaytype?.fecha_tipo_cambio)} </span> USD <ImageSvg name='ArrowLeft' /> PEN{' '}
+                </p>
               </div>
-
             </div>
-
           </div>
-
         </div>
 
         <div className='reporting_rates'>
-
           <div className='reporting_rates-exchange'>
-
             <LineChart />
-
           </div>
 
           <div className='reporting_rates-menu'>
-
-            <h3>  {t.Reporting} </h3>
+            <h3> {t.Reporting} </h3>
 
             <div className='menu-list'>
-
               <div className='box-option'>
-
                 <div className='image'>
-
                   <Image src={reportBalance} width={500} alt='img-reporting' />
-
                 </div>
 
                 <div>
                   <h4> {t.Balance} </h4>
 
-                  <Link href='/reporting/balance'>
-                    {t['View reporting']}
-                  </Link>
-
+                  <Link href='/reporting/balance'>{t['View reporting']}</Link>
                 </div>
-
               </div>
 
               <div className='box-option'>
-
                 <div className='image'>
-
                   <Image src={reportMovement} width={500} alt='img-reporting' />
-
                 </div>
 
                 <div>
                   <h4> {t.Movement} </h4>
 
-                  <Link href='/reporting/movement'>
-                    {t['View reporting']}
-                  </Link>
-
+                  <Link href='/reporting/movement'>{t['View reporting']}</Link>
                 </div>
-
               </div>
 
+              <div className='box-option'>
+                <div className='image'>
+                  <Image src={captcha} width={500} alt='img-reporting' />
+                </div>
+
+                <div>
+                  <h4> {l.Captcha['Captcha Solver']} </h4>
+
+                  <Link href='/reporting/captcha'>{t['View reporting']}</Link>
+                </div>
+              </div>
             </div>
-
           </div>
-
         </div>
-
       </section>
-
     </LayoutProducts>
-
   )
 }
 

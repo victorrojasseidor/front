@@ -1,0 +1,121 @@
+
+
+.apiconfiguration {
+  padding: 1rem;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  .state {
+    color: get-color(blue_p1);
+  }
+
+  
+
+  .dates-box {
+    padding-top: 1em;
+    display: flex;
+    flex-direction: column;
+    @include media(desktop) {
+      flex-direction: row;
+    }
+  }
+
+  .date {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .modal {
+    z-index: 2;
+    .box-inputs {
+      @include center-container;
+    }
+  }
+}
+
+
+
+.admin {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 2rem;
+
+    &-product {
+      display: flex;
+      flex: 1;
+      height: auto;
+      justify-content: flex-start;
+      flex-direction: column;
+      align-items: flex-start;
+
+      span {
+        color: get-color(black_p2);
+      }
+
+      .state-message {
+        color: get-color(lilac_p3);
+      }
+
+      .report-content {
+        padding: 0rem;
+        justify-content: flex-start;
+        padding: 1rem;
+
+        .report_icon {
+          max-width: 3rem;
+          height: 3rem;
+          padding: 0.75rem;
+        }
+
+        svg {
+          width: 2rem;
+          height: 2rem;
+        }
+
+        span {
+          color: get-color(grey2_s4);
+        }
+      }
+    }
+
+    &-update {
+      @include container;
+      flex: 1.2;
+
+      .content {
+        color: get-color(t1-blue);
+      }
+    }
+
+
+    &-captcha{
+      
+      @include container;
+      .report-content{
+        box-shadow: none ;
+      }
+    }
+
+    .historical {
+        display: flex;
+        // @include container;
+      }
+
+      
+
+    .css-dmmspl-MuiFormGroup-root {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+      z-index: 99999999999;
+    }
+  }
+
+  

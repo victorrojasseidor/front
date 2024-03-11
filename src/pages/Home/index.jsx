@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import user1 from '../../../public/img/testimonials/user1.png'
 import user2 from '../../../public/img/testimonials/user2.png'
 import user3 from '../../../public/img/testimonials/user3.png'
 import user4 from '../../../public/img/testimonials/user4.png'
 import user5 from '../../../public/img/testimonials/user5.png'
+import YouTube from 'react-youtube'
 import Link from 'next/link'
 import Lang from '@/Components/Atoms/Lang'
 import logo from '../../../public/img/logoGift.gif'
@@ -59,6 +60,32 @@ const Home = () => {
   const [rotation, setRotation] = useState(0)
   const [message, setMessage] = useState(null)
   const [showM, setShowM] = useState(false)
+  const [currentVideo, setCurrentVideo] = useState(0)
+
+  const videos = [
+    'r8e364WkJZI',
+    'YCpyaj5MAsM',
+    'SxYz2wPT18Y'
+  ]
+
+  const videoRef = useRef()
+  useEffect(() => {
+    // Puedes utilizar este hook para ejecutar código después de que el componente ha sido montado.
+    // Por ejemplo, puedes reproducir el video aquí.
+    videoRef.current?.internalPlayer.playVideo()
+  }, [currentVideo])
+
+  const changeVideo = (index) => {
+    setCurrentVideo(index)
+  }
+  const opts = {
+    height: '390',
+    width: '640',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
 
   const { l } = useAuth()
   const t = l.home
@@ -268,7 +295,7 @@ const Home = () => {
             <div className='steps-container'>
               <div className='step'>
                 <div className='box-circle'>
-                  <div className='circle' />
+                  <button className='circle' onClick={() => changeVideo(0)} />
                 </div>
 
                 <div className='process'>
@@ -283,8 +310,7 @@ const Home = () => {
 
               <div className='step'>
                 <div className='box-circle'>
-                  <div className='circle' />
-               
+                  <button className='circle' onClick={() => changeVideo(1)} />
                 </div>
 
                 <div className='process'>
@@ -299,7 +325,7 @@ const Home = () => {
 
               <div className='step'>
                 <div className='box-circle'>
-                  <div className='circle' />
+                  <button className='circle' onClick={() => changeVideo(2)} />
                 </div>
 
                 <div className='process'>
@@ -314,15 +340,12 @@ const Home = () => {
             </div>
 
             <figure className='steps-image'>
-
               <div className='container-image'>
 
-              <Image src={logo} alt='image_steps' width={100} height={100} />
+                {videos[currentVideo] && (
+                  <YouTube videoId={videos[currentVideo]} opts={opts} ref={videoRef} />
+                )}
               </div>
-
-        
-             
-
             </figure>
           </div>
         </section>

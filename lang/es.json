@@ -172,9 +172,9 @@
     "Movement": "Movimientos",
     "Home": "Inicio",
     "Closing session": "Cerrando sessión",
-    "Captcha":"Captcha",
-    "Anticaptcha":"Anticaptcha",
-    "Captcha Solver":"Solucionador de captcha"
+    "Captcha": "Captcha",
+    "Anticaptcha": "Anticaptcha",
+    "Captcha Solver": "Solucionador de captcha"
   },
   "Products": {
     "Digital employees": "Empleados digitales",
@@ -337,7 +337,7 @@
     "Activate or deactivate the download of bank statements for this credential": "Activar o desactivar la descarga de estados bancarios de esta credencial",
     "Add": "Agregar",
     "Select the currency": "Selecciona la moneda",
-    "Account Alias":"Alias de la cuenta"
+    "Account Alias": "Alias de la cuenta"
   },
   "Currency": {
     "Digital employees": "Empleados digitales",
@@ -559,15 +559,15 @@
     "October": "Octubre",
     "November": "Noviembre",
     "December": "Diciembre",
-    "Account Alias":"Alias de la cuenta"
+    "Account Alias": "Alias de la cuenta"
   },
-"Captcha": {
-      "Captcha solved": "Captcha Resuelto",
-      "Anticapcha":"Anticaptcha",
+  "Captcha": {
+    "Captcha solved": "Captcha Resuelto",
+    "Anticapcha": "Anticaptcha",
     "hasta": "Hasta",
     "Reporting": "Reportes",
-    "Home":"Inicio",
-    "Captcha":"Captcha",
+    "Home": "Inicio",
+    "Captcha": "Captcha",
     "Resolved Connections": "Conexiones Resueltas",
     "Last Months": "Últimos Meses",
     "Results of the Last 6 Months": "Resultados de los últimos 6 meses",
@@ -581,8 +581,7 @@
     "Other Dates": "Otras fechas",
     "Reports": "Reportes",
     "Graphs": "Gráficos",
-    "Anticaptcha report": "Reporte de Anticaptcha",
-    "Results Obtained from Dates": "Resultado obtenidos de las fechas",
+     "Results Obtained from Dates": "Resultado obtenidos de las fechas",
     "Resolved": "Resuelto",
     "Not Resolved": "No resuelto",
     "Captcha Type": "Tipo de captcha",
@@ -591,22 +590,30 @@
     "Total": "Total",
     "Captcha History": "Historial de Captchas",
     "Results obtained by": "Results obtenidos desde",
-    "Page":"Página",
-    "of":"de",
-    "Sunat register report":"Reporte de padrones de Sunat",
-    "Standards":"Padrones",
-    "Update date":"Fecha de actualización",
-    "There is no data":"No hay datos",
+    "Page": "Página",
+    "of": "de",
+    "Sunat register report": "Reporte de padrones de Sunat",
+    "Standards": "Padrones",
+    "Update date": "Fecha de actualización",
+    "There is no data": "No hay datos",
     "From": "Desde",
     "To": "Hasta",
     "Date start": "Fecha de inicio",
     "Date end": "Fecha fin",
-    "Selected company":"Empresa seleccionada",
-    "Captcha Solver":"Solucionador del Captcha",
-    "Captcha solve report":"Reporte de solucionador del Captcha"
+    "Selected company": "Empresa seleccionada",
+    "Captcha Solver": "Solucionador del Captcha",
+    "Captcha solve report": "Reporte de solucionador del Captcha",
+    "Captcha solver settings": "Configuración del Resolvedor de captchas",
+    "Configure the captcha solver": "Configurar el Resolvedor de captchas",
+    "API key": "Clave de API",
+    "User": "Usuario",
+    "Password": "Contraseña",
+    "Available balance": "Saldo disponible",
+    "Maximum connections": "Conexiones máximas",
+    "Connected RPA - description": "RPA conectado - descripción",
+    "Update":"Actualizar",
+    "optional":"opcional"
   },
-
-
   "Modal": {
     "Your session is about to expire!": "¡Su sesión está a punto de caducar!",
     "Please confirm to refresh your token and continue": "Confirma para actualizar tu token y continuar",
