@@ -536,8 +536,7 @@ const captcha = () => {
               )}
               {activeTab === 1 && (
                 <div className='grafics'>
-                  {/* <CaptchaChart captchaData={dataCaptcha} exportToExcel={exportToExcel} /> */}
-                  <LineCaptcha captchaData={dataCaptcha} exportToExcel={exportToExcel} startDate={startDate} endDate={endDate} />
+                                  <LineCaptcha captchaData={dataCaptcha} exportToExcel={exportToExcel} startDate={startDate} endDate={endDate} />
                 </div>
               )}
             </div>
