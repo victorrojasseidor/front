@@ -1,34 +1,122 @@
 import { useAuth } from '@/Context/DataContext'
 import { useRouter } from 'next/router'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import Button from '../Atoms/Buttons'
 import React, { useState, useEffect } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
-import { IconArrow, IconDate } from '@/helpers/report'
-import dayjs from 'dayjs'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import { formatDate } from '@/helpers/report'
+import LoadingComponent from '../Atoms/LoadingComponent'
+import { fetchConTokenPost } from '@/helpers/fetch'
+import { validateCaptcha } from '@/helpers/validateForms'
 
 export default function CaptchaConfig () {
   const { session, setModalToken, logout, l, idCountry } = useAuth()
   const t = l.Captcha
-  const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'))
-
   const [showPassword, setShowPassword] = useState(false)
-
   const [data, setData] = useState(null)
-  // const [error, setError] = useState(null);
-  const [isEmailFieldEnabled, setEmailFieldEnabled] = useState(true)
-  const [ShowM, setShowM] = useState(false)
-  const [conditions, setConditions] = useState(false)
+  const [requestError, setRequestError] = useState()
+  const [isLoading, setIsLoading] = useState(false)
+  const [updateData, setUpdateData] = useState(false)
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
   }
 
-  const handleEndDateChange = (newValue) => {
-    setEndDate(newValue.format('DD/MM/YYYY'))
+  const router = useRouter()
+  // const iIdProdEnv = router.query.iIdProdEnv
+  // const iId = router.query.iId
+  const idEmpresa = router.query.idEmpresa
+
+  useEffect(() => {
+    GetCaptcha()
+  }, [updateData])
+
+  console.log({ data })
+
+  async function GetCaptcha () {
+    setIsLoading(true)
+
+    const body = {
+      oResults: {
+        iIdEmpresa: Number(idEmpresa),
+        iIdPais: idCountry
+      }
+    }
+
+    try {
+      const token = session?.sToken
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetCaptcha', body, token)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setData(responseData.oResults[0])
+        setModalToken(false)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        setRequestError(errorMessage)
+
+        setTimeout(() => {
+          setRequestError(null)
+        }, 5000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setRequestError(error.message)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 3000)
+    } finally {
+      setIsLoading(false) // Ocultar señal de carga
+    }
+  }
+
+  async function ActualizarServicioCaptcha (values, { setSubmitting, setStatus, resetForm }) {
+    setIsLoading(true)
+
+    const body = {
+      oResults: {
+        iIdEmpresa: Number(idEmpresa),
+        sClaveApi: values?.api,
+        sUser: values?.user,
+        sPassword: values?.password,
+        iConexion: values?.connection,
+        sRpaDesc: values?.descripcion
+      }
+    }
+
+    try {
+      const token = session?.sToken
+      const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarServicioCaptcha', body, token)
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setUpdateData(!updateData)
+        setModalToken(false)
+        setTimeout(() => {
+          resetForm()
+        }, 10000)
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true)
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout()
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
+        setRequestError(errorMessage)
+        setTimeout(() => {
+          setRequestError(null)
+          // setSubmitting(false)
+
+          resetForm()
+        }, 8000)
+      }
+    } catch (error) {
+      console.error('error', error)
+      setRequestError(error.message)
+      setTimeout(() => {
+        setRequestError(null)
+      }, 3000)
+    } finally {
+      setIsLoading(false) // Ocultar señal de carga
+    }
   }
 
   return (
@@ -36,55 +124,63 @@ export default function CaptchaConfig () {
       <div className=''>
         <h3 className='sub'> {t['Captcha solver settings']} </h3>
         <p className='description'> {t['Configure the captcha solver']} </p>
+        {isLoading && <LoadingComponent />}
+
+        {requestError && <div className='requestError'> {requestError}</div>}
 
         <div className='reporting-box '>
           <div className='report-content'>
-            <div className='report red'>
+            <div className='report blue'>
               <div className='report_icon  '>
-                <ImageSvg name='Profile' />
+                <ImageSvg name='Bank' />
               </div>
 
               <div className='report_data'>
                 <article>{t['Available balance']}</article>
-                <h4> 533883.783</h4>
+                <h4>{data?.saldo_disponible}  </h4>
+
+                <p> {t['Update date']}: {formatDate(data?.fecha_modifica)}</p>
               </div>
             </div>
 
-            <div className='report  blue'>
+            <div className='report  green'>
               <div className='report_icon  '>
-                <ImageSvg name='Support' />
+                <ImageSvg name='Admin' />
               </div>
 
               <div className='report_data'>
-                <article>{t['Update date']}</article>
-                <h4> 14/02/2024</h4>
 
-                <p> </p>
+                <article> {l.Apiconfuguration.State}</article>
+
+                {(data?.conexiones_maximas && data?.rpa_conectados && data?.password && data?.api_key_2captcha && data?.usuario)
+                  ? <h4>{l.Apiconfuguration.Configured}</h4>
+                  : <h4 style={{ color: 'red' }}>{l.Apiconfuguration['Not configured']}</h4>}
+
               </div>
             </div>
+
           </div>
         </div>
 
         <div className='content'>
           <Formik
             initialValues={{
-              api: '',
-              user: '',
-              password: '',
-              balance: '',
-              connection: '',
-              descripcion: '',
-              date: ''
+              api: data?.api_key_2captcha || '',
+              user: data?.usuario || '',
+              password: data?.password || '',
+              // balance: data?.saldo_disponible || '',
+              connection: data?.conexiones_maximas || '',
+              descripcion: data?.rpa_conectados || ''
             }}
             validateOnChange
-            //   validate={(values) => validateFormRegister(values, l.validation)}
+            validate={validateCaptcha}
             onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
               // same shape as initial values
-              handleSubmit(values, { setSubmitting, setStatus, resetForm })
+              ActualizarServicioCaptcha(values, { setSubmitting, setStatus, resetForm })
             }}
             enableReinitialize
           >
-            {({ isValid, isSubmitting, status }) => (
+            {({ isValid, isSubmitting, status, resetForm, values }) => (
               <Form className='form-container '>
                 <div className='group'>
                   <div className='input-box'>
@@ -94,7 +190,7 @@ export default function CaptchaConfig () {
                   </div>
 
                   <div className='input-box'>
-                    <Field type='text' name='user' id='user' placeholder=' ' disabled={!isEmailFieldEnabled || isSubmitting} />
+                    <Field type='text' name='user' id='user' placeholder=' ' disabled={isSubmitting} />
                     <label htmlFor='user'>{t.User}</label>
                     <ErrorMessage className='errorMessage' name='user' component='span' />
                   </div>
@@ -117,14 +213,26 @@ export default function CaptchaConfig () {
 
                 <div className='input-box'>
                   <Field type='text' name='descripcion' id='descripcion' placeholder=' ' />
-                  <label htmlFor='descripcion'>{t['Connected RPA - description']} ({t.optional}) </label>
+                  <label htmlFor='descripcion'>
+                    {t['Connected RPA - description']} ({t.optional}){' '}
+                  </label>
 
                   <ErrorMessage className='errorMessage' name='descripcion' component='span' />
                 </div>
 
-                <div className='box-buttons'>
-                  <Button className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => setEmailFieldEnabled(true)} label={isSubmitting ? `${t.Update}${'....'}` : t.Update} />
-                </div>
+                {data?.usuario == values.user && data?.api_key_2captcha == values.api && data?.password == values.password && data?.conexiones_maximas == values.connection && data?.rpa_conectados == values.descripcion
+                  ? <p> </p>
+                  : <div className='box-buttons'>
+
+                    <button type='button' className={isValid ? 'btn_secundary' : 'btn_secundary disabled'} onClick={() => resetForm(false)}>
+                      {t.Cancel}
+                    </button>
+
+                    <button type='submit' className={isValid ? 'btn_primary' : 'btn_primary disabled'}>
+                      {isSubmitting ? `${t.Update}${'....'}` : t.Update}
+                    </button>
+
+                  </div>}
 
                 <div className='contentError'>
                   <div className='errorMessage'>{status}</div>

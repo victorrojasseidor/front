@@ -8,7 +8,7 @@ import user5 from '../../../public/img/testimonials/user5.png'
 import YouTube from 'react-youtube'
 import Link from 'next/link'
 import Lang from '@/Components/Atoms/Lang'
-import logo from '../../../public/img/logoGift.gif'
+import logo from '../../../public/img/logoGiftSF.gif'
 import ImageSvg from '@/helpers/ImageSVG'
 import finance from '../../../public/img/home-finance.png'
 import rrhh from '../../../public/img/home-rrhh.png'
@@ -186,8 +186,8 @@ const Home = () => {
       <header>
         <nav>
           <ul>
-            <div className='imgPerfil_logo'>
-              <Image src={logo} width='100' alt='logo' priority />
+            <div className='logo'>
+              <Image src={logo} width='40' alt='logo' priority />
             </div>
           </ul>
 
@@ -340,12 +340,12 @@ const Home = () => {
             </div>
 
             <figure className='steps-image'>
-              <div className='container-image'>
+              {/* <div className='container-image'>
 
                 {videos[currentVideo] && (
                   <YouTube videoId={videos[currentVideo]} opts={opts} ref={videoRef} />
                 )}
-              </div>
+              </div> */}
             </figure>
           </div>
         </section>

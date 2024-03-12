@@ -9,6 +9,7 @@ import NavigationPages from '@/Components/NavigationPages'
 import Loading from '@/Components/Atoms/Loading'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
+import { string } from 'yup'
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -173,9 +174,9 @@ export default function Products () {
       return 'IconTipo'
     } else if (id === 3) {
       return 'IconSunat'
-    } else if (id === 4) {
-      return 'IconInvoce'
     } else if (id === 5) {
+      return 'IconInvoce'
+    } else if (id === 4) {
       return 'IconCaptcha'
     } else if (id === 6) {
       return 'IconImage'
@@ -198,14 +199,16 @@ export default function Products () {
     return diasRestantes
   }
 
-  const renderButtons = (data) => {
-    const handleLink = (ruta) => {
-      router.push(ruta)
-    }
+  const handleLink = (ruta) => {
+    router.push(ruta)
+  }
 
+  const renderButtons = (data) => {
+    
     const dayLef = parseInt(calcularDiasRestantes(data.sDateEnd), 10)
 
     const status = data.iCodeStatus
+
     if (status === 28 && dayLef >= 0) {
       return (
         <button
@@ -300,7 +303,7 @@ export default function Products () {
 
           <div className='welcome'>
             <h1> <span> {t.Welcome}
-                 </span>{empresa?.razon_social_empresa}
+            </span>{empresa?.razon_social_empresa}
             </h1>
             <p>  {t['Our digital employees work to improve your productivity']}</p>
 
@@ -430,7 +433,11 @@ export default function Products () {
 
           <ul>
             {searchResults.length > 0 && searchResults.map((product) => (
-              <li key={product.iId} className='card financy'>
+              <li
+                key={product.iId}
+                className={`card ${product.sCodeClasificacion === String('CLA_01') ? 'financy' : product.sCodeClasificacion === String('CLA_02') ? 'tecnology' : product.sCodeClasificacion === String('CLA_03') ? 'human' : ''}`}
+
+              >
 
                 <span className='card_type'>
                   {product.sClasificacion}
@@ -475,7 +482,18 @@ export default function Products () {
                       {product.sDescStatus}
                     </p>
 
-                    {renderButtons(product)}
+                    {
+                      product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28)
+                        ? <button
+                            className='btn_primary'
+                            onClick={() => handleLink('/reporting/Captcha')}
+                          >
+
+                          <span>     {l.Reporting.Reporting}  </span>
+
+                        </button>
+                        : renderButtons(product)
+                    }
 
                   </div>
 
@@ -507,7 +525,7 @@ export default function Products () {
                 <div className='box-img'>
                   <div className='type_icon'>
 
-                    <ImageSvg name={imgProduct(4)} />
+                    <ImageSvg name={imgProduct(3)} />
                   </div>
 
                 </div>
@@ -545,7 +563,7 @@ export default function Products () {
                 <div className='box-img'>
                   <div className='type_icon'>
 
-                    <ImageSvg name={imgProduct(4)} />
+                    <ImageSvg name={imgProduct(7)} />
                   </div>
 
                 </div>
@@ -562,7 +580,7 @@ export default function Products () {
               </div>
             </li>
 
-            <li className='card tecnology' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_02' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
+            {/* <li className='card tecnology' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_02' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
 
               <span className='card_type'>
                 {t.Technology}
@@ -595,7 +613,7 @@ export default function Products () {
                 </div>
 
               </div>
-            </li>
+            </li> */}
 
             <li className='card tecnology' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_02' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
 
@@ -652,7 +670,7 @@ export default function Products () {
                 <div className='box-img'>
                   <div className='type_icon'>
 
-                    <ImageSvg name={imgProduct(4)} />
+                    <ImageSvg name={imgProduct(5)} />
                   </div>
 
                 </div>

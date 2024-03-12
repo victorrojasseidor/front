@@ -342,8 +342,16 @@
 
 .errorMessage {
   color: get-color(t3-red) !important;
-
+//  background-color: rbga(get-color(t3-red), 0.1);
+//  padding: 1rem 0rem;
   font-size: small;
+}
+
+.requestError{
+  color: get-color(t3-red);
+   background-color: rbga(get-color(t3-red), 0.1);
+   padding: 1rem 0rem;
+
 }
 
 .date {

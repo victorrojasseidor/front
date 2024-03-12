@@ -251,7 +251,8 @@
     "Contract": "Contrato",
     "Other": "Otros",
     "Free trial contract": "Contrato de prueba gratuita",
-    "Contract number": "Número de contrato"
+    "Contract number": "Número de contrato",
+    "Not configured":"No Configurado"
   },
   "Download": {
     "Digital employees": "Empleados digitales",
@@ -612,7 +613,8 @@
     "Maximum connections": "Conexiones máximas",
     "Connected RPA - description": "RPA conectado - descripción",
     "Update":"Actualizar",
-    "optional":"opcional"
+    "optional":"opcional",
+    "Cancel": "Cancelar"
   },
   "Modal": {
     "Your session is about to expire!": "¡Su sesión está a punto de caducar!",
@@ -646,7 +648,9 @@
     "Select origin currency": "Seleccionar moneda de origen",
     "Select destination currency": "Seleccionar moneda de destino",
     "Currency cannot be equeal": "Las monedas no pueden ser iguales",
-    "Select a different currency": "Seleccionar una moneda diferente"
+    "Select a different currency": "Seleccionar una moneda diferente",
+    "This value is required":"Este valor es necesario"
+    
   },
   "dev": "deven ingles",
   "buttonLenguaje": "Cambiar idioma"

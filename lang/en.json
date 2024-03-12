@@ -251,7 +251,8 @@
     "Contract": "Contract",
     "Contract number": "Contract number",
     "Other": "Other",
-    "Free trial contract": "Free trial contract"
+    "Free trial contract": "Free trial contract",
+    "Not configured":"Not configured"
   },
   "Download": {
     "Digital employees": "Digital employees",
@@ -612,7 +613,8 @@
     "Maximum connections": "Maximum connections",
     "Connected RPA - description": "Connected RPA - description",
     "Update": "Update",
-    "optional":"optional"
+    "optional":"optional",
+    "Cancel": "Cancel"
   },
   "Modal": {
     "Your session is about to expire!": "Your session is about to expire!",
@@ -646,6 +648,7 @@
     "Select origin currency": "Select origin currency",
     "Select destination currency": "Select destination currency",
     "Currency cannot be equeal": "Currency cannot be equeal",
-    "Select a different currency": "Select a different currency"
+    "Select a different currency": "Select a different currency",
+    "This value is required":"This value is required"
   }
 }

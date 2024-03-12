@@ -9,6 +9,14 @@
     background-size: cover;
   }
 
+  .logo{
+    img{
+      width: 7rem;
+      border-radius: brd(2);
+      height: auto;
+    }
+  }
+
   .subtitle {
     font-size: 45px;
     @include center-container;
@@ -19,11 +27,12 @@
   }
 
   nav {
-    padding: 2rem;
+    padding: 1rem 2rem;
 
     @include center-container;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     ul {
       @include center-container;
@@ -72,9 +81,16 @@
     position: relative;
 
     .subtitle {
-      font-size: 3.6rem;
-
+      font-size: 2.5rem;
+      padding-top: 0rem;
       color: get-color(white_s1);
+
+      @include media(tablet) {
+        font-size: 3rem;
+      }
+      @include media(desktop) {
+        font-size: 3.2rem;
+      }
     }
 
     .welcome {
@@ -84,6 +100,10 @@
       gap: 1rem;
 
       @include media(tablet) {
+        width: 80%;
+      }
+
+      @include media(desktop) {
         width: 50%;
       }
 
@@ -133,6 +153,10 @@
       background-position: top;
       margin-right: -3rem;
       @include media(tablet) {
+        width: 50%;
+      }
+
+      @include media(desktop) {
         width: 80%;
       }
     }
@@ -143,16 +167,16 @@
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    gap: 3rem;
+    gap: 2rem;
     background-image: url("../../../public/img/testimonials/map.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    margin-top: 4rem;
+    margin-top: 1rem;
 
     @include media(tablet) {
-      margin-top: 0rem;
-      height: 90vh;
+      margin-top: 4rem;
+      height: 100%;
     }
   }
 
