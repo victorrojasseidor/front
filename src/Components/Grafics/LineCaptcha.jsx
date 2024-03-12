@@ -137,7 +137,8 @@ const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate }) => {
         </div>
       </div>
 
-      {captchaData ? <canvas ref={chartRef} /> : <LoadingComponent />}
+      
+      {captchaData.length>0  && <canvas ref={chartRef}/>  }
     </div>
   );
 };
