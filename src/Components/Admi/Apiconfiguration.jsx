@@ -41,7 +41,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
   const pStatus = product?.iCodeStatus
 
-  console.log({ product })
+
 
   async function getDataProduct () {
     setIsLoading(true)

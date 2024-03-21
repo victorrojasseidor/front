@@ -239,15 +239,7 @@ export const validateCaptcha = (values) => {
   if (!values.user) {
     errors.user = t['This value is required']
   }
-  if (!values.password) {
-    errors.password = t['This value is required']
-  }
-  if (!values.api) {
-    errors.api = t['This value is required']
-  }
-  if (!values.connection) {
-    errors.connection = t['This value is required']
-  }
+  
 
   return errors
 }

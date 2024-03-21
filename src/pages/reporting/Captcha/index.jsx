@@ -23,6 +23,8 @@ import * as XLSX from 'xlsx'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 import LineCaptcha from '@/Components/Grafics/LineCaptcha'
 
+
+
 const captcha = () => {
   const [activeTab, setActiveTab] = useState(0)
   const { session, setModalToken, logout, l, idCountry } = useAuth()
@@ -46,7 +48,6 @@ const captcha = () => {
 
     return `${mes}-${partes[1]}`
   }
-
 
   const rangeDateSelect = (duration) => {
     const endDate = dayjs()
@@ -89,17 +90,13 @@ const captcha = () => {
     setSelectedCompany(selectCompanyValue)
   }
 
-  const sumCaptchaResolved = (data) => (Array.isArray(data) ? data.reduce((total, entry) => total + entry.captcha_resolved, 0) : 0)
+  const sumCaptchaResolved = (data, key) => (Array.isArray(data) ? data.reduce((total, entry) => total + entry[key], 0) : 0)
 
   if (dataCaptcha) {
     sumCaptchaResolved(dataCaptcha)
   }
 
-  // function filterDataByIdEmpresa (data, idEmpresa) {
-  //   const datasuma = data.filter((company) => company.id_empresa === idEmpresa)
-  //   setDataSumary(datasuma[0])
-  // }
-
+ 
   useEffect(() => {
     GetCabeceraCaptcha()
   
@@ -112,7 +109,6 @@ const captcha = () => {
   }, [selectedCompany , startDate, endDate])
 
 
-  
 
   async function GetCabeceraCaptcha () {
     setIsLoading(true)
@@ -208,7 +204,7 @@ const captcha = () => {
     }
   }
 
-  // console.log(startDate, endDate)
+
 
   const formatDate = (date) => {
     // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
@@ -226,7 +222,7 @@ const captcha = () => {
 
   const exportToExcel = () => {
     if (dataCaptcha && dataCaptcha.length > 0) {
-      const filteredData = dataCaptcha.map((row) => ({
+      const filteredData = dataCaptcha?.map((row) => ({
         // Date: formatDate(row.fecha),
         fecha: row.fecha,
         Resuelto: row.captcha_resolved,
@@ -311,7 +307,7 @@ const captcha = () => {
                 </div>
 
                 <div className='report_data'>
-                  <article>{t['Resolved Connections']}</article>
+                  <article>{t['Connections']}</article>
 
                   <h3> {dataSumary?.captcha_conexion_until_now} </h3>
 
@@ -340,7 +336,7 @@ const captcha = () => {
                       <tr>
                         <th>{t.Date} </th>
                         <th> {t['Captcha solved']}</th>
-                        <th> {t['Resolved Connections']}</th>
+                        <th> {t['Connections']}</th>
                       </tr>
                     </thead>
 
@@ -404,7 +400,7 @@ const captcha = () => {
                     components={{
                       OpenPickerIcon: IconDate,
                       CalendarIcon: IconDate
-                    }}
+                   }}
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </LocalizationProvider>
@@ -477,7 +473,7 @@ const captcha = () => {
                               <th> {t.Resolved}</th>
                               <th> {t['Not Resolved']}</th>
                               <th> {t['Captcha Type']}</th>
-                              <th> {t['IP Address']}</th>
+                              <th> {t['Connections']}</th>
                             </tr>
                           </thead>
 
@@ -490,7 +486,7 @@ const captcha = () => {
                                       <td>{row.captcha_resolved} </td>
                                       <td>{row.captcha_not_resolved}</td>
                                       <td>{row.captcha_type}</td>
-                                      <td>{row.ip_address}</td>
+                                      <td>{row.captcha_conexion_until_now}</td>
                                     </tr>
                                   ))
                                 )
@@ -526,7 +522,18 @@ const captcha = () => {
 
                           <div className='report_data'>
                             <article>{t['Captcha solved']}</article>
-                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha)}</h3>
+                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha,"captcha_resolved")}</h3>
+                          </div>
+                        </div>
+
+                        <div className='report blue'>
+                          <div className='report_icon  '>
+                            <ImageSvg name='IconCaptcha' />
+                          </div>
+
+                          <div className='report_data'>
+                            <article>{t['Connections']}</article>
+                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha, "captcha_conexion_until_now")}</h3>
                           </div>
                         </div>
                       </div>
@@ -536,7 +543,7 @@ const captcha = () => {
               )}
               {activeTab === 1 && (
                 <div className='grafics'>
-                                  <LineCaptcha captchaData={dataCaptcha} exportToExcel={exportToExcel} startDate={startDate} endDate={endDate} />
+                <LineCaptcha captchaData={dataCaptcha} exportToExcel={exportToExcel} startDate={startDate} endDate={endDate} />
                 </div>
               )}
             </div>

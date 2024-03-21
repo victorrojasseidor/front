@@ -30,7 +30,7 @@ export default function CaptchaConfig () {
     GetCaptcha()
   }, [updateData])
 
-  console.log({ data })
+  
 
   async function GetCaptcha () {
     setIsLoading(true)
@@ -85,9 +85,11 @@ export default function CaptchaConfig () {
       }
     }
 
+    
     try {
       const token = session?.sToken
       const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarServicioCaptcha', body, token)
+         
       if (responseData.oAuditResponse?.iCode === 1) {
         setUpdateData(!updateData)
         setModalToken(false)
@@ -137,27 +139,14 @@ export default function CaptchaConfig () {
 
               <div className='report_data'>
                 <article>{t['Available balance']}</article>
-                <h4>{data?.saldo_disponible}  </h4>
+                <h4>  {data?.saldo_disponible} $ </h4>
 
-                <p> {t['Update date']}: {formatDate(data?.fecha_modifica)}</p>
+                <p> {t['Update date']}: <span>{formatDate(data?.fecha)}
+                  </span> </p>
               </div>
             </div>
 
-            <div className='report  green'>
-              <div className='report_icon  '>
-                <ImageSvg name='Admin' />
-              </div>
-
-              <div className='report_data'>
-
-                <article> {l.Apiconfuguration.State}</article>
-
-                {(data?.conexiones_maximas && data?.rpa_conectados && data?.password && data?.api_key_2captcha && data?.usuario)
-                  ? <h4>{l.Apiconfuguration.Configured}</h4>
-                  : <h4 style={{ color: 'red' }}>{l.Apiconfuguration['Not configured']}</h4>}
-
-              </div>
-            </div>
+            
 
           </div>
         </div>
@@ -167,7 +156,7 @@ export default function CaptchaConfig () {
             initialValues={{
               api: data?.api_key_2captcha || '',
               user: data?.usuario || '',
-              password: data?.password || '',
+              password: null,
               // balance: data?.saldo_disponible || '',
               connection: data?.conexiones_maximas || '',
               descripcion: data?.rpa_conectados || ''
@@ -200,7 +189,7 @@ export default function CaptchaConfig () {
                       <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
                     </span>
                     <Field type={showPassword ? 'text' : 'password'} id='password' name='password' placeholder=' ' disabled={isSubmitting} />
-                    <label htmlFor='password'>{t.Password}</label>
+                    <label htmlFor='password'>{t["Update password"]}</label>
                     <ErrorMessage className='errorMessage' name='password' component='span' />
                   </div>
 
@@ -220,7 +209,7 @@ export default function CaptchaConfig () {
                   <ErrorMessage className='errorMessage' name='descripcion' component='span' />
                 </div>
 
-                {data?.usuario == values.user && data?.api_key_2captcha == values.api && data?.password == values.password && data?.conexiones_maximas == values.connection && data?.rpa_conectados == values.descripcion
+                {data?.usuario == values.user && data?.api_key_2captcha == values.api &&  !values.password && data?.conexiones_maximas == values.connection && data?.rpa_conectados == values.descripcion
                   ? <p> </p>
                   : <div className='box-buttons'>
 
