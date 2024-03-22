@@ -118,6 +118,7 @@ export default function Register () {
         >
           {({ isValid, isSubmitting, status }) => (
             <Form className='form-container'>
+
               <div className='input-box'>
                 <Field type='text' id='name' name='name' placeholder=' ' autoComplete='off' disabled={isSubmitting} />
                 <label htmlFor='name'>{t.Name}</label>
@@ -148,6 +149,7 @@ export default function Register () {
                   {t['Confirm password']}
                 </label>
                 <ErrorMessage className='errorMessage' name='confirmPassword' component='span' />
+
               </div>
 
               <div className='input-box'>

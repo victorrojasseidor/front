@@ -43,10 +43,31 @@ const Home = () => {
   const gifRef = useRef(null);
   const router = useRouter();
 
+
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-    }); // Inicializa AOS
+    // Verifica si window está definido antes de agregar el event listener
+    if (typeof window !== undefined) {
+      const handleScroll = () => {
+        if (gifRef.current) {
+          const rect = gifRef.current.getBoundingClientRect();
+          const isVisible =
+            rect.top < window.innerHeight && rect.bottom >= 0;
+          setIsGifSectionInView(isVisible);
+        }
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
+
+   useEffect(() => {
+    // Inicializa AOS solo si window está definido
+    if (typeof window !== undefined) {
+      AOS.init({
+        duration: 1000,
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -59,18 +80,7 @@ const Home = () => {
     return () => clearInterval(intervalId);
   }, [isGifSectionInView, gifs.length]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (gifRef.current) {
-        const rect = gifRef.current.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
-        setIsGifSectionInView(isVisible);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+ 
 
   const { l } = useAuth();
   const t = l.home;
