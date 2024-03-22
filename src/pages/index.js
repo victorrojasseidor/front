@@ -1,7 +1,7 @@
 'use client'
 import Head from 'next/head'
 import { useAuth } from '@/Context/DataContext'
-import Home from './home/Home'
+import Register from '@/pages/register'
 
 export default function Inicio () {
   const { l } = useAuth()
@@ -27,7 +27,7 @@ export default function Inicio () {
         <meta name='theme-color' content='#ffffff' />
       </Head>
       <body>
-        <Home />
+        <Register />
       </body>
     </>
   )
