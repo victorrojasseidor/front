@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
-
 import logo from '../../public/img/logoGift.gif'
-import ari from '../../public/img/ari.gif'
+import ari from '../../public/img/ari.png'
 
 import Image from 'next/image'
 import Modal from './Modal'
