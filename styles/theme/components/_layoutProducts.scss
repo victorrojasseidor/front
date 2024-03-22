@@ -82,22 +82,25 @@
 
       .imgPerfil {
         display: none;
-        @include media(tablet) {
-          display: flex;
-          flex-direction: row;
+
+        flex-direction: row;
           position: relative;
           display: flex;
           justify-content: center;
           align-items: center;
           width: 100%;
-
           &_logo {
             img {
               height: 100px;
               width: auto;
               padding-top: 2rem;
+
               }
           }
+
+        @include media(tablet) {
+          display: flex;
+                    
         }
       }
     }

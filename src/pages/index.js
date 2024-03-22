@@ -1,9 +1,9 @@
 'use client'
-import Register from '@/pages/register'
 import Head from 'next/head'
 import { useAuth } from '@/Context/DataContext'
+import Register from '@/pages/register'
 
-export default function Home () {
+export default function Inicio () {
   const { l } = useAuth()
 
   const t = l.login

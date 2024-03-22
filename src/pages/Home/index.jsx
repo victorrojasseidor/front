@@ -1,772 +1,464 @@
-import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
-import user1 from '../../../public/img/testimonials/user1.png'
-import user2 from '../../../public/img/testimonials/user2.png'
-import user3 from '../../../public/img/testimonials/user3.png'
-import user4 from '../../../public/img/testimonials/user4.png'
-import user5 from '../../../public/img/testimonials/user5.png'
-import Link from 'next/link'
-import Lang from '@/Components/Atoms/Lang'
-import logo from '../../../public/img/logoGift.gif'
-import ImageSvg from '@/helpers/ImageSVG'
-import finance from '../../../public/img/home-finance.png'
-import rrhh from '../../../public/img/home-rrhh.png'
-import support from '../../../public/img/home-support.png'
-import cloud from '../../../public/img/testimonials/cloud.png'
-import drive from '../../../public/img/testimonials/drive.png'
-import uipath from '../../../public/img/testimonials/uipath.png'
-import sap from '../../../public/img/testimonials/sap.png'
-import ftp from '../../../public/img/testimonials/ftp.png'
-import { Formik, Field, ErrorMessage, Form } from 'formik'
-import { validateFormRegister } from '@/helpers/validateForms'
-import { useAuth } from '@/Context/DataContext'
-import Modal from '@/Components/Modal'
-import { motion, useAnimation } from 'framer-motion'
+import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import user1 from "../../../public/img/testimonials/user1.png";
+import user2 from "../../../public/img/testimonials/user2.png";
+import user3 from "../../../public/img/testimonials/user3.png";
+import user4 from "../../../public/img/testimonials/user4.png";
+import user5 from "../../../public/img/testimonials/user5.png";
+import gif1 from "../../../public/img/video/gif1.gif";
+import gif2 from "../../../public/img/video/gif2.gif";
+import gif3 from "../../../public/img/video/gif3.gif";
+import Link from "next/link";
+import Lang from "@/Components/Atoms/Lang";
+import LogoOscuro from "../../../public/img/logoOscuro.png";
 
-const AnimatedSection = ({ children }) => {
-  const controls = useAnimation()
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY || window.pageYOffset
-
-      // Ajusta estos valores según la posición en la página que desees para activar la animación
-      const triggerPosition = 500
-      const fadeOutDistance = 100
-
-      // Calcula la opacidad en función de la posición de desplazamiento
-      const opacity = Math.max(0, 1 - (scrollY - triggerPosition) / fadeOutDistance)
-
-      // Ajusta el desplazamiento en el eje x
-      const randomX = Math.floor(Math.random() * 30) - 50
-
-      controls.start({ opacity, x: randomX })
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [controls])
-
-  return (
-    <motion.section
-      initial={{ opacity: 1, x: 0 }}
-      animate={controls}
-      transition={{ duration: 0.5 }}
-    >
-      {children}
-    </motion.section>
-  )
-}
+import woman from "../../../public/img/contact-woman.png";
+import ImageSvg from "@/helpers/ImageSVG";
+import finance from "../../../public/img/home-finance.png";
+import rrhh from "../../../public/img/home-rrhh.png";
+import support from "../../../public/img/home-support.png";
+import cloud from "../../../public/img/testimonials/cloud.png";
+import drive from "../../../public/img/testimonials/drive.png";
+import uipath from "../../../public/img/testimonials/uipath.png";
+import sap from "../../../public/img/testimonials/sap.png";
+import ftp from "../../../public/img/testimonials/ftp.png";
+import { Formik, Field, ErrorMessage, Form } from "formik";
+import { validateFormRegister } from "@/helpers/validateForms";
+import { useAuth } from "@/Context/DataContext";
+import Modal from "@/Components/Modal";
+import { motion, useAnimation } from "framer-motion";
+import AOS from "aos"; // Importa AOS aquí
+import "aos/dist/aos.css";
+import Counter from "@/Components/Atoms/Counter";
+import { useRouter } from "next/router";
 
 const Home = () => {
-  const [selectImage, setSelectImage] = useState(null)
-  const [rotation, setRotation] = useState(0)
-  const [message, setMessage] = useState(null)
-  const [showM, setShowM] = useState(false)
+  const [selectImage, setSelectImage] = useState(null);
+  const [rotation, setRotation] = useState(0);
+  const [message, setMessage] = useState(null);
+  const [showM, setShowM] = useState(false);
+  const [isGifSectionInView, setIsGifSectionInView] = useState(false);
+  const [currentGif, setCurrentGif] = useState(0);
+  const gifs = [gif1, gif2, gif3];
+  const gifRef = useRef(null);
+  const router = useRouter();
 
-  const { l } = useAuth()
-  const t = l.home
+
+  useEffect(() => {
+    // Verifica si window está definido antes de agregar el event listener
+    if (typeof window !== undefined) {
+      const handleScroll = () => {
+        if (gifRef.current) {
+          const rect = gifRef.current.getBoundingClientRect();
+          const isVisible =
+            rect.top < window.innerHeight && rect.bottom >= 0;
+          setIsGifSectionInView(isVisible);
+        }
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
+
+   useEffect(() => {
+    // Inicializa AOS solo si window está definido
+    if (typeof window !== undefined) {
+      AOS.init({
+        duration: 1000,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (isGifSectionInView) {
+        setCurrentGif((prevGif) => (prevGif + 1) % gifs.length);
+      }
+    }, 17000); // Cambia cada 6 segundos
+
+    return () => clearInterval(intervalId);
+  }, [isGifSectionInView, gifs.length]);
+
+ 
+
+  const { l } = useAuth();
+  const t = l.home;
+
+  const demoSectionRef = useRef(null);
 
   const testimonials = [
     {
       id: 1,
-      name: 'Ana Perez',
-      position: 'CEO',
-      testimony: 'Incredible service! I am very satisfied with the customer service and the quality of the products.',
-      image: user1
+      name: "Ana Perez",
+      position: "CEO",
+      testimony: "Incredible service! I am very satisfied with the customer service and the quality of the products.",
+      image: user1,
     },
     {
       id: 2,
-      name: 'Carlos Gomez',
-      position: 'Senior Developer',
-      testimony: 'Ari Seidor has exceeded my expectations. Their professional team truly knows how to provide effective solutions.',
-      image: user2
+      name: "Carlos Gomez",
+      position: "Senior Developer",
+      testimony: "Ari Seidor has exceeded my expectations. Their professional team truly knows how to provide effective solutions.",
+      image: user2,
     },
     {
       id: 3,
-      name: 'Maria Rodriguez',
-      position: 'Graphic Designer',
-      testimony: 'I have tried several similar services, but Ari Seidor stands out for its innovation and efficiency.',
-      image: user3
+      name: "Maria Rodriguez",
+      position: "Graphic Designer",
+      testimony: "I have tried several similar services, but Ari Seidor stands out for its innovation and efficiency.",
+      image: user3,
     },
     {
       id: 4,
-      name: 'Juan Lopez',
-      position: 'Data Analyst',
-      testimony: 'Personalized attention and quick delivery make Ari Seidor the best option in the market.',
-      image: user4
+      name: "Juan Lopez",
+      position: "Data Analyst",
+      testimony: "Personalized attention and quick delivery make Ari Seidor the best option in the market.",
+      image: user4,
     },
     {
       id: 5,
-      name: 'Laura Fernandez',
-      position: 'Marketing Manager',
-      testimony: 'My experience with Ari Seidor has been exceptional. I will definitely recommend their services to my friends.',
-      image: user5
-    }
-  ]
+      name: "Laura Fernandez",
+      position: "Marketing Manager",
+      testimony: "My experience with Ari Seidor has been exceptional. I will definitely recommend their services to my friends.",
+      image: user5,
+    },
+  ];
 
   const changeImage = () => {
-    const nextIndex = (selectImage ? selectImage.id : 0) % testimonials.length
-    setSelectImage(testimonials[nextIndex])
-    setRotation(rotation + (360 / testimonials.length))
-  }
+    const nextIndex = (selectImage ? selectImage.id : 0) % testimonials.length;
+    setSelectImage(testimonials[nextIndex]);
+    setRotation(rotation + 360 / testimonials.length);
+  };
 
   const handleChangemessage = (event) => {
-    setMessage(event.target.value)
-  }
+    setMessage(event.target.value);
+  };
 
   useEffect(() => {
-    const intervalId = setInterval(changeImage, 2000)
+    const intervalId = setInterval(changeImage, 2000);
 
-    return () => clearInterval(intervalId)
-  }, [selectImage, rotation, testimonials])
-
-  async function handleSubmit (values, { setSubmitting, setStatus, resetForm }) {
-    const dataRegister = {
-      oResults: {
-        sUserName: values.name,
-        sEmail: values.corporateEmail,
-        sPassword: values.confirmPassword
-      }
-    }
-
-    // try {
-    //   const responseData = await fetchNoTokenPost('General/?Accion=RegistrarUsuarioInit', dataRegister && dataRegister)
-    //   if (responseData.oAuditResponse?.iCode === 1) {
-    //     setData(dataRegister)
-    //     setShowM(true)
-    //     setStatus(null)
-    //     setTimeout(() => {
-    //       resetForm()
-    //     }, 10000)
-    //   } else {
-    //     const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-    //     setShowM(false)
-    //     setStatus(errorMessage)
-    //     setSubmitting(false)
-    //     setEmailFieldEnabled(true)
-    //     setTimeout(() => {
-    //       resetForm()
-    //     }, 100000)
-    //   }
-    // } catch (error) {
-    //   console.error('error', error)
-    //   setStatus('Service error')
-    //   setTimeout(() => {
-    //     resetForm()
-    //   }, 60000)
-    // }
-  }
+    return () => clearInterval(intervalId);
+  }, [selectImage, rotation, testimonials]);
 
   return (
-    <div className='home'>
-
+    <div className="home">
       <header>
         <nav>
           <ul>
-
-            <div className='imgPerfil_logo'>
-
-              <Image src={logo} width='100' alt='logo' priority />
+            <div className="logo" data-aos="zoom-in">
+              <Image src={LogoOscuro} width="500" alt="logoOscuro" priority />
             </div>
           </ul>
 
           <ul>
-
-            <div className='languajes-box'>
-
+            <div className="languajes-box">
               <Lang />
-
             </div>
 
             <li>
-              <Link href='/'>
-                {t.Login}
-              </Link>
+              <Link href="/login">{t.Login}</Link>
             </li>
 
             <li>
-              <button className='btn_black'>
-                {t['Sing in']}
-              </button>
-
+              <button className="btn_black" onClick={() => router.push("/register")} >{t["Sign up"]}</button>
             </li>
-
           </ul>
         </nav>
       </header>
 
-      <main className='box-home container'>
+      <main className="box-home container">
+        <section className="home-front">
+          <div className="welcome">
+            <h1 className="subtitle">{t["Optimize your Business Efficiency"]}</h1>
+            <p> {t["Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence"]}</p>
 
-        <section className='home-front'>
+            <div className="welcome-actions">
+              <button className="btn_secundary small" onClick={() => router.push("https://www.seidor.com/es-pe/contacto")}> {t["Try free trial"]} </button>
+              <button className="record"  onClick={() =>demoSectionRef.current.scrollIntoView({ behavior: 'smooth' })}>
+                <ImageSvg name="Record" />
 
-          <div className='welcome'>
-            <h1 className='subtitle'>{t['Optimize your Business Efficiency']}</h1>
-            <p> {t['Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence']}</p>
-
-            <div className='welcome-actions'>
-              <button className='btn_primary small'> {t['Try free trial']} </button>
-              <button className='record'>
-
-                <ImageSvg name='Record' />
-
-                {t['View Demo']}
-
+                {t["View Demo"]}
               </button>
             </div>
 
-            <div className='account'> {t['You still don\'t have an account?']}  <Link href='/register'> {t['Sign In']}</Link></div>
-
+            <div className="account">
+              {t["You still don't have an account?"]} <Link href="/register"> {t["Sign up"]}</Link>
+            </div>
           </div>
 
-          <div className='image-container'> </div>
-
+          <div data-aos="zoom-in-left" className="image-container">
+            {" "}
+          </div>
         </section>
 
-        <section className='home-client'>
-          <div className='subtitle'>
-            <h1> {t['What our client think about us?']} </h1>
-
+        <section className="home-client">
+          <div >
+            <h1 className="subtitle" style={{textAlign:"right"}}> {t["What our client think about us?"]} </h1>
           </div>
-          <div className='testimonials-container'>
-            <div className='container-img' style={{ transform: `rotate(${rotation}deg)` }}>
+          <div className="testimonials-container">
+            <div className="container-img" style={{ transform: `rotate(${rotation}deg)` }}>
               {testimonials.map((testimonial, index) => (
                 <div
                   key={testimonial.id}
-                  className='image-container'
+                  className="image-container"
                   style={{
                     transform: `rotate(${index * (360 / testimonials.length) + rotation}deg) translateX(150px) translateY(-50%)`,
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transformOrigin: 'center center',
-                    width: '100px',
-                    height: '100px',
-                    marginLeft: '-50px',
-                    marginTop: '-50px',
-                    transition: 'transform 1s ease'
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transformOrigin: "center center",
+                    width: "100px",
+                    height: "100px",
+                    marginLeft: "-50px",
+                    marginTop: "-50px",
+                    transition: "transform 1s ease",
                   }}
                 >
                   <button onClick={() => setSelectImage(testimonial)}>
-                    <Image
-                      className={selectImage && selectImage.id === testimonial.id ? 'active' : ''}
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      width={100}
-                      height={100}
-                    />
+                    <Image className={selectImage && selectImage.id === testimonial.id ? "active" : ""} src={testimonial.image} alt={testimonial.name} width={100} height={100} />
                   </button>
                 </div>
               ))}
             </div>
 
             {selectImage && (
-
-              <div className='testimony'>
-
-                <div className='testimony-img'>
+              <div className="testimony">
+                <div className="testimony-img">
                   <button>
-                    <Image
-                      className='active'
-                      src={selectImage.image}
-                      alt={selectImage.name}
-                      width={100}
-                      height={100}
-                    />
+                    <Image className="active" src={selectImage.image} alt={selectImage.name} width={100} height={100} />
                   </button>
                 </div>
-                <div className='testimony-message'>
+                <div className="testimony-message">
                   <p>{selectImage.testimony}</p>
                   <h3>{selectImage.name}</h3>
                   <span>{selectImage.position}</span>
                 </div>
-
               </div>
             )}
           </div>
         </section>
 
-        <section className='home-how container'>
+        <section ref={gifRef} className="home-how container">
+          <div className="home-how-description">
+            <div className="discover">
+              <p>{t["Discover our automation process"]}</p>
 
-          <div className='home-how-description'>
+              <h1 className="subtitle">{t["How do we do it?"]}</h1>
 
-            <div className='discover'>
-              <p>
-                {t['Discover our automation process']}
-              </p>
+              <p>{t["ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes"]}</p>
+            </div>
+          </div>
 
-              <h1 className='subtitle'>
-                {t['How do we do it?']}
-              </h1>
+          <div className="home-how-steps">
+            <div className="steps-container" ref={demoSectionRef}>
+              <div className={`step ${currentGif === 0 ? "active" : ""}`}>
+                <div className="box-circle">
+                <span>1</span>
+                  <button className="circle" onClick={() => setCurrentGif(0)} />
+                </div>
 
-              <p>
-                {t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}
-              </p>
+                <button className="process" onClick={() => setCurrentGif(0)}>
+                  
 
-              <button className='btn_primary'>
-                {t['Get Started']}
+                  <div className="text">
+                    <h3> {t["Customize your process"]}</h3>
+                    <p>{t["Access the Ari.app application easily and securely, configure your digital employees"]}</p>
+                  </div>
+                </button>
+              </div>
 
-              </button>
+              <div className={`step ${currentGif === 1 ? "active" : ""}`}>
+                <div className="box-circle">
+                <span>2</span>
+                  <button className="circle" onClick={() => setCurrentGif(1)} />
+                </div>
 
+                <button className="process" onClick={() => setCurrentGif(1)}>
+                  
+
+                  <div className="text">
+                    <h3> {t["Automated process"]} </h3>
+                    <p>{t["This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set"]}</p>
+                  </div>
+                </button>
+              </div>
+
+              <div className={`step ${currentGif === 2 ? "active" : ""}`}>
+                <div className="box-circle">
+                <span>3</span>
+                  <button className="circle" onClick={() => setCurrentGif(2)} />
+                </div>
+
+                <button className="process" onClick={() => setCurrentGif(2)}>
+                  
+
+                  <div className="text">
+                    <h3> {t["Work delivered"]} </h3>
+                    <p>{t["After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready"]}</p>
+                  </div>
+                </button>
+              </div>
             </div>
 
-            <figure>
-              <Image
-                src={logo}
-                alt='Descripción del GIF'
-                width={300}
-                height={200}
-              />
-              {/* <figcaption>Descripción adicional o leyenda</figcaption> */}
+            <figure className="steps-gift">
+              <div className="container-gift">
+                {/* Aquí usamos el GIF actual según el estado */}
+                <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} />
+              </div>
             </figure>
-
           </div>
-
-          <div className='home-how-steps'>
-
-            <div className='curvedLine'>
-
-              {/* Contenido del componente */}
-
-              {/* <svg
-                class='vector-335'
-                width='936'
-                height='470'
-                viewBox='0 0 936 470'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <g filter='url(#filter0_d_2849_20728)'>
-                  <path
-                    d='M35.9981 103C79.7321 146.155 -8.91664 250.127 62.4951 254.499C151.76 259.964 192.171 173.263 328.489 187.52C464.807 201.777 536.347 319.192 664.637 244.142C792.927 169.092 800.071 191.553 932.624 241.862'
-                    stroke='#4318FF'
-                    stroke-width='5'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                  />
-                </g>
-                <defs>
-                  <filter
-                    id='filter0_d_2849_20728'
-                    x='7.01562'
-                    y='100.5'
-                    width='952.109'
-                    height='219.007'
-                    filterUnits='userSpaceOnUse'
-                    color-interpolation-filters='sRGB'
-                  >
-                    <feFlood flood-opacity='0' result='BackgroundImageFix' />
-                    <feColorMatrix
-                      in='SourceAlpha'
-                      type='matrix'
-                      values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
-                      result='hardAlpha'
-                    />
-                    <feOffset dy='24' />
-                    <feGaussianBlur stdDeviation='12' />
-                    <feComposite in2='hardAlpha' operator='out' />
-                    <feColorMatrix
-                      type='matrix'
-                      values='0 0 0 0 0.215686 0 0 0 0 0.203922 0 0 0 0 0.662745 0 0 0 0.3 0'
-                    />
-                    <feBlend
-                      mode='normal'
-                      in2='BackgroundImageFix'
-                      result='effect1_dropShadow_2849_20728'
-                    />
-                    <feBlend
-                      mode='normal'
-                      in='SourceGraphic'
-                      in2='effect1_dropShadow_2849_20728'
-                      result='shape'
-                    />
-                  </filter>
-                </defs>
-              </svg> */}
-              <svg
-                class='vector-337'
-                width='400'
-                height='99'
-                viewBox='0 0 500 99'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <g filter='url(#filter0_d_3005_20834)'>
-                  <path
-                    d='M1.33526 55.41C18.9614 116.909 188.404 -6.38372 268.811 27.2901C443.743 100.55 468.175 17.7603 582.993 27.1431'
-                    stroke='#4318FF'
-                    stroke-width='5'
-                    stroke-linecap='round'
-                    stroke-linejoin='round'
-                  />
-                </g>
-                <defs>
-                  <filter
-                    id='filter0_d_3005_20834'
-                    x='-25.1641'
-                    y='18.8525'
-                    width='800.656'
-                    height='104.526'
-                    filterUnits='userSpaceOnUse'
-                    color-interpolation-filters='sRGB'
-                  >
-                    <feFlood flood-opacity='0' result='BackgroundImageFix' />
-                    <feColorMatrix
-                      in='SourceAlpha'
-                      type='matrix'
-                      values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
-                      result='hardAlpha'
-                    />
-                    <feOffset dy='24' />
-                    <feGaussianBlur stdDeviation='12' />
-                    <feComposite in2='hardAlpha' operator='out' />
-                    <feColorMatrix
-                      type='matrix'
-                      values='0 0 0 0 0.215686 0 0 0 0 0.203922 0 0 0 0 0.662745 0 0 0 0.3 0'
-                    />
-                    <feBlend
-                      mode='normal'
-                      in2='BackgroundImageFix'
-                      result='effect1_dropShadow_3005_20834'
-                    />
-                    <feBlend
-                      mode='normal'
-                      in='SourceGraphic'
-                      in2='effect1_dropShadow_3005_20834'
-                      result='shape'
-                    />
-                  </filter>
-                </defs>
-              </svg>
-
-            </div>
-
-            <div className='step'>
-
-              <div className='box-circle'>
-                <div className='circle' />
-              </div>
-
-              <div className='process'>
-                <span>
-                  1
-                </span>
-
-                <div className='text'>
-                  <h3> {t['Customize your process']}</h3>
-                  <p>
-                    {t['Access the Ari.app application easily and securely, configure your digital employees']}
-                  </p>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            <div className='step'>
-
-              <div className='box-circle'>
-                <div className='circle' />
-              </div>
-
-              <div className='process'>
-                <span>
-                  2
-                </span>
-
-                <div className='text'>
-                  <h3> {t['Automated process']} </h3>
-                  <p>
-                    {t['This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set']}
-                  </p>
-
-                </div>
-
-              </div>
-
-            </div>
-
-            <div className='step'>
-
-              <div className='box-circle'>
-                <div className='circle' />
-              </div>
-
-              <div className='process'>
-                <span>
-                  3
-                </span>
-
-                <div className='text'>
-                  <h3> {t['Work delivered']} </h3>
-                  <p>
-                    {t['After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready']}
-                  </p>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
         </section>
 
-        <section className='home-account container'>
-
-          <ul className='box-account'>
-
+        <section className="home-account container">
+          <ul className="box-account" data-aos="zoom-in">
             <li>
-              <h1> 5</h1>
+              <h1>{isGifSectionInView ? <Counter initialValue={0} finalValue={5} /> : 5}</h1>
 
-              <p>
-                {t['Digital Employees Automating Your Services']}
-              </p>
-
+              <p>{t["Digital Employees Automating Your Services"]}</p>
             </li>
 
             <li>
+              <h1>{isGifSectionInView ? <Counter initialValue={8} finalValue={20} /> : 20}</h1>
 
-              <h1> 20</h1>
-
-              <p>
-                {t['Included Skills to Digital Employees']}
-              </p>
-
+              <p>{t["Included Skills to Digital Employees"]}</p>
             </li>
 
             <li>
+              <h1>{isGifSectionInView ? <Counter initialValue={70} finalValue={78} /> : 78} %</h1>
 
-              <h1> 78%</h1>
-
-              <p>
-                {t['business agility']}
-              </p>
-
+              <p>{t["business agility"]}</p>
             </li>
-
           </ul>
-
         </section>
 
-        <section className='home-digitals container'>
+        <section className="home-digitals  container ">
+          <div className="description">
+            <h1> {t["Ari finance"]}</h1>
 
-          <div className='description'>
-            <h1> {t['Ari finance']}</h1>
-
-            <p> {t['The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures']}</p>
-
+            <p> {t["The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures"]}</p>
           </div>
 
-          <div className='digital-image'>
-            <Image src={finance} width='1000' alt='finance' priority />
+          <div data-aos="fade-up" className="digital-image">
+            <Image src={finance} width="1000" alt="finance" priority />
           </div>
-
         </section>
 
-        <section className='home-digitals container'>
-          <div className='digital-image'>
-            <Image src={rrhh} width='1000' alt='finance' priority />
+        <section className="home-digitals container hr">
+          <div data-aos="zoom-out-left" className="digital-image">
+            <Image src={rrhh} width="1000" alt="finance" priority />
           </div>
-          <div className='description'>
+          <div className="description">
+            <h1> {t["Ari HR"]}</h1>
 
-            <h1> {t['Ari HR']}</h1>
-
-            <p> {t['The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.']}</p>
-
+            <p> {t["The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews."]}</p>
           </div>
-
         </section>
 
-        <section className='home-digitals container'>
+        <section className="home-digitals container">
+          <div className="description">
+            <h1> {t["Ari it support"]}</h1>
 
-          <div className='description'>
-            <h1> {t['Ari it support']}</h1>
-
-            <p> {t['The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts.']}</p>
-
+            <p> {t["The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts."]}</p>
           </div>
 
-          <div className='digital-image'>
-            <Image src={support} width='1000' alt='finance' priority />
+          <div data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" className="digital-image">
+            <Image src={support} width="1000" alt="finance" priority />
           </div>
-
         </section>
 
-        <section className='home-enables container'>
-          <h1> {t['Our enablers']}</h1>
+        <section className="home-enables container">
+          <h1> {t["Our enablers"]}</h1>
 
-          <div className='box-enables'>
+          <div className="box-enables" data-aos="zoom-in">
             <button>
-
-              <Image src={cloud} width='1000' alt='cloud' priority />
-
+              <Image src={cloud} width="1000" alt="cloud" priority />
             </button>
 
             <button>
-              <Image src={drive} width='1000' alt='drive' priority />
+              <Image src={drive} width="1000" alt="drive" priority />
             </button>
 
             <button>
-              <Image src={uipath} width='1000' alt='uipath' priority />
+              <Image src={uipath} width="1000" alt="uipath" priority />
             </button>
             <button>
-              <Image src={sap} width='1000' alt='sap' priority />
+              <Image src={sap} width="1000" alt="sap" priority />
             </button>
             <button>
-              <Image src={ftp} width='1000' alt='ftp' priority />
+              <Image src={ftp} width="1000" alt="ftp" priority />
+            </button>
+          </div>
+        </section>
+
+        <section className="home-contact container" data-aos="fade-up">
+          <div className="contact-message">
+            <h1 className="subtitle"> {t["Contact us"]}</h1>
+
+            <p>{t["Find out which AUTOMATION SOLUTIONS can help you"]}</p>
+
+            <div className="social-media">
+              <h4>{t["Through"]}</h4>
+
+              <div className="follow">
+                <button className="btn_circle ">
+                  <ImageSvg name="Email" />
+                </button>
+
+                <button className="btn_circle ">
+                  <ImageSvg name="Whatsapp" />
+                </button>
+              </div>
+            </div>
+
+            <button className="btn_black" onClick={() => router.push("https://www.seidor.com/es-pe/contacto")}>
+              {t.Contact}
             </button>
           </div>
 
+          <div className="send" data-aos="zoom-in-up">
+            <Image src={woman} width="800" alt="logo_oscuro" priority />
+          </div>
         </section>
-
       </main>
 
       <footer>
-        <section className='home-contact container'>
+        <section className="home-social container">
+          <div className="home-social-info">
+            <div>
+              <Image src={LogoOscuro} width="100" alt="logo_oscuro" priority />
 
-          <div className='contact-message'>
-
-            <h1 className='subtitle'> {t['Contact us']}</h1>
-
-            <p>
-              {t['Find out which AUTOMATION SOLUTIONS can help you.']}
-            </p>
-
-            <div className='social-media'>
-
-              <div className='report blue'>
-
-                <div className='report_icon  '>
-
-                  <ImageSvg name='ReportDigital' />
-
-                </div>
-
-                <div className='report_data'>
-
-                  <article>
-                    {t['Digital employees']}
-
-                  </article>
-
-                  <p> <ImageSvg name='ArrowUp' />  <span>  {t.working}  </span>    {t['for you']} </p>
-                </div>
-
-              </div>
-
+              <p>{t["Terms and Conditions"]}</p>
             </div>
 
+            <p>Vittore Carpaccio 250, San Borja, Lima , Perú</p>
+
+            <div className="social-media">
+              <h4>{t["Follow us!"]}</h4>
+
+              <div className="follow">
+                <button onClick={() => router.push("https://www.youtube.com/channel/UCY6CjtB2fq-UlHYzDa5A_Ug/videos?view=0&sort=da")} className="btn_circle social_green">
+                  <ImageSvg name="Youtube" />
+                </button>
+
+                <button onClick={() => router.push("https://www.linkedin.com/company/innovativa-la/")} className="btn_circle social_green">
+                  <ImageSvg name="Linkedin" />
+                </button>
+
+                <button onClick={() => router.push("https://www.instagram.com/innovativa.la/")} className="btn_circle social_green">
+                  <ImageSvg name="Instagram" />
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className='contact-form'>
-
-            <h2> {t['Send email']}</h2>
-            <p> {t['Please enter your information in the contact form and we will contact you as soon as possible']} </p>
-
-            <Formik
-              initialValues={{
-                corporateEmail: '',
-                message: '',
-                firstName: '',
-                company: '',
-                position: ''
-
-              }}
-
-            // validate={(values) => validateFormRegister(values, l.validation)}
-              onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
-              // same shape as initial values
-              // handleSubmit(values, { setSubmitting, setStatus, resetForm })
-                setShowM(true)
-              }}
-              enableReinitialize
-            >
-              {({ isValid, isSubmitting, status }) => (
-                <Form className='form-container'>
-
-                  <div className='input-box'>
-                    <Field type='email' name='corporateEmail' id='corporateEmail' placeholder=' ' disabled={isSubmitting} />
-                    <label htmlFor='corporateEmail'>{t.Email}</label>
-                    <ErrorMessage className='errorMessage' name='corporateEmail' component='span' />
-                  </div>
-
-                  <div className='group'>
-
-                    <div className='input-box'>
-                      <Field type='text' name='firstName' id='firstName' placeholder=' ' disabled={isSubmitting} />
-                      <label htmlFor='firstName'>{t['First Name']}</label>
-                      <ErrorMessage className='errorMessage' name='firstName' component='span' />
-                    </div>
-
-                    <div className='input-box'>
-                      <Field type='text' name='lastName' id='lastName' placeholder=' ' disabled={isSubmitting} />
-                      <label htmlFor='lastName'>{t['Last Name']}</label>
-                      <ErrorMessage className='errorMessage' name='lastName' component='span' />
-                    </div>
-
-                    <div className='input-box'>
-                      <Field type='text' name='company' id='company' placeholder=' ' disabled={isSubmitting} />
-                      <label htmlFor='company'>{t.Company}</label>
-                      <ErrorMessage className='errorMessage' name='company' component='span' />
-                    </div>
-
-                    <div className='input-box'>
-                      <Field type='text' name='position' id='position' placeholder=' ' disabled={isSubmitting} />
-                      <label htmlFor='position'>{t.Position}</label>
-                      <ErrorMessage className='errorMessage' name='position' component='span' />
-                    </div>
-
-                  </div>
-
-                  <div className='input-box'>
-
-                    <textarea
-                      value={message}
-                      onChange={handleChangemessage}
-                      placeholder=''
-                      rows={4}
-                      cols={40}
-                      style={{ height: 'auto', minHeight: '3rem' }}
-                    />
-                    <label htmlFor='message'> {t.Message}  </label>
-
-                  </div>
-                  <div className='box-buttons'>
-
-                    <button className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => console.log('vonnn')} disabled={isSubmitting}>
-                      {t.Send}
-                    </button>
-
-                  </div>
-
-                  <div className='contentError'>
-                    <div className='errorMessage'>{status}</div>
-                  </div>
-                </Form>
-              )}
-            </Formik>
-
-            {showM && (
-              <Modal close={() => setShowM(false)}>
-                <ImageSvg name='Check' />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
-
-                  {t['Message sent succesfully']}
-                </div>
-
-              </Modal>
-            )}
-
+          <div className="home-social-copy">
+            <p>Copyright © 2024 Innovativa lab</p>
           </div>
-
         </section>
       </footer>
     </div>
+  );
+};
 
-  )
-}
-
-export default Home
+export default Home;

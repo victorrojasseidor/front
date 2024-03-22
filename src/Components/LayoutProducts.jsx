@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
-
 import logo from '../../public/img/logoGift.gif'
 import ari from '../../public/img/ari.png'
 
@@ -17,7 +16,7 @@ import Lang from './Atoms/Lang'
 // import Cloud from './Atoms/Cloud'
 
 const LayoutProducts = ({ children, menu }) => {
-  const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
+  // const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
   const [isOpenMobile, setIsOpenMobile] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [margen, setMargen] = useState('0rem')
@@ -31,7 +30,7 @@ const LayoutProducts = ({ children, menu }) => {
   const [isHomeActive, setIsHomeActive] = useState(false)
   const [activeSubmenu, setActiveSubmenu] = useState('')
   const router = useRouter()
-  const { session, modalToken, logout, l, setSession, isLogout, setIsLogout } = useAuth()
+  const { session, modalToken, logout, l, setSession, isLogout, setIsLogout, isMenuLateralOpen, setMenuLateralOpen } = useAuth()
   const { asPath } = useRouter()
   const t = l.header
 
@@ -128,8 +127,8 @@ const LayoutProducts = ({ children, menu }) => {
       submenus: [
         { label: t.All, path: '/reporting' },
         { label: t.Balance, path: '/reporting/balance' },
-        { label: t.Movement, path: '/reporting/movement' }
-        // { label: t.Captcha, path: '/reporting/captcha' }
+        { label: t.Movement, path: '/reporting/movement' },
+        { label: l.Captcha["Captcha solved"], path: '/reporting/Captcha' }
       ]
     },
     Profile: {
@@ -168,7 +167,7 @@ const LayoutProducts = ({ children, menu }) => {
               <p>{session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
 
               <span>{session?.sCorreo}</span>
-              {session?.sPerfilCode === 'ADMIN' && <p> Ari v1.1</p>}
+              {session?.sPerfilCode === 'ADMIN' && <p> Ari v1.2</p>}
 
             </div>
           </div>

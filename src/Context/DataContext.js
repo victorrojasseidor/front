@@ -18,6 +18,7 @@ export const useAuth = () => {
 export const DataContextProvider = ({ children }) => {
   // State para almacenar los datos del usuario
   const [session, setSession] = useState(null)
+  const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
   const [modalToken, setModalToken] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isLogout, setIsLogout] = useState(false)
@@ -72,6 +73,8 @@ export const DataContextProvider = ({ children }) => {
     }
   }, [])
 
+
+
   useEffect(() => {
     // Clear existing session data
     localStorage.removeItem('session')
@@ -82,6 +85,7 @@ export const DataContextProvider = ({ children }) => {
     }
   }, [session])
 
+ 
   return (
     <DataContext.Provider
       value={{
@@ -99,7 +103,9 @@ export const DataContextProvider = ({ children }) => {
         isLogout,
         setIsLogout,
         idCountry,
-        setIdCountry
+        setIdCountry,
+        isMenuLateralOpen,
+        setMenuLateralOpen
 
       }}
     >

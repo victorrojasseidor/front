@@ -1,6 +1,6 @@
 import { DataContextProvider, useAuth } from '@/Context/DataContext'
 import React, { useState, useEffect } from 'react'
-import logo from '../../../public/img/logoseidor.png'
+import logo from '../../../public/img/logoOscuro.png'
 
 import Image from 'next/image'
 import ProgressRegister from '@/Components/progressRegister'

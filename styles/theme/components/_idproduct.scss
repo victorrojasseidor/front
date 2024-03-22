@@ -1,253 +1,92 @@
-.idProduct{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap:0.5em;
-    justify-content: center;
-    align-items: center;
+.idProduct {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  justify-content: center;
+  align-items: center;
 
- &_container {
+  &_container {
     width: 100%;
-
   }
-
 }
-
 
 .freetrial {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;  
+  flex-wrap: wrap;
   width: 100%;
   gap: 1em;
- 
+
   @include media(tablet) {
-    flex-direction: row;   
-      
+    flex-direction: row;
   }
 
+  .message-support {
+    display: flex;
+    margin-top: -5rem;
+    margin-left: -4rem;
+    align-items: center;
+    gap: 0.25rem;
+    flex-direction: column;
+    color: get-color(blue_p1);
+    font-size: 1.2rem;
+    font-weight: 600;
 
-  .message-support{
-      
-      display: flex;
-      margin-top: -5rem;
-      margin-left: -4rem;
-      align-items: center;
-      gap:0.25rem;
-      flex-direction: column;
-      color:get-color(blue_p1);
-      font-size: 1.2rem;
-      font-weight: 600;
+    @include media(tablet) {
+      margin-top: -7.5rem;
+      font-size: 1.5rem;
 
-      @include media(tablet) {
-       
-        margin-top: -7.5rem;
+      span {
+        color: get-color(lilac_p3);
         font-size: 1.5rem;
-
-        span{
-          color:get-color(lilac_p3);
-          font-size: 1.5rem;
-          font-weight: 600;
-        }
-        p{
-          font-size: 1.5rem;
-          font-weight: 600;
-          color:get-color(black_p2)
-  
-        }
-        
+        font-weight: 600;
       }
-
-     
-    
-    
+      p {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: get-color(black_p2);
+      }
+    }
   }
 
+  &_description {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+    flex: 1;
 
-
-
-  &_description{
-
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      justify-content: center;
-      gap:1em;
-    flex:1;
-   
-    span{
-      color:get-color(lilac_p3);
+    span {
+      color: get-color(lilac_p3);
     }
-    p{
-      color:get-color(black_p2);
+    p {
+      color: get-color(black_p2);
       text-align: center;
-      display:inline-block
+      display: inline-block;
     }
-    img{
-  
+    img {
       max-width: 15rem;
       @include media(tablet) {
         max-width: 20rem;
-              
       }
       @include media(desktop) {
-   
         max-width: 24rem;
-        
       }
     }
-
   }
 
-  &_contact{
- 
-      flex:2;
-      width: 100%;
-
- 
+  &_contact {
+    flex: 2;
+    width: 100%;
   }
 
-  .send{
+  .send {
     display: flex;
     width: 100%;
     align-items: center;
-
   }
 }
 
 
-.apiconfiguration{
- 
-  padding: 1rem;
-gap:1rem;
-display: flex;
-flex-direction: column;
-
-  .state{
-    color:get-color(blue_p1);
-  }
-
-
-  .admin{
- display: flex;
- flex-direction: row;
- justify-content: space-between;
- flex-wrap: wrap;
- align-items: flex-start;
- gap:2rem;
- 
-
-    &-product{
-      display: flex;
-    flex:1;
-    height: auto;
-      justify-content: flex-start;
-      flex-direction: column;
-      align-items: flex-start;
-      @include container;
-
-      span{
-        color:get-color(black_p2)
-      }
-
-      .state-message{
-        color:get-color(lilac_p3)
-    
-      }
-
-      .report-content {
-        padding: 0rem;
-        justify-content: flex-start;
-
-        .report_icon {
-         max-width:  3rem;
-          height: 3rem;
-          padding: 0.75rem;
-        }
-
-        svg{
-          width: 2rem;
-          height: 2rem;
-        }
-
-        span{
-          color:get-color(grey2_s4 );
-        }
-      }
-
-
-    }
-
-
-    &-update{
-
-      @include container;
-      flex:1.2;
-
-      .content{
-        color:get-color(t1-blue);
-      }
-    }
-
-
-
-
-    
-
-    .css-dmmspl-MuiFormGroup-root{
-      display: flex;
-      flex-direction: row;
-  
-      
-    }
-
-    .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
-      z-index: 99999999999;
-    }
-  }
-
-
-  .historical{
-    display: flex;
-    // @include container;
-  }
-
- 
-
-  
-
-  
-
-  .dates-box{
-    padding-top: 1em;
-    display: flex;
-    flex-direction: column;
-    @include media(desktop) {
-   
-      flex-direction: row;
-      
-    }
-  }
-
-  .date{
-    display: flex;
-    flex-direction: row;
-    gap:1rem;
-  
-  }
-  
-  
-  .modal{
-    z-index: 2;
-    .box-inputs{
-
-      @include center-container
-    }
-  }
-
- 
-
-
-  
-  
-}

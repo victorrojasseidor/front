@@ -23,6 +23,7 @@ import TextField from '@mui/material/TextField'
 import FormHelperText from '@mui/material/FormHelperText'
 import Select from '@mui/material/Select'
 import { GiH2O } from 'react-icons/gi'
+import CaptchaConfig from './CaptchaConfig'
 
 export default function Apiconfiguration ({ nameEmpresa }) {
   const { session, setModalToken, logout, l, idCountry } = useAuth()
@@ -39,6 +40,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
   const t = l.Apiconfuguration
 
   const pStatus = product?.iCodeStatus
+
+
 
   async function getDataProduct () {
     setIsLoading(true)
@@ -211,9 +214,9 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
     try {
       const token = session?.sToken
-
+      console.log(body)
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${valueState}`, body, token)
-
+      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         // setModalFreeTrial(false)
         setModalConfirmed(false)
@@ -470,6 +473,8 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
         </div>
 
+        {product?.iId === 4 && <CaptchaConfig />}
+
         <div className='historical'>
 
           <div className='contaniner-tables'>
@@ -649,7 +654,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
 
       </div>
 
-      {requestError && <div className='errorMessage'> {requestError}</div>}
+      {requestError && <div className='requestError'> {requestError}</div>}
 
     </>
 
