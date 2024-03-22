@@ -1,3 +1,6 @@
+
+import excel from 'exceljs'
+
 const formatDate = (date) => {
   // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
   const fechaObjeto = new Date(date)
@@ -11,6 +14,63 @@ const formatDate = (date) => {
   const fechaFormateada = `${dia}/${mes}/${año}`
   return fechaFormateada
 }
+
+
+function exportToExcelFormat(data, fileName, headers, rowDatatrans) {
+  if (data && data.length > 0) {
+    const workbook = new excel.Workbook()
+    const worksheet = workbook.addWorksheet('Sheet 1')
+
+    // Define las columnas del archivo Excel sin aplicar el estilo para el encabezado
+    worksheet.columns = headers
+
+    // Define los estilos predeterminados para el encabezado
+    const headerStyle = {
+      font: { color: { argb: 'FFFFFF' }, bold: true },
+      alignment: { vertical: 'middle', horizontal: 'center' },
+      border: { top: { style: 'thin' }, left: { style: 'thin' }, bottom: { style: 'thin' }, right: { style: 'thin' } },
+      fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: '4318FF' } }
+    };
+
+    // Define los estilos predeterminados para las celdas de datos
+    const cellStyle = {
+      font: { color: { argb: '000000' } },
+      alignment: { vertical: 'middle', horizontal: 'center' },
+      border: { top: { style: 'hair' }, left: { style: 'hair' }, bottom: { style: 'hair' }, right: { style: 'hair' } },
+      fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'F8FDFF' } }
+    };
+
+    // Aplica el estilo de encabezado solo a la primera fila (fila 1)
+    worksheet.getRow(1).eachCell((cell) => cell.style = headerStyle)
+
+    // Agrega los datos a las filas del archivo Excel con estilos de celda
+    data.forEach((row) => {
+      // Formatear la fila de datos según la función proporcionada
+      const rowData = rowDatatrans(row);
+      worksheet.addRow(rowData).eachCell((cell) => cell.style = cellStyle); // Aplica el estilo de datos
+    })
+
+    // Guarda el archivo Excel y lo descarga en el navegador
+    workbook.xlsx.writeBuffer()
+      .then((buffer) => {
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = fileName
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+      })
+      .catch((error) => {
+        console.error('Error writing Excel file:', error)
+      })
+  }
+}
+
+
+
+
 
 const IconArrow = () => {
   return (
@@ -37,7 +97,10 @@ const IconDate = () => {
   )
 }
 
+
+
+
 export {
-  formatDate, IconArrow, IconDate
+  formatDate, IconArrow, IconDate , exportToExcelFormat
 
 }

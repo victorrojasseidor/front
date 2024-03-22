@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { exportToExcelFormat } from '@/helpers/report'
 import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
@@ -19,11 +20,10 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import * as XLSX from 'xlsx'
+import excel from 'exceljs'
+
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 import LineCaptcha from '@/Components/Grafics/LineCaptcha'
-
-
 
 const captcha = () => {
   const [activeTab, setActiveTab] = useState(0)
@@ -43,8 +43,8 @@ const captcha = () => {
   const months = [l.Reporting.January, l.Reporting.February, l.Reporting.March, l.Reporting.April, l.Reporting.May, l.Reporting.June, l.Reporting.July, l.Reporting.August, l.Reporting.September, l.Reporting.October, l.Reporting.November, l.Reporting.December]
 
   const transformMonthsFormat = (data) => {
-       const partes = data.split('-')
-    const mes = months[Number(partes[0]-1)]
+    const partes = data.split('-')
+    const mes = months[Number(partes[0] - 1)]
 
     return `${mes}-${partes[1]}`
   }
@@ -96,23 +96,17 @@ const captcha = () => {
     sumCaptchaResolved(dataCaptcha)
   }
 
- 
   useEffect(() => {
     GetCabeceraCaptcha()
-  
-  }, [selectedCompany ])
-
+  }, [selectedCompany])
 
   useEffect(() => {
-  
     GetDetalleCaptcha()
-  }, [selectedCompany , startDate, endDate])
-
-
+  }, [selectedCompany, startDate, endDate])
 
   async function GetCabeceraCaptcha () {
     setIsLoading(true)
-    const start = dayjs().subtract(30, 'day').format('YYYY-MM-DD');
+    const start = dayjs().subtract(30, 'day').format('YYYY-MM-DD')
     const end = dayjs().format('YYYY-MM-DD')
     const body = {
       oResults: {
@@ -120,14 +114,14 @@ const captcha = () => {
         sFechaDesde: start,
         sFechaHasta: end,
         iIdEmpresa: selectedCompany || []
-        }
+      }
     }
 
     try {
       const token = session.sToken
-    
+
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetCabeceraCaptcha', body, token)
- 
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setDataSumary(data)
@@ -172,9 +166,8 @@ const captcha = () => {
 
     try {
       const token = session.sToken
-      console.log(body)
+
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetDetalleCaptcha', body, token)
-      console.log('detalle', { responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setDataCaptcha(data)
@@ -204,8 +197,6 @@ const captcha = () => {
     }
   }
 
-
-
   const formatDate = (date) => {
     // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
     const fechaObjeto = new Date(date)
@@ -221,24 +212,35 @@ const captcha = () => {
   }
 
   const exportToExcel = () => {
-    if (dataCaptcha && dataCaptcha.length > 0) {
-      const filteredData = dataCaptcha?.map((row) => ({
-        // Date: formatDate(row.fecha),
-        fecha: row.fecha,
-        Resuelto: row.captcha_resolved,
-        No_Resuelto: row.captcha_not_resolved,
-        Tipo: row.captcha_type,
-        Dirección_IP: row.ip_address
-      }))
+    const data = dataCaptcha;
+    const fileName = 'Captcha_report.xlsx';
+    if (data && data.length > 0) {
+        const headers = [
+            { header: 'Fecha', key: 'fecha', width: 20 },
+            { header: 'Resuelto', key: 'captcha_resolved', width: 20 },
+            { header: 'No Resuelto', key: 'captcha_not_resolved', width: 20 },
+            { header: 'Tipo', key: 'captcha_type', width: 20 },
+            { header: 'Conexiones', key: 'captcha_conexion_until_now', width: 20 }
+        ];
 
-      if (filteredData.length > 0) {
-        const ws = XLSX.utils.json_to_sheet(filteredData)
-        const wb = XLSX.utils.book_new()
-        XLSX.utils.book_append_sheet(wb, ws, 'Anticaptcha Report')
-        XLSX.writeFile(wb, 'Anticaptcha_report.xlsx')
-      }
+        // Llama a la función exportToExcelFormat con los parámetros necesarios
+        exportToExcelFormat(data, fileName, headers, (row) => {
+            // Formatea cada fila de datos según lo necesites
+            const formattedDate = formatDate(row.fecha);
+            return {
+                fecha: formattedDate,
+                captcha_resolved: row.captcha_resolved,
+                captcha_not_resolved: row.captcha_not_resolved,
+                captcha_type: row.captcha_type,
+                captcha_conexion_until_now: row.captcha_conexion_until_now
+            };
+        });
     }
-  }
+};
+
+
+
+
 
   return (
     <LayoutProducts menu='Reporting'>
@@ -307,7 +309,7 @@ const captcha = () => {
                 </div>
 
                 <div className='report_data'>
-                  <article>{t['Connections']}</article>
+                  <article>{t.Connections}</article>
 
                   <h3> {dataSumary?.captcha_conexion_until_now} </h3>
 
@@ -336,7 +338,7 @@ const captcha = () => {
                       <tr>
                         <th>{t.Date} </th>
                         <th> {t['Captcha solved']}</th>
-                        <th> {t['Connections']}</th>
+                        <th> {t.Connections}</th>
                       </tr>
                     </thead>
 
@@ -400,7 +402,7 @@ const captcha = () => {
                     components={{
                       OpenPickerIcon: IconDate,
                       CalendarIcon: IconDate
-                   }}
+                    }}
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </LocalizationProvider>
@@ -473,7 +475,7 @@ const captcha = () => {
                               <th> {t.Resolved}</th>
                               <th> {t['Not Resolved']}</th>
                               <th> {t['Captcha Type']}</th>
-                              <th> {t['Connections']}</th>
+                              <th> {t.Connections}</th>
                             </tr>
                           </thead>
 
@@ -522,7 +524,7 @@ const captcha = () => {
 
                           <div className='report_data'>
                             <article>{t['Captcha solved']}</article>
-                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha,"captcha_resolved")}</h3>
+                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha, 'captcha_resolved')}</h3>
                           </div>
                         </div>
 
@@ -532,8 +534,8 @@ const captcha = () => {
                           </div>
 
                           <div className='report_data'>
-                            <article>{t['Connections']}</article>
-                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha, "captcha_conexion_until_now")}</h3>
+                            <article>{t.Connections}</article>
+                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha, 'captcha_conexion_until_now')}</h3>
                           </div>
                         </div>
                       </div>
@@ -543,7 +545,7 @@ const captcha = () => {
               )}
               {activeTab === 1 && (
                 <div className='grafics'>
-                <LineCaptcha captchaData={dataCaptcha} exportToExcel={exportToExcel} startDate={startDate} endDate={endDate} />
+                  <LineCaptcha captchaData={dataCaptcha} exportToExcel={exportToExcel} startDate={startDate} endDate={endDate} />
                 </div>
               )}
             </div>
