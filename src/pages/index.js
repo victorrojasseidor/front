@@ -1,7 +1,7 @@
 'use client'
 import Head from 'next/head'
 import { useAuth } from '@/Context/DataContext'
-import Home from './home'
+import Home from './home/Home'
 
 export default function Inicio () {
   const { l } = useAuth()
