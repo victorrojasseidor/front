@@ -249,6 +249,7 @@ export default function LineChart () {
         min: minValueY,
         max: maxValueY,
         stepSize: 1,
+        width: 400,
         grid: {
           display: false
         }
@@ -352,7 +353,7 @@ export default function LineChart () {
         </div>
       </div>
 
-      <div className='grafics' style={{ overflowX: 'auto' }}>
+      <div className='grafics' style={{minHeight:"300px" }}>
         {isLoading && <LoadingComponent />}
         <Line data={midata} options={misoptions} />
       </div>

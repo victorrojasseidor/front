@@ -104,10 +104,10 @@
         width: 100%;
 
         canvas {
-          height: auto;
-
+          min-height:  300px !important;
           @include media(tablet) {
             width: 100% !important;
+            height:  100%;
           }
         }
 
