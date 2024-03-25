@@ -233,7 +233,7 @@ function index (props) {
                 <div>
                   <h4> {l.Captcha['Captcha Solver']} </h4>
 
-                  <Link href='/reporting/captcha'>{t['View reporting']}</Link>
+                  <Link href='/reporting/Captcha'>{t['View reporting']}</Link>
                 </div>
               </div>
             </div>

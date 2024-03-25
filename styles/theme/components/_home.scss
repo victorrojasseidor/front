@@ -261,7 +261,7 @@
     @include center-container;
     gap: 1rem;
     position: absolute;
-    bottom: 10%;
+    bottom: 0%;
     z-index: 3;
 
     @include media(tablet) {
@@ -364,6 +364,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
+    gap: 1rem;
     justify-content: space-between;
 
     .description {
