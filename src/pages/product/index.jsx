@@ -345,7 +345,7 @@ export default function Products () {
                   <article>{t['Time saved']}</article>
                   <h2> {dataCabecera?.tiempo } hrs </h2>
                   <p>
-                    <ImageSvg name='ArrowUp' /> <span> 2% </span> {t['this month']}{' '}
+                    <ImageSvg name='ArrowUp' /> <span> {dataCabecera?.porcentaje } % </span> {t['this month']}{' '}
                   </p>
                 </div>
               </div>
@@ -358,9 +358,9 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Bussines agility']}</article>
-                  <h2> {dataCabecera?.porcentaje_agilidad }   %</h2>
+                  <h2> {dataCabecera?.agilidad} %</h2>
                   <p>
-                    <ImageSvg name='ArrowUp' /> <span> 4% </span> {t.more}{' '}
+                    <ImageSvg name='ArrowUp' /> <span> {dataCabecera?.porcentaje_agilidad} %</span> {t.more}{' '}
                   </p>
                 </div>
               </div>
