@@ -3,7 +3,7 @@ import ConfigCurrency from './Currency/ConfigCurrency'
 import ConfigDowland from '@/Components/CompProducts/DowloandCurrency/ConfigDowland'
 import DocDowland from './DowloandCurrency/DocDowland'
 import ConfigPattern from './Pattern/ConfigPattern'
-import ConfigBankStaments from './AccountStatements/ConfigBankStaments'
+// import ConfigBankStaments from './AccountStatements/ConfigBankStaments'
 
 export const componentsProduct = [
   {
@@ -32,13 +32,13 @@ export const componentsProduct = [
     sName: 'Download account statements- peo debe ser de captcha',
     documentation: 'documentation 4',
     apiConfiguration: 'apiconfiguration 4',
-    configuration: <ConfigBankStaments />
+    configuration: "config 4"
   },
   {
     iId: 5,
     sName: 'Download account statements',
     documentation: 'documentation 5',
     apiConfiguration: 'apiconfiguration 5',
-    configuration: <ConfigBankStaments />
+    configuration: "config 5"
   }
 ]

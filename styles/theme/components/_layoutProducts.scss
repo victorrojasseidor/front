@@ -58,7 +58,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
+      gap: 0.25rem;
       padding: 0rem 1.5rem;
       position: relative;
       border-bottom: 1px solid get-color(grey1_s3);
@@ -93,7 +93,7 @@
             img {
               height: 100px;
               width: auto;
-              padding-top: 2rem;
+              padding-top: 1rem;
 
               }
           }
