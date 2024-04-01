@@ -28,7 +28,7 @@
     position: fixed;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    width: 60%;
+    width: 70%;
     height: fit-content;
 
     @include media(tablet) {
@@ -83,12 +83,7 @@
       .imgPerfil {
         display: none;
 
-        flex-direction: row;
-          position: relative;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
+        
           &_logo {
             img {
               height: 100px;
@@ -100,6 +95,12 @@
 
         @include media(tablet) {
           display: flex;
+          flex-direction: row;
+          position: relative;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+        
                     
         }
       }
@@ -116,11 +117,10 @@
       &::-webkit-scrollbar { 
         width: 0.14rem;
       }
+      
 
-      // @include media(tablet) {
-      //   gap: 1rem;
-      // }
 
+  
       .list-content {
         display: flex;
         flex-direction: column;
@@ -268,6 +268,8 @@
       gap: 0.25rem;
 
       width: 100%;
+
+      
 
       &_person {
         background-color: get-color(blue_p1);
