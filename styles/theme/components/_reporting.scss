@@ -104,7 +104,7 @@
         width: 100%;
 
         canvas {
-          min-height:  300px !important;
+          min-height:  350px !important;
           @include media(tablet) {
             width: 100% !important;
             height:  100%;
