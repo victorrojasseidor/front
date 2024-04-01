@@ -65,10 +65,12 @@
   .container {
     padding: 1rem 1rem;
     margin: 1rem 1rem;
+    width: 84%;
 
     @include media(tablet) {
       padding: 0rem 2rem;
       margin: 0rem 2rem;
+      width: auto;
     }
   }
 
@@ -482,18 +484,20 @@
 
       .steps-container {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        justify-content: flex-start;
-        position: relative;
-        // flex: 1;
+        flex-direction: column;
+        
+        width: 100%;
         gap: 2rem;
      
 
         @include media(tablet) {
           // flex: 1;
           gap: 4rem;
+          flex-direction: row;
+          flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+          position: relative;
         }
 
         svg {
@@ -613,6 +617,7 @@
             width: 100%;
             text-align: justify;
             font-size: x-small;
+            max-width: 12rem;
           }
         }
       }
@@ -632,7 +637,7 @@
 
         
         .box-circle {
-          background-color: rgba(get-color(t5-green), 0.3);
+          background-color: rgba(get-color(t5-green), 0.8);
           
        
 
