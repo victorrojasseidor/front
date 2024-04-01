@@ -175,7 +175,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                   <h5 className='sub'> 1. {t['Select the exchange rate']} </h5>
                   <p className='description'>{t['Add the bank']}</p>
                 </div>
-                <div className='group'>
+                <div className=''>
 
                   <div className='box-filter'>
 
