@@ -4,7 +4,6 @@ import ConfigDowland from '@/Components/CompProducts/DowloandCurrency/ConfigDowl
 import DocDowland from './DowloandCurrency/DocDowland'
 import ConfigPattern from './Pattern/ConfigPattern'
 
-
 export const componentsProduct = [
   {
     iId: 1,
