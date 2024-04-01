@@ -10,6 +10,7 @@ import Loading from '@/Components/Atoms/Loading'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import { fetchConTokenPost } from '@/helpers/fetch'
+import Counter from '@/Components/Atoms/Counter'
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -96,7 +97,7 @@ export default function Products () {
     try {
       const token = session?.sToken
       const responseData = await fetchConTokenPost('BPasS/?Accion=ConsultaCabeceraEmpresa', body, token)
-      console.log({ responseData })
+      console.log(body, { responseData })
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
@@ -329,7 +330,7 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Digital employees']}</article>
-                  <h2> {hiredProduct}</h2>
+                  <h2> <Counter initialValue={0} finalValue={hiredProduct}/> </h2>
                   <p>
                       <ImageSvg name='ArrowUp' /> <span> {t.working} </span> {t['for you']}{' '}
                   </p>
@@ -345,7 +346,7 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Time saved']}</article>
-                  <h2> {dataCabecera?.tiempo || 20} hrs </h2>
+                  <h2> <Counter initialValue={10} finalValue={dataCabecera?.tiempo} /> hrs </h2>
                   <p>
                     <ImageSvg name='ArrowUp' /> <span> 2% </span> {t['this month']}{' '}
                   </p>
@@ -360,7 +361,7 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Bussines agility']}</article>
-                  <h2> {dataCabecera?.porcentaje_agilidad || 30 }   %</h2>
+                  <h2> <Counter initialValue={10} finalValue={dataCabecera?.porcentaje_agilidad}/>   %</h2>
                   <p>
                     <ImageSvg name='ArrowUp' /> <span> 4% </span> {t.more}{' '}
                   </p>
