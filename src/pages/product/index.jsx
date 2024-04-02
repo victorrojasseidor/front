@@ -38,6 +38,8 @@ export default function Products () {
     }
   }, [session, empresa, l, selectedFilterType])
 
+  console.log(empresa, {hiredProduct})
+
   async function getProductscard () {
     setIsLoading(true)
     try {
@@ -324,7 +326,8 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Digital employees']}</article>
-                  <h2> <Counter initialValue={0} finalValue={hiredProduct} /> </h2>
+                  <h2>  {hiredProduct}  </h2>
+                 
                   <p>
                     <ImageSvg name='ArrowUp' /> <span> {t.working} </span> {t['for you']}{' '}
                   </p>
