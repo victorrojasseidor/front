@@ -179,7 +179,7 @@ const LayoutProducts = ({ children, menu }) => {
           </div>
         </div>
 
-        <nav className='menu_nav' style={{ minHeight: isMobile? "8rem":'20rem', justifyContent: 'flex-start' }}>
+        <nav className='menu_nav' style={{ minHeight: isMobile? "8rem":'18rem', justifyContent: 'flex-start' }}>
 
           {Object.keys(menuItems).map((menuItem, index) => (
 

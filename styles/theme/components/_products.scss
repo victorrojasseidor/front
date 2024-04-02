@@ -15,11 +15,11 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     z-index: 1;
 
     @include media(tablet) {
-      padding: 1rem;
+      padding: 2rem 1rem;
       justify-content: flex-start;
     }
 

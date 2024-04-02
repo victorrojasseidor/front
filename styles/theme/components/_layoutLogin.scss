@@ -16,7 +16,7 @@
       width: 40%;
     }
     @include media(desktop) {
-      width: 55%;
+      width: 50%;
     }
   }
 
@@ -24,19 +24,19 @@
     background-image: url("../../../public/img/register.png");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 120vh;
+    height: 140vh;
     // background-size: 200vh;
     
   }
 
   @include media(desktop) {
     background-size: 200vh;
-   
+    height: 150vh;
   }
 
   @include media(extradesktop) {
     background-size: 250vh;
-    height: 130vh;
+    height: 150vh;
   }
 
 
@@ -60,7 +60,7 @@
     }
  
     @include media(extradesktop) {
-      width: 41%;
+      width: 45%;
       
     }
 

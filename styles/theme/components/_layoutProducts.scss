@@ -128,7 +128,7 @@
 
         li {
           display: flex;
-          padding: 0.5rem 0rem 1rem 0rem;
+          padding: 0.5rem 0rem 0.5rem 0rem;
           flex-direction: column;
           justify-content: flex-start;
           align-items: flex-start;
@@ -182,7 +182,7 @@
       }
 
       .submenu {
-        padding: 1rem 0rem 1rem 0.5rem;
+        padding: 0.5rem 0rem 1rem 0.5rem;
         gap: 0rem;
 
         .pellet {

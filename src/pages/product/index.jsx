@@ -30,7 +30,6 @@ export default function Products () {
 
   const t = l.Products
 
-
   const router = useRouter()
   useEffect(() => {
     if (session && empresa) {
@@ -133,7 +132,6 @@ export default function Products () {
     }
   }, [session])
 
-  
   const handleCompanyInputChange = (event, newValue) => {
     // Actualiza la empresa seleccionada
     if (newValue) {
@@ -306,20 +304,16 @@ export default function Products () {
           </div>
         </div>
 
-      
-
         <div className='products_home'>
           <span className='outstanding-image' />
 
           <div className='welcome'>
             <h1 className='text-gradient'>
-               {t.Welcome}, 
-               <span> {empresa?.razon_social_empresa} </span>
+              {t.Welcome},
+              <span> {empresa?.razon_social_empresa} </span>
             </h1>
             <p> {t['Our digital employees work to improve your productivity']}</p>
           </div>
-
-        
 
           <div className='reporting-box'>
             <div className='report-content'>
@@ -330,9 +324,9 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Digital employees']}</article>
-                  <h2> <Counter initialValue={0} finalValue={hiredProduct}/> </h2>
+                  <h2> <Counter initialValue={0} finalValue={hiredProduct} /> </h2>
                   <p>
-                      <ImageSvg name='ArrowUp' /> <span> {t.working} </span> {t['for you']}{' '}
+                    <ImageSvg name='ArrowUp' /> <span> {t.working} </span> {t['for you']}{' '}
                   </p>
                 </div>
               </div>
@@ -346,10 +340,19 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Time saved']}</article>
-                  <h2> {dataCabecera?.tiempo } hrs </h2>
-                 
+                  <h2>
+                    {dataCabecera && dataCabecera.tiempo
+                      ? (
+                        <Counter initialValue={0} finalValue={dataCabecera.tiempo} />
+                        )
+                      : (
+                          dataCabecera?.tiempo
+                        )}{' '}
+                    hrs
+                  </h2>
+
                   <p>
-                    <ImageSvg name='ArrowUp' /> <span> {dataCabecera?.porcentaje } % </span> {t['this month']}{' '}
+                    <ImageSvg name='ArrowUp' /> <span> {dataCabecera?.porcentaje} % </span> {t['this month']}{' '}
                   </p>
                 </div>
               </div>
@@ -362,8 +365,16 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Bussines agility']}</article>
-                  <h2> {dataCabecera?.agilidad} %</h2>
-                    <p>
+                  <h2>
+                    {dataCabecera && dataCabecera?.agilidad
+                      ? (
+                        <Counter initialValue={10} finalValue={dataCabecera?.agilidad} />
+                        )
+                      : (
+                          dataCabecera?.agilidad
+                        )} %
+                  </h2>
+                  <p>
                     <ImageSvg name='ArrowUp' /> <span> {dataCabecera?.porcentaje_agilidad} %</span> {t.more}{' '}
                   </p>
                 </div>
