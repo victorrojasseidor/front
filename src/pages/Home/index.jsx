@@ -11,8 +11,8 @@ import gif3 from '../../../public/img/video/gif3.gif'
 import Link from 'next/link'
 import Lang from '@/Components/Atoms/Lang'
 import LogoOscuro from '../../../public/img/logoOscuro.png'
-
-import woman from '../../../public/img/contact-woman.png'
+import logoGift from '../../../public/img/logoGift.gif'
+import iphones from '../../../public/img/iphones.png'
 import ImageSvg from '@/helpers/ImageSVG'
 import finance from '../../../public/img/home-finance.png'
 import rrhh from '../../../public/img/home-rrhh.png'
@@ -22,6 +22,7 @@ import drive from '../../../public/img/testimonials/drive.png'
 import uipath from '../../../public/img/testimonials/uipath.png'
 import sap from '../../../public/img/testimonials/sap.png'
 import ftp from '../../../public/img/testimonials/ftp.png'
+import linea from '../../../public/img/linea.png'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { validateFormRegister } from '@/helpers/validateForms'
 import { useAuth } from '@/Context/DataContext'
@@ -385,47 +386,67 @@ const Home = () => {
           </div>
         </section>
 
-        <section className='home-contact container' data-aos='fade-up'>
-          <div className='contact-message'>
-            <h1 className='subtitle'> {t['Contact us']}</h1>
+      </main>
 
-            <p>{t['Find out which AUTOMATION SOLUTIONS can help you']}</p>
+      <section className='home-contact ' data-aos='fade-up'>
+        <div className='contact-message'>
+          <h1 className='subtitle'> {t['Contact us']}</h1>
 
-            <div className='social-media'>
-              <h4>{t.Through}</h4>
+          <p>{t['Find out which AUTOMATION SOLUTIONS can help you']}</p>
 
-              <div className='follow'>
-                <button className='btn_circle '>
-                  <ImageSvg name='Email' />
-                </button>
+          <button className='btn_black' onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
+            {t.Contact}
+          </button>
+        </div>
 
-                <button className='btn_circle '>
-                  <ImageSvg name='Whatsapp' />
-                </button>
-              </div>
+        <div className='slider' data-aos='zoom-in-up'>
+          <div className='slide-track'>
+            <div className='slide'>
+              <Image src={iphones} width='400' alt='logo_oscuro' />
+            </div>
+            <div className='slide'>
+              <Image src={linea} width='400' alt='logo_oscuro' />
+            </div>
+            <div className='slide'>
+              <Image src={rrhh} width='400' alt='logo_oscuro' />
+            </div>
+            <div className='slide'>
+              <Image src={iphones} width='400' alt='logo_oscuro' />
+            </div>
+            <div className='slide'>
+              <Image src={linea} width='400' alt='logo_oscuro' />
             </div>
 
-            <button className='btn_black' onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
-              {t.Contact}
-            </button>
+            <div className='slide'>
+              <Image src={rrhh} width='400' alt='logo_oscuro' priority />
+            </div>
+
+            <div className='slide'>
+              <Image src={iphones} width='400' alt='logo_oscuro' />
+            </div>
+            <div className='slide'>
+              <Image src={linea} width='400' alt='logo_oscuro' />
+            </div>
+
+            <div className='slide'>
+              <Image src={rrhh} width='400' alt='logo_oscuro' priority />
+            </div>
           </div>
 
-          <div className='send' data-aos='zoom-in-up'>
-            <Image src={woman} width='800' alt='logo_oscuro' priority />
-          </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
       <footer>
         <section className='home-social container'>
+
           <div className='home-social-info'>
-            <div>
-              <Image src={LogoOscuro} width='100' alt='logo_oscuro' priority />
+            <div className='logo'>
+              <Image src={logoGift} width='100' alt='logo' priority />
 
               <p>{t['Terms and Conditions']}</p>
-            </div>
+              <p>Vittore Carpaccio 250, San Borja, Lima , Perú</p>
 
-            <p>Vittore Carpaccio 250, San Borja, Lima , Perú</p>
+            </div>
 
             <div className='social-media'>
               <h4>{t['Follow us!']}</h4>

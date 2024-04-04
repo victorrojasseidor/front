@@ -17,6 +17,7 @@
     align-items: center;
     gap: 0.5rem;
     z-index: 1;
+    padding: 0.5em;
 
     @include media(tablet) {
       padding: 2rem 1rem;
@@ -51,18 +52,32 @@
         @include center-container;
         align-items: center;
         justify-content: center;
-        width: 4.25rem;
+        padding: 1rem;
+        height: 3rem;
+      
+        @include media(tablet) {
+          width: 4.25rem;
         height: 4.25rem;
+        padding: 0rem;
+        }
 
         img {
           @include center-container;
-          width: 1.6rem;
-          height: auto;
+          width: 1em;
+          height: 1em;
+          @include media(desktop) {
+            width: 1.6em;
+            height: 1.6em;
+          }
         }
 
         svg {
-          width: 1.8em;
-          height: 1.8em;
+          width: 1em;
+         
+          @include media(desktop) {
+            width: 1.8em;
+            height: 1.8em;
+          }
         }
       }
 
@@ -350,7 +365,7 @@
   display: flex;
   background: get-color(white_s1);
   flex-direction: column;
-  width: 19rem;
+  min-width: 17rem;
   padding: 1em;
   border-radius: brd(2);
   gap: 1rem;

@@ -139,6 +139,8 @@ export default function Products () {
     if (newValue) {
       // setEmpresa(newValue)
       const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === newValue.razon_social_empresa)
+ 
+     
       const selectedEmpresa = {
         id_empresa: DataEmpresa.id_empresa,
         razon_social_empresa: DataEmpresa.razon_social_empresa,
