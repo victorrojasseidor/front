@@ -83,15 +83,15 @@
       .imgPerfil {
         display: none;
 
-        
-          &_logo {
-            img {
-              height: 100px;
-              width: auto;
-              padding-top: 1rem;
-
-              }
+        &_logo {
+          img {
+            height: 100px;
+            width: auto;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            margin-left: -2.4rem;
           }
+        }
 
         @include media(tablet) {
           display: flex;
@@ -100,8 +100,6 @@
           justify-content: center;
           align-items: center;
           width: 100%;
-        
-                    
         }
       }
     }
@@ -114,13 +112,10 @@
       width: 100%;
       overflow-y: auto;
       @include scrollTeme;
-      &::-webkit-scrollbar { 
+      &::-webkit-scrollbar {
         width: 0.14rem;
       }
-      
 
-
-  
       .list-content {
         display: flex;
         flex-direction: column;
@@ -268,8 +263,6 @@
       gap: 0.25rem;
 
       width: 100%;
-
-      
 
       &_person {
         background-color: get-color(blue_p1);
@@ -458,7 +451,6 @@
           padding: 1rem 0rem 0rem 0rem;
 
           .list-content {
-            
             .activeIcon {
               display: flex;
               justify-content: center;
@@ -551,6 +543,7 @@
           img {
             width: auto;
             padding: 1.5rem;
+            margin-left: 0rem;
           }
         }
       }
