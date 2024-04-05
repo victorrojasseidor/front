@@ -22,6 +22,14 @@ import drive from '../../../public/img/testimonials/drive.png'
 import uipath from '../../../public/img/testimonials/uipath.png'
 import sap from '../../../public/img/testimonials/sap.png'
 import ftp from '../../../public/img/testimonials/ftp.png'
+import card1 from '../../../public/img/card-product/card1.png'
+import card2 from '../../../public/img/card-product/card2.png'
+import card3 from '../../../public/img/card-product/card3.png'
+import card4 from '../../../public/img/card-product/card4.png'
+import card5 from '../../../public/img/card-product/card5.png'
+import card6 from '../../../public/img/card-product/card6.png'
+import card7 from '../../../public/img/card-product/card7.png'
+import card8 from '../../../public/img/card-product/card8.png'
 import linea from '../../../public/img/linea.png'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { validateFormRegister } from '@/helpers/validateForms'
@@ -50,8 +58,7 @@ const Home = () => {
       const handleScroll = () => {
         if (gifRef.current) {
           const rect = gifRef.current.getBoundingClientRect()
-          const isVisible =
-            rect.top < window.innerHeight && rect.bottom >= 0
+          const isVisible = rect.top < window.innerHeight && rect.bottom >= 0
           setIsGifSectionInView(isVisible)
         }
       }
@@ -159,7 +166,9 @@ const Home = () => {
             </li>
 
             <li>
-              <button className='btn_black' onClick={() => router.push('/register')}>{t['Sign up']}</button>
+              <button className='btn_black' onClick={() => router.push('/register')}>
+                {t['Sign up']}
+              </button>
             </li>
           </ul>
         </nav>
@@ -172,7 +181,10 @@ const Home = () => {
             <p> {t['Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence']}</p>
 
             <div className='welcome-actions'>
-              <button className='btn_secundary small' onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}> {t['Try free trial']} </button>
+              <button className='btn_secundary small' onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
+                {' '}
+                {t['Try free trial']}{' '}
+              </button>
               <button className='record' onClick={() => demoSectionRef.current.scrollIntoView({ behavior: 'smooth' })}>
                 <ImageSvg name='Record' />
 
@@ -192,7 +204,10 @@ const Home = () => {
 
         <section className='home-client'>
           <div>
-            <h1 className='subtitle' style={{ textAlign: 'right' }}> {t['What our client think about us?']} </h1>
+            <h1 className='subtitle' style={{ textAlign: 'right' }}>
+              {' '}
+              {t['What our client think about us?']}{' '}
+            </h1>
           </div>
           <div className='testimonials-container'>
             <div className='container-img' style={{ transform: `rotate(${rotation}deg)` }}>
@@ -240,24 +255,29 @@ const Home = () => {
         <section ref={gifRef} className='home-how container'>
           <div className='home-how-description'>
             <div className='discover'>
-              <p>{t['Discover our automation process']}</p>
-
-              <h1 className='subtitle'>{t['How do we do it?']}</h1>
+              <div className='title-how'>
+                <p className='text-blue'>Discover our automation process</p>
+                <h1 className='subtitle'> {t['How do we do it?']}</h1>
+              </div>
 
               <p>{t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}</p>
             </div>
+            <figure className='steps-gift' ref={demoSectionRef}>
+              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} />
+            </figure>
           </div>
 
           <div className='home-how-steps'>
-            <div className='steps-container' ref={demoSectionRef}>
+            <div className='steps-container'>
               <div className={`step ${currentGif === 0 ? 'active' : ''}`}>
                 <div className='box-circle'>
+                  <button className='circle' onClick={() => setCurrentGif(0)}>
+                    <ImageSvg name='Admin' />
+                  </button>
                   <span>1</span>
-                  <button className='circle' onClick={() => setCurrentGif(0)} />
                 </div>
 
                 <button className='process' onClick={() => setCurrentGif(0)}>
-
                   <div className='text'>
                     <h3> {t['Customize your process']}</h3>
                     <p>{t['Access the Ari.app application easily and securely, configure your digital employees']}</p>
@@ -265,14 +285,15 @@ const Home = () => {
                 </button>
               </div>
 
-              <div className={`step ${currentGif === 1 ? 'active' : ''}`}>
+              <div className={`step ${currentGif === 1 ? 'active' : ''} step-second `}>
                 <div className='box-circle'>
+                  <button className='circle' onClick={() => setCurrentGif(1)}>
+                    <ImageSvg name='Account' />
+                  </button>
                   <span>2</span>
-                  <button className='circle' onClick={() => setCurrentGif(1)} />
                 </div>
 
                 <button className='process' onClick={() => setCurrentGif(1)}>
-
                   <div className='text'>
                     <h3> {t['Automated process']} </h3>
                     <p>{t['This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set']}</p>
@@ -280,14 +301,15 @@ const Home = () => {
                 </button>
               </div>
 
-              <div className={`step ${currentGif === 2 ? 'active' : ''}`}>
+              <div className={` step ${currentGif === 2 ? 'active' : ''}   `}>
                 <div className='box-circle'>
+                  <button className='circle' onClick={() => setCurrentGif(2)}>
+                    <ImageSvg name='BarChart' />
+                  </button>
                   <span>3</span>
-                  <button className='circle' onClick={() => setCurrentGif(2)} />
                 </div>
 
                 <button className='process' onClick={() => setCurrentGif(2)}>
-
                   <div className='text'>
                     <h3> {t['Work delivered']} </h3>
                     <p>{t['After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready']}</p>
@@ -295,13 +317,6 @@ const Home = () => {
                 </button>
               </div>
             </div>
-
-            <figure className='steps-gift'>
-              <div className='container-gift'>
-                {/* Aquí usamos el GIF actual según el estado */}
-                <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} />
-              </div>
-            </figure>
           </div>
         </section>
 
@@ -385,7 +400,6 @@ const Home = () => {
             </button>
           </div>
         </section>
-
       </main>
 
       <section className='home-contact ' data-aos='fade-up'>
@@ -402,50 +416,69 @@ const Home = () => {
         <div className='slider' data-aos='zoom-in-up'>
           <div className='slide-track'>
             <div className='slide'>
-              <Image src={iphones} width='400' alt='logo_oscuro' />
+              <Image src={finance} width='1000' alt='logo_oscuro' />
             </div>
             <div className='slide'>
-              <Image src={linea} width='400' alt='logo_oscuro' />
-            </div>
-            <div className='slide'>
-              <Image src={rrhh} width='400' alt='logo_oscuro' />
-            </div>
-            <div className='slide'>
-              <Image src={iphones} width='400' alt='logo_oscuro' />
-            </div>
-            <div className='slide'>
-              <Image src={linea} width='400' alt='logo_oscuro' />
+              <Image src={card1} width='400' alt='logo_oscuro' />
             </div>
 
             <div className='slide'>
-              <Image src={rrhh} width='400' alt='logo_oscuro' priority />
+              <Image src={card2} width='400' alt='logo_oscuro' />
+            </div>
+            <div className='slide'>
+              <Image src={card3} width='400' alt='logo_oscuro' />
+            </div>
+            <div className='slide'>
+              <Image src={card4} width='400' alt='logo_oscuro' />
+            </div>
+
+
+           
+
+
+            <div className='slide'>
+              <Image src={card5} width='1000' alt='logo_oscuro' />
+            </div>
+
+
+            <div className='slide'>
+              <Image src={support} width='1000' alt='logo_oscuro' />
             </div>
 
             <div className='slide'>
-              <Image src={iphones} width='400' alt='logo_oscuro' />
-            </div>
-            <div className='slide'>
-              <Image src={linea} width='400' alt='logo_oscuro' />
+              <Image src={card6} width='1000' alt='logo_oscuro' priority />
             </div>
 
             <div className='slide'>
-              <Image src={rrhh} width='400' alt='logo_oscuro' priority />
+              <Image src={card7} width='400' alt='logo_oscuro' />
             </div>
+
+
+            <div className='slide'>
+              <Image src={rrhh} width='1000' alt='logo_oscuro' />
+            </div>
+
+
+            <div className='slide'>
+              <Image src={card8} width='400' alt='logo_oscuro' />
+            </div>
+
+            <div className='slide'>
+              <Image src={finance} width='1000' alt='logo_oscuro' />
+            </div>
+           
           </div>
-
         </div>
       </section>
 
       <footer>
         <section className='home-social container'>
-
           <div className='home-social-info'>
             <div className='logo'>
               <Image src={logoGift} width='100' alt='logo' priority />
 
               <p>{t['Terms and Conditions']}</p>
               <p>Vittore Carpaccio 250, San Borja, Lima , Perú</p>
-
             </div>
 
             <div className='social-media'>
