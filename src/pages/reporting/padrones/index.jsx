@@ -94,7 +94,7 @@ const padrones = () => {
               <div className='contaniner-tables'>
                 <div className='box-search'>
                   <div>
-                    <h3> {t['Sunat register repor']}</h3>
+                    <h3> {t['Sunat register report']}</h3>
                     <p> {t['Results Obtained from Dates']} </p>
                   </div>
                 </div>
