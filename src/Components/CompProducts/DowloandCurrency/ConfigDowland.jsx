@@ -24,13 +24,13 @@ export default function ConfigDowland () {
   const [showForm, setShowForm] = useState(false)
   const [requestError, setRequestError] = useState('')
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null)
-  const [modalConfirmationShedule, setModalConfirmationShedule] = useState(false)
+  const [modalConfirmationFinish, setModalConfirmationFinish] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingComponent, setIsLoadingComponent] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
   const [completeEmails, setcompleteEmails] = useState(false)
   const [completeconfigBank, setCompleteconfigBank] = useState(false)
-  const [completeShedule, setCompleteShedule] = useState(false)
+  const [finish, setFinish]= useState(false)
   const [showAccounts, setShowAccounts] = useState(false)
   const [bankCredential, setBankCredential] = useState(null)
   const [updateEmails, setUpdateEmails] = useState(false)
@@ -44,13 +44,7 @@ export default function ConfigDowland () {
     setIsChecked(e.target.checked)
   }
 
-  useEffect(() => {
-    if (isChecked) {
-      setCompleteShedule(true)
-    } else {
-      setCompleteShedule(false)
-    }
-  }, [isChecked])
+ 
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -219,10 +213,10 @@ export default function ConfigDowland () {
 
         if (atLeastOneAccount) {
           setCompleteconfigBank(true)
-          setCompleteShedule(true)
+          
         } else {
           setCompleteconfigBank(false)
-          setCompleteShedule(false)
+         
         }
       } else {
         await handleCommonCodes(responseData)
@@ -317,10 +311,10 @@ export default function ConfigDowland () {
             <h4>  {t['Bank and Accounts']}  </h4>
           </button>
 
-          <button style={{ visibility: completeconfigBank ? 'visible' : 'hidden' }} className={` ${activeTab === 2 ? 'activeST' : ''} ${completeShedule ? 'completeST' : ''}`} onClick={() => handleTabClick(2)}>
+          {/* <button style={{ visibility: completeconfigBank ? 'visible' : 'hidden' }} className={` ${activeTab === 2 ? 'activeST' : ''} ${completeShedule ? 'completeST' : ''}`} onClick={() => handleTabClick(2)}>
             <ImageSvg name='Check' />
             <h4> {t['Schedule and repository']}</h4>
-          </button>
+          </button> */}
         </div>
 
         <div className='Tabsumenu-content'>
@@ -537,7 +531,7 @@ export default function ConfigDowland () {
                           </button>
                           <button
                             className={`btn_secundary small  ${completeconfigBank ? ' ' : 'disabled'}`}
-                            onClick={() => handleTabClick(2)}
+                            onClick={() => setModalConfirmationFinish(true)}
                             disabled={!completeconfigBank}
                           >
                             {t.Next}
@@ -563,53 +557,13 @@ export default function ConfigDowland () {
 
             </div>}
 
-          {activeTab === 2 &&
-            <div className='shedule'>
-              <h2>
-                {t.Schedule}
-              </h2>
-              <div className='input-box'>
-                <label className='checkbox'>
-                  <input
-                    className='checkboxId'
-                    id='acceptTerms'
-                    type='checkbox'
-                    name='acceptTerms'
-                    checked={isChecked} // Establece el estado del checkbox
-                    onChange={handleCheckboxChange}
-                  />
-                  <span>   <strong>{t.Daily}:  </strong>   {t.Timezone} (UTC -05:00) Bogota </span>
-                </label>
-              </div>
-
-              <div />
-
-              <div className='box-buttons'>
-                <button
-                  type='button'
-                  className='btn_secundary small'
-                  onClick={() => handleTabClick(1)}
-                >
-                  <ImageSvg name='Back' />
-                  {t.Previus}
-                </button>
-
-                <button
-                  type='button'
-                  className='btn_primary small'
-                  onClick={() => setModalConfirmationShedule(true)}
-                >
-                  {t.Finish}
-                  <ImageSvg name='Next' />
-                </button>
-              </div>
-            </div>}
+         
         </div>
       </div>
 
-      {modalConfirmationShedule && (
+      {modalConfirmationFinish && (
         <Modal close={() => {
-          setModalConfirmationShedule(false)
+          setModalConfirmationFinish(false)
         }}
         >
           <div>
@@ -628,7 +582,7 @@ export default function ConfigDowland () {
               <button
                 type='button'
                 className='btn_primary small'
-                onClick={() => { router.push('/product'); setModalConfirmationShedule(false) }}
+                onClick={() => { router.push('/product'); setModalConfirmationFinish(false) }}
               >
                 {t['Return a home']}
               </button>
