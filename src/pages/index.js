@@ -2,7 +2,8 @@
 import Head from 'next/head'
 import { useAuth } from '@/Context/DataContext'
 import Register from '@/pages/register'
-import Home from '@/pages/home'
+import Principal from './inicio'
+
 
 export default function Inicio () {
   const { l } = useAuth()
@@ -28,7 +29,7 @@ export default function Inicio () {
         <meta name='theme-color' content='#ffffff' />
       </Head>
       <body>
-        <Home />
+        <Principal />
       </body>
     </>
   )

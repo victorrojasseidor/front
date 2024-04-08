@@ -40,7 +40,7 @@ import 'aos/dist/aos.css'
 import Counter from '@/Components/Atoms/Counter'
 import { useRouter } from 'next/router'
 
-const Homex = () => {
+const Principal = () => {
   const [selectImage, setSelectImage] = useState(null)
   const [rotation, setRotation] = useState(0)
   const [message, setMessage] = useState(null)
@@ -508,4 +508,4 @@ const Homex = () => {
   )
 }
 
-export default Homex
+export default Principal
