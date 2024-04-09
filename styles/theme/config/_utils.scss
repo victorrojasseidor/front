@@ -349,9 +349,13 @@
 
 .requestError{
   color: get-color(t3-red);
-   background-color: rbga(get-color(t3-red), 0.1);
-   padding: 1rem 0rem;
-
+  background-color: rgba(get-color(t3-red), 0.2) !important;
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  border-radius: brd(2);
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  
 }
 
 .date {

@@ -4,7 +4,6 @@ import LayoutProducts from '@/Components/LayoutProducts'
 import FreeTrial from '@/Components/FreeTrial'
 import { getProducts } from '@/helpers/auth'
 import { useAuth } from '@/Context/DataContext'
-import { componentsProduct } from '@/Components/CompProducts/componentsProduct'
 import Link from 'next/link'
 import ImageSvg from '@/helpers/ImageSVG'
 import NavigationPages from '../NavigationPages'
@@ -21,10 +20,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
 
   const t = l.Products
 
-  useEffect(() => {
-    const selectComponentes = componentsProduct.find((p) => p.iId === parseInt(id))
-    setComponent(selectComponentes)
-  }, [id])
 
   useEffect(() => {
     getDataProduct()
@@ -122,7 +117,6 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                   href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`}
                 >
                   <button
-
                     style={{ display: session?.sPerfilCode === 'ADMIN' ? 'block' : product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'block' : 'none' }}
                     className={activeTab === 1 ? 'active ' : ''} onClick={() => handleTabClick(1)}
                   >
@@ -140,13 +134,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                   </button>
                 </Link>
 
-                <Link href={`/product/product?type=documentation&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`} style={{ display: 'none' }}>
-                  <button className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
-
-                    <h4> {t.Documentation}</h4>
-
-                  </button>
-                </Link>
+               
               </div>
               <div className='tab-content'>
                 {activeTab === 0 && (
@@ -166,10 +154,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
                     <Apiconfiguration nameEmpresa={NameEmpresa(idEmpresa)} product={product} />
                   </div>
                 )}
-                {activeTab === 3 && <div>
-                  {/* {component?.documentation} */}
-
-                                    </div>}
+              
               </div>
             </div>
 

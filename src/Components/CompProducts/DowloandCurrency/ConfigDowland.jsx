@@ -6,17 +6,13 @@ import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
 import Modal from '@/Components/Modal'
-import TabsConfig from './Tabsconfig'
 import Loading from '@/Components/Atoms/Loading'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
-import NavigationPages from '@/Components/NavigationPages'
-import Link from 'next/link'
 import ConfigAccount from './ConfigAccount'
-import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { getProducts } from '@/helpers/auth'
 import { formatDate } from '@/helpers/report'
 
-export default function ConfigDowland () {
+export default function ConfigDowland ({ getBank, registerBank, updateBank, deleteBank, registerAccount, updateAccount, deleteAccount }) {
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
   const [data, setData] = useState(null)
@@ -30,21 +26,10 @@ export default function ConfigDowland () {
   const [activeTab, setActiveTab] = useState(0)
   const [completeEmails, setcompleteEmails] = useState(false)
   const [completeconfigBank, setCompleteconfigBank] = useState(false)
-  const [finish, setFinish]= useState(false)
   const [showAccounts, setShowAccounts] = useState(false)
   const [bankCredential, setBankCredential] = useState(null)
   const [updateEmails, setUpdateEmails] = useState(false)
   const [get, setGet] = useState(false)
-
-  // Estado para almacenar si el checkbox está marcado o no
-  const [isChecked, setIsChecked] = useState(false)
-
-  // Función para manejar el cambio de estado del checkbox
-  const handleCheckboxChange = (e) => {
-    setIsChecked(e.target.checked)
-  }
-
- 
 
   const handleTabClick = (index) => {
     setActiveTab(index)
@@ -73,7 +58,7 @@ export default function ConfigDowland () {
         setRequestError(null) // Limpiar el mensaje después de 3 segundos
       }, 5000)
     }
-  };
+  }
 
   async function handleAgregar (values) {
     setIsLoadingComponent(true)
@@ -95,8 +80,8 @@ export default function ConfigDowland () {
     try {
       const token = session.sToken
 
-      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarExtBancario', body, token)
-
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${registerBank}`, body, token)
+      console.log({ responseData })
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
         setTimeout(() => {
@@ -105,7 +90,7 @@ export default function ConfigDowland () {
           setGet(!get)
           setShowForm(false)
           setRequestError(null)
-        }, 1000)
+        }, 2000)
       } else {
         await handleCommonCodes(responseData)
         setShowForm(true)
@@ -142,7 +127,7 @@ export default function ConfigDowland () {
         iIdBancoCredencial: initialEdit?.id_banco_credencial,
         sName: values.name,
         iIdPais: idCountry,
-        iBanco: values.bank ? values.bank.id : (initialEdit ? initialEdit.id_banco : null),
+        iBanco: values.bank ? values.bank.id : initialEdit ? initialEdit.id_banco : null,
         ...(values.password && { sPassword: values.password }),
         sCredencial: values.principalCredential,
         sCredencial2: values.credential2,
@@ -154,7 +139,7 @@ export default function ConfigDowland () {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarExtBancario', body, token)
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${updateBank}`, body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         setGet(!get)
@@ -199,7 +184,7 @@ export default function ConfigDowland () {
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('BPasS/?Accion=GetExtBancario', body, token)
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
@@ -213,10 +198,8 @@ export default function ConfigDowland () {
 
         if (atLeastOneAccount) {
           setCompleteconfigBank(true)
-          
         } else {
           setCompleteconfigBank(false)
-         
         }
       } else {
         await handleCommonCodes(responseData)
@@ -239,17 +222,15 @@ export default function ConfigDowland () {
       oResults: {
         iIdExtBanc: iIdProdEnv,
         iIdBancoCredencial: idbankcred
-
       }
     }
     try {
-      const response = await fetchConTokenPost('BPasS/?Accion=EliminarBancoCredencialExtBancario', body, token)
+      const response = await fetchConTokenPost(`BPasS/?Accion=${deleteBank}`, body, token)
       console.error('res', response)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         setGet(!get)
-        setTimeout(() => {
-        }, 1000)
+        setTimeout(() => {}, 1000)
       } else {
         await handleCommonCodes(response)
       }
@@ -266,9 +247,7 @@ export default function ConfigDowland () {
   }
 
   // Función para verificar si un objeto tiene datos en oListCuentas
-  const haveAccounts = (data) => data?.oListBancoCredendicial.some(
-    (objeto) => objeto.oListCuentas && objeto.oListCuentas.length > 0
-  )
+  const haveAccounts = (data) => data?.oListBancoCredendicial.some((objeto) => objeto.oListCuentas && objeto.oListCuentas.length > 0)
 
   useEffect(() => {
     getDataProduct()
@@ -295,7 +274,6 @@ export default function ConfigDowland () {
   }
 
   return (
-
     <section className='config-Automated'>
       {isLoading && <Loading />}
 
@@ -308,34 +286,26 @@ export default function ConfigDowland () {
 
           <button style={{ visibility: completeEmails ? 'visible' : 'hidden' }} className={` ${activeTab === 1 ? 'activeST' : ''} ${completeconfigBank ? 'completeST' : ''}`} onClick={() => handleTabClick(1)}>
             <ImageSvg name='Check' />
-            <h4>  {t['Bank and Accounts']}  </h4>
+            <h4> {t['Bank and Accounts']} </h4>
           </button>
-
-          {/* <button style={{ visibility: completeconfigBank ? 'visible' : 'hidden' }} className={` ${activeTab === 2 ? 'activeST' : ''} ${completeShedule ? 'completeST' : ''}`} onClick={() => handleTabClick(2)}>
-            <ImageSvg name='Check' />
-            <h4> {t['Schedule and repository']}</h4>
-          </button> */}
         </div>
 
-        <div className='Tabsumenu-content'>
-          {activeTab === 0 &&
-            <div className='container-status'>
+        {requestError && <div className='errorMessage'>{requestError}</div>}
 
+        <div className='Tabsumenu-content'>
+          {activeTab === 0 && (
+            <div className='container-status'>
               <div className='status-config'>
                 <h3 className='title-Config'> {t.State} </h3>
                 <ul>
-
                   <li>
                     <p>{t['Digital employees']}</p>
                     <p>:</p>
                     <p className='name-blue'>
-
                       <h5>{dataCardProduct?.sName}</h5>
                     </p>
-
                   </li>
                   <li>
-
                     <p>{t['Start service:']}</p>
                     <p>:</p>
                     <p> {formatDate(dataCardProduct?.sDateInit)}</p>
@@ -361,238 +331,226 @@ export default function ConfigDowland () {
               <EmailsForm dataEmails={data?.oCorreoEB} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 
               <div className='box-buttons'>
-                <button
-                  type='button'
-                  className={`btn_secundary small ${completeEmails ? ' ' : 'disabled'}`}
-                  onClick={() => handleTabClick(1)}
-                  disabled={!completeEmails}
-                >
+                <button type='button' className={`btn_secundary small ${completeEmails ? ' ' : 'disabled'}`} onClick={() => handleTabClick(1)} disabled={!completeEmails}>
                   {t.Next}
                   <ImageSvg name='Next' />
                 </button>
               </div>
+            </div>
+          )}
 
-            </div>}
-
-          {activeTab === 1 &&
+          {activeTab === 1 && (
             <div className='config-Automated--tables'>
+              {bankCredential && (
+                <div className=' title-Config navegation' style={{ justifyContent: 'flex-start' }}>
+                  <button
+                    onClick={() => {
+                      setShowAccounts(false)
+                      setBankCredential(null)
+                    }}
+                  >
+                    {t['List Bank Credential']}
+                  </button>
 
-              {
-              bankCredential && <div className=' title-Config navegation' style={{ justifyContent: 'flex-start' }}>
+                  <ImageSvg name='Navegación' />
 
-                <button onClick={() => { setShowAccounts(false); setBankCredential(null) }}>
-                  {t['List Bank Credential']}
-                </button>
-
-                <ImageSvg name='Navegación' />
-
-                <span>
-
-                  {bankCredential?.nombre}
-                </span>
-
-              </div>
-            }
+                  <span>{bankCredential?.nombre}</span>
+                </div>
+              )}
 
               {showAccounts
-                ? <>
-                  <ConfigAccount idbancoCredential={bankCredential?.id_banco_credencial} setShowAccounts={setShowAccounts} OptionBanks={data?.oPaisBanco} setGet={setGet} get={get} />
+                ? (
+                  <>
+                    <ConfigAccount
+                      getBank={getBank}
+                      registerAccount={registerAccount}
+                      updateAccount={updateAccount}
+                      deleteAccount={deleteAccount}
+                      idbancoCredential={bankCredential?.id_banco_credencial} setShowAccounts={setShowAccounts} OptionBanks={data?.oPaisBanco} setGet={setGet} get={get}
+                    />
 
-                  <div className='box-buttons'>
-                    <button
-                      type='button'
-                      className='btn_secundary small  '
-                      onClick={() => { setShowAccounts(false); setBankCredential(null) }}
-                    >
-                      <ImageSvg name='Back' />
-                      {t.Previus}
-                    </button>
-
-                  </div>
-                </>
-
-                : <>
-
-                  <div className='contaniner-tables'>
-
-                    <div className='box-search'>
-                      <h3>{t['List Bank Credential']} </h3>
-                      <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
-                        {showForm ? t['Close Form'] : t['+ Add credential']}
+                    <div className='box-buttons'>
+                      <button
+                        type='button'
+                        className='btn_secundary small  '
+                        onClick={() => {
+                          setShowAccounts(false)
+                          setBankCredential(null)
+                        }}
+                      >
+                        <ImageSvg name='Back' />
+                        {t.Previus}
                       </button>
                     </div>
-
-                    <div className='tableContainer'>
-
-                      <div className='boards'>
-
-                        {data.oListBancoCredendicial.length > 0
-                          ? <table className='dataTable'>
-
-                            <thead>
-                              <tr>
-                                <th>{t.Name} </th>
-                                <th>{t['Principal user']} </th>
-                                <th>{t.Bank} </th>
-                                <th>{t.Country} </th>
-                                <th>{t.State} </th>
-                                <th>{t.Accounts} </th>
-                                <th>{t.Actions} </th>
-                              </tr>
-                            </thead>
-
-                            <tbody>
-
-                              {data?.oListBancoCredendicial?.map((row) => (
-                                <tr key={row.id_banco_credencial}>
-                                  <td>{row.nombre}</td>
-                                  <td>{row.usuario}</td>
-                                  <td>{row.nombre_banco}</td>
-                                  <td>Perú</td>
-                                  <td>
-                                    <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
-                                  </td>
-
-                                  <td className='head-status'>
-                                    {row.oListCuentas.length > 0
-                                      ? <button className='btn_green' onClick={() => handleAcount(row)}> {t['Show Accounts']} </button>
-                                      : <button className='btn_red' onClick={() => handleAcount(row)}>     {t['Add Accounts']}  </button>}
-                                  </td>
-                                  <td className='box-actions'>
-                                    <button className='btn_crud' onClick={() => handleEdit(row)}>
-                                      <ImageSvg name='Edit' />{' '}
-                                    </button>
-                                    <button
-                                      className='btn_crud' onClick={() => {
-                                        setSelectedRowToDelete(row)
-                                      }}
-                                    >
-                                      <ImageSvg name='Delete' />
-                                    </button>
-                                  </td>
-
-                                </tr>
-                              ))}
-                            </tbody>
-                            </table>
-                          : <div>
-                            <p> {t['Register your bank Credentials']}
-
-                            </p>
-
-                            </div>}
-
+                  </>
+                  )
+                : (
+                  <>
+                    <div className='contaniner-tables'>
+                      <div className='box-search'>
+                        <h3>{t['List Bank Credential']} </h3>
+                        <button className='btn_black' style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
+                          {showForm ? t['Close Form'] : t['+ Add credential']}
+                        </button>
                       </div>
-                      {isLoadingComponent && <LoadingComponent />}
-                      {showForm && <FormCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
+
+                      <div className='tableContainer'>
+                        <div className='boards'>
+                          {data.oListBancoCredendicial.length > 0
+                            ? (
+                              <table className='dataTable'>
+                                <thead>
+                                  <tr>
+                                    <th>{t.Name} </th>
+                                    <th>{t['Principal user']} </th>
+                                    <th>{t.Bank} </th>
+                                    <th>{t.Country} </th>
+                                    <th>{t.State} </th>
+                                    <th>{t.Accounts} </th>
+                                    <th>{t.Actions} </th>
+                                  </tr>
+                                </thead>
+
+                                <tbody>
+                                  {data?.oListBancoCredendicial?.map((row) => (
+                                    <tr key={row.id_banco_credencial}>
+                                      <td>{row.nombre}</td>
+                                      <td>{row.usuario}</td>
+                                      <td>{row.nombre_banco}</td>
+                                      <td>Perú</td>
+                                      <td>
+                                        <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
+                                      </td>
+
+                                      <td className='head-status'>
+                                        {row.oListCuentas.length > 0
+                                          ? (
+                                            <button className='btn_green' onClick={() => handleAcount(row)}>
+                                              {' '}
+                                              {t['Show Accounts']}{' '}
+                                            </button>
+                                            )
+                                          : (
+                                            <button className='btn_red' onClick={() => handleAcount(row)}>
+                                              {' '}
+                                              {t['Add Accounts']}{' '}
+                                            </button>
+                                            )}
+                                      </td>
+                                      <td className='box-actions'>
+                                        <button className='btn_crud' onClick={() => handleEdit(row)}>
+                                          <ImageSvg name='Edit' />{' '}
+                                        </button>
+                                        <button
+                                          className='btn_crud'
+                                          onClick={() => {
+                                            setSelectedRowToDelete(row)
+                                          }}
+                                        >
+                                          <ImageSvg name='Delete' />
+                                        </button>
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                              )
+                            : (
+                              <div>
+                                <p> {t['Register your bank Credentials']}</p>
+                              </div>
+                              )}
+                        </div>
+                        {isLoadingComponent && <LoadingComponent />}
+                        {showForm && <FormCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
+                      </div>
+
+                      {selectedRowToDelete && (
+                        <Modal
+                          close={() => {
+                            setSelectedRowToDelete(null)
+                          }}
+                        >
+                          <ImageSvg name='Question' />
+
+                          <div>
+                            <h3>{t['Do you want to delete this credential bank ?']}</h3>
+                            <div className='box-buttons'>
+                              <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
+                                {t.YES}
+                              </button>
+                              <button type='button' className='btn_secundary small' onClick={() => setSelectedRowToDelete(null)}>
+                                {t.NOT}
+                              </button>
+                            </div>
+                          </div>
+                        </Modal>
+                      )}
                     </div>
 
-                    {selectedRowToDelete && (
-                      <Modal close={() => {
-                        setSelectedRowToDelete(null)
-                      }}
-                      >
-                        <ImageSvg name='Question' />
+                    {data.oListBancoCredendicial.length > 0 && (
+                      <div>
+                        {completeconfigBank
+                          ? (
+                            <div className='box-buttons'>
+                              <button type='button' className='btn_secundary small' onClick={() => handleTabClick(0)}>
+                                <ImageSvg name='Back' />
 
-                        <div>
-                          <h3>{t['Do you want to delete this credential bank ?']}</h3>
-                          <div className='box-buttons'>
-                            <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
-                              {t.YES}
-                            </button>
-                            <button
-                              type='button'
-                              className='btn_secundary small'
-                              onClick={() => setSelectedRowToDelete(null)}
-                            >
-                              {t.NOT}
-                            </button>
-                          </div>
-                        </div>
-                      </Modal>
+                                {t.Previus}
+                              </button>
+                              <button className={`btn_secundary small  ${completeconfigBank ? ' ' : 'disabled'}`} onClick={() => setModalConfirmationFinish(true)} disabled={!completeconfigBank}>
+                                {t.Next}
+                                <ImageSvg name='Next' />
+                              </button>
+                            </div>
+                            )
+                          : (
+                            <div className='noti'>
+                              <p> {t['Register at least one bank account to proceed to the next step in the setup process']}</p>
+                              <p>
+                                {' '}
+                                <span> {t['Please click on Add Accounts']} </span>{' '}
+                              </p>
+                            </div>
+                            )}
+                      </div>
                     )}
-                    {requestError && <div className='errorMessage'>{requestError}</div>}
-
-                  </div>
-
-                  {
-                  data.oListBancoCredendicial.length > 0 && <div>
-                    {completeconfigBank
-                      ? (
-                        <div className='box-buttons'>
-                          <button
-                            type='button'
-                            className='btn_secundary small'
-                            onClick={() => handleTabClick(0)}
-                          >
-                            <ImageSvg name='Back' />
-
-                            {t.Previus}
-                          </button>
-                          <button
-                            className={`btn_secundary small  ${completeconfigBank ? ' ' : 'disabled'}`}
-                            onClick={() => setModalConfirmationFinish(true)}
-                            disabled={!completeconfigBank}
-                          >
-                            {t.Next}
-                            <ImageSvg name='Next' />
-                          </button>
-                        </div>
-
-                        )
-                      : (
-
-                        <div className='noti'>
-                          <p> {t['Register at least one bank account to proceed to the next step in the setup process']}
-
-                          </p>
-                          <p> <span> {t['Please click on Add Accounts']} </span> </p>
-                        </div>
-
-                        )}
-                  </div>
-                }
-
-                </>}
-
-            </div>}
-
-         
+                  </>
+                  )}
+            </div>
+          )}
         </div>
       </div>
 
       {modalConfirmationFinish && (
-        <Modal close={() => {
-          setModalConfirmationFinish(false)
-        }}
+        <Modal
+          close={() => {
+            setModalConfirmationFinish(false)
+          }}
         >
           <div>
             <ImageSvg name='Check' />
           </div>
           <div>
+            <h2>{t.Configured} </h2>
 
-            <h2>{t.Configured}  </h2>
-
-            <p>
-              {t['Download automated Bank Statements']}
-            </p>
+            <p>{t['Download automated Bank Statements']}</p>
 
             <div className='box-buttons'>
-
               <button
                 type='button'
                 className='btn_primary small'
-                onClick={() => { router.push('/product'); setModalConfirmationFinish(false) }}
+                onClick={() => {
+                  router.push('/product')
+                  setModalConfirmationFinish(false)
+                }}
               >
                 {t['Return a home']}
               </button>
-
             </div>
-
           </div>
         </Modal>
       )}
-
     </section>
   )
 }

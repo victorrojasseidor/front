@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import LayoutConfig from '@/Components/CompProducts/LayoutConfig'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/Context/DataContext'
 import { fetchConTokenPost } from '@/helpers/fetch'
@@ -9,7 +8,7 @@ import FormAccounts from '@/Components/CompProducts/DowloandCurrency/FormAccount
 import Loading from '@/Components/Atoms/Loading'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 
-export default function ConfigAccount ({ idbancoCredential, setShowAccounts, setGet, get }) {
+export default function ConfigAccount ({ idbancoCredential, setShowAccounts, setGet, get, getBank, registerAccount,updateAccount,deleteAccount }) {
   const [data, setData] = useState(null)
   const [initialEdit, setIinitialEdit] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
@@ -61,7 +60,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
     try {
       const token = session.sToken
 
-      const responseData = await fetchConTokenPost('BPasS/?Accion=GetExtBancario', body, token)
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setGet(!get)
@@ -101,7 +100,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
     }
 
     try {
-      const response = await fetchConTokenPost('BPasS/?Accion=EliminarCuentaExtBancario', body, token)
+      const response = await fetchConTokenPost(`BPasS/?Accion=${deleteAccount}`, body, token)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         setGetAccounts(!getAccounts)
@@ -137,7 +136,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
     try {
       const token = session.sToken
 
-      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarCuentaExtBancario', body, token)
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${registerAccount}`, body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setGetAccounts(!getAccounts)
@@ -187,7 +186,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
 
     try {
       const token = session.sToken
-      const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarCuentaExtBancario', body, token)
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${updateAccount}`, body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)

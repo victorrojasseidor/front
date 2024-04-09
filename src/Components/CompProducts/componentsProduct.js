@@ -10,9 +10,16 @@ export const componentsProduct = [
     sName: 'Downlaod automated Bank Statements',
     documentation: <DocDowland />,
     apiConfiguration: 'apiconfiguration Dowland',
-    configuration: <ConfigDowland /> ? <ConfigDowland /> : 'configuration id 1'
-  },
-  {
+    configuration: <ConfigDowland
+      getBank='GetExtBancario'
+      registerBank='RegistrarExtBancario'
+      updateBank='ActualizarExtBancario'
+      deleteBank='EliminarBancoCredencialExtBancario'
+      registerAccount='RegistrarCuentaExtBancario'
+      updateAccount='ActualizarCuentaExtBancario'
+      deleteAccount='EliminarCuentaExtBancario'
+                   />
+  }, {
     iId: 2,
     sName: 'Currency Exchange rates automation',
     documentation: 'hhhhhhhh',
@@ -31,13 +38,13 @@ export const componentsProduct = [
     sName: 'Download account statements- peo debe ser de captcha',
     documentation: 'documentation 4',
     apiConfiguration: 'apiconfiguration 4',
-    configuration: "config 4"
+    configuration: 'config 4'
   },
   {
     iId: 5,
     sName: 'Download account statements',
     documentation: 'documentation 5',
     apiConfiguration: 'apiconfiguration 5',
-    configuration:  "config 5"
+    configuration: 'config 5'
   }
 ]

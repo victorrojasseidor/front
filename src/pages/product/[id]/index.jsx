@@ -15,7 +15,7 @@ export default function productId () {
   const idEmpresa = router.query.idEmpresa
 
   useEffect(() => {
-    const selectComponentes = componentsProduct.find((p) => p.iId === parseInt(iId))
+    const selectComponentes = componentsProduct?.find((p) => p.iId === parseInt(iId))
     setComponent(selectComponentes)
 
     // Establecer la pestaña activa basada en el tipo
