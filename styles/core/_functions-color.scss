@@ -87,7 +87,7 @@ p{
 @mixin cardStyleType($color) {
 
   box-shadow:   -1.83697e-16px 3px 10px rgba(get-color($color), 0.12);
-
+  
   .card_type{
     background-color: rgba(get-color($color), 0.025);
     color: darken(get-color($color), 10%);
@@ -98,6 +98,31 @@ p{
     background: linear-gradient(to right, rgba(get-color($color), 0.6), rgba(get-color($color), 1));
     // background-color: rgba(get-color($color), 1);
   }
+
+ 
+  .report{
+    background: linear-gradient(to left, rgba(get-color($color), 0.8), rgba(get-color($color), 0.9));
+  
+
+    &:hover,
+    :focus {
+      box-shadow:   bsh(3) ;
+      background: linear-gradient(to top, rgba(get-color($color), 1), rgba(get-color($color), 1));
+      
+    }
+    
+    svg {
+      width: 3rem;
+      height: auto;
+      path {
+        fill: get-color(white_s1)
+      }
+    }
+
+  
+  }
+  
+  
 
   .admin{
     

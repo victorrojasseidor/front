@@ -56,7 +56,7 @@ const LayoutProducts = ({ children, menu }) => {
     if (isMobile) {
       setMargen('0rem')
     } else {
-      setMargen(isMenuLateralOpen ? '15rem' : '5rem')
+      setMargen(isMenuLateralOpen ? '14rem' : '5rem')
     }
 
     checkScreenWidth()
@@ -172,7 +172,7 @@ const LayoutProducts = ({ children, menu }) => {
           </div>
         </div>
 
-        <nav className='menu_nav' style={{ minHeight: isMobile ? '8rem' : '18rem', justifyContent: 'flex-start' }}>
+        <nav className='menu_nav' style={{ minHeight: isMobile ? '8rem' : '16rem', justifyContent: 'flex-start' }}>
           {Object.keys(menuItems).map((menuItem, index) => (
             // eslint-disable-next-line react/jsx-key
             <ul className='list-content'>

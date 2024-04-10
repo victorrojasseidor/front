@@ -442,6 +442,7 @@
         display: inline-block;
         font-size: 0.8rem;
         text-align: center;
+        
       }
     }
   }
@@ -529,17 +530,7 @@
   }
 }
 
-.financy {
-  @include cardStyleType(blue_p1);
-}
 
-.tecnology {
-  @include cardStyleType(t2-ligthBlue);
-}
-
-.human {
-  @include cardStyleType(t5-green);
-}
 
 .limited-paragraph {
   white-space: nowrap;
@@ -753,4 +744,17 @@
     padding-top: 1rem;
     justify-content: flex-start;
   }
+}
+
+
+.financy {
+  @include cardStyleType(blue_p1);
+}
+
+.tecnology {
+  @include cardStyleType(t2-ligthBlue);
+}
+
+.human {
+  @include cardStyleType(t5-green);
 }

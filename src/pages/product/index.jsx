@@ -457,13 +457,13 @@ export default function Products () {
                         {/* <ImageSvg name='Time' /> */}
                         {calcularDiasRestantes(product.sDateEnd) >= 0
                           ? (
-                            <span style={{ color: '#7D86A2' }}>
+                            <span   style={{ color: '#7D86A2' }}>
                               {' '}
                               {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
                             </span>
                             )
                           : (
-                            <span className='' style={{ color: 'red' }}>
+                            <span className="" style={{ color: 'red' }}>
                               {' '}
                               {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
                             </span>

@@ -146,36 +146,32 @@ function index (props) {
             <h3> {t.Reporting} </h3>
 
             <div className='menu-list'>
-              <button className='box-option' onClick={() => router.push('/reporting/finance1')}>
-                <div className='image'>
+              <button className='box-option financy' onClick={() => router.push('/reporting/finance/1')}>
+                <div className='report'>
                   <ImageSvg name='IconEstractos' />
+                  <h4> {t.Balance} </h4>
                 </div>
-
-                <h4> {t.Balance} </h4>
               </button>
 
-              <button className='box-option' onClick={() => router.push('/reporting/finance/2')}>
-                <div className='image'>
+              <button className='box-option financy' onClick={() => router.push('/reporting/finance/2')}>
+                <div className='report'>
                   <ImageSvg name='IconEstractos' />
+                  <h4> {t.Movement} </h4>
                 </div>
-
-                <h4> {t.Movement} </h4>
               </button>
 
-              <button className='box-option' onClick={() => router.push('/reporting/finance/3')}>
-                <div className='image'>
+              <button className='box-option financy ' onClick={() => router.push('/reporting/finance/3')}>
+                <div className='report'>
                   <ImageSvg name='IconSunat' />
+                  <h4> {l.Pattern['List of register reports']} </h4>
                 </div>
-
-                <h4> {l.Pattern['List of register reports']} </h4>
               </button>
 
-              <button className='box-option' onClick={() => router.push('/reporting/tecnology/1')}>
-                <div className='image'>
+              <button className='box-option tecnology' onClick={() => router.push('/reporting/tecnology/1')}>
+                <div className='report'>
                   <ImageSvg name='IconCaptcha' />
+                  <h4> {l.Captcha['Captcha Solver']} </h4>
                 </div>
-
-                <h4> {l.Captcha['Captcha Solver']} </h4>
               </button>
             </div>
           </div>
