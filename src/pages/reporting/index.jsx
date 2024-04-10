@@ -10,6 +10,8 @@ import reportBalance from '../../../public/img/report-balance.png'
 import Image from 'next/image'
 import LineChart from '@/Components/Grafics/BarChart'
 import captcha from '../../../public/img/captcha.jpg'
+import sunat from '../../../public/img/sunat.avif'
+import { useRouter } from 'next/navigation'
 
 import { fetchConTokenPost } from '@/helpers/fetch'
 
@@ -23,6 +25,7 @@ function index (props) {
   const [todaytype, setTodaytype] = useState(null)
 
   const t = l.Reporting
+  const router = useRouter()
 
   useEffect(() => {
     getBalancesInitial()
@@ -138,55 +141,95 @@ function index (props) {
         <Link href='/product'>{t.Home}</Link>
       </NavigationPages>
       <section className='reporting'>
-        <div className='reporting-box reporting_dashboard'>
-          <div className='report-content'>
-            <div className='report red'>
-              <div className='report_icon  '>
-                <ImageSvg name='Bank' />
-              </div>
+        <div className='reporting-head'>
+          <div className='reporting-menu'>
+            <h3> {t.Reporting} </h3>
 
-              <div className='report_data'>
-                <article>{t['Total Banks']}</article>
-                <h2> {dataInitialSelect?.iBanco} </h2>
-                <p>
-                  {' '}
-                  <ImageSvg name='ArrowUp' /> {t['for the companies']}{' '}
-                </p>
-              </div>
+            <div className='menu-list'>
+              <button className='box-option' onClick={() => router.push('/reporting/finance1')}>
+                <div className='image'>
+                  <ImageSvg name='IconEstractos' />
+                </div>
+
+                <h4> {t.Balance} </h4>
+              </button>
+
+              <button className='box-option' onClick={() => router.push('/reporting/finance/2')}>
+                <div className='image'>
+                  <ImageSvg name='IconEstractos' />
+                </div>
+
+                <h4> {t.Movement} </h4>
+              </button>
+
+              <button className='box-option' onClick={() => router.push('/reporting/finance/3')}>
+                <div className='image'>
+                  <ImageSvg name='IconSunat' />
+                </div>
+
+                <h4> {l.Pattern['List of register reports']} </h4>
+              </button>
+
+              <button className='box-option' onClick={() => router.push('/reporting/tecnology/1')}>
+                <div className='image'>
+                  <ImageSvg name='IconCaptcha' />
+                </div>
+
+                <h4> {l.Captcha['Captcha Solver']} </h4>
+              </button>
             </div>
+          </div>
 
-            <div className='liner' />
+          <div className='reporting-box  reporting_dashboard'>
+            <div className='report-content'>
+              <div className='report red'>
+                <div className='report_icon  '>
+                  <ImageSvg name='Bank' />
+                </div>
 
-            <div className='report green '>
-              <div className='report_icon  '>
-                <ImageSvg name='Account' />
+                <div className='report_data'>
+                  <article>{t['Total Banks']}</article>
+                  <h2> {dataInitialSelect?.iBanco} </h2>
+                  <p>
+                    {' '}
+                    <ImageSvg name='ArrowUp' /> {t['for the companies']}{' '}
+                  </p>
+                </div>
               </div>
 
-              <div className='report_data'>
-                <article>{t['Total Accounts']}</article>
-                <h2>{dataInitialSelect?.iConfCuenta} </h2>
-                <p>
-                  {' '}
-                  <ImageSvg name='ArrowUp' /> {t['for the companies']}{' '}
-                </p>
-              </div>
-            </div>
-            <div className='liner' />
+              <div className='liner' />
 
-            <div className='report  blue'>
-              <div className='report_icon  '>
-                <ImageSvg name='IconTipo' />
-              </div>
+              <div className='report green '>
+                <div className='report_icon  '>
+                  <ImageSvg name='Account' />
+                </div>
 
-              <div className='report_data'>
-                <article>
-                  {t['Exchange rate']} ({t.Selling})
-                </article>
-                <h2> {todaytype?.tipo_cambio_venta}</h2>
-                <p>
-                  {' '}
-                  <span> {todaytype && formatearFecha(todaytype?.fecha_tipo_cambio)} </span> USD <ImageSvg name='ArrowLeft' /> PEN{' '}
-                </p>
+                <div className='report_data'>
+                  <article>{t['Total Accounts']}</article>
+                  <h2>{dataInitialSelect?.iConfCuenta} </h2>
+                  <p>
+                    {' '}
+                    <ImageSvg name='ArrowUp' /> {t['for the companies']}{' '}
+                  </p>
+                </div>
+              </div>
+              <div className='liner' />
+
+              <div className='report  blue'>
+                <div className='report_icon  '>
+                  <ImageSvg name='IconTipo' />
+                </div>
+
+                <div className='report_data'>
+                  <article>
+                    {t['Exchange rate']} ({t.Selling})
+                  </article>
+                  <h2> {todaytype?.tipo_cambio_venta}</h2>
+                  <p>
+                    {' '}
+                    <span> {todaytype && formatearFecha(todaytype?.fecha_tipo_cambio)} </span> USD <ImageSvg name='ArrowLeft' /> PEN{' '}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -195,48 +238,6 @@ function index (props) {
         <div className='reporting_rates'>
           <div className='reporting_rates-exchange'>
             <LineChart />
-          </div>
-
-          <div className='reporting_rates-menu'>
-            <h3> {t.Reporting} </h3>
-
-            <div className='menu-list'>
-              <div className='box-option'>
-                <div className='image'>
-                  <Image src={reportBalance} width={500} alt='img-reporting' />
-                </div>
-
-                <div>
-                  <h4> {t.Balance} </h4>
-
-                  <Link href='/reporting/balance'>{t['View reporting']}</Link>
-                </div>
-              </div>
-
-              <div className='box-option'>
-                <div className='image'>
-                  <Image src={reportMovement} width={500} alt='img-reporting' />
-                </div>
-
-                <div>
-                  <h4> {t.Movement} </h4>
-
-                  <Link href='/reporting/movement'>{t['View reporting']}</Link>
-                </div>
-              </div>
-
-              <div className='box-option'>
-                <div className='image'>
-                  <Image src={captcha} width={500} alt='img-reporting' />
-                </div>
-
-                <div>
-                  <h4> {l.Captcha['Captcha Solver']} </h4>
-
-                  <Link href='/reporting/Captcha'>{t['View reporting']}</Link>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

@@ -1,110 +1,68 @@
-import React, { useState } from 'react'
-import LayoutProducts from '@/Components/LayoutProducts'
-import ImageSvg from '@/helpers/ImageSVG'
-import Link from 'next/link'
-import NavigationPages from '@/Components/NavigationPages'
-import { useAuth } from '@/Context/DataContext'
-import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
+import React, { useState } from 'react';
+import LayoutProducts from '@/Components/LayoutProducts';
+import ImageSvg from '@/helpers/ImageSVG';
+import Link from 'next/link';
+import NavigationPages from '@/Components/NavigationPages';
+import { useAuth } from '@/Context/DataContext';
+import { useRouter } from 'next/navigation'; // Cambiado desde 'next/navigation'
+
 
 const LayouReport = ({ defaultTab, children }) => {
-  const [activeTab, setActiveTab] = useState(defaultTab || 0)
-  const { session, empresa, setModalToken, logout, setEmpresa, l } = useAuth()
+  const { l } = useAuth();
+  const t = l.Reporting;
+  const [activeTab, setActiveTab] = useState(defaultTab || 0);
+  const router = useRouter();
 
-  const today = new Date().toISOString().substr(0, 10) // Fecha de hoy en formato YYYY-MM-DD
-  const defaultStartDate = '2023-01-01'
-  const router = useRouter()
-  const t = l.Reporting
-  function obtenerFechaAnterior () {
-    // Obtén la fecha actual
-    const fechaActual = new Date()
+  // Definir las pestañas y sus contenidos
+  const tabs = [
+    { title: t.Balance, path: '/reporting/balance' },
+    { title: t.Movement, path: '/reporting/movement' },
+    { title: l.Pattern.Pattern, path: '/reporting/Padrones' }
+  ];
 
-    // Resta un día (86400000 milisegundos) a la fecha actual
-    const fechaAnterior = new Date(fechaActual - 86400000)
-
-    // Formatea la fecha en el formato deseado (por ejemplo, DD/MM/AAAA)
-    const dia = fechaAnterior.getDate()
-    const mes = fechaAnterior.getMonth() + 1 // Los meses comienzan en 0, por lo que debes sumar 1
-    const anio = fechaAnterior.getFullYear()
-
-    // Asegúrate de agregar ceros a la izquierda para que tenga siempre dos dígitos
-    const fechaAnteriorFormateada = `${dia.toString().padStart(2, '0')}/${mes.toString().padStart(2, '0')}/${anio}`
-
-    return fechaAnteriorFormateada
-  }
-
-  const handleTabClick = (index) => {
-    setActiveTab(index)
-  }
+  const handleTabClick = (index, path) => {
+    setActiveTab(index);
+    router.push(path);
+  };
 
   return (
     <LayoutProducts menu='Reporting'>
-      <NavigationPages title={defaultTab == 0 ? t.Balance : t.Movement}>
-
+      <NavigationPages title={defaultTab === 0 ? t.Balance : t.Movement}>
         <Link href='/reporting'>
           <ImageSvg name='Dashboard' />
-          <p>
-            {t.Reporting}
-          </p>
+          <p>{t.Reporting}</p>
         </Link>
-
         <ImageSvg name='Navegación' />
-
-        <Link href='#'>
-          <span> {defaultTab == 0 ? t.Balance : t.Movement}</span>
-        </Link>
-
+        {tabs.map((tab, index) => (
+          <Link href='#' key={index}>
+            <span onClick={() => handleTabClick(index, tab.path)}>{tab.title}</span>
+          </Link>
+        ))}
       </NavigationPages>
       <section className='layoutReporting'>
-
-        {/* <div className='layoutReporting-company'>
-          <h5>
-            {session?.jCompany.razon_social_company}
-          </h5>
-          <p> {t['Updated balances and movement as of']}
-            <span>
-              {obtenerFechaAnterior()}
-            </span>
-          </p>
-        </div> */}
-
         <div className='horizontalTabs'>
-          <div className='tab-header '>
-
-            <button className={activeTab === 0 ? 'active ' : ''} onClick={() => { handleTabClick(0); router.push('/reporting/balance') }}>
-
-              <h4>{t.Balance}</h4>
-
-            </button>
-
-            <button
-
-              className={activeTab === 1 ? 'active ' : ''} onClick={() => { handleTabClick(1); router.push('/reporting/movement') }}
-            >
-              <h4> {t.Movement}</h4>
-            </button>
-
+          <div className='tab-header'>
+            {tabs.map((tab, index) => (
+              <button
+                key={index}
+                className={activeTab === index ? 'active' : ''}
+                onClick={() => handleTabClick(index, tab.path)}
+              >
+                <h4>{tab.title}</h4>
+              </button>
+            ))}
           </div>
           <div className='tab-content'>
-            {activeTab === 0 && (
-              <div className='tabOne'>
-                {defaultTab == 0 && children}
+            {tabs.map((tab, index) => (
+              <div className='tabOne' key={index}>
+                {defaultTab === index && children}
               </div>
-            )}
-            {activeTab === 1 && (
-              <div className='tabOne'>
-
-                {defaultTab == 1 && children}
-
-              </div>
-            )}
-
+            ))}
           </div>
         </div>
-
       </section>
-
     </LayoutProducts>
-  )
-}
+  );
+};
 
-export default LayouReport
+export default LayouReport;

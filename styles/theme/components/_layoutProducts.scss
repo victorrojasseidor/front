@@ -83,15 +83,13 @@
       .imgPerfil {
         display: none;
 
-        
-          &_logo {
-            img {
-              height: 100px;
-              width: auto;
-              padding-top: 1rem;
-
-              }
+        &_logo {
+          img {
+            height: 100px;
+            width: auto;
+            padding-top: 1rem;
           }
+        }
 
         @include media(tablet) {
           display: flex;
@@ -100,8 +98,6 @@
           justify-content: center;
           align-items: center;
           width: 100%;
-        
-                    
         }
       }
     }
@@ -114,13 +110,10 @@
       width: 100%;
       overflow-y: auto;
       @include scrollTeme;
-      &::-webkit-scrollbar { 
+      &::-webkit-scrollbar {
         width: 0.14rem;
       }
-      
 
-
-  
       .list-content {
         display: flex;
         flex-direction: column;
@@ -269,8 +262,6 @@
 
       width: 100%;
 
-      
-
       &_person {
         background-color: get-color(blue_p1);
         border-radius: brd(1);
@@ -349,14 +340,12 @@
 
         @include media(tablet) {
           display: block;
-
           content: "";
-
           position: absolute;
-          top: 0;
+          top: 6px;
           right: 0px;
-          width: 3px; /* Cambia este valor según el ancho del borde que desees */
-          height: 60%;
+          width: 4px;
+          height: 71%;
           display: flex;
           align-items: center;
           border-radius: brd(2);
@@ -458,7 +447,6 @@
           padding: 1rem 0rem 0rem 0rem;
 
           .list-content {
-            
             .activeIcon {
               display: flex;
               justify-content: center;
