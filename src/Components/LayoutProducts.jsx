@@ -6,6 +6,7 @@ import ari from '../../public/img/ari.png'
 import Image from 'next/image'
 import Modal from './Modal'
 
+
 import RefreshToken from './RefresToken'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/Context/DataContext'
@@ -153,6 +154,7 @@ const LayoutProducts = ({ children, menu }) => {
             </div>
           </div>
 
+
           <div className='box-name'>
             <div className='box-name_person'>
               <ImageSvg name='Person' />
@@ -163,6 +165,10 @@ const LayoutProducts = ({ children, menu }) => {
               <span>{session?.sCorreo}</span>
               {session?.sPerfilCode === 'ADMIN' && <p> Ari v1.2</p>}
             </div>
+          </div>
+
+          <div className='lang-box'>
+            <Lang />
           </div>
 
           <div>
@@ -219,6 +225,8 @@ const LayoutProducts = ({ children, menu }) => {
           ))}
         </nav>
 
+        
+
         <nav className='menu_nav  menu_profile'>
           <div className='box-name '>
             <div className='box-name_person fondoPerfil'>
@@ -250,11 +258,9 @@ const LayoutProducts = ({ children, menu }) => {
             <div className='company'>{session?.jCompany.razon_social_company}</div>
           </div>
           <div className='logo-oscuro'>
-            <Image src={logoOscuro} width='100' alt='logoOscuro' priority />
+            <Image src={logo} width='100' alt='logoOscuro' priority />
           </div>
-          <div className='lang-box'>
-            <Lang />
-          </div>
+         
           <nav className='menu-header'>
             <ul>
               <li className='hamburgerMenu'>

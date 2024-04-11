@@ -68,7 +68,12 @@
       display: flex;
       justify-content: space-around;
       flex-direction: column;
-      padding: 0rem 2rem ;
+
+      @include media(tablet) {
+        padding: 0rem 2rem ;
+        
+      }
+    
 
       &_head {
         display: flex;

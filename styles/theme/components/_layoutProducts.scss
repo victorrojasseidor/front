@@ -57,11 +57,14 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 0.25rem;
+      gap: 0.5rem;
       padding: 0rem 1.5rem;
       position: relative;
       border-bottom: 1px solid get-color(grey1_s3);
       padding-bottom: 0.5rem;
+      @include media(tablet) {
+        gap: 0.25rem;
+      }
 
       p {
         font-size: small;
@@ -561,9 +564,7 @@
         justify-content: center;
         flex-direction: row;
         align-items: center;
-        background-color: get-color(blue_p1);
-        background-color: rgba(get-color(blue_p1), 0.8);
-        color: get-color(white_s1);
+       background-color:rgba(get-color(white_s1), 0.3);
         position: fixed;
         z-index: 10;
         width: 100%;
@@ -571,6 +572,8 @@
         align-items: center;
         height: 5.5rem;
         backdrop-filter: blur(10px);
+
+       
 
         @include media(tablet) {
           display: none;
@@ -593,20 +596,17 @@
           .hamburgerMenu {
             display: block;
 
-            // button {
-            //   background-color: transparent;
-            //   color: get-color(white_s1);
-            //   height:  3rem;
-
-            // }
-
+          
+         
             .btn_crud {
-              background-color: transparent;
-              color: get-color(white_s1);
+              color:get-color(t1-blue);
 
               svg {
                 height: 30px;
                 width: 30px;
+                path{
+                  stroke: get-color(t1-blue)
+                }
               }
             }
 
@@ -635,24 +635,7 @@
           }
         }
 
-        .lang-box {
-          display: flex;
-
-          svg {
-            path {
-              fill: get-color(white_s1);
-            }
-          }
-
-          svg,
-          button {
-            color: get-color(lilac_p3);
-          }
-
-          .lang_active {
-            color: get-color(white_s1);
-          }
-        }
+        
       }
 
       .welcomeSpan {
@@ -668,7 +651,8 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 7rem;
+          height: 5rem;
+          border-radius: brd(2);
         }
 
         @include media(tablet) {
@@ -707,17 +691,32 @@
 
       .children {
         padding: 6rem 2rem;
-        background-color: get-color(bg-cles);
+        background-color: get-color(white_s1);
         height: auto;
         width: 100%;
 
         @include media(tablet) {
           padding: 2rem;
+          background-color: get-color(bg-cles);
         }
       }
     }
   }
 }
+
+
+.lang-box {
+
+  display: flex;
+  width: 100%;
+
+  @include media(tablet) {
+    display: none;
+  }
+
+ 
+}
+
 
 .children_after {
   padding: 6rem 2rem;
