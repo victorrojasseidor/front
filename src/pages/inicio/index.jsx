@@ -228,7 +228,7 @@ const Principal = () => {
                   }}
                 >
                   <button onClick={() => setSelectImage(testimonial)}>
-                    <Image className={selectImage && selectImage.id === testimonial.id ? 'active' : ''} src={testimonial.image} alt={testimonial.name} width={100} height={100} />
+                    <Image className={selectImage && selectImage.id === testimonial.id ? 'active' : ''} src={testimonial.image} alt={testimonial.name} width={100} height={100}    loading="lazy"/>
                   </button>
                 </div>
               ))}
@@ -238,7 +238,7 @@ const Principal = () => {
               <div className='testimony'>
                 <div className='testimony-img'>
                   <button>
-                    <Image className='active' src={selectImage.image} alt={selectImage.name} width={100} height={100} />
+                    <Image className='active' src={selectImage.image} alt={selectImage.name} width={100} height={100}    loading="lazy" />
                   </button>
                 </div>
                 <div className='testimony-message'>
@@ -262,7 +262,7 @@ const Principal = () => {
               <p>{t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}</p>
             </div>
             <figure className='steps-gift' ref={demoSectionRef}>
-              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} />
+              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`}    loading="lazy" />
             </figure>
           </div>
 
@@ -271,7 +271,7 @@ const Principal = () => {
               <div className={`step ${currentGif === 0 ? 'active' : ''}`}>
                 <div className='box-circle'>
                   <button className='circle' onClick={() => setCurrentGif(0)}>
-                    <ImageSvg name='Admin' />
+                    <ImageSvg name='Admin'  />
                   </button>
                   <span>1</span>
                 </div>
@@ -349,13 +349,13 @@ const Principal = () => {
           </div>
 
           <div data-aos='fade-up' className='digital-image'>
-            <Image src={finance} width='1000' alt='finance' priority />
+            <Image src={finance} width='1000' alt='finance'     loading="lazy" />
           </div>
         </section>
 
         <section className='home-digitals container hr'>
           <div data-aos='zoom-out-left' className='digital-image'>
-            <Image src={rrhh} width='1000' alt='finance' priority />
+            <Image src={rrhh} width='1000' alt='finance'      loading="lazy"/>
           </div>
           <div className='description'>
             <h1> {t['Ari HR']}</h1>
@@ -372,7 +372,7 @@ const Principal = () => {
           </div>
 
           <div data-aos='fade-up' data-aos-anchor-placement='bottom-bottom' className='digital-image'>
-            <Image src={support} width='1000' alt='finance' priority />
+            <Image src={support} width='1000' alt='finance'    loading="lazy" />
           </div>
         </section>
 
@@ -381,21 +381,21 @@ const Principal = () => {
 
           <div className='box-enables' data-aos='zoom-in'>
             <button>
-              <Image src={cloud} width='1000' alt='cloud' priority />
+              <Image src={cloud} width='1000' alt='cloud'    loading="lazy" />
             </button>
 
             <button>
-              <Image src={drive} width='1000' alt='drive' priority />
+              <Image src={drive} width='1000' alt='drive'    loading="lazy" />
             </button>
 
             <button>
-              <Image src={uipath} width='1000' alt='uipath' priority />
+              <Image src={uipath} width='1000' alt='uipath'    loading="lazy" />
             </button>
             <button>
-              <Image src={sap} width='1000' alt='sap' priority />
+              <Image src={sap} width='1000' alt='sap'    loading="lazy" />
             </button>
             <button>
-              <Image src={ftp} width='1000' alt='ftp' priority />
+              <Image src={ftp} width='1000' alt='ftp'    loading="lazy" />
             </button>
           </div>
         </section>
@@ -415,20 +415,20 @@ const Principal = () => {
         <div className='slider' data-aos='zoom-in-up'>
           <div className='slide-track'>
             <div className='slide'>
-              <Image src={finance} width='1000' alt='logo_oscuro' />
+              <Image src={finance} width='1000' alt='logo_oscuro'    loading="lazy" />
             </div>
             <div className='slide'>
-              <Image src={card1} width='400' alt='logo_oscuro' />
+              <Image src={card1} width='400' alt='logo_oscuro'    loading="lazy" />
             </div>
 
             <div className='slide'>
-              <Image src={card2} width='400' alt='logo_oscuro' />
+              <Image src={card2} width='400' alt='logo_oscuro'    loading="lazy" />
             </div>
             <div className='slide'>
-              <Image src={card3} width='400' alt='logo_oscuro' />
+              <Image src={card3} width='400' alt='logo_oscuro'    loading="lazy"/>
             </div>
             <div className='slide'>
-              <Image src={card4} width='400' alt='logo_oscuro' />
+              <Image src={card4} width='400' alt='logo_oscuro'    loading="lazy" />
             </div>
 
 
@@ -436,34 +436,34 @@ const Principal = () => {
 
 
             <div className='slide'>
-              <Image src={card5} width='1000' alt='logo_oscuro' />
+              <Image src={card5} width='1000' alt='logo_oscuro'    loading="lazy"/>
             </div>
 
 
             <div className='slide'>
-              <Image src={support} width='1000' alt='logo_oscuro' />
+              <Image src={support} width='1000' alt='logo_oscuro'    loading="lazy" />
             </div>
 
             <div className='slide'>
-              <Image src={card6} width='1000' alt='logo_oscuro' priority />
+              <Image src={card6} width='1000' alt='logo_oscuro'    loading="lazy" />
             </div>
 
             <div className='slide'>
-              <Image src={card7} width='400' alt='logo_oscuro' />
-            </div>
-
-
-            <div className='slide'>
-              <Image src={rrhh} width='1000' alt='logo_oscuro' />
+              <Image src={card7} width='400' alt='logo_oscuro'    loading="lazy"/>
             </div>
 
 
             <div className='slide'>
-              <Image src={card8} width='400' alt='logo_oscuro' />
+              <Image src={rrhh} width='1000' alt='logo_oscuro'    loading="lazy"/>
+            </div>
+
+
+            <div className='slide'>
+              <Image src={card8} width='400' alt='logo_oscuro'    loading="lazy"/>
             </div>
 
             <div className='slide'>
-              <Image src={finance} width='1000' alt='logo_oscuro' />
+              <Image src={finance} width='1000' alt='logo_oscuro'    loading="lazy"/>
             </div>
            
           </div>
@@ -474,7 +474,7 @@ const Principal = () => {
         <section className='home-social container'>
           <div className='home-social-info'>
             <div className='logo'>
-              <Image src={logoGift} width='100' alt='logo' priority />
+              <Image src={logoGift} width='100' alt='logo'    loading="lazy" />
 
               <p>{t['Terms and Conditions']}</p>
               <p>Vittore Carpaccio 250, San Borja, Lima , Perú</p>
