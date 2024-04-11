@@ -105,7 +105,7 @@ const Padrones = () => {
                             .map((row) => (
                               <tr key={row.id_padrones}>
                                 <td>{row.nombre_documento}</td>
-                                <td>{formatDate(row.fecha_modifica)}</td>
+                                <td>{formatDate(row.fecha_padron)}</td>
                               </tr>
                             ))
                         ) : (
