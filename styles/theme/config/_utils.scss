@@ -303,7 +303,7 @@
   }
 
   .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
-    padding: 15.5px 9px;
+    // padding: 15.5px 9px;
     color: get-color(t1-blue);
   }
   .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root, .css-fvipm8 {
@@ -332,6 +332,13 @@
 
   .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input ,.css-qiwgdb.css-qiwgdb.css-qiwgdb{
     padding-right: 0.5rem;
+
+      white-space: wrap;
+
+      @include media(desktop) {
+        white-space: wrap;
+      }
+      
   }
 
 
@@ -403,6 +410,7 @@
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  flex-wrap: wrap;
   // background-color: get-color(white_s1);
 }
 
@@ -412,6 +420,7 @@
   flex-direction: column;
   gap:1rem;
   width: 100%;
+  
   @include container;
 
  
@@ -422,11 +431,21 @@
   }
 
   .tableContainer {
+
+
+
     
    
     overflow-x: auto;
     scroll-behavior: auto; /* Agregando scroll-behavior */
     @include scrollTeme;
+
+    max-width: 12rem;
+
+    @include media(tablet) {
+      max-width: 100%;
+    }
+
 
     /* Inmovilizar solo la columna 1 */
 

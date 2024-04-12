@@ -149,14 +149,14 @@ function index (props) {
               <button className='box-option financy' onClick={() => router.push('/reporting/finance/1')}>
                 <div className='report'>
                   <ImageSvg name='IconEstractos' />
-                  <h4> {t.Balance} </h4>
+                  <h4> {t['Bank balances']} </h4>
                 </div>
               </button>
 
               <button className='box-option financy' onClick={() => router.push('/reporting/finance/2')}>
                 <div className='report'>
                   <ImageSvg name='IconEstractos' />
-                  <h4> {t.Movement} </h4>
+                  <h4> {t['Banking transactions']} </h4>
                 </div>
               </button>
 

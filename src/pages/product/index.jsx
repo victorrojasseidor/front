@@ -320,7 +320,7 @@ export default function Products () {
             <p> {t['Our digital employees work to improve your productivity']}</p>
           </div>
 
-          <div className='reporting-box'>
+          <div className='reporting-box slider'>
             <div className='report-content'>
               <div className='report blue'>
                 <div className='report_icon  '>

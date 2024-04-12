@@ -406,7 +406,7 @@ button:hover + .cloud {
   border-radius: brd(3);
 
   @include media(tablet) {
-    max-width: 18rem;
+    max-width: 14rem;
   }
 
   input {

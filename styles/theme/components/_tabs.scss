@@ -293,10 +293,13 @@
         right: calc(0%);
         height: 2px;
         z-index: 1;
-        background-color: get-color(grey1_s3);
-        width: 4.2rem; // Ajusta la longitud de la línea según tus necesidades
+              width: 4.2rem; // Ajusta la longitud de la línea según tus necesidades
         transform: translateY(-1px);
         border-bottom: 2px dashed get-color(grey2_s4); // Ajusta la posición vertical
+      
+          background-color: get-color(grey1_s3);
+        
+       
       }
 
       h4 {
@@ -306,9 +309,13 @@
 
       svg {
         font-size: 1.5rem;
-        background-color: get-color(bg-cles);
+    
         border-radius: bdr(f);
         z-index: 4;
+
+        @include media(tablet) {
+          background-color: get-color(bg-cles);
+        }
 
         path {
           fill: get-color(grey1_s3);

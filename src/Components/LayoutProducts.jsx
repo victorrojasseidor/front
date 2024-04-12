@@ -5,8 +5,6 @@ import logo from '../../public/img/logoGift.gif'
 import ari from '../../public/img/ari.png'
 import Image from 'next/image'
 import Modal from './Modal'
-
-
 import RefreshToken from './RefresToken'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/Context/DataContext'
@@ -154,7 +152,6 @@ const LayoutProducts = ({ children, menu }) => {
             </div>
           </div>
 
-
           <div className='box-name'>
             <div className='box-name_person'>
               <ImageSvg name='Person' />
@@ -225,8 +222,6 @@ const LayoutProducts = ({ children, menu }) => {
           ))}
         </nav>
 
-        
-
         <nav className='menu_nav  menu_profile'>
           <div className='box-name '>
             <div className='box-name_person fondoPerfil'>
@@ -260,7 +255,7 @@ const LayoutProducts = ({ children, menu }) => {
           <div className='logo-oscuro'>
             <Image src={logo} width='100' alt='logoOscuro' priority />
           </div>
-         
+
           <nav className='menu-header'>
             <ul>
               <li className='hamburgerMenu'>

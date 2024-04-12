@@ -13,7 +13,7 @@
     @include media(tablet) {
       flex-direction: row;
       flex-wrap: wrap;
-      align-items: stretch !important; 
+      align-items: stretch !important;
     }
   }
 
@@ -21,7 +21,7 @@
     @include container;
     display: flex;
     flex-direction: column;
-    gap:1rem;
+    gap: 1rem;
 
     @include media(tablet) {
       flex: 2;
@@ -33,47 +33,45 @@
       gap: 1rem;
       flex-wrap: wrap;
       align-items: stretch;
-    
+
       border-style: none;
-     
+
       .box-option {
         background-color: transparent;
         border-style: none;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        box-shadow:  none;
+        box-shadow: none;
         align-items: stretch;
-       padding: 0rem;
- 
-        .report{
+        padding: 0rem;
+
+        .report {
           display: flex;
           flex-direction: column;
-          padding: 1rem ;
+          padding: 1rem;
           justify-content: flex-start;
           align-items: center;
           border-radius: brd(2);
-          width: 8rem;
-          height: 9rem;
-         
-          h4{
+          width: 7rem;
+          height: 8rem;
+
+          h4 {
             display: flex;
             width: 100%;
-            color:get-color(white_s1);
+            color: get-color(white_s1);
             font-weight: 500;
-        
+            justify-content: center;
+            gap: 0.25rem;
+
             text-align: center;
-           
           }
-         
         }
-       
       }
     }
   }
 
   .reporting_dashboard {
-   
     @include media(tablet) {
       width: 100%;
       flex: 1;
@@ -82,11 +80,10 @@
     .report-content {
       @include media(tablet) {
         display: flex;
-      flex-direction: column;
-      width: fit-content;
-      height: max-content;
+        flex-direction: column;
+        width: fit-content;
+        height: max-content;
       }
-    
     }
 
     .liner {
@@ -95,7 +92,7 @@
 
     .report_icon {
       svg {
-        width: 4rem;
+        width: auto;
         height: 4rem;
         padding: 1rem;
       }
@@ -258,10 +255,14 @@
 
 .box-clear {
   display: flex;
-  align-items: center;
-  height: 4rem;
-  padding-left: 1rem;
-  justify-content: center;
+  flex-wrap: wrap;
+
+  @include media(tablet) {
+    align-items: center;
+    height: 4rem;
+    padding-left: 1rem;
+    justify-content: center;
+  }
 }
 
 .rowTable {
@@ -339,19 +340,13 @@
   gap: 2rem;
 
   .reporting-box {
-
- 
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 1rem;
-      width: 100%;
-  
-    
-   
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
 
     .report-content {
-
       animation: unset;
       flex-direction: column;
       width: 100%;
