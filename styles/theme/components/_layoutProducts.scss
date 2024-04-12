@@ -18,7 +18,7 @@
 
   .menu {
     z-index: 6;
-    top: 85px;
+    top: 80px;
     right: -4px;
     height: fit-content;
     border-radius: brd(1);
@@ -155,7 +155,7 @@
             align-items: center;
             color: get-color(grey2_s4);
             font-weight: 600;
-            
+
             text-decoration: none;
             &:focus,
             &:hover {
@@ -183,7 +183,7 @@
         padding: 0.5rem 0rem 1rem 0.5rem;
         gap: 0rem;
 
-        h5{
+        h5 {
           font-size: 13.5px;
         }
 
@@ -564,16 +564,14 @@
         justify-content: center;
         flex-direction: row;
         align-items: center;
-       background-color:rgba(get-color(white_s1), 0.3);
+        background-color: get-color(white_s1);
         position: fixed;
         z-index: 10;
         width: 100%;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
         height: 5.5rem;
-        backdrop-filter: blur(10px);
-
-       
+        padding: 0rem 2rem;
 
         @include media(tablet) {
           display: none;
@@ -596,16 +594,15 @@
           .hamburgerMenu {
             display: block;
 
-          
-         
             .btn_crud {
-              color:get-color(t1-blue);
+              color: get-color(t1-blue);
+              padding-right: 0rem;
 
               svg {
                 height: 30px;
                 width: 30px;
-                path{
-                  stroke: get-color(t1-blue)
+                path {
+                  stroke: get-color(t1-blue);
                 }
               }
             }
@@ -634,8 +631,6 @@
             background-color: transparent;
           }
         }
-
-        
       }
 
       .welcomeSpan {
@@ -704,19 +699,14 @@
   }
 }
 
-
 .lang-box {
-
   display: flex;
   width: 100%;
 
   @include media(tablet) {
     display: none;
   }
-
- 
 }
-
 
 .children_after {
   padding: 6rem 2rem;

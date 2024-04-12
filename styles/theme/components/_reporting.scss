@@ -73,16 +73,20 @@
   }
 
   .reporting_dashboard {
-    width: 100%;
+   
     @include media(tablet) {
+      width: 100%;
       flex: 1;
     }
 
     .report-content {
-      display: flex;
+      @include media(tablet) {
+        display: flex;
       flex-direction: column;
       width: fit-content;
       height: max-content;
+      }
+    
     }
 
     .liner {
@@ -333,14 +337,22 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
   .reporting-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
-    width: 100%;
+
+ 
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+  
+    
+   
 
     .report-content {
+
+      animation: unset;
       flex-direction: column;
       width: 100%;
       align-items: flex-start;
@@ -348,6 +360,7 @@
 
       .report {
         padding: 0rem;
+        border: none;
       }
 
       .report_icon {

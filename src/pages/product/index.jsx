@@ -311,6 +311,7 @@ export default function Products () {
         <div className='products_home'>
           <span className='outstanding-image' />
 
+          
           <div className='welcome'>
             <h1 className='text-gradient'>
               {t.Welcome},
@@ -506,7 +507,7 @@ export default function Products () {
               <span className='card_type'>{t['Finance and accounting']}</span>
 
               <div className='card_name'>
-                <h4> {t['Invoice register']}</h4>
+                <h4> {t['Utility Bill Registration']}</h4>
 
                 <p className='dayLetf'>
                   {/* <ImageSvg name='Time' /> */}
