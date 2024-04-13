@@ -261,6 +261,12 @@
   }
   .css-1869usk-MuiFormControl-root {
     margin: 0px;
+    width: 16.5rem;
+
+    @include media(tablet) {
+      width: auto;
+    }
+
 
     label {
       top: 0px;
@@ -297,9 +303,15 @@
   }
   .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root,
   .css-1pduc5x-MuiStack-root > .MuiTextField-root {
-    max-width: 150px;
+ 
     min-width: 0px;
     margin-top: 1.5px;
+    width: 16.5rem;
+
+    @include media(tablet) {
+      max-width: 150px;
+    }
+
   }
 
   .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
@@ -373,13 +385,22 @@
   flex-direction: row;
   margin-top: 0.2rem;
   flex-wrap: wrap;
+width: 100%;
+
+@include media(tablet) {
+  width: auto;
+}
 
   label {
     padding: 0.2rem 0.25rem 0 0.25rem;
   }
 
   .css-1u3bzj6-MuiFormControl-root-MuiTextField-root, .css-i44wyl {
-    width: 9rem;
+    width: 16.5rem;
+
+    @include media(tablet) {
+      width: 9rem;
+    }
   }
 
   .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root, .css-1v4ccyo {
@@ -441,6 +462,7 @@
     @include scrollTeme;
 
     max-width: 12rem;
+    max-width: 100%;
 
     @include media(tablet) {
       max-width: 100%;
