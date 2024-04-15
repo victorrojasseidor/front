@@ -17,7 +17,7 @@
   }
 
   .menu {
-    z-index: 2;
+    z-index: 3;
     top: 80px;
     right: -4px;
     height: fit-content;
@@ -567,7 +567,7 @@
         align-items: center;
         background-color: get-color(white_s1);
         position: fixed;
-        z-index: 2;
+        z-index: 3;
         width: 100%;
         justify-content: space-between;
         align-items: center;
