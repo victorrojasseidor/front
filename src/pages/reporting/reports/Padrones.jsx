@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import LayoutProducts from '@/Components/LayoutProducts'
-import ImageSvg from '@/helpers/ImageSVG'
-import Link from 'next/link'
-import NavigationPages from '@/Components/NavigationPages'
 import { useAuth } from '@/Context/DataContext'
 import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import Typography from '@mui/material/Typography'
@@ -40,7 +36,6 @@ const Padrones = () => {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetReportePadrones', body, token)
-  
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setDataPadrones(data)
@@ -69,11 +64,9 @@ const Padrones = () => {
     }
   }
 
-  console.log({ dataPadrones })
 
   return (
     <>
-     
       <section className=''>
         {isLoading && <LoadingComponent />}
 

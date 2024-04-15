@@ -703,6 +703,24 @@
   display: flex;
   width: 100%;
 
+  button{
+    color:get-color(grey2_s4);
+  }
+
+
+  .lang_active{
+    color:get-color(blue_p1);
+  }
+
+
+
+  svg{
+    path{
+      fill: get-color(grey2_s4)
+    }
+  
+  }
+
   @include media(tablet) {
     display: none;
   }

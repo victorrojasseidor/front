@@ -186,9 +186,10 @@
       justify-content: flex-start;
 
       align-items: flex-start;
-      text-align: start;
+      text-align: center;
+   
       @include media(desktop) {
-        text-align: center;
+        text-align: start;
       }
     }
 
@@ -406,6 +407,7 @@ button:hover + .cloud {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 

@@ -38,7 +38,6 @@ export default function Products () {
     }
   }, [session, empresa, l, selectedFilterType])
 
-  console.log(empresa, {hiredProduct})
 
   async function getProductscard () {
     setIsLoading(true)
@@ -98,9 +97,7 @@ export default function Products () {
     try {
       const token = session?.sToken
       const responseData = await fetchConTokenPost('BPasS/?Accion=ConsultaCabeceraEmpresa', body, token)
-      console.log(body, { responseData })
-
-      if (responseData.oAuditResponse?.iCode === 1) {
+        if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setDataCabecera(data)
         setModalToken(false)

@@ -187,10 +187,6 @@ const Balance = () => {
     setEndDate(newValue.format('DD/MM/YYYY'))
   }
 
-  console.log({ dataInitialSelect })
-
-  console.log({ balances })
-
   const handleCompanyChange = (event) => {
     const selectCompanyValue = event.target.value
     setSelectedCompany(selectCompanyValue)
@@ -380,8 +376,7 @@ const Balance = () => {
 
   return (
     <>
-    
-   
+
       <div className='balance'>
 
         {/* <OrderTable /> */}
@@ -576,19 +571,19 @@ const Balance = () => {
                     </th>
 
                     <th onClick={() => orderDataAlphabetically('cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
-                      {t["Account Alias"]}
+                      {t['Account Alias']}
                       <button className='btn_crud'>
                         <ImageSvg name={isAccountSorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
 
                     <th onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccounDestSorted, isAccountDesSorted)}>
-                      {t["Account Description"]}
+                      {t['Account Description']}
                       <button className='btn_crud'>
                         <ImageSvg name={isAccountDesSorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
- 
+
                     <th onClick={() => orderDataAlphabetically('moneda', setIsCurrencySorted, isCurrencySorted)}>
                       {t.Currency}
                       <button className='btn_crud'>
@@ -653,9 +648,8 @@ const Balance = () => {
         {requestError && <div className='errorMessage'> {requestError.message} </div>}
       </div>
 
-      </>
+    </>
 
-  
   )
 }
 

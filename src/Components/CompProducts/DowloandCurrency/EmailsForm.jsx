@@ -145,7 +145,6 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct, get
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarCorreoProducto', body, token)
-      console.log('email', responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         setGet(!get)
         setModalConfirmationEmail(true)

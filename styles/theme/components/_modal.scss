@@ -134,10 +134,11 @@
     display: flex;
     flex-direction: column;
     @include scrollTeme;
-    @include container;
-    position: relative;
 
+    position: relative;
+    max-height: 90vh;
     @include media(tablet) {
+      @include container;
       width: 80vw;
       max-height: 98vh;
       overflow: auto;

@@ -67,10 +67,7 @@ const Captcha = () => {
     setFilterDate(duration)
   }
 
-  // console.log({ startDate })
-  // console.log({ endDate })
-
-  const handleStartDateChange = (newValue) => {
+   const handleStartDateChange = (newValue) => {
     setStartDate(newValue.format('YYYY-MM-DD'))
   }
 
