@@ -295,7 +295,7 @@ export default function Products () {
               onChange={handleCompanyInputChange}
               // sx={{ minWidth: 370 }}
               sx={{
-                minWidth: 350,
+                minWidth: 255,
                 '.MuiOutlinedInput-notchedOutline': { borderStyle: 'none' }
               }}
               options={companyOptions}

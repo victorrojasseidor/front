@@ -317,8 +317,12 @@
   .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
   .css-fvipm8 {
     padding-right: 0.5rem;
-    width: auto;
     border-radius: brd(1); //border radio
+    width: 12rem;
+    @include media(tablet) {
+      width: auto;
+    }
+
     svg {
       width: 1.5rem;
       // height: 1.5rem;
