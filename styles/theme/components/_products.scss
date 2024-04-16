@@ -727,13 +727,26 @@
   }
 
   .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
-  .css-fvipm8 {
+  .css-fvipm8 , .css-b0lk9r-MuiAutocomplete-root {
     width: 12rem !important;
 
     @include media(tablet) {
-      width: auto;
+      width: auto !important;
     }
   }
+
+  .css-segi59, .css-wb57ya-MuiFormControl-root-MuiTextField-root {
+    background-color:get-color(bg-cles);
+    border-radius: brd(2);
+    width: 16rem !important;
+    @include media(tablet) {
+      background-color:get-color(white_s1);
+      @include media(tablet) {
+        width: 20rem !important;
+      }
+    }
+  }
+
 }
 
 .sub-title {
