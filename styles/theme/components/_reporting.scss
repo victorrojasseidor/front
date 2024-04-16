@@ -363,6 +363,15 @@
 
     }
 
+    .box-filter .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root, .box-filter .css-fvipm8{
+      width: 10rem;
+
+      @include media(tablet) {
+        width: 100%;
+      }
+
+    }
+
     .report-content {
       animation: unset;
       flex-direction: column;

@@ -7,7 +7,7 @@ import { useAuth } from '@/Context/DataContext'
 import { useRouter } from 'next/router'
 import Balance from '../../reports/Balance'
 import Movement from '../../reports/Movement'
-import Padrones from '../../reports/Padrones'
+// import Padrones from '../../reports/Padrones'
 
 
 const Finance = () => {
@@ -22,7 +22,7 @@ const Finance = () => {
   const tabs = [
     { idTab: 1, title: t.Balance, path: '/reporting/finance/1', component: <Balance />, type: l.header['Finance and accounting'] },
     { idTab: 2, title: t.Movement, path: '/reporting/finance/2', component: <Movement />, type: l.header['Finance and accounting'] },
-    { idTab: 3, title: l.Pattern.Pattern, path: '/reporting/finance/3', component: <Padrones />, type: l.header['Finance and accounting'] }
+    // { idTab: 3, title: l.Pattern.Pattern, path: '/reporting/finance/3', component: <Padrones />, type: l.header['Finance and accounting'] }
   ]
 
   const handleTabClick = (index, data) => {

@@ -374,6 +374,9 @@ const Balance = () => {
     return fechaFormateada
   }
 
+
+
+
   return (
     <>
 
