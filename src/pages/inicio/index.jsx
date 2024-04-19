@@ -39,6 +39,8 @@ import AOS from 'aos' // Importa AOS aquí
 import 'aos/dist/aos.css'
 import Counter from '@/Components/Atoms/Counter'
 import { useRouter } from 'next/router'
+import Head from 'next/head'; // Importa el componente Head de Next.js para manejar el título y la metadescripción
+
 
 const Principal = () => {
   const [selectImage, setSelectImage] = useState(null)
@@ -147,6 +149,11 @@ const Principal = () => {
 
   return (
     <div className='home'>
+    <Head>
+        <title>Título de tu página</title>
+        <meta name="description" content="Descripción de tu página" />
+      </Head>
+
       <header>
         <nav>
           <ul>
