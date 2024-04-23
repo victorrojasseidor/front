@@ -24,7 +24,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingComponent, setIsLoadingComponent] = useState(false)
   const [activeTab, setActiveTab] = useState(0)
-  const [completeEmails, setcompleteEmails] = useState(false)
+  const [completeEmails, setcompleteEmails] = useState(true) // cambiar
   const [completeconfigBank, setCompleteconfigBank] = useState(false)
   const [showAccounts, setShowAccounts] = useState(false)
   const [bankCredential, setBankCredential] = useState(null)
@@ -43,6 +43,8 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
   const { session, setModalToken, logout, l, idCountry } = useAuth()
 
   const t = l.Download
+
+  console.log({ data })
 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -113,7 +115,9 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
 
   const handleDeleteConfirmation = async () => {
     if (selectedRowToDelete) {
-      await handleDeleteBancoCredential(selectedRowToDelete.id_banco_credencial)
+      const idToDelete = selectedRowToDelete.id_banco_credencial || selectedRowToDelete.id_banco_credencial_est
+      //tanto para estractos y estados 
+      await handleDeleteBancoCredential(idToDelete)
       setSelectedRowToDelete(null)
     }
   }
@@ -123,8 +127,8 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
     const body = {
       oResults: {
         iIdEmpresa: idEmpresa,
-        iIdCredencial: initialEdit?.id_credenciales,
-        iIdBancoCredencial: initialEdit?.id_banco_credencial,
+        iIdCredencial: initialEdit?.id_credenciales || initialEdit?.id_credenciales_est,
+        iIdBancoCredencial: initialEdit?.id_banco_credencial || initialEdit?.id_banco_credencial_est ,
         sName: values.name,
         iIdPais: idCountry,
         iBanco: values.bank ? values.bank.id : initialEdit ? initialEdit.id_banco : null,
@@ -175,17 +179,18 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
 
   async function getExtrBanc () {
     setIsLoadingComponent(true)
+
     const body = {
       oResults: {
-        iIdExtBanc: iIdProdEnv,
-        iIdPais: idCountry
+        iIdPais: idCountry,
+        iIdExtBanc: Number(iIdProdEnv)
       }
     }
 
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token)
-
+      // console.log("getextract", { body }, responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults
@@ -220,13 +225,13 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
     const token = session.sToken
     const body = {
       oResults: {
-        iIdExtBanc: iIdProdEnv,
+        iIdExtBanc: parseInt(iIdProdEnv),
         iIdBancoCredencial: idbankcred
       }
     }
     try {
       const response = await fetchConTokenPost(`BPasS/?Accion=${deleteBank}`, body, token)
-      console.error('res', response)
+      console.error('res', body, response)
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         setGet(!get)
@@ -361,13 +366,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
               {showAccounts
                 ? (
                   <>
-                    <ConfigAccount
-                      getBank={getBank}
-                      registerAccount={registerAccount}
-                      updateAccount={updateAccount}
-                      deleteAccount={deleteAccount}
-                      idbancoCredential={bankCredential?.id_banco_credencial} setShowAccounts={setShowAccounts} OptionBanks={data?.oPaisBanco} setGet={setGet} get={get}
-                    />
+                    <ConfigAccount getBank={getBank} registerAccount={registerAccount} updateAccount={updateAccount} deleteAccount={deleteAccount} sProduct={dataCardProduct?.sProd} idbancoCredential={bankCredential?.id_banco_credencial || bankCredential?.id_banco_credencial_est } setShowAccounts={setShowAccounts} OptionBanks={data?.oPaisBanco} setGet={setGet} get={get} />
 
                     <div className='box-buttons'>
                       <button
@@ -396,7 +395,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
 
                       <div className='tableContainer'>
                         <div className='boards'>
-                          {data.oListBancoCredendicial.length > 0
+                          {data?.oListBancoCredendicial.length > 0
                             ? (
                               <table className='dataTable'>
                                 <thead>
@@ -413,7 +412,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
 
                                 <tbody>
                                   {data?.oListBancoCredendicial?.map((row) => (
-                                    <tr key={row.id_banco_credencial}>
+                                    <tr key={row.id_banco_credencial || row.id_banco_credencial_est}>
                                       <td>{row.nombre}</td>
                                       <td>{row.usuario}</td>
                                       <td>{row.nombre_banco}</td>
@@ -488,7 +487,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
                       )}
                     </div>
 
-                    {data.oListBancoCredendicial.length > 0 && (
+                    {data?.oListBancoCredendicial.length > 0 && (
                       <div>
                         {completeconfigBank
                           ? (

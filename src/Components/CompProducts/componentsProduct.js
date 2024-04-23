@@ -35,16 +35,27 @@ export const componentsProduct = [
   },
   {
     iId: 4,
-    sName: 'Download account statements- peo debe ser de captcha',
+    sName: 'aptcha',
     documentation: 'documentation 4',
     apiConfiguration: 'apiconfiguration 4',
-    configuration: 'config 4'
+    configuration: 'config captcha'
   },
+   
   {
     iId: 5,
     sName: 'Download account statements',
     documentation: 'documentation 5',
     apiConfiguration: 'apiconfiguration 5',
-    configuration: 'config 5'
+    configuration: <ConfigDowland
+      getBank='GetEstBancario'
+      registerBank='RegistrarEstBancario'
+      updateBank='ActualizarEstBancario'
+      deleteBank='EliminarBancoCredencialEstBancario'
+      registerAccount='RegistrarCuentaEstBancario'
+      updateAccount='ActualizarCuentaEstBancario'
+      deleteAccount='EliminarCuentaEstBancario'
+      confirConfig="ConfirmarConfiguracionEst"
+                   />
   }
+     
 ]

@@ -27,7 +27,7 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
   async function getExtrBancToFile () {
     const body = {
       oResults: {
-        iIdExtBanc: iIdProdEnv,
+        iIdExtBanc: parseInt(iIdProdEnv),
         iIdPais: idCountry
       }
     }

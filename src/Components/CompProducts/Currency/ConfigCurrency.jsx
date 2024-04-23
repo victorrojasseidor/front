@@ -153,7 +153,7 @@ export default function ConfigCurrency () {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetTipCambio', body, token)
-
+      console.log({responseData})
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults

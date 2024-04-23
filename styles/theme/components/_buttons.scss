@@ -408,6 +408,9 @@ button:hover + .cloud {
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+  @include media(tablet) {
+    flex-wrap:nowrap;
+  }
 }
 
 
