@@ -160,12 +160,12 @@ function index (props) {
                 </div>
               </button>
 
-              <button className='box-option financy ' onClick={() => router.push('/reporting/finance/3')}>
+              {/* <button className='box-option financy ' onClick={() => router.push('/reporting/finance/3')}>
                 <div className='report'>
                   <ImageSvg name='IconSunat' />
                   <h4> {l.Pattern['List of register reports']} </h4>
                 </div>
-              </button>
+              </button> */}
 
               <button className='box-option tecnology' onClick={() => router.push('/reporting/tecnology/1')}>
                 <div className='report'>

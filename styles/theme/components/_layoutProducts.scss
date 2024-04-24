@@ -17,7 +17,7 @@
   }
 
   .menu {
-    z-index: 6;
+    z-index: 3;
     top: 80px;
     right: -4px;
     height: fit-content;
@@ -33,6 +33,7 @@
 
     @include media(tablet) {
       padding-top: 0rem;
+      z-index: 6;
       left: 0;
       height: 100vh;
       z-index: 0;
@@ -566,7 +567,7 @@
         align-items: center;
         background-color: get-color(white_s1);
         position: fixed;
-        z-index: 10;
+        z-index: 3;
         width: 100%;
         justify-content: space-between;
         align-items: center;

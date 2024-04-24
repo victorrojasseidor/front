@@ -296,8 +296,8 @@ export default function Products() {
               onChange={handleCompanyInputChange}
               // sx={{ minWidth: 370 }}
               sx={{
-                minWidth: 350,
-                ".MuiOutlinedInput-notchedOutline": { borderStyle: "none" },
+                minWidth: 255,
+                '.MuiOutlinedInput-notchedOutline': { borderStyle: 'none' }
               }}
               options={companyOptions}
               getOptionLabel={(option) => option.razon_social_empresa}

@@ -39,7 +39,6 @@
       @include center-container;
       gap: 0.5rem;
       justify-content: flex-start;
-    
 
       @include media(desktop) {
         padding: 0rem 1rem;
@@ -669,8 +668,6 @@
     }
   }
 
-  
-
   .css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
     color: get-color(white_s1);
     padding-top: 1rem;
@@ -697,14 +694,14 @@
     padding: 0.35rem 0.5rem;
     background-color: get-color(white_s1);
     border: 1px solid rgba(get-color(blue_p1), 0.3);
-    max-width: 20rem;
-    @include media(tablet) {
-      max-width: 22.5rem;
-    }
+    // max-width: 20rem;
+    // @include media(tablet) {
+    //   max-width: 22.5rem;
+    // }
   }
 
-  .css-154wcn3{
-    max-width: 20rem;
+  .css-154wcn3 {
+    max-width: 18rem !important;
     @include media(tablet) {
       max-width: 22.5rem;
     }
@@ -729,14 +726,27 @@
     }
   }
 
-  .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root, .css-fvipm8{
- width: 12rem;
+  .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
+  .css-fvipm8 , .css-b0lk9r-MuiAutocomplete-root {
+    width: 12rem !important;
 
- @include media(tablet) {
-  width: auto;
-}
-
+    @include media(tablet) {
+      width: auto !important;
+    }
   }
+
+  .css-segi59, .css-wb57ya-MuiFormControl-root-MuiTextField-root {
+    background-color:get-color(bg-cles);
+    border-radius: brd(2);
+    width: 16rem !important;
+    @include media(tablet) {
+      background-color:get-color(white_s1);
+      @include media(tablet) {
+        width: 20rem !important;
+      }
+    }
+  }
+
 }
 
 .sub-title {
@@ -777,7 +787,6 @@
       box-shadow: none;
       background-color: transparent;
       animation: slideAnimation 15s linear infinite;
-     
     }
   }
 
