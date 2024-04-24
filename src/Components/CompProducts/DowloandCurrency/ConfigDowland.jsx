@@ -175,7 +175,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
     if (session) {
       getExtrBanc()
     }
-  }, [get, idEmpresa, updateEmails])
+  }, [get, idEmpresa, updateEmails, l])
 
   async function getExtrBanc () {
     setIsLoadingComponent(true)

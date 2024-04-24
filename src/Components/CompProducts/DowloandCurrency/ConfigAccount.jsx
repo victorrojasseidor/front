@@ -59,9 +59,8 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
 
     try {
       const token = session.sToken
-
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token)
-       console.log({responseData});
+
       if (responseData.oAuditResponse?.iCode === 1) {
         setGet(!get)
         const data = responseData.oResults.oListBancoCredendicial
@@ -187,7 +186,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${updateAccount}`, body, token)
-  console.log(body, responseData);
+
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         setGetAccounts(!getAccounts)
