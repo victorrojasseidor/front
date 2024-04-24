@@ -256,7 +256,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
 
   useEffect(() => {
     getDataProduct()
-  }, [idEmpresa])
+  }, [idEmpresa, l])
 
   async function getDataProduct () {
     setIsLoading(true)
