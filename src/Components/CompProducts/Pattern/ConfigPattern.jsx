@@ -369,7 +369,7 @@ export default function ConfigPattern () {
 
               </div>
 
-              <div className='box-buttons'>
+              <div>
                 {completePadrones
                   ? (
                     <div className='box-buttons'>

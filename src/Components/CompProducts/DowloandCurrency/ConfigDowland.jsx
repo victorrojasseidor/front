@@ -489,7 +489,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
                     </div>
 
                     {data.oListBancoCredendicial.length > 0 && (
-                      <div className='box-buttons'>
+                      <div >
                         {completeconfigBank
                           ? (
                             <div className='box-buttons'>

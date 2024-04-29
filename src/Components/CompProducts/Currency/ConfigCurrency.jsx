@@ -444,7 +444,7 @@ export default function ConfigCurrency () {
 
               </div>
 
-              <div className='box-buttons'>
+              <div>
                 {completeConfigDayly
                   ? (
                     <div className='box-buttons'>
