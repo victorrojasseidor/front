@@ -486,7 +486,7 @@ export default function Products () {
 
                       {product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28)
                         ? (
-                          <button className='btn_primary' onClick={() => handleLink('/reporting/Captcha')}>
+                          <button className='btn_primary' onClick={() => handleLink('/reporting/tecnology/1')}>
                             <span> {l.Reporting.Reporting} </span>
                           </button>
                           )
