@@ -84,6 +84,17 @@
         width: fit-content;
         height: max-content;
       }
+
+      .report_data{
+     
+        width: auto;
+       
+
+        @include media(desktop) {
+          width: 12rem;
+        
+        }
+      }
     }
 
     .liner {
