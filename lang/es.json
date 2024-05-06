@@ -449,7 +449,10 @@
     "Add patterns": "Agregar padrones",
     "These patterns already exist, select another": "Estos padrones ya existen, selecciona otra",
     "Successful configuration": "Configuración exitosa",
-    "List of register reports":"Lista de reportes de padrones"
+    "List of register reports":"Lista de reportes de padrones",
+    "Result obtained from the SUNAT portal":"Resultado obtenido del portal de la SUNAT",
+    "SUNAT patterns":"Padrones de SUNAT"
+
   },
   "Support": {
     "Support": "Soporte",

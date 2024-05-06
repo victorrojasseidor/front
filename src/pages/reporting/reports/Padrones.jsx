@@ -79,7 +79,7 @@ const Padrones = () => {
                 <div className='box-search'>
                   <div>
                     <h3> {t['Sunat register report']}</h3>
-                    <p> {t['Results Obtained from Dates']} </p>
+                    <p> {l.Pattern['Result obtained from the SUNAT portal']} </p>
                   </div>
                 </div>
 
