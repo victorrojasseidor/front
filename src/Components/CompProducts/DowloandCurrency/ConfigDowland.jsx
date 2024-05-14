@@ -83,7 +83,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
       const token = session.sToken
 
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${registerBank}`, body, token)
-      console.log(body,{ responseData })
+    
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
         setTimeout(() => {
@@ -190,7 +190,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token)
-      console.log("get", { body }, responseData)
+      
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults

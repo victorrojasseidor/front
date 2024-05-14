@@ -20,16 +20,15 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
-import excel from 'exceljs'
 
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 import LineCaptcha from '@/Components/Grafics/LineCaptcha'
 
 const Captcha = () => {
   const [activeTab, setActiveTab] = useState(0)
-  const { session, setModalToken, logout, l, idCountry } = useAuth()
+  const { session, setModalToken, logout, l, idCountry , empresa} = useAuth()
   const [page, setPage] = useState(1)
-  const [selectedCompany, setSelectedCompany] = useState(session?.oEmpresa[0].id_empresa)
+  const [selectedCompany, setSelectedCompany] = useState(empresa?.id_empresa)
   const [dataSumary, setDataSumary] = useState(null)
   const [dataCaptcha, setDataCaptcha] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
@@ -40,6 +39,7 @@ const Captcha = () => {
   const [requestError, setRequestError] = useState()
   const t = l.Captcha
 
+  console.log({empresa});
   const months = [l.Reporting.January, l.Reporting.February, l.Reporting.March, l.Reporting.April, l.Reporting.May, l.Reporting.June, l.Reporting.July, l.Reporting.August, l.Reporting.September, l.Reporting.October, l.Reporting.November, l.Reporting.December]
 
   const transformMonthsFormat = (data) => {

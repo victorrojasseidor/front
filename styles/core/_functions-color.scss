@@ -30,6 +30,31 @@
 }
 
 
+
+//*** Funciones para Utilidades ***
+
+// - Funcion que convierte pixeles a rem
+@function rem($value) {
+  @return ($value / option(fz-init)) * 1rem;
+}
+
+// - Funcion que genera clases en base a un mapa de variables
+@mixin generateClass($array, $propKey, $category: "") {
+  @each $key, $value in $array {
+    $prop: map-get($shortsProps, $propKey);
+    @if $category != "" {
+      .#{$propKey}--#{$category}--#{$key} {
+        #{$prop}: var(--color_#{$category}_#{$key});
+      }
+    } @else {
+      .#{$propKey}--#{$key} {
+        #{$prop}: var(--color_#{$key});
+      }
+    }
+  }
+}
+
+
 // Mixin para alinear un contenedor horizontal y verticalmente
 @mixin center-container {
   display: flex;
