@@ -11,6 +11,7 @@ import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import Counter from '@/Components/Atoms/Counter'
+import { log } from 'react-modal/lib/helpers/ariaAppHider'
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -22,6 +23,7 @@ export default function Products () {
   // const [empresa, setEmpresa] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [hiredProduct, setHiredProduct] = useState('0')
+  const [clasTrans, setClasTrans] = useState('')
   const [dataCabecera, setDataCabecera] = useState(null)
   const { session, setModalToken, logout, l, empresa, setEmpresa, idCountry } = useAuth()
 
@@ -37,7 +39,6 @@ export default function Products () {
       ConsultaCabeceraEmpresa()
     }
   }, [session, empresa, l, selectedFilterType])
-
 
   async function getProductscard () {
     setIsLoading(true)
@@ -97,7 +98,7 @@ export default function Products () {
     try {
       const token = session?.sToken
       const responseData = await fetchConTokenPost('BPasS/?Accion=ConsultaCabeceraEmpresa', body, token)
-        if (responseData.oAuditResponse?.iCode === 1) {
+      if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setDataCabecera(data)
         setModalToken(false)
@@ -129,6 +130,11 @@ export default function Products () {
     if (session?.oEmpresa) {
       setCompanyOptions(session?.oEmpresa)
     }
+
+    setTimeout(() => {
+      setClasTrans("style-transparent")
+    }, 3000)
+
   }, [session])
 
   const handleCompanyInputChange = (event, newValue) => {
@@ -136,8 +142,7 @@ export default function Products () {
     if (newValue) {
       // setEmpresa(newValue)
       const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === newValue.razon_social_empresa)
- 
-     
+
       const selectedEmpresa = {
         id_empresa: DataEmpresa.id_empresa,
         razon_social_empresa: DataEmpresa.razon_social_empresa,
@@ -308,16 +313,14 @@ export default function Products () {
         <div className='products_home'>
           <span className='outstanding-image' />
 
-          
           <div className='welcome'>
-            <h1 className='text-gradient'>
-              {t.Welcome},
-              <span> {empresa?.razon_social_empresa} </span>
+            <h1>
+              {t.Welcome},<span className='text-gradient'> {empresa?.razon_social_empresa} </span>
             </h1>
             <p> {t['Our digital employees work to improve your productivity']}</p>
           </div>
 
-          <div className='reporting-box slider'>
+          <div className={`reporting-box slider ${clasTrans}`}>
             <div className='report-content'>
               <div className='report blue'>
                 <div className='report_icon  '>
@@ -326,8 +329,8 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Digital employees']}</article>
-                  <h2>  {hiredProduct}  </h2>
-                 
+                  <h2> {hiredProduct} </h2>
+
                   <p>
                     <ImageSvg name='ArrowUp' /> <span> {t.working} </span> {t['for you']}{' '}
                   </p>
@@ -343,16 +346,7 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Time saved']}</article>
-                  <h2>
-                    {dataCabecera && dataCabecera.tiempo
-                      ? (
-                        <Counter initialValue={0} finalValue={dataCabecera.tiempo} />
-                        )
-                      : (
-                          dataCabecera?.tiempo
-                        )}{' '}
-                    hrs
-                  </h2>
+                  <h2>{dataCabecera && dataCabecera.tiempo ? <Counter initialValue={0} finalValue={dataCabecera.tiempo} /> : dataCabecera?.tiempo} hrs</h2>
 
                   <p>
                     <ImageSvg name='ArrowUp' /> <span> {dataCabecera?.porcentaje} % </span> {t['this month']}{' '}
@@ -368,15 +362,7 @@ export default function Products () {
 
                 <div className='report_data'>
                   <article>{t['Bussines agility']}</article>
-                  <h2>
-                    {dataCabecera && dataCabecera?.agilidad
-                      ? (
-                        <Counter initialValue={10} finalValue={dataCabecera?.agilidad} />
-                        )
-                      : (
-                          dataCabecera?.agilidad
-                        )} %
-                  </h2>
+                  <h2>{dataCabecera && dataCabecera?.agilidad ? <Counter initialValue={10} finalValue={dataCabecera?.agilidad} /> : dataCabecera?.agilidad} %</h2>
                   <p>
                     <ImageSvg name='ArrowUp' /> <span> {dataCabecera?.porcentaje_agilidad} %</span> {t.more}{' '}
                   </p>
@@ -455,13 +441,13 @@ export default function Products () {
                         {/* <ImageSvg name='Time' /> */}
                         {calcularDiasRestantes(product.sDateEnd) >= 0
                           ? (
-                            <span   style={{ color: '#7D86A2' }}>
+                            <span style={{ color: '#7D86A2' }}>
                               {' '}
                               {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
                             </span>
                             )
                           : (
-                            <span className="" style={{ color: 'red' }}>
+                            <span className='' style={{ color: 'red' }}>
                               {' '}
                               {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
                             </span>
@@ -525,70 +511,6 @@ export default function Products () {
                 </div>
               </div>
             </li>
-
-            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
-              <span className='card_type'>{t['Finance and accounting']}</span>
-
-              <div className='card_name'>
-                <h4> {t['Download account statements']}</h4>
-
-                <p className='dayLetf'>
-                  {/* <ImageSvg name='Time' /> */}
-                  {/* {t['Days left:']} .. */}
-                </p>
-              </div>
-
-              <div className='card_actions'>
-                <div className='box-img'>
-                  <div className='type_icon'>
-                    <ImageSvg name={imgProduct(7)} />
-                  </div>
-                </div>
-
-                <div className='status-box'>
-                  <p> {t['Not hired']}</p>
-                  <Link href='https://www.innovativa.la/digitalemployee'>{t['View more']}</Link>
-                  {/* <button className="btn_primary" onClick={() => handleLink("product/product?type=apiconfiguration&iIdProdEnv=1&iId=4&pStatus=23&idEmpresa=5")}>
-          <span> </span> Configurar <span> </span>
-        </button> */}
-                </div>
-              </div>
-            </li>
-
-            {/* <li className='card tecnology' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_02' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
-
-              <span className='card_type'>
-                {t.Technology}
-              </span>
-
-              <div className='card_name'>
-                <h4> {t['Captcha Solving Service']}</h4>
-
-                <p className='dayLetf' />
-
-              </div>
-
-              <div className='card_actions'>
-
-                <div className='box-img'>
-                  <div className='type_icon'>
-
-                    <ImageSvg name={imgProduct(5)} />
-                  </div>
-
-                </div>
-
-                <div className='status-box'>
-
-                  <p>  {t['Not hired']}
-                  </p>
-                  <Link href='https://www.innovativa.la/digitalemployee'>
-                    {t['View more']}
-                  </Link>
-                </div>
-
-              </div>
-            </li> */}
 
             <li className='card tecnology' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_02' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
               <span className='card_type'>{t.Technology}</span>

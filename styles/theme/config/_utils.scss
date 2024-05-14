@@ -152,7 +152,7 @@
 
     transition: transform 0.5s, color 0.3s;
 
-    max-width: 14rem; /* Cambia el valor según el ancho máximo deseado */
+    max-width: 12rem; /* Cambia el valor según el ancho máximo deseado */
     margin: 0 auto; /* Esto centra el texto horizontalmente, opcional */
     white-space: nowrap; /* Evita que el texto se divida en varias líneas */
     overflow: hidden; /* Oculta el texto que se extiende más allá del ancho máximo */
@@ -558,7 +558,16 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     gap: 0.25rem;
+    border-bottom:none !important  ;
+    height: fit-content;
+    
+    @include media(desktop) {
+      border: 0.5px solid get-color(pink_s5) !important;
+    }
+    // background-color: aqua;
+
   }
 }
 

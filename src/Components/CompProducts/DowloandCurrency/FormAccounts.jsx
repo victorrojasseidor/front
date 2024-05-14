@@ -22,18 +22,22 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     if (session) {
       getExtrBancToFile()
     }
-  }, [session, iIdProdEnv, showForm, initialVal])
+  }, [session, iIdProdEnv, showForm, initialVal, l])
+
+
+  console.log({showcomponent});
 
   async function getExtrBancToFile () {
     const body = {
       oResults: {
-        iIdExtBanc: iIdProdEnv,
+        iIdExtBanc: parseInt(iIdProdEnv),
         iIdPais: idCountry
       }
     }
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetExtBancario', body, token)
+      
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults.oTipoArchivo
         setFileTypeOptions(data.map((file) => ({ value: file.id_tipo_archivo, label: file.nombre })))

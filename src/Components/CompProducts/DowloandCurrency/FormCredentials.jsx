@@ -22,7 +22,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
 
   useEffect(() => {
     // Cargar las opciones del país en el estado usando useEffect
-    setCountryOptions(countryData.map((country) => ({ value: country.value, label: country.label })))
+    setCountryOptions(countryData?.map((country) => ({ value: country.value, label: country.label })))
 
     // Si hay un valor preseleccionado en initialValues.country o no estás en modo de edición, seleccionar el país
     if (initialVal && initialVal.country) {

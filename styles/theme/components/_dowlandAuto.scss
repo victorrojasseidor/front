@@ -344,6 +344,7 @@
 .state-box {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
   .content {
     display: flex;
     width: 100%;
@@ -375,6 +376,10 @@
 
 .head-status {
   min-width: 10.5rem;
+
+  button{
+    width: 9.5rem;
+  }
 }
 
 .docDowland {

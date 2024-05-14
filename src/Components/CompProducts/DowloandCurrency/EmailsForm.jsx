@@ -143,8 +143,9 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct, get
 
     try {
       const token = session?.sToken
-
       const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarCorreoProducto', body, token)
+      console.log("correo", body, {responseData});
+
       if (responseData.oAuditResponse?.iCode === 1) {
         setGet(!get)
         setModalConfirmationEmail(true)
@@ -171,6 +172,7 @@ export default function EmailsForm ({ dataEmails, setUpdateEmails, sProduct, get
     } finally {
       setIsLoadingComponent(false)
     }
+   
   }
 
   return (

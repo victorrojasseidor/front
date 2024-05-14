@@ -451,7 +451,9 @@
     "Add patterns": "Add patterns",
     "These patterns already exist, select another": "These patterns already exist, select another",
     "Successful configuration": "Successful configuration",
-    "List of register reports":"List of register reports"
+    "List of register reports":"List of register reports",
+    "Result obtained from the SUNAT portal":"Result obtained from the SUNAT portal",
+    "SUNAT patterns":"SUNAT patterns"
   },
   "Support": {
     "Support": "Support",

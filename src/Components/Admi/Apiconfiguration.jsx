@@ -179,7 +179,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       setRequestError(error.message)
       setTimeout(() => {
         setRequestError(null)
-      }, 3000)
+      }, 5000)
     } finally {
       setIsLoading(false) // Ocultar señal de carga
     }
@@ -216,7 +216,7 @@ export default function Apiconfiguration ({ nameEmpresa }) {
       const token = session?.sToken
 
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${valueState}`, body, token)
-
+      console.log({responseData})
       if (responseData.oAuditResponse?.iCode === 1) {
         // setModalFreeTrial(false)
         setModalConfirmed(false)
@@ -239,14 +239,14 @@ export default function Apiconfiguration ({ nameEmpresa }) {
           setRequestError(null)
           setMessage(null)
           setContractOther('')
-        }, 1000)
+        }, 5000)
       }
     } catch (error) {
       console.error('error', error)
       setRequestError(error.message)
       setTimeout(() => {
         setRequestError(null)
-      }, 3000)
+      }, 5000)
     } finally {
       setIsLoading(false) // Ocultar señal de carga
     }

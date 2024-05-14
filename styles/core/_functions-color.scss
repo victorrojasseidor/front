@@ -14,12 +14,22 @@
 }
 
 // - Función para iluminar un color con variables CSS en SCSS
-@function hsl_l($numColor, $percentage) {
-  $color_h: var(--color_#{$numColor}_H);
-  $color_s: var(--color_#{$numColor}_S);
-  $color_l: var(--color_#{$numColor}_L);
-  @return hsl($color_h, $color_s, calc(#{$color_l} + #{$percentage}#{"%"}));
+// @function hsl_l($numColor, $percentage) {
+//   $color_h: var(--color_#{$numColor}_H);
+//   $color_s: var(--color_#{$numColor}_S);
+//   $color_l: var(--color_#{$numColor}_L);
+//   @return hsl($color_h, $color_s, calc(#{$color_l} + #{$percentage}#{"%"}));
+// }
+
+
+@function hsl_l($colorName, $percentage) {
+  $color: get-color($colorName); // Obtener el color usando la función get-color
+  $color_h: hue($color); // Obtener el matiz del color
+  $color_s: saturation($color); // Obtener la saturación del color
+  $color_l: lightness($color); // Obtener la luminosidad del color
+  @return hsl($color_h, $color_s, calc(#{$color_l} + #{$percentage} * 1%)); // Devolver el nuevo color HSL
 }
+
 
 // - Función para dar transparencia a un color con variables CSS en SCSS
 @function hsl_a($numColor, $alpha) {
@@ -27,6 +37,31 @@
   $color_s: var(--color_#{$numColor}_S);
   $color_l: var(--color_#{$numColor}_L);
   @return hsla($color_h, $color_s, $color_l, $alpha);
+}
+
+
+
+//*** Funciones para Utilidades ***
+
+// - Funcion que convierte pixeles a rem
+@function rem($value) {
+  @return ($value / option(fz-init)) * 1rem;
+}
+
+// - Funcion que genera clases en base a un mapa de variables
+@mixin generateClass($array, $propKey, $category: "") {
+  @each $key, $value in $array {
+    $prop: map-get($shortsProps, $propKey);
+    @if $category != "" {
+      .#{$propKey}--#{$category}--#{$key} {
+        #{$prop}: var(--color_#{$category}_#{$key});
+      }
+    } @else {
+      .#{$propKey}--#{$key} {
+        #{$prop}: var(--color_#{$key});
+      }
+    }
+  }
 }
 
 

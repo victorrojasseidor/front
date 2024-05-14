@@ -85,14 +85,15 @@
         height: max-content;
       }
 
-      .report_data{
-     
+      @include media(desktop) {
+       gap: 0.5rem;
+      }
+
+      .report_data {
         width: auto;
-       
 
         @include media(desktop) {
           width: 12rem;
-        
         }
       }
     }
@@ -171,7 +172,7 @@
       }
 
       .grafics {
-          overflow-x: auto;
+        overflow-x: auto;
         @include scrollTeme;
         scrollbar-width: auto;
         // max-width: 18rem;
@@ -182,9 +183,9 @@
 
         canvas {
           object-fit: contain;
-          min-width:  10rem !important;
+          min-width: 10rem !important;
           min-height: 10rem;
-      
+
           @include media(tablet) {
             min-height: 350px;
             width: 100% !important;
@@ -268,6 +269,9 @@
   @include media(tablet) {
     width: 100%;
   }
+
+
+  
 }
 
 .box-clear {
@@ -364,23 +368,19 @@
     gap: 1rem;
     width: 100%;
 
-    .box-filter .css-1869usk-MuiFormControl-root{
-    
-
+    .box-filter .css-1869usk-MuiFormControl-root {
       @include media(mobile) {
         width: 100%;
       }
-
-
     }
 
-    .box-filter .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root, .box-filter .css-fvipm8{
+    .box-filter .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
+    .box-filter .css-fvipm8 {
       width: 10rem;
 
       @include media(tablet) {
         width: 100%;
       }
-
     }
 
     .report-content {

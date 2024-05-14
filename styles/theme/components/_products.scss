@@ -19,13 +19,18 @@
 
     @include media(tablet) {
       padding: 2rem 1rem;
-      justify-content: flex-start;
+      // justify-content: flex-start;
+      justify-content: center;
+      gap: 1rem;
+  
+
     }
 
     @include media(desktop) {
       height: auto;
       padding: 2rem;
       justify-content: space-around;
+      gap:0rem;
     }
 
     @include media(extradesktop) {
@@ -200,7 +205,7 @@
         color: get-color(grey2_s4);
 
         @include media(tablet) {
-          color: get-color(white_s1);
+          color: get-color(grey2_s4);
           align-items: flex-end;
           display: inline-block;
           flex-direction: row;
@@ -211,6 +216,12 @@
 
           @include media(tablet) {
             color: get-color(white_s1);
+            /*gradienets de texto*/
+            // color: transparent;
+            // background-image: linear-gradient(to right, #91e2cd, get-color(t5-green), #e78ae3, #df43d7, get-color(pink_s5),  #5ea5f1,  get-color(blue_p1));
+            // background-clip: text;
+            // animation: colorGrad 12s linear infinite;
+            // background-size: 400%;
           }
         }
       }
@@ -232,7 +243,7 @@
         left: 0;
         bottom: 0;
 
-        background: url("../../../public/img/home-2.png") no-repeat;
+        background: url("../../../public/img/home-3.png") no-repeat;
         background-size: contain;
       }
 
@@ -727,7 +738,8 @@
   }
 
   .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
-  .css-fvipm8 , .css-b0lk9r-MuiAutocomplete-root {
+  .css-fvipm8,
+  .css-b0lk9r-MuiAutocomplete-root {
     width: 12rem !important;
 
     @include media(tablet) {
@@ -735,18 +747,18 @@
     }
   }
 
-  .css-segi59, .css-wb57ya-MuiFormControl-root-MuiTextField-root {
-    background-color:get-color(bg-cles);
+  .css-segi59,
+  .css-wb57ya-MuiFormControl-root-MuiTextField-root {
+    background-color: get-color(bg-cles);
     border-radius: brd(2);
     width: 16rem !important;
     @include media(tablet) {
-      background-color:get-color(white_s1);
+      background-color: get-color(white_s1);
       @include media(tablet) {
         width: 20rem !important;
       }
     }
   }
-
 }
 
 .sub-title {
@@ -800,6 +812,89 @@
       border: 1px solid rgba(get-color(bg-cles), 0.5);
       justify-content: flex-start;
       padding: 0.5rem;
+    }
+  }
+}
+
+.style-transparent {
+  .report-content {
+    background-color: transparent;
+    // Transición para hacerla más lenta y suave
+    transition: background-color 0.9s ease; 
+
+
+    @include media(tablet) {
+      // background-color: rgba(get-color(t1-blue), 0.4);
+      background-image: linear-gradient(to right,rgba(#000846, 0.5),  rgba(#000846, 1), rgba(#000846, 0.8), rgba(get-color(t1-blue), 0.4));
+      
+
+
+      .report_data {
+        article,
+        p {
+          color: rgba(get-color(grey1_s3), 0.7);
+        
+        }
+
+        h2 {
+          color: rgba(get-color(grey1_s3), 1);
+        }
+      }
+
+      .green {
+        .report_icon {
+          background: linear-gradient(to left, rgba(get-color(t5-green), 0.2), rgba(get-color(t6-green2), 0.1));
+       
+        }
+      }
+
+      .red {
+        .report_icon {
+          background: linear-gradient(to left, rgba(get-color(blue_p1), 0.2), rgba(get-color(white_s1), 0.2));
+          // background: linear-gradient(to left, rgba(get-color(white_s1), 0.2), rgba(get-color(white_s1), 0.3));
+
+          path {
+            fill: hsl_l(blue_p1, 15);
+          }
+        }
+
+        svg,
+        span {
+          color: hsl_l(blue_p1, 25);
+          path {
+          
+           fill: hsl_l(blue_p1, 25)
+
+          }
+        }
+      }
+
+      .blue {
+        .report_icon {
+          // background: linear-gradient(to right, rgba(#8e2de2, 0.9), rgba(#8e2de2, 0.2));
+
+          // background: linear-gradient(to left, rgba(get-color(lilac_p3), 0.4), rgba(#af85d8, 0.8));
+          background: linear-gradient(to right, rgba(#6AD2FF, 0.7), rgba(get-color(white_s1), 0.6 ));
+          // background-image: linear-gradient(to right, rgba(67, 24, 255, 0.6), #4318ff);
+        }
+
+        svg,
+        span {
+          color: hsl_l(t2-ligthBlue, 20);
+    
+
+          path {
+            fill: hsl_l(t2-ligthBlue, 25)
+          }
+        }
+      }
+    }
+
+    .liner {
+      @include media(tablet) {
+        background-color: rgba(get-color(grey1_s3), 0.4) !important;
+      
+      }
     }
   }
 }

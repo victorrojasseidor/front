@@ -570,7 +570,7 @@ const Movement = () => {
           </div>
 
           <div className='tableContainer' ref={tableRef}>
-
+          <div class="scrollbarContainer"></div>
             <table className='dataTable Account'>
               <thead>
                 <tr style={{ overflow: 'hidden' }}>
@@ -737,6 +737,7 @@ const Movement = () => {
                     )}
               </tbody>
             </table>
+          
 
           </div>
           <Stack spacing={2}>
