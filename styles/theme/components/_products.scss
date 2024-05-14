@@ -819,6 +819,9 @@
 .style-transparent {
   .report-content {
     background-color: transparent;
+    // Transición para hacerla más lenta y suave
+    transition: background-color 0.9s ease; 
+
 
     @include media(tablet) {
       // background-color: rgba(get-color(t1-blue), 0.4);
@@ -847,15 +850,19 @@
 
       .red {
         .report_icon {
-          background: linear-gradient(to left, rgba(get-color(t2-ligthBlue), 0.4), rgba(get-color(t2-ligthBlue), 0.3));
+          background: linear-gradient(to left, rgba(get-color(lilac_p3), 0.2), rgba(get-color(lilac_p3), 0.3));
           // background: linear-gradient(to left, rgba(get-color(white_s1), 0.2), rgba(get-color(white_s1), 0.3));
+
+          path {
+            fill: rgba(get-color(lilac_p3), 1);
+          }
         }
 
         svg,
         span {
-          color: rgba(get-color(t2-ligthBlue), 0.9);
+          color: rgba(get-color(lilac_p3), 0.9);
           path {
-            fill: rgba(get-color(t2-ligthBlue), 0.9);
+            fill: rgba(get-color(lilac_p3), 0.9);
           }
         }
       }

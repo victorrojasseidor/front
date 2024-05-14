@@ -23,6 +23,7 @@ export default function Products () {
   // const [empresa, setEmpresa] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [hiredProduct, setHiredProduct] = useState('0')
+  const [clasTrans, setClasTrans] = useState('')
   const [dataCabecera, setDataCabecera] = useState(null)
   const { session, setModalToken, logout, l, empresa, setEmpresa, idCountry } = useAuth()
 
@@ -129,6 +130,11 @@ export default function Products () {
     if (session?.oEmpresa) {
       setCompanyOptions(session?.oEmpresa)
     }
+
+    setTimeout(() => {
+      setClasTrans("style-transparent")
+    }, 3000)
+
   }, [session])
 
   const handleCompanyInputChange = (event, newValue) => {
@@ -314,7 +320,7 @@ export default function Products () {
             <p> {t['Our digital employees work to improve your productivity']}</p>
           </div>
 
-          <div className='reporting-box slider style-transparent'>
+          <div className={`reporting-box slider ${clasTrans}`}>
             <div className='report-content'>
               <div className='report blue'>
                 <div className='report_icon  '>
