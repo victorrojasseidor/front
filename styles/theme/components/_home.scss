@@ -2,6 +2,7 @@
   // background-image: url("../../../public/img/home-oficce.png");
   background-image: url("../../../public/img/desing.png");
   background-image: url("../../../public/img/desing-des.png");
+
   background-repeat: no-repeat;
   background-size: 269vh;
   background-position: left top;
@@ -13,6 +14,7 @@
 
   @include media(extradesktop) {
     background-image: url("../../../public/img/desing-des.png");
+  
     background-size: 100%;
   }
 
@@ -158,6 +160,7 @@
     }
 
     .image-container {
+   
       width: 0%;
       background-image: url("../../../public/img/front.png");
       background-repeat: no-repeat;
@@ -172,6 +175,7 @@
       @include media(desktop) {
         width: 80%;
       }
+
     }
   }
 
@@ -400,6 +404,9 @@
 
     .digital-image {
       // height: 50vh;
+     img{
+      max-height: 30rem;
+     }
     }
   }
 
@@ -856,3 +863,73 @@
     transform: translateX(calc(-200px * 8)); /* Fin: desplazar completamente fuera de la vista a la izquierda */
   }
 }
+
+
+// slider hone 
+.slider-circular {
+  position: relative;
+  width: 80vh;
+  height: 80vh;
+  margin: auto;
+  overflow: hidden;
+  perspective: 1000px;
+
+  &__container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: rotate 10s infinite linear;
+  }
+
+  &__slide {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    backface-visibility: hidden;
+    opacity: 0;
+    transition: transform 1s, opacity 1s;
+    transform: translateZ(-300px) scale(0.8);
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    p {
+      text-align: center;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 5px;
+      border-radius: 5px;
+      position: absolute;
+      bottom: 10px;
+      width: 90%;
+      left: 5%;
+    }
+  }
+
+  &__slide--visible {
+    opacity: 1;
+    transform: translateZ(0) scale(1);
+  }
+
+  &__slide--prev,
+  &__slide--next {
+    opacity: 0.5;
+    transform: translateZ(-150px) scale(0.9);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(-360deg);
+  }
+}
+

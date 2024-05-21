@@ -29,6 +29,11 @@ import card5 from '../../../public/img/card-product/card5.png'
 import card6 from '../../../public/img/card-product/card6.png'
 import card7 from '../../../public/img/card-product/card7.png'
 import card8 from '../../../public/img/card-product/card8.png'
+import gifHome from '../../../public/img/video/gifHome.gif'
+import asistente from '../../../public/img/asistente.png'
+import reporting from '../../../public/img/reporting.png'
+import front from '../../../public/img/front.png'
+
 import linea from '../../../public/img/linea.png'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
 import { validateFormRegister } from '@/helpers/validateForms'
@@ -39,8 +44,7 @@ import AOS from 'aos' // Importa AOS aquí
 import 'aos/dist/aos.css'
 import Counter from '@/Components/Atoms/Counter'
 import { useRouter } from 'next/router'
-import Head from 'next/head'; // Importa el componente Head de Next.js para manejar el título y la metadescripción
-
+import Head from 'next/head' // Importa el componente Head de Next.js para manejar el título y la metadescripción
 
 const Principal = () => {
   const [selectImage, setSelectImage] = useState(null)
@@ -53,6 +57,32 @@ const Principal = () => {
   const gifRef = useRef(null)
   const router = useRouter()
 
+  const slides = [
+    {
+      image: asistente,
+      text: 'Texto corto 1'
+    },
+    {
+      image: reporting,
+      text: 'Texto corto 2'
+    },
+    {
+      image: front,
+      text: 'Texto corto 3'
+    }
+  ]
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
+  // para cambiar los gifts
   useEffect(() => {
     // Verifica si window está definido antes de agregar el event listener
     if (typeof window !== undefined) {
@@ -73,7 +103,7 @@ const Principal = () => {
     // Inicializa AOS solo si window está definido
     if (typeof window !== undefined) {
       AOS.init({
-        duration: 1000
+        duration: 15000
       })
     }
   }, [])
@@ -83,7 +113,7 @@ const Principal = () => {
       if (isGifSectionInView) {
         setCurrentGif((prevGif) => (prevGif + 1) % gifs.length)
       }
-    }, 17000) // Cambia cada 6 segundos
+    }, 20000) // Cambia cada 6 segundos
 
     return () => clearInterval(intervalId)
   }, [isGifSectionInView, gifs.length])
@@ -149,9 +179,9 @@ const Principal = () => {
 
   return (
     <div className='home'>
-    <Head>
-        <title>Título de tu página</title>
-        <meta name="description" content="Descripción de tu página" />
+      <Head>
+        <title>Ari - Digital employees</title>
+        <meta name='description' content='Descripción de tu página' />
       </Head>
 
       <header>
@@ -183,7 +213,7 @@ const Principal = () => {
       <main className='box-home container'>
         <section className='home-front'>
           <div className='welcome'>
-            <h1 className='subtitle'>{t['Optimize your Business Efficiency']}</h1>
+            <h2 className='subtitle'>{t['Optimize your Business Efficiency']}</h2>
             <p> {t['Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence']}</p>
 
             <div className='welcome-actions'>
@@ -204,7 +234,35 @@ const Principal = () => {
           </div>
 
           <div data-aos='zoom-in-left' className='image-container'>
-            {' '}
+          <div className="slider-circular">
+      {/* <div className="slider-circular__container">
+        {slides.map((slide, index) => {
+          let className = 'slider-circular__slide';
+
+          if (index === currentIndex) {
+            className += ' slider-circular__slide--visible';
+          } else if (
+            index === (currentIndex - 1 + slides.length) % slides.length ||
+            index === (currentIndex + 1) % slides.length
+          ) {
+            className += ' slider-circular__slide--next';
+          }
+
+          return (
+            <div
+              key={index}
+              className={className}
+              style={{
+                transform: `rotateY(${index * (360 / slides.length)}deg) translateZ(300px)`,
+              }}
+            >
+              <img src={slide.image} alt={`Slide ${index + 1}`} />
+              <p>{slide.text}</p>
+            </div>
+          );
+        })}
+      </div> */}
+    </div>
           </div>
         </section>
 
@@ -235,7 +293,7 @@ const Principal = () => {
                   }}
                 >
                   <button onClick={() => setSelectImage(testimonial)}>
-                    <Image className={selectImage && selectImage.id === testimonial.id ? 'active' : ''} src={testimonial.image} alt={testimonial.name} width={100} height={100}    loading="lazy"/>
+                    <Image className={selectImage && selectImage.id === testimonial.id ? 'active' : ''} src={testimonial.image} alt={testimonial.name} width={100} height={100} loading='lazy' />
                   </button>
                 </div>
               ))}
@@ -245,7 +303,7 @@ const Principal = () => {
               <div className='testimony'>
                 <div className='testimony-img'>
                   <button>
-                    <Image className='active' src={selectImage.image} alt={selectImage.name} width={100} height={100}    loading="lazy" />
+                    <Image className='active' src={selectImage.image} alt={selectImage.name} width={100} height={100} loading='lazy' />
                   </button>
                 </div>
                 <div className='testimony-message'>
@@ -269,7 +327,7 @@ const Principal = () => {
               <p>{t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}</p>
             </div>
             <figure className='steps-gift' ref={demoSectionRef}>
-              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`}    loading="lazy" />
+              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading='lazy' />
             </figure>
           </div>
 
@@ -278,7 +336,7 @@ const Principal = () => {
               <div className={`step ${currentGif === 0 ? 'active' : ''}`}>
                 <div className='box-circle'>
                   <button className='circle' onClick={() => setCurrentGif(0)}>
-                    <ImageSvg name='Admin'  />
+                    <ImageSvg name='Admin' />
                   </button>
                   <span>1</span>
                 </div>
@@ -356,13 +414,13 @@ const Principal = () => {
           </div>
 
           <div data-aos='fade-up' className='digital-image'>
-            <Image src={finance} width='1000' alt='finance'     loading="lazy" />
+            <Image src={finance} width='1000' alt='finance' loading='lazy' />
           </div>
         </section>
 
         <section className='home-digitals container hr'>
           <div data-aos='zoom-out-left' className='digital-image'>
-            <Image src={rrhh} width='1000' alt='finance'      loading="lazy"/>
+            <Image src={rrhh} width='1000' alt='finance' loading='lazy' />
           </div>
           <div className='description'>
             <h1> {t['Ari HR']}</h1>
@@ -379,7 +437,7 @@ const Principal = () => {
           </div>
 
           <div data-aos='fade-up' data-aos-anchor-placement='bottom-bottom' className='digital-image'>
-            <Image src={support} width='1000' alt='finance'    loading="lazy" />
+            <Image src={support} width='1000' alt='finance' loading='lazy' />
           </div>
         </section>
 
@@ -388,21 +446,21 @@ const Principal = () => {
 
           <div className='box-enables' data-aos='zoom-in'>
             <button>
-              <Image src={cloud} width='1000' alt='cloud'    loading="lazy" />
+              <Image src={cloud} width='1000' alt='cloud' loading='lazy' />
             </button>
 
             <button>
-              <Image src={drive} width='1000' alt='drive'    loading="lazy" />
+              <Image src={drive} width='1000' alt='drive' loading='lazy' />
             </button>
 
             <button>
-              <Image src={uipath} width='1000' alt='uipath'    loading="lazy" />
+              <Image src={uipath} width='1000' alt='uipath' loading='lazy' />
             </button>
             <button>
-              <Image src={sap} width='1000' alt='sap'    loading="lazy" />
+              <Image src={sap} width='1000' alt='sap' loading='lazy' />
             </button>
             <button>
-              <Image src={ftp} width='1000' alt='ftp'    loading="lazy" />
+              <Image src={ftp} width='1000' alt='ftp' loading='lazy' />
             </button>
           </div>
         </section>
@@ -422,57 +480,49 @@ const Principal = () => {
         <div className='slider' data-aos='zoom-in-up'>
           <div className='slide-track'>
             <div className='slide'>
-              <Image src={finance} width='1000' alt='logo_oscuro'    loading="lazy" />
+              <Image src={finance} width='1000' alt='logo_oscuro' loading='lazy' />
             </div>
             <div className='slide'>
-              <Image src={card1} width='400' alt='logo_oscuro'    loading="lazy" />
-            </div>
-
-            <div className='slide'>
-              <Image src={card2} width='400' alt='logo_oscuro'    loading="lazy" />
-            </div>
-            <div className='slide'>
-              <Image src={card3} width='400' alt='logo_oscuro'    loading="lazy"/>
-            </div>
-            <div className='slide'>
-              <Image src={card4} width='400' alt='logo_oscuro'    loading="lazy" />
-            </div>
-
-
-           
-
-
-            <div className='slide'>
-              <Image src={card5} width='1000' alt='logo_oscuro'    loading="lazy"/>
-            </div>
-
-
-            <div className='slide'>
-              <Image src={support} width='1000' alt='logo_oscuro'    loading="lazy" />
+              <Image src={card1} width='400' alt='logo_oscuro' loading='lazy' />
             </div>
 
             <div className='slide'>
-              <Image src={card6} width='1000' alt='logo_oscuro'    loading="lazy" />
+              <Image src={card2} width='400' alt='logo_oscuro' loading='lazy' />
+            </div>
+            <div className='slide'>
+              <Image src={card3} width='400' alt='logo_oscuro' loading='lazy' />
+            </div>
+            <div className='slide'>
+              <Image src={card4} width='400' alt='logo_oscuro' loading='lazy' />
             </div>
 
             <div className='slide'>
-              <Image src={card7} width='400' alt='logo_oscuro'    loading="lazy"/>
-            </div>
-
-
-            <div className='slide'>
-              <Image src={rrhh} width='1000' alt='logo_oscuro'    loading="lazy"/>
-            </div>
-
-
-            <div className='slide'>
-              <Image src={card8} width='400' alt='logo_oscuro'    loading="lazy"/>
+              <Image src={card5} width='1000' alt='logo_oscuro' loading='lazy' />
             </div>
 
             <div className='slide'>
-              <Image src={finance} width='1000' alt='logo_oscuro'    loading="lazy"/>
+              <Image src={support} width='1000' alt='logo_oscuro' loading='lazy' />
             </div>
-           
+
+            <div className='slide'>
+              <Image src={card6} width='1000' alt='logo_oscuro' loading='lazy' />
+            </div>
+
+            <div className='slide'>
+              <Image src={card7} width='400' alt='logo_oscuro' loading='lazy' />
+            </div>
+
+            <div className='slide'>
+              <Image src={rrhh} width='1000' alt='logo_oscuro' loading='lazy' />
+            </div>
+
+            <div className='slide'>
+              <Image src={card8} width='400' alt='logo_oscuro' loading='lazy' />
+            </div>
+
+            <div className='slide'>
+              <Image src={finance} width='1000' alt='logo_oscuro' loading='lazy' />
+            </div>
           </div>
         </div>
       </section>
@@ -481,7 +531,7 @@ const Principal = () => {
         <section className='home-social container'>
           <div className='home-social-info'>
             <div className='logo'>
-              <Image src={logoGift} width='100' alt='logo'    loading="lazy" />
+              <Image src={logoGift} width='100' alt='logo' loading='lazy' />
 
               <p>{t['Terms and Conditions']}</p>
               <p>Vittore Carpaccio 250, San Borja, Lima , Perú</p>
