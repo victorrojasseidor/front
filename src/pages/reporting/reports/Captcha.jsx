@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { exportToExcelFormat, IconArrow, IconDate } from '@/helpers/report'
-import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
-import NavigationPages from '@/Components/NavigationPages'
 import { useAuth } from '@/Context/DataContext'
-import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import Typography from '@mui/material/Typography'
 import dayjs from 'dayjs'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
-import FormHelperText from '@mui/material/FormHelperText'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 
@@ -122,8 +118,8 @@ const Captcha = () => {
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetCabeceraCaptcha', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
-        const data = responseData.oResults
-
+        const data = responseData.oResults;
+       
         const dataOrder = orderDataByDateSumary(data)
         setDataSumary(dataOrder)
 
@@ -170,6 +166,7 @@ const Captcha = () => {
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetDetalleCaptcha', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
+        setIsDateSorted(true);
         setDataCaptcha(data)
         orderDataByDate()
         setModalToken(false)
