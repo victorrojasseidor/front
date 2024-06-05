@@ -337,7 +337,7 @@ export default function ConfigAccount ({ idbancoCredential, setShowAccounts, set
             >
               <ImageSvg name='Question' />
 
-              <div>
+              <div >
                 <h3>{t['Delete this account?']}</h3>
                 <div className='box-buttons'>
                   <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>

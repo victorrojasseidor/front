@@ -1,4 +1,4 @@
-const baseApiUrl = 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/'
+const baseApiUrl = 'https://api.ariapp.ai/bpass/'
 
 const fetchNoTokenPost = async (endpoint, data) => {
   // const url = `${CORS_PROXY_URL}${baseApiUrl}${endpoint}`;

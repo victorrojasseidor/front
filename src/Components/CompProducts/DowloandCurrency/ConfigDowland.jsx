@@ -472,7 +472,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
                         >
                           <ImageSvg name='Question' />
 
-                          <div>
+                          <>
                             <h3>{t['Do you want to delete this credential bank ?']}</h3>
                             <div className='box-buttons'>
                               <button type='button' className='btn_primary small' onClick={handleDeleteConfirmation}>
@@ -482,7 +482,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
                                 {t.NOT}
                               </button>
                             </div>
-                          </div>
+                          </>
                         </Modal>
                       )}
                     </div>

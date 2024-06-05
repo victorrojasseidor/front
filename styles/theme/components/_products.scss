@@ -850,19 +850,21 @@
 
       .red {
         .report_icon {
-          background: linear-gradient(to left, rgba(get-color(lilac_p3), 0.2), rgba(get-color(lilac_p3), 0.3));
+          background: linear-gradient(to left, rgba(get-color(blue_p1), 0.2), rgba(get-color(white_s1), 0.2));
           // background: linear-gradient(to left, rgba(get-color(white_s1), 0.2), rgba(get-color(white_s1), 0.3));
 
           path {
-            fill: rgba(get-color(lilac_p3), 1);
+            fill: hsl_l(blue_p1, 15);
           }
         }
 
         svg,
         span {
-          color: rgba(get-color(lilac_p3), 0.9);
+          color: hsl_l(blue_p1, 25);
           path {
-            fill: rgba(get-color(lilac_p3), 0.9);
+          
+           fill: hsl_l(blue_p1, 25)
+
           }
         }
       }
@@ -872,17 +874,17 @@
           // background: linear-gradient(to right, rgba(#8e2de2, 0.9), rgba(#8e2de2, 0.2));
 
           // background: linear-gradient(to left, rgba(get-color(lilac_p3), 0.4), rgba(#af85d8, 0.8));
-          background: linear-gradient(to right, rgba(#6AD2FF, 0.7), rgba(get-color(lilac_p3), 0.7  ));
+          background: linear-gradient(to right, rgba(#6AD2FF, 0.7), rgba(get-color(white_s1), 0.6 ));
           // background-image: linear-gradient(to right, rgba(67, 24, 255, 0.6), #4318ff);
         }
 
         svg,
         span {
-          color:get-color(pink_s5);
+          color: hsl_l(t2-ligthBlue, 20);
     
 
           path {
-            fill: get-color(pink_s5);
+            fill: hsl_l(t2-ligthBlue, 25)
           }
         }
       }

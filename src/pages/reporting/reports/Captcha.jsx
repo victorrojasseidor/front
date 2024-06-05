@@ -28,7 +28,7 @@ const Captcha = () => {
   const [activeTab, setActiveTab] = useState(0)
   const { session, setModalToken, logout, l, idCountry, empresa } = useAuth()
   const [page, setPage] = useState(1)
-  const [selectedCompany, setSelectedCompany] = useState(empresa?.id_empresa)
+  const [selectedCompany, setSelectedCompany] = useState(empresa?.id_empresa || session?.oEmpresa[0].id_empresa)
   const [dataSumary, setDataSumary] = useState(null)
   const [dataCaptcha, setDataCaptcha] = useState(1)
   const [isLoading, setIsLoading] = useState(false)

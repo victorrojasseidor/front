@@ -29,7 +29,7 @@ export default function Inicio () {
         <meta name='theme-color' content='#ffffff' />
       </Head>
       <body>
-        <Principal />
+        <Register />
       </body>
     </>
   )

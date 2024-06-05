@@ -283,8 +283,6 @@ const Movement = () => {
     }
   }
 
- 
-
   const orderDataAlphabetically = (columnName, setIsSorted, prevIsSorted) => {
     setIsSorted((prevIsSorted) => !prevIsSorted)
 
@@ -570,7 +568,7 @@ const Movement = () => {
           </div>
 
           <div className='tableContainer' ref={tableRef}>
-
+            <div class='scrollbarContainer' />
             <table className='dataTable Account'>
               <thead>
                 <tr style={{ overflow: 'hidden' }}>

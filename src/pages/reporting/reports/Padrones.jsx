@@ -36,7 +36,7 @@ const Padrones = () => {
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetReportePadrones', body, token)
-      console.log({responseData})
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setDataPadrones(data)
@@ -64,7 +64,6 @@ const Padrones = () => {
       setIsLoading(false) // Ocultar señal de carga
     }
   }
-
 
   return (
     <>
