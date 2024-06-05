@@ -12,6 +12,7 @@ import Link from 'next/link'
 import Lang from '@/Components/Atoms/Lang'
 import LogoOscuro from '../../../public/img/logoOscuro.png'
 import logoGift from '../../../public/img/logoGift.gif'
+import flujoAri from '../../../public/img/flujoAri.gif'
 import ImageSvg from '@/helpers/ImageSVG'
 import finance from '../../../public/img/home-finance.png'
 import rrhh from '../../../public/img/home-rrhh.png'
@@ -33,6 +34,8 @@ import gifHome from '../../../public/img/video/gifHome.gif'
 import asistente from '../../../public/img/asistente.png'
 import reporting from '../../../public/img/reporting.png'
 import front from '../../../public/img/front.png'
+import Diagram from '@/Components/Grafics/Diagram'
+import SphereCanvas from '@/Components/Grafics/SphereCanvas'
 
 import linea from '../../../public/img/linea.png'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
@@ -213,7 +216,17 @@ const Principal = () => {
       <main className='box-home container'>
         <section className='home-front'>
           <div className='welcome'>
-            <h2 className='subtitle'>{t['Optimize your Business Efficiency']}</h2>
+
+
+          <div class="letter-container">
+        <h2 className="   letter text-gradient">Empleados digitales ARI </h2>
+        <h2 className="  letter text-gradient">Tu nuevo super poder</h2>
+       
+    </div>
+
+
+
+            {/* <h2 className='subtitle' style={{color:'transparent'}}>{t['Optimize your Business Efficiency']}</h2> */}
             <p> {t['Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence']}</p>
 
             <div className='welcome-actions'>
@@ -266,7 +279,9 @@ const Principal = () => {
           </div>
         </section>
 
-        <section className='home-client'>
+       
+
+        {/* <section className='home-client'>
           <div>
             <h1 className='subtitle' style={{ textAlign: 'right' }}>
               {' '}
@@ -314,7 +329,9 @@ const Principal = () => {
               </div>
             )}
           </div>
-        </section>
+        </section> */}
+
+
 
         <section ref={gifRef} className='home-how container'>
           <div className='home-how-description'>
@@ -384,6 +401,8 @@ const Principal = () => {
           </div>
         </section>
 
+       
+
         <section className='home-account container'>
           <ul className='box-account' data-aos='zoom-in'>
             <li>
@@ -405,6 +424,15 @@ const Principal = () => {
             </li>
           </ul>
         </section>
+
+
+
+
+        <section  className='home-gift container'>
+
+<Image src={flujoAri} width={500} height={500} alt='ari flujo' loading='lazy' />
+
+</section>
 
         <section className='home-digitals  container '>
           <div className='description'>
@@ -465,6 +493,10 @@ const Principal = () => {
           </div>
         </section>
       </main>
+
+   sfera 
+
+      <SphereCanvas/>
 
       <section className='home-contact ' data-aos='fade-up'>
         <div className='contact-message'>

@@ -1,0 +1,99 @@
+// styles/LineContainers.scss
+
+$line-color: #3498db;
+$common-container-color: #e74c3c;
+
+.diagram {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 200px;
+
+  .line {
+    width: 100%;
+    position: absolute;
+
+    path {
+      fill: transparent;
+      stroke: $line-color;
+      stroke-width: 2px;
+      animation: dashed 1s infinite;
+    }
+  }
+
+  @keyframes dashed {
+    0% {
+      stroke-dashoffset: 100%;
+    }
+    50% {
+      stroke-dashoffset: 50%;
+    }
+    100% {
+      stroke-dashoffset: 0%;
+    }
+  }
+
+  .commonContainer {
+    width: 50px;
+    height: 50px;
+    background-color: $common-container-color;
+    z-index: 1;
+  }
+}
+
+
+
+
+// estilos para el circulo 
+
+$daddy-border: 1px solid black;
+$daddy-size: 400px;
+$daddy-perspective: 600px;
+$amount: 200;
+$radius: 200px;
+$pi: 3.14159265359;
+
+.daddy {
+  // border: $daddy-border;
+  width: $daddy-size;
+  height: $daddy-size;
+  position: relative;
+  perspective: $daddy-perspective;
+  transform-style: preserve-3d;
+}
+
+.mommy {
+  width: $daddy-size;
+  height: $daddy-size;
+  transform-style: preserve-3d;
+  animation: rotation 10s linear infinite;
+}
+
+.mommy div {
+  display: block;
+  width: 4px;
+  height: 4px;
+  background-color: get-color(t2-ligthBlue);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+}
+
+@for $i from 1 through $amount {
+  $theta: ($i / $amount) * 120;
+  $delta: ($i / $amount - 0.5) * $pi;
+  $x: $radius * cos($delta) * cos($theta) + $radius;
+  $y: $radius * cos($delta) * sin($theta) + $radius;
+  $z: $radius * sin($delta);
+  
+  .mommy div:nth-child(#{$i}) {
+    transform: translate3d($x, $y, $z);
+  }
+}
+
+@keyframes rotation {
+  to {
+    transform: rotateY(360deg);
+  }
+}

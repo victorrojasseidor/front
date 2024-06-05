@@ -456,13 +456,13 @@ button:hover + .cloud {
 }
 
 
-// .text-gradient{
-//   color: transparent;
-//   background-image: linear-gradient(to left, #FFD700, #7B68EE, #3498db, #2ecc71, #FFD700);    
-//   background-clip: text;
-//   animation: colorGrad 3s linear infinite;
-//   background-size: 500%;    
-// }
+.text-gradient{
+  color: transparent;
+  background-image: linear-gradient(to left, #7700ff, #68ecee, #9fd1f2, #7700ff, #f1f7f7);    
+  background-clip: text;
+  animation: colorGrad 3s linear infinite;
+  background-size: 500%;    
+}
 
 @keyframes colorGrad {
   from {

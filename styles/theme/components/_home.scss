@@ -1,7 +1,7 @@
 .home {
   // background-image: url("../../../public/img/home-oficce.png");
-  background-image: url("../../../public/img/desing.png");
-  background-image: url("../../../public/img/desing-des.png");
+  // background-image: url("../../../public/img/desing.png");
+  background-image: url("../../../public/img/desing-des.webp");
 
   background-repeat: no-repeat;
   background-size: 269vh;
@@ -9,13 +9,14 @@
   @include media(tablet) {
     background-position: top;
     background-size: auto;
-    background-size: 245vh;
+    background-size: 220vh;
   }
 
   @include media(extradesktop) {
-    background-image: url("../../../public/img/desing-des.png");
+    background-image: url("../../../public/img/desing-des.webp");
   
     background-size: 100%;
+    background-color: aquamarine;
   }
 
   .logo {
@@ -194,6 +195,14 @@
     @include media(tablet) {
       margin-top: 4rem;
       height: 100%;
+    }
+  }
+
+  &-gift{
+    display: flex;
+    justify-content: center;
+    img{
+      width: 100%;
     }
   }
 
@@ -933,3 +942,44 @@
   }
 }
 
+
+
+
+.letter-container {
+  position: relative;
+  font-size: 5rem;
+  width: 100%;
+  // color: #333;
+  // width: 1em; /* Ajusta el ancho del contenedor al ancho de una letra */
+  // height: 1em; /* Ajusta la altura del contenedor al alto de una letra */
+  margin-bottom: 8rem;
+}
+
+.letter {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+
+  font-size: 45px;
+  animation: fadeInOut 5s infinite;
+  
+}
+
+.letter:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.letter:nth-child(2) {
+  animation-delay: 3s;
+}
+
+
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+  }
+  33.33%, 66.66% {
+    opacity: 1;
+  }
+}
