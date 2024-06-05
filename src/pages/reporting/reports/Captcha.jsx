@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { exportToExcelFormat } from '@/helpers/report'
+import { exportToExcelFormat, IconArrow, IconDate } from '@/helpers/report'
 import LayoutProducts from '@/Components/LayoutProducts'
 import ImageSvg from '@/helpers/ImageSVG'
 import Link from 'next/link'
@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem'
 import FormHelperText from '@mui/material/FormHelperText'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
-import { IconArrow, IconDate } from '@/helpers/report'
+
 import { fetchConTokenPost } from '@/helpers/fetch'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -26,7 +26,7 @@ import LineCaptcha from '@/Components/Grafics/LineCaptcha'
 
 const Captcha = () => {
   const [activeTab, setActiveTab] = useState(0)
-  const { session, setModalToken, logout, l, idCountry , empresa} = useAuth()
+  const { session, setModalToken, logout, l, idCountry, empresa } = useAuth()
   const [page, setPage] = useState(1)
   const [selectedCompany, setSelectedCompany] = useState(empresa?.id_empresa)
   const [dataSumary, setDataSumary] = useState(null)
@@ -34,12 +34,12 @@ const Captcha = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [itemsPerPage] = useState(32)
   const [filterDate, setFilterDate] = useState(30)
+  const [isDateSorted, setIsDateSorted] = useState(true)
   const [startDate, setStartDate] = useState(dayjs().subtract(30, 'day').format('YYYY-MM-DD'))
   const [endDate, setEndDate] = useState(dayjs().format('YYYY-MM-DD'))
   const [requestError, setRequestError] = useState()
   const t = l.Captcha
 
-  console.log({empresa});
   const months = [l.Reporting.January, l.Reporting.February, l.Reporting.March, l.Reporting.April, l.Reporting.May, l.Reporting.June, l.Reporting.July, l.Reporting.August, l.Reporting.September, l.Reporting.October, l.Reporting.November, l.Reporting.December]
 
   const transformMonthsFormat = (data) => {
@@ -48,6 +48,8 @@ const Captcha = () => {
 
     return `${mes}-${partes[1]}`
   }
+
+  
 
   const rangeDateSelect = (duration) => {
     const endDate = dayjs()
@@ -67,7 +69,7 @@ const Captcha = () => {
     setFilterDate(duration)
   }
 
-   const handleStartDateChange = (newValue) => {
+  const handleStartDateChange = (newValue) => {
     setStartDate(newValue.format('YYYY-MM-DD'))
   }
 
@@ -121,8 +123,10 @@ const Captcha = () => {
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
-        setDataSumary(data)
-        // filterDataByIdEmpresa(data, selectedCompany)
+
+        const dataOrder = orderDataByDateSumary(data)
+        setDataSumary(dataOrder)
+
         setModalToken(false)
         setRequestError(null)
         setPage(1)
@@ -157,7 +161,6 @@ const Captcha = () => {
         sFechaDesde: startDate,
         sFechaHasta: endDate,
         iIdEmpresa: selectedCompany || []
-
       }
     }
 
@@ -168,6 +171,7 @@ const Captcha = () => {
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
         setDataCaptcha(data)
+        orderDataByDate()
         setModalToken(false)
         setRequestError(null)
         setPage(1)
@@ -194,6 +198,52 @@ const Captcha = () => {
     }
   }
 
+
+
+  function orderDataByDateSumary (data) {
+    // Función para convertir fechas en formato "MM-YYYY" a "YYYY-MM-DD" para facilitar la comparación
+    function convertirFecha (fecha) {
+      const [mes, anio] = fecha.split('-')
+      return new Date(`${anio}-${mes}-01`)
+    }
+
+    // Verificar y ordenar la lista 'data_summary' por fecha
+    if (Array.isArray(data.data_summary)) {
+      data.data_summary.sort((a, b) => convertirFecha(b.fecha) - convertirFecha(a.fecha))
+    }
+
+    return data
+  }
+
+
+
+  const orderDataByDate = () => {
+    // Alterna el estado de ordenación
+    setIsDateSorted((prevState) => !prevState);
+  
+    // Actualiza los datos ordenados
+    setDataCaptcha((prevData) => {
+      // Clona el array de datos para no mutar el estado anterior
+      const sortedData = [...prevData];
+  
+      // Ordena los datos en función del estado actual de isDateSorted
+      if (isDateSorted) {
+        sortedData.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+      } else {
+        sortedData.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+      }
+  
+      // Retorna el array ordenado
+      return sortedData;
+    });
+  };
+
+
+
+  
+
+  console.log(dataCaptcha)
+
   const formatDate = (date) => {
     // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
     const fechaObjeto = new Date(date)
@@ -209,31 +259,31 @@ const Captcha = () => {
   }
 
   const exportToExcel = () => {
-    const data = dataCaptcha;
-    const fileName = 'Captcha_report.xlsx';
+    const data = dataCaptcha
+    const fileName = 'Captcha_report.xlsx'
     if (data && data.length > 0) {
-        const headers = [
-            { header: 'Fecha', key: 'fecha', width: 20 },
-            { header: 'Resuelto', key: 'captcha_resolved', width: 20 },
-            { header: 'No Resuelto', key: 'captcha_not_resolved', width: 20 },
-            { header: 'Tipo', key: 'captcha_type', width: 20 },
-            { header: 'Conexiones', key: 'captcha_conexion_until_now', width: 20 }
-        ];
+      const headers = [
+        { header: 'Fecha', key: 'fecha', width: 20 },
+        { header: 'Resuelto', key: 'captcha_resolved', width: 20 },
+        { header: 'No Resuelto', key: 'captcha_not_resolved', width: 20 },
+        { header: 'Tipo', key: 'captcha_type', width: 20 },
+        { header: 'Conexiones', key: 'captcha_conexion_until_now', width: 20 }
+      ]
 
-        // Llama a la función exportToExcelFormat con los parámetros necesarios
-        exportToExcelFormat(data, fileName, headers, (row) => {
-            // Formatea cada fila de datos según lo necesites
-            const formattedDate = formatDate(row.fecha);
-            return {
-                fecha: formattedDate,
-                captcha_resolved: row.captcha_resolved,
-                captcha_not_resolved: row.captcha_not_resolved,
-                captcha_type: row.captcha_type,
-                captcha_conexion_until_now: row.captcha_conexion_until_now
-            };
-        });
+      // Llama a la función exportToExcelFormat con los parámetros necesarios
+      exportToExcelFormat(data, fileName, headers, (row) => {
+        // Formatea cada fila de datos según lo necesites
+        const formattedDate = formatDate(row.fecha)
+        return {
+          fecha: formattedDate,
+          captcha_resolved: row.captcha_resolved,
+          captcha_not_resolved: row.captcha_not_resolved,
+          captcha_type: row.captcha_type,
+          captcha_conexion_until_now: row.captcha_conexion_until_now
+        }
+      })
     }
-};
+  }
 
 
 
@@ -241,7 +291,6 @@ const Captcha = () => {
 
   return (
     <>
-     
       <section className='captcha'>
         <div className='captcha-summary'>
           <div className='reporting-box'>
@@ -315,7 +364,7 @@ const Captcha = () => {
               <div className='box-search'>
                 <div>
                   <h3> {t['Last Months']} </h3>
-                  <p> {t['Results of the Last 6 Months']} </p>
+                  <p> {t['Results of the Last Months']} </p>
                 </div>
               </div>
 
@@ -459,7 +508,17 @@ const Captcha = () => {
                         <table className='dataTable'>
                           <thead>
                             <tr>
-                              <th>{t.Date} </th>
+                              {/* <th>{t.Date} </th> */}
+                              <th
+                      onClick={() => orderDataByDate()}
+                    
+
+                    >
+                      {t.Date}
+                      <button className='btn_crud'>
+                        <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} />
+                      </button>
+                    </th>
                               <th> {t.Resolved}</th>
                               <th> {t['Not Resolved']}</th>
                               <th> {t['Captcha Type']}</th>
@@ -543,6 +602,5 @@ const Captcha = () => {
     </>
   )
 }
-
 
 export default Captcha

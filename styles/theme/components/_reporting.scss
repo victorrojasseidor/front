@@ -412,6 +412,7 @@
     height: max-content;
     flex-wrap: wrap;
 
+
     @include media(tablet) {
       // flex-direction: column;
     }
@@ -425,9 +426,32 @@
     .report-months {
       width: 100%;
 
+      .tableContainer{
+        max-height: 250px;
+        overflow-y: auto;
+        @include scrollTeme;
+
+        thead{
+          tr{
+            background-color: get-color(white_s1) ;
+          }
+
+        
+        
+        }
+
+         td:nth-child(1){
+          position: static;
+         }
+      }
+     
+     
+
       @include media(tablet) {
         flex: 1;
       }
+
+      
     }
   }
 
