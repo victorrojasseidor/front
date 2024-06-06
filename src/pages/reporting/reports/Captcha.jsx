@@ -45,8 +45,6 @@ const Captcha = () => {
     return `${mes}-${partes[1]}`
   }
 
-  
-
   const rangeDateSelect = (duration) => {
     const endDate = dayjs()
     let startDate
@@ -118,8 +116,8 @@ const Captcha = () => {
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetCabeceraCaptcha', body, token)
 
       if (responseData.oAuditResponse?.iCode === 1) {
-        const data = responseData.oResults;
-       
+        const data = responseData.oResults
+
         const dataOrder = orderDataByDateSumary(data)
         setDataSumary(dataOrder)
 
@@ -166,7 +164,7 @@ const Captcha = () => {
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetDetalleCaptcha', body, token)
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults
-        setIsDateSorted(true);
+        setIsDateSorted(true)
         setDataCaptcha(data)
         orderDataByDate()
         setModalToken(false)
@@ -195,8 +193,6 @@ const Captcha = () => {
     }
   }
 
-
-
   function orderDataByDateSumary (data) {
     // Función para convertir fechas en formato "MM-YYYY" a "YYYY-MM-DD" para facilitar la comparación
     function convertirFecha (fecha) {
@@ -212,34 +208,26 @@ const Captcha = () => {
     return data
   }
 
-
-
   const orderDataByDate = () => {
     // Alterna el estado de ordenación
-    setIsDateSorted((prevState) => !prevState);
-  
+    setIsDateSorted((prevState) => !prevState)
+
     // Actualiza los datos ordenados
     setDataCaptcha((prevData) => {
       // Clona el array de datos para no mutar el estado anterior
-      const sortedData = [...prevData];
-  
+      const sortedData = [...prevData]
+
       // Ordena los datos en función del estado actual de isDateSorted
       if (isDateSorted) {
-        sortedData.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+        sortedData.sort((a, b) => new Date(a.fecha) - new Date(b.fecha))
       } else {
-        sortedData.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+        sortedData.sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
       }
-  
+
       // Retorna el array ordenado
-      return sortedData;
-    });
-  };
-
-
-
-  
-
-  console.log(dataCaptcha)
+      return sortedData
+    })
+  }
 
   const formatDate = (date) => {
     // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
@@ -281,10 +269,6 @@ const Captcha = () => {
       })
     }
   }
-
-
-
-
 
   return (
     <>
@@ -506,16 +490,12 @@ const Captcha = () => {
                           <thead>
                             <tr>
                               {/* <th>{t.Date} </th> */}
-                              <th
-                      onClick={() => orderDataByDate()}
-                    
-
-                    >
-                      {t.Date}
-                      <button className='btn_crud'>
-                        <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} />
-                      </button>
-                    </th>
+                              <th onClick={() => orderDataByDate()}>
+                                {t.Date}
+                                <button className='btn_crud'>
+                                  <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} />
+                                </button>
+                              </th>
                               <th> {t.Resolved}</th>
                               <th> {t['Not Resolved']}</th>
                               <th> {t['Captcha Type']}</th>
