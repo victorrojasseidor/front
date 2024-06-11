@@ -57,6 +57,18 @@ const ImageSvg = ({ name }) => {
       </svg>
     ),
     Check: <BsCheckCircle />,
+    CheckFill: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+    <g clip-path="url(#a)">
+      <path stroke="#4318FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.665 7.387v.614a6.667 6.667 0 1 1-3.953-6.094"/>
+      <path stroke="#4318FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.667 2.668 8 9.341l-2-2"/>
+    </g>
+    <defs>
+      <clipPath id="a">
+        <path fill="#fff" d="M0 0h16v16H0z"/>
+      </clipPath>
+    </defs>
+  </svg>
+  ,
     Change: <FaExchangeAlt />,
     SignOut: (
       <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'>
@@ -209,12 +221,27 @@ const ImageSvg = ({ name }) => {
       </svg>
     ),
 
-    BarChart: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-    <path fill="#292D32" d="M22 22H2c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h20c.41 0 .75.34.75.75s-.34.75-.75.75Z"/>
-    <path fill="#292D32" d="M9.75 4v18h4.5V4c0-1.1-.45-2-1.8-2h-.9c-1.35 0-1.8.9-1.8 2Z"/>
-    <path fill="#292D32" d="M3 10v12h4V10c0-1.1-.4-2-1.6-2h-.8C3.4 8 3 8.9 3 10Zm14 5v7h4v-7c0-1.1-.4-2-1.6-2h-.8c-1.2 0-1.6.9-1.6 2Z" opacity=".4"/>
-  </svg>, 
-  
+    BarChart: <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'>
+      <path fill='#292D32' d='M22 22H2c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h20c.41 0 .75.34.75.75s-.34.75-.75.75Z' />
+      <path fill='#292D32' d='M9.75 4v18h4.5V4c0-1.1-.45-2-1.8-2h-.9c-1.35 0-1.8.9-1.8 2Z' />
+      <path fill='#292D32' d='M3 10v12h4V10c0-1.1-.4-2-1.6-2h-.8C3.4 8 3 8.9 3 10Zm14 5v7h4v-7c0-1.1-.4-2-1.6-2h-.8c-1.2 0-1.6.9-1.6 2Z' opacity='.4' />
+    </svg>,
+
+    Integration: <svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' fill='none' viewBox='0 0 48 48'>
+      <path stroke='#4318FF' stroke-linecap='round' stroke-linejoin='round' stroke-width='3.922' d='M18.089 6.324v3.922m11.765-3.922v3.922M18.089 37.697v3.922m11.765-3.922v3.922m-19.608-23.53H6.324m3.922 11.765H6.324M41.62 18.089h-3.922m3.922 11.765h-3.922m-23.53 7.843h19.608a3.922 3.922 0 0 0 3.922-3.922V14.167a3.922 3.922 0 0 0-3.922-3.921H14.167a3.922 3.922 0 0 0-3.921 3.921v19.608a3.922 3.922 0 0 0 3.921 3.922Zm3.922-19.608h11.765v11.765H18.089V18.089Z' />
+                 </svg>,
+
+    Security: <svg xmlns='http://www.w3.org/2000/svg' width='36' height='40' fill='none' viewBox='0 0 36 40'>
+      <path stroke='#4318FF' stroke-width='3.922' d='M2.344 10.167v19.608c0 4.332 7.023 7.844 15.686 7.844s15.687-3.512 15.687-7.844V10.167m-31.373 0c0 4.332 7.023 7.844 15.686 7.844s15.687-3.512 15.687-7.844m-31.373 0c0-4.331 7.023-7.843 15.686-7.843s15.687 3.512 15.687 7.843m0 9.804c0 4.332-7.023 7.844-15.687 7.844-8.663 0-15.686-3.512-15.686-7.844' />
+    </svg>,
+
+    Efficiency: <svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' fill='none' viewBox='0 0 48 48'>
+      <path stroke='#4318FF' stroke-linecap='round' stroke-linejoin='round' stroke-width='3.922' d='M16.128 14.226V6.383m15.687 7.843V6.383M14.167 22.069h19.608m-23.53 19.608h27.452a3.922 3.922 0 0 0 3.922-3.921v-23.53a3.922 3.922 0 0 0-3.922-3.922H10.246a3.922 3.922 0 0 0-3.922 3.922v23.53a3.922 3.922 0 0 0 3.922 3.921Z' />
+    </svg>,
+
+    Adaptability: <svg xmlns='http://www.w3.org/2000/svg' width='32' height='40' fill='none' viewBox='0 0 32 40'>
+      <path stroke='#4318FF' stroke-linecap='round' stroke-width='3.922' d='M10.148 6.304H6.226a3.922 3.922 0 0 0-3.921 3.922v23.53a3.922 3.922 0 0 0 3.921 3.921h19.608a3.922 3.922 0 0 0 3.922-3.921v-23.53a3.922 3.922 0 0 0-3.922-3.922h-3.921m-11.765 0a3.922 3.922 0 0 0 3.921 3.922h3.922a3.922 3.922 0 0 0 3.922-3.922m-11.765 0a3.922 3.922 0 0 1 3.921-3.921h3.922a3.922 3.922 0 0 1 3.922 3.921M16.03 20.03h5.883m-5.883 7.843h5.883M10.148 20.03h.02m-.02 7.843h.02' />
+    </svg>,
 
     // menú icons
     MenuOpen: <RiMenu3Line />,
@@ -490,10 +517,9 @@ const ImageSvg = ({ name }) => {
       </svg>
 
     ),
-    Linkedin:<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none" viewBox="0 0 36 36">
-    <path fill="#fff" fill-rule="evenodd" d="M33.121 0H3.076C1.435 0 0 1.182 0 2.804v30.11C0 34.548 1.435 36 3.076 36h30.036C34.762 36 36 34.537 36 32.915V2.804C36.01 1.182 34.762 0 33.12 0ZM11.16 30.008H6.002V13.972h5.157v16.036Zm-2.4-18.474h-.04C7.07 11.534 6 10.306 6 8.768c0-1.566 1.098-2.766 2.786-2.766s2.72 1.19 2.757 2.766c0 1.538-1.07 2.766-2.785 2.766Zm21.249 18.474H24.85V21.24c0-2.1-.75-3.535-2.616-3.535-1.426 0-2.27.966-2.645 1.903-.14.338-.178.797-.178 1.266v9.134h-5.157V13.972h5.157v2.232c.75-1.069 1.923-2.607 4.651-2.607 3.386 0 5.946 2.232 5.946 7.043v9.368Z" clip-rule="evenodd"/>
-  </svg>
-,  
+    Linkedin: <svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' fill='none' viewBox='0 0 36 36'>
+      <path fill='#fff' fill-rule='evenodd' d='M33.121 0H3.076C1.435 0 0 1.182 0 2.804v30.11C0 34.548 1.435 36 3.076 36h30.036C34.762 36 36 34.537 36 32.915V2.804C36.01 1.182 34.762 0 33.12 0ZM11.16 30.008H6.002V13.972h5.157v16.036Zm-2.4-18.474h-.04C7.07 11.534 6 10.306 6 8.768c0-1.566 1.098-2.766 2.786-2.766s2.72 1.19 2.757 2.766c0 1.538-1.07 2.766-2.785 2.766Zm21.249 18.474H24.85V21.24c0-2.1-.75-3.535-2.616-3.535-1.426 0-2.27.966-2.645 1.903-.14.338-.178.797-.178 1.266v9.134h-5.157V13.972h5.157v2.232c.75-1.069 1.923-2.607 4.651-2.607 3.386 0 5.946 2.232 5.946 7.043v9.368Z' clip-rule='evenodd' />
+              </svg>,
     OpenMenu: <FiChevronsRight />,
     CloseMenu: <FiChevronsLeft />,
     ErrorMessage: <IoMdCloseCircle size={48} color='red' />,

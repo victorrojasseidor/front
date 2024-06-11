@@ -87,13 +87,45 @@
     "This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set": "This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set",
     "Work delivered": "Work delivered",
     "After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready": "After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready",
-    "Find out which AUTOMATION SOLUTIONS can help you":"Find out which AUTOMATION SOLUTIONS can help you",
-    "Through":"Through",
-    "Contact":"Contact",
-    "Terms and Conditions":"Terms and Conditions",
-    "Follow us!":"Follow us!"
-
-
+    "Find out which AUTOMATION SOLUTIONS can help you": "Find out which AUTOMATION SOLUTIONS can help you",
+    "Through": "Through",
+    "Contact": "Contact",
+    "Terms and Conditions": "Terms and Conditions",
+    "Follow us!": "Follow us!",
+    "ARI Digital Employees": "ARI Digital Employees",
+    "ARI Robotic Assistants free your employees from": "ARI Robotic Assistants free your employees from",
+    "so they can focus on what": "so they can focus on what",
+    "really matters": "really matters",
+    "repetitive tasks": "repetitive tasks",
+    "Your new superpower": "Your new superpower",
+    "Why Choose Us": "Why Choose Us",
+    "Automate and optimize your financial management securely and scalably": "Automate and optimize your financial management securely and scalably",
+    "Integration and Connectivity": "Integration and Connectivity",
+    "Connect multiple data sources and integrates with SAP (Bank Accounts, Government, among others) in one place": "Connect multiple data sources and integrates with SAP (Bank Accounts, Government, among others) in one place",
+    "Work 24/7, error reduction and cost savings. Cost and time savings (lower TCO) compared to a traditional RPA project": "Work 24/7, error reduction and cost savings. Cost and time savings (lower TCO) compared to a traditional RPA project",
+    "Security and Control": "Security and Control",
+    "Encrypted passwords and secure access management": "Encrypted passwords and secure access management",
+    "Encrypted bank passwords": "Encrypted bank passwords",
+    "Roles and access for users": "Roles and access for users",
+    "Exclusive information base": "Exclusive information base",
+    "Adaptability and Growth": "Adaptability and Growth",
+    "Efficiency and Productivity": "Efficiency and Productivity",
+    "Adaptable solution with quick configuration and homologated processes with extensive industry knowledge": "Adaptable solution with quick configuration and homologated processes with extensive industry knowledge",
+    "Connect financial data and understand behavior": "Connect financial data and understand behavior",
+    "ARI is the software-based workforce powered by artificial intelligence": "ARI is the software-based workforce powered by artificial intelligence",
+    "that autonomously executes end-to-end work processes using a diverse set of skills": "that autonomously executes end-to-end work processes using a diverse set of skills",
+    "Ari Accounting and Finance": "Ari Accounting and Finance",
+    "Ari Human Resources": "Ari Human Resources",
+    "Ari Technology": "Ari Technology",
+    "Skills": "Skills",
+    "Download Bank Statements": "Download Bank Statements",
+    "Daily Exchange Rate Automation": "Daily Exchange Rate Automation",
+    "Download SUNAT tax Status Registers": "Download SUNAT tax Status Registers",
+    "Captcha resolution service": "Captcha resolution service",
+    "Download Bank State": "Download Bank State",
+    "Utility Bill Registration": "Utility Bill Registration",
+    "Image text extraction Service": "Image text extraction Service",
+    "AFP validation": "AFP validation"
   },
   "update_password": {
     "Update password": "Change password",
@@ -204,7 +236,7 @@
     "Days left:": "Days left:",
     "Download SUNAT Tax Status Registers": "Download SUNAT Tax Status Registers",
     "Invoice register": "Invoice register",
-    "Utility Bill Registration":"Utility Bill Registration",
+    "Utility Bill Registration": "Utility Bill Registration",
     "No results found": "No results found",
     "Configuration": "Configuration",
     "Apiconfuguración": "Apiconfuguración",
@@ -260,7 +292,7 @@
     "Contract number": "Contract number",
     "Other": "Other",
     "Free trial contract": "Free trial contract",
-    "Not configured":"Not configured"
+    "Not configured": "Not configured"
   },
   "Download": {
     "Digital employees": "Digital employees",
@@ -451,9 +483,9 @@
     "Add patterns": "Add patterns",
     "These patterns already exist, select another": "These patterns already exist, select another",
     "Successful configuration": "Successful configuration",
-    "List of register reports":"List of register reports",
-    "Result obtained from the SUNAT portal":"Result obtained from the SUNAT portal",
-    "SUNAT patterns":"SUNAT patterns"
+    "List of register reports": "List of register reports",
+    "Result obtained from the SUNAT portal": "Result obtained from the SUNAT portal",
+    "SUNAT patterns": "SUNAT patterns"
   },
   "Support": {
     "Support": "Support",
@@ -494,8 +526,8 @@
     "Home": "Home",
     "Total revenue": "Total revenue",
     "Total expenses": "Total expenses",
-    "Bank balances":"Bank balances",
-    "Banking transactions":"Banking transactions",
+    "Bank balances": "Bank balances",
+    "Banking transactions": "Banking transactions",
     "Result": "Result",
     "this month": "this month",
     "utility": "utility",
@@ -574,13 +606,13 @@
     "November": "November",
     "December": "December",
     "Account Alias": "Account Alias",
-    "Account Description":"Account Description"
+    "Account Description": "Account Description"
   },
   "Captcha": {
     "Captcha solved": "Captcha Solved",
     "Reporting": "Reporting",
-    "Solved":"Solved",
-    "Connections":"Connections",
+    "Solved": "Solved",
+    "Connections": "Connections",
     "Home": "Home",
     "hasta": "Until",
     "Captcha": "Captcha",
@@ -625,12 +657,12 @@
     "API key": "API key",
     "User": "User",
     "Password": "Password",
-    "Update password": "Update password", 
+    "Update password": "Update password",
     "Available balance": "Available balance",
     "Maximum connections": "Maximum connections",
     "Connected RPA - description": "Connected RPA - description",
     "Update": "Update",
-    "optional":"optional",
+    "optional": "optional",
     "Cancel": "Cancel"
   },
   "Modal": {
@@ -666,6 +698,6 @@
     "Select destination currency": "Select destination currency",
     "Currency cannot be equeal": "Currency cannot be equeal",
     "Select a different currency": "Select a different currency",
-    "This value is required":"This value is required"
+    "This value is required": "This value is required"
   }
 }

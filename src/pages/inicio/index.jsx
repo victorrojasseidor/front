@@ -36,6 +36,7 @@ import reporting from '../../../public/img/reporting.png'
 import front from '../../../public/img/front.png'
 import Diagram from '@/Components/Grafics/Diagram'
 import SphereCanvas from '@/Components/Grafics/SphereCanvas'
+import giftMovil from '../../../public/img/video/giftMovil.gif'
 
 import linea from '../../../public/img/linea.png'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
@@ -48,6 +49,60 @@ import 'aos/dist/aos.css'
 import Counter from '@/Components/Atoms/Counter'
 import { useRouter } from 'next/router'
 import Head from 'next/head' // Importa el componente Head de Next.js para manejar el título y la metadescripción
+
+const DigitalProfile = ({ title, image, description, relatedItems }) => {
+  const { l } = useAuth()
+  const t = l.home
+  const router = useRouter()
+
+  return (
+    <div className='digital-content'>
+
+           <div className='digital-description'>
+        <h2>{title}</h2>
+        <p>{description}</p>
+        <div className='digital-list'>
+        <h4>{t.Skills}</h4>
+        <ul>
+          {relatedItems.map((item, index) => (
+
+            
+            <li key={index} className='digital-item'>
+               <ImageSvg name='CheckFill' />
+           
+              <p>
+              {item}
+              </p>
+
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button className='btn_primary small' onClick={() => { router.push('/product')}} >
+      Demo
+      </button>
+
+      </div>
+      
+      <div className='digital-image'>
+        <img src={image} alt={title} />
+        
+        <svg xmlns="http://www.w3.org/2000/svg" width="366" height="643" fill="none" viewBox="0 0 366 643">
+  <path fill="#4318FF" d="M178.141 0h167.858c11.046 0 20 8.954 20 20v602.094c0 11.045-8.954 20-20 20H178.141V0Z"/>
+  <ellipse cx="161.947" cy="325.586" fill="#C0D8FF" fill-opacity=".2" rx="161.947" ry="170.317"/>
+  <ellipse cx="166.804" cy="328.424" fill="#C2D9FF" fill-opacity=".3" rx="116.062" ry="122.06"/>
+  <path fill="#C0D8FF" d="M252.638 331.264c0 47.031-36.253 85.158-80.973 85.158-44.721 0-80.974-38.127-80.974-85.158 0-47.032 36.253-85.159 80.974-85.159 44.72 0 80.973 38.127 80.973 85.159Z"/>
+</svg>
+
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+    <dotlottie-player src="https://lottie.host/64438791-57f2-4ad1-b227-98d21a9e0e50/YvsA2lGpeJ.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+
+      </div>
+    </div>
+  )
+}
 
 const Principal = () => {
   const [selectImage, setSelectImage] = useState(null)
@@ -75,15 +130,15 @@ const Principal = () => {
     }
   ]
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 3000);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length)
+    }, 3000)
 
-    return () => clearInterval(interval);
-  }, [slides.length]);
+    return () => clearInterval(interval)
+  }, [slides.length])
 
   // para cambiar los gifts
   useEffect(() => {
@@ -180,12 +235,95 @@ const Principal = () => {
     return () => clearInterval(intervalId)
   }, [selectImage, rotation, testimonials])
 
+  const [activeTab, setActiveTab] = useState('finance')
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab)
+  }
+
+  const digitals = [
+    {
+      title: t['Ari Accounting and Finance'],
+      image: '/images/digital1.jpg',
+      description: t['The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures'],
+      relatedItems: [t['Download Bank Statements'], t['Daily Exchange Rate Automation'], t['Download SUNAT tax Status Registers'], t['Download Bank State']]
+    }, {
+      title: t['Ari Technology'],
+      image: '/images/digital2.jpg',
+      description: t['The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts.'],
+      relatedItems: [t['Image text extraction Service'], t['Captcha resolution service']]
+    },
+    {
+      title: t['Ari Human Resources'],
+      image: '/images/digital3.jpg',
+      description: t['The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.'],
+      relatedItems: [t['AFP validation']]
+    }
+  ]
+
   return (
     <div className='home'>
-      <Head>
-        <title>Ari - Digital employees</title>
-        <meta name='description' content='Descripción de tu página' />
-      </Head>
+      {/* <Head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <title>
+        Ari - Digital employees
+        </title>
+        <meta
+          name="description"
+          content="Ventajas de macOS vs Windows para diseño gráfico. Compra la mejor opción de PC Mac Hackintosh para edicion de video a mitad de precio. ¡clic aquí!"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@colmacstore" />
+        <meta name="twitter:creator" content="@colmacstore" />
+        <meta
+          name="twitter:title"
+          content="Cuál es la mejor PC para diseño gráfico? Ventajas de Mac OS vs Windows"
+        />
+        <meta
+          name="twitter:description"
+          content="Ventajas de mac OS vs Windows para diseño gráfico. Compra la mejor opción de PC Mac Hackintosh para edicion de video a mitad de precio. ¡clic aquí!"
+        />
+        <meta
+          name="twitter:image"
+          content="https://www.colombianmacstore.com.co/assets/images/blog/mac-o-pc.jpeg"
+        />
+        <meta
+          property="og:site_name"
+          content="Cuál es la mejor PC para diseño gráfico? Ventajas de Mac OS vs Windows"
+        />
+        <meta
+          property="og:title"
+          content="Cuál es la mejor PC para diseño gráfico? Ventajas de Mac OS vs Windows"
+        />
+        <meta
+          property="og:description"
+          content="Ventajas de macOS vs Windows para diseño gráfico. Compra la mejor opción de PC Mac Hackintosh para edicion de video a mitad de precio. ¡clic aquí!"
+        />
+        <meta
+          property="og:image"
+          content="https://www.colombianmacstore.com.co/assets/images/blog/mac-o-pc/mac-o-pc.webp"
+        />
+        <meta
+          property="og:url"
+          content="https://www.colombianmacstore.com.co/blog/ventajas-mac-os/comprar-mejor-pc-diseno-grafico.html"
+        />
+        <meta property="og:type" content="website" />
+        <link
+          rel="canonical"
+          href="https://www.colombianmacstore.com.co/blog/ventajas-mac-os/comprar-mejor-pc-diseno-grafico.html"
+        />
+        <meta
+          name="keywords"
+          content="Ventajas de Mac OS, Mac OS vs Windows, mejor PC para diseño gráfico, edicion de video"
+        />
+        <link
+          rel="shortcut icon"
+          type="image/x-icon"
+          href="/assets/images/favicon_cms.png"
+        />
+      </Head> */}
 
       <header>
         <nav>
@@ -212,19 +350,15 @@ const Principal = () => {
           </ul>
         </nav>
       </header>
+      <SphereCanvas />
 
       <main className='box-home container'>
         <section className='home-front'>
           <div className='welcome'>
-
-
-          <div class="letter-container">
-        <h2 className="   letter text-gradient">Empleados digitales ARI </h2>
-        <h2 className="  letter text-gradient">Tu nuevo super poder</h2>
-       
-    </div>
-
-
+            <div class='letter-container'>
+              <h2 className='   letter text-gradient'>Empleados digitales ARI </h2>
+              <h2 className='  letter text-gradient'>Tu nuevo super poder</h2>
+            </div>
 
             {/* <h2 className='subtitle' style={{color:'transparent'}}>{t['Optimize your Business Efficiency']}</h2> */}
             <p> {t['Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence']}</p>
@@ -247,8 +381,8 @@ const Principal = () => {
           </div>
 
           <div data-aos='zoom-in-left' className='image-container'>
-          <div className="slider-circular">
-      {/* <div className="slider-circular__container">
+            <div className='slider-circular'>
+              {/* <div className="slider-circular__container">
         {slides.map((slide, index) => {
           let className = 'slider-circular__slide';
 
@@ -275,11 +409,9 @@ const Principal = () => {
           );
         })}
       </div> */}
-    </div>
+            </div>
           </div>
         </section>
-
-       
 
         {/* <section className='home-client'>
           <div>
@@ -331,7 +463,71 @@ const Principal = () => {
           </div>
         </section> */}
 
+        <section className='home-why container'>
+          <div className='title-why'>
+            <h1 className='subtitle'> {t['Why Choose Us']}</h1>
+            <p>{t['Automate and optimize your financial management securely and scalably']}</p>
+          </div>
 
+          <div className='container-advantages' data-aos='fade-up'>
+            <div className='box-advantage'>
+              <div className='advantage end-direction'>
+                <ImageSvg name='Integration' />
+
+                <h3>{t['Integration and Connectivity']}</h3>
+
+                <p className='advantage-description'>{t['Connect multiple data sources and integrates with SAP (Bank Accounts, Government, among others) in one place']}</p>
+              </div>
+              <div className='advantage end-direction'>
+                <ImageSvg name='Security' />
+                <h3>{t['Security and Control']}</h3>
+
+                <p className='advantage-description'>
+                  {t['Encrypted passwords and secure access management']}
+                  {t['Roles and access for users']}
+                  {t['Exclusive information base']}
+                </p>
+              </div>
+            </div>
+
+            <Image className='gift-advantage' src={giftMovil} alt='giftMoil' width={320} height={320} loading='lazy' />
+            <div className='box-advantage'>
+              <div className='advantage'>
+                <ImageSvg name='Efficiency' />
+                <h3>{t['Efficiency and Productivity']}</h3>
+
+                <p className='advantage-description'>{t['Work 24/7, error reduction and cost savings. Cost and time savings (lower TCO) compared to a traditional RPA project']}</p>
+              </div>
+              <div className='advantage'>
+                <ImageSvg name='Adaptability' />
+                <h3>{t['Adaptability and Growth']}</h3>
+
+                <p className='advantage-description'>{t['Adaptable solution with quick configuration and homologated processes with extensive industry knowledge']}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className='home-account container'>
+          <ul className='box-account'>
+            <li>
+              <h1>{isGifSectionInView ? <Counter initialValue={0} finalValue={5} /> : 5}</h1>
+
+              <p>{t['Digital Employees Automating Your Services']}</p>
+            </li>
+
+            <li>
+              <h1>{isGifSectionInView ? <Counter initialValue={8} finalValue={20} /> : 20}</h1>
+
+              <p>{t['Included Skills to Digital Employees']}</p>
+            </li>
+
+            <li>
+              <h1>{isGifSectionInView ? <Counter initialValue={70} finalValue={78} /> : 78} %</h1>
+
+              <p>{t['business agility']}</p>
+            </li>
+          </ul>
+        </section>
 
         <section ref={gifRef} className='home-how container'>
           <div className='home-how-description'>
@@ -401,72 +597,67 @@ const Principal = () => {
           </div>
         </section>
 
-       
-
-        <section className='home-account container'>
-          <ul className='box-account' data-aos='zoom-in'>
-            <li>
-              <h1>{isGifSectionInView ? <Counter initialValue={0} finalValue={5} /> : 5}</h1>
-
-              <p>{t['Digital Employees Automating Your Services']}</p>
-            </li>
-
-            <li>
-              <h1>{isGifSectionInView ? <Counter initialValue={8} finalValue={20} /> : 20}</h1>
-
-              <p>{t['Included Skills to Digital Employees']}</p>
-            </li>
-
-            <li>
-              <h1>{isGifSectionInView ? <Counter initialValue={70} finalValue={78} /> : 78} %</h1>
-
-              <p>{t['business agility']}</p>
-            </li>
-          </ul>
+        <section className='home-gift container'>
+          <Image src={flujoAri} width={500} height={500} alt='ari flujo' loading='lazy' />
         </section>
 
+        <section className='home-process container'>
 
+          <div className='title-how'>
 
-
-        <section  className='home-gift container'>
-
-<Image src={flujoAri} width={500} height={500} alt='ari flujo' loading='lazy' />
-
-</section>
-
-        <section className='home-digitals  container '>
-          <div className='description'>
-            <h1> {t['Ari finance']}</h1>
-
-            <p> {t['The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures']}</p>
+            <h2 className='' style={{ textAlign: 'left' }}> Digital employees </h2>
+            <p className='text-blue'>Discover our automation process</p>
           </div>
 
-          <div data-aos='fade-up' className='digital-image'>
-            <Image src={finance} width='1000' alt='finance' loading='lazy' />
+          <div className='ari-tabs-container'>
+            <div className='ari-tabs-menu'>
+              <div
+                className={`ari-tab-item ${activeTab === 'finance' ? 'active' : ''}`}
+                onClick={() => handleTabClick('finance')}
+              >
+                Ari Finance
+              </div>
+              <div
+                className={`ari-tab-item ${activeTab === 'it-support' ? 'active' : ''}`}
+                onClick={() => handleTabClick('it-support')}
+              >
+                Ari IT Support
+              </div>
+              <div
+                className={`ari-tab-item ${activeTab === 'hr' ? 'active' : ''}`}
+                onClick={() => handleTabClick('hr')}
+              >
+                Ari HR
+              </div>
+            </div>
+            <div className='ari-tabs-content'>
+              <div className={`ari-tab-content ${activeTab === 'finance' ? 'active' : ''}`}>
+                <DigitalProfile
+                  title={digitals[0].title}
+                  image={digitals[0].image}
+                  description={digitals[0].description}
+                  relatedItems={digitals[0].relatedItems}
+                />
+              </div>
+              <div className={`ari-tab-content ${activeTab === 'it-support' ? 'active' : ''}`}>
+                <DigitalProfile
+                  title={digitals[1].title}
+                  image={digitals[1].image}
+                  description={digitals[1].description}
+                  relatedItems={digitals[1].relatedItems}
+                />
+              </div>
+              <div className={`ari-tab-content ${activeTab === 'hr' ? 'active' : ''}`}>
+                <DigitalProfile
+                  title={digitals[2].title}
+                  image={digitals[2].image}
+                  description={digitals[2].description}
+                  relatedItems={digitals[2].relatedItems}
+                />
+              </div>
+            </div>
           </div>
-        </section>
 
-        <section className='home-digitals container hr'>
-          <div data-aos='zoom-out-left' className='digital-image'>
-            <Image src={rrhh} width='1000' alt='finance' loading='lazy' />
-          </div>
-          <div className='description'>
-            <h1> {t['Ari HR']}</h1>
-
-            <p> {t['The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.']}</p>
-          </div>
-        </section>
-
-        <section className='home-digitals container'>
-          <div className='description'>
-            <h1> {t['Ari it support']}</h1>
-
-            <p> {t['The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts.']}</p>
-          </div>
-
-          <div data-aos='fade-up' data-aos-anchor-placement='bottom-bottom' className='digital-image'>
-            <Image src={support} width='1000' alt='finance' loading='lazy' />
-          </div>
         </section>
 
         <section className='home-enables container'>
@@ -493,10 +684,6 @@ const Principal = () => {
           </div>
         </section>
       </main>
-
-   sfera 
-
-      <SphereCanvas/>
 
       <section className='home-contact ' data-aos='fade-up'>
         <div className='contact-message'>
