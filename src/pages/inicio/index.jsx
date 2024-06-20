@@ -30,15 +30,15 @@ import card5 from "../../../public/img/card-product/card5.png";
 import card6 from "../../../public/img/card-product/card6.png";
 import card7 from "../../../public/img/card-product/card7.png";
 import card8 from "../../../public/img/card-product/card8.png";
-import espiral from "../../../public/img/espiral.gif";
+import mundo from "../../../public/img/mundo.svg";
 import gifHome from "../../../public/img/video/gifHome.gif";
 import asistente from "../../../public/img/asistente.png";
+import telefono from "../../../public/img/telefon.gif";
 import reporting from "../../../public/img/reporting.png";
 import front from "../../../public/img/front.png";
 import Diagram from "@/Components/Grafics/Diagram";
 import SphereCanvas from "@/Components/Grafics/SphereCanvas";
 import giftMovil from "../../../public/img/video/giftMovil.gif";
-
 import linea from "../../../public/img/linea.png";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import { validateFormRegister } from "@/helpers/validateForms";
@@ -66,8 +66,8 @@ const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
           <ul>
             {relatedItems.map((item, index) => (
               <li key={index} className="digital-item">
-                 <ImageSvg name="CheckFill" />
-                
+                <ImageSvg name="CheckFill" />
+
                 <p>{item}</p>
               </li>
             ))}
@@ -87,16 +87,11 @@ const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
       </div>
 
       <div className="digital-image">
-       
-       
-       
-      <svg xmlns="http://www.w3.org/2000/svg" width="230" height="229" fill="none" viewBox="0 0 230 229">
-  <ellipse cx="114.541" cy="114.5" fill="#C0D8FF" fill-opacity=".2" rx="114.541" ry="114.5"/>
-  <ellipse cx="114.701" cy="110.51" fill="#C2D9FF" fill-opacity=".3" rx="78.795" ry="78.594"/>
-  <path fill="#C0D8FF" fill-opacity=".75" d="M169.059 110.112c0 29.525-24.092 53.46-53.811 53.46s-53.81-23.935-53.81-53.46c0-29.525 24.091-53.46 53.81-53.46s53.811 23.935 53.811 53.46Z"/>
-</svg>
-
-
+        <svg xmlns="http://www.w3.org/2000/svg" width="230" height="229" fill="none" viewBox="0 0 230 229">
+          <ellipse cx="114.541" cy="114.5" fill="#C0D8FF" fill-opacity=".2" rx="114.541" ry="114.5" />
+          <ellipse cx="114.701" cy="110.51" fill="#C2D9FF" fill-opacity=".3" rx="78.795" ry="78.594" />
+          <path fill="#C0D8FF" fill-opacity=".75" d="M169.059 110.112c0 29.525-24.092 53.46-53.811 53.46s-53.81-23.935-53.81-53.46c0-29.525 24.091-53.46 53.81-53.46s53.811 23.935 53.811 53.46Z" />
+        </svg>
 
         <figure>
           <Image src={image} alt={title} />
@@ -247,7 +242,7 @@ const Principal = () => {
     {
       title: t["Ari Accounting and Finance"],
       image: finance,
-      description: t['The responsibilities of the Administration and Finance Coordinator include bank reconciliation, updating the exchange rate, expense distribution, third-party payments, adjustment entries, support in the financial closing, and declarations to Sunat'],
+      description: t["The responsibilities of the Administration and Finance Coordinator include bank reconciliation, updating the exchange rate, expense distribution, third-party payments, adjustment entries, support in the financial closing, and declarations to Sunat"],
       relatedItems: [t["Download Bank Statements"], t["Daily Exchange Rate Automation"], t["Download SUNAT tax Status Registers"], t["Download Bank State"]],
     },
     {
@@ -263,6 +258,42 @@ const Principal = () => {
       relatedItems: [t["AFP validation"]],
     },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector("nav");
+      if (window.scrollY > 0) {
+        header.classList.add("header-colored");
+      } else {
+        header.classList.remove("header-colored");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const imagesHome = [
+    asistente,
+    telefono,
+    // Agrega más rutas de imágenes aquí
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imagesHome.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+
+  const quantity = 15;
+
 
   return (
     <div className="home">
@@ -328,48 +359,53 @@ const Principal = () => {
         />
       </Head> */}
 
-      <header>
-        <nav>
-          <ul>
-            <div className="logo" data-aos="zoom-in">
-              <Image src={LogoOscuro} width="500" alt="logoOscuro" priority />
-            </div>
-          </ul>
+      <section className="home-principal">
+        <header>
+          <nav>
+            <ul>
+              <div className="logoAri" >
+                {/* <Image src={LogoOscuro} width="500" alt="logoOscuro" priority /> */}
+              </div>
+            </ul>
 
-          <ul>
-            <div className="languajes-box">
-              <Lang />
-            </div>
+            <ul>
+              <div className="languajes-box">
+                <Lang />
+              </div>
 
-            <li>
-              <Link href="/login">{t.Login}</Link>
-            </li>
+              <li>
+                <Link className="li-login" href="/login">
+                  {t.Login}
+                </Link>
+              </li>
 
-            <li>
-              <button className="btn_black" onClick={() => router.push("/register")}>
-                {t["Sign up"]}
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <SphereCanvas />
+              <li>
+                <button className="btn_black" onClick={() => router.push("/register")}>
+                  {t["Sign up"]}
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </header>
 
-      <main className="box-home container">
-        <section className="home-front">
+        <section className="home-principal-front">
           <div className="welcome">
             <div class="letter-container">
-              <h2 className="   letter text-gradient">Empleados digitales ARI </h2>
-              <h2 className="  letter text-gradient">Tu nuevo super poder</h2>
+              <h2 className="letter text-gradient">{t["Your new superpower"]} </h2>
+              <h2 className="letter text-gradient">{t["ARI Digital Employees"]}</h2>
             </div>
 
-            {/* <h2 className='subtitle' style={{color:'transparent'}}>{t['Optimize your Business Efficiency']}</h2> */}
-            <p> {t["Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence"]}</p>
+            <p>
+              {" "}
+              {t["ARI Robotic Assistants free your employees from"]}
+              <span>&nbsp;{t["repetitive tasks"]}&nbsp;</span>
+              {t["so they can focus on what"]}&nbsp;
+              {t["really matters"]}
+            </p>
 
             <div className="welcome-actions">
               <button className="btn_secundary small" onClick={() => router.push("https://www.seidor.com/es-pe/contacto")}>
-                {" "}
-                {t["Try free trial"]}{" "}
+                {t["Try free trial"]}
               </button>
               <button className="record" onClick={() => demoSectionRef.current.scrollIntoView({ behavior: "smooth" })}>
                 <ImageSvg name="Record" />
@@ -384,38 +420,26 @@ const Principal = () => {
           </div>
 
           <div data-aos="zoom-in-left" className="image-container">
-            <div className="slider-circular">
-              {/* <div className="slider-circular__container">
-        {slides.map((slide, index) => {
-          let className = 'slider-circular__slide';
-
-          if (index === currentIndex) {
-            className += ' slider-circular__slide--visible';
-          } else if (
-            index === (currentIndex - 1 + slides.length) % slides.length ||
-            index === (currentIndex + 1) % slides.length
-          ) {
-            className += ' slider-circular__slide--next';
-          }
-
-          return (
-            <div
-              key={index}
-              className={className}
-              style={{
-                transform: `rotateY(${index * (360 / slides.length)}deg) translateZ(300px)`,
-              }}
-            >
-              <img src={slide.image} alt={`Slide ${index + 1}`} />
-              <p>{slide.text}</p>
+            <div className="image-mundo">
+              <SphereCanvas />
+              <Image src={mundo} width={500} height={500} alt="ari mundo" />
             </div>
-          );
-        })}
-      </div> */}
+
+            <div className="image-container">
+              {imagesHome.map((image, index) => (
+                <Image key={index} src={image} className={`${"image-home"} ${index === currentImageIndex ? "visible" : "hidden"}`} alt={`Slide ${index + 1}`} />
+              ))}
             </div>
           </div>
         </section>
+      </section>
+      <div className="custom-shape-divider-bottom-1718656792">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+      </div>
 
+      <main className="box-home container">
         {/* <section className='home-client'>
           <div>
             <h1 className='subtitle' style={{ textAlign: 'right' }}>
@@ -674,8 +698,10 @@ const Principal = () => {
         </section>
       </main>
 
-      <section className="home-contact " data-aos="fade-up">
-        <div className="contact-message">
+      <section className="home-contact">
+
+        <div>
+          <div className="contact-message">
           <h1 className="subtitle"> {t["Contact us"]}</h1>
 
           <p>{t["Find out which AUTOMATION SOLUTIONS can help you"]}</p>
@@ -684,6 +710,9 @@ const Principal = () => {
             {t.Contact}
           </button>
         </div>
+        {Array.from({ length: quantity }).map((_, i) => (
+        <div key={i} className="firefly"></div>
+      ))}
 
         <div className="slider" data-aos="zoom-in-up">
           <div className="slide-track">
@@ -733,13 +762,18 @@ const Principal = () => {
             </div>
           </div>
         </div>
-      </section>
+        
+        </div>
 
-      <footer>
+       
+
+
+        <footer>
+       
         <section className="home-social container">
           <div className="home-social-info">
-            <div className="logo">
-              <Image src={logoGift} width="100" alt="logo" loading="lazy" />
+            <div className="logo-footer">
+              <Image src={LogoOscuro} width={100} height={100} alt="logo" loading="lazy" />
 
               <p>{t["Terms and Conditions"]}</p>
               <p>Vittore Carpaccio 250, San Borja, Lima , Perú</p>
@@ -769,6 +803,12 @@ const Principal = () => {
           </div>
         </section>
       </footer>
+        
+
+       
+      </section>
+
+      
     </div>
   );
 };

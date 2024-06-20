@@ -1,7 +1,7 @@
 // styles/LineContainers.scss
 
-$line-color: #3498db;
-$common-container-color: #e74c3c;
+$line-color: get-color(t2-ligthBlue);
+$common-container-color: get-color(t5-green);
 
 .diagram {
   position: relative;
@@ -74,7 +74,9 @@ $pi: 3.14159265359;
   display: block;
   width: 4px;
   height: 4px;
+  border-radius: brd(f);
   background-color: get-color(t2-ligthBlue);
+  background-image: linear-gradient(to right, #8d2de2dd, get-color(t2-ligthBlue));
   position: absolute;
   top: -2px;
   left: -2px;

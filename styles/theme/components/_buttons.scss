@@ -458,18 +458,31 @@ button:hover + .cloud {
 
 .text-gradient{
   color: transparent;
-  background-image: linear-gradient(to left, #7700ff, #68ecee, #9fd1f2, #7700ff, #f1f7f7);    
   background-clip: text;
   animation: colorGrad 3s linear infinite;
-  background-size: 500%;    
+  background-size: 100%;    
+
+text-transform: capitalize;
+
+ /* stroke liner */
+ background: linear-gradient(180deg, #FFFFFF 50%, rgba(255, 255, 255, 0) 50%), 
+ linear-gradient(140deg, #1EAAF1 6.13%, #6AD2FF 30.51%, #6640FF 68.01%);
+  -webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+text-fill-color: transparent;
+
+
 }
 
 @keyframes colorGrad {
-  from {
-      background-position: 0% 50%;
+  0% {
+    background-position: 50% 0%;
   }
-
-  to {
-      background-position: 100% 50%;
+  50% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
   }
 }
