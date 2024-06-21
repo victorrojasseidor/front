@@ -68,7 +68,6 @@
  
     "Our enablers": "Our enablers",
     "Contact us": "Contact us",
-    "Find out which AUTOMATION SOLUTIONS can help you.": "Find out which AUTOMATION SOLUTIONS can help you.",
     "Digital employees": "Digital employees",
     "working": "working",
     "for you": "for you",
@@ -114,7 +113,8 @@
     "Efficiency and Productivity": "Efficiency and Productivity",
     "Adaptable solution with quick configuration and homologated processes with extensive industry knowledge": "Adaptable solution with quick configuration and homologated processes with extensive industry knowledge",
     "Connect financial data and understand behavior": "Connect financial data and understand behavior",
-    "ARI is the software-based workforce powered by artificial intelligence": "ARI is the software-based workforce powered by artificial intelligence",
+    "ARI is the software-based workforce powered by": "ARI is the software-based workforce powered by ",
+    "artificial intelligence":"artificial intelligence" , 
     "that autonomously executes end-to-end work processes using a diverse set of skills": "that autonomously executes end-to-end work processes using a diverse set of skills",
     "Ari Accounting and Finance": "Ari Accounting and Finance",
     "Ari Human Resources": "Ari Human Resources",
