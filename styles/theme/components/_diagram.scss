@@ -56,15 +56,21 @@ $pi: 3.14159265359;
 
 .daddy {
   // border: $daddy-border;
-  width: $daddy-size;
-  height: $daddy-size;
+
   position: relative;
-  perspective: 60px;
+  perspective: 4600px;
 
   transform-style: preserve-3d;
 
+  width: calc(50% + 1.3px);
+  height: 85px;
+
+
   @include media(tablet) {
     perspective: $daddy-perspective;
+    width: calc(150% + 1.3px);
+    width: $daddy-size;
+    height: $daddy-size;
   }
 
 }

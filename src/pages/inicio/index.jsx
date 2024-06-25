@@ -32,9 +32,9 @@ import card6 from '../../../public/img/card-product/card6.png'
 import card7 from '../../../public/img/card-product/card7.png'
 import card8 from '../../../public/img/card-product/card8.png'
 import mundo from '../../../public/img/mundo.svg'
-import gifHome from '../../../public/img/video/gifHome.gif'
-import asistente from '../../../public/img/asistente.png'
+import asistente from '../../../public/img/asistente.webp'
 import telefono from '../../../public/img/telefon.gif'
+import telefonoWEB from '../../../public/img/telefono.webp'
 import reporting from '../../../public/img/reporting.png'
 import front from '../../../public/img/front.png'
 import Diagram from '@/Components/Grafics/Diagram'
@@ -278,7 +278,7 @@ const Principal = () => {
 
   const imagesHome = [
     asistente,
-    telefono
+    telefonoWEB
     // Agrega más rutas de imágenes aquí
   ]
 
@@ -424,17 +424,21 @@ const Principal = () => {
 
             <div className='image-container'>
               {imagesHome.map((image, index) => (
-                <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} />
+                <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} priority />
               ))}
             </div>
           </div>
+          <div className="custom-shape-divider-bottom-1719330810">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+    </svg>
+</div>
         </section>
+
+       
+
       </section>
-      <div className='custom-shape-divider-bottom-1718656792'>
-        <svg data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'>
-          <path d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' class='shape-fill' />
-        </svg>
-      </div>
+     
 
       <main className='box-home container'>
         {/* <section className='home-client'>
@@ -493,16 +497,16 @@ const Principal = () => {
             <p>{t['Automate and optimize your financial management securely and scalably']}</p>
           </div>
 
-          <div className='container-advantages' data-aos='fade-up'>
+          <div className='container-advantages' >
             <div className='box-advantage'>
-              <div className='advantage end-direction'>
+              <div className='advantage end-direction' data-aos="zoom-out-up" >
                 <ImageSvg name='Integration' />
 
                 <h3>{t['Integration and Connectivity']}</h3>
 
                 <p className='advantage-description'>{t['Connect multiple data sources and integrates with SAP (Bank Accounts, Government, among others) in one place']}</p>
               </div>
-              <div className='advantage end-direction'>
+              <div className='advantage end-direction' data-aos="zoom-out-up" >
                 <ImageSvg name='Security' />
                 <h3>{t['Security and Control']}</h3>
 
@@ -514,15 +518,15 @@ const Principal = () => {
               </div>
             </div>
 
-            <Image className='gift-advantage' src={giftMovil} alt='giftMoil' width={320} height={320} loading='lazy' />
-            <div className='box-advantage'>
+            <Image className='gift-advantage' src={giftMovil} alt='giftMoil' width={320} height={320} loading='eager' />
+            <div className='box-advantage' data-aos="zoom-out-down">
               <div className='advantage'>
                 <ImageSvg name='Efficiency' />
                 <h3>{t['Efficiency and Productivity']}</h3>
 
                 <p className='advantage-description'>{t['Work 24/7, error reduction and cost savings. Cost and time savings (lower TCO) compared to a traditional RPA project']}</p>
               </div>
-              <div className='advantage'>
+              <div className='advantage' data-aos="zoom-out-down">
                 <ImageSvg name='Adaptability' />
                 <h3>{t['Adaptability and Growth']}</h3>
 
@@ -554,7 +558,7 @@ const Principal = () => {
           </section>
         </section>
 
-        <section ref={gifRef} className='home-how container'>
+        <section ref={gifRef} className='home-how container' data-aos="fade-up-right">
           <div className='home-how-description'>
             <div className='discover'>
               <div className='title-how'>
@@ -565,7 +569,7 @@ const Principal = () => {
               <p>{t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}</p>
             </div>
             <figure className='steps-gift' ref={demoSectionRef}>
-              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading='lazy' />
+              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading='eager' />
             </figure>
           </div>
 
@@ -623,12 +627,12 @@ const Principal = () => {
         </section>
 
         <section className='home-gift container'>
-          <Image src={flujoAri} width={500} height={500} alt='ari flujo' loading='lazy' />
+          <Image src={flujoAri} width={500} height={500} alt='ari flujo' loading='eager' />
 
-          <div className='description-gift'>
+          <div className='description-gift' data-aos="fade-left" >
             <h2 className='subtitle'> {t['Connect financial data and understand behavior']}</h2>
 
-            <p>
+            <p >
               {t['ARI is the software-based workforce powered by']}   <span>  {t['artificial intelligence']}     </span> ,
 
               {t['that autonomously executes end-to-end work processes using a diverse set of skills']}
@@ -642,7 +646,7 @@ const Principal = () => {
           </div>
         </section>
 
-        <section className='home-process container'>
+        <section className='home-process container' data-aos="fade-up-right">
           <div className='title'>
             <p className='text-blue'>Discover our automation process</p>
             <h2 className='subtitle' style={{ textAlign: 'left' }}>
@@ -695,16 +699,16 @@ const Principal = () => {
 
         </section>
 
-        <section className='home-enables container'>
+        <section className='home-enables container' data-aos="flip-right">
           <h2 className='subtitle'> {t['Our enablers']}</h2>
 
           <div className='box-enables' data-aos='zoom-in'>
             <button>
-              <Image src={cloud} width='1000' alt='cloud' loading='lazy' />
+              <Image src={cloud} width='1000' alt='cloud' loading='eager' />
             </button>
 
             <button>
-              <Image src={drive} width='1000' alt='drive' loading='lazy' />
+              <Image src={drive} width='1000' alt='drive' loading='eager' />
             </button>
 
             <button>
@@ -735,27 +739,27 @@ const Principal = () => {
             <div key={i} className='firefly' />
           ))}
 
-          <div className='slider' data-aos='zoom-in-up'>
+          <div className='slider' >
             <div className='slide-track'>
               <div className='slide'>
-                <Image src={finance} width='1000' alt='logo_oscuro' loading='lazy' />
+                <Image src={finance} width='1000' alt='logo_oscuro' loading='eager' />
               </div>
               <div className='slide'>
-                <Image src={card1} width='400' alt='logo_oscuro' loading='lazy' />
+                <Image src={card1} width='400' alt='logo_oscuro' loading='eager' />
               </div>
 
               <div className='slide'>
-                <Image src={card2} width='400' alt='logo_oscuro' loading='lazy' />
+                <Image src={card2} width='400' alt='logo_oscuro' loading='eager'/>
               </div>
               <div className='slide'>
-                <Image src={card3} width='400' alt='logo_oscuro' loading='lazy' />
+                <Image src={card3} width='400' alt='logo_oscuro' loading='eager' />
               </div>
               <div className='slide'>
                 <Image src={card4} width='400' alt='logo_oscuro' loading='lazy' />
               </div>
 
               <div className='slide'>
-                <Image src={card5} width='1000' alt='logo_oscuro' loading='lazy' />
+                <Image src={card5} width='1000' alt='logo_oscuro' loading='eager' />
               </div>
 
               <div className='slide'>
@@ -763,7 +767,7 @@ const Principal = () => {
               </div>
 
               <div className='slide'>
-                <Image src={card6} width='1000' alt='logo_oscuro' loading='lazy' />
+                <Image src={card6} width='1000' alt='logo_oscuro' loading='eager' />
               </div>
 
               <div className='slide'>
@@ -771,15 +775,15 @@ const Principal = () => {
               </div>
 
               <div className='slide'>
-                <Image src={rrhh} width='1000' alt='logo_oscuro' loading='lazy' />
+                <Image src={rrhh} width='1000' alt='logo_oscuro' loading='eager' />
               </div>
 
               <div className='slide'>
-                <Image src={card8} width='400' alt='logo_oscuro' loading='lazy' />
+                <Image src={card8} width='400' alt='logo_oscuro' loading='eager' />
               </div>
 
               <div className='slide'>
-                <Image src={finance} width='1000' alt='logo_oscuro' loading='lazy' />
+                <Image src={finance} width='1000' alt='logo_oscuro' loading='eager' />
               </div>
             </div>
           </div>
@@ -789,7 +793,7 @@ const Principal = () => {
           <section className='home-social '>
             <div className='home-social-info'>
               <div className='logo-footer'>
-                <Image src={LogoOscuro} width={100} height={100} alt='logo' loading='lazy' />
+                <Image src={LogoOscuro} width={100} height={100} alt='logo' loading='eager' />
 
                 <p>{t['Terms and Conditions']}</p>
                 <p>Vittore Carpaccio 250, San Borja, Lima , Perú</p>
