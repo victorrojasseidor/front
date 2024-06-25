@@ -59,8 +59,14 @@ $pi: 3.14159265359;
   width: $daddy-size;
   height: $daddy-size;
   position: relative;
-  perspective: $daddy-perspective;
+  perspective: 60px;
+
   transform-style: preserve-3d;
+
+  @include media(tablet) {
+    perspective: $daddy-perspective;
+  }
+
 }
 
 .mommy {

@@ -133,6 +133,24 @@ const ImageSvg = ({ name }) => {
     ),
     Refresh: <IoRefreshCircle />,
     Question: <BsFillQuestionCircleFill />,
+    SombraHome: 
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="840" height="763" fill="none" viewBox="0 0 840 763">
+  <g filter="url(#a)">
+    <path fill="#4318FF" fill-opacity=".16" fill-rule="evenodd" d="M416.501 238.196c66.508 9.034 131.319 45.998 153.608 109.308 23.853 67.752-24.204 140.109-75.496 190.391-48.208 47.258-115.745 74.238-182.17 62.197-59.987-10.874-99.427-64.124-127.37-118.307-23.302-45.184-36.632-102.529-8.279-144.725 24.631-36.657 80.789-69.459 122.707-83.364 36.231-12.019 79.175-20.638 117-15.5Z" clip-rule="evenodd"/>
+    <path fill="#4318FF" fill-opacity=".16" fill-rule="evenodd" d="M581.501 228.971c66.509 9.034 77.854 66.314 90 100.814 23.853 67.751-7.607 36.218-58.9 86.5-48.208 47.258-85.675 12.041-152.1 0-59.987-10.874-16.056 2.684-44-51.5-23.301-45.183-12.853-62.497 15.5-104.693 24.632-36.657 4.683-17.216 46.601-31.121 36.231-12.018 65.074-5.138 102.899 0Z" clip-rule="evenodd"/>
+    <path fill="#6AD2FF" fill-opacity=".26" fill-rule="evenodd" d="M553.468 447.972c-49.606 19.338-120.7 15.866-161.397-17.353-43.551-35.549-39.207-101.473-23.81-154.089 14.472-49.452 50.409-92.898 101.158-110.225 45.831-15.647 94.372 4.425 135.334 29.484 34.158 20.896 66.277 53.593 63.517 92.162-2.398 33.506 1.371 53.651-22.068 78.747.407 26.526-64.521 70.275-92.734 81.274Z" clip-rule="evenodd"/>
+  </g>
+  <defs>
+    <filter id="a" width="838.867" height="762.167" x=".748" y=".785" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur result="effect1_foregroundBlur_3824_5990" stdDeviation="80"/>
+    </filter>
+  </defs>
+</svg>
+
+,
     // Delete: <FiTrash2 />,
     Download: (
       <svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='20' height='20' viewBox='0 0 50 50'>

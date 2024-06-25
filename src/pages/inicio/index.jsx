@@ -388,8 +388,8 @@ const Principal = () => {
         <section className='home-principal-front'>
           <div className='welcome'>
             <div class='letter-container'>
-              <h2 className='letter text-gradient'>{t['Your new superpower']} </h2>
-              <h2 className='letter text-gradient'>{t['ARI Digital Employees']}</h2>
+              <h1 className='letter text-gradient'>{t['Your new superpower']} </h1>
+              <h1 className='letter text-gradient'>{t['ARI Digital Employees']}</h1>
             </div>
 
             <p>
@@ -530,27 +530,28 @@ const Principal = () => {
               </div>
             </div>
           </div>
-        </section>
-        <section className='home-account container'>
-          <ul className='box-account'>
-            <li>
-              <h1>{isGifSectionInView ? <Counter initialValue={0} finalValue={5} /> : 5}</h1>
+          <section className='home-account '>
 
-              <p>{t['Digital Employees Automating Your Services']}</p>
-            </li>
+            <ul className='box-account'>
+              <li>
+                <h2>{isGifSectionInView ? <Counter initialValue={0} finalValue={5} /> : 5}</h2>
 
-            <li>
-              <h1>{isGifSectionInView ? <Counter initialValue={8} finalValue={20} /> : 20}</h1>
+                <p>{t['Digital Employees Automating Your Services']}</p>
+              </li>
 
-              <p>{t['Included Skills to Digital Employees']}</p>
-            </li>
+              <li>
+                <h2>{isGifSectionInView ? <Counter initialValue={8} finalValue={20} /> : 20}</h2>
 
-            <li>
-              <h1>{isGifSectionInView ? <Counter initialValue={70} finalValue={78} /> : 78} %</h1>
+                <p>{t['Included Skills to Digital Employees']}</p>
+              </li>
 
-              <p>{t['business agility']}</p>
-            </li>
-          </ul>
+              <li>
+                <h2>{isGifSectionInView ? <Counter initialValue={70} finalValue={78} /> : 78} %</h2>
+
+                <p>{t['business agility']}</p>
+              </li>
+            </ul>
+          </section>
         </section>
 
         <section ref={gifRef} className='home-how container'>
@@ -558,7 +559,7 @@ const Principal = () => {
             <div className='discover'>
               <div className='title-how'>
                 <p className='text-blue'>Discover our automation process</p>
-                <h1 className='subtitle'> {t['How do we do it?']}</h1>
+                <h2 className='subtitle'> {t['How do we do it?']}</h2>
               </div>
 
               <p>{t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}</p>
@@ -621,29 +622,34 @@ const Principal = () => {
           </div>
         </section>
 
-        <section className='home-gift'>
+        <section className='home-gift container'>
           <Image src={flujoAri} width={500} height={500} alt='ari flujo' loading='lazy' />
 
           <div className='description-gift'>
             <h2 className='subtitle'> {t['Connect financial data and understand behavior']}</h2>
 
             <p>
-              {t['ARI is the software-based workforce powered by']}   <span>  {t['artificial intelligence']}     </span> ,  
-             
+              {t['ARI is the software-based workforce powered by']}   <span>  {t['artificial intelligence']}     </span> ,
+
               {t['that autonomously executes end-to-end work processes using a diverse set of skills']}
-             
-              
+
             </p>
+          </div>
+
+          <div className='sombra'>
+            <ImageSvg name='SombraHome' />
+
           </div>
         </section>
 
         <section className='home-process container'>
-          <div className='title-how'>
-            <h2 className='' style={{ textAlign: 'left' }}>
+          <div className='title'>
+            <p className='text-blue'>Discover our automation process</p>
+            <h2 className='subtitle' style={{ textAlign: 'left' }}>
 
               Digital employees
             </h2>
-            <p className='text-blue'>Discover our automation process</p>
+
           </div>
 
           <div className='ari-tabs-container'>
@@ -679,11 +685,18 @@ const Principal = () => {
                 </div>
               </div>
             </div>
+            <div className='sombra'>
+            <ImageSvg name='SombraHome' />
+
           </div>
+          </div>
+
+          
+
         </section>
 
         <section className='home-enables container'>
-          <h1> {t['Our enablers']}</h1>
+          <h2 className='subtitle'> {t['Our enablers']}</h2>
 
           <div className='box-enables' data-aos='zoom-in'>
             <button>
@@ -710,9 +723,9 @@ const Principal = () => {
       <section className='home-contact'>
         <div>
           <div className='contact-message'>
-            <h1 className='subtitle'> {t['Contact us']}</h1>
+            <h2 className='subtitle'> {t['Contact us']}</h2>
 
-            <p style={{marginBottom:'1rem'}}>{t['Find out which AUTOMATION SOLUTIONS can help you']}</p>
+            <p style={{ marginBottom: '1rem' }}>{t['Find out which AUTOMATION SOLUTIONS can help you']}</p>
 
             <button className='btn_black' onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
               {t.Contact}
@@ -773,7 +786,7 @@ const Principal = () => {
         </div>
 
         <footer>
-          <section className='home-social container'>
+          <section className='home-social '>
             <div className='home-social-info'>
               <div className='logo-footer'>
                 <Image src={LogoOscuro} width={100} height={100} alt='logo' loading='lazy' />
