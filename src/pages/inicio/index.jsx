@@ -31,9 +31,7 @@ import card7 from '../../../public/img/card-product/card7.png'
 import card8 from '../../../public/img/card-product/card8.png'
 import mundo from '../../../public/img/mundo.svg'
 import asistente from '../../../public/img/asistente.webp'
-import asistentePNG from '../../../public/img/asistente.png'
-import faviconPNG from '../../../public/favicon-32x32.png'
-import telefono from '../../../public/img/telefon.gif'
+// import telefono from '../../../public/img/telefon.gif'
 import telefonoWEB from '../../../public/img/telefono.webp'
 import reporting from '../../../public/img/reporting.png'
 import front from '../../../public/img/front.png'
@@ -44,7 +42,7 @@ import AOS from 'aos' // Importa AOS aquí
 import 'aos/dist/aos.css'
 import Counter from '@/Components/Atoms/Counter'
 import { useRouter } from 'next/router'
-import Head from 'next/head' // Importa el componente Head de Next.js para manejar el título y la metadescripción
+
 
 const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
   const { l } = useAuth()
@@ -286,51 +284,7 @@ const Principal = () => {
   return (
     <div className='home'>
 
-      <Head>
-        <meta charSet='utf-8' />
-        <meta httpEquiv='x-ua-compatible' content='ie=edge' />
-        <title>Ari - Empleados digitales para tus procesos</title>
-        <meta
-          name='description'
-          content='Ari es una plataforma para automatizar procesos y liberar tiempo a tus empleados. Obtén empleados digitales para finanzas, contabilidad, tecnología y recursos humanos. Soluciones incluyen: descarga de extractos bancarios, automatización de tasas de cambio, registros fiscales de SUNAT, registro de facturas, extracción de texto de imágenes, resolución de captchas y validación de AFP, ¡clic aquí!'
-        />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta
-          property='og:site_name'
-          content='Ari- automatización de procesos'
-        />
-        <meta
-          property='og:title'
-          content='Ari- automatización de procesos'
-        />
-        <meta
-          property='og:description'
-          content='Empleados digitales para automatizar tus procesos de finanzas y contabilidad ¡clic aquí!'
-        />
-        <meta
-          property='og:image'
-          content={asistentePNG}
-        />
-        <meta
-          property='og:url'
-          content='https://www.ariapp.ai/'
-        />
-        <meta property='og:type' content='website' />
-        <link
-          rel='canonical'
-          href='https://www.ariapp.ai/'
-        />
-        <meta
-          name='keywords'
-          content='Automatización de Procesos, Empleados digitales, RPA (Automatización Robótica de Procesos), Transformación digital, Innovación tecnológica en el trabajo, Reducción de costos operativos, Integración de sistemas, Inteligencia artificial aplicada a procesos'
-        />
-        <link
-          rel='shortcut icon'
-          type='image/x-icon'
-          href={faviconPNG}
-        />
-      </Head>
-
+      
       <section className='home-principal'>
         <header>
           <nav>
