@@ -11,8 +11,6 @@ import gif3 from '../../../public/img/video/gif3.gif'
 import Link from 'next/link'
 import Lang from '@/Components/Atoms/Lang'
 import LogoOscuro from '../../../public/img/logoOscuro.png'
-import logoGift from '../../../public/img/logoGift.gif'
-import logolb from '../../../public/img/logo-lb.gif'
 import flujoAri from '../../../public/img/flujoAri.gif'
 import ImageSvg from '@/helpers/ImageSVG'
 import finance from '../../../public/img/home-finance.png'
@@ -37,15 +35,10 @@ import telefono from '../../../public/img/telefon.gif'
 import telefonoWEB from '../../../public/img/telefono.webp'
 import reporting from '../../../public/img/reporting.png'
 import front from '../../../public/img/front.png'
-import Diagram from '@/Components/Grafics/Diagram'
+
 import SphereCanvas from '@/Components/Grafics/SphereCanvas'
 import giftMovil from '../../../public/img/video/giftMovil.gif'
-import linea from '../../../public/img/linea.png'
-import { Formik, Field, ErrorMessage, Form } from 'formik'
-import { validateFormRegister } from '@/helpers/validateForms'
 import { useAuth } from '@/Context/DataContext'
-import Modal from '@/Components/Modal'
-import { motion, useAnimation } from 'framer-motion'
 import AOS from 'aos' // Importa AOS aquí
 import 'aos/dist/aos.css'
 import Counter from '@/Components/Atoms/Counter'
@@ -105,8 +98,7 @@ const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
 const Principal = () => {
   const [selectImage, setSelectImage] = useState(null)
   const [rotation, setRotation] = useState(0)
-  const [message, setMessage] = useState(null)
-  const [showM, setShowM] = useState(false)
+
   const [isGifSectionInView, setIsGifSectionInView] = useState(false)
   const [currentGif, setCurrentGif] = useState(0)
   const gifs = [gif1, gif2, gif3]
@@ -223,10 +215,7 @@ const Principal = () => {
     setRotation(rotation + 360 / testimonials.length)
   }
 
-  const handleChangemessage = (event) => {
-    setMessage(event.target.value)
-  }
-
+ 
   useEffect(() => {
     const intervalId = setInterval(changeImage, 2000)
 
@@ -296,7 +285,7 @@ const Principal = () => {
 
   return (
     <div className='home'>
-      {/* <Head>
+      <Head>
         <meta charSet="utf-8" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <title>
@@ -304,59 +293,59 @@ const Principal = () => {
         </title>
         <meta
           name="description"
-          content="Ventajas de macOS vs Windows para diseño gráfico. Compra la mejor opción de PC Mac Hackintosh para edicion de video a mitad de precio. ¡clic aquí!"
+          content="Empleados digitales en perú, llego la era de la Hiperautomatización: Procesos financieros, contables y Recurso humanos. ¡clic aquí!"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@colmacstore" />
-        <meta name="twitter:creator" content="@colmacstore" />
+         {/* <meta name="twitter:card" content="summary"/>
+         <meta name="twitter:site" content="@colmacstore" />
+        <meta name="twitter:creator" content="@colmacstore" />  */}
         <meta
           name="twitter:title"
-          content="Cuál es la mejor PC para diseño gráfico? Ventajas de Mac OS vs Windows"
+          content="Empleados digitales en perú, llego la era de la Hiperautomatización RPA (Automatización Robótica de los Procesos)"
         />
         <meta
           name="twitter:description"
-          content="Ventajas de mac OS vs Windows para diseño gráfico. Compra la mejor opción de PC Mac Hackintosh para edicion de video a mitad de precio. ¡clic aquí!"
+          content="Empleados digitales en perú, llego la era de la Hiperautomatización ¡clic aquí!"
         />
         <meta
           name="twitter:image"
-          content="https://www.colombianmacstore.com.co/assets/images/blog/mac-o-pc.jpeg"
+          content={asistente}
         />
         <meta
           property="og:site_name"
-          content="Cuál es la mejor PC para diseño gráfico? Ventajas de Mac OS vs Windows"
+          content="Ari- automatización de procesos"
         />
         <meta
           property="og:title"
-          content="Cuál es la mejor PC para diseño gráfico? Ventajas de Mac OS vs Windows"
+          content="Ari- automatización de procesos"
         />
         <meta
           property="og:description"
-          content="Ventajas de macOS vs Windows para diseño gráfico. Compra la mejor opción de PC Mac Hackintosh para edicion de video a mitad de precio. ¡clic aquí!"
+          content="Empleados digitales para automatizar tus procesos de finanzas y contabilidad ¡clic aquí!"
         />
         <meta
           property="og:image"
-          content="https://www.colombianmacstore.com.co/assets/images/blog/mac-o-pc/mac-o-pc.webp"
+           content={asistente}
         />
         <meta
           property="og:url"
-          content="https://www.colombianmacstore.com.co/blog/ventajas-mac-os/comprar-mejor-pc-diseno-grafico.html"
+          content={asistente}
         />
         <meta property="og:type" content="website" />
         <link
           rel="canonical"
-          href="https://www.colombianmacstore.com.co/blog/ventajas-mac-os/comprar-mejor-pc-diseno-grafico.html"
+          href={LogoOscuro}
         />
         <meta
           name="keywords"
-          content="Ventajas de Mac OS, Mac OS vs Windows, mejor PC para diseño gráfico, edicion de video"
+          content="Empleados digitales - automatizazción de estractos bancarios, estados bancarios, flujo de caja , padrones de Sunat, Hiperautomatización"
         />
         <link
           rel="shortcut icon"
           type="image/x-icon"
-          href="/assets/images/favicon_cms.png"
+          href={LogoOscuro}
         />
-      </Head> */}
+      </Head>
 
       <section className='home-principal'>
         <header>
@@ -441,55 +430,7 @@ const Principal = () => {
      
 
       <main className='box-home container'>
-        {/* <section className='home-client'>
-          <div>
-            <h1 className='subtitle' style={{ textAlign: 'right' }}>
-              {' '}
-              {t['What our client think about us?']}{' '}
-            </h1>
-          </div>
-          <div className='testimonials-container'>
-            <div className='container-img' style={{ transform: `rotate(${rotation}deg)` }}>
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={testimonial.id}
-                  className='image-container'
-                  style={{
-                    transform: `rotate(${index * (360 / testimonials.length) + rotation}deg) translateX(150px) translateY(-50%)`,
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transformOrigin: 'center center',
-                    width: '100px',
-                    height: '100px',
-                    marginLeft: '-50px',
-                    marginTop: '-50px',
-                    transition: 'transform 1s ease'
-                  }}
-                >
-                  <button onClick={() => setSelectImage(testimonial)}>
-                    <Image className={selectImage && selectImage.id === testimonial.id ? 'active' : ''} src={testimonial.image} alt={testimonial.name} width={100} height={100} loading='lazy' />
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {selectImage && (
-              <div className='testimony'>
-                <div className='testimony-img'>
-                  <button>
-                    <Image className='active' src={selectImage.image} alt={selectImage.name} width={100} height={100} loading='lazy' />
-                  </button>
-                </div>
-                <div className='testimony-message'>
-                  <p>{selectImage.testimony}</p>
-                  <h3>{selectImage.name}</h3>
-                  <span>{selectImage.position}</span>
-                </div>
-              </div>
-            )}
-          </div>
-        </section> */}
+       
 
         <section className='home-why container'>
           <div className='title-why'>
@@ -712,13 +653,13 @@ const Principal = () => {
             </button>
 
             <button>
-              <Image src={uipath} width='1000' alt='uipath' loading='lazy' />
+              <Image src={uipath} width='1000' alt='uipath' loading='eager' />
             </button>
             <button>
-              <Image src={sap} width='1000' alt='sap' loading='lazy' />
+              <Image src={sap} width='1000' alt='sap' loading='eager' />
             </button>
             <button>
-              <Image src={ftp} width='1000' alt='ftp' loading='lazy' />
+              <Image src={ftp} width='1000' alt='ftp' loading='eager' />
             </button>
           </div>
         </section>
@@ -755,7 +696,7 @@ const Principal = () => {
                 <Image src={card3} width='400' alt='logo_oscuro' loading='eager' />
               </div>
               <div className='slide'>
-                <Image src={card4} width='400' alt='logo_oscuro' loading='lazy' />
+                <Image src={card4} width='400' alt='logo_oscuro' loading='eager' />
               </div>
 
               <div className='slide'>
@@ -763,7 +704,7 @@ const Principal = () => {
               </div>
 
               <div className='slide'>
-                <Image src={support} width='1000' alt='logo_oscuro' loading='lazy' />
+                <Image src={support} width='1000' alt='logo_oscuro' loading='eager' />
               </div>
 
               <div className='slide'>
@@ -771,7 +712,7 @@ const Principal = () => {
               </div>
 
               <div className='slide'>
-                <Image src={card7} width='400' alt='logo_oscuro' loading='lazy' />
+                <Image src={card7} width='400' alt='logo_oscuro' loading='eager' />
               </div>
 
               <div className='slide'>

@@ -315,7 +315,7 @@ export default function Products () {
 
           <div className='welcome'>
             <h1>
-              {t.Welcome},<span className='text-gradient'> {empresa?.razon_social_empresa} </span>
+              {t.Welcome},<span className='text'> {empresa?.razon_social_empresa} </span>
             </h1>
             <p> {t['Our digital employees work to improve your productivity']}</p>
           </div>

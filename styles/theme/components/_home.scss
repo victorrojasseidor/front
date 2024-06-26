@@ -52,7 +52,6 @@
 
     &-front {
       margin-top: 6rem;
-      padding: 0rem 2rem;
       display: flex;
       flex-direction: row;
       width: 100%;
@@ -61,6 +60,7 @@
 
       @include media(tablet) {
         margin-top: 5rem;
+        padding: 0rem 2rem;
       }
       
 
@@ -69,12 +69,16 @@
         top: -5%;
         position: absolute;
         z-index: 0;
-        right: 10%;
+        right: -10%;
         display: flex;
         flex-direction: row-reverse;
         width: 100%;
-        gap: 10rem;
+    
         justify-content: space-between;
+        @include media(desktop) {
+          right: 10%;
+          gap: 10rem;
+        }
       }
 
       .subtitle {
@@ -296,6 +300,7 @@
       justify-content: center;
       flex-direction: column;
       text-align: center;
+      margin-top: -2rem;
     }
 
     .container-advantages {
@@ -308,7 +313,6 @@
 
       @include media(tablet) {
         padding-top: 1rem;
-
         flex-wrap: nowrap;
       }
 
@@ -386,23 +390,7 @@
     }
   }
 
-  &-client {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    gap: 2rem;
-    background-image: url("../../../public/img/testimonials/map.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    margin-top: 1rem;
-
-    @include media(tablet) {
-      margin-top: 4rem;
-      height: 100%;
-    }
-  }
+  
 
   &-gift {
     display: flex;
@@ -1157,9 +1145,9 @@
     align-items: center;
     margin-top: 3rem;
     flex-wrap: wrap;
-    gap: 1rem;
+
    
-    height: 110vh;
+  
     background-size: 400% 400%;
     -webkit-animation: gradientHome 15s ease infinite;
     animation: gradientHome 15s ease infinite;
@@ -1167,6 +1155,8 @@
     @include media(tablet) {
       flex-wrap: nowrap;
       width: 100%;
+      height: 110vh;
+      gap: 1rem;
     }
 
     h2 {
