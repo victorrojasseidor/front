@@ -431,6 +431,10 @@
 
     img {
       width: 100%;
+
+      @include media(desktop) {
+        width: 70%;
+      }
     }
 
     .description-gift {

@@ -35,7 +35,6 @@ import telefono from '../../../public/img/telefon.gif'
 import telefonoWEB from '../../../public/img/telefono.webp'
 import reporting from '../../../public/img/reporting.png'
 import front from '../../../public/img/front.png'
-
 import SphereCanvas from '@/Components/Grafics/SphereCanvas'
 import giftMovil from '../../../public/img/video/giftMovil.gif'
 import { useAuth } from '@/Context/DataContext'
@@ -285,7 +284,7 @@ const Principal = () => {
 
   return (
     <div className='home'>
-      <Head>
+      {/* <Head>
         <meta charSet="utf-8" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <title>
@@ -296,9 +295,7 @@ const Principal = () => {
           content="Empleados digitales en perú, llego la era de la Hiperautomatización: Procesos financieros, contables y Recurso humanos. ¡clic aquí!"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-         {/* <meta name="twitter:card" content="summary"/>
-         <meta name="twitter:site" content="@colmacstore" />
-        <meta name="twitter:creator" content="@colmacstore" />  */}
+         
         <meta
           name="twitter:title"
           content="Empleados digitales en perú, llego la era de la Hiperautomatización RPA (Automatización Robótica de los Procesos)"
@@ -345,13 +342,13 @@ const Principal = () => {
           type="image/x-icon"
           href={LogoOscuro}
         />
-      </Head>
+      </Head> */}
 
       <section className='home-principal'>
         <header>
           <nav>
-            <ul>
-              <div className='logoAri'>{/* <Image src={LogoOscuro} width="500" alt="logoOscuro" priority /> */}</div>
+            <ul className='logoAri'>
+              
             </ul>
 
             <ul>
