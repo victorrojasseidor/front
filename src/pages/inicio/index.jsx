@@ -31,6 +31,8 @@ import card7 from '../../../public/img/card-product/card7.png'
 import card8 from '../../../public/img/card-product/card8.png'
 import mundo from '../../../public/img/mundo.svg'
 import asistente from '../../../public/img/asistente.webp'
+import asistentePNG from '../../../public/img/asistente.png'
+import faviconPNG from '../../../public/favicon-32x32.png'
 import telefono from '../../../public/img/telefon.gif'
 import telefonoWEB from '../../../public/img/telefono.webp'
 import reporting from '../../../public/img/reporting.png'
@@ -214,7 +216,6 @@ const Principal = () => {
     setRotation(rotation + 360 / testimonials.length)
   }
 
- 
   useEffect(() => {
     const intervalId = setInterval(changeImage, 2000)
 
@@ -284,72 +285,56 @@ const Principal = () => {
 
   return (
     <div className='home'>
-      {/* <Head>
-        <meta charSet="utf-8" />
-        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-        <title>
-        Ari - Digital employees
-        </title>
+
+      <Head>
+        <meta charSet='utf-8' />
+        <meta httpEquiv='x-ua-compatible' content='ie=edge' />
+        <title>Ari - Empleados digitales para tus procesos</title>
         <meta
-          name="description"
-          content="Empleados digitales en perú, llego la era de la Hiperautomatización: Procesos financieros, contables y Recurso humanos. ¡clic aquí!"
+          name='description'
+          content='Ari es una plataforma para automatizar procesos y liberar tiempo a tus empleados. Obtén empleados digitales para finanzas, contabilidad, tecnología y recursos humanos. Soluciones incluyen: descarga de extractos bancarios, automatización de tasas de cambio, registros fiscales de SUNAT, registro de facturas, extracción de texto de imágenes, resolución de captchas y validación de AFP, ¡clic aquí!'
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-         
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta
-          name="twitter:title"
-          content="Empleados digitales en perú, llego la era de la Hiperautomatización RPA (Automatización Robótica de los Procesos)"
+          property='og:site_name'
+          content='Ari- automatización de procesos'
         />
         <meta
-          name="twitter:description"
-          content="Empleados digitales en perú, llego la era de la Hiperautomatización ¡clic aquí!"
+          property='og:title'
+          content='Ari- automatización de procesos'
         />
         <meta
-          name="twitter:image"
-          content={asistente}
+          property='og:description'
+          content='Empleados digitales para automatizar tus procesos de finanzas y contabilidad ¡clic aquí!'
         />
         <meta
-          property="og:site_name"
-          content="Ari- automatización de procesos"
+          property='og:image'
+          content={asistentePNG}
         />
         <meta
-          property="og:title"
-          content="Ari- automatización de procesos"
+          property='og:url'
+          content='https://www.ariapp.ai/'
         />
-        <meta
-          property="og:description"
-          content="Empleados digitales para automatizar tus procesos de finanzas y contabilidad ¡clic aquí!"
-        />
-        <meta
-          property="og:image"
-           content={asistente}
-        />
-        <meta
-          property="og:url"
-          content={asistente}
-        />
-        <meta property="og:type" content="website" />
+        <meta property='og:type' content='website' />
         <link
-          rel="canonical"
-          href={LogoOscuro}
+          rel='canonical'
+          href='https://www.ariapp.ai/'
         />
         <meta
-          name="keywords"
-          content="Empleados digitales - automatizazción de estractos bancarios, estados bancarios, flujo de caja , padrones de Sunat, Hiperautomatización"
+          name='keywords'
+          content='Automatización de Procesos, Empleados digitales, RPA (Automatización Robótica de Procesos), Transformación digital, Innovación tecnológica en el trabajo, Reducción de costos operativos, Integración de sistemas, Inteligencia artificial aplicada a procesos'
         />
         <link
-          rel="shortcut icon"
-          type="image/x-icon"
-          href={LogoOscuro}
+          rel='shortcut icon'
+          type='image/x-icon'
+          href={faviconPNG}
         />
-      </Head> */}
+      </Head>
 
       <section className='home-principal'>
         <header>
           <nav>
-            <ul className='logoAri'>
-              
-            </ul>
+            <ul className='logoAri' />
 
             <ul>
               <div className='languajes-box'>
@@ -414,20 +399,16 @@ const Principal = () => {
               ))}
             </div>
           </div>
-          <div className="custom-shape-divider-bottom-1719330810">
-    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-        <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
-    </svg>
-</div>
+          <div className='custom-shape-divider-bottom-1719330810'>
+            <svg data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'>
+              <path d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' class='shape-fill' />
+            </svg>
+          </div>
         </section>
 
-       
-
       </section>
-     
 
       <main className='box-home container'>
-       
 
         <section className='home-why container'>
           <div className='title-why'>
@@ -435,16 +416,16 @@ const Principal = () => {
             <p>{t['Automate and optimize your financial management securely and scalably']}</p>
           </div>
 
-          <div className='container-advantages' >
+          <div className='container-advantages'>
             <div className='box-advantage'>
-              <div className='advantage end-direction' data-aos="zoom-out-up" >
+              <div className='advantage end-direction' data-aos='zoom-out-up'>
                 <ImageSvg name='Integration' />
 
                 <h3>{t['Integration and Connectivity']}</h3>
 
                 <p className='advantage-description'>{t['Connect multiple data sources and integrates with SAP (Bank Accounts, Government, among others) in one place']}</p>
               </div>
-              <div className='advantage end-direction' data-aos="zoom-out-up" >
+              <div className='advantage end-direction' data-aos='zoom-out-up'>
                 <ImageSvg name='Security' />
                 <h3>{t['Security and Control']}</h3>
 
@@ -457,14 +438,14 @@ const Principal = () => {
             </div>
 
             <Image className='gift-advantage' src={giftMovil} alt='giftMoil' width={320} height={320} loading='eager' />
-            <div className='box-advantage' data-aos="zoom-out-down">
+            <div className='box-advantage' data-aos='zoom-out-down'>
               <div className='advantage'>
                 <ImageSvg name='Efficiency' />
                 <h3>{t['Efficiency and Productivity']}</h3>
 
                 <p className='advantage-description'>{t['Work 24/7, error reduction and cost savings. Cost and time savings (lower TCO) compared to a traditional RPA project']}</p>
               </div>
-              <div className='advantage' data-aos="zoom-out-down">
+              <div className='advantage' data-aos='zoom-out-down'>
                 <ImageSvg name='Adaptability' />
                 <h3>{t['Adaptability and Growth']}</h3>
 
@@ -496,7 +477,7 @@ const Principal = () => {
           </section>
         </section>
 
-        <section ref={gifRef} className='home-how container' data-aos="fade-up-right">
+        <section ref={gifRef} className='home-how container' data-aos='fade-up-right'>
           <div className='home-how-description'>
             <div className='discover'>
               <div className='title-how'>
@@ -567,10 +548,10 @@ const Principal = () => {
         <section className='home-gift container'>
           <Image src={flujoAri} width={500} height={500} alt='ari flujo' loading='eager' />
 
-          <div className='description-gift' data-aos="fade-left" >
+          <div className='description-gift' data-aos='fade-left'>
             <h2 className='subtitle'> {t['Connect financial data and understand behavior']}</h2>
 
-            <p >
+            <p>
               {t['ARI is the software-based workforce powered by']}   <span>  {t['artificial intelligence']}     </span> ,
 
               {t['that autonomously executes end-to-end work processes using a diverse set of skills']}
@@ -584,7 +565,7 @@ const Principal = () => {
           </div>
         </section>
 
-        <section className='home-process container' data-aos="fade-up-right">
+        <section className='home-process container' data-aos='fade-up-right'>
           <div className='title'>
             <p className='text-blue'>Discover our automation process</p>
             <h2 className='subtitle' style={{ textAlign: 'left' }}>
@@ -628,16 +609,14 @@ const Principal = () => {
               </div>
             </div>
             <div className='sombra'>
-            <ImageSvg name='SombraHome' />
+              <ImageSvg name='SombraHome' />
 
+            </div>
           </div>
-          </div>
-
-          
 
         </section>
 
-        <section className='home-enables container' data-aos="flip-right">
+        <section className='home-enables container' data-aos='flip-right'>
           <h2 className='subtitle'> {t['Our enablers']}</h2>
 
           <div className='box-enables' data-aos='zoom-in'>
@@ -677,7 +656,7 @@ const Principal = () => {
             <div key={i} className='firefly' />
           ))}
 
-          <div className='slider' >
+          <div className='slider'>
             <div className='slide-track'>
               <div className='slide'>
                 <Image src={finance} width='1000' alt='logo_oscuro' loading='eager' />
@@ -687,7 +666,7 @@ const Principal = () => {
               </div>
 
               <div className='slide'>
-                <Image src={card2} width='400' alt='logo_oscuro' loading='eager'/>
+                <Image src={card2} width='400' alt='logo_oscuro' loading='eager' />
               </div>
               <div className='slide'>
                 <Image src={card3} width='400' alt='logo_oscuro' loading='eager' />
