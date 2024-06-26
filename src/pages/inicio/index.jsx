@@ -362,7 +362,7 @@ const Principal = () => {
 
       </section>
 
-      <main className='box-home container'>
+      <main className='box-home '>
 
         <section className='home-why container'>
           <div className='title-why'>
@@ -499,7 +499,7 @@ const Principal = () => {
           </div>
         </section>
 
-        <section className='home-gift container'>
+        <section className='home-gift '>
           <Image src={flujoAri} width={500} height={500} alt='ari flujo' loading='eager' />
 
           <div className='description-gift' data-aos='fade-left'>

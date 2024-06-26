@@ -259,13 +259,14 @@
   }
 
   .container {
-    padding: 1rem 1rem;
-    margin: 3rem 0rem;
+    padding: 2rem 2rem;
+    margin: 2rem 0rem;
     // width: 100%;
 
     @include media(tablet) {
-      // padding: 0rem 2rem;
-      margin: 2rem 2rem;
+    
+      margin: 1rem 1rem;
+      padding: 2rem 4rem;
       width: auto;
     }
   }
@@ -396,13 +397,47 @@
     display: flex;
     justify-content: space-between;
     gap: 2rem;
-    padding: 2rem 0rem;
+    padding: 2rem 2rem;
     position: relative;
     z-index: 1;
     flex-wrap: wrap-reverse;
+    background-color: #FCFCFC;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 40px; /* Ajusta según tus necesidades */
+      background: #FCFCFC;
+      // background: #2e0383;
+      z-index: -1;
+    }
+  
+    &::before {
+      top: -5px;
+      left: 0;
+      transform: translateY(-50%);
+      border-radius: 50% 50% 0 0;
+    }
+  
+    &::after {
+      bottom: -5px;
+      left: 0;
+      z-index: -1;
+      transform: translateY(50%);
+      border-radius: 0 0% 50% 50%;
+    }
+  
+    .content {
+      position: relative;
+      z-index: 1;
+    }
 
     @include media(desktop) {
       flex-wrap: nowrap;
+      padding: 1rem 4rem 1rem 5rem ;
+     
     }
 
     .sombra{
@@ -410,24 +445,7 @@
     bottom: 66%;
     }
 
-    // &::after {
-    //   content: "";
-    //   position: absolute;
-    //   bottom: 15%;
-    //   left: 39%;
-    //   width: 100%; /* Duplicar el tamaño del contenedor */
-    //   height: 150%; /* Duplicar el tamaño del contenedor */
-    //   background-image: url("../../../public/img/sombra.webp");
-    //   background-repeat: no-repeat;
-    //   background-size: contain;
-    //   background-position: center;
-    //   transform: translate(10%, 10%); /* Centra la imagen de fondo */
-    //   z-index: -1; /* Coloca la imagen detrás del contenido del contenedor */
-    //   @include media(desktop) {
-    //     bottom: -5%;
-    //     left: 39%;
-    //   }
-    // }
+   
 
     img {
       width: 100%;

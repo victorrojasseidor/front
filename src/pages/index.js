@@ -2,8 +2,8 @@
 import Head from 'next/head'
 import { useAuth } from '@/Context/DataContext'
 import Principal from './inicio'
-import asistentePNG from '../../ari/public/img/asistente.png'
-import faviconPNG from '../../../ari/public/img/favicon-32x32.png'
+import asistentePNG from '../../public/asistente.png'
+import faviconPNG from '../../public/favicon-32x32.png'
 
 export default function Inicio () {
   const { l } = useAuth()
