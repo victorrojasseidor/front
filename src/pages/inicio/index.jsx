@@ -43,7 +43,6 @@ import 'aos/dist/aos.css'
 import Counter from '@/Components/Atoms/Counter'
 import { useRouter } from 'next/router'
 
-
 const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
   const { l } = useAuth()
   const t = l.home
@@ -283,10 +282,8 @@ const Principal = () => {
 
   return (
     <div className='home'>
-
-      
-      <section className='home-principal'>
-        <header>
+      <header className='home-principal'>
+        <div>
           <nav>
             <ul className='logoAri' />
 
@@ -308,7 +305,7 @@ const Principal = () => {
               </li>
             </ul>
           </nav>
-        </header>
+        </div>
 
         <section className='home-principal-front'>
           <div className='welcome'>
@@ -359,11 +356,9 @@ const Principal = () => {
             </svg>
           </div>
         </section>
+      </header>
 
-      </section>
-
-      <main className='box-home '>
-
+      <main className='main-home '>
         <section className='home-why container'>
           <div className='title-why'>
             <h1 className='subtitle'> {t['Why Choose Us']}</h1>
@@ -408,7 +403,6 @@ const Principal = () => {
             </div>
           </div>
           <section className='home-account '>
-
             <ul className='box-account'>
               <li>
                 <h2>{isGifSectionInView ? <Counter initialValue={0} finalValue={5} /> : 5}</h2>
@@ -506,16 +500,12 @@ const Principal = () => {
             <h2 className='subtitle'> {t['Connect financial data and understand behavior']}</h2>
 
             <p>
-              {t['ARI is the software-based workforce powered by']}   <span>  {t['artificial intelligence']}     </span> ,
-
-              {t['that autonomously executes end-to-end work processes using a diverse set of skills']}
-
+              {t['ARI is the software-based workforce powered by']} <span> {t['artificial intelligence']} </span> ,{t['that autonomously executes end-to-end work processes using a diverse set of skills']}
             </p>
           </div>
 
           <div className='sombra'>
             <ImageSvg name='SombraHome' />
-
           </div>
         </section>
 
@@ -523,10 +513,8 @@ const Principal = () => {
           <div className='title'>
             <p className='text-blue'>Discover our automation process</p>
             <h2 className='subtitle' style={{ textAlign: 'left' }}>
-
               Digital employees
             </h2>
-
           </div>
 
           <div className='ari-tabs-container'>
@@ -564,10 +552,8 @@ const Principal = () => {
             </div>
             <div className='sombra'>
               <ImageSvg name='SombraHome' />
-
             </div>
           </div>
-
         </section>
 
         <section className='home-enables container' data-aos='flip-right'>
@@ -595,21 +581,13 @@ const Principal = () => {
         </section>
       </main>
 
-      <section className='home-contact'>
-        <div>
-          <div className='contact-message'>
-            <h2 className='subtitle'> {t['Contact us']}</h2>
+      <footer>
+     
 
-            <p style={{ marginBottom: '1rem' }}>{t['Find out which AUTOMATION SOLUTIONS can help you']}</p>
-
-            <button className='btn_black' onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
-              {t.Contact}
-            </button>
-          </div>
-          {Array.from({ length: quantity }).map((_, i) => (
+        <section className='home-contact'>
+        {Array.from({ length: quantity }).map((_, i) => (
             <div key={i} className='firefly' />
           ))}
-
           <div className='slider'>
             <div className='slide-track'>
               <div className='slide'>
@@ -658,43 +636,55 @@ const Principal = () => {
               </div>
             </div>
           </div>
-        </div>
 
-        <footer>
-          <section className='home-social '>
-            <div className='home-social-info'>
-              <div className='logo-footer'>
-                <Image src={LogoOscuro} width={100} height={100} alt='logo' loading='eager' />
+          <div className='contact-message'>
+            <h2 className=''> {t['Contact us']}</h2>
 
-                <p>{t['Terms and Conditions']}</p>
-                <p>Vittore Carpaccio 250, San Borja, Lima , Perú</p>
-              </div>
+            <p style={{ marginBottom: '1rem' }}>{t['Find out which AUTOMATION SOLUTIONS can help you']}</p>
 
-              <div className='social-media'>
-                <h4>{t['Follow us!']}</h4>
+            <button className='btn_black' onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
+              {t.Contact}
+            </button>
+          </div>
+         
+        </section>
 
-                <div className='follow'>
-                  <button onClick={() => router.push('https://www.youtube.com/channel/UCY6CjtB2fq-UlHYzDa5A_Ug/videos?view=0&sort=da')} className='btn_circle social_green'>
-                    <ImageSvg name='Youtube' />
-                  </button>
+        <section className='home-social '>
+          <div className='home-social-info'>
+            <div className='logo-footer'>
+              <Image src={LogoOscuro} width={100} height={100} alt='logo' loading='eager' />
 
-                  <button onClick={() => router.push('https://www.linkedin.com/company/innovativa-la/')} className='btn_circle social_green'>
-                    <ImageSvg name='Linkedin' />
-                  </button>
+              <p>{t['Terms and Conditions']}</p>
 
-                  <button onClick={() => router.push('https://www.instagram.com/innovativa.la/')} className='btn_circle social_green'>
-                    <ImageSvg name='Instagram' />
-                  </button>
-                </div>
-              </div>
+              <p>
+                <ImageSvg name='Location' /> Vittore Carpaccio 250, San Borja, Lima , Perú
+              </p>
             </div>
 
-            <div className='home-social-copy'>
-              <p>Copyright © 2024 Innovativa lab</p>
+            <div className='social-media'>
+              <h4>{t['Follow us!']}</h4>
+
+              <div className='follow'>
+                <button onClick={() => router.push('https://www.youtube.com/channel/UC1mpIQbKvI37sLlDsxmcyeA')} className='btn_circle social_green'>
+                  <ImageSvg name='Youtube' />
+                </button>
+
+                <button onClick={() => router.push('https://www.linkedin.com/company/seidor/')} className='btn_circle social_green'>
+                  <ImageSvg name='Linkedin' />
+                </button>
+
+                <button onClick={() => router.push('https://www.instagram.com/innovativa.la/')} className='btn_circle social_green'>
+                  <ImageSvg name='Instagram' />
+                </button>
+              </div>
             </div>
-          </section>
-        </footer>
-      </section>
+          </div>
+
+          <div className='home-social-copy'>
+            <p>Copyright © 2024 Innovativa lab</p>
+          </div>
+        </section>
+      </footer>
     </div>
   )
 }
