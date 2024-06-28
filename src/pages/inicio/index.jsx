@@ -11,7 +11,6 @@ import gif3 from '../../../public/img/video/gif3.gif'
 import Link from 'next/link'
 import Lang from '@/Components/Atoms/Lang'
 import LogoOscuro from '../../../public/img/logoOscuro.png'
-import logoGift from '../../../public/img/logoGift.gif'
 import flujoAri from '../../../public/img/flujoAri.gif'
 import ImageSvg from '@/helpers/ImageSVG'
 import finance from '../../../public/img/home-finance.png'
@@ -30,30 +29,73 @@ import card5 from '../../../public/img/card-product/card5.png'
 import card6 from '../../../public/img/card-product/card6.png'
 import card7 from '../../../public/img/card-product/card7.png'
 import card8 from '../../../public/img/card-product/card8.png'
-import gifHome from '../../../public/img/video/gifHome.gif'
-import asistente from '../../../public/img/asistente.png'
+import mundo from '../../../public/img/mundo.svg'
+import asistente from '../../../public/img/asistente.webp'
+import telefonoWEB from '../../../public/img/telefono.webp'
 import reporting from '../../../public/img/reporting.png'
 import front from '../../../public/img/front.png'
-import Diagram from '@/Components/Grafics/Diagram'
 import SphereCanvas from '@/Components/Grafics/SphereCanvas'
-
-import linea from '../../../public/img/linea.png'
-import { Formik, Field, ErrorMessage, Form } from 'formik'
-import { validateFormRegister } from '@/helpers/validateForms'
+import giftMovil from '../../../public/img/video/giftMovil.gif'
 import { useAuth } from '@/Context/DataContext'
-import Modal from '@/Components/Modal'
-import { motion, useAnimation } from 'framer-motion'
 import AOS from 'aos' // Importa AOS aquí
 import 'aos/dist/aos.css'
 import Counter from '@/Components/Atoms/Counter'
 import { useRouter } from 'next/router'
-import Head from 'next/head' // Importa el componente Head de Next.js para manejar el título y la metadescripción
+
+const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
+  const { l } = useAuth()
+  const t = l.home
+  const router = useRouter()
+
+  return (
+    <div className='digital-content'>
+      <div className='digital-description'>
+        <h2>{title}</h2>
+        <p>{description}</p>
+        <div className='digital-list'>
+          <h4>{t.Skills}</h4>
+          <ul>
+            {relatedItems.map((item, index) => (
+              <li key={index} className='digital-item'>
+                <ImageSvg name='CheckFill' />
+
+                <p>{item}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {demo && (
+          <button
+            className='btn_primary small'
+            onClick={() => {
+              router.push('/product')
+            }}
+          >
+            Demo
+          </button>
+        )}
+      </div>
+
+      <div className='digital-image'>
+        <svg xmlns='http://www.w3.org/2000/svg' width='230' height='229' fill='none' viewBox='0 0 230 229'>
+          <ellipse cx='114.541' cy='114.5' fill='#C0D8FF' fill-opacity='.2' rx='114.541' ry='114.5' />
+          <ellipse cx='114.701' cy='110.51' fill='#C2D9FF' fill-opacity='.3' rx='78.795' ry='78.594' />
+          <path fill='#C0D8FF' fill-opacity='.75' d='M169.059 110.112c0 29.525-24.092 53.46-53.811 53.46s-53.81-23.935-53.81-53.46c0-29.525 24.091-53.46 53.81-53.46s53.811 23.935 53.811 53.46Z' />
+        </svg>
+
+        <figure>
+          <Image src={image} alt={title} />
+        </figure>
+      </div>
+    </div>
+  )
+}
 
 const Principal = () => {
   const [selectImage, setSelectImage] = useState(null)
   const [rotation, setRotation] = useState(0)
-  const [message, setMessage] = useState(null)
-  const [showM, setShowM] = useState(false)
+
   const [isGifSectionInView, setIsGifSectionInView] = useState(false)
   const [currentGif, setCurrentGif] = useState(0)
   const gifs = [gif1, gif2, gif3]
@@ -75,15 +117,15 @@ const Principal = () => {
     }
   ]
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 3000);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length)
+    }, 3000)
 
-    return () => clearInterval(interval);
-  }, [slides.length]);
+    return () => clearInterval(interval)
+  }, [slides.length])
 
   // para cambiar los gifts
   useEffect(() => {
@@ -170,69 +212,118 @@ const Principal = () => {
     setRotation(rotation + 360 / testimonials.length)
   }
 
-  const handleChangemessage = (event) => {
-    setMessage(event.target.value)
-  }
-
   useEffect(() => {
     const intervalId = setInterval(changeImage, 2000)
 
     return () => clearInterval(intervalId)
   }, [selectImage, rotation, testimonials])
 
+  const [activeTab, setActiveTab] = useState('finance')
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab)
+  }
+
+  const digitals = [
+    {
+      title: t['Ari Accounting and Finance'],
+      image: finance,
+      description: t['The responsibilities of the Administration and Finance Coordinator include bank reconciliation, updating the exchange rate, expense distribution, third-party payments, adjustment entries, support in the financial closing, and declarations to Sunat'],
+      relatedItems: [t['Download Bank Statements'], t['Daily Exchange Rate Automation'], t['Download SUNAT tax Status Registers'], t['Download Bank State']]
+    },
+    {
+      title: t['Ari Technology'],
+      image: support,
+      description: t['The responsibilities of the Technology and Support Coordinator include program installation, server reboots, backups, email and VPN configuration, and account management'],
+      relatedItems: [t['Image text extraction Service'], t['Captcha resolution service']]
+    },
+    {
+      title: t['Ari Human Resources'],
+      image: rrhh,
+      description: t['The responsibilities of the Human Resources Coordinator include onboarding, vacation management, health and wellness benefits, and support in performance reviews'],
+      relatedItems: [t['AFP validation']]
+    }
+  ]
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector('nav')
+      if (window.scrollY > 0) {
+        header.classList.add('header-colored')
+      } else {
+        header.classList.remove('header-colored')
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  const imagesHome = [
+    asistente,
+    telefonoWEB
+    // Agrega más rutas de imágenes aquí
+  ]
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imagesHome.length)
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const quantity = 15
+
   return (
     <div className='home'>
-      <Head>
-        <title>Ari - Digital employees</title>
-        <meta name='description' content='Descripción de tu página' />
-      </Head>
+      <header className='home-principal'>
+        <div>
+          <nav>
+            <ul className='logoAri' />
 
-      <header>
-        <nav>
-          <ul>
-            <div className='logo' data-aos='zoom-in'>
-              <Image src={LogoOscuro} width='500' alt='logoOscuro' priority />
-            </div>
-          </ul>
+            <ul>
+              <div className='languajes-box'>
+                <Lang />
+              </div>
 
-          <ul>
-            <div className='languajes-box'>
-              <Lang />
-            </div>
+              <li>
+                <Link className='li-login' href='/login'>
+                  {t.Login}
+                </Link>
+              </li>
 
-            <li>
-              <Link href='/login'>{t.Login}</Link>
-            </li>
+              <li>
+                <button className='btn_black' onClick={() => router.push('/register')}>
+                  {t['Sign up']}
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
 
-            <li>
-              <button className='btn_black' onClick={() => router.push('/register')}>
-                {t['Sign up']}
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </header>
-
-      <main className='box-home container'>
-        <section className='home-front'>
+        <section className='home-principal-front'>
           <div className='welcome'>
+            <div class='letter-container'>
+              <h1 className='letter text-gradient'>{t['Your new superpower']} </h1>
+              <h1 className='letter text-gradient'>{t['ARI Digital Employees']}</h1>
+            </div>
 
-
-          <div class="letter-container">
-        <h2 className="   letter text-gradient">Empleados digitales ARI </h2>
-        <h2 className="  letter text-gradient">Tu nuevo super poder</h2>
-       
-    </div>
-
-
-
-            {/* <h2 className='subtitle' style={{color:'transparent'}}>{t['Optimize your Business Efficiency']}</h2> */}
-            <p> {t['Discover the Power of ARI, the Software-Based Workforce with Artificial Intelligence']}</p>
+            <p>
+              {' '}
+              {t['ARI Robotic Assistants free your employees from']}
+              <span>&nbsp;{t['repetitive tasks']}&nbsp;</span>
+              {t['so they can focus on what']}&nbsp;
+              {t['really matters']}.
+            </p>
 
             <div className='welcome-actions'>
               <button className='btn_secundary small' onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
-                {' '}
-                {t['Try free trial']}{' '}
+                {t['Try free trial']}
               </button>
               <button className='record' onClick={() => demoSectionRef.current.scrollIntoView({ behavior: 'smooth' })}>
                 <ImageSvg name='Record' />
@@ -247,108 +338,105 @@ const Principal = () => {
           </div>
 
           <div data-aos='zoom-in-left' className='image-container'>
-          <div className="slider-circular">
-      {/* <div className="slider-circular__container">
-        {slides.map((slide, index) => {
-          let className = 'slider-circular__slide';
-
-          if (index === currentIndex) {
-            className += ' slider-circular__slide--visible';
-          } else if (
-            index === (currentIndex - 1 + slides.length) % slides.length ||
-            index === (currentIndex + 1) % slides.length
-          ) {
-            className += ' slider-circular__slide--next';
-          }
-
-          return (
-            <div
-              key={index}
-              className={className}
-              style={{
-                transform: `rotateY(${index * (360 / slides.length)}deg) translateZ(300px)`,
-              }}
-            >
-              <img src={slide.image} alt={`Slide ${index + 1}`} />
-              <p>{slide.text}</p>
+            <div className='image-mundo'>
+              <SphereCanvas />
+              <Image src={mundo} width={500} height={500} alt='ari mundo' />
             </div>
-          );
-        })}
-      </div> */}
-    </div>
-          </div>
-        </section>
 
-       
-
-        {/* <section className='home-client'>
-          <div>
-            <h1 className='subtitle' style={{ textAlign: 'right' }}>
-              {' '}
-              {t['What our client think about us?']}{' '}
-            </h1>
-          </div>
-          <div className='testimonials-container'>
-            <div className='container-img' style={{ transform: `rotate(${rotation}deg)` }}>
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={testimonial.id}
-                  className='image-container'
-                  style={{
-                    transform: `rotate(${index * (360 / testimonials.length) + rotation}deg) translateX(150px) translateY(-50%)`,
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transformOrigin: 'center center',
-                    width: '100px',
-                    height: '100px',
-                    marginLeft: '-50px',
-                    marginTop: '-50px',
-                    transition: 'transform 1s ease'
-                  }}
-                >
-                  <button onClick={() => setSelectImage(testimonial)}>
-                    <Image className={selectImage && selectImage.id === testimonial.id ? 'active' : ''} src={testimonial.image} alt={testimonial.name} width={100} height={100} loading='lazy' />
-                  </button>
-                </div>
+            <div className='image-container'>
+              {imagesHome.map((image, index) => (
+                <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} priority />
               ))}
             </div>
-
-            {selectImage && (
-              <div className='testimony'>
-                <div className='testimony-img'>
-                  <button>
-                    <Image className='active' src={selectImage.image} alt={selectImage.name} width={100} height={100} loading='lazy' />
-                  </button>
-                </div>
-                <div className='testimony-message'>
-                  <p>{selectImage.testimony}</p>
-                  <h3>{selectImage.name}</h3>
-                  <span>{selectImage.position}</span>
-                </div>
-              </div>
-            )}
           </div>
-        </section> */}
+          <div className='custom-shape-divider-bottom-1719330810'>
+            <svg data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'>
+              <path d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' class='shape-fill' />
+            </svg>
+          </div>
+        </section>
+      </header>
 
+      <main className='main-home '>
+        <section className='home-why container'>
+          <div className='title-why'>
+            <h1 className='subtitle'> {t['Why Choose Us']}</h1>
+            <p>{t['Automate and optimize your financial management securely and scalably']}</p>
+          </div>
 
+          <div className='container-advantages'>
+            <div className='box-advantage'>
+              <div className='advantage end-direction' data-aos='zoom-out-up'>
+                <ImageSvg name='Integration' />
 
-        <section ref={gifRef} className='home-how container'>
+                <h3>{t['Integration and Connectivity']}</h3>
+
+                <p className='advantage-description'>{t['Connection with multiple data sources (Bank accounts, SUNAT, SBS, among others) and integration with different ERPs']}</p>
+              </div>
+              <div className='advantage end-direction' data-aos='zoom-out-up'>
+                <ImageSvg name='Security' />
+                <h3>{t['Security and Control']}</h3>
+
+                <p className='advantage-description'>
+                 
+                  {t['Advanced security, encrypted passwords, secure access management, exclusive database per client, segregated roles and functions']}
+                </p>
+              </div>
+            </div>
+
+            <Image className='gift-advantage' src={giftMovil} alt='giftMoil' width={320} height={320} loading='eager' />
+            <div className='box-advantage' data-aos='zoom-out-down'>
+              <div className='advantage'>
+                <ImageSvg name='Efficiency' />
+                <h3>{t['Efficiency and Productivity']}</h3>
+
+                <p className='advantage-description'>{t['24/7 operation, error reduction, business agility, and cost savings. Lower TCO compared to traditional RPA projects']}</p>
+              </div>
+              <div className='advantage' data-aos='zoom-out-down'>
+                <ImageSvg name='Adaptability' />
+                <h3>{t['Adaptability and Growth']}</h3>
+
+                <p className='advantage-description'>{t['Adaptable solution with quick configuration and homologated processes with extensive industry knowledge']}</p>
+              </div>
+            </div>
+          </div>
+          <section className='home-account '>
+            <ul className='box-account'>
+              <li>
+                <h2>{isGifSectionInView ? <Counter initialValue={0} finalValue={5} /> : 5}</h2>
+
+                <p>{t['Digital Employees Automating Your Services']}</p>
+              </li>
+
+              <li>
+                <h2>{isGifSectionInView ? <Counter initialValue={8} finalValue={20} /> : 20}</h2>
+
+                <p>{t['Included Skills to Digital Employees']}</p>
+              </li>
+
+              <li>
+                <h2>{isGifSectionInView ? <Counter initialValue={70} finalValue={78} /> : 78} %</h2>
+
+                <p>{t['business agility']}</p>
+              </li>
+            </ul>
+          </section>
+        </section>
+
+        <section ref={gifRef} className='home-how  background-colored' data-aos='fade-up-right'>
+        
+       
+
           <div className='home-how-description'>
             <div className='discover'>
               <div className='title-how'>
-                <p className='text-blue'>Discover our automation process</p>
-                <h1 className='subtitle'> {t['How do we do it?']}</h1>
+                <span >Discover our automation process</span>
+                <h2 className='subtitle'> {t['How do we do it?']}</h2>
               </div>
 
-              <p>{t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}</p>
+              <p> {t['Ari executes her automation activities in 3 steps']}: </p>
             </div>
-            <figure className='steps-gift' ref={demoSectionRef}>
-              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading='lazy' />
-            </figure>
-          </div>
-
-          <div className='home-how-steps'>
+            <div className='home-how-steps'>
             <div className='steps-container'>
               <div className={`step ${currentGif === 0 ? 'active' : ''}`}>
                 <div className='box-circle'>
@@ -393,195 +481,202 @@ const Principal = () => {
                 <button className='process' onClick={() => setCurrentGif(2)}>
                   <div className='text'>
                     <h3> {t['Work delivered']} </h3>
-                    <p>{t['After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready']}</p>
+                    <p>{t['Consolidated information provided through management dashboards, so you always have your information visible and easy to process']}</p>
                   </div>
                 </button>
               </div>
             </div>
           </div>
-        </section>
-
-       
-
-        <section className='home-account container'>
-          <ul className='box-account' data-aos='zoom-in'>
-            <li>
-              <h1>{isGifSectionInView ? <Counter initialValue={0} finalValue={5} /> : 5}</h1>
-
-              <p>{t['Digital Employees Automating Your Services']}</p>
-            </li>
-
-            <li>
-              <h1>{isGifSectionInView ? <Counter initialValue={8} finalValue={20} /> : 20}</h1>
-
-              <p>{t['Included Skills to Digital Employees']}</p>
-            </li>
-
-            <li>
-              <h1>{isGifSectionInView ? <Counter initialValue={70} finalValue={78} /> : 78} %</h1>
-
-              <p>{t['business agility']}</p>
-            </li>
-          </ul>
-        </section>
-
-
-
-
-        <section  className='home-gift container'>
-
-<Image src={flujoAri} width={500} height={500} alt='ari flujo' loading='lazy' />
-
-</section>
-
-        <section className='home-digitals  container '>
-          <div className='description'>
-            <h1> {t['Ari finance']}</h1>
-
-            <p> {t['The technology and support coordinator facilitates platform and operation processes, including purchasing and installing software, server reboot, backup, and email configuration. They also handle VPN setup, printer configuration, password reset, and account termination for departures']}</p>
+            
           </div>
 
-          <div data-aos='fade-up' className='digital-image'>
-            <Image src={finance} width='1000' alt='finance' loading='lazy' />
+          <figure className='home-how-steps-gift' ref={demoSectionRef}>
+              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading='eager' />
+          </figure>
+         
+        </section>
+
+        <section className='home-gift '>
+          <Image src={flujoAri} width={500} height={500} alt='ari flujo' loading='eager' />
+
+          <div className='description-gift' data-aos='fade-left'>
+            <h2 className='subtitle'> {t['Connect financial data and understand behavior']}</h2>
+
+            <p>
+              {t['ARI is the software-based workforce powered by']} <span> {t['artificial intelligence']} </span> , {t['that autonomously executes end-to-end work processes using a diverse set of skills']}
+            </p>
+          </div>
+
+          <div className='sombra'>
+            <ImageSvg name='SombraHome' />
           </div>
         </section>
 
-        <section className='home-digitals container hr'>
-          <div data-aos='zoom-out-left' className='digital-image'>
-            <Image src={rrhh} width='1000' alt='finance' loading='lazy' />
+        <section className='home-process container' data-aos='fade-up-right'>
+          <div className='title'>
+            <p className='text-blue'>Discover our automation process</p>
+            <h2 className='subtitle' style={{ textAlign: 'left' }}>
+              Digital employees
+            </h2>
           </div>
-          <div className='description'>
-            <h1> {t['Ari HR']}</h1>
 
-            <p> {t['The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.']}</p>
+          <div className='ari-tabs-container'>
+            <div className='ari-tabs-menu'>
+              <div className={`ari-tab-item ${activeTab === 'finance' ? 'active' : ''}`} onClick={() => handleTabClick('finance')}>
+                Ari Finance
+              </div>
+              <div className={`ari-tab-item ${activeTab === 'it-support' ? 'active' : ''}`} onClick={() => handleTabClick('it-support')}>
+                Ari IT Support
+              </div>
+              <div className={`ari-tab-item ${activeTab === 'hr' ? 'active' : ''}`} onClick={() => handleTabClick('hr')}>
+                Ari HR
+              </div>
+            </div>
+            <div className='ari-tabs-content'>
+              <div className={`ari-tab-content ${activeTab === 'finance' ? 'active' : ''}`}>
+                <div className='row-order'>
+                  <DigitalProfile title={digitals[0].title} demo image={digitals[0].image} description={digitals[0].description} relatedItems={digitals[0].relatedItems} />
+
+                  <DigitalProfile title={digitals[1].title} image={digitals[1].image} description={digitals[1].description} relatedItems={digitals[1].relatedItems} />
+                </div>
+              </div>
+              <div className={`ari-tab-content ${activeTab === 'it-support' ? 'active' : ''}`}>
+                <div className='row-order'>
+                  <DigitalProfile title={digitals[1].title} demo image={digitals[1].image} description={digitals[1].description} relatedItems={digitals[1].relatedItems} />
+                  <DigitalProfile title={digitals[2].title} image={digitals[2].image} description={digitals[2].description} relatedItems={digitals[2].relatedItems} />
+                </div>
+              </div>
+              <div className={`ari-tab-content ${activeTab === 'hr' ? 'active' : ''}`}>
+                <div className='row-order'>
+                  <DigitalProfile title={digitals[2].title} demo image={digitals[2].image} description={digitals[2].description} relatedItems={digitals[2].relatedItems} />
+                  <DigitalProfile title={digitals[0].title} image={digitals[0].image} description={digitals[0].description} relatedItems={digitals[0].relatedItems} />
+                </div>
+              </div>
+            </div>
+            <div className='sombra'>
+              <ImageSvg name='SombraHome' />
+            </div>
           </div>
         </section>
 
-        <section className='home-digitals container'>
-          <div className='description'>
-            <h1> {t['Ari it support']}</h1>
-
-            <p> {t['The Technology and Support Coordinator facilitates processes such as purchasing and installing programs, restarting servers, backup, setting up mail, VPN, printers, resetting passwords, and deleting accounts.']}</p>
-          </div>
-
-          <div data-aos='fade-up' data-aos-anchor-placement='bottom-bottom' className='digital-image'>
-            <Image src={support} width='1000' alt='finance' loading='lazy' />
-          </div>
-        </section>
-
-        <section className='home-enables container'>
-          <h1> {t['Our enablers']}</h1>
+        <section className='home-enables container' data-aos='flip-right'>
+          <h2 className='subtitle'> {t['Our enablers']}</h2>
 
           <div className='box-enables' data-aos='zoom-in'>
             <button>
-              <Image src={cloud} width='1000' alt='cloud' loading='lazy' />
+              <Image src={cloud} width='1000' alt='cloud' loading='eager' />
             </button>
 
             <button>
-              <Image src={drive} width='1000' alt='drive' loading='lazy' />
+              <Image src={drive} width='1000' alt='drive' loading='eager' />
             </button>
 
             <button>
-              <Image src={uipath} width='1000' alt='uipath' loading='lazy' />
+              <Image src={uipath} width='1000' alt='uipath' loading='eager' />
             </button>
             <button>
-              <Image src={sap} width='1000' alt='sap' loading='lazy' />
+              <Image src={sap} width='1000' alt='sap' loading='eager' />
             </button>
             <button>
-              <Image src={ftp} width='1000' alt='ftp' loading='lazy' />
+              <Image src={ftp} width='1000' alt='ftp' loading='eager' />
             </button>
           </div>
         </section>
       </main>
 
-   sfera 
+      <footer>
+     
 
-      <SphereCanvas/>
+        <section className='home-contact'>
+        {Array.from({ length: quantity }).map((_, i) => (
+            <div key={i} className='firefly' />
+          ))}
+          <div className='slider'>
+            <div className='slide-track'>
+              <div className='slide'>
+                <Image src={finance} width='1000' alt='logo_oscuro' loading='eager' />
+              </div>
+              <div className='slide'>
+                <Image src={card1} width='400' alt='logo_oscuro' loading='eager' />
+              </div>
 
-      <section className='home-contact ' data-aos='fade-up'>
-        <div className='contact-message'>
-          <h1 className='subtitle'> {t['Contact us']}</h1>
+              <div className='slide'>
+                <Image src={card2} width='400' alt='logo_oscuro' loading='eager' />
+              </div>
+              <div className='slide'>
+                <Image src={card3} width='400' alt='logo_oscuro' loading='eager' />
+              </div>
+              <div className='slide'>
+                <Image src={card4} width='400' alt='logo_oscuro' loading='eager' />
+              </div>
 
-          <p>{t['Find out which AUTOMATION SOLUTIONS can help you']}</p>
+              <div className='slide'>
+                <Image src={card5} width='1000' alt='logo_oscuro' loading='eager' />
+              </div>
 
-          <button className='btn_black' onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
-            {t.Contact}
-          </button>
-        </div>
+              <div className='slide'>
+                <Image src={support} width='1000' alt='logo_oscuro' loading='eager' />
+              </div>
 
-        <div className='slider' data-aos='zoom-in-up'>
-          <div className='slide-track'>
-            <div className='slide'>
-              <Image src={finance} width='1000' alt='logo_oscuro' loading='lazy' />
-            </div>
-            <div className='slide'>
-              <Image src={card1} width='400' alt='logo_oscuro' loading='lazy' />
-            </div>
+              <div className='slide'>
+                <Image src={card6} width='1000' alt='logo_oscuro' loading='eager' />
+              </div>
 
-            <div className='slide'>
-              <Image src={card2} width='400' alt='logo_oscuro' loading='lazy' />
-            </div>
-            <div className='slide'>
-              <Image src={card3} width='400' alt='logo_oscuro' loading='lazy' />
-            </div>
-            <div className='slide'>
-              <Image src={card4} width='400' alt='logo_oscuro' loading='lazy' />
-            </div>
+              <div className='slide'>
+                <Image src={card7} width='400' alt='logo_oscuro' loading='eager' />
+              </div>
 
-            <div className='slide'>
-              <Image src={card5} width='1000' alt='logo_oscuro' loading='lazy' />
-            </div>
+              <div className='slide'>
+                <Image src={rrhh} width='1000' alt='logo_oscuro' loading='eager' />
+              </div>
 
-            <div className='slide'>
-              <Image src={support} width='1000' alt='logo_oscuro' loading='lazy' />
-            </div>
+              <div className='slide'>
+                <Image src={card8} width='400' alt='logo_oscuro' loading='eager' />
+              </div>
 
-            <div className='slide'>
-              <Image src={card6} width='1000' alt='logo_oscuro' loading='lazy' />
-            </div>
-
-            <div className='slide'>
-              <Image src={card7} width='400' alt='logo_oscuro' loading='lazy' />
-            </div>
-
-            <div className='slide'>
-              <Image src={rrhh} width='1000' alt='logo_oscuro' loading='lazy' />
-            </div>
-
-            <div className='slide'>
-              <Image src={card8} width='400' alt='logo_oscuro' loading='lazy' />
-            </div>
-
-            <div className='slide'>
-              <Image src={finance} width='1000' alt='logo_oscuro' loading='lazy' />
+              <div className='slide'>
+                <Image src={finance} width='1000' alt='logo_oscuro' loading='eager' />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      <footer>
-        <section className='home-social container'>
+          <div className='contact-message'>
+            <h2 className=''> {t['Contact us']}</h2>
+
+            <p style={{ marginBottom: '1rem' }}>{t['Find out which AUTOMATION SOLUTIONS can help you']}</p>
+
+            <button className='btn_black' onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
+              {t.Contact}
+            </button>
+          </div>
+         
+        </section>
+
+        <section className='home-social '>
           <div className='home-social-info'>
-            <div className='logo'>
-              <Image src={logoGift} width='100' alt='logo' loading='lazy' />
+            <div className='logo-footer'>
+              <Image src={LogoOscuro} width={100} height={100} alt='logo' loading='eager' />
 
-              <p>{t['Terms and Conditions']}</p>
-              <p>Vittore Carpaccio 250, San Borja, Lima , Perú</p>
+              {/* <p>{t['Terms and Conditions']}</p> */}
+
+              <p>
+                <ImageSvg name='Location' /> Vittore Carpaccio 250, San Borja, Lima , Perú
+              </p>
             </div>
 
             <div className='social-media'>
               <h4>{t['Follow us!']}</h4>
 
               <div className='follow'>
-                <button onClick={() => router.push('https://www.youtube.com/channel/UCY6CjtB2fq-UlHYzDa5A_Ug/videos?view=0&sort=da')} className='btn_circle social_green'>
+                <button onClick={() => router.push('https://www.youtube.com/channel/UC1mpIQbKvI37sLlDsxmcyeA')} className='btn_circle social_green'>
                   <ImageSvg name='Youtube' />
                 </button>
 
-                <button onClick={() => router.push('https://www.linkedin.com/company/innovativa-la/')} className='btn_circle social_green'>
+                <button onClick={() => router.push('https://www.linkedin.com/company/seidorperu/?originalSubdomain=pe')} className='btn_circle social_green'>
                   <ImageSvg name='Linkedin' />
                 </button>
 
-                <button onClick={() => router.push('https://www.instagram.com/innovativa.la/')} className='btn_circle social_green'>
+                <button onClick={() => router.push('https://www.instagram.com/seidorperu/')} className='btn_circle social_green'>
                   <ImageSvg name='Instagram' />
                 </button>
               </div>
@@ -589,7 +684,7 @@ const Principal = () => {
           </div>
 
           <div className='home-social-copy'>
-            <p>Copyright © 2024 Innovativa lab</p>
+            <p>Copyright © 2024 ARI Digital Employees</p>
           </div>
         </section>
       </footer>

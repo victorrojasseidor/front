@@ -12,11 +12,9 @@ import { RiMenu3Line, RiCloseLine } from 'react-icons/ri'
 import { GrFormPrevious, GrFormNext } from 'react-icons/gr'
 
 // icons of bpass
-
 import Iconspain from '../../public/icons/spain.svg'
 import Iconeeuu from '../../public/icons/eeuu.svg'
 import IconPerson from '../../public/img/new-icons/person.svg'
-import IconProfile from '../../public/img/new-icons/profile.svg'
 import bot from '../../public/img/bot2.png'
 
 const ImageSvg = ({ name }) => {
@@ -57,6 +55,18 @@ const ImageSvg = ({ name }) => {
       </svg>
     ),
     Check: <BsCheckCircle />,
+    CheckFill: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+    <g clip-path="url(#a)">
+      <path stroke="#4318FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.665 7.387v.614a6.667 6.667 0 1 1-3.953-6.094"/>
+      <path stroke="#4318FF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.667 2.668 8 9.341l-2-2"/>
+    </g>
+    <defs>
+      <clipPath id="a">
+        <path fill="#fff" d="M0 0h16v16H0z"/>
+      </clipPath>
+    </defs>
+  </svg>
+  ,
     Change: <FaExchangeAlt />,
     SignOut: (
       <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18' fill='none'>
@@ -73,7 +83,7 @@ const ImageSvg = ({ name }) => {
     Record: (
       <svg className='video-light' width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
         <path d='M16.2111 11.1056L9.73666 7.86833C8.93878 7.46939 8 8.04958 8 8.94164V15.0584C8 15.9504 8.93878 16.5306 9.73666 16.1317L16.2111 12.8944C16.9482 12.5259 16.9482 11.4741 16.2111 11.1056Z' stroke='#222222' stroke-linecap='round' stroke-linejoin='round' />
-        <circle cx='12' cy='12' r='9' stroke='#222222' />
+        <circle cx='12' cy='12' r='9' stroke='#e4ebf6' />
       </svg>
     ),
     Search: (
@@ -121,7 +131,28 @@ const ImageSvg = ({ name }) => {
     ),
     Refresh: <IoRefreshCircle />,
     Question: <BsFillQuestionCircleFill />,
-    // Delete: <FiTrash2 />,
+    SombraHome: 
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="840" height="763" fill="none" viewBox="0 0 840 763">
+  <g filter="url(#a)">
+    <path fill="#4318FF" fill-opacity=".16" fill-rule="evenodd" d="M416.501 238.196c66.508 9.034 131.319 45.998 153.608 109.308 23.853 67.752-24.204 140.109-75.496 190.391-48.208 47.258-115.745 74.238-182.17 62.197-59.987-10.874-99.427-64.124-127.37-118.307-23.302-45.184-36.632-102.529-8.279-144.725 24.631-36.657 80.789-69.459 122.707-83.364 36.231-12.019 79.175-20.638 117-15.5Z" clip-rule="evenodd"/>
+    <path fill="#4318FF" fill-opacity=".16" fill-rule="evenodd" d="M581.501 228.971c66.509 9.034 77.854 66.314 90 100.814 23.853 67.751-7.607 36.218-58.9 86.5-48.208 47.258-85.675 12.041-152.1 0-59.987-10.874-16.056 2.684-44-51.5-23.301-45.183-12.853-62.497 15.5-104.693 24.632-36.657 4.683-17.216 46.601-31.121 36.231-12.018 65.074-5.138 102.899 0Z" clip-rule="evenodd"/>
+    <path fill="#6AD2FF" fill-opacity=".26" fill-rule="evenodd" d="M553.468 447.972c-49.606 19.338-120.7 15.866-161.397-17.353-43.551-35.549-39.207-101.473-23.81-154.089 14.472-49.452 50.409-92.898 101.158-110.225 45.831-15.647 94.372 4.425 135.334 29.484 34.158 20.896 66.277 53.593 63.517 92.162-2.398 33.506 1.371 53.651-22.068 78.747.407 26.526-64.521 70.275-92.734 81.274Z" clip-rule="evenodd"/>
+  </g>
+  <defs>
+    <filter id="a" width="838.867" height="762.167" x=".748" y=".785" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur result="effect1_foregroundBlur_3824_5990" stdDeviation="80"/>
+    </filter>
+  </defs>
+</svg>
+
+,
+    Location: <svg xmlns="http://www.w3.org/2000/svg" width="17" height="20" fill="none" viewBox="0 0 17 20">
+    <path fill="#05CD99" fill-rule="evenodd" d="M0 8.318C0 3.718 3.844 0 8.493 0 13.156 0 17 3.718 17 8.318c0 2.318-.843 4.47-2.23 6.294a22.064 22.064 0 0 1-5.541 5.14c-.486.318-.925.342-1.459 0a21.64 21.64 0 0 1-5.54-5.14C.843 12.788 0 10.636 0 8.318Zm5.694.259c0 1.54 1.258 2.753 2.8 2.753 1.542 0 2.812-1.212 2.812-2.753 0-1.53-1.27-2.8-2.813-2.8a2.813 2.813 0 0 0-2.799 2.8Z" clip-rule="evenodd"/>
+  </svg>
+  ,
     Download: (
       <svg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='20' height='20' viewBox='0 0 50 50'>
         <path d='M 28.875 0 C 28.855469 0.0078125 28.832031 0.0195313 28.8125 0.03125 L 0.8125 5.34375 C 0.335938 5.433594 -0.0078125 5.855469 0 6.34375 L 0 43.65625 C -0.0078125 44.144531 0.335938 44.566406 0.8125 44.65625 L 28.8125 49.96875 C 29.101563 50.023438 29.402344 49.949219 29.632813 49.761719 C 29.859375 49.574219 29.996094 49.296875 30 49 L 30 44 L 47 44 C 48.09375 44 49 43.09375 49 42 L 49 8 C 49 6.90625 48.09375 6 47 6 L 30 6 L 30 1 C 30.003906 0.710938 29.878906 0.4375 29.664063 0.246094 C 29.449219 0.0546875 29.160156 -0.0351563 28.875 0 Z M 28 2.1875 L 28 6.53125 C 27.867188 6.808594 27.867188 7.128906 28 7.40625 L 28 42.8125 C 27.972656 42.945313 27.972656 43.085938 28 43.21875 L 28 47.8125 L 2 42.84375 L 2 7.15625 Z M 30 8 L 47 8 L 47 42 L 30 42 L 30 37 L 34 37 L 34 35 L 30 35 L 30 29 L 34 29 L 34 27 L 30 27 L 30 22 L 34 22 L 34 20 L 30 20 L 30 15 L 34 15 L 34 13 L 30 13 Z M 36 13 L 36 15 L 44 15 L 44 13 Z M 6.6875 15.6875 L 12.15625 25.03125 L 6.1875 34.375 L 11.1875 34.375 L 14.4375 28.34375 C 14.664063 27.761719 14.8125 27.316406 14.875 27.03125 L 14.90625 27.03125 C 15.035156 27.640625 15.160156 28.054688 15.28125 28.28125 L 18.53125 34.375 L 23.5 34.375 L 17.75 24.9375 L 23.34375 15.6875 L 18.65625 15.6875 L 15.6875 21.21875 C 15.402344 21.941406 15.199219 22.511719 15.09375 22.875 L 15.0625 22.875 C 14.898438 22.265625 14.710938 21.722656 14.5 21.28125 L 11.8125 15.6875 Z M 36 20 L 36 22 L 44 22 L 44 20 Z M 36 27 L 36 29 L 44 29 L 44 27 Z M 36 35 L 36 37 L 44 37 L 44 35 Z' />
@@ -209,12 +240,27 @@ const ImageSvg = ({ name }) => {
       </svg>
     ),
 
-    BarChart: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-    <path fill="#292D32" d="M22 22H2c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h20c.41 0 .75.34.75.75s-.34.75-.75.75Z"/>
-    <path fill="#292D32" d="M9.75 4v18h4.5V4c0-1.1-.45-2-1.8-2h-.9c-1.35 0-1.8.9-1.8 2Z"/>
-    <path fill="#292D32" d="M3 10v12h4V10c0-1.1-.4-2-1.6-2h-.8C3.4 8 3 8.9 3 10Zm14 5v7h4v-7c0-1.1-.4-2-1.6-2h-.8c-1.2 0-1.6.9-1.6 2Z" opacity=".4"/>
-  </svg>, 
-  
+    BarChart: <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'>
+      <path fill='#292D32' d='M22 22H2c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h20c.41 0 .75.34.75.75s-.34.75-.75.75Z' />
+      <path fill='#292D32' d='M9.75 4v18h4.5V4c0-1.1-.45-2-1.8-2h-.9c-1.35 0-1.8.9-1.8 2Z' />
+      <path fill='#292D32' d='M3 10v12h4V10c0-1.1-.4-2-1.6-2h-.8C3.4 8 3 8.9 3 10Zm14 5v7h4v-7c0-1.1-.4-2-1.6-2h-.8c-1.2 0-1.6.9-1.6 2Z' opacity='.4' />
+    </svg>,
+
+    Integration: <svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' fill='none' viewBox='0 0 48 48'>
+      <path stroke='#4318FF' stroke-linecap='round' stroke-linejoin='round' stroke-width='3.922' d='M18.089 6.324v3.922m11.765-3.922v3.922M18.089 37.697v3.922m11.765-3.922v3.922m-19.608-23.53H6.324m3.922 11.765H6.324M41.62 18.089h-3.922m3.922 11.765h-3.922m-23.53 7.843h19.608a3.922 3.922 0 0 0 3.922-3.922V14.167a3.922 3.922 0 0 0-3.922-3.921H14.167a3.922 3.922 0 0 0-3.921 3.921v19.608a3.922 3.922 0 0 0 3.921 3.922Zm3.922-19.608h11.765v11.765H18.089V18.089Z' />
+                 </svg>,
+
+    Security: <svg xmlns='http://www.w3.org/2000/svg' width='36' height='40' fill='none' viewBox='0 0 36 40'>
+      <path stroke='#4318FF' stroke-width='3.922' d='M2.344 10.167v19.608c0 4.332 7.023 7.844 15.686 7.844s15.687-3.512 15.687-7.844V10.167m-31.373 0c0 4.332 7.023 7.844 15.686 7.844s15.687-3.512 15.687-7.844m-31.373 0c0-4.331 7.023-7.843 15.686-7.843s15.687 3.512 15.687 7.843m0 9.804c0 4.332-7.023 7.844-15.687 7.844-8.663 0-15.686-3.512-15.686-7.844' />
+    </svg>,
+
+    Efficiency: <svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' fill='none' viewBox='0 0 48 48'>
+      <path stroke='#4318FF' stroke-linecap='round' stroke-linejoin='round' stroke-width='3.922' d='M16.128 14.226V6.383m15.687 7.843V6.383M14.167 22.069h19.608m-23.53 19.608h27.452a3.922 3.922 0 0 0 3.922-3.921v-23.53a3.922 3.922 0 0 0-3.922-3.922H10.246a3.922 3.922 0 0 0-3.922 3.922v23.53a3.922 3.922 0 0 0 3.922 3.921Z' />
+    </svg>,
+
+    Adaptability: <svg xmlns='http://www.w3.org/2000/svg' width='32' height='40' fill='none' viewBox='0 0 32 40'>
+      <path stroke='#4318FF' stroke-linecap='round' stroke-width='3.922' d='M10.148 6.304H6.226a3.922 3.922 0 0 0-3.921 3.922v23.53a3.922 3.922 0 0 0 3.921 3.921h19.608a3.922 3.922 0 0 0 3.922-3.921v-23.53a3.922 3.922 0 0 0-3.922-3.922h-3.921m-11.765 0a3.922 3.922 0 0 0 3.921 3.922h3.922a3.922 3.922 0 0 0 3.922-3.922m-11.765 0a3.922 3.922 0 0 1 3.921-3.921h3.922a3.922 3.922 0 0 1 3.922 3.921M16.03 20.03h5.883m-5.883 7.843h5.883M10.148 20.03h.02m-.02 7.843h.02' />
+    </svg>,
 
     // menú icons
     MenuOpen: <RiMenu3Line />,
@@ -490,10 +536,9 @@ const ImageSvg = ({ name }) => {
       </svg>
 
     ),
-    Linkedin:<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none" viewBox="0 0 36 36">
-    <path fill="#fff" fill-rule="evenodd" d="M33.121 0H3.076C1.435 0 0 1.182 0 2.804v30.11C0 34.548 1.435 36 3.076 36h30.036C34.762 36 36 34.537 36 32.915V2.804C36.01 1.182 34.762 0 33.12 0ZM11.16 30.008H6.002V13.972h5.157v16.036Zm-2.4-18.474h-.04C7.07 11.534 6 10.306 6 8.768c0-1.566 1.098-2.766 2.786-2.766s2.72 1.19 2.757 2.766c0 1.538-1.07 2.766-2.785 2.766Zm21.249 18.474H24.85V21.24c0-2.1-.75-3.535-2.616-3.535-1.426 0-2.27.966-2.645 1.903-.14.338-.178.797-.178 1.266v9.134h-5.157V13.972h5.157v2.232c.75-1.069 1.923-2.607 4.651-2.607 3.386 0 5.946 2.232 5.946 7.043v9.368Z" clip-rule="evenodd"/>
-  </svg>
-,  
+    Linkedin: <svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' fill='none' viewBox='0 0 36 36'>
+      <path fill='#fff' fill-rule='evenodd' d='M33.121 0H3.076C1.435 0 0 1.182 0 2.804v30.11C0 34.548 1.435 36 3.076 36h30.036C34.762 36 36 34.537 36 32.915V2.804C36.01 1.182 34.762 0 33.12 0ZM11.16 30.008H6.002V13.972h5.157v16.036Zm-2.4-18.474h-.04C7.07 11.534 6 10.306 6 8.768c0-1.566 1.098-2.766 2.786-2.766s2.72 1.19 2.757 2.766c0 1.538-1.07 2.766-2.785 2.766Zm21.249 18.474H24.85V21.24c0-2.1-.75-3.535-2.616-3.535-1.426 0-2.27.966-2.645 1.903-.14.338-.178.797-.178 1.266v9.134h-5.157V13.972h5.157v2.232c.75-1.069 1.923-2.607 4.651-2.607 3.386 0 5.946 2.232 5.946 7.043v9.368Z' clip-rule='evenodd' />
+              </svg>,
     OpenMenu: <FiChevronsRight />,
     CloseMenu: <FiChevronsLeft />,
     ErrorMessage: <IoMdCloseCircle size={48} color='red' />,

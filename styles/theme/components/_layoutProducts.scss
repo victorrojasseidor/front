@@ -6,10 +6,7 @@
   width: 100vw;
 
   background-color: get-color(bg-cles);
-  // background-image: src;
-  // background-image: url("../../../public/img/fondo.png");
-  // background-repeat: no-repeat;
-
+  
   @include media(tablet) {
     height: 120vh;
     width: 100%;

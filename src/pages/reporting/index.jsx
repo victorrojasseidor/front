@@ -5,16 +5,9 @@ import LimitedParagraph from '@/helpers/limitParagraf'
 import Link from 'next/link'
 import NavigationPages from '@/Components/NavigationPages'
 import { useAuth } from '@/Context/DataContext'
-import reportMovement from '../../../public/img/report-movement.png'
-import reportBalance from '../../../public/img/report-balance.png'
-import Image from 'next/image'
 import LineChart from '@/Components/Grafics/BarChart'
-import captcha from '../../../public/img/captcha.jpg'
-import sunat from '../../../public/img/sunat.avif'
 import { useRouter } from 'next/navigation'
-
 import { fetchConTokenPost } from '@/helpers/fetch'
-
 import { format, getDay, addDays, startOfMonth, differenceInDays, parseISO } from 'date-fns'
 
 function index (props) {
