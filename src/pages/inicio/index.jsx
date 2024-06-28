@@ -425,22 +425,17 @@ const Principal = () => {
           </section>
         </section>
 
-        <section ref={gifRef} className='home-how container' data-aos='fade-up-right'>
+        <section ref={gifRef} className='home-how  background-colored' data-aos='fade-up-right'>
           <div className='home-how-description'>
             <div className='discover'>
               <div className='title-how'>
-                <p className='text-blue'>Discover our automation process</p>
+                <span >Discover our automation process</span>
                 <h2 className='subtitle'> {t['How do we do it?']}</h2>
               </div>
 
-              <p>{t['ARI is software-based labor leveraging artificial intelligence, including machine learning, to autonomously execute tasks within complex end-to-end processes']}</p>
+              <p> {t['Ari executes her automation activities in 3 steps']}: </p>
             </div>
-            <figure className='steps-gift' ref={demoSectionRef}>
-              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading='eager' />
-            </figure>
-          </div>
-
-          <div className='home-how-steps'>
+            <div className='home-how-steps'>
             <div className='steps-container'>
               <div className={`step ${currentGif === 0 ? 'active' : ''}`}>
                 <div className='box-circle'>
@@ -491,6 +486,13 @@ const Principal = () => {
               </div>
             </div>
           </div>
+            
+          </div>
+
+          <figure className='home-how-steps-gift' ref={demoSectionRef}>
+              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading='eager' />
+          </figure>
+         
         </section>
 
         <section className='home-gift '>
@@ -654,7 +656,7 @@ const Principal = () => {
             <div className='logo-footer'>
               <Image src={LogoOscuro} width={100} height={100} alt='logo' loading='eager' />
 
-              <p>{t['Terms and Conditions']}</p>
+              {/* <p>{t['Terms and Conditions']}</p> */}
 
               <p>
                 <ImageSvg name='Location' /> Vittore Carpaccio 250, San Borja, Lima , Perú
@@ -669,11 +671,11 @@ const Principal = () => {
                   <ImageSvg name='Youtube' />
                 </button>
 
-                <button onClick={() => router.push('https://www.linkedin.com/company/seidor/')} className='btn_circle social_green'>
+                <button onClick={() => router.push('https://www.linkedin.com/company/seidorperu/?originalSubdomain=pe')} className='btn_circle social_green'>
                   <ImageSvg name='Linkedin' />
                 </button>
 
-                <button onClick={() => router.push('https://www.instagram.com/innovativa.la/')} className='btn_circle social_green'>
+                <button onClick={() => router.push('https://www.instagram.com/seidorperu/')} className='btn_circle social_green'>
                   <ImageSvg name='Instagram' />
                 </button>
               </div>
