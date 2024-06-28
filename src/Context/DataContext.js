@@ -1,95 +1,97 @@
-import { createContext, useContext, useState, useEffect } from 'react'
-import en from '../../lang/en.json'
-import es from '../../lang/es.json'
-import { useRouter } from 'next/router'
-import { fetchConTokenPost } from '@/helpers/fetch'
-import Loading from '@/Components/Atoms/Loading'
+import { createContext, useContext, useState, useEffect } from 'react';
+import en from '../../lang/en.json';
+import es from '../../lang/es.json';
+import { useRouter } from 'next/router';
+import { fetchConTokenPost } from '@/helpers/fetch';
+import Loading from '@/Components/Atoms/Loading';
 
-const DataContext = createContext()
+const DataContext = createContext();
 
 export const useAuth = () => {
-  const context = useContext(DataContext)
+  const context = useContext(DataContext);
   if (!context) {
-    throw new Error('useUserData debe ser utilizado dentro de un DataContextProvider')
+    throw new Error('useAuth debe ser utilizado dentro de un DataContextProvider');
   }
-  return context
-}
+  return context;
+};
 
 export const DataContextProvider = ({ children }) => {
   // State para almacenar los datos del usuario
-  const [session, setSession] = useState(null)
-  const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
-  const [modalToken, setModalToken] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isLogout, setIsLogout] = useState(false)
-  const [dataProfileStart, setdataProfileStart] = useState(null)
-  const [empresa, setEmpresa] = useState(null)
-  const [idCountry, setIdCountry] = useState(1)
+  const [session, setSession] = useState(null);
+  const [isMenuLateralOpen, setMenuLateralOpen] = useState(true);
+  const [modalToken, setModalToken] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLogout, setIsLogout] = useState(false);
+  const [dataProfileStart, setdataProfileStart] = useState(null);
+  const [empresa, setEmpresa] = useState(null);
+  const [idCountry, setIdCountry] = useState(1);
 
-  const router = useRouter()
-  const { locale } = router
-  const l = locale === 'es' ? es : en
+  const router = useRouter();
+  const { locale } = router;
+  const initialLocale = locale || 'es'; // Usar 'es' si locale no está definido
+
+  const [l, setL] = useState(initialLocale === 'es' ? es : en);
 
   // Función para manejar el cierre de sesión
-  async function logout () {
-    setIsLogout(true)
-    setIsLoading(true)
+  async function logout() {
+    setIsLogout(true);
+    setIsLoading(true);
     try {
-      router.push('/login')
-      const token = session.sToken
+      router.push('/login');
+      const token = session.sToken;
       const body = {
-        oResults: {}
-      }
+        oResults: {},
+      };
 
-      const response = await fetchConTokenPost('BPasS/?Accion=SalidaUsuario', body, token)
+      const response = await fetchConTokenPost('BPasS/?Accion=SalidaUsuario', body, token);
 
       if (
         response.oAuditResponse?.iCode === 1 ||
         response.oAuditResponse?.iCode === 4 ||
         response.oAuditResponse?.iCode === 9
       ) {
-        console.log('ejecutaste logout')
+        console.log('ejecutaste logout');
 
-        setdataProfileStart(null)
-        setSession(null)
-        localStorage.removeItem('session')
-        localStorage.removeItem('selectedEmpresa')
-        setIsLogout(false)
+        setdataProfileStart(null);
+        setSession(null);
+        localStorage.removeItem('session');
+        localStorage.removeItem('selectedEmpresa');
+        setIsLogout(false);
       }
     } catch (error) {
-      console.log('error en logout del servicio', error)
+      console.log('error en logout del servicio', error);
     } finally {
-      setIsLoading(false) // Ocultar el indicador de carga después de que la petición se complete
+      setIsLoading(false); // Ocultar el indicador de carga después de que la petición se complete
     }
   }
 
   // UseEffect para cargar la sesión desde el almacenamiento local al montar el componente
   useEffect(() => {
-    const storedSession = localStorage.getItem('session')
+    const storedSession = localStorage.getItem('session');
     if (storedSession) {
-      setSession(JSON.parse(storedSession))
+      setSession(JSON.parse(storedSession));
     } else {
-      console.log('no hay datos en local')
+      console.log('no hay datos en local');
     }
-  }, [])
+  }, []);
 
-
-
+  // UseEffect para actualizar el idioma según locale
   useEffect(() => {
-    // Clear existing session data
-    localStorage.removeItem('session')
+    const newLang = locale === 'es' ? es : en;
+    setL(newLang);
+  }, [locale]);
 
-    // Store new session data
+  // Guardar sesión en localStorage
+  useEffect(() => {
     if (session) {
-      localStorage.setItem('session', JSON.stringify(session))
+      localStorage.setItem('session', JSON.stringify(session));
     }
-  }, [session])
+  }, [session]);
 
- 
   return (
     <DataContext.Provider
       value={{
-        locale,
+        locale: initialLocale,
         dataProfileStart,
         setdataProfileStart,
         session,
@@ -105,12 +107,11 @@ export const DataContextProvider = ({ children }) => {
         idCountry,
         setIdCountry,
         isMenuLateralOpen,
-        setMenuLateralOpen
-
+        setMenuLateralOpen,
       }}
     >
       {children}
       {isLoading && <Loading />}
     </DataContext.Provider>
-  )
-}
+  );
+};
