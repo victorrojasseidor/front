@@ -132,7 +132,14 @@
     "Download Bank State": "Download Bank State",
     "Utility Bill Registration": "Utility Bill Registration",
     "Image text extraction Service": "Image text extraction Service",
-    "AFP validation": "AFP validation"
+    "AFP validation": "AFP validation",
+    
+      "24/7 operation, error reduction, business agility, and cost savings. Lower TCO compared to traditional RPA projects": "24/7 operation, error reduction, business agility, and cost savings. Lower TCO compared to traditional RPA projects",
+      "Advanced security, encrypted passwords, secure access management, exclusive database per client, segregated roles and functions": "Advanced security, encrypted passwords, secure access management, exclusive database per client, segregated roles and functions",
+      "Consolidated information provided through management dashboards, so you always have your information visible and easy to process": "Consolidated information provided through management dashboards, so you always have your information visible and easy to process",
+      "Connection with multiple data sources (Bank accounts, SUNAT, SBS, among others) and integration with different ERPs": "Connection with multiple data sources (Bank accounts, SUNAT, SBS, among others) and integration with different ERPs"
+    
+    
   },
   "update_password": {
     "Update password": "Change password",

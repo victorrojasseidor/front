@@ -134,7 +134,14 @@
     "Download Bank State": "Descargar estado bancario",
     "Utility Bill Registration": "Registro de facturas de servicios públicos",
     "Image text extraction Service": "Servicio de extracción de texto de imágenes",
-    "AFP validation": "Validación AFP"
+    "AFP validation": "Validación AFP",
+    
+      "24/7 operation, error reduction, business agility, and cost savings. Lower TCO compared to traditional RPA projects": "Trabajo 24/7, reducción de errores, agilidad empresarial y ahorro de costos. Menor TCO en comparación a proyectos de RPA tradicional",
+      "Advanced security, encrypted passwords, secure access management, exclusive database per client, segregated roles and functions": "Seguridad avanzada, contraseñas encriptadas, gestión segura de accesos, Base de datos exclusiva por cliente, roles y funciones segregadas",
+      "Consolidated information provided through management dashboards, so you always have your information visible and easy to process": "Información consolidada y proporcionada a través de dashboards de gestión, para que tengas tu información siempre visible y fácil de procesar",
+      "Connection with multiple data sources (Bank accounts, SUNAT, SBS, among others) and integration with different ERPs": "Conexión con múltiples fuentes de datos (Cuentas bancarias, SUNAT, SBS, entre otros) e integración con diferentes ERPs"
+    
+    
   },
   "update_password": {
     "Update password": "Cambiar contraseña",

@@ -31,7 +31,6 @@ import card7 from '../../../public/img/card-product/card7.png'
 import card8 from '../../../public/img/card-product/card8.png'
 import mundo from '../../../public/img/mundo.svg'
 import asistente from '../../../public/img/asistente.webp'
-// import telefono from '../../../public/img/telefon.gif'
 import telefonoWEB from '../../../public/img/telefono.webp'
 import reporting from '../../../public/img/reporting.png'
 import front from '../../../public/img/front.png'
@@ -319,7 +318,7 @@ const Principal = () => {
               {t['ARI Robotic Assistants free your employees from']}
               <span>&nbsp;{t['repetitive tasks']}&nbsp;</span>
               {t['so they can focus on what']}&nbsp;
-              {t['really matters']}
+              {t['really matters']}.
             </p>
 
             <div className='welcome-actions'>
@@ -372,16 +371,15 @@ const Principal = () => {
 
                 <h3>{t['Integration and Connectivity']}</h3>
 
-                <p className='advantage-description'>{t['Connect multiple data sources and integrates with SAP (Bank Accounts, Government, among others) in one place']}</p>
+                <p className='advantage-description'>{t['Connection with multiple data sources (Bank accounts, SUNAT, SBS, among others) and integration with different ERPs']}</p>
               </div>
               <div className='advantage end-direction' data-aos='zoom-out-up'>
                 <ImageSvg name='Security' />
                 <h3>{t['Security and Control']}</h3>
 
                 <p className='advantage-description'>
-                  {t['Encrypted passwords and secure access management']}
-                  {t['Roles and access for users']}
-                  {t['Exclusive information base']}
+                 
+                  {t['Advanced security, encrypted passwords, secure access management, exclusive database per client, segregated roles and functions']}
                 </p>
               </div>
             </div>
@@ -392,7 +390,7 @@ const Principal = () => {
                 <ImageSvg name='Efficiency' />
                 <h3>{t['Efficiency and Productivity']}</h3>
 
-                <p className='advantage-description'>{t['Work 24/7, error reduction and cost savings. Cost and time savings (lower TCO) compared to a traditional RPA project']}</p>
+                <p className='advantage-description'>{t['24/7 operation, error reduction, business agility, and cost savings. Lower TCO compared to traditional RPA projects']}</p>
               </div>
               <div className='advantage' data-aos='zoom-out-down'>
                 <ImageSvg name='Adaptability' />
@@ -426,6 +424,9 @@ const Principal = () => {
         </section>
 
         <section ref={gifRef} className='home-how  background-colored' data-aos='fade-up-right'>
+        
+       
+
           <div className='home-how-description'>
             <div className='discover'>
               <div className='title-how'>
@@ -480,7 +481,7 @@ const Principal = () => {
                 <button className='process' onClick={() => setCurrentGif(2)}>
                   <div className='text'>
                     <h3> {t['Work delivered']} </h3>
-                    <p>{t['After processing the information, the digital employee provides you with reports, charts, etc., so that your information is ready']}</p>
+                    <p>{t['Consolidated information provided through management dashboards, so you always have your information visible and easy to process']}</p>
                   </div>
                 </button>
               </div>
@@ -502,7 +503,7 @@ const Principal = () => {
             <h2 className='subtitle'> {t['Connect financial data and understand behavior']}</h2>
 
             <p>
-              {t['ARI is the software-based workforce powered by']} <span> {t['artificial intelligence']} </span> ,{t['that autonomously executes end-to-end work processes using a diverse set of skills']}
+              {t['ARI is the software-based workforce powered by']} <span> {t['artificial intelligence']} </span> , {t['that autonomously executes end-to-end work processes using a diverse set of skills']}
             </p>
           </div>
 
@@ -683,7 +684,7 @@ const Principal = () => {
           </div>
 
           <div className='home-social-copy'>
-            <p>Copyright © 2024 Innovativa lab</p>
+            <p>Copyright © 2024 ARI Digital Employees</p>
           </div>
         </section>
       </footer>

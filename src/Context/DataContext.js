@@ -28,7 +28,7 @@ export const DataContextProvider = ({ children }) => {
 
   const router = useRouter()
   const { locale } = router
-  const l = locale === 'en' ? en : es
+  const l = locale === 'es' ? es : en
 
   // Función para manejar el cierre de sesión
   async function logout () {

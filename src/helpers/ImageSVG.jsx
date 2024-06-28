@@ -12,11 +12,9 @@ import { RiMenu3Line, RiCloseLine } from 'react-icons/ri'
 import { GrFormPrevious, GrFormNext } from 'react-icons/gr'
 
 // icons of bpass
-
 import Iconspain from '../../public/icons/spain.svg'
 import Iconeeuu from '../../public/icons/eeuu.svg'
 import IconPerson from '../../public/img/new-icons/person.svg'
-import IconProfile from '../../public/img/new-icons/profile.svg'
 import bot from '../../public/img/bot2.png'
 
 const ImageSvg = ({ name }) => {
