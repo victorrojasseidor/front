@@ -47,7 +47,7 @@ const nextConfig = {
   },
   i18n: {
     locales: ['en', 'es'],
-    defaultLocale: 'en'
+    defaultLocale: 'es'
   },
   reactStrictMode: true,
   async headers () {
