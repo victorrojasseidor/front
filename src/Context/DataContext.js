@@ -32,6 +32,9 @@ export const DataContextProvider = ({ children }) => {
 
   const [l, setL] = useState(initialLocale === 'es' ? es : en);
 
+
+  console.log('locale', locale,initialLocale );
+
   // Función para manejar el cierre de sesión
   async function logout() {
     setIsLogout(true);
