@@ -16,7 +16,6 @@ export const useAuth = () => {
 };
 
 export const DataContextProvider = ({ children }) => {
-  // State para almacenar los datos del usuario
   const [session, setSession] = useState(null);
   const [isMenuLateralOpen, setMenuLateralOpen] = useState(true);
   const [modalToken, setModalToken] = useState(false);
@@ -27,34 +26,25 @@ export const DataContextProvider = ({ children }) => {
   const [idCountry, setIdCountry] = useState(1);
 
   const router = useRouter();
-  const { locale } = router;
-  const initialLocale = locale || 'es'; // Usar 'es' si locale no está definido
-
+  const initialLocale = router.locale || 'es';
+  const [locale, setLocale] = useState(initialLocale);
   const [l, setL] = useState(initialLocale === 'es' ? es : en);
 
+  const updateLanguage = (newLocale) => {
+    setLocale(newLocale);
+    setL(newLocale === 'es' ? es : en);
+    router.push(router.pathname, router.asPath, { locale: newLocale });
+  };
 
-  console.log('locale', locale,initialLocale );
-
-  // Función para manejar el cierre de sesión
-  async function logout() {
+  const logout = async () => {
     setIsLogout(true);
     setIsLoading(true);
     try {
       router.push('/login');
       const token = session.sToken;
-      const body = {
-        oResults: {},
-      };
-
-      const response = await fetchConTokenPost('BPasS/?Accion=SalidaUsuario', body, token);
-
-      if (
-        response.oAuditResponse?.iCode === 1 ||
-        response.oAuditResponse?.iCode === 4 ||
-        response.oAuditResponse?.iCode === 9
-      ) {
+      const response = await fetchConTokenPost('BPasS/?Accion=SalidaUsuario', { oResults: {} }, token);
+      if ([1, 4, 9].includes(response.oAuditResponse?.iCode)) {
         console.log('ejecutaste logout');
-
         setdataProfileStart(null);
         setSession(null);
         localStorage.removeItem('session');
@@ -64,11 +54,10 @@ export const DataContextProvider = ({ children }) => {
     } catch (error) {
       console.log('error en logout del servicio', error);
     } finally {
-      setIsLoading(false); // Ocultar el indicador de carga después de que la petición se complete
+      setIsLoading(false);
     }
-  }
+  };
 
-  // UseEffect para cargar la sesión desde el almacenamiento local al montar el componente
   useEffect(() => {
     const storedSession = localStorage.getItem('session');
     if (storedSession) {
@@ -78,23 +67,21 @@ export const DataContextProvider = ({ children }) => {
     }
   }, []);
 
-  // UseEffect para actualizar el idioma según locale
-  useEffect(() => {
-    const newLang = locale === 'es' ? es : en;
-    setL(newLang);
-  }, [locale]);
-
-  // Guardar sesión en localStorage
   useEffect(() => {
     if (session) {
       localStorage.setItem('session', JSON.stringify(session));
     }
   }, [session]);
 
+  useEffect(() => {
+    const newLang = locale === 'es' ? es : en;
+    setL(newLang);
+  }, [locale]);
+
   return (
     <DataContext.Provider
       value={{
-        locale: initialLocale,
+        locale,
         dataProfileStart,
         setdataProfileStart,
         session,
@@ -111,6 +98,7 @@ export const DataContextProvider = ({ children }) => {
         setIdCountry,
         isMenuLateralOpen,
         setMenuLateralOpen,
+        updateLanguage,
       }}
     >
       {children}

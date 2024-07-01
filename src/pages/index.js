@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { useAuth } from '@/Context/DataContext'
 import Principal from './inicio'
 
-
 export default function Inicio () {
   const { l } = useAuth()
 
