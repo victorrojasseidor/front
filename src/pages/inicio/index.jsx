@@ -50,10 +50,10 @@ const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
   return (
     <div className='digital-content'>
       <div className='digital-description'>
-        <h2>{title}</h2>
+        <h3>{title}</h3>
         <p>{description}</p>
         <div className='digital-list'>
-          <h4>{t.Skills}</h4>
+          <h5>{t.Skills}</h5>
           <ul>
             {relatedItems.map((item, index) => (
               <li key={index} className='digital-item'>

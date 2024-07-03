@@ -55,6 +55,10 @@
           border-radius: brd(2);
           width: 7rem;
           height: 8rem;
+          @include media(extradesktop) {
+            width: min-content;
+          }
+
 
           h4 {
             display: flex;

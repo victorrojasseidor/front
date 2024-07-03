@@ -427,6 +427,13 @@
       flex-wrap: nowrap;
       padding: 1rem 4rem 1rem 5rem;
     }
+    
+    @include media(extradesktop) {
+      justify-content: center;
+    }
+
+
+
 
     .sombra {
       right: -70%; /* Ajusta según sea necesario */
@@ -737,6 +744,10 @@
         &.active {
           display: block;
           opacity: 1;
+          max-width: 81vw;
+          @include media(tablet) {
+            max-width: 100%;
+          }
         }
       }
 
@@ -747,6 +758,7 @@
 
         &:nth-child(2) {
           display: none;
+          // border-style: none;
 
           @include media(tablet) {
             display: flex;
@@ -769,6 +781,11 @@
           @include media(tablet) {
             width: 20rem;
             padding: 1rem 0rem 1rem 0rem;
+          }
+
+          @include media(extradesktop) {
+            width: 25vw;
+          
           }
 
           .digital-list {
@@ -835,7 +852,7 @@
 
       &:nth-child(2) {
         @include media(tablet) {
-          flex: 0 0 30%; // Segundo elemento ocupa 30% del ancho
+          flex: 0 0 40%; // Segundo elemento ocupa 30% del ancho
           overflow: hidden; // Asegura que el contenido extra se oculte
           position: relative;
 
@@ -1024,6 +1041,11 @@
           color: rgba(get-color(grey2_s4), 0.5);
           text-align: start;
           font-size: 0.9rem;
+
+          @include media(extradesktop) {
+            font-size: 1.2rem;
+            
+          }
         }
 
         button {
@@ -1323,7 +1345,9 @@
           display: flex;
           flex-direction: column;
           gap: 1rem;
+
           h4 {
+            margin-top: 1rem;
             color: get-color(grey1_s3);
           }
 

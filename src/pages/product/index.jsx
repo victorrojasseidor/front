@@ -314,9 +314,9 @@ export default function Products () {
           <span className='outstanding-image' />
 
           <div className='welcome'>
-            <h1>
+            <h2>
               {t.Welcome},<span className='text'> {empresa?.razon_social_empresa} </span>
-            </h1>
+            </h2>
             <p> {t['Our digital employees work to improve your productivity']}</p>
           </div>
 
