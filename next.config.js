@@ -1,44 +1,9 @@
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   experimental: {
-//     appDir: true
-//   },
-//   eslint: {
-//     ignoreDuringBuilds: true
-//   },
-//   i18n: {
-//     locales: ['en', 'es'],
-//     defaultLocale: 'en'
-
-//   },
-//   reactStrictMode: true,
-//   async headers () {
-//     return [
-//       {
-//         source: '/api/:path*',
-//         headers: [
-//           { key: 'Access-Control-Allow-Origin', value: 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com' },
-
-//           { key: 'Access-Control-Allow-Methods', value: 'GET, POST, OPTIONS, PUT, DELETE' },
-//           { key: 'Access-Control-Allow-Headers', value: 'Content-Type, Authorization' }
-//         ]
-//       }
-//     ]
-//   },
-
-//   webpack: (config) => {
-//     config.resolve.alias = {
-//       ...config.resolve.alias,
-//       jquery: 'jquery'
-//     }
-//     return config
-//   }
-// }
 
 // module.exports = nextConfig
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output:'standalone',
   experimental: {
     appDir: true
   },
