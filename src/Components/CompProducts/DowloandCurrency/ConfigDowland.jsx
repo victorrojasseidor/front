@@ -44,8 +44,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
 
   const t = l.Download
 
-  console.log({ data })
-
+ 
   async function handleCommonCodes (response) {
     if (response.oAuditResponse?.iCode === 27) {
       setModalToken(true)
@@ -187,10 +186,12 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
       }
     }
 
+
+
     try {
       const token = session.sToken
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token)
-      
+     
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false)
         const dataRes = responseData.oResults

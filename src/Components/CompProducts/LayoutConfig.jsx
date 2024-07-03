@@ -26,6 +26,8 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
     const t = l.Products
   }, [id, idEmpresa, session, t])
 
+  
+
   const handleTabClick = (index) => {
     if (index === 0) {
       if (product.iCodeStatus === 27 || product.iCodeStatus === 31) {

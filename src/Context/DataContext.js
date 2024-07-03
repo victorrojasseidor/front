@@ -30,14 +30,18 @@ export const DataContextProvider = ({ children }) => {
   const [locale, setLocale] = useState(initialLocale)
   const [l, setL] = useState(initialLocale === 'es' ? es : en)
 
-
- console.log('locale', router.locale)
-
   const updateLanguage = (newLocale) => {
     setLocale(newLocale)
     setL(newLocale === 'es' ? es : en)
-    router.push(router.pathname, router.asPath, { locale: newLocale })
+    const newUrl = new URL(window.location.href)
+    newUrl.searchParams.set('locale', newLocale)
+    router.push(newUrl.pathname + newUrl.search, undefined, { locale: newLocale })
   }
+
+  useEffect(() => {
+    const newLang = locale === 'es' ? es : en
+    setL(newLang)
+  }, [locale])
 
   const logout = async () => {
     setIsLogout(true)
@@ -75,11 +79,6 @@ export const DataContextProvider = ({ children }) => {
       localStorage.setItem('session', JSON.stringify(session))
     }
   }, [session])
-
-  useEffect(() => {
-    const newLang = locale === 'es' ? es : en
-    setL(newLang)
-  }, [locale])
 
   return (
     <DataContext.Provider
