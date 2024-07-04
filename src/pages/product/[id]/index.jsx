@@ -8,19 +8,19 @@ export default function productId () {
   const [activeTab, setActiveTab] = useState(0)
   const [component, setComponent] = useState(null)
   const router = useRouter()
-  const iId = router.query.iId
-  const iIdProdEnv = router.query.iIdProdEnv
-  const type = router.query.type
-  const pStatus = router.query.pStatus
-  const idEmpresa = router.query.idEmpresa
+  const { iId, iIdProdEnv, type, pStatus, idEmpresa } = router.query
 
   useEffect(() => {
+    if (!router.isReady) return
+
     const selectComponentes = componentsProduct?.find((p) => p.iId === parseInt(iId))
     setComponent(selectComponentes)
 
     // Establecer la pestaña activa basada en el tipo
     setActiveTab(getTypeValueTab(type))
-  }, [iId, type, iIdProdEnv]) // Se ejecutará cuando cambie iId o type
+  }, [router.isReady, iId, type, iIdProdEnv]) // Se ejecutará cuando cambie iId, type o iIdProdEnv
+
+
 
   function getTypeValueTab (typeTab) {
     switch (typeTab) {
@@ -38,7 +38,7 @@ export default function productId () {
   }
 
   return (
-    <LayoutConfig id={iId} idEmpresa={idEmpresa} iIdProdEnv={iIdProdEnv} defaultTab={getTypeValueTab(type) ? getTypeValueTab(type) : activeTab}>
+    <LayoutConfig id={iId} idEmpresa={Number(idEmpresa)} iIdProdEnv={parseInt(iIdProdEnv)} defaultTab={getTypeValueTab(type) ? getTypeValueTab(type) : activeTab}>
       {component?.configuration}
     </LayoutConfig>
   )

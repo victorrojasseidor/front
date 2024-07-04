@@ -196,7 +196,7 @@
       align-items: flex-start;
       gap: 1rem;
 
-      h1 {
+      h2 {
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
@@ -216,12 +216,7 @@
 
           @include media(tablet) {
             color: get-color(white_s1);
-            /*gradienets de texto*/
-            // color: transparent;
-            // background-image: linear-gradient(to right, #91e2cd, get-color(t5-green), #e78ae3, #df43d7, get-color(pink_s5),  #5ea5f1,  get-color(blue_p1));
-            // background-clip: text;
-            // animation: colorGrad 12s linear infinite;
-            // background-size: 400%;
+           
           }
         }
       }
