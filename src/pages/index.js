@@ -37,6 +37,7 @@ export default function Inicio () {
         <meta name='msapplication-TileColor' content='#da532c' />
         <meta name='theme-color' content='#ffffff' />
         <meta name="google-site-verification" content="itaBlndKny_4x9v8etJviXHwNkS1MOoY2AaMq_li898" />
+        
 
         {/* Fonts */}
         <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap' rel='stylesheet' />
