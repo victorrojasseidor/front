@@ -14,7 +14,7 @@ import FormControl from '@mui/material/FormControl'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import Modal from '../Modal'
 import ImageSvg from '@/helpers/ImageSVG'
-import { getProducts } from '@/helpers/auth'
+
 import { IconDate, IconArrow } from '@/helpers/report'
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
@@ -22,11 +22,10 @@ import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
 import FormHelperText from '@mui/material/FormHelperText'
 import Select from '@mui/material/Select'
-import { GiH2O } from 'react-icons/gi'
 import CaptchaConfig from './CaptchaConfig'
 
 export default function Apiconfiguration ({ nameEmpresa }) {
-  const { session, setModalToken, logout, l, idCountry } = useAuth()
+  const { session, setModalToken, logout, l, idCountry ,getProducts} = useAuth()
   const [product, setProduct] = useState(null)
   const [selectContract, setSelectContract] = useState('other')
   const [contracOther, setContractOther] = useState('')

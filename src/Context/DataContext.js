@@ -5,6 +5,8 @@ import { useRouter } from 'next/router'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import Loading from '@/Components/Atoms/Loading'
 
+
+
 const DataContext = createContext()
 
 export const useAuth = () => {
@@ -27,21 +29,19 @@ export const DataContextProvider = ({ children }) => {
 
   const router = useRouter()
   const initialLocale = router.locale || 'es'
-  const [locale, setLocale] = useState(initialLocale)
   const [l, setL] = useState(initialLocale === 'es' ? es : en)
 
   const updateLanguage = (newLocale) => {
-    setLocale(newLocale)
     setL(newLocale === 'es' ? es : en)
-    const newUrl = new URL(window.location.href)
-    newUrl.searchParams.set('locale', newLocale)
-    router.push(newUrl.pathname + newUrl.search, undefined, { locale: newLocale })
+    const { pathname, asPath, query } = router
+    router.push({ pathname, query }, asPath, { locale: newLocale })
   }
 
   useEffect(() => {
-    const newLang = locale === 'es' ? es : en
-    setL(newLang)
-  }, [locale])
+    setL(router.locale === 'es' ? es : en)
+  }, [router.locale])
+
+  //funciones globales 
 
   const logout = async () => {
     setIsLogout(true)
@@ -65,6 +65,45 @@ export const DataContextProvider = ({ children }) => {
     }
   }
 
+
+
+const  refresToken= async (token) =>{
+  const bodyToken = {
+    oResults: {
+
+    }
+  }
+
+  try {
+    const resp = await fetchConTokenPost('General/?Accion=RefreshToken', bodyToken, token)
+    return resp
+  } catch (error) {
+    console.error('Error:', error)
+    throw new Error('Hubo un error en la operación asincrónica de refres token')
+  }
+}
+
+const  getProducts =async (idEmpresa, token, idCountry) =>{
+  const body = {
+    oResults: {
+      iIdEmpresa: idEmpresa,
+      iIdPais: idCountry
+    }
+  }
+
+  try {
+    const resp = await fetchConTokenPost('BPasS/?Accion=ConsultaProductoEmpresa', body, token, l===es?'es':"en")
+    return resp
+  } catch (error) {
+    console.error('Error:', error)
+    throw new Error('Hubo un error en la operación asincrónica de token')
+  }
+}
+
+
+
+
+
   useEffect(() => {
     const storedSession = localStorage.getItem('session')
     if (storedSession) {
@@ -83,17 +122,19 @@ export const DataContextProvider = ({ children }) => {
   return (
     <DataContext.Provider
       value={{
-        locale,
         dataProfileStart,
         setdataProfileStart,
         session,
         setSession,
         logout,
+        getProducts,
+        refresToken,
         modalToken,
         setModalToken,
         empresa,
         setEmpresa,
         l,
+        initialLocale, 
         isLogout,
         setIsLogout,
         idCountry,

@@ -9,12 +9,12 @@ import ImageSvg from '@/helpers/ImageSVG'
 import { useRouter } from 'next/router'
 import imgfree from '../../public/img/contactanos.png'
 import Loading from '@/Components/Atoms/Loading'
-import { getProducts } from '@/helpers/auth'
+
 
 function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
   const [error, SetError] = useState(null)
   const [confirm, SetConfirm] = useState(false)
-  const { session, setModalToken, l, logout, idCountry } = useAuth()
+  const { session, setModalToken, l, logout, idCountry, getProducts } = useAuth()
   const [product, setProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [requestError, setRequestError] = useState()

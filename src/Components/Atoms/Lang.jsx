@@ -1,22 +1,26 @@
 import React from 'react';
 import { useAuth } from '@/Context/DataContext';
 import ImageSvg from '@/helpers/ImageSVG';
+import { useRouter } from 'next/router'
 
 export default function Lang() {
-  const { locale, updateLanguage } = useAuth(); // Using updateLanguage from context
+  const { l, updateLanguage  } = useAuth(); // Using updateLanguage from context
 
   const handleChangeLocale = (newLocale) => {
     updateLanguage(newLocale); // Update language in context
   };
 
+ const router = useRouter()
+  const initialLocale = router.locale || 'es'
+
   return (
     <>
       <ImageSvg name='Lang' />
       <div className="languajes">
-        <button onClick={() => handleChangeLocale('en')} className={locale === 'en' ? 'lang_active' : ''}>
+        <button onClick={() => handleChangeLocale('en')} className={initialLocale === 'en' ? 'lang_active' : ''}>
           en
         </button>
-        <button onClick={() => handleChangeLocale('es')} className={locale === 'es' ? 'lang_active' : ''}>
+        <button onClick={() => handleChangeLocale('es')} className={initialLocale === 'es' ? 'lang_active' : ''}>
           es
         </button>
       </div>
