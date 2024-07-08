@@ -3,7 +3,7 @@
 // - Opciones iniciales
 $optionsInit: (
   fz-init: 16px,
-  num-spaces: 10,
+  num-spaces: 8,
 );
 @function option($var) {
   @return map-get($optionsInit, $var);

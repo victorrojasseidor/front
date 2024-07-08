@@ -9,7 +9,6 @@ import Modal from '@/Components/Modal'
 import Loading from '@/Components/Atoms/Loading'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
 import ConfigAccount from './ConfigAccount'
-import { getProducts } from '@/helpers/auth'
 import { formatDate } from '@/helpers/report'
 
 export default function ConfigDowland ({ getBank, registerBank, updateBank, deleteBank, registerAccount, updateAccount, deleteAccount }) {
@@ -40,7 +39,7 @@ export default function ConfigDowland ({ getBank, registerBank, updateBank, dele
   const iId = router.query.iId
   const idEmpresa = router.query.idEmpresa
 
-  const { session, setModalToken, logout, l, idCountry } = useAuth()
+  const { session, setModalToken, logout, l, idCountry,getProducts } = useAuth()
 
   const t = l.Download
 

@@ -8,7 +8,6 @@ import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik'
 import { countryOptions } from '@/helpers/contry'
 import { validateFormprofilestart } from '@/helpers/validateForms'
 import { fetchConTokenPost, fetchNoTokenPost, decodeText } from '@/helpers/fetch'
-import { refresToken } from '@/helpers/auth'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import FormHelperText from '@mui/material/FormHelperText'
@@ -30,7 +29,7 @@ export default function profile () {
   // Nuevo estado para la empresa seleccionada
   const [selectedCompanies, setSelectedCompanies] = useState()
 
-  const { session, setSession, setModalToken, logout, l } = useAuth()
+  const { session, setSession, setModalToken, logout, l ,refresToken } = useAuth()
 
   const t = l.profile
   const router = useRouter()
@@ -40,15 +39,7 @@ export default function profile () {
     setCountrySelect(valueSelect)
   }
 
-  // const toggleCompanySelection = (companyId) => {
-  //   if (selectedCompanies.includes(companyId)) {
-  //     const seletcompany = selectedCompanies.filter((id) => id !== companyId)
-  //     setSelectedCompanies(seletcompany)
-  //   } else {
-  //     setSelectedCompanies([...selectedCompanies, companyId])
-  //   }
-  // }
-
+ 
   useEffect(() => {
     setSelectedCompanies(session?.oEmpresa)
   }, [])

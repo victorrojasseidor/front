@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import LayoutProducts from '@/Components/LayoutProducts'
 import FreeTrial from '@/Components/FreeTrial'
-import { getProducts } from '@/helpers/auth'
+
 import { useAuth } from '@/Context/DataContext'
 import Link from 'next/link'
 import ImageSvg from '@/helpers/ImageSVG'
@@ -14,7 +14,7 @@ export default function LayoutConfig ({ id, iIdProdEnv, defaultTab, children, Na
   const [activeTab, setActiveTab] = useState(defaultTab || 0)
   const [component, setComponent] = useState(null)
 
-  const { session, setModalToken, l, logout, idCountry } = useAuth()
+  const { session, setModalToken, l, logout, idCountry , getProducts} = useAuth()
 
   const router = useRouter()
 

@@ -5,7 +5,6 @@ import ImageSvg from '@/helpers/ImageSVG'
 import { useRouter } from 'next/router'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import Loading from '@/Components/Atoms/Loading'
-import { refresToken } from '@/helpers/auth'
 import { useAuth } from '@/Context/DataContext'
 
 function LoginConfirmed () {
@@ -18,7 +17,7 @@ function LoginConfirmed () {
   const [error, setError] = useState(null)
   const [show, setShow] = useState(true)
 
-  const { l } = useAuth()
+  const { l ,refresToken} = useAuth()
 
   const t = l.login
 

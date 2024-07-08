@@ -4,14 +4,13 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
 import { useAuth } from '@/Context/DataContext'
-import { getProducts } from '@/helpers/auth'
 import NavigationPages from '@/Components/NavigationPages'
 import Loading from '@/Components/Atoms/Loading'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import { fetchConTokenPost } from '@/helpers/fetch'
 import Counter from '@/Components/Atoms/Counter'
-import { log } from 'react-modal/lib/helpers/ariaAppHider'
+
 
 export default function Products () {
   const [searchQuery, setSearchQuery] = useState('')
@@ -25,7 +24,7 @@ export default function Products () {
   const [hiredProduct, setHiredProduct] = useState('0')
   const [clasTrans, setClasTrans] = useState('')
   const [dataCabecera, setDataCabecera] = useState(null)
-  const { session, setModalToken, logout, l, empresa, setEmpresa, idCountry } = useAuth()
+  const { session, setModalToken, logout, l,  empresa, setEmpresa, idCountry ,getProducts } = useAuth()
 
   // Nuevo estado para opciones de búsqueda de empresas
   const [companyOptions, setCompanyOptions] = useState([])
@@ -38,7 +37,7 @@ export default function Products () {
       getProductscard()
       ConsultaCabeceraEmpresa()
     }
-  }, [session, empresa, l, selectedFilterType])
+  }, [session, empresa, l,  selectedFilterType])
 
   async function getProductscard () {
     setIsLoading(true)

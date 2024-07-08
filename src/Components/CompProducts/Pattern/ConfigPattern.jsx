@@ -6,7 +6,6 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import { useRouter } from 'next/router'
 import Modal from '@/Components/Modal'
 import LoadingComponent from '@/Components/Atoms/LoadingComponent'
-import { getProducts } from '@/helpers/auth'
 import { formatDate } from '@/helpers/report'
 import FormPatters from './FormPatters'
 
@@ -39,7 +38,7 @@ export default function ConfigPattern () {
   const iId = router.query.iId
   const idEmpresa = router.query.idEmpresa
 
-  const { session, setModalToken, logout, l, idCountry } = useAuth()
+  const { session, setModalToken, logout, l, idCountry, getProducts } = useAuth()
 
   const t = l.Pattern
 
