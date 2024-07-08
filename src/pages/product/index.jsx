@@ -216,6 +216,13 @@ export default function Products () {
       return 'IconCaptcha'
     } else if (id === 6) {
       return 'IconImage'
+
+    } else if (id === 7) {
+      return 'IconMass'
+    
+  } else if (id === 8) {
+    return 'IconSupplier'
+  
     } else return 'IconCard'
   }
 
@@ -501,6 +508,58 @@ export default function Products () {
                 <div className='box-img'>
                   <div className='type_icon'>
                     <ImageSvg name={imgProduct(3)} />
+                  </div>
+                </div>
+
+                <div className='status-box'>
+                  <p> {t['Not hired']}</p>
+                  <Link href='https://www.innovativa.la/digitalemployee'>{t['View more']}</Link>
+                </div>
+              </div>
+            </li>
+
+            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
+              <span className='card_type'>{t['Finance and accounting']}</span>
+
+              <div className='card_name'>
+                <h4> {t['Mass update of deduction records']}</h4>
+
+                <p className='dayLetf'>
+                  {/* <ImageSvg name='Time' /> */}
+                  {/* {t['Days left:']} .. */}
+                </p>
+              </div>
+
+              <div className='card_actions'>
+                <div className='box-img'>
+                  <div className='type_icon'>
+                    <ImageSvg name={imgProduct(7)} />
+                  </div>
+                </div>
+
+                <div className='status-box'>
+                  <p> {t['Not hired']}</p>
+                  <Link href='https://www.innovativa.la/digitalemployee'>{t['View more']}</Link>
+                </div>
+              </div>
+            </li>
+
+            <li className='card financy' style={{ display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none' }}>
+              <span className='card_type'>{t['Finance and accounting']}</span>
+
+              <div className='card_name'>
+                <h4> {t['Supplier validation']}</h4>
+
+                <p className='dayLetf'>
+                  {/* <ImageSvg name='Time' /> */}
+                  {/* {t['Days left:']} .. */}
+                </p>
+              </div>
+
+              <div className='card_actions'>
+                <div className='box-img'>
+                  <div className='type_icon'>
+                    <ImageSvg name={imgProduct(8)} />
                   </div>
                 </div>
 

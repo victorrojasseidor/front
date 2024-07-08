@@ -131,7 +131,12 @@ p{
   
   .card_actions{
     background: linear-gradient(to right, rgba(get-color($color), 0.6), rgba(get-color($color), 1));
-    // background-color: rgba(get-color($color), 1);
+   
+    // background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
+
+    background-size: 150% 200%;
+    -webkit-animation: gradientHome 15s ease infinite;
+    animation: gradientHome 5s ease infinite;
   }
 
  

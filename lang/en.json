@@ -270,7 +270,10 @@
     "Download account statements": "Download account statements",
     "AFP validation": "AFP validation",
     "Captcha Solving Service": "Captcha Solving Service",
-    "Image text extraction Service": "Image text extraction Service"
+    "Image text extraction Service": "Image text extraction Service",
+    "Mass update of deduction records":"Mass update of deduction records",
+    "Supplier validation":"Supplier validation"
+
   },
   "Apiconfuguration": {
     "Service configuration status": "Service configuration status",

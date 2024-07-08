@@ -340,7 +340,7 @@
       }
 
       @include media(desktop) {
-        justify-content: space-evenly;
+        justify-content: flex-start;
       }
 
       @include media(extradesktop) {
@@ -460,6 +460,8 @@
     flex-wrap: nowrap;
     border-radius: brd(2);
     gap: 1rem;
+   
+
     @include center-container;
 
     .status-box {
