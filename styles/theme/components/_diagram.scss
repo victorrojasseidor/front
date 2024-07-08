@@ -17,7 +17,7 @@ $common-container-color: get-color(t5-green);
     path {
       fill: transparent;
       stroke: $line-color;
-      stroke-width: 2px;
+      strokeWidth: 2px;
       animation: dashed 1s infinite;
     }
   }

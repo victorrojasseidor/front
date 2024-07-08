@@ -11,11 +11,12 @@ export default function Inicio () {
   return (
     <>
       <Head>
-        <title>{t['Ari - Leader in Automated Processes']}</title>
+        
         <meta name='description' content={t['Ari is a platform to automate processes and free up time for your employees. Get digital employees for finance, accounting, technology, and human resources. Solutions include: downloading bank statements, automating exchange rates, SUNAT tax records, invoice registration, text extraction from images, captcha resolution, and AFP validation, click here!']} />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta charSet='utf-8' />
         <meta httpEquiv='x-ua-compatible' content='ie=edge' />
+        <title>{t['Ari - Leader in Automated Processes']}</title>
 
         {/* Open Graph Meta Tags */}
         <meta property='og:site_name' content={t['Ari - process automation']} />
@@ -62,10 +63,7 @@ export default function Inicio () {
             }}
           />
       </Head>
-
     
-
-
       <body>
         <Principal />
       </body>
