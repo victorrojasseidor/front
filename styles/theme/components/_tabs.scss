@@ -286,6 +286,8 @@
         width: 10rem; // Ajusta la longitud de la línea según tus necesidades
         transform: translateY(-1px);
         border-bottom: 2px dashed get-color(grey2_s4); // Ajusta la posición vertical
+     
+        
       }
 
       &:last-child::after {
@@ -299,6 +301,9 @@
         width: 4.2rem; // Ajusta la longitud de la línea según tus necesidades
         transform: translateY(-1px);
         border-bottom: 2px dashed get-color(grey2_s4); // Ajusta la posición vertical
+        @include media(desktop) {
+          width: 5rem; // Ajusta la longitud de la línea según tus necesidades
+        }
       }
 
       &:first-child::after {
@@ -314,7 +319,9 @@
       
           background-color: get-color(grey1_s3);
 
-
+          @include media(desktop) {
+            width: 5rem; // Ajusta la longitud de la línea según tus necesidades
+          }
       
        
       }

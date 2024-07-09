@@ -637,8 +637,19 @@
     font-size: 0.875rem;
     color: inherit;
     text-align: center;
-    line-height: 24px;
+    line-height: 1rem;
     cursor: pointer;
+ 
+// //  // texto maximo widt 
+//     max-width: 9rem;
+//     overflow: hidden;
+//     justify-content: flex-start;
+//     text-wrap: nowrap;
+//     text-overflow: ellipsis;
+// //     white-space: nowrap; /* No permitir salto de línea */
+// //     text-transform: capitalize;
+// //     background-color: #88f3f1;
+   
 
     &:hover,
     & :focus {

@@ -53,10 +53,12 @@
           justify-content: flex-start;
           align-items: center;
           border-radius: brd(2);
-          width: 7rem;
+          width: 6rem;
           height: 8rem;
           @include media(extradesktop) {
             width: min-content;
+            width: 7rem;
+          height: 8rem;
           }
 
 
