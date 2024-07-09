@@ -287,7 +287,9 @@
         transform: translateY(-1px);
         border-bottom: 2px dashed get-color(grey2_s4); // Ajusta la posición vertical
      
-        
+        @include media(desktop) {
+          width: 11rem;
+        }
       }
 
       &:last-child::after {

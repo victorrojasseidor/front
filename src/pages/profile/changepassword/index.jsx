@@ -102,7 +102,7 @@ export default function changepassword () {
         <div className='style-container'>
 
           <div className='register'>
-            <h1> {t['Update password']}</h1>
+            <h2> {t['Update password']}</h2>
             <p>{t['Please enter the correct current password and the desired new password']}  </p>
 
             <Formik

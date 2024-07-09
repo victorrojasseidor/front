@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import imgfree from '../../../public/img/contactanos.png'
+import imgfree from '../../../public/img/contactanos.webp'
 
 import Image from 'next/image'
 import { Formik, Field, ErrorMessage, Form } from 'formik'
@@ -97,7 +97,7 @@ function Support () {
 
       <div className='freetrial'>
         <div className='freetrial_description'>
-          <h1> {t['Contact us']} </h1>
+          <h2> {t['Contact us']} </h2>
 
           <div>
             {/* <h4> Your satisfaction is our top priority!</h4> */}

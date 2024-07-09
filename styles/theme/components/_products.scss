@@ -183,7 +183,7 @@
 
     @include media(tablet) {
       padding: 2rem;
-      background: url("../../../public/img/home.JPG") center top no-repeat, transparent;
+      background: url("../../../public/img/home.webp") center top no-repeat, transparent;
       background-size: cover, auto; /* Ajusta el tamaño de la imagen al contenedor */
       // background-position: left bottom;
     }
@@ -237,8 +237,7 @@
         z-index: 1;
         left: 0;
         bottom: 0;
-
-        background: url("../../../public/img/home-3.png") no-repeat;
+        background: url("../../../public/img/home-3.webp") no-repeat;
         background-size: contain;
       }
 

@@ -15,7 +15,7 @@ import { GrFormPrevious, GrFormNext } from 'react-icons/gr'
 import Iconspain from '../../public/icons/spain.svg'
 import Iconeeuu from '../../public/icons/eeuu.svg'
 import IconPerson from '../../public/img/new-icons/person.svg'
-import bot from '../../public/img/bot2.png'
+import bot from '../../public/img/bot2.webp'
 
 const ImageSvg = ({ name }) => {
   const gradientStyle = {

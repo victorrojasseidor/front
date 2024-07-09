@@ -282,6 +282,7 @@
         p {
           color: get-color(t2-ligthBlue);
           font-weight: 500;
+         
         }
         span {
           color: get-color(grey2_s4);
@@ -745,7 +746,7 @@
 
 .fondoPerfil {
   //  background-image: src;
-  // background-image: url("../../../public/img/fondo_Perfil.png");
+ 
   // background-size: 6rem;
   background-color: rgba(get-color(t2-ligthBlue), 0.2) !important;
   // border-radius: brd(f) !important;

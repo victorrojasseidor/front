@@ -7,7 +7,7 @@ import { fetchConTokenPost } from '@/helpers/fetch'
 import Modal from './Modal'
 import ImageSvg from '@/helpers/ImageSVG'
 import { useRouter } from 'next/router'
-import imgfree from '../../public/img/contactanos.png'
+import imgfree from '../../public/img/contactanos.webp'
 import Loading from '@/Components/Atoms/Loading'
 
 
@@ -116,7 +116,7 @@ function FreeTrial ({ sProduct, nameProduct, iIdProd }) {
     <div className='freetrial'>
 
       <div className='freetrial_description'>
-        <h1> {t['Free trial']} </h1>
+        <h2> {t['Free trial']} </h2>
 
         <div>
           {/* <h4> Your satisfaction is our top priority!</h4> */}

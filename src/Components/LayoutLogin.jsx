@@ -1,7 +1,7 @@
 import React from 'react'
 import Lang from './Atoms/Lang'
 import Image from 'next/image'
-import logoOscuro from '../../public/img/logoOscuro.png'
+import logoOscuro from '../../public/img/logoOscuro.webp'
 import TextAnimation from './Atoms/TextAnimation'
 
 export default function LayoutLogin ({ children }) {

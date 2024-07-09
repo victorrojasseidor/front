@@ -1,39 +1,34 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import user1 from '../../../public/img/testimonials/user1.png'
-import user2 from '../../../public/img/testimonials/user2.png'
-import user3 from '../../../public/img/testimonials/user3.png'
-import user4 from '../../../public/img/testimonials/user4.png'
-import user5 from '../../../public/img/testimonials/user5.png'
 import gif1 from '../../../public/img/video/gif1.gif'
 import gif2 from '../../../public/img/video/gif2.gif'
 import gif3 from '../../../public/img/video/gif3.gif'
 import Link from 'next/link'
 import Lang from '@/Components/Atoms/Lang'
-import LogoOscuro from '../../../public/img/logoOscuro.png'
+import LogoOscuro from '../../../public/img/logoOscuro.webp'
 import flujoAri from '../../../public/img/flujoAri.gif'
 import ImageSvg from '@/helpers/ImageSVG'
-import finance from '../../../public/img/home-finance.png'
-import rrhh from '../../../public/img/home-rrhh.png'
-import support from '../../../public/img/home-support.png'
-import cloud from '../../../public/img/testimonials/cloud.png'
-import drive from '../../../public/img/testimonials/drive.png'
-import uipath from '../../../public/img/testimonials/uipath.png'
-import sap from '../../../public/img/testimonials/sap.png'
-import ftp from '../../../public/img/testimonials/ftp.png'
-import card1 from '../../../public/img/card-product/card1.png'
-import card2 from '../../../public/img/card-product/card2.png'
-import card3 from '../../../public/img/card-product/card3.png'
-import card4 from '../../../public/img/card-product/card4.png'
-import card5 from '../../../public/img/card-product/card5.png'
-import card6 from '../../../public/img/card-product/card6.png'
-import card7 from '../../../public/img/card-product/card7.png'
-import card8 from '../../../public/img/card-product/card8.png'
+import finance from '../../../public/img/home-finance.webp'
+import rrhh from '../../../public/img/home-rrhh.webp'
+import support from '../../../public/img/home-support.webp'
+import drive from '../../../public/img/testimonials/drive.webp'
+import uipath from '../../../public/img/testimonials/uipath.webp'
+import sap from '../../../public/img/testimonials/sap.webp'
+import microsoftLogo from '../../../public/img/testimonials/Microsoft-Logo.webp'
+import awsLogo from '../../../public/img/testimonials/aws-icon.webp'
+import card1 from '../../../public/img/card-product/card1.webp'
+import card2 from '../../../public/img/card-product/card2.webp'
+import card3 from '../../../public/img/card-product/card3.webp'
+import card4 from '../../../public/img/card-product/card4.webp'
+import card5 from '../../../public/img/card-product/card5.webp'
+import card6 from '../../../public/img/card-product/card6.webp'
+import card7 from '../../../public/img/card-product/card7.webp'
+import card8 from '../../../public/img/card-product/card8.webp'
 import mundo from '../../../public/img/mundo.svg'
 import asistente from '../../../public/img/asistente.webp'
 import telefonoWEB from '../../../public/img/telefono.webp'
-import reporting from '../../../public/img/reporting.png'
-import front from '../../../public/img/front.png'
+import reporting from '../../../public/img/reporting.webp'
+import front from '../../../public/img/front.webp'
 import SphereCanvas from '@/Components/Grafics/SphereCanvas'
 import giftMovil from '../../../public/img/video/giftMovil.gif'
 import { useAuth } from '@/Context/DataContext'
@@ -93,8 +88,6 @@ const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
 }
 
 const Principal = () => {
-  const [selectImage, setSelectImage] = useState(null)
-  const [rotation, setRotation] = useState(0)
 
   const [isGifSectionInView, setIsGifSectionInView] = useState(false)
   const [currentGif, setCurrentGif] = useState(0)
@@ -167,56 +160,7 @@ const Principal = () => {
   const t = l.home
 
   const demoSectionRef = useRef(null)
-
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Ana Perez',
-      position: 'CEO',
-      testimony: 'Incredible service! I am very satisfied with the customer service and the quality of the products.',
-      image: user1
-    },
-    {
-      id: 2,
-      name: 'Carlos Gomez',
-      position: 'Senior Developer',
-      testimony: 'Ari Seidor has exceeded my expectations. Their professional team truly knows how to provide effective solutions.',
-      image: user2
-    },
-    {
-      id: 3,
-      name: 'Maria Rodriguez',
-      position: 'Graphic Designer',
-      testimony: 'I have tried several similar services, but Ari Seidor stands out for its innovation and efficiency.',
-      image: user3
-    },
-    {
-      id: 4,
-      name: 'Juan Lopez',
-      position: 'Data Analyst',
-      testimony: 'Personalized attention and quick delivery make Ari Seidor the best option in the market.',
-      image: user4
-    },
-    {
-      id: 5,
-      name: 'Laura Fernandez',
-      position: 'Marketing Manager',
-      testimony: 'My experience with Ari Seidor has been exceptional. I will definitely recommend their services to my friends.',
-      image: user5
-    }
-  ]
-
-  const changeImage = () => {
-    const nextIndex = (selectImage ? selectImage.id : 0) % testimonials.length
-    setSelectImage(testimonials[nextIndex])
-    setRotation(rotation + 360 / testimonials.length)
-  }
-
-  useEffect(() => {
-    const intervalId = setInterval(changeImage, 2000)
-
-    return () => clearInterval(intervalId)
-  }, [selectImage, rotation, testimonials])
+  
 
   const [activeTab, setActiveTab] = useState('finance')
 
@@ -560,26 +504,33 @@ const Principal = () => {
         </section>
 
         <section className='home-enables container' data-aos='flip-right'>
-          <h2 className='subtitle'> {t['Our enablers']}</h2>
+          <h2 className='subtitle'> Tech Stack </h2>
 
           <div className='box-enables' data-aos='zoom-in'>
+          <button>
+              <Image src={uipath} width='1000' alt='uipath' loading='eager' />
+            </button>
+
             <button>
-              <Image src={cloud} width='1000' alt='cloud' loading='eager' />
+              <Image src={awsLogo} width='1000' alt='awsLogo' loading='eager' />
+            </button>
+
+            <button>
+              <Image src={sap} width='1000' alt='sap' loading='eager' />
+            </button>
+       
+
+            <button>
+              <Image src={microsoftLogo} width='1000' alt='cloud' loading='eager' />
             </button>
 
             <button>
               <Image src={drive} width='1000' alt='drive' loading='eager' />
             </button>
 
-            <button>
-              <Image src={uipath} width='1000' alt='uipath' loading='eager' />
-            </button>
-            <button>
-              <Image src={sap} width='1000' alt='sap' loading='eager' />
-            </button>
-            <button>
-              <Image src={ftp} width='1000' alt='ftp' loading='eager' />
-            </button>
+            
+            
+          
           </div>
         </section>
       </main>
