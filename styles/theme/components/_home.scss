@@ -32,6 +32,7 @@
         @include center-container;
         flex-direction: row;
         gap: 1rem;
+
         a {
           color: get-color(forms_s6);
         }
@@ -40,14 +41,29 @@
       .languajes-box {
         @include center-container;
         flex-direction: row;
+
         button {
-          color: get-color(forms_s6);
+          color: get-color(white_s1);
         }
+
 
         path {
           fill: get-color(forms_s6);
         }
+
+
       }
+
+
+      .lang_active {
+        color: get-color(blue_p1);
+        border-bottom: 1px solid get-color(white_s1);
+      }
+
+
+
+
+
     }
 
     &-front {
@@ -77,6 +93,7 @@
         width: 100%;
 
         justify-content: space-between;
+
         @include media(desktop) {
           right: 10%;
           gap: 10rem;
@@ -91,6 +108,7 @@
         @include media(tablet) {
           font-size: 3rem;
         }
+
         @include media(desktop) {
           font-size: 3.2rem;
         }
@@ -103,6 +121,7 @@
         // padding: 0.75rem;
         color: get-color(black_p2);
         cursor: pointer;
+
         &:hover {
           background-color: rgba(get-color(white_s1), 0.9);
           box-shadow: bsh(2);
@@ -162,7 +181,7 @@
           border-style: none;
           color: get-color(grey1_s3);
           align-items: center;
-          
+
 
           path {
             padding: 0.25rem;
@@ -170,8 +189,8 @@
             stroke: get-color(grey1_s3);
           }
 
-          
-          
+
+
         }
       }
 
@@ -179,6 +198,7 @@
         width: 0%;
         display: flex;
         justify-content: flex-end;
+
         @include media(tablet) {
           width: 100%;
         }
@@ -193,7 +213,8 @@
         height: 500px;
         width: max-content;
         opacity: 0;
-        transform: translateY(-1%); /* Movimiento inicial sutil hacia abajo */
+        transform: translateY(-1%);
+        /* Movimiento inicial sutil hacia abajo */
         transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 
         @include media(tablet) {
@@ -213,33 +234,47 @@
 
       .visible {
         opacity: 1;
-        transform: translateY(-100%); /* Movimiento final hacia la posición original */
+        transform: translateY(-100%);
+        /* Movimiento final hacia la posición original */
       }
 
       .hidden {
         opacity: 0;
-        transform: translateY(-99%); /* Mantenemos el movimiento inicial hacia abajo */
+        transform: translateY(-99%);
+        /* Mantenemos el movimiento inicial hacia abajo */
       }
     }
   }
 
   .header-colored {
-    background-color: rgba(get-color(white_s1), 0.1); /* Color blanco con transparencia */
-    backdrop-filter: blur(0px); /* Desenfoque del fondo */
+    background-color: rgba(get-color(white_s1), 0.1);
+    /* Color blanco con transparencia */
+    backdrop-filter: blur(0px);
+    /* Desenfoque del fondo */
     padding: 0rem 1rem;
     flex-wrap: nowrap;
 
-    
-      // justify-content: flex-end;
-    
-    .languajes {
-      li {
-        color: get-color(black_s1);
-      }
+
+    // justify-content: flex-end;
+
+    .languajes-box {
+     
+
       button {
         color: rgba(get-color(grey2_s4), 1);
       }
+
+
     }
+
+    .lang_active {
+      color: get-color(blue_p1);
+      border-bottom: 1px solid get-color(blue_p1);
+    }
+
+
+
+
 
     .li-login {
       color: rgba(get-color(grey2_s4), 1);
@@ -269,6 +304,7 @@
   .subtitle {
     font-size: 30px;
     @include center-container;
+
     @include media(tablet) {
       font-size: 40px;
     }
@@ -299,9 +335,12 @@
 
   .sombra {
     position: absolute;
-    width: 100%; /* Duplicar el tamaño del contenedor */
-    height: 100%; /* Duplicar el tamaño del contenedor */
-    z-index: -1; /* Coloca la imagen detrás del contenido del contenedor */
+    width: 100%;
+    /* Duplicar el tamaño del contenedor */
+    height: 100%;
+    /* Duplicar el tamaño del contenedor */
+    z-index: -1;
+    /* Coloca la imagen detrás del contenido del contenedor */
     bottom: 7%;
     right: 200%;
 
@@ -427,7 +466,7 @@
       flex-wrap: nowrap;
       padding: 1rem 4rem 1rem 5rem;
     }
-    
+
     @include media(extradesktop) {
       justify-content: center;
     }
@@ -436,7 +475,8 @@
 
 
     .sombra {
-      right: -70%; /* Ajusta según sea necesario */
+      right: -70%;
+      /* Ajusta según sea necesario */
       bottom: 66%;
 
       @include media(desktop) {
@@ -458,6 +498,7 @@
       align-items: center;
       flex-direction: column;
       gap: 1rem;
+
       @include media(desktop) {
         max-width: 25rem;
         justify-content: center;
@@ -512,6 +553,7 @@
       right: 30%;
       width: 60px;
       height: 60px;
+
       &:hover,
       :active,
       :focus {
@@ -526,6 +568,7 @@
       display: none;
       max-width: 18rem;
       height: 18rem;
+
       @include media(tablet) {
         display: flex;
       }
@@ -650,6 +693,7 @@
 
   .hr {
     flex-direction: column-reverse;
+
     @include media(tablet) {
       flex-direction: row;
     }
@@ -667,6 +711,7 @@
       flex-direction: column;
       align-items: flex-start;
       text-align: start;
+
       p {
         display: flex;
         text-align: justify;
@@ -676,6 +721,7 @@
         color: rgba(get-color(blue_p1), 1);
       }
     }
+
     .ari-tabs-container {
       display: flex;
       margin: 1rem -2rem 2rem 0rem;
@@ -693,6 +739,7 @@
         @include media(desktop) {
           flex-direction: column;
         }
+
         width: 10rem;
 
         .ari-tab-item {
@@ -722,6 +769,7 @@
         @include media(tablet) {
           overflow: hidden;
           padding: 2rem 0rem 2rem 2rem;
+
           &::after {
             content: "";
             position: absolute;
@@ -745,6 +793,7 @@
           display: block;
           opacity: 1;
           max-width: 81vw;
+
           @include media(tablet) {
             max-width: 100%;
           }
@@ -785,24 +834,27 @@
 
           @include media(extradesktop) {
             width: 25vw;
-          
+
           }
 
           .digital-list {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+
             li {
               display: flex;
               flex-direction: row;
               align-items: center;
               gap: 0.5rem;
               text-align: left;
+
               svg {
                 height: 1rem;
               }
             }
           }
+
           .btn_primary {
             width: 5rem;
           }
@@ -815,6 +867,7 @@
           align-items: center;
           border-radius: 0px 10px 10px 0px;
           background: linear-gradient(to right, transparent 50%, get-color(blue_p1) 50%);
+
           svg {
             padding: 1rem;
 
@@ -828,6 +881,7 @@
           position: absolute;
 
           top: 25%;
+
           img {
             width: 8rem;
 
@@ -876,6 +930,7 @@
     @include center-container;
     gap: 1rem;
     flex-direction: column;
+
     h2 {
       text-align: center;
       width: 100%;
@@ -896,10 +951,10 @@
         padding: 1rem;
         border-radius: brd(2);
 
-        img{
+        img {
           height: 4.25vh;
         }
-     
+
 
       }
     }
@@ -913,8 +968,8 @@
     flex-wrap: wrap;
     height: auto;
 
-   
-    
+
+
 
     @include media(desktop) {
       flex-direction: row;
@@ -981,6 +1036,7 @@
       justify-content: center;
       align-items: flex-end;
       width: 100%;
+
       @include media(desktop) {
         width: 50%;
       }
@@ -988,6 +1044,7 @@
       img {
         height: 60vw;
         margin-bottom: -0.25rem;
+
         @include media(desktop) {
           height: 35vw;
         }
@@ -1050,7 +1107,7 @@
 
           @include media(extradesktop) {
             font-size: 1.2rem;
-            
+
           }
         }
 
@@ -1077,6 +1134,7 @@
             padding: 0.5rem;
             border-radius: brd(f);
             border-style: none;
+            border-radius: brd(f);
           }
 
           span {
@@ -1090,9 +1148,7 @@
             z-index: -1;
           }
 
-          .circle {
-            border-radius: brd(f);
-          }
+
         }
 
         .process {
@@ -1138,6 +1194,7 @@
             border: 1px solid rgba(get-color(t2-ligthBlue), 0.5);
             background-color: rgba(get-color(t2-ligthBlue), 0.8);
           }
+
           span {
             color: rgba(get-color(forms_s6), 0.2);
           }
@@ -1145,6 +1202,7 @@
           svg {
             width: 1.5rem;
             height: 1.5rem;
+
             path {
               fill: lighten(get-color(white_s1), 30%);
             }
@@ -1183,10 +1241,12 @@
       }
 
       padding: 2rem;
+
       @include media(tablet) {
         width: 30%;
         padding: 0rem 0rem 0rem 1rem;
       }
+
       @include media(extradesktop) {
         width: 20%;
         padding: 0rem 0rem 0rem 1rem;
@@ -1277,21 +1337,27 @@
 
       .slide {
         width: 400px;
+
         &:nth-child(1) {
           animation-delay: 0s;
         }
+
         &:nth-child(2) {
           animation-delay: 5s;
         }
+
         &:nth-child(3) {
           animation-delay: 10s;
         }
+
         &:nth-child(4) {
           animation-delay: 15s;
         }
+
         &:nth-child(5) {
           animation-delay: 20s;
         }
+
         &:nth-child(6) {
           animation-delay: 25s;
         }
@@ -1352,7 +1418,7 @@
           flex-direction: column;
           gap: 1rem;
 
-          h4 {
+          h3 {
             margin-top: 1rem;
             color: get-color(grey1_s3);
           }
@@ -1364,7 +1430,7 @@
             flex-direction: row;
             gap: 1rem;
 
-            .social_green {
+            .btn_circle {
               background-color: rgba(get-color(t2-ligthBlue), 0.1);
               border-color: rgba(get-color(t2-ligthBlue), 0.5);
 
@@ -1452,9 +1518,11 @@
   width: 100%;
   margin-top: 1rem;
   margin-bottom: 6rem;
+
   @include media(tablet) {
     margin-bottom: 10rem;
   }
+
   @include media(extradesktop) {
     max-width: 20rem;
   }
@@ -1466,7 +1534,9 @@
   width: 100%;
   font-size: 2rem;
 
-  animation: fadeInOut 10s infinite; /* Cambiamos la duración total de la animación a 10s */
+  animation: fadeInOut 10s infinite;
+
+  /* Cambiamos la duración total de la animación a 10s */
   @include media(tablet) {
     font-size: 3.5rem;
   }
@@ -1477,7 +1547,8 @@
 }
 
 .letter:nth-child(2) {
-  animation-delay: 5s; /* El segundo párrafo empieza después de que el primer párrafo termine su ciclo */
+  animation-delay: 5s;
+  /* El segundo párrafo empieza después de que el primer párrafo termine su ciclo */
 }
 
 .background-colored {
@@ -1490,11 +1561,13 @@
 }
 
 @keyframes fadeInOut {
+
   0%,
   50%,
   100% {
     opacity: 0;
   }
+
   10%,
   40% {
     opacity: 1;
@@ -1505,6 +1578,7 @@
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -1514,9 +1588,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -1526,9 +1602,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -1538,6 +1616,7 @@
   0% {
     box-shadow: 0 0 0 20px rgba(get-color(white_s1), 0.5), 0 0 0 40px rgba(get-color(lilac_p3), 0.7), 0 0 0 60px rgba(get-color(t2-ligthBlue), 0.8);
   }
+
   100% {
     box-shadow: 0 0 0 60px rgba(get-color(blue_p1), 0.3), 0 0 0 40px rgba(get-color(t5-green), 0.7), 0 0 0 20px rgba(get-color(t5-green), 0.2);
   }
@@ -1546,11 +1625,14 @@
 @keyframes scrollImages {
   0% {
     -webkit-transform: translateX(0);
-    transform: translateX(0%); /* Inicio: desplazar completamente fuera de la vista a la derecha */
+    transform: translateX(0%);
+    /* Inicio: desplazar completamente fuera de la vista a la derecha */
   }
+
   100% {
     -webkit-transform: translateX(calc(-200px * 8));
-    transform: translateX(calc(-200px * 8)); /* Fin: desplazar completamente fuera de la vista a la izquierda */
+    transform: translateX(calc(-200px * 8));
+    /* Fin: desplazar completamente fuera de la vista a la izquierda */
   }
 }
 
@@ -1558,6 +1640,7 @@
   from {
     transform: rotateY(0deg);
   }
+
   to {
     transform: rotateY(-360deg);
   }

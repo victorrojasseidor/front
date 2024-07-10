@@ -184,7 +184,7 @@ export default function Register () {
             <ImageSvg name='Check' />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
 
-              <h1 style={{ textAlign: 'center' }}>{t['Verifying your registration. A confirmation email will be sent during the course of the day']}</h1>
+              <h2 style={{ textAlign: 'center' }}>{t['Verifying your registration. A confirmation email will be sent during the course of the day']}</h2>
 
               <p>
                 {t['to confirm registration']} {t['Please enter your email']}: {data.oResults.sEmail}

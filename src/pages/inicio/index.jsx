@@ -48,7 +48,7 @@ const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
         <h3>{title}</h3>
         <p>{description}</p>
         <div className='digital-list'>
-          <h5>{t.Skills}</h5>
+          <h4>{t.Skills}</h4>
           <ul>
             {relatedItems.map((item, index) => (
               <li key={index} className='digital-item'>
@@ -231,9 +231,9 @@ const Principal = () => {
             <ul className='logoAri' />
 
             <ul>
-              <div className='languajes-box'>
+              <li className='languajes-box'>
                 <Lang />
-              </div>
+              </li>
 
               <li>
                 <Link className='li-login' href='/login'>
@@ -304,10 +304,9 @@ const Principal = () => {
       <main className='main-home '>
         <section className='home-why container'>
           <div className='title-why'>
-            <h1 className='subtitle'> {t['Why Choose Us']}</h1>
+            <h2 className='subtitle'> {t['Why Choose Us']}</h2>
             <p>{t['Automate and optimize your financial management securely and scalably']}</p>
           </div>
-
           <div className='container-advantages'>
             <div className='box-advantage'>
               <div className='advantage end-direction' data-aos='zoom-out-up'>
@@ -384,7 +383,7 @@ const Principal = () => {
             <div className='steps-container'>
               <div className={`step ${currentGif === 0 ? 'active' : ''}`}>
                 <div className='box-circle'>
-                  <button className='circle' onClick={() => setCurrentGif(0)}>
+                  <button  onClick={() => setCurrentGif(0)}>
                     <ImageSvg name='Admin' />
                   </button>
                   <span>1</span>
@@ -400,7 +399,7 @@ const Principal = () => {
 
               <div className={`step ${currentGif === 1 ? 'active' : ''} step-second `}>
                 <div className='box-circle'>
-                  <button className='circle' onClick={() => setCurrentGif(1)}>
+                  <button  onClick={() => setCurrentGif(1)}>
                     <ImageSvg name='Account' />
                   </button>
                   <span>2</span>
@@ -416,7 +415,7 @@ const Principal = () => {
 
               <div className={` step ${currentGif === 2 ? 'active' : ''}   `}>
                 <div className='box-circle'>
-                  <button className='circle' onClick={() => setCurrentGif(2)}>
+                  <button  onClick={() => setCurrentGif(2)}>
                     <ImageSvg name='BarChart' />
                   </button>
                   <span>3</span>
@@ -616,18 +615,18 @@ const Principal = () => {
             </div>
 
             <div className='social-media'>
-              <h4>{t['Follow us!']}</h4>
+              <h3>{t['Follow us!']}</h3>
 
               <div className='follow'>
-                <button onClick={() => router.push('https://www.youtube.com/channel/UC1mpIQbKvI37sLlDsxmcyeA')} className='btn_circle social_green'>
+                <button onClick={() => router.push('https://www.youtube.com/channel/UC1mpIQbKvI37sLlDsxmcyeA')} className='btn_circle '>
                   <ImageSvg name='Youtube' />
                 </button>
 
-                <button onClick={() => router.push('https://www.linkedin.com/company/seidorperu/?originalSubdomain=pe')} className='btn_circle social_green'>
+                <button onClick={() => router.push('https://www.linkedin.com/company/seidorperu/?originalSubdomain=pe')} className='btn_circle '>
                   <ImageSvg name='Linkedin' />
                 </button>
 
-                <button onClick={() => router.push('https://www.instagram.com/seidorperu/')} className='btn_circle social_green'>
+                <button onClick={() => router.push('https://www.instagram.com/seidorperu/')} className='btn_circle '>
                   <ImageSvg name='Instagram' />
                 </button>
               </div>
