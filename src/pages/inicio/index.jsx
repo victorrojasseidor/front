@@ -24,7 +24,7 @@ import card5 from '../../../public/img/card-product/card5.webp'
 import card6 from '../../../public/img/card-product/card6.webp'
 import card7 from '../../../public/img/card-product/card7.webp'
 import card8 from '../../../public/img/card-product/card8.webp'
-import mundo from '../../../public/img/mundo.svg'
+import mundo from '../../../public/img/mundo.webp'
 import asistente from '../../../public/img/asistente.webp'
 import telefonoWEB from '../../../public/img/telefono.webp'
 import reporting from '../../../public/img/reporting.webp'
@@ -74,9 +74,9 @@ const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
 
       <div className='digital-image'>
         <svg xmlns='http://www.w3.org/2000/svg' width='230' height='229' fill='none' viewBox='0 0 230 229'>
-          <ellipse cx='114.541' cy='114.5' fill='#C0D8FF' fill-opacity='.2' rx='114.541' ry='114.5' />
-          <ellipse cx='114.701' cy='110.51' fill='#C2D9FF' fill-opacity='.3' rx='78.795' ry='78.594' />
-          <path fill='#C0D8FF' fill-opacity='.75' d='M169.059 110.112c0 29.525-24.092 53.46-53.811 53.46s-53.81-23.935-53.81-53.46c0-29.525 24.091-53.46 53.81-53.46s53.811 23.935 53.811 53.46Z' />
+          <ellipse cx='114.541' cy='114.5' fill='#C0D8FF' fillOpacity='.2' rx='114.541' ry='114.5' />
+          <ellipse cx='114.701' cy='110.51' fill='#C2D9FF' fillOpacity='.3' rx='78.795' ry='78.594' />
+          <path fill='#C0D8FF' fillOpacity='.75' d='M169.059 110.112c0 29.525-24.092 53.46-53.811 53.46s-53.81-23.935-53.81-53.46c0-29.525 24.091-53.46 53.81-53.46s53.811 23.935 53.811 53.46Z' />
         </svg>
 
         <figure>
@@ -160,7 +160,7 @@ const Principal = () => {
   const t = l.home
 
   const demoSectionRef = useRef(null)
-  
+
 
   const [activeTab, setActiveTab] = useState('finance')
 
@@ -224,9 +224,9 @@ const Principal = () => {
   const quantity = 15
 
   return (
-    <div className='home'>
+    <body className='home'> 
       <header className='home-principal'>
-        <div>
+        
           <nav>
             <ul className='logoAri' />
 
@@ -248,17 +248,16 @@ const Principal = () => {
               </li>
             </ul>
           </nav>
-        </div>
+        
 
         <section className='home-principal-front'>
           <div className='welcome'>
-            <div class='letter-container'>
+            <div className='letter-container'>
               <h1 className='letter text-gradient'>{t['Your new superpower']} </h1>
               <h1 className='letter text-gradient'>{t['ARI Digital Employees']}</h1>
             </div>
 
             <p>
-              {' '}
               {t['ARI Robotic Assistants free your employees from']}
               <span>&nbsp;{t['repetitive tasks']}&nbsp;</span>
               {t['so they can focus on what']}&nbsp;
@@ -283,8 +282,12 @@ const Principal = () => {
 
           <div data-aos='zoom-in-left' className='image-container'>
             <div className='image-mundo'>
+
               <SphereCanvas />
-              <Image src={mundo} width={500} height={500} alt='ari mundo' />
+
+              <Image src={mundo} width={500} height={500} alt='ari mundo' loading='eager'   priority  /> 
+
+              
             </div>
 
             <div className='image-container'>
@@ -295,7 +298,7 @@ const Principal = () => {
           </div>
           <div className='custom-shape-divider-bottom-1719330810'>
             <svg data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'>
-              <path d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' class='shape-fill' />
+              <path d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' className='shape-fill' />
             </svg>
           </div>
         </section>
@@ -321,7 +324,7 @@ const Principal = () => {
                 <h3>{t['Security and Control']}</h3>
 
                 <p className='advantage-description'>
-                 
+
                   {t['Advanced security, encrypted passwords, secure access management, exclusive database per client, segregated roles and functions']}
                 </p>
               </div>
@@ -367,9 +370,6 @@ const Principal = () => {
         </section>
 
         <section ref={gifRef} className='home-how  background-colored' data-aos='fade-up-right'>
-        
-       
-
           <div className='home-how-description'>
             <div className='discover'>
               <div className='title-how'>
@@ -380,63 +380,64 @@ const Principal = () => {
               <p> {t['Ari executes her automation activities in 3 steps']}: </p>
             </div>
             <div className='home-how-steps'>
-            <div className='steps-container'>
-              <div className={`step ${currentGif === 0 ? 'active' : ''}`}>
-                <div className='box-circle'>
-                  <button  onClick={() => setCurrentGif(0)}>
-                    <ImageSvg name='Admin' />
+
+
+              <div className='steps-container'>
+                <div className={`step ${currentGif === 0 ? 'active' : ''}`}>
+                  <div className='box-circle'>
+                    <button aria-label='Step 1: Customize your process' onClick={() => setCurrentGif(0)}>
+                      <ImageSvg name='Admin' />
+                    </button>
+                    <span>1</span>
+                  </div>
+                  <button className='process' aria-label='Step 1' onClick={() => setCurrentGif(0)}>
+                    <div className='text'>
+                      <h3>{t['Customize your process']}</h3>
+                      <p>{t['Access the Ari.app application easily and securely, configure your digital employees']}</p>
+                    </div>
                   </button>
-                  <span>1</span>
                 </div>
 
-                <button className='process' onClick={() => setCurrentGif(0)}>
-                  <div className='text'>
-                    <h3> {t['Customize your process']}</h3>
-                    <p>{t['Access the Ari.app application easily and securely, configure your digital employees']}</p>
+                <div className={`step ${currentGif === 1 ? 'active' : ''} step-second`}>
+                  <div className='box-circle'>
+                    <button aria-label='Step 2: Automated process' onClick={() => setCurrentGif(1)}>
+                      <ImageSvg name='Account' />
+                    </button>
+                    <span>2</span>
                   </div>
-                </button>
-              </div>
-
-              <div className={`step ${currentGif === 1 ? 'active' : ''} step-second `}>
-                <div className='box-circle'>
-                  <button  onClick={() => setCurrentGif(1)}>
-                    <ImageSvg name='Account' />
+                  <button className='process' aria-label='Step 2' onClick={() => setCurrentGif(1)}>
+                    <div className='text'>
+                      <h3>{t['Automated process']}</h3>
+                      <p>{t['This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set']}</p>
+                    </div>
                   </button>
-                  <span>2</span>
                 </div>
 
-                <button className='process' onClick={() => setCurrentGif(1)}>
-                  <div className='text'>
-                    <h3> {t['Automated process']} </h3>
-                    <p>{t['This employee processes the information, manages it, and performs all tasks automatically every day according to the schedule you have set']}</p>
+                <div className={`step ${currentGif === 2 ? 'active' : ''}`}>
+                  <div className='box-circle'>
+                    <button aria-label='Step 3: Work delivered' onClick={() => setCurrentGif(2)}>
+                      <ImageSvg name='BarChart' />
+                    </button>
+                    <span>3</span>
                   </div>
-                </button>
-              </div>
-
-              <div className={` step ${currentGif === 2 ? 'active' : ''}   `}>
-                <div className='box-circle'>
-                  <button  onClick={() => setCurrentGif(2)}>
-                    <ImageSvg name='BarChart' />
+                  <button className='process' aria-label='Step 3' onClick={() => setCurrentGif(2)}>
+                    <div className='text'>
+                      <h3>{t['Work delivered']}</h3>
+                      <p>{t['Consolidated information provided through management dashboards, so you always have your information visible and easy to process']}</p>
+                    </div>
                   </button>
-                  <span>3</span>
                 </div>
-
-                <button className='process' onClick={() => setCurrentGif(2)}>
-                  <div className='text'>
-                    <h3> {t['Work delivered']} </h3>
-                    <p>{t['Consolidated information provided through management dashboards, so you always have your information visible and easy to process']}</p>
-                  </div>
-                </button>
               </div>
+
+
             </div>
-          </div>
-            
+
           </div>
 
           <figure className='home-how-steps-gift' ref={demoSectionRef}>
-              <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading='eager' />
+            <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading='eager' />
           </figure>
-         
+
         </section>
 
         <section className='home-gift '>
@@ -506,7 +507,7 @@ const Principal = () => {
           <h2 className='subtitle'> Tech Stack </h2>
 
           <div className='box-enables' data-aos='zoom-in'>
-          <button>
+            <button>
               <Image src={uipath} width='1000' alt='uipath' loading='eager' />
             </button>
 
@@ -517,7 +518,7 @@ const Principal = () => {
             <button>
               <Image src={sap} width='1000' alt='sap' loading='eager' />
             </button>
-       
+
 
             <button>
               <Image src={microsoftLogo} width='1000' alt='cloud' loading='eager' />
@@ -527,18 +528,16 @@ const Principal = () => {
               <Image src={drive} width='1000' alt='drive' loading='eager' />
             </button>
 
-            
-            
-          
+
+
+
           </div>
         </section>
       </main>
 
       <footer>
-     
-
         <section className='home-contact'>
-        {Array.from({ length: quantity }).map((_, i) => (
+          {Array.from({ length: quantity }).map((_, i) => (
             <div key={i} className='firefly' />
           ))}
           <div className='slider'>
@@ -599,7 +598,7 @@ const Principal = () => {
               {t.Contact}
             </button>
           </div>
-         
+
         </section>
 
         <section className='home-social '>
@@ -616,20 +615,32 @@ const Principal = () => {
 
             <div className='social-media'>
               <h3>{t['Follow us!']}</h3>
-
               <div className='follow'>
-                <button onClick={() => router.push('https://www.youtube.com/channel/UC1mpIQbKvI37sLlDsxmcyeA')} className='btn_circle '>
+                <button
+                  onClick={() => router.push('https://www.youtube.com/channel/UC1mpIQbKvI37sLlDsxmcyeA')}
+                  className='btn_circle'
+                  aria-label='Follow us on YouTube'
+                >
                   <ImageSvg name='Youtube' />
                 </button>
 
-                <button onClick={() => router.push('https://www.linkedin.com/company/seidorperu/?originalSubdomain=pe')} className='btn_circle '>
+                <button
+                  onClick={() => router.push('https://www.linkedin.com/company/seidorperu/?originalSubdomain=pe')}
+                  className='btn_circle'
+                  aria-label='Follow us on LinkedIn'
+                >
                   <ImageSvg name='Linkedin' />
                 </button>
 
-                <button onClick={() => router.push('https://www.instagram.com/seidorperu/')} className='btn_circle '>
+                <button
+                  onClick={() => router.push('https://www.instagram.com/seidorperu/')}
+                  className='btn_circle'
+                  aria-label='Follow us on Instagram'
+                >
                   <ImageSvg name='Instagram' />
                 </button>
               </div>
+
             </div>
           </div>
 
@@ -638,7 +649,7 @@ const Principal = () => {
           </div>
         </section>
       </footer>
-    </div>
+      </body>
   )
 }
 

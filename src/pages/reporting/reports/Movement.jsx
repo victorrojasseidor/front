@@ -568,7 +568,7 @@ const Movement = () => {
           </div>
 
           <div className='tableContainer' ref={tableRef}>
-            <div class='scrollbarContainer' />
+            <div className='scrollbarContainer' />
             <table className='dataTable Account'>
               <thead>
                 <tr style={{ overflow: 'hidden' }}>

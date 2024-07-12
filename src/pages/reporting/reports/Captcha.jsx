@@ -379,7 +379,7 @@ const Captcha = () => {
         <div className='captcha-filters'>
           <h3> {t['Filter Statistics']} </h3>
           <p> {t['Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.']} </p>
-          <div class='box-filters'>
+          <div className='box-filters'>
             <button className={`btn_filter ${filterDate === 365 ? 'active' : ''}`} onClick={() => rangeDateSelect(365)}>
               {t.Last} 12 {t.Months}
             </button>

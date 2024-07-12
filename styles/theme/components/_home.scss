@@ -828,7 +828,7 @@
           gap: 1rem;
 
           @include media(tablet) {
-            width: 20rem;
+            width: 23rem;
             padding: 1rem 0rem 1rem 0rem;
           }
 
@@ -969,13 +969,12 @@
     height: auto;
 
 
-
-
     @include media(desktop) {
       flex-direction: row;
       flex-wrap: nowrap;
       padding: 3rem 0rem 0rem 4rem;
       height: max-content;
+      height: 105vh;
     }
 
     @include media(extradesktop) {
@@ -1012,6 +1011,7 @@
 
           span {
             color: lighten(get-color(t2-ligthBlue), 30%);
+            color:transparent;
             font-size: 0.75rem;
             margin-bottom: -1rem;
           }
@@ -1191,7 +1191,7 @@
           button {
             padding: 0.5rem;
             transition: all 2s ease-out;
-            border: 1px solid rgba(get-color(t2-ligthBlue), 0.5);
+            border-style: none;
             background-color: rgba(get-color(t2-ligthBlue), 0.8);
           }
 

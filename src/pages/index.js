@@ -64,9 +64,9 @@ export default function Inicio () {
           />
       </Head>
     
-      <body>
+  
         <Principal />
-      </body>
+      
     </>
   )
 }
