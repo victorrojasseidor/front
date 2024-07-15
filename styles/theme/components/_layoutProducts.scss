@@ -6,7 +6,7 @@
   width: 100vw;
 
   background-color: get-color(bg-cles);
-  
+
   @include media(tablet) {
     height: 120vh;
     width: 100%;
@@ -204,7 +204,7 @@
 
           &::after {
             position: absolute;
-            content: "";
+            content: '';
             border-right: 2px solid get-color(forms_s6);
             width: 2px;
             height: 100%;
@@ -216,7 +216,7 @@
           &:first-child {
             &::after {
               position: absolute;
-              content: "";
+              content: '';
               border-right: 2px solid get-color(forms_s6);
               width: 2px;
               right: 4px;
@@ -229,7 +229,7 @@
           &:last-child {
             &::after {
               position: absolute;
-              content: "";
+              content: '';
               border-right: 2px solid get-color(forms_s6);
               width: 2px;
               right: 4px;
@@ -282,7 +282,6 @@
         p {
           color: get-color(t2-ligthBlue);
           font-weight: 500;
-         
         }
         span {
           color: get-color(grey2_s4);
@@ -348,7 +347,7 @@
 
         @include media(tablet) {
           display: block;
-          content: "";
+          content: '';
           position: absolute;
           top: 6px;
           right: 0px;
@@ -357,7 +356,9 @@
           display: flex;
           align-items: center;
           border-radius: brd(2);
-          background-color: get-color(blue_p1); /* Cambia este color al que desees */
+          background-color: get-color(
+            blue_p1
+          ); /* Cambia este color al que desees */
         }
       }
     }
@@ -702,23 +703,19 @@
   display: flex;
   width: 100%;
 
-  button{
-    color:get-color(grey2_s4);
+  button {
+    color: get-color(grey2_s4);
   }
 
-
   .lang_active {
-    color: get-color(blue_p1) ;
+    color: get-color(blue_p1);
     border-bottom: 1px solid get-color(blue_p1);
   }
 
-
-
-  svg{
-    path{
-      fill: get-color(grey2_s4)
+  svg {
+    path {
+      fill: get-color(grey2_s4);
     }
-  
   }
 
   @include media(tablet) {
@@ -733,7 +730,7 @@
   position: relative;
 
   &::after {
-    content: "";
+    content: '';
     position: fixed;
     top: 0;
     bottom: 0;
@@ -747,7 +744,7 @@
 
 .fondoPerfil {
   //  background-image: src;
- 
+
   // background-size: 6rem;
   background-color: rgba(get-color(t2-ligthBlue), 0.2) !important;
   // border-radius: brd(f) !important;
@@ -829,9 +826,6 @@
     color: get-color(white_s1);
     border-bottom: 1px solid get-color(white_s1);
   }
-
-  
-
 }
 
 .languajes {
@@ -840,30 +834,22 @@
   flex-direction: row;
   justify-content: flex-start;
 
- 
-
   button {
     background-color: transparent;
     border-style: none;
     font-size: small;
     display: flex;
-    padding:0rem  0.5rem ;
+    padding: 0rem 0.5rem;
     padding-bottom: 0.25rem;
-    
- 
   }
 
-  svg{
+  svg {
     display: flex;
     align-items: center;
   }
 
   .lang_active {
-    color:rgba(get-color(t2-ligthBlue), 1);
+    color: rgba(get-color(t2-ligthBlue), 1);
     border-bottom: 1px solid rgba(get-color(t2-ligthBlue), 1);
   }
-
- 
 }
-
-

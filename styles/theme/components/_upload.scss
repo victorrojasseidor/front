@@ -13,15 +13,15 @@
 
   .form-container {
     display: flex;
-   
+
     flex-direction: column;
     align-items: center;
     gap: 2rem;
     @include container;
-  
-   @include media(tablet) {
+
+    @include media(tablet) {
       width: 50%;
-      }
+    }
     .input-box {
       width: 100%;
     }
@@ -29,7 +29,7 @@
 
   .btn_primary {
     transition: background-color 0.2s;
-  
+
     &:disabled {
       background-color: #e0e0e0;
       cursor: not-allowed;
@@ -37,16 +37,14 @@
   }
 }
 
-
-
 .dropzone {
   padding: 1rem;
-  border: 2px dashed  get-color(blue_p1);
+  border: 2px dashed get-color(blue_p1);
   border-radius: brd(1);
   text-align: center;
   transition: background-color 0.2s;
   width: 100%;
-  color:get-color(grey2_s4);
+  color: get-color(grey2_s4);
 
   &.dragging {
     background-color: get-color(grey1_s3);
@@ -106,5 +104,3 @@
   object-fit: cover;
   border-radius: 4px;
 }
-
-

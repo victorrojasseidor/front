@@ -1,74 +1,77 @@
-import React, { useState } from 'react'
-import YouTube from 'react-youtube'
-import ImageSvg from '@/helpers/ImageSVG'
+import React, { useState } from 'react';
+import YouTube from 'react-youtube';
+import ImageSvg from '@/helpers/ImageSVG';
 
 const DocDowland = () => {
-  const [activeTab, setActiveTab] = useState(0)
-  const [mostrarMas, setMostrarMas] = useState(false)
+  const [activeTab, setActiveTab] = useState(0);
+  const [mostrarMas, setMostrarMas] = useState(false);
 
   const handleToggleMostrar = () => {
-    setMostrarMas(!mostrarMas)
-  }
+    setMostrarMas(!mostrarMas);
+  };
 
   // insertar video de youtube
 
-  const videoId = 'ZysHojiy-V0' // Reemplaza VIDEO_ID con el ID del video de YouTube que deseas insertar
+  const videoId = 'ZysHojiy-V0'; // Reemplaza VIDEO_ID con el ID del video de YouTube que deseas insertar
 
   const opts = {
     height: '360',
     width: '640',
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
-      autoplay: 0
-    }
-  }
+      autoplay: 0,
+    },
+  };
 
   const onReady = (event) => {
     // Acciones a realizar cuando el video está listo para reproducirse
-  }
+  };
 
   const onEnd = (event) => {
     // Acciones a realizar cuando el video ha terminado de reproducirse
-  }
+  };
 
   // activar tabs
 
   const handleTabClick = (index) => {
-    setActiveTab(index)
-  }
+    setActiveTab(index);
+  };
 
   return (
-    <div className='verticalTabs '>
-
-
-      <div className='tabContent '>
+    <div className="verticalTabs ">
+      <div className="tabContent ">
         {activeTab === 0 && (
-          <div className='tabOne currency '>
-            <div className='currency_features'>
-              <div className='description docDowland'>
+          <div className="tabOne currency ">
+            <div className="currency_features">
+              <div className="description docDowland">
                 <div>
-                  <div className='videoPlayer'>
-                    <div className='title'>
-                      
-                    <span>
-                        Automatic download of bank statements </span>
-                      
+                  <div className="videoPlayer">
+                    <div className="title">
+                      <span>Automatic download of bank statements </span>
                     </div>
-                    <YouTube videoId={videoId} opts={opts} onReady={onReady} onEnd={onEnd} />
+                    <YouTube
+                      videoId={videoId}
+                      opts={opts}
+                      onReady={onReady}
+                      onEnd={onEnd}
+                    />
                   </div>
                 </div>
               </div>
-              <div className='currency_benefits'>
+              <div className="currency_benefits">
                 <h3> Benefits </h3>
 
                 <div>
                   <ul>
-                    <ImageSvg name='Benefit1' />
+                    <ImageSvg name="Benefit1" />
 
-                    <h6> Performs the conversion to a single format  </h6>
-                    <div className='befenitDes'> The robot enters your information from account statements and credentials to obtain the information and show you in the file of your choice
+                    <h6> Performs the conversion to a single format </h6>
+                    <div className="befenitDes">
+                      {' '}
+                      The robot enters your information from account statements
+                      and credentials to obtain the information and show you in
+                      the file of your choice
                     </div>
-
                   </ul>
 
                   {/* <ul>
@@ -117,20 +120,29 @@ const DocDowland = () => {
           </div>
         )}
       </div>
-      <div className='tabHeader'>
+      <div className="tabHeader">
         <p> Contains: </p>
-        <button className={activeTab === 0 ? 'activeVT complete' : ''} onClick={() => handleTabClick(0)}>
+        <button
+          className={activeTab === 0 ? 'activeVT complete' : ''}
+          onClick={() => handleTabClick(0)}
+        >
           <h4>Features</h4>
         </button>
-        <button className={activeTab === 1 ? 'activeVT' : ''} onClick={() => handleTabClick(1)}>
+        <button
+          className={activeTab === 1 ? 'activeVT' : ''}
+          onClick={() => handleTabClick(1)}
+        >
           <h4> Scope</h4>
         </button>
-        <button className={activeTab === 2 ? 'activeVT' : ''} onClick={() => handleTabClick(2)}>
+        <button
+          className={activeTab === 2 ? 'activeVT' : ''}
+          onClick={() => handleTabClick(2)}
+        >
           <h4> Warranty </h4>
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DocDowland
+export default DocDowland;

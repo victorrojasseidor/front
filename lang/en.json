@@ -64,13 +64,13 @@
     "Included Skills to Digital Employees": "Included Skills to Digital Employees",
     "business agility": "business agility",
     "Ari finance": "Ari finance",
-    "The responsibilities of the Administration and Finance Coordinator include bank reconciliation, updating the exchange rate, expense distribution, third-party payments, adjustment entries, support in the financial closing, and declarations to Sunat":"The responsibilities of the Administration and Finance Coordinator include bank reconciliation, exchange rate updates, payments, accounting adjustments, and Sunat declarations",
+    "The responsibilities of the Administration and Finance Coordinator include bank reconciliation, updating the exchange rate, expense distribution, third-party payments, adjustment entries, support in the financial closing, and declarations to Sunat": "The responsibilities of the Administration and Finance Coordinator include bank reconciliation, exchange rate updates, payments, accounting adjustments, and Sunat declarations",
     "Ari HR": "Ari HR",
-    "The responsibilities of the Human Resources Coordinator include onboarding, vacation management, health and wellness benefits, and support in performance reviews":"The responsibilities of the Human Resources Coordinator include onboarding, vacation management, health and wellness benefits, and support in performance reviews",
+    "The responsibilities of the Human Resources Coordinator include onboarding, vacation management, health and wellness benefits, and support in performance reviews": "The responsibilities of the Human Resources Coordinator include onboarding, vacation management, health and wellness benefits, and support in performance reviews",
     "The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.": "The human resources coordinator facilitates administrative processes such as onboarding, vacation management and health plans, resolving benefits problems and supporting performance reviews.",
     "Ari it support": "Ari it support",
-    "The responsibilities of the Technology and Support Coordinator include program installation, server reboots, backups, email and VPN configuration, and account management":"The responsibilities of the Technology and Support Coordinator include program installation, server reboots, backups, email and VPN configuration, and account management",
-   "Ari executes her automation activities in 3 steps":"Ari executes her automation activities in 3 steps",
+    "The responsibilities of the Technology and Support Coordinator include program installation, server reboots, backups, email and VPN configuration, and account management": "The responsibilities of the Technology and Support Coordinator include program installation, server reboots, backups, email and VPN configuration, and account management",
+    "Ari executes her automation activities in 3 steps": "Ari executes her automation activities in 3 steps",
     "Our enablers": "Our enablers",
     "Contact us": "Contact us",
     "Digital employees": "Digital employees",
@@ -119,7 +119,7 @@
     "Adaptable solution with quick configuration and homologated processes with extensive industry knowledge": "Adaptable solution with quick configuration and homologated processes with extensive industry knowledge",
     "Connect financial data and understand behavior": "Connect financial data and understand behavior",
     "ARI is the software-based workforce powered by": "ARI is the software-based workforce powered by ",
-    "artificial intelligence":"artificial intelligence" , 
+    "artificial intelligence": "artificial intelligence",
     "that autonomously executes end-to-end work processes using a diverse set of skills": "that autonomously executes end-to-end work processes using a diverse set of skills",
     "Ari Accounting and Finance": "Ari Accounting and Finance",
     "Ari Human Resources": "Ari Human Resources",
@@ -133,13 +133,11 @@
     "Utility Bill Registration": "Utility Bill Registration",
     "Image text extraction Service": "Image text extraction Service",
     "AFP validation": "AFP validation",
-    
-      "24/7 operation, error reduction, business agility, and cost savings. Lower TCO compared to traditional RPA projects": "24/7 operation, error reduction, business agility, and cost savings. Lower TCO compared to traditional RPA projects",
-      "Advanced security, encrypted passwords, secure access management, exclusive database per client, segregated roles and functions": "Advanced security, encrypted passwords, secure access management, exclusive database per client, segregated roles and functions",
-      "Consolidated information provided through management dashboards, so you always have your information visible and easy to process": "Consolidated information provided through management dashboards, so you always have your information visible and easy to process",
-      "Connection with multiple data sources (Bank accounts, SUNAT, SBS, among others) and integration with different ERPs": "Connection with multiple data sources (Bank accounts, SUNAT, SBS, among others) and integration with different ERPs"
-    
-    
+
+    "24/7 operation, error reduction, business agility, and cost savings. Lower TCO compared to traditional RPA projects": "24/7 operation, error reduction, business agility, and cost savings. Lower TCO compared to traditional RPA projects",
+    "Advanced security, encrypted passwords, secure access management, exclusive database per client, segregated roles and functions": "Advanced security, encrypted passwords, secure access management, exclusive database per client, segregated roles and functions",
+    "Consolidated information provided through management dashboards, so you always have your information visible and easy to process": "Consolidated information provided through management dashboards, so you always have your information visible and easy to process",
+    "Connection with multiple data sources (Bank accounts, SUNAT, SBS, among others) and integration with different ERPs": "Connection with multiple data sources (Bank accounts, SUNAT, SBS, among others) and integration with different ERPs"
   },
   "update_password": {
     "Update password": "Change password",
@@ -271,9 +269,8 @@
     "AFP validation": "AFP validation",
     "Captcha Solving Service": "Captcha Solving Service",
     "Image text extraction Service": "Image text extraction Service",
-    "Mass update of deduction records":"Mass update of deduction records",
-    "Supplier validation":"Supplier validation"
-
+    "Mass update of deduction records": "Mass update of deduction records",
+    "Supplier validation": "Supplier validation"
   },
   "Apiconfuguration": {
     "Service configuration status": "Service configuration status",

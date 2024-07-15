@@ -34,8 +34,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      color:get-color(grey2_s4);
-    
+      color: get-color(grey2_s4);
 
       h2,
       h4,
@@ -63,12 +62,10 @@
         height: 3rem;
         width: 3rem;
 
-        path{
+        path {
           fill: get-color(lilac_p3);
         }
       }
-
-      
     }
 
     .actions {
@@ -77,12 +74,10 @@
       align-items: center;
       justify-content: center;
       align-content: center;
-
     }
 
-    .box-buttons{
- padding-top: 1rem;
- 
+    .box-buttons {
+      padding-top: 1rem;
     }
   }
 }
@@ -95,7 +90,7 @@
   z-index: 9;
   top: 4%;
   right: 2%;
-  
+
   button {
     background-color: rgba(get-color(t3-red), 0.05);
     border-style: none;

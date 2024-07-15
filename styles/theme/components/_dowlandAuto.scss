@@ -27,7 +27,7 @@
     flex-direction: column;
     @include container;
 
-    .name-blue{
+    .name-blue {
       font-weight: 600;
     }
 
@@ -227,12 +227,10 @@
       border-radius: brd(2);
 
       gap: 0.5rem;
-      
 
       @include media(tablet) {
         padding: 1rem;
-       }
-
+      }
 
       li {
         // background-color: aqua;
@@ -247,7 +245,7 @@
 
         @include media(tablet) {
           justify-content: space-between;
-         }
+        }
 
         padding: 0.5rem;
         border-radius: brd(1);
@@ -289,7 +287,6 @@
   }
 
   .content {
-    
   }
 }
 
@@ -319,7 +316,6 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-
 
   @include media(tablet) {
     padding: 0rem 1rem;
@@ -377,7 +373,7 @@
 .head-status {
   min-width: 10.5rem;
 
-  button{
+  button {
     width: 9.5rem;
   }
 }

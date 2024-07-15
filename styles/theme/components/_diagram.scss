@@ -17,7 +17,7 @@ $common-container-color: get-color(t5-green);
     path {
       fill: transparent;
       stroke: $line-color;
-      strokeWidth: 2px;
+      strokewidth: 2px;
       animation: dashed 1s infinite;
     }
   }
@@ -42,10 +42,7 @@ $common-container-color: get-color(t5-green);
   }
 }
 
-
-
-
-// estilos para el circulo 
+// estilos para el circulo
 
 $daddy-border: 1px solid black;
 $daddy-size: 400px;
@@ -65,14 +62,12 @@ $pi: 3.14159265359;
   width: calc(50% + 1.3px);
   height: 85px;
 
-
   @include media(tablet) {
     perspective: $daddy-perspective;
     width: calc(150% + 1.3px);
     width: $daddy-size;
     height: $daddy-size;
   }
-
 }
 
 .mommy {
@@ -88,7 +83,11 @@ $pi: 3.14159265359;
   height: 4px;
   border-radius: brd(f);
   background-color: get-color(t2-ligthBlue);
-  background-image: linear-gradient(to right, #8d2de2dd, get-color(t2-ligthBlue));
+  background-image: linear-gradient(
+    to right,
+    #8d2de2dd,
+    get-color(t2-ligthBlue)
+  );
   position: absolute;
   top: -2px;
   left: -2px;
@@ -100,7 +99,7 @@ $pi: 3.14159265359;
   $x: $radius * cos($delta) * cos($theta) + $radius;
   $y: $radius * cos($delta) * sin($theta) + $radius;
   $z: $radius * sin($delta);
-  
+
   .mommy div:nth-child(#{$i}) {
     transform: translate3d($x, $y, $z);
   }

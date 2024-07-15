@@ -21,31 +21,26 @@
   }
 
   @include media(tablet) {
-    background-image: url("../../../public/img/register.webp");
+    background-image: url('../../../public/img/register.webp');
     background-repeat: no-repeat;
     background-size: cover;
     height: 140vh;
     // background-size: 200vh;
-    
   }
 
   @include media(desktop) {
     background-size: 250vh;
-  
   }
 
   @include media(extradesktop) {
     background-size: 250vh;
-   
   }
-
-
 
   &_form {
     display: flex;
     flex-direction: column;
     width: 100%;
-    justify-content:space-around;
+    justify-content: space-around;
     align-items: center;
     margin: 1rem;
 
@@ -56,12 +51,10 @@
     @include media(desktop) {
       width: 50%;
       background-color: transparent;
-      
     }
- 
+
     @include media(extradesktop) {
       width: 45%;
-      
     }
 
     .navRegister {
@@ -70,26 +63,22 @@
       flex-direction: column;
 
       @include media(tablet) {
-        padding: 0rem 2rem ;
-        
+        padding: 0rem 2rem;
       }
-    
 
       &_head {
         display: flex;
         justify-content: center;
         flex-direction: column;
 
-        .container-lang{
+        .container-lang {
           width: 100%;
-        
-        
+
           justify-content: flex-end;
         }
       }
 
       &_logo {
-      
         display: flex;
         justify-content: center;
         align-items: center;
@@ -99,8 +88,6 @@
           width: auto;
         }
       }
-
-      
 
       &_question {
         display: flex;

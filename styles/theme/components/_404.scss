@@ -1,6 +1,3 @@
-
-
-
 .page404 {
   display: flex;
   flex-direction: column;
@@ -9,21 +6,20 @@
   height: 100vh;
   text-align: center;
   background-image: src;
-  background-image: url("https://img.freepik.com/foto-gratis/robot-ultima-pieza-rompecabezas_1048-3550.jpg?w=740&t=st=1693262002~exp=1693262602~hmac=3fa44f0b907a75f50410f4b2a46cace364cb29bad39f8d1de2e27d86dc6a7b61");
+  background-image: url('https://img.freepik.com/foto-gratis/robot-ultima-pieza-rompecabezas_1048-3550.jpg?w=740&t=st=1693262002~exp=1693262602~hmac=3fa44f0b907a75f50410f4b2a46cace364cb29bad39f8d1de2e27d86dc6a7b61');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   @include media(tablet) {
     width: 100%;
     height: 100vh;
-
   }
 }
 
 .title {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color:get-color(white_s1);
+  color: get-color(white_s1);
   display: flex;
   text-align: center;
 }
@@ -32,5 +28,3 @@
 //  margin: 2rem 2rem;
 
 // }
-
-

@@ -1,7 +1,7 @@
 .profilestart {
   height: 100vh;
   background-image: src;
-  background-image: url("../../../public/img/profilestart.webp");
+  background-image: url('../../../public/img/profilestart.webp');
   background-repeat: no-repeat;
   background-size: cover;
   background-size: 80vw;
@@ -77,7 +77,8 @@
     margin: 0.5em 0em;
     background-color: get-color(white_s1);
     padding: 2em;
-    box-shadow: 0px 22.0468px 22.0468px rgba(50, 50, 71, 0.08), 0px 22.0468px 44.0937px rgba(50, 50, 71, 0.06);
+    box-shadow: 0px 22.0468px 22.0468px rgba(50, 50, 71, 0.08),
+      0px 22.0468px 44.0937px rgba(50, 50, 71, 0.06);
     border-radius: 8.63363px;
     gap: 4em;
   }
@@ -191,7 +192,9 @@
     margin-bottom: 0.35em;
   }
 
-  .box-filter .css-1869usk-MuiFormControl-root .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
+  .box-filter
+    .css-1869usk-MuiFormControl-root
+    .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
     padding: -0.5rem 0.5rem 0 0.5rem;
   }
 
@@ -238,7 +241,11 @@
     // width: 5rem;
     // height: 5rem;
     background: linear-gradient(to bottom right, #3c2cd1, #ff8d8d);
-    background: linear-gradient(to right, rgba(#6ad2ff, 0.7), rgba(get-color(lilac_p3), 0.7));
+    background: linear-gradient(
+      to right,
+      rgba(#6ad2ff, 0.7),
+      rgba(get-color(lilac_p3), 0.7)
+    );
 
     display: flex;
     align-items: center;
@@ -326,7 +333,11 @@
           border-radius: brd(f);
           width: 4.5rem;
           height: 4.5rem;
-          background: linear-gradient(to left, get-color(blue_p1), get-color(lilac_p3));
+          background: linear-gradient(
+            to left,
+            get-color(blue_p1),
+            get-color(lilac_p3)
+          );
         }
         Img {
           height: 2rem;

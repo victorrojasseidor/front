@@ -1,23 +1,24 @@
 $colors: (
-  blue_p1: #4318FF,
-black_p2: #242331,
-lilac_p3: #9a90ff,
-white_s1: #ffffff,
-bone_s2: #f9f9f9,
-grey1_s3: #e4ebf6,
-// grey2_s4: #7D86A2,
-grey2_s4: #4B526C, //cambie de color porque no habia mucho cobtraset con el fondo
-pink_s5: #EFECFF,
-forms_s6: #e5e5ea,
-bg-cles:#F6F9FF,
+  blue_p1: #4318ff,
+  black_p2: #242331,
+  lilac_p3: #9a90ff,
+  white_s1: #ffffff,
+  bone_s2: #f9f9f9,
+  grey1_s3: #e4ebf6,
+  // grey2_s4: #7D86A2,
+  grey2_s4: #4b526c,
+  //cambie de color porque no habia mucho cobtraset con el fondo
+  pink_s5: #efecff,
+  forms_s6: #e5e5ea,
+  bg-cles: #f6f9ff,
 
-//dashwoard
-t1-blue: #2B3674,
-t2-ligthBlue: #007AFF,
-t3-red: #E31A1A,
-t4-orange: #FFCE20,
-t5-green: #05CD99,
-t6-green2:#05CD99,
+  //dashwoard
+  t1-blue: #2b3674,
+  t2-ligthBlue: #007aff,
+  t3-red: #e31a1a,
+  t4-orange: #ffce20,
+  t5-green: #05cd99,
+  t6-green2: #05cd99,
 );
 
 @function get-color($color-name) {
@@ -27,7 +28,7 @@ t6-green2:#05CD99,
 // - Fuentes de texto
 $ffVar: (
   1: (
-    "Raleway",
+    'Raleway',
     sans-serif,
   ),
 );
@@ -114,17 +115,14 @@ $brdVar: (
 // - Box shadow
 $bshVar: (
   1: -1.83697e-16px 3px 10px rgba(0, 0, 0, 0.1),
-    2: -1.8369701465288538e-16px 3px 10px 0px rgba(0, 0, 0, 0.1),
-  3:  0px 18px 40px 0px rgba(112, 144, 176, 0.12)
-
-
+  2: -1.8369701465288538e-16px 3px 10px 0px rgba(0, 0, 0, 0.1),
+  3: 0px 18px 40px 0px rgba(112, 144, 176, 0.12),
 );
 @function bsh($var) {
   @return map-get($bshVar, $var);
 }
 
-//gradiente 
-
+//gradiente
 
 @mixin borderGradient($startColor, $endColor) {
   background: linear-gradient(to right, $startColor, $endColor);
@@ -133,10 +131,10 @@ $bshVar: (
   -webkit-border-radius: 10;
   -moz-border-radius: 15;
   border-radius: 17px;
-  
+
   &:before,
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     bottom: 0;
@@ -153,8 +151,3 @@ $bshVar: (
     right: 0;
   }
 }
-
-
-
-
-

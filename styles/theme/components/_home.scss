@@ -8,7 +8,16 @@
     padding: 1rem 2rem;
 
     //animación gradiente
-    background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
+    background: linear-gradient(
+      -45deg,
+      get-color(blue_p1),
+      get-color(t2-ligthBlue),
+      #021820,
+      #021f29,
+      get-color(black_p2),
+      #4d08e2,
+      #1e0258
+    );
     background-size: 400% 400%;
     -webkit-animation: gradientHome 15s ease infinite;
     animation: gradientHome 15s ease infinite;
@@ -46,24 +55,15 @@
           color: get-color(white_s1);
         }
 
-
         path {
           fill: get-color(forms_s6);
         }
-
-
       }
-
 
       .lang_active {
         color: get-color(blue_p1);
         border-bottom: 1px solid get-color(white_s1);
       }
-
-
-
-
-
     }
 
     &-front {
@@ -182,15 +182,11 @@
           color: get-color(grey1_s3);
           align-items: center;
 
-
           path {
             padding: 0.25rem;
             // fill:get-color(blue_p1);
             stroke: get-color(grey1_s3);
           }
-
-
-
         }
       }
 
@@ -254,17 +250,12 @@
     padding: 0rem 1rem;
     flex-wrap: nowrap;
 
-
     // justify-content: flex-end;
 
     .languajes-box {
-     
-
       button {
         color: rgba(get-color(grey2_s4), 1);
       }
-
-
     }
 
     .lang_active {
@@ -272,17 +263,13 @@
       border-bottom: 1px solid get-color(blue_p1);
     }
 
-
-
-
-
     .li-login {
       color: rgba(get-color(grey2_s4), 1);
       display: none;
     }
 
     .logoAri {
-      background-image: url("../../../public/img/logo-lb.gif");
+      background-image: url('../../../public/img/logo-lb.gif');
     }
   }
 
@@ -290,7 +277,7 @@
     height: 4rem;
     width: 5rem;
     background-image: src;
-    background-image: url("../../../public/img/logoOscuro.webp");
+    background-image: url('../../../public/img/logoOscuro.webp');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -471,9 +458,6 @@
       justify-content: center;
     }
 
-
-
-
     .sombra {
       right: -70%;
       /* Ajusta según sea necesario */
@@ -635,7 +619,7 @@
 
       // Pseudoelemento ::before para la punta superior del globo
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 39%; // Ajusta la posición vertical de la punta
         left: 50%;
@@ -667,7 +651,16 @@
       gap: 1rem;
       z-index: 1;
       //animación gradiente
-      background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
+      background: linear-gradient(
+        -45deg,
+        get-color(blue_p1),
+        get-color(t2-ligthBlue),
+        #021820,
+        #021f29,
+        get-color(black_p2),
+        #4d08e2,
+        #1e0258
+      );
       background-size: 200% 200%;
       -webkit-animation: gradientHome 15s ease infinite;
       animation: gradientHome 15s ease infinite;
@@ -771,7 +764,7 @@
           padding: 2rem 0rem 2rem 2rem;
 
           &::after {
-            content: "";
+            content: '';
             position: absolute;
             top: 0;
             right: 0;
@@ -834,7 +827,6 @@
 
           @include media(extradesktop) {
             width: 25vw;
-
           }
 
           .digital-list {
@@ -866,7 +858,11 @@
           display: flex;
           align-items: center;
           border-radius: 0px 10px 10px 0px;
-          background: linear-gradient(to right, transparent 50%, get-color(blue_p1) 50%);
+          background: linear-gradient(
+            to right,
+            transparent 50%,
+            get-color(blue_p1) 50%
+          );
 
           svg {
             padding: 1rem;
@@ -911,14 +907,18 @@
           position: relative;
 
           &::after {
-            content: "";
+            content: '';
             position: absolute;
             top: 0;
             left: 100%; // Posiciona la sombra al final del segundo elemento
             width: 50px; // Ancho de la sombra
             height: 100%;
             z-index: 4;
-            background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+            background: linear-gradient(
+              to left,
+              rgba(255, 255, 255, 0) 0%,
+              rgba(255, 255, 255, 1) 100%
+            );
             pointer-events: none;
           }
         }
@@ -954,8 +954,6 @@
         img {
           height: 4.25vh;
         }
-
-
       }
     }
   }
@@ -967,7 +965,6 @@
     width: 100%;
     flex-wrap: wrap;
     height: auto;
-
 
     @include media(desktop) {
       flex-direction: row;
@@ -1011,7 +1008,7 @@
 
           span {
             color: lighten(get-color(t2-ligthBlue), 30%);
-            color:transparent;
+            color: transparent;
             font-size: 0.75rem;
             margin-bottom: -1rem;
           }
@@ -1107,7 +1104,6 @@
 
           @include media(extradesktop) {
             font-size: 1.2rem;
-
           }
         }
 
@@ -1147,8 +1143,6 @@
             top: 74%;
             z-index: -1;
           }
-
-
         }
 
         .process {
@@ -1228,7 +1222,7 @@
       position: relative;
 
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         right: 100%; // Posiciona la sombra al final del segundo elemento
@@ -1236,7 +1230,11 @@
         height: 80%;
         border-radius: brd(0);
         z-index: 2;
-        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(0, 10, 10) 300%);
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0) 0%,
+          rgb(0, 10, 10) 300%
+        );
         pointer-events: none;
       }
 
@@ -1371,8 +1369,22 @@
     justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
-    background-image: linear-gradient(to right, get-color(blue_p1), #8d2de2dd, #2e0383);
-    background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
+    background-image: linear-gradient(
+      to right,
+      get-color(blue_p1),
+      #8d2de2dd,
+      #2e0383
+    );
+    background: linear-gradient(
+      -45deg,
+      get-color(blue_p1),
+      get-color(t2-ligthBlue),
+      #021820,
+      #021f29,
+      get-color(black_p2),
+      #4d08e2,
+      #1e0258
+    );
     justify-content: center;
 
     align-items: flex-end;
@@ -1552,8 +1564,22 @@
 }
 
 .background-colored {
-  background-image: linear-gradient(to right, get-color(blue_p1), #8d2de2dd, #2e0383);
-  background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
+  background-image: linear-gradient(
+    to right,
+    get-color(blue_p1),
+    #8d2de2dd,
+    #2e0383
+  );
+  background: linear-gradient(
+    -45deg,
+    get-color(blue_p1),
+    get-color(t2-ligthBlue),
+    #021820,
+    #021f29,
+    get-color(black_p2),
+    #4d08e2,
+    #1e0258
+  );
 
   background-size: 400% 400%;
   -webkit-animation: gradientHome 15s ease infinite;
@@ -1561,7 +1587,6 @@
 }
 
 @keyframes fadeInOut {
-
   0%,
   50%,
   100% {
@@ -1614,11 +1639,15 @@
 
 @keyframes wave {
   0% {
-    box-shadow: 0 0 0 20px rgba(get-color(white_s1), 0.5), 0 0 0 40px rgba(get-color(lilac_p3), 0.7), 0 0 0 60px rgba(get-color(t2-ligthBlue), 0.8);
+    box-shadow: 0 0 0 20px rgba(get-color(white_s1), 0.5),
+      0 0 0 40px rgba(get-color(lilac_p3), 0.7),
+      0 0 0 60px rgba(get-color(t2-ligthBlue), 0.8);
   }
 
   100% {
-    box-shadow: 0 0 0 60px rgba(get-color(blue_p1), 0.3), 0 0 0 40px rgba(get-color(t5-green), 0.7), 0 0 0 20px rgba(get-color(t5-green), 0.2);
+    box-shadow: 0 0 0 60px rgba(get-color(blue_p1), 0.3),
+      0 0 0 40px rgba(get-color(t5-green), 0.7),
+      0 0 0 20px rgba(get-color(t5-green), 0.2);
   }
 }
 

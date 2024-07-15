@@ -1,29 +1,25 @@
 // import '../../styles/_styles.scss'
 
-function ModalForm ({ close, children }) {
+function ModalForm({ close, children }) {
   const handleCloseModal = () => {
-    close()
-  }
+    close();
+  };
 
   return (
     <div>
-      <div className='modalForm'>
-        <div className='contentForm'>
-          <div className='closeform'>
+      <div className="modalForm">
+        <div className="contentForm">
+          <div className="closeform">
             <button onClick={handleCloseModal}> X </button>
           </div>
 
-          <div className='message'>
-
-            {children}
-          </div>
-
+          <div className="message">{children}</div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-ModalForm.propTypes = {}
+ModalForm.propTypes = {};
 
-export default ModalForm
+export default ModalForm;

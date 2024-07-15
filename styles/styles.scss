@@ -2,37 +2,35 @@
 // Google Fonts
 //@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
 
-
-
 // Inicialización
 // @import 'theme/config/fonts';
-@import "core/functions-color";
-@import "theme/config/app";
-@import "core/media-query";
+@import 'core/functions-color';
+@import 'theme/config/app';
+@import 'core/media-query';
 // @import 'theme/config/variables';
 // @import 'theme/config/variables-css';
-@import "theme/config/variable";
-@import "core/reset";
-@import "theme/config/utils";
+@import 'theme/config/variable';
+@import 'core/reset';
+@import 'theme/config/utils';
 // @import 'theme/config/layout'; // beta
 
 // Componentes
-@import "theme/components/404";
-@import "theme/components/layoutLogin";
-@import "theme/components/register";
-@import "theme/components/profile";
-@import "theme/components/modal";
-@import "theme/components/tabs";
-@import "theme/components/layoutProducts";
-@import "theme/components/products";
-@import "theme/components/idproduct";
-@import "theme/components/currency";
-@import "theme/components/dowlandAuto";
-@import "theme/components/buttons";
-@import "theme/components/reporting";
-@import "theme/components/pattern";
-@import "theme/components/home";
-@import "theme/components/admin";
-@import "theme/components/diagram";
-@import "theme/components/upload";
-@import "theme/components/homepage";
+@import 'theme/components/404';
+@import 'theme/components/layoutLogin';
+@import 'theme/components/register';
+@import 'theme/components/profile';
+@import 'theme/components/modal';
+@import 'theme/components/tabs';
+@import 'theme/components/layoutProducts';
+@import 'theme/components/products';
+@import 'theme/components/idproduct';
+@import 'theme/components/currency';
+@import 'theme/components/dowlandAuto';
+@import 'theme/components/buttons';
+@import 'theme/components/reporting';
+@import 'theme/components/pattern';
+@import 'theme/components/home';
+@import 'theme/components/admin';
+@import 'theme/components/diagram';
+@import 'theme/components/upload';
+@import 'theme/components/homepage';

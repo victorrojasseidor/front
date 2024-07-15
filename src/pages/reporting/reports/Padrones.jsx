@@ -1,100 +1,114 @@
-import React, { useState, useEffect } from 'react'
-import { useAuth } from '@/Context/DataContext'
-import { useRouter } from 'next/navigation' // Changed from 'next/navigation'
-import Typography from '@mui/material/Typography'
-import Pagination from '@mui/material/Pagination'
-import Stack from '@mui/material/Stack'
-import LoadingComponent from '@/Components/Atoms/LoadingComponent'
-import { fetchConTokenPost } from '@/helpers/fetch'
-import { formatDate } from '@/helpers/report'
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '@/Context/DataContext';
+import { useRouter } from 'next/navigation'; // Changed from 'next/navigation'
+import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+import LoadingComponent from '@/Components/Atoms/LoadingComponent';
+import { fetchConTokenPost } from '@/helpers/fetch';
+import { formatDate } from '@/helpers/report';
 
 const Padrones = () => {
-  const { session, empresa, setModalToken, logout, setEmpresa, l } = useAuth()
-  const [activeTab, setActiveTab] = useState(0)
-  const [requestError, setRequestError] = useState()
-  const [isLoading, setIsLoading] = useState(false)
-  const [dataPadrones, setDataPadrones] = useState(null)
-  const [itemsPerPage] = useState(25)
-  const [page, setPage] = useState(1)
+  const { session, empresa, setModalToken, logout, setEmpresa, l } = useAuth();
+  const [activeTab, setActiveTab] = useState(0);
+  const [requestError, setRequestError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [dataPadrones, setDataPadrones] = useState(null);
+  const [itemsPerPage] = useState(25);
+  const [page, setPage] = useState(1);
 
-  const t = l.Captcha
+  const t = l.Captcha;
 
   const handleChangePage = (event, value) => {
-    setPage(value)
-  }
+    setPage(value);
+  };
 
   useEffect(() => {
-    GetReportePadrones()
-  }, [])
+    GetReportePadrones();
+  }, []);
 
-  async function GetReportePadrones () {
-    setIsLoading(true)
+  async function GetReportePadrones() {
+    setIsLoading(true);
     const body = {
-      oResults: {}
-    }
+      oResults: {},
+    };
 
     try {
-      const token = session.sToken
-      const responseData = await fetchConTokenPost('BPasS/?Accion=GetReportePadrones', body, token)
+      const token = session.sToken;
+      const responseData = await fetchConTokenPost(
+        'BPasS/?Accion=GetReportePadrones',
+        body,
+        token
+      );
 
       if (responseData.oAuditResponse?.iCode === 1) {
-        const data = responseData.oResults
-        setDataPadrones(data)
-        setModalToken(false)
-        setRequestError(null)
+        const data = responseData.oResults;
+        setDataPadrones(data);
+        setModalToken(false);
+        setRequestError(null);
       } else if (responseData.oAuditResponse?.iCode === 27) {
-        setModalToken(true)
+        setModalToken(true);
       } else if (responseData.oAuditResponse?.iCode === 4) {
-        await logout()
+        await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form'
-        setRequestError(errorMessage)
+        const errorMessage = responseData.oAuditResponse
+          ? responseData.oAuditResponse.sMessage
+          : 'Error in sending the form';
+        setRequestError(errorMessage);
         setTimeout(() => {
-          setRequestError(null)
-        }, 2000)
+          setRequestError(null);
+        }, 2000);
       }
     } catch (error) {
-      console.error('error', error)
-      setModalToken(true)
-      setRequestError(error)
+      console.error('error', error);
+      setModalToken(true);
+      setRequestError(error);
       setTimeout(() => {
-        setRequestError(null)
-      }, 1000)
+        setRequestError(null);
+      }, 1000);
     } finally {
-      setIsLoading(false) // Ocultar señal de carga
+      setIsLoading(false); // Ocultar señal de carga
     }
   }
 
   return (
     <>
-      <section className=''>
+      <section className="">
         {isLoading && <LoadingComponent />}
 
-        {requestError && <div className='errorMessage'> {requestError.error}</div>}
-        <div className='box-tabs'>
-          <div className='tab-content'>
-            <div className='tabOne'>
-              <div className='contaniner-tables'>
-                <div className='box-search'>
+        {requestError && (
+          <div className="errorMessage"> {requestError.error}</div>
+        )}
+        <div className="box-tabs">
+          <div className="tab-content">
+            <div className="tabOne">
+              <div className="contaniner-tables">
+                <div className="box-search">
                   <div>
                     <h3> {t['Sunat register report']}</h3>
-                    <p> {l.Pattern['Result obtained from the SUNAT portal']} </p>
+                    <p>
+                      {' '}
+                      {l.Pattern['Result obtained from the SUNAT portal']}{' '}
+                    </p>
                   </div>
                 </div>
 
-                <div className='boards'>
-                  <div className='tableContainer'>
-                    <table className='dataTable'>
+                <div className="boards">
+                  <div className="tableContainer">
+                    <table className="dataTable">
                       <thead>
                         <tr>
                           <th>{t.Standards} </th>
                           <th> {t['Update date']}</th>
                         </tr>
                       </thead>
-                      <tbody className='rowTable'>
+                      <tbody className="rowTable">
                         {dataPadrones?.length > 0 ? (
                           dataPadrones
-                            .slice((page - 1) * itemsPerPage, page * itemsPerPage) // Slice the array based on the current page
+                            .slice(
+                              (page - 1) * itemsPerPage,
+                              page * itemsPerPage
+                            ) // Slice the array based on the current page
                             .map((row) => (
                               <tr key={row.id_padrones}>
                                 <td>{row.nombre_documento}</td>
@@ -103,16 +117,19 @@ const Padrones = () => {
                             ))
                         ) : (
                           <tr>
-                            <td colSpan='2'>{l.Reporting['There is no data']}</td>
+                            <td colSpan="2">
+                              {l.Reporting['There is no data']}
+                            </td>
                           </tr>
                         )}
                       </tbody>
                     </table>
                   </div>
                   <Stack spacing={2}>
-                    <div className='pagination'>
+                    <div className="pagination">
                       <Typography>
-                        {l.Reporting.Page} {page} {t.of} {Math.ceil(dataPadrones?.length / itemsPerPage)}
+                        {l.Reporting.Page} {page} {t.of}{' '}
+                        {Math.ceil(dataPadrones?.length / itemsPerPage)}
                       </Typography>
                       <Pagination
                         count={Math.ceil(dataPadrones?.length / itemsPerPage)} // Calculate the total number of pages
@@ -128,7 +145,7 @@ const Padrones = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Padrones
+export default Padrones;

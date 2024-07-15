@@ -18,7 +18,6 @@
   width: 100%;
   gap: 1em;
 
-
   @include media(tablet) {
     flex-direction: row;
   }
@@ -90,5 +89,3 @@
     align-items: center;
   }
 }
-
-

@@ -1,48 +1,47 @@
-import { DataContextProvider, useAuth } from '@/Context/DataContext'
-import React, { useState, useEffect } from 'react'
-import logo from '../../../public/img/logoOscuro.webp'
+import { DataContextProvider, useAuth } from '@/Context/DataContext';
+import React, { useState, useEffect } from 'react';
+import logo from '../../../public/img/logoOscuro.webp';
 
-import Image from 'next/image'
-import ProgressRegister from '@/Components/progressRegister'
-import { useRouter } from 'next/navigation'
-import Cloud from '@/Components/Atoms/Cloud'
-import Lang from '@/Components/Atoms/Lang'
+import Image from 'next/image';
+import ProgressRegister from '@/Components/progressRegister';
+import { useRouter } from 'next/navigation';
+import Cloud from '@/Components/Atoms/Cloud';
+import Lang from '@/Components/Atoms/Lang';
 
-export default function Profilestart () {
-  const { dataProfileStart, logout, l } = useAuth()
-  const t = l.profile
+export default function Profilestart() {
+  const { dataProfileStart, logout, l } = useAuth();
+  const t = l.profile;
 
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     if (!dataProfileStart) {
-      router.push('/login')
+      router.push('/login');
     }
-  }, [dataProfileStart])
+  }, [dataProfileStart]);
 
   const handleLogout = () => {
-    router.push('/login')
-    logout()
-  }
+    router.push('/login');
+    logout();
+  };
 
   return (
     <DataContextProvider>
-      <section className='profilestart'>
-        <section className='discover' />
+      <section className="profilestart">
+        <section className="discover" />
 
-        <section className='welcome'>
-
+        <section className="welcome">
           <nav>
-
             <fieldset>
-
-              <Image src={logo} width={95} alt='imgRegister' />
-              <Cloud imgButton='SignOut' cloudText='Sign Out' onClick={handleLogout} />
+              <Image src={logo} width={95} alt="imgRegister" />
+              <Cloud
+                imgButton="SignOut"
+                cloudText="Sign Out"
+                onClick={handleLogout}
+              />
               <Lang />
-
             </fieldset>
             <ul>
-
               <li>
                 <h1>{t['Welcome to ARI Seidor!']}</h1>
               </li>
@@ -50,12 +49,13 @@ export default function Profilestart () {
                 <p> {t['Robots and people work better together']}</p>
               </li>
             </ul>
-
           </nav>
-          <section className='formProfile '>
+          <section className="formProfile ">
             <div>
               <h2>{t["let's get started"]}</h2>
-              <p>{t['Fill in the following fields to complete your profile']}</p>
+              <p>
+                {t['Fill in the following fields to complete your profile']}
+              </p>
             </div>
 
             <div>
@@ -65,5 +65,5 @@ export default function Profilestart () {
         </section>
       </section>
     </DataContextProvider>
-  )
+  );
 }

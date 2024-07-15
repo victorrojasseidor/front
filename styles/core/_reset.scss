@@ -4,8 +4,6 @@
 // Define las fuentes para que las puedas usar en tu aplicación
 $font-poppins: 'DM Sans', sans-serif;
 
-
-
 // Aplica las fuentes en tu estilos, por ejemplo, en el cuerpo del documento
 body {
   font-family: $font-poppins;
@@ -32,9 +30,6 @@ html {
   font-size: inherit;
 }
 
-
-
-
 h1,
 h2,
 h3,
@@ -45,36 +40,51 @@ h6 {
   font-size: inherit;
   font-weight: inherit;
   display: flex;
-  text-align:start;
-  color:get-color(t1-blue);
+  text-align: start;
+  color: get-color(t1-blue);
   font-style: normal;
   font-weight: 700;
   line-height: 125%;
   display: flex;
   gap: 0.5em;
-  
-  svg{
+
+  svg {
     font-size: larger;
   }
 }
 
-
-//tamaño de fuentes 
+//tamaño de fuentes
 
 h1 {
-  font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem); // 24px a 36px dependiendo del ancho de la ventana
+  font-size: clamp(
+    1.5rem,
+    2vw + 1rem,
+    2.25rem
+  ); // 24px a 36px dependiendo del ancho de la ventana
 }
 
 h2 {
-  font-size: clamp(1.25rem, 1.25vw + 1rem, 1.65rem); // 20px a 30px dependiendo del ancho de la ventana
+  font-size: clamp(
+    1.25rem,
+    1.25vw + 1rem,
+    1.65rem
+  ); // 20px a 30px dependiendo del ancho de la ventana
 }
 
 h3 {
-  font-size: clamp(1rem, 1vw + 0.5rem, 1.5rem); // 16px a 24px dependiendo del ancho de la ventana
+  font-size: clamp(
+    1rem,
+    1vw + 0.5rem,
+    1.5rem
+  ); // 16px a 24px dependiendo del ancho de la ventana
 }
 
 h4 {
-  font-size: clamp(0.875rem, 0.75vw + 0.25rem, 1.25rem); // 14px a 20px dependiendo del ancho de la ventana
+  font-size: clamp(
+    0.875rem,
+    0.75vw + 0.25rem,
+    1.25rem
+  ); // 14px a 20px dependiendo del ancho de la ventana
 }
 
 h5 {
@@ -86,17 +96,15 @@ h5 {
 p {
   font-style: normal;
   font-weight: 400;
-  font-size: clamp(0.875rem, 0.75vw + 0.5rem, 1.25rem); // 14px a 20px dependiendo del ancho de la ventana
+  font-size: clamp(
+    0.875rem,
+    0.75vw + 0.5rem,
+    1.25rem
+  ); // 14px a 20px dependiendo del ancho de la ventana
   line-height: 100%;
 }
 
-
-
-
-
-
-//anteriormente 
-
+//anteriormente
 
 // h1 {
 //   font-size: 24px;
@@ -140,8 +148,6 @@ p {
 
 // }
 
-
-
 a,
 input,
 select,
@@ -171,8 +177,8 @@ textarea {
   resize: none;
 }
 
-input[type="submit"],
-button[type="submit"],
+input[type='submit'],
+button[type='submit'],
 button {
   cursor: pointer;
   font-family: $font-poppins;
@@ -184,11 +190,11 @@ a {
   font-family: $font-poppins;
 }
 
-table{
+table {
   font-family: $font-poppins;
 }
 
-span{
+span {
   font-family: $font-poppins;
 }
 
@@ -208,33 +214,29 @@ p {
   font-family: $font-poppins;
 }
 
-
-
-.css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input{
-  color:get-color(t1-blue);
+.css-1yhyf2r-MuiAutocomplete-root
+  .MuiOutlinedInput-root
+  .MuiAutocomplete-input {
+  color: get-color(t1-blue);
   font-weight: 700;
   font-family: $font-poppins;
 
- .MuiSvgIcon-root{
-  path{
-    fill:get-color(blue_p1);
-    stroke: aqua;
-  }
- }
-
-  svg{
-    path{
-      fill:get-color(blue_p1);
+  .MuiSvgIcon-root {
+    path {
+      fill: get-color(blue_p1);
       stroke: aqua;
     }
   }
- 
-   }
 
-   .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root{
-    font-family: $font-poppins;
-    color:get-color(t1-blue);
-   }
+  svg {
+    path {
+      fill: get-color(blue_p1);
+      stroke: aqua;
+    }
+  }
+}
 
-
-   
+.css-1jy569b-MuiFormLabel-root-MuiInputLabel-root {
+  font-family: $font-poppins;
+  color: get-color(t1-blue);
+}

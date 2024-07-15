@@ -1,54 +1,54 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 const OrderTable = () => {
   const [data, setData] = useState([
     {
       key: 'id',
-      title: 'Id'
+      title: 'Id',
     },
     {
       key: 'nombre',
-      title: 'Nombre'
+      title: 'Nombre',
     },
     {
       key: 'apellido',
-      title: 'Apellido'
-    }
-  ])
+      title: 'Apellido',
+    },
+  ]);
 
-  const [draggedIndex, setDraggedIndex] = useState(null)
+  const [draggedIndex, setDraggedIndex] = useState(null);
 
   const handleColumnDragStart = (index) => {
-    setDraggedIndex(index)
-  }
+    setDraggedIndex(index);
+  };
 
   const handleColumnDragOver = (event, index) => {
-    event.preventDefault()
-    const draggedOverIndex = index
+    event.preventDefault();
+    const draggedOverIndex = index;
 
     if (draggedIndex === null || draggedIndex === draggedOverIndex) {
-      return
+      return;
     }
 
-    const newOrder = [...data]
-    const draggedColumn = newOrder[draggedIndex]
+    const newOrder = [...data];
+    const draggedColumn = newOrder[draggedIndex];
 
     // Remove the dragged column from its current position
-    newOrder.splice(draggedIndex, 1)
+    newOrder.splice(draggedIndex, 1);
 
     // Insert the dragged column at the new position
-    newOrder.splice(draggedOverIndex, 0, draggedColumn)
+    newOrder.splice(draggedOverIndex, 0, draggedColumn);
 
-    setDraggedIndex(draggedOverIndex)
-    setData(newOrder)
-  }
+    setDraggedIndex(draggedOverIndex);
+    setData(newOrder);
+  };
 
   const handleColumnDragEnd = () => {
-    setDraggedIndex(null)
-  }
+    setDraggedIndex(null);
+  };
 
   return (
-    <div className='orderTable'>
+    <div className="orderTable">
       <table>
         <thead>
           <tr>
@@ -56,7 +56,7 @@ const OrderTable = () => {
               <th
                 key={column.key}
                 data-key={column.key}
-                draggable='true'
+                draggable="true"
                 style={{ cursor: 'move' }}
                 onDragStart={() => handleColumnDragStart(index)}
                 onDragOver={(e) => handleColumnDragOver(e, index)}
@@ -78,7 +78,7 @@ const OrderTable = () => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default OrderTable
+export default OrderTable;

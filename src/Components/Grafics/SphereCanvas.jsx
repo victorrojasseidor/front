@@ -1,4 +1,3 @@
-
 const SphereCanvas = () => {
   const amount = 200;
   const divs = [];
@@ -7,9 +6,7 @@ const SphereCanvas = () => {
   }
   return (
     <div className="daddy">
-      <div className="mommy">
-        {divs}
-      </div>
+      <div className="mommy">{divs}</div>
     </div>
   );
 };

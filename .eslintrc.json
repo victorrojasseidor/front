@@ -1,7 +1,32 @@
 {
-  "extends": ["./node_modules/standard/eslintrc.json", "next/core-web-vitals"],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",  // Añadir esta línea
+    "next",
+    "next/core-web-vitals"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "prettier"  // Añadir esta línea
+  ],
   "rules": {
-    "react/no-unescaped-entities": "off",
-    "@next/next/no-page-custom-font": "off"
+    "react/prop-types": "off",
+    "no-unused-vars": "warn",
+    "no-unused-labels": "warn",
+    "no-unused-expressions": "warn",
+    "comma-dangle": ["error", "never"], 
+    "prettier/prettier": "error"  // Añadir esta línea
   }
 }

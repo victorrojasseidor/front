@@ -30,7 +30,7 @@
         align-items: center;
         height: 100%;
 
-        .title{
+        .title {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -97,71 +97,59 @@
     }
   }
 
-  &_configurations{
-
-    .contentForm{
+  &_configurations {
+    .contentForm {
       width: 95vw;
-    height: 90vh;
+      height: 90vh;
 
-    @include media(extradesktop) {
-      width: 90vw;
-    }
+      @include media(extradesktop) {
+        width: 90vw;
+      }
 
-    .closeform {
-      button{
-        top: 81px;
-
+      .closeform {
+        button {
+          top: 81px;
+        }
       }
     }
-    }
-   
-    .box-search{
- 
-      span{
+
+    .box-search {
+      span {
         color: get-color(grey2_s4);
       }
     }
   }
-
- 
 }
 
-
-.error{
+.error {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 1rem 2rem;
   padding: 1rem;
   border-radius: brd(2);
-  background-color: rgba(get-color(t3-red), 0.1); 
-  
+  background-color: rgba(get-color(t3-red), 0.1);
 }
 
-.conten-form-Curency{
+.conten-form-Curency {
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 
-   padding: 1rem 1rem;
-    display: flex;
-    align-items:center;
-    flex-direction: column;
-    justify-content: center;
+  .form-Curency {
+    width: 100%;
 
-    .form-Curency{
-      width: 100%;
-
-      .box-filter .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select, .box-filter .css-qiwgdb {
-             
-        padding-right: 1rem;
-        margin-top: 0.25rem;
-      
-       
-      }
+    .box-filter
+      .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select,
+    .box-filter .css-qiwgdb {
+      padding-right: 1rem;
+      margin-top: 0.25rem;
     }
-
-
-  .group{
-    padding: 1rem 0rem;
   }
 
-
+  .group {
+    padding: 1rem 0rem;
+  }
 }

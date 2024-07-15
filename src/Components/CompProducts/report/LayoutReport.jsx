@@ -6,7 +6,6 @@ import NavigationPages from '@/Components/NavigationPages';
 import { useAuth } from '@/Context/DataContext';
 import { useRouter } from 'next/navigation'; // Cambiado desde 'next/navigation'
 
-
 const LayouReport = ({ defaultTab, children }) => {
   const { l } = useAuth();
   const t = l.Reporting;
@@ -17,7 +16,7 @@ const LayouReport = ({ defaultTab, children }) => {
   const tabs = [
     { title: t.Balance, path: '/reporting/balance' },
     { title: t.Movement, path: '/reporting/movement' },
-    { title: l.Pattern.Pattern, path: '/reporting/Padrones' }
+    { title: l.Pattern.Pattern, path: '/reporting/Padrones' },
   ];
 
   const handleTabClick = (index, path) => {
@@ -26,22 +25,24 @@ const LayouReport = ({ defaultTab, children }) => {
   };
 
   return (
-    <LayoutProducts menu='Reporting'>
+    <LayoutProducts menu="Reporting">
       <NavigationPages title={defaultTab === 0 ? t.Balance : t.Movement}>
-        <Link href='/reporting'>
-          <ImageSvg name='Dashboard' />
+        <Link href="/reporting">
+          <ImageSvg name="Dashboard" />
           <p>{t.Reporting}</p>
         </Link>
-        <ImageSvg name='Navegación' />
+        <ImageSvg name="Navegación" />
         {tabs.map((tab, index) => (
-          <Link href='#' key={index}>
-            <span onClick={() => handleTabClick(index, tab.path)}>{tab.title}</span>
+          <Link href="#" key={index}>
+            <span onClick={() => handleTabClick(index, tab.path)}>
+              {tab.title}
+            </span>
           </Link>
         ))}
       </NavigationPages>
-      <section className='layoutReporting'>
-        <div className='horizontalTabs'>
-          <div className='tab-header'>
+      <section className="layoutReporting">
+        <div className="horizontalTabs">
+          <div className="tab-header">
             {tabs.map((tab, index) => (
               <button
                 key={index}
@@ -52,9 +53,9 @@ const LayouReport = ({ defaultTab, children }) => {
               </button>
             ))}
           </div>
-          <div className='tab-content'>
+          <div className="tab-content">
             {tabs.map((tab, index) => (
-              <div className='tabOne' key={index}>
+              <div className="tabOne" key={index}>
                 {defaultTab === index && children}
               </div>
             ))}

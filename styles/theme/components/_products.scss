@@ -22,15 +22,13 @@
       // justify-content: flex-start;
       justify-content: center;
       gap: 1rem;
-  
-
     }
 
     @include media(desktop) {
       height: auto;
       padding: 2rem;
       justify-content: space-around;
-      gap:0rem;
+      gap: 0rem;
     }
 
     @include media(extradesktop) {
@@ -183,7 +181,8 @@
 
     @include media(tablet) {
       padding: 2rem;
-      background: url("../../../public/img/home.webp") center top no-repeat, transparent;
+      background: url('../../../public/img/home.webp') center top no-repeat,
+        transparent;
       background-size: cover, auto; /* Ajusta el tamaño de la imagen al contenedor */
       // background-position: left bottom;
     }
@@ -216,7 +215,6 @@
 
           @include media(tablet) {
             color: get-color(white_s1);
-           
           }
         }
       }
@@ -237,7 +235,7 @@
         z-index: 1;
         left: 0;
         bottom: 0;
-        background: url("../../../public/img/home-3.webp") no-repeat;
+        background: url('../../../public/img/home-3.webp') no-repeat;
         background-size: contain;
       }
 
@@ -310,7 +308,8 @@
 
     //select material ui
 
-    .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root {
+    .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-1yhyf2r-MuiAutocomplete-root
+      .MuiOutlinedInput-root {
       width: 95%;
     }
   }
@@ -459,7 +458,6 @@
     flex-wrap: nowrap;
     border-radius: brd(2);
     gap: 1rem;
-   
 
     @include center-container;
 
@@ -535,7 +533,18 @@
     &:first-child {
       span {
         color: get-color(t6-green2);
-        background-image: radial-gradient(circle at -20.44% 43.84%, #bbeebb 0, #b3efc1 12.5%, #abf1c7 25%, #a4f1ce 37.5%, #9df2d5 50%, #96f2dc 62.5%, #91f3e3 75%, #8cf3ea 87.5%, #88f3f1 100%);
+        background-image: radial-gradient(
+          circle at -20.44% 43.84%,
+          #bbeebb 0,
+          #b3efc1 12.5%,
+          #abf1c7 25%,
+          #a4f1ce 37.5%,
+          #9df2d5 50%,
+          #96f2dc 62.5%,
+          #91f3e3 75%,
+          #8cf3ea 87.5%,
+          #88f3f1 100%
+        );
         color: get-color(black_p2);
         border-radius: brd(2);
         padding: 0.8em 1em;
@@ -638,7 +647,6 @@
     text-align: center;
     line-height: 1rem;
     cursor: pointer;
-   
 
     &:hover,
     & :focus {
@@ -677,7 +685,9 @@
     }
   }
 
-  .css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
+  .css-1yhyf2r-MuiAutocomplete-root
+    .MuiOutlinedInput-root
+    .MuiAutocomplete-input {
     color: get-color(white_s1);
     padding-top: 1rem;
     color: get-color(t1-blue);
@@ -695,8 +705,10 @@
     transform: translate(0px, -22px) scale(0.76);
   }
 
-  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-17l143u-MuiAutocomplete-root .MuiOutlinedInput-root,
-  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-154wcn3 .MuiOutlinedInput-root {
+  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-17l143u-MuiAutocomplete-root
+    .MuiOutlinedInput-root,
+  .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.css-154wcn3
+    .MuiOutlinedInput-root {
     color: get-color(t1-blue);
     font-weight: 500;
     border-radius: brd(2);
@@ -724,7 +736,7 @@
       width: 1.5rem;
       height: 1.5rem;
       position: relative;
-      background-image: url("../../../public/icons/arrow.svg");
+      background-image: url('../../../public/icons/arrow.svg');
       background-size: contain; /* Ajusta el tamaño del fondo para cubrir el contenedor */
       display: inline-block;
 
@@ -818,20 +830,22 @@
   .report-content {
     background-color: transparent;
     // Transición para hacerla más lenta y suave
-    transition: background-color 0.9s ease; 
-
+    transition: background-color 0.9s ease;
 
     @include media(tablet) {
       // background-color: rgba(get-color(t1-blue), 0.4);
-      background-image: linear-gradient(to right,rgba(#000846, 0.5),  rgba(#000846, 1), rgba(#000846, 0.8), rgba(get-color(t1-blue), 0.4));
-      
-
+      background-image: linear-gradient(
+        to right,
+        rgba(#000846, 0.5),
+        rgba(#000846, 1),
+        rgba(#000846, 0.8),
+        rgba(get-color(t1-blue), 0.4)
+      );
 
       .report_data {
         article,
         p {
           color: rgba(get-color(grey1_s3), 0.7);
-        
         }
 
         h2 {
@@ -841,14 +855,21 @@
 
       .green {
         .report_icon {
-          background: linear-gradient(to left, rgba(get-color(t5-green), 0.2), rgba(get-color(t6-green2), 0.1));
-       
+          background: linear-gradient(
+            to left,
+            rgba(get-color(t5-green), 0.2),
+            rgba(get-color(t6-green2), 0.1)
+          );
         }
       }
 
       .red {
         .report_icon {
-          background: linear-gradient(to left, rgba(get-color(blue_p1), 0.2), rgba(get-color(white_s1), 0.2));
+          background: linear-gradient(
+            to left,
+            rgba(get-color(blue_p1), 0.2),
+            rgba(get-color(white_s1), 0.2)
+          );
           // background: linear-gradient(to left, rgba(get-color(white_s1), 0.2), rgba(get-color(white_s1), 0.3));
 
           path {
@@ -860,9 +881,7 @@
         span {
           color: hsl_l(blue_p1, 25);
           path {
-          
-           fill: hsl_l(blue_p1, 25)
-
+            fill: hsl_l(blue_p1, 25);
           }
         }
       }
@@ -872,17 +891,20 @@
           // background: linear-gradient(to right, rgba(#8e2de2, 0.9), rgba(#8e2de2, 0.2));
 
           // background: linear-gradient(to left, rgba(get-color(lilac_p3), 0.4), rgba(#af85d8, 0.8));
-          background: linear-gradient(to right, rgba(#6AD2FF, 0.7), rgba(get-color(white_s1), 0.6 ));
+          background: linear-gradient(
+            to right,
+            rgba(#6ad2ff, 0.7),
+            rgba(get-color(white_s1), 0.6)
+          );
           // background-image: linear-gradient(to right, rgba(67, 24, 255, 0.6), #4318ff);
         }
 
         svg,
         span {
           color: hsl_l(t2-ligthBlue, 20);
-    
 
           path {
-            fill: hsl_l(t2-ligthBlue, 25)
+            fill: hsl_l(t2-ligthBlue, 25);
           }
         }
       }
@@ -891,7 +913,6 @@
     .liner {
       @include media(tablet) {
         background-color: rgba(get-color(grey1_s3), 0.4) !important;
-      
       }
     }
   }

@@ -2,7 +2,11 @@
 
 // - Crea un color en formato HSL para CSS en base a variables creadas de un color en formato Hex
 @function vcolor($idColor) {
-  @return hsl(var(--color_#{$idColor}_H), var(--color_#{$idColor}_S), var(--color_#{$idColor}_L));
+  @return hsl(
+    var(--color_#{$idColor}_H),
+    var(--color_#{$idColor}_S),
+    var(--color_#{$idColor}_L)
+  );
 }
 
 // - Función para oscurecer un color con variables CSS en SCSS
@@ -10,7 +14,7 @@
   $color_h: var(--color_#{$idColor}_H);
   $color_s: var(--color_#{$idColor}_S);
   $color_l: var(--color_#{$idColor}_L);
-  @return hsl($color_h, $color_s, calc(#{$color_l} - #{$percentage}#{"%"}));
+  @return hsl($color_h, $color_s, calc(#{$color_l} - #{$percentage}#{'%'}));
 }
 
 // - Función para iluminar un color con variables CSS en SCSS
@@ -21,15 +25,17 @@
 //   @return hsl($color_h, $color_s, calc(#{$color_l} + #{$percentage}#{"%"}));
 // }
 
-
 @function hsl_l($colorName, $percentage) {
   $color: get-color($colorName); // Obtener el color usando la función get-color
   $color_h: hue($color); // Obtener el matiz del color
   $color_s: saturation($color); // Obtener la saturación del color
   $color_l: lightness($color); // Obtener la luminosidad del color
-  @return hsl($color_h, $color_s, calc(#{$color_l} + #{$percentage} * 1%)); // Devolver el nuevo color HSL
+  @return hsl(
+    $color_h,
+    $color_s,
+    calc(#{$color_l} + #{$percentage} * 1%)
+  ); // Devolver el nuevo color HSL
 }
-
 
 // - Función para dar transparencia a un color con variables CSS en SCSS
 @function hsl_a($numColor, $alpha) {
@@ -39,8 +45,6 @@
   @return hsla($color_h, $color_s, $color_l, $alpha);
 }
 
-
-
 //*** Funciones para Utilidades ***
 
 // - Funcion que convierte pixeles a rem
@@ -49,10 +53,10 @@
 }
 
 // - Funcion que genera clases en base a un mapa de variables
-@mixin generateClass($array, $propKey, $category: "") {
+@mixin generateClass($array, $propKey, $category: '') {
   @each $key, $value in $array {
     $prop: map-get($shortsProps, $propKey);
-    @if $category != "" {
+    @if $category != '' {
       .#{$propKey}--#{$category}--#{$key} {
         #{$prop}: var(--color_#{$category}_#{$key});
       }
@@ -64,74 +68,65 @@
   }
 }
 
-
 // Mixin para alinear un contenedor horizontal y verticalmente
 @mixin center-container {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 @mixin container {
-   
-  padding:  2rem;
-border-radius: brd(2);
-box-shadow: bsh(3);
-background-color:get-color(white_s1);
+  padding: 2rem;
+  border-radius: brd(2);
+  box-shadow: bsh(3);
+  background-color: get-color(white_s1);
 
-p{
-  color:get-color(grey2_s4)
+  p {
+    color: get-color(grey2_s4);
+  }
 }
-
-}
-
-
-
-
 
 @mixin scrollTeme {
+  /* Personalización de las barras de desplazamiento */
+  &::-webkit-scrollbar {
+    width: 0.4rem;
+    height: 0.3rem;
+  }
 
- 
- /* Personalización de las barras de desplazamiento */
- &::-webkit-scrollbar {
-  width: 0.4rem;
-  height: 0.3rem; 
- 
+  &::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(to right, #8e2de2, #4a00e0);
+    background-image: linear-gradient(
+      to right,
+      rgba(get-color(lilac_p3), 0.3),
+      rgba(get-color(blue_p1), 0.4)
+    );
 
-
-}
-
-&::-webkit-scrollbar-thumb {
-  background-image: linear-gradient(to right, #8e2de2, #4a00e0);
-  background-image: linear-gradient(to right, rgba(get-color(lilac_p3),0.3), rgba(get-color(blue_p1), 0.4));
-    
-  border-radius: brd(3);
-  &:hover {
-    
-       background-image: linear-gradient(100deg, get-color(lilac_p3) 30%,get-color(blue_p1) 64%);
-
-    
+    border-radius: brd(3);
+    &:hover {
+      background-image: linear-gradient(
+        100deg,
+        get-color(lilac_p3) 30%,
+        get-color(blue_p1) 64%
+      );
+    }
   }
 }
-
-}
-
-
 
 @mixin cardStyleType($color) {
+  box-shadow: -1.83697e-16px 3px 10px rgba(get-color($color), 0.12);
 
-  box-shadow:   -1.83697e-16px 3px 10px rgba(get-color($color), 0.12);
-  
-  .card_type{
+  .card_type {
     background-color: rgba(get-color($color), 0.025);
     color: darken(get-color($color), 10%);
-   
   }
-  
-  .card_actions{
-    background: linear-gradient(to right, rgba(get-color($color), 0.6), rgba(get-color($color), 1));
-   
+
+  .card_actions {
+    background: linear-gradient(
+      to right,
+      rgba(get-color($color), 0.6),
+      rgba(get-color($color), 1)
+    );
+
     // background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
 
     background-size: 150% 200%;
@@ -139,61 +134,49 @@ p{
     animation: gradientHome 5s ease infinite;
   }
 
- 
-  .report{
-    background: linear-gradient(to left, rgba(get-color($color), 0.8), rgba(get-color($color), 0.9));
-  
+  .report {
+    background: linear-gradient(
+      to left,
+      rgba(get-color($color), 0.8),
+      rgba(get-color($color), 0.9)
+    );
 
     &:hover,
     :focus {
-      box-shadow:   bsh(3) ;
-      background: linear-gradient(to top, rgba(get-color($color), 1), rgba(get-color($color), 1));
-      
+      box-shadow: bsh(3);
+      background: linear-gradient(
+        to top,
+        rgba(get-color($color), 1),
+        rgba(get-color($color), 1)
+      );
     }
-    
+
     svg {
       width: 3rem;
       height: auto;
       path {
-        fill: get-color(white_s1)
+        fill: get-color(white_s1);
       }
     }
-
-  
   }
-  
-  
 
-  .admin{
-    
-    svg{
- 
-  
-      path{
+  .admin {
+    svg {
+      path {
         // fill: darken(get-color($color), 2%);
         fill: darken(get-color($color), 20%);
-        
       }
     }
   }
- 
 
-  .type_icon{
-    
-  svg{
-    height: 8rem;
+  .type_icon {
+    svg {
+      height: 8rem;
 
-    path{
-      fill: darken(get-color($color), 30%);
-      box-shadow:   -1.83697e-16px 3px 10px rgba(get-color(white_s1), 0.12);
-
-      
+      path {
+        fill: darken(get-color($color), 30%);
+        box-shadow: -1.83697e-16px 3px 10px rgba(get-color(white_s1), 0.12);
+      }
     }
   }
-  }
-
-  
- 
-  
-
 }

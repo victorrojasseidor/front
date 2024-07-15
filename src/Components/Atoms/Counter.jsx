@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 function Counter({ initialValue, finalValue }) {
   const [count, setCount] = useState(initialValue);
-  
+
   useEffect(() => {
     const increment = () => {
-      setCount(prevCount => {
+      setCount((prevCount) => {
         if (prevCount < finalValue) {
           return prevCount + 1;
         } else {

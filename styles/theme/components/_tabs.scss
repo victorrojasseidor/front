@@ -97,24 +97,20 @@
     flex-direction: row;
     width: 100%;
     border-radius: 0px 10px 10px 0px;
-    background-color:get-color(white_s1);
+    background-color: get-color(white_s1);
 
-     flex-wrap: nowrap;
+    flex-wrap: nowrap;
     overflow-x: auto;
     @include scrollTeme;
 
     @include media(tablet) {
-      width:fit-content;
-   }
-
-
-  
+      width: fit-content;
+    }
 
     h4 {
       color: get-color(grey2_s4);
       font-weight: 500;
       text-align: left;
-
     }
 
     button {
@@ -125,13 +121,10 @@
       padding: 1em;
       align-items: center;
       width: 100%;
-      
 
       @include media(tablet) {
-        padding: 1em ;
-     }
-
-    
+        padding: 1em;
+      }
 
       &.active {
         color: get-color(white_s1);
@@ -142,13 +135,10 @@
           font-weight: 600;
         }
         &:last-child {
-        
           border-radius: 0 10px 10px 0; /* Aplica bordes redondeados solo al lado derecho del último botón */
         }
-        
       }
     }
-
   }
 }
 
@@ -276,7 +266,7 @@
       cursor: pointer;
 
       &:not(:last-child, :first-child)::after {
-        content: "";
+        content: '';
         position: absolute;
         top: 16%;
         // left: calc(0% + 0.5rem);
@@ -286,14 +276,14 @@
         width: 10rem; // Ajusta la longitud de la línea según tus necesidades
         transform: translateY(-1px);
         border-bottom: 2px dashed get-color(grey2_s4); // Ajusta la posición vertical
-     
+
         @include media(desktop) {
           width: 11rem;
         }
       }
 
       &:last-child::after {
-        content: "";
+        content: '';
         position: absolute;
         top: 16%;
         left: calc(0%);
@@ -309,23 +299,21 @@
       }
 
       &:first-child::after {
-        content: "";
+        content: '';
         position: absolute;
         top: 16%;
         right: calc(0%);
         height: 2px;
         z-index: 1;
-              width: 4.2rem; // Ajusta la longitud de la línea según tus necesidades
+        width: 4.2rem; // Ajusta la longitud de la línea según tus necesidades
         transform: translateY(-1px);
         border-bottom: 2px dashed get-color(grey2_s4); // Ajusta la posición vertical
-      
-          background-color: get-color(grey1_s3);
 
-          @include media(desktop) {
-            width: 5rem; // Ajusta la longitud de la línea según tus necesidades
-          }
-      
-       
+        background-color: get-color(grey1_s3);
+
+        @include media(desktop) {
+          width: 5rem; // Ajusta la longitud de la línea según tus necesidades
+        }
       }
 
       h4 {
@@ -335,7 +323,7 @@
 
       svg {
         font-size: 1.5rem;
-    
+
         border-radius: bdr(f);
         z-index: 4;
         background-color: get-color(white_s1);
