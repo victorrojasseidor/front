@@ -100,6 +100,38 @@ const Principal = () => {
 
   const [activeTab, setActiveTab] = useState('finance');
 
+  
+  const quantity = 12;
+
+  
+  const digitals = [
+    {
+      title: t['Ari Accounting and Finance'],
+      image: finance,
+      description: t['The responsibilities of the Administration and Finance Coordinator include bank reconciliation, updating the exchange rate, expense distribution, third-party payments, adjustment entries, support in the financial closing, and declarations to Sunat'],
+      relatedItems: [t['Download Bank Statements'], t['Daily Exchange Rate Automation'], t['Download SUNAT tax Status Registers'], t['Download Bank State']],
+    },
+    {
+      title: t['Ari Technology'],
+      image: support,
+      description: t['The responsibilities of the Technology and Support Coordinator include program installation, server reboots, backups, email and VPN configuration, and account management'],
+      relatedItems: [t['Image text extraction Service'], t['Captcha resolution service']],
+    },
+    {
+      title: t['Ari Human Resources'],
+      image: rrhh,
+      description: t['The responsibilities of the Human Resources Coordinator include onboarding, vacation management, health and wellness benefits, and support in performance reviews'],
+      relatedItems: [t['AFP validation']],
+    },
+  ];
+
+  const imagesHome = [
+    asistente,
+    telefonoWEB,
+    // Agrega más rutas de imágenes de front
+  ];
+
+
   useEffect(() => {
     // Inicializa AOS solo si window está definido para las animaciones
     if (typeof window !== undefined) {
@@ -139,12 +171,7 @@ const Principal = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const imagesHome = [
-    asistente,
-    telefonoWEB,
-    // Agrega más rutas de imágenes de front
-  ];
-
+  
   // para cambiar los gifts de process
   useEffect(() => {
     // Verifica si window está definido antes de agregar el event listener
@@ -166,33 +193,12 @@ const Principal = () => {
       if (isGifSectionInView) {
         setCurrentGif((prevGif) => (prevGif + 1) % gifs.length);
       }
-    }, 20000); // Cambia cada 6 segundos
+    }, 5000); // Cambia cada 5 segundos
 
     return () => clearInterval(intervalId);
   }, [isGifSectionInView, gifs.length]);
 
-  const digitals = [
-    {
-      title: t['Ari Accounting and Finance'],
-      image: finance,
-      description: t['The responsibilities of the Administration and Finance Coordinator include bank reconciliation, updating the exchange rate, expense distribution, third-party payments, adjustment entries, support in the financial closing, and declarations to Sunat'],
-      relatedItems: [t['Download Bank Statements'], t['Daily Exchange Rate Automation'], t['Download SUNAT tax Status Registers'], t['Download Bank State']],
-    },
-    {
-      title: t['Ari Technology'],
-      image: support,
-      description: t['The responsibilities of the Technology and Support Coordinator include program installation, server reboots, backups, email and VPN configuration, and account management'],
-      relatedItems: [t['Image text extraction Service'], t['Captcha resolution service']],
-    },
-    {
-      title: t['Ari Human Resources'],
-      image: rrhh,
-      description: t['The responsibilities of the Human Resources Coordinator include onboarding, vacation management, health and wellness benefits, and support in performance reviews'],
-      relatedItems: [t['AFP validation']],
-    },
-  ];
-
-  const quantity = 15;
+  
 
   return (
     <body className="home">
