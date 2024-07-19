@@ -109,7 +109,7 @@ const Principal = () => {
       title: t['Ari Accounting and Finance'],
       image: finance,
       description: t['The responsibilities of the Administration and Finance Coordinator include bank reconciliation, updating the exchange rate, expense distribution, third-party payments, adjustment entries, support in the financial closing, and declarations to Sunat'],
-      relatedItems: [t['Download Bank Statements'], t['Daily Exchange Rate Automation'], t['Download SUNAT tax Status Registers'], t['Download Bank State']],
+      relatedItems: [t['Download Bank Statements'], t['Daily Exchange Rate Automation'], t['Download SUNAT tax Status Registers'], t['Download Bank State']]
     },
     {
       title: t['Ari Technology'],
@@ -136,7 +136,7 @@ const Principal = () => {
     // Inicializa AOS solo si window está definido para las animaciones
     if (typeof window !== undefined) {
       AOS.init({
-        duration: 15000,
+        duration: 15000
       });
     }
   }, []);
@@ -264,7 +264,7 @@ const Principal = () => {
 
             <div className="image-container">
               {imagesHome.map((image, index) => (
-                <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} priority />
+                <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} priority unoptimized={true} />
               ))}
             </div>
           </div>
@@ -299,7 +299,7 @@ const Principal = () => {
               </div>
             </div>
 
-            <Image className="gift-advantage" src={giftMovil} alt="giftMoil" width={320} height={320} loading="eager" />
+            <Image className="gift-advantage" src={giftMovil} alt="giftMoil" width={320} height={320} loading="eager" unoptimized={true}/>
             <div className="box-advantage" data-aos="zoom-out-down">
               <div className="advantage">
                 <ImageSvg name="Efficiency" />
@@ -399,12 +399,12 @@ const Principal = () => {
           </div>
 
           <figure className="home-how-steps-gift" ref={demoSectionRef}>
-            <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading="eager" />
+            <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading="eager"  unoptimized={true} />
           </figure>
         </section>
 
         <section className="home-gift ">
-          <Image src={flujoAri} width={500} height={500} alt="ari flujo" loading="eager" />
+          <Image src={flujoAri} width={500} height={500} alt="ari flujo" loading="eager"  unoptimized={true} />
 
           <div className="description-gift" data-aos="fade-left">
             <h2 className="subtitle"> {t['Connect financial data and understand behavior']}</h2>
