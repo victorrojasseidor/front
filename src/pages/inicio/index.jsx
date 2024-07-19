@@ -97,13 +97,8 @@ const Principal = () => {
   const t = l.home;
 
   const demoSectionRef = useRef(null);
-
   const [activeTab, setActiveTab] = useState('finance');
-
-  
   const quantity = 12;
-
-  
   const digitals = [
     {
       title: t['Ari Accounting and Finance'],
@@ -188,6 +183,8 @@ const Principal = () => {
       return () => window.removeEventListener('scroll', handleScroll);
     }
   }, []);
+
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (isGifSectionInView) {
@@ -197,7 +194,6 @@ const Principal = () => {
 
     return () => clearInterval(intervalId);
   }, [isGifSectionInView, gifs.length]);
-
   
 
   return (
@@ -233,10 +229,10 @@ const Principal = () => {
             </div>
 
             <p>
-              {t['ARI Robotic Assistants free your employees from']}
-              <span>&nbsp;{t['repetitive tasks']}&nbsp;</span>
-              {t['so they can focus on what']}&nbsp;
-              {t['really matters']}.
+              {t['ARI Digital Employees, powered by AI']},&nbsp;
+              <span>{t['automate repetitive tasks']},</span> &nbsp;
+              {t['allowing finance teams to focus on more strategic and valuable activities']}.
+         
             </p>
 
             <div className="welcome-actions">

@@ -140,7 +140,7 @@
         }
 
         @include media(desktop) {
-          width: 60%;
+          width: 80%;
         }
 
         @include media(extradesktop) {
@@ -150,6 +150,9 @@
         p {
           color: get-color(forms_s6);
           text-align: justify;
+          @include media(desktop) {
+            text-align:left;
+          }
         }
 
         span {
