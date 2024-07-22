@@ -56,35 +56,19 @@ h6 {
 //tamaño de fuentes
 
 h1 {
-  font-size: clamp(
-    1.5rem,
-    2vw + 1rem,
-    2.25rem
-  ); // 24px a 36px dependiendo del ancho de la ventana
+  font-size: clamp(1.5rem, 2vw + 1rem, 2.25rem); // 24px a 36px dependiendo del ancho de la ventana
 }
 
 h2 {
-  font-size: clamp(
-    1.25rem,
-    1.25vw + 1rem,
-    1.65rem
-  ); // 20px a 30px dependiendo del ancho de la ventana
+  font-size: clamp(1.25rem, 1.25vw + 1rem, 1.65rem); // 20px a 30px dependiendo del ancho de la ventana
 }
 
 h3 {
-  font-size: clamp(
-    1rem,
-    1vw + 0.5rem,
-    1.5rem
-  ); // 16px a 24px dependiendo del ancho de la ventana
+  font-size: clamp(1rem, 1vw + 0.5rem, 1.5rem); // 16px a 24px dependiendo del ancho de la ventana
 }
 
 h4 {
-  font-size: clamp(
-    0.875rem,
-    0.75vw + 0.25rem,
-    1.25rem
-  ); // 14px a 20px dependiendo del ancho de la ventana
+  font-size: clamp(0.875rem, 0.75vw + 0.25rem, 1.25rem); // 14px a 20px dependiendo del ancho de la ventana
 }
 
 h5 {
@@ -96,11 +80,7 @@ h5 {
 p {
   font-style: normal;
   font-weight: 400;
-  font-size: clamp(
-    0.875rem,
-    0.75vw + 0.5rem,
-    1.25rem
-  ); // 14px a 20px dependiendo del ancho de la ventana
+  font-size: clamp(0.875rem, 0.75vw + 0.5rem, 1.25rem); // 14px a 20px dependiendo del ancho de la ventana
   line-height: 100%;
 }
 
@@ -214,9 +194,7 @@ p {
   font-family: $font-poppins;
 }
 
-.css-1yhyf2r-MuiAutocomplete-root
-  .MuiOutlinedInput-root
-  .MuiAutocomplete-input {
+.css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
   color: get-color(t1-blue);
   font-weight: 700;
   font-family: $font-poppins;

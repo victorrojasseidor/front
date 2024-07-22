@@ -83,11 +83,7 @@ $pi: 3.14159265359;
   height: 4px;
   border-radius: brd(f);
   background-color: get-color(t2-ligthBlue);
-  background-image: linear-gradient(
-    to right,
-    #8d2de2dd,
-    get-color(t2-ligthBlue)
-  );
+  background-image: linear-gradient(to right, #8d2de2dd, get-color(t2-ligthBlue));
   position: absolute;
   top: -2px;
   left: -2px;

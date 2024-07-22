@@ -8,12 +8,9 @@ import Modal from './Modal';
 import RefreshToken from './RefresToken';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/Context/DataContext';
-
 import Lang from './Atoms/Lang';
-// import Cloud from './Atoms/Cloud'
 
 const LayoutProducts = ({ children, menu }) => {
-  // const [isMenuLateralOpen, setMenuLateralOpen] = useState(true)
   const [isOpenMobile, setIsOpenMobile] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [margen, setMargen] = useState('0rem');
@@ -22,11 +19,8 @@ const LayoutProducts = ({ children, menu }) => {
     Product: menu === 'Product',
     Reporting: menu == 'Reporting',
   });
-
-  const [activeMenu, setActiveMenu] = useState('');
-  const [isHomeActive, setIsHomeActive] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState('');
-  const router = useRouter();
+
   const { session, modalToken, logout, l, setSession, isLogout, setIsLogout, isMenuLateralOpen, setMenuLateralOpen } = useAuth();
   const { asPath } = useRouter();
   const t = l.header;
@@ -66,10 +60,6 @@ const LayoutProducts = ({ children, menu }) => {
   }, [isMobile, isMenuLateralOpen]);
 
   useEffect(() => {
-    setIsHomeActive(asPath === '/product' || asPath.startsWith('/product/product'));
-  }, [asPath]);
-
-  useEffect(() => {
     const storedSessionLayput = localStorage.getItem('session');
     setSession(JSON.parse(storedSessionLayput));
   }, []);
@@ -79,8 +69,6 @@ const LayoutProducts = ({ children, menu }) => {
       const menuPath = menuItems[menuItem].path;
 
       if (asPath.startsWith(menuPath)) {
-        setActiveMenu(menuItem);
-
         if (menuItems[menuItem].submenus.length > 0) {
           menuItems[menuItem].submenus.forEach((submenuItem) => {
             const submenuPath = submenuItem.path;

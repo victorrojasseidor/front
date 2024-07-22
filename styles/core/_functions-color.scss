@@ -2,11 +2,7 @@
 
 // - Crea un color en formato HSL para CSS en base a variables creadas de un color en formato Hex
 @function vcolor($idColor) {
-  @return hsl(
-    var(--color_#{$idColor}_H),
-    var(--color_#{$idColor}_S),
-    var(--color_#{$idColor}_L)
-  );
+  @return hsl(var(--color_#{$idColor}_H), var(--color_#{$idColor}_S), var(--color_#{$idColor}_L));
 }
 
 // - Función para oscurecer un color con variables CSS en SCSS
@@ -30,11 +26,7 @@
   $color_h: hue($color); // Obtener el matiz del color
   $color_s: saturation($color); // Obtener la saturación del color
   $color_l: lightness($color); // Obtener la luminosidad del color
-  @return hsl(
-    $color_h,
-    $color_s,
-    calc(#{$color_l} + #{$percentage} * 1%)
-  ); // Devolver el nuevo color HSL
+  @return hsl($color_h, $color_s, calc(#{$color_l} + #{$percentage} * 1%)); // Devolver el nuevo color HSL
 }
 
 // - Función para dar transparencia a un color con variables CSS en SCSS
@@ -95,19 +87,11 @@
 
   &::-webkit-scrollbar-thumb {
     background-image: linear-gradient(to right, #8e2de2, #4a00e0);
-    background-image: linear-gradient(
-      to right,
-      rgba(get-color(lilac_p3), 0.3),
-      rgba(get-color(blue_p1), 0.4)
-    );
+    background-image: linear-gradient(to right, rgba(get-color(lilac_p3), 0.3), rgba(get-color(blue_p1), 0.4));
 
     border-radius: brd(3);
     &:hover {
-      background-image: linear-gradient(
-        100deg,
-        get-color(lilac_p3) 30%,
-        get-color(blue_p1) 64%
-      );
+      background-image: linear-gradient(100deg, get-color(lilac_p3) 30%, get-color(blue_p1) 64%);
     }
   }
 }
@@ -121,11 +105,7 @@
   }
 
   .card_actions {
-    background: linear-gradient(
-      to right,
-      rgba(get-color($color), 0.6),
-      rgba(get-color($color), 1)
-    );
+    background: linear-gradient(to right, rgba(get-color($color), 0.6), rgba(get-color($color), 1));
 
     // background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
 
@@ -135,20 +115,12 @@
   }
 
   .report {
-    background: linear-gradient(
-      to left,
-      rgba(get-color($color), 0.8),
-      rgba(get-color($color), 0.9)
-    );
+    background: linear-gradient(to left, rgba(get-color($color), 0.8), rgba(get-color($color), 0.9));
 
     &:hover,
     :focus {
       box-shadow: bsh(3);
-      background: linear-gradient(
-        to top,
-        rgba(get-color($color), 1),
-        rgba(get-color($color), 1)
-      );
+      background: linear-gradient(to top, rgba(get-color($color), 1), rgba(get-color($color), 1));
     }
 
     svg {

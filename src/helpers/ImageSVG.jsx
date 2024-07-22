@@ -7,7 +7,7 @@ import { AiOutlineSchedule } from 'react-icons/ai';
 import { FaExchangeAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { IoMdCloseCircle, IoIosArrowForward } from 'react-icons/io';
 import { FcMultipleInputs, FcDebt, FcLock, FcAcceptDatabase } from 'react-icons/fc';
-import { BsCheckCircle, BsSortNumericUpAlt, BsSortNumericDown, BsSortAlphaDownAlt, BsSortAlphaDown, BsCheckCircleFill, BsFillQuestionCircleFill } from 'react-icons/bs';
+import { BsCheckCircle, BsSortNumericUpAlt, BsSortNumericDown, BsSortAlphaDownAlt, BsSortAlphaDown, BsFillQuestionCircleFill } from 'react-icons/bs';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 
@@ -18,12 +18,6 @@ import IconPerson from '../../public/img/new-icons/person.svg';
 import bot from '../../public/img/bot2.webp';
 
 const ImageSvg = ({ name }) => {
-  const gradientStyle = {
-    color: '#3c2cd1',
-    // Hace que el texto sea transparente
-    fontSize: '40px', // Tamaño del icono
-  };
-
   const icons = {
     // crud
     // Edit: <TiPencil />,

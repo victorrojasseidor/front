@@ -1,5 +1,4 @@
 import React from 'react';
-import Cloud from './Atoms/Cloud';
 import Lang from './Atoms/Lang';
 
 export default function NavigationPages({ title, children }) {

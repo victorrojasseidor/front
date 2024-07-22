@@ -1,5 +1,5 @@
 import { DataContextProvider, useAuth } from '@/Context/DataContext';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import logo from '../../../public/img/logoOscuro.webp';
 
 import Image from 'next/image';

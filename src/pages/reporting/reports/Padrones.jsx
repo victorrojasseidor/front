@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/Context/DataContext';
-import { useRouter } from 'next/navigation'; // Changed from 'next/navigation'
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -9,8 +8,7 @@ import { fetchConTokenPost } from '@/helpers/fetch';
 import { formatDate } from '@/helpers/report';
 
 const Padrones = () => {
-  const { session, empresa, setModalToken, logout, setEmpresa, l } = useAuth();
-  const [activeTab, setActiveTab] = useState(0);
+  const { session, setModalToken, logout, l } = useAuth();
   const [requestError, setRequestError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [dataPadrones, setDataPadrones] = useState(null);

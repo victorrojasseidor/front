@@ -3,13 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:prettier/recommended",
-    "next",
-    "next/core-web-vitals"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended", "next", "next/core-web-vitals"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -17,16 +11,22 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "plugins": ["react", "prettier"],
   "rules": {
     "react/prop-types": "off",
     "no-unused-vars": "warn",
     "no-unused-labels": "warn",
     "no-unused-expressions": "warn",
-    "comma-dangle": ["error", "always-multiline"], // Permite comas finales en listas y objetos multilinea
+    "comma-dangle": [
+      "warn",
+      {
+        "arrays": "only-multiline",
+        "objects": "only-multiline",
+        "imports": "only-multiline",
+        "exports": "only-multiline",
+        "functions": "never"
+      }
+    ], // Permite comas finales solo en listas y objetos multilinea
     "prettier/prettier": [
       "error",
       {

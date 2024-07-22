@@ -100,10 +100,8 @@ const Principal = () => {
 
   const [activeTab, setActiveTab] = useState('finance');
 
-  
   const quantity = 12;
 
-  
   const digitals = [
     {
       title: t['Ari Accounting and Finance'],
@@ -131,10 +129,9 @@ const Principal = () => {
     // Agrega más rutas de imágenes de front
   ];
 
-
   useEffect(() => {
     // Inicializa AOS solo si window está definido para las animaciones
-    if (typeof window !== undefined) {
+    if (typeof window !== "undefined") {
       AOS.init({
         duration: 15000,
       });
@@ -171,11 +168,10 @@ const Principal = () => {
     return () => clearInterval(interval);
   }, []);
 
-  
   // para cambiar los gifts de process
   useEffect(() => {
     // Verifica si window está definido antes de agregar el event listener
-    if (typeof window !== undefined) {
+    if (typeof window !== "undefined") {
       const handleScroll = () => {
         if (gifRef.current) {
           const rect = gifRef.current.getBoundingClientRect();
@@ -197,8 +193,6 @@ const Principal = () => {
 
     return () => clearInterval(intervalId);
   }, [isGifSectionInView, gifs.length]);
-
-  
 
   return (
     <body className="home">

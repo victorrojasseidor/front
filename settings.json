@@ -3,17 +3,10 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "prettier.requireConfig": true,
   "eslint.alwaysShowStatus": true,
-  "eslint.workingDirectories": [
-    "./"
-  ],
+  "eslint.workingDirectories": ["./"],
   "eslint.lintTask.enable": true,
   "editor.renderControlCharacters": true, // Opcional: para mostrar caracteres de control como subrayado
   "editor.renderWhitespace": "all" // Opcional: para mostrar todos los espacios en blanco, también puede ayudar a identificar errores

@@ -30,7 +30,7 @@ export default function Changepassword() {
   const t = l.update_password;
   const router = useRouter();
 
-  async function handleUpdatePassword(values, { setSubmitting, setStatus, resetForm, setFieldValue }) {
+  async function handleUpdatePassword(values, { setSubmitting, setStatus, setFieldValue }) {
     setIsLoading(true);
 
     const body = {

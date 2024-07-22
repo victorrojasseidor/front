@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import LayoutProducts from '@/Components/LayoutProducts';
 import ImageSvg from '@/helpers/ImageSVG';
-import LimitedParagraph from '@/helpers/limitParagraf';
 import Link from 'next/link';
 import NavigationPages from '@/Components/NavigationPages';
 import { useAuth } from '@/Context/DataContext';
 import LineChart from '@/Components/Grafics/BarChart';
 import { useRouter } from 'next/navigation';
 import { fetchConTokenPost } from '@/helpers/fetch';
-import { format, getDay, addDays, startOfMonth, differenceInDays, parseISO } from 'date-fns';
+import { format, startOfMonth } from 'date-fns';
+import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 
-function index(props) {
+function Tecnology() {
   const { session, setModalToken, logout, l } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [requestError, setRequestError] = useState();
@@ -224,6 +224,10 @@ function index(props) {
           </div>
         </div>
 
+        {isLoading && <LoadingComponent />}
+
+        {requestError && <div className="errorMessage"> {requestError} </div>}
+
         <div className="reporting_rates">
           <div className="reporting_rates-exchange">
             <LineChart />
@@ -238,4 +242,4 @@ function index(props) {
 
 // }
 
-export default index;
+export default Tecnology;

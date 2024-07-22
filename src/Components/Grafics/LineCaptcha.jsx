@@ -1,15 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import 'chartjs-adapter-date-fns';
-import LoadingComponent from '../Atoms/LoadingComponent';
 import { useAuth } from '@/Context/DataContext';
 import ImageSvg from '@/helpers/ImageSVG';
 
 const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate }) => {
   const chartRef = useRef();
   const { l } = useAuth();
-  const [usedColors, setUsedColors] = useState([]);
-
   const t = l.Captcha;
 
   // Obtener la fecha mínima de tus datos
@@ -106,7 +103,7 @@ const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate }) => {
         chart.destroy();
       };
     }
-  }, [captchaData, usedColors]);
+  }, [captchaData]);
 
   // Función para obtener un color aleatorio en formato rgba
   const getRandomColor = (index, transparent = false) => {

@@ -8,7 +8,7 @@ export default function productId() {
   const [activeTab, setActiveTab] = useState(0);
   const [component, setComponent] = useState(null);
   const router = useRouter();
-  const { iId, iIdProdEnv, type, pStatus, idEmpresa } = router.query;
+  const { iId, iIdProdEnv, type, idEmpresa } = router.query;
 
   useEffect(() => {
     if (!router.isReady) return;

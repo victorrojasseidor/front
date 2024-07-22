@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Modal from './Modal';
 import { useAuth } from '@/Context/DataContext';
 import ImageSvg from '@/helpers/ImageSVG';
 
 function RefreshToken() {
-  const [token, setToken] = useState(null);
+  const [setToken] = useState(null);
 
   const { session, setModalToken, modalToken, l, refresToken } = useAuth();
   const t = l.Modal;

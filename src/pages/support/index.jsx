@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import imgfree from '../../../public/img/contactanos.webp';
 
 import Image from 'next/image';
@@ -120,7 +120,7 @@ function Support() {
             }}
             onSubmit={handleSubmit}
           >
-            {({ isSubmitting, values }) => (
+            {({ values }) => (
               <Form className="form-container">
                 <div className="input-box">
                   <Field type="email" name="corporateEmail" placeholder="" readOnly />

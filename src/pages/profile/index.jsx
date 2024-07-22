@@ -4,17 +4,14 @@ import LayoutProducts from '@/Components/LayoutProducts';
 import { useAuth } from '@/Context/DataContext';
 import NavigationPages from '@/Components/NavigationPages';
 import { useRouter } from 'next/navigation';
-import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { countryOptions } from '@/helpers/contry';
-import { validateFormprofilestart } from '@/helpers/validateForms';
 import { fetchConTokenPost, fetchNoTokenPost, decodeText } from '@/helpers/fetch';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Link from 'next/link';
-import Button from '@mui/material/Button';
 import ImageSvg from '@/helpers/ImageSVG';
 import Loading from '@/Components/Atoms/Loading';
 import { IconArrow } from '@/helpers/report';
@@ -22,14 +19,13 @@ import { IconArrow } from '@/helpers/report';
 export default function Profile() {
   const [edit, setEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [formValues, setFormValues] = useState({});
   const [country, setCountrySelect] = useState('');
   const [requestError, setRequestError] = useState('');
 
   // Nuevo estado para la empresa seleccionada
   const [selectedCompanies, setSelectedCompanies] = useState();
 
-  const { session, setSession, setModalToken, logout, l, refresToken } = useAuth();
+  const { session, setSession, setModalToken, logout, l } = useAuth();
 
   const t = l.profile;
   const router = useRouter();
@@ -165,12 +161,11 @@ export default function Profile() {
                     companies: [],
                   }}
                   onSubmit={(values, { setSubmitting, setStatus }) => {
-                    setFormValues(values);
                     handleSumbit(values, { setSubmitting, setStatus });
                   }}
                   enableReinitialize
                 >
-                  {({ isSubmitting, status, values, setFieldValue, resetForm }) => (
+                  {({ isSubmitting, status, resetForm }) => (
                     <Form className="form-container">
                       <div className="form-container_editProfile">
                         <div>
@@ -333,7 +328,7 @@ export default function Profile() {
                         <span>{t.Companies}</span>
 
                         <div className="">
-                          {session?.oEmpresa.map((em, index) => (
+                          {session?.oEmpresa.map((em) => (
                             <p key={em.id_empresa}>{em.razon_social_empresa}</p>
                           ))}
                         </div>

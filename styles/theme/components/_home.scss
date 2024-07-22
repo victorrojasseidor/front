@@ -8,16 +8,7 @@
     padding: 1rem 2rem;
 
     //animación gradiente
-    background: linear-gradient(
-      -45deg,
-      get-color(blue_p1),
-      get-color(t2-ligthBlue),
-      #021820,
-      #021f29,
-      get-color(black_p2),
-      #4d08e2,
-      #1e0258
-    );
+    background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
     background-size: 400% 400%;
     -webkit-animation: gradientHome 15s ease infinite;
     animation: gradientHome 15s ease infinite;
@@ -651,16 +642,7 @@
       gap: 1rem;
       z-index: 1;
       //animación gradiente
-      background: linear-gradient(
-        -45deg,
-        get-color(blue_p1),
-        get-color(t2-ligthBlue),
-        #021820,
-        #021f29,
-        get-color(black_p2),
-        #4d08e2,
-        #1e0258
-      );
+      background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
       background-size: 200% 200%;
       -webkit-animation: gradientHome 15s ease infinite;
       animation: gradientHome 15s ease infinite;
@@ -858,11 +840,7 @@
           display: flex;
           align-items: center;
           border-radius: 0px 10px 10px 0px;
-          background: linear-gradient(
-            to right,
-            transparent 50%,
-            get-color(blue_p1) 50%
-          );
+          background: linear-gradient(to right, transparent 50%, get-color(blue_p1) 50%);
 
           svg {
             padding: 1rem;
@@ -914,11 +892,7 @@
             width: 50px; // Ancho de la sombra
             height: 100%;
             z-index: 4;
-            background: linear-gradient(
-              to left,
-              rgba(255, 255, 255, 0) 0%,
-              rgba(255, 255, 255, 1) 100%
-            );
+            background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
             pointer-events: none;
           }
         }
@@ -1230,11 +1204,7 @@
         height: 80%;
         border-radius: brd(0);
         z-index: 2;
-        background: linear-gradient(
-          to right,
-          rgba(255, 255, 255, 0) 0%,
-          rgb(0, 10, 10) 300%
-        );
+        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgb(0, 10, 10) 300%);
         pointer-events: none;
       }
 
@@ -1369,22 +1339,8 @@
     justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
-    background-image: linear-gradient(
-      to right,
-      get-color(blue_p1),
-      #8d2de2dd,
-      #2e0383
-    );
-    background: linear-gradient(
-      -45deg,
-      get-color(blue_p1),
-      get-color(t2-ligthBlue),
-      #021820,
-      #021f29,
-      get-color(black_p2),
-      #4d08e2,
-      #1e0258
-    );
+    background-image: linear-gradient(to right, get-color(blue_p1), #8d2de2dd, #2e0383);
+    background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
     justify-content: center;
 
     align-items: flex-end;
@@ -1564,22 +1520,8 @@
 }
 
 .background-colored {
-  background-image: linear-gradient(
-    to right,
-    get-color(blue_p1),
-    #8d2de2dd,
-    #2e0383
-  );
-  background: linear-gradient(
-    -45deg,
-    get-color(blue_p1),
-    get-color(t2-ligthBlue),
-    #021820,
-    #021f29,
-    get-color(black_p2),
-    #4d08e2,
-    #1e0258
-  );
+  background-image: linear-gradient(to right, get-color(blue_p1), #8d2de2dd, #2e0383);
+  background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
 
   background-size: 400% 400%;
   -webkit-animation: gradientHome 15s ease infinite;
@@ -1639,15 +1581,11 @@
 
 @keyframes wave {
   0% {
-    box-shadow: 0 0 0 20px rgba(get-color(white_s1), 0.5),
-      0 0 0 40px rgba(get-color(lilac_p3), 0.7),
-      0 0 0 60px rgba(get-color(t2-ligthBlue), 0.8);
+    box-shadow: 0 0 0 20px rgba(get-color(white_s1), 0.5), 0 0 0 40px rgba(get-color(lilac_p3), 0.7), 0 0 0 60px rgba(get-color(t2-ligthBlue), 0.8);
   }
 
   100% {
-    box-shadow: 0 0 0 60px rgba(get-color(blue_p1), 0.3),
-      0 0 0 40px rgba(get-color(t5-green), 0.7),
-      0 0 0 20px rgba(get-color(t5-green), 0.2);
+    box-shadow: 0 0 0 60px rgba(get-color(blue_p1), 0.3), 0 0 0 40px rgba(get-color(t5-green), 0.7), 0 0 0 20px rgba(get-color(t5-green), 0.2);
   }
 }
 

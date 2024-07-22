@@ -1,11 +1,10 @@
-'use client';
 import Head from 'next/head';
+import Script from 'next/script';
 import { useAuth } from '@/Context/DataContext';
 import Principal from './inicio';
 
 export default function Inicio() {
   const { l } = useAuth();
-
   const t = l.home;
 
   return (
@@ -38,28 +37,27 @@ export default function Inicio() {
         <meta name="theme-color" content="#ffffff" />
         <meta name="google-site-verification" content="itaBlndKny_4x9v8etJviXHwNkS1MOoY2AaMq_li898" />
 
-        {/* Fonts */}
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
-
         {/* Canonical Link */}
         <link rel="canonical" href="https://www.ariapp.ai/" />
 
         {/* Favicon */}
         <link rel="shortcut icon" type="image/x-icon" href="/favicon-32x32.png" />
-
-        {/* Google Tag Manager */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SBM1Y8E69G"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-SBM1Y8E69G');
-              `,
-          }}
-        />
       </Head>
+
+      {/* Google Tag Manager */}
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-SBM1Y8E69G"></Script>
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-SBM1Y8E69G');
+          `,
+        }}
+      />
 
       <Principal />
     </>

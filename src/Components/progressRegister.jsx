@@ -16,7 +16,6 @@ import RefreshToken from './RefresToken';
 
 const ProgressRegister = ({ userData }) => {
   const [step, setStep] = useState(1);
-  const [formValues, setFormValues] = useState({}); // Nuevo estado para almacenar los datos del formulario
   const [country, setCountrySelect] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [confirmRegister, setConfirmRegister] = useState(false);
@@ -77,7 +76,7 @@ const ProgressRegister = ({ userData }) => {
     }
   }
 
-  async function handleSumbit(values, { setSubmitting, setStatus }) {
+  async function handleSumbit(values, { setStatus }) {
     setIsLoading(true);
 
     const transfOempresa = selectedCompanies.map((company) => {
@@ -166,7 +165,7 @@ const ProgressRegister = ({ userData }) => {
           }}
           enableReinitialize
         >
-          {({ isSubmitting, status, values, setFieldValue, errors }) => (
+          {({ isSubmitting, status, values, errors }) => (
             <Form className="form-container ">
               {step === 1 && (
                 <div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Image from 'next/image';
 
 const FileUploadForm = () => {
   // State to manage selected files and drag state
@@ -101,7 +102,7 @@ const FileUploadForm = () => {
                 <ul>
                   {files.map((file, index) => (
                     <li key={index}>
-                      {file.type.startsWith('image/') && <img src={URL.createObjectURL(file)} alt={file.name} className="previewImage" />}
+                      {file.type.startsWith('image/') && <Image src={URL.createObjectURL(file)} alt={file.name} className="previewImage" />}
                       {file.name}
                       <button type="button" onClick={() => handleFileRemove(file, setFieldValue)}>
                         X
