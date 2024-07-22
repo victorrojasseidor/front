@@ -12,7 +12,7 @@ import Modal from '@/Components/Modal';
 
 import { fetchConTokenPost } from '@/helpers/fetch';
 
-export default function changepassword() {
+export default function Changepassword() {
   const [showPasswordOld, setShowPasswordOld] = useState(false);
   const [showPasswordNew, setShowPasswordNew] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,10 +30,7 @@ export default function changepassword() {
   const t = l.update_password;
   const router = useRouter();
 
-  async function handleUpdatePassword(
-    values,
-    { setSubmitting, setStatus, resetForm, setFieldValue }
-  ) {
+  async function handleUpdatePassword(values, { setSubmitting, setStatus, resetForm, setFieldValue }) {
     setIsLoading(true);
 
     const body = {
@@ -46,11 +43,7 @@ export default function changepassword() {
     const tok = session?.sToken;
 
     try {
-      const responseData = await fetchConTokenPost(
-        'BPasS?Accion=CambioPassword',
-        body,
-        tok
-      );
+      const responseData = await fetchConTokenPost('BPasS?Accion=CambioPassword', body, tok);
       if (responseData.oAuditResponse.iCode == 1) {
         setStatus(null);
         setModalToken(false);
@@ -105,13 +98,7 @@ export default function changepassword() {
         <div className="style-container">
           <div className="register">
             <h2> {t['Update password']}</h2>
-            <p>
-              {
-                t[
-                  'Please enter the correct current password and the desired new password'
-                ]
-              }{' '}
-            </p>
+            <p>{t['Please enter the correct current password and the desired new password']} </p>
 
             <Formik
               initialValues={{
@@ -119,13 +106,8 @@ export default function changepassword() {
                 password: '',
               }}
               validateOnChange
-              validate={(values) =>
-                validateFormUpdatePassword(values, l.validation)
-              }
-              onSubmit={(
-                values,
-                { setSubmitting, setStatus, resetForm, setFieldValue }
-              ) => {
+              validate={(values) => validateFormUpdatePassword(values, l.validation)}
+              onSubmit={(values, { setSubmitting, setStatus, resetForm, setFieldValue }) => {
                 handleUpdatePassword(values, {
                   setSubmitting,
                   setStatus,
@@ -138,63 +120,24 @@ export default function changepassword() {
               {({ isValid, isSubmitting, status }) => (
                 <Form className="form-container">
                   <div className="input-box">
-                    <span
-                      className="iconPassword"
-                      onClick={togglePasswordVisibilityOld}
-                    >
-                      <ImageSvg
-                        name={
-                          showPasswordOld ? 'ShowPassword' : 'ClosePassword'
-                        }
-                      />
+                    <span className="iconPassword" onClick={togglePasswordVisibilityOld}>
+                      <ImageSvg name={showPasswordOld ? 'ShowPassword' : 'ClosePassword'} />
                     </span>
-                    <Field
-                      type={showPasswordOld ? 'text' : 'password'}
-                      id="passwordold"
-                      name="passwordold"
-                      placeholder=" "
-                    />
-                    <label htmlFor="passwordold">
-                      {' '}
-                      {t['Current password']}
-                    </label>
-                    <ErrorMessage
-                      className="errorMessage"
-                      name="passwordold"
-                      component="span"
-                    />
+                    <Field type={showPasswordOld ? 'text' : 'password'} id="passwordold" name="passwordold" placeholder=" " />
+                    <label htmlFor="passwordold"> {t['Current password']}</label>
+                    <ErrorMessage className="errorMessage" name="passwordold" component="span" />
                   </div>
 
                   <div className="input-box">
-                    <span
-                      className="iconPassword"
-                      onClick={togglePasswordVisibilityNew}
-                    >
-                      <ImageSvg
-                        name={
-                          showPasswordNew ? 'ShowPassword' : 'ClosePassword'
-                        }
-                      />
+                    <span className="iconPassword" onClick={togglePasswordVisibilityNew}>
+                      <ImageSvg name={showPasswordNew ? 'ShowPassword' : 'ClosePassword'} />
                     </span>
-                    <Field
-                      type={showPasswordNew ? 'text' : 'password'}
-                      id="passwordnew"
-                      name="passwordnew"
-                      placeholder=" "
-                    />
+                    <Field type={showPasswordNew ? 'text' : 'password'} id="passwordnew" name="passwordnew" placeholder=" " />
                     <label htmlFor="passwordnew"> {t['New password']}</label>
-                    <ErrorMessage
-                      className="errorMessage"
-                      name="passwordnew"
-                      component="span"
-                    />
+                    <ErrorMessage className="errorMessage" name="passwordnew" component="span" />
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={isValid ? 'btn_primary' : 'btn_primary disabled'}
-                  >
+                  <button type="submit" disabled={isSubmitting} className={isValid ? 'btn_primary' : 'btn_primary disabled'}>
                     {t.Update}
                   </button>
 

@@ -45,10 +45,7 @@ export default function Register() {
     };
 
     try {
-      const responseData = await fetchNoTokenPost(
-        'General/?Accion=RegistrarUsuarioInit',
-        dataRegister && dataRegister
-      );
+      const responseData = await fetchNoTokenPost('General/?Accion=RegistrarUsuarioInit', dataRegister && dataRegister);
       if (responseData.oAuditResponse?.iCode === 1) {
         setData(dataRegister);
         setShowM(true);
@@ -57,9 +54,7 @@ export default function Register() {
           resetForm();
         }, 10000);
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setShowM(false);
         setStatus(errorMessage);
         setSubmitting(false);
@@ -126,125 +121,52 @@ export default function Register() {
             <Form className="form-container">
               <div className="group">
                 <div className="input-box">
-                  <Field
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder=" "
-                    autoComplete="off"
-                    disabled={isSubmitting}
-                  />
+                  <Field type="text" id="name" name="name" placeholder=" " autoComplete="off" disabled={isSubmitting} />
                   <label htmlFor="name">{t.Name}</label>
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="name"
-                    component="span"
-                  />
+                  <ErrorMessage className="errorMessage" name="name" component="span" />
                 </div>
 
                 <div className="input-box">
-                  <Field
-                    type="email"
-                    name="corporateEmail"
-                    id="corporateEmail"
-                    placeholder=" "
-                    disabled={!isEmailFieldEnabled || isSubmitting}
-                  />
+                  <Field type="email" name="corporateEmail" id="corporateEmail" placeholder=" " disabled={!isEmailFieldEnabled || isSubmitting} />
                   <label htmlFor="corporateEmail">{t['Company email']}</label>
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="corporateEmail"
-                    component="span"
-                  />
+                  <ErrorMessage className="errorMessage" name="corporateEmail" component="span" />
                 </div>
 
                 <div className="input-box">
-                  <span
-                    className="iconPassword"
-                    onClick={togglePasswordVisibility}
-                  >
-                    <ImageSvg
-                      name={showPassword ? 'ShowPassword' : 'ClosePassword'}
-                    />
+                  <span className="iconPassword" onClick={togglePasswordVisibility}>
+                    <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
                   </span>
-                  <Field
-                    type={showPassword ? 'text' : 'password'}
-                    id="password"
-                    name="password"
-                    placeholder=" "
-                    disabled={isSubmitting}
-                  />
+                  <Field type={showPassword ? 'text' : 'password'} id="password" name="password" placeholder=" " disabled={isSubmitting} />
                   <label htmlFor="password"> {t.Password}</label>
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="password"
-                    component="span"
-                  />
+                  <ErrorMessage className="errorMessage" name="password" component="span" />
                 </div>
 
                 <div className="input-box">
-                  <span
-                    className="iconPassword"
-                    onClick={toggleConfirmPasswordVisibility}
-                  >
-                    <ImageSvg
-                      name={
-                        showConfirmPassword ? 'ShowPassword' : 'ClosePassword'
-                      }
-                    />
+                  <span className="iconPassword" onClick={toggleConfirmPasswordVisibility}>
+                    <ImageSvg name={showConfirmPassword ? 'ShowPassword' : 'ClosePassword'} />
                   </span>
-                  <Field
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder=" "
-                    disabled={isSubmitting}
-                  />
+                  <Field type={showConfirmPassword ? 'text' : 'password'} id="confirmPassword" name="confirmPassword" placeholder=" " disabled={isSubmitting} />
                   <label htmlFor="confirmPassword" placeholder="">
                     {t['Confirm password']}
                   </label>
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="confirmPassword"
-                    component="span"
-                  />
+                  <ErrorMessage className="errorMessage" name="confirmPassword" component="span" />
                 </div>
               </div>
 
               <div className="input-box">
                 <label className="checkbox">
                   <div className="box-term">
-                    <Field
-                      className="checkboxId"
-                      id="acceptTerms"
-                      type="checkbox"
-                      name="acceptTerms"
-                      disabled={isSubmitting}
-                    />
-                    <button
-                      className="button-conditions"
-                      onClick={() => setConditions(!conditions)}
-                    >
+                    <Field className="checkboxId" id="acceptTerms" type="checkbox" name="acceptTerms" disabled={isSubmitting} />
+                    <button className="button-conditions" onClick={() => setConditions(!conditions)}>
                       {t['I accept']}
                       {t['ARI SEIDOR Terms and Conditions and Privacy Policy']}
                     </button>
                   </div>
                 </label>
-                <ErrorMessage
-                  className="errorMessage"
-                  name="acceptTerms"
-                  component="span"
-                />
+                <ErrorMessage className="errorMessage" name="acceptTerms" component="span" />
               </div>
 
-              <Button
-                className={isValid ? 'btn_primary' : 'btn_primary disabled'}
-                onClick={() => setEmailFieldEnabled(true)}
-                label={
-                  isSubmitting ? `${t['Sign up']}${'....'}` : t['Sign Up Now']
-                }
-                disabled={isSubmitting || !isEmailFieldEnabled}
-              />
+              <Button className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => setEmailFieldEnabled(true)} label={isSubmitting ? `${t['Sign up']}${'....'}` : t['Sign Up Now']} disabled={isSubmitting || !isEmailFieldEnabled} />
 
               <div className="contentError">
                 <div className="errorMessage">{status}</div>
@@ -265,17 +187,10 @@ export default function Register() {
                 gap: '1rem',
               }}
             >
-              <h2 style={{ textAlign: 'center' }}>
-                {
-                  t[
-                    'Verifying your registration. A confirmation email will be sent during the course of the day'
-                  ]
-                }
-              </h2>
+              <h2 style={{ textAlign: 'center' }}>{t['Verifying your registration. A confirmation email will be sent during the course of the day']}</h2>
 
               <p>
-                {t['to confirm registration']} {t['Please enter your email']}:{' '}
-                {data.oResults.sEmail}
+                {t['to confirm registration']} {t['Please enter your email']}: {data.oResults.sEmail}
               </p>
             </div>
           </Modal>
@@ -288,67 +203,25 @@ export default function Register() {
 
               <div className="Conditions-list">
                 <h3>1. {t['Conditions of User']}</h3>
-                <p>
-                  {
-                    t[
-                      'By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.'
-                    ]
-                  }
-                </p>
+                <p>{t['By accessing the site, the user agrees to all provisions of the Legal Notice, including the Privacy Policy.']}</p>
 
                 <h3>2. {t.Privacy}</h3>
-                <p>
-                  {
-                    t[
-                      'All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.'
-                    ]
-                  }
-                </p>
+                <p>{t['All data provided to Seidor will be treated with respect for confidentiality, according to the Privacy Policy.']}</p>
 
                 <h3>3. {t['Industrial and Intellectual Property']}</h3>
-                <p>
-                  {
-                    t[
-                      'Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.'
-                    ]
-                  }
-                </p>
+                <p>{t['Seidor owns the intellectual and industrial property rights of the site, and any unauthorized use is prohibited.']}</p>
 
                 <h3>4. {t.Responsibility}</h3>
-                <p>
-                  {
-                    t[
-                      'Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.'
-                    ]
-                  }
-                </p>
+                <p>{t['Seidor does not guarantee the continuous availability of the site and is not responsible for damages arising from access and use.']}</p>
 
                 <h3>5. {t['User Restrictions']}</h3>
-                <p>
-                  {
-                    t[
-                      'Users agree not to use the site for illegal purposes and not to take actions that violate the terms.'
-                    ]
-                  }
-                </p>
+                <p>{t['Users agree not to use the site for illegal purposes and not to take actions that violate the terms.']}</p>
 
                 <h3>6. {t['Third-Party Links']}</h3>
-                <p>
-                  {
-                    t[
-                      'Seidor does not control or is responsible for the content of third parties accessed through links on the site.'
-                    ]
-                  }
-                </p>
+                <p>{t['Seidor does not control or is responsible for the content of third parties accessed through links on the site.']}</p>
 
                 <h3>7. {t.Modifications}</h3>
-                <p>
-                  {
-                    t[
-                      'Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible.'
-                    ]
-                  }
-                </p>
+                <p>{t['Seidor may modify legal texts without prior notice, and such modifications will be effective when published on the site. Additionally, Seidor may terminate or suspend portal services, with notice when possible.']}</p>
               </div>
             </ModalForm>
           </div>

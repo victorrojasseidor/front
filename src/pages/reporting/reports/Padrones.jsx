@@ -35,11 +35,7 @@ const Padrones = () => {
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetReportePadrones',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetReportePadrones', body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
@@ -51,9 +47,7 @@ const Padrones = () => {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -76,9 +70,7 @@ const Padrones = () => {
       <section className="">
         {isLoading && <LoadingComponent />}
 
-        {requestError && (
-          <div className="errorMessage"> {requestError.error}</div>
-        )}
+        {requestError && <div className="errorMessage"> {requestError.error}</div>}
         <div className="box-tabs">
           <div className="tab-content">
             <div className="tabOne">
@@ -86,10 +78,7 @@ const Padrones = () => {
                 <div className="box-search">
                   <div>
                     <h3> {t['Sunat register report']}</h3>
-                    <p>
-                      {' '}
-                      {l.Pattern['Result obtained from the SUNAT portal']}{' '}
-                    </p>
+                    <p> {l.Pattern['Result obtained from the SUNAT portal']} </p>
                   </div>
                 </div>
 
@@ -105,10 +94,7 @@ const Padrones = () => {
                       <tbody className="rowTable">
                         {dataPadrones?.length > 0 ? (
                           dataPadrones
-                            .slice(
-                              (page - 1) * itemsPerPage,
-                              page * itemsPerPage
-                            ) // Slice the array based on the current page
+                            .slice((page - 1) * itemsPerPage, page * itemsPerPage) // Slice the array based on the current page
                             .map((row) => (
                               <tr key={row.id_padrones}>
                                 <td>{row.nombre_documento}</td>
@@ -117,9 +103,7 @@ const Padrones = () => {
                             ))
                         ) : (
                           <tr>
-                            <td colSpan="2">
-                              {l.Reporting['There is no data']}
-                            </td>
+                            <td colSpan="2">{l.Reporting['There is no data']}</td>
                           </tr>
                         )}
                       </tbody>
@@ -128,8 +112,7 @@ const Padrones = () => {
                   <Stack spacing={2}>
                     <div className="pagination">
                       <Typography>
-                        {l.Reporting.Page} {page} {t.of}{' '}
-                        {Math.ceil(dataPadrones?.length / itemsPerPage)}
+                        {l.Reporting.Page} {page} {t.of} {Math.ceil(dataPadrones?.length / itemsPerPage)}
                       </Typography>
                       <Pagination
                         count={Math.ceil(dataPadrones?.length / itemsPerPage)} // Calculate the total number of pages

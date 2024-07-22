@@ -6,7 +6,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended",  // Añadir esta línea
+    "plugin:prettier/recommended",
     "next",
     "next/core-web-vitals"
   ],
@@ -19,14 +19,27 @@
   },
   "plugins": [
     "react",
-    "prettier"  // Añadir esta línea
+    "prettier"
   ],
   "rules": {
     "react/prop-types": "off",
     "no-unused-vars": "warn",
     "no-unused-labels": "warn",
     "no-unused-expressions": "warn",
-    "comma-dangle": ["error", "never"], 
-    "prettier/prettier": "error"  // Añadir esta línea
+    "comma-dangle": ["error", "always-multiline"], // Permite comas finales en listas y objetos multilinea
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": true,
+        "trailingComma": "es5", // Permite comas finales en ES5
+        "singleQuote": true,
+        "jsxSingleQuote": false,
+        "printWidth": 500,
+        "tabWidth": 2,
+        "useTabs": false,
+        "proseWrap": "never"
+      }
+    ],
+    "react-hooks/exhaustive-deps": "off" // Desactiva las advertencias de dependencias de hooks
   }
 }

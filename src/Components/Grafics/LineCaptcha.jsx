@@ -13,9 +13,7 @@ const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate }) => {
   const t = l.Captcha;
 
   // Obtener la fecha mínima de tus datos
-  const minDate =
-    captchaData &&
-    Math.min(...captchaData.map((entry) => new Date(entry.fecha).getTime()));
+  const minDate = captchaData && Math.min(...captchaData.map((entry) => new Date(entry.fecha).getTime()));
 
   // Restar unas horas a la fecha mínima
   const adjustedMinDate = new Date(minDate);
@@ -77,15 +75,11 @@ const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate }) => {
       }, {});
 
       // Obtener un conjunto único de tipos de captcha
-      const uniqueCaptchaTypes = Array.from(
-        new Set(captchaData.map((entry) => entry.captcha_type))
-      );
+      const uniqueCaptchaTypes = Array.from(new Set(captchaData.map((entry) => entry.captcha_type)));
 
       // Agregar datasets al gráfico
       uniqueCaptchaTypes.forEach((captchaType, index) => {
-        const matchingData = Object.values(groupedData).filter(
-          (entry) => entry.captcha_type === captchaType
-        );
+        const matchingData = Object.values(groupedData).filter((entry) => entry.captcha_type === captchaType);
         const borderColor = getRandomColor(index);
         const backgroundColor = getRandomColor(index, 0.03);
 
@@ -116,15 +110,7 @@ const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate }) => {
 
   // Función para obtener un color aleatorio en formato rgba
   const getRandomColor = (index, transparent = false) => {
-    const colors = [
-      '#4318FF',
-      '#05CD99',
-      '#007AFF',
-      '#E31A1A',
-      '#9a90ff',
-      '#2B3674',
-      '#FFCE20',
-    ];
+    const colors = ['#4318FF', '#05CD99', '#007AFF', '#E31A1A', '#9a90ff', '#2B3674', '#FFCE20'];
     const colorIndex = index % colors.length;
     const color = colors[colorIndex];
 

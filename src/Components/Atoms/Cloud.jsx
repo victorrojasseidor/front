@@ -18,12 +18,7 @@ const Cloud = ({ imgButton, cloudText, onClick }) => {
 
   return (
     <div className="cloudContainer">
-      <button
-        className="btn_circle"
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+      <button className="btn_circle" onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <ImageSvg name={imgButton} />
       </button>
       {cloudVisible && (

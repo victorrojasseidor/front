@@ -1,31 +1,20 @@
 import React from 'react';
 import ConfigCurrency from './Currency/ConfigCurrency';
 import ConfigDowland from '@/Components/CompProducts/DowloandCurrency/ConfigDowland';
-import DocDowland from './DowloandCurrency/DocDowland';
 import ConfigPattern from './Pattern/ConfigPattern';
 
 export const componentsProduct = [
   {
     iId: 1,
     sName: 'Downlaod automated Bank Statements',
-    documentation: <DocDowland />,
+    documentation: 'DOCU 1',
     apiConfiguration: 'apiconfiguration Dowland',
-    configuration: (
-      <ConfigDowland
-        getBank="GetExtBancario"
-        registerBank="RegistrarExtBancario"
-        updateBank="ActualizarExtBancario"
-        deleteBank="EliminarBancoCredencialExtBancario"
-        registerAccount="RegistrarCuentaExtBancario"
-        updateAccount="ActualizarCuentaExtBancario"
-        deleteAccount="EliminarCuentaExtBancario"
-      />
-    ),
+    configuration: <ConfigDowland getBank="GetExtBancario" registerBank="RegistrarExtBancario" updateBank="ActualizarExtBancario" deleteBank="EliminarBancoCredencialExtBancario" registerAccount="RegistrarCuentaExtBancario" updateAccount="ActualizarCuentaExtBancario" deleteAccount="EliminarCuentaExtBancario" />,
   },
   {
     iId: 2,
     sName: 'Currency Exchange rates automation',
-    documentation: 'hhhhhhhh',
+    documentation: 'DOC 2',
     apiConfiguration: 'apiconfiguration currency',
     configuration: <ConfigCurrency />,
   },
@@ -49,17 +38,6 @@ export const componentsProduct = [
     sName: 'Download account statements',
     documentation: 'documentation 5',
     apiConfiguration: 'apiconfiguration 5',
-    configuration: (
-      <ConfigDowland
-        getBank="GetEstBancario"
-        registerBank="RegistrarEstBancario"
-        updateBank="ActualizarEstBancario"
-        deleteBank="EliminarBancoCredencialEstBancario"
-        registerAccount="RegistrarCuentaEstBancario"
-        updateAccount="ActualizarCuentaEstBancario"
-        deleteAccount="EliminarCuentaEstBancario"
-        confirConfig="ConfirmarConfiguracionEst"
-      />
-    ),
+    configuration: <ConfigDowland getBank="GetEstBancario" registerBank="RegistrarEstBancario" updateBank="ActualizarEstBancario" deleteBank="EliminarBancoCredencialEstBancario" registerAccount="RegistrarCuentaEstBancario" updateAccount="ActualizarCuentaEstBancario" deleteAccount="EliminarCuentaEstBancario" confirConfig="ConfirmarConfiguracionEst" />,
   },
 ];

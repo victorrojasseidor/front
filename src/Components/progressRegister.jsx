@@ -3,11 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { countryOptions } from '@/helpers/contry';
 import { validateFormprofilestart } from '@/helpers/validateForms';
 import { useRouter } from 'next/navigation';
-import {
-  fetchConTokenPost,
-  fetchNoTokenPost,
-  decodeText,
-} from '@/helpers/fetch';
+import { fetchConTokenPost, fetchNoTokenPost, decodeText } from '@/helpers/fetch';
 import { useAuth } from '@/Context/DataContext';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -27,8 +23,7 @@ const ProgressRegister = ({ userData }) => {
   const [errorLogin, setErrorLogin] = useState('');
 
   const router = useRouter();
-  const { session, logout, modalToken, setModalToken, setSession, l } =
-    useAuth();
+  const { session, logout, modalToken, setModalToken, setSession, l } = useAuth();
 
   const [selectedCompanies, setSelectedCompanies] = useState([]);
 
@@ -67,18 +62,13 @@ const ProgressRegister = ({ userData }) => {
       },
     };
     try {
-      const responseData = await fetchNoTokenPost(
-        'BPasS/?Accion=ConsultaUsuario',
-        dataRegister && dataRegister
-      );
+      const responseData = await fetchNoTokenPost('BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister);
       if (responseData.oAuditResponse?.iCode === 1) {
         const userData = responseData.oResults;
         setSession(userData);
         router.push('/product');
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setErrorLogin(errorMessage);
       }
     } catch (error) {
@@ -113,11 +103,7 @@ const ProgressRegister = ({ userData }) => {
     const tok = userData.sToken;
 
     try {
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=RegistrarUsuarioEnd',
-        body,
-        tok
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarUsuarioEnd', body, tok);
       if (responseData.oAuditResponse.iCode === 1) {
         setStatus(null);
         setModalToken(false);
@@ -134,9 +120,7 @@ const ProgressRegister = ({ userData }) => {
         await logout();
         setConfirmRegister(false);
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setStatus(errorMessage);
         setConfirmRegister(false);
         console.log('error', errorMessage);
@@ -158,10 +142,7 @@ const ProgressRegister = ({ userData }) => {
       {isLoading && <Loading />}
       <div className="containerProgress ">
         <div className="progressBar">
-          <div
-            className="progressBarFill"
-            style={{ width: `${(step - 1) * 50}%` }}
-          />
+          <div className="progressBarFill" style={{ width: `${(step - 1) * 50}%` }} />
         </div>
         <div className="step">
           {t.Step} {step}
@@ -193,36 +174,21 @@ const ProgressRegister = ({ userData }) => {
 
                   <div className="box-forms">
                     <div className="input-box">
-                      <Field
-                        type="text"
-                        name="name"
-                        placeholder=" "
-                        value={userData?.sUserName || ''}
-                        readOnly
-                      />
+                      <Field type="text" name="name" placeholder=" " value={userData?.sUserName || ''} readOnly />
                       <label htmlFor="name">{t.Username}</label>
                     </div>
 
                     <div className="input-box">
                       <Field type="text" name="lastName" placeholder=" " />
                       <label htmlFor="lastName">{t['Last Name']}</label>
-                      <ErrorMessage
-                        className="errorMessage"
-                        name="lastName"
-                        component="div"
-                      />
+                      <ErrorMessage className="errorMessage" name="lastName" component="div" />
                     </div>
 
                     <div className="box-phone">
                       <div className="box-filter">
                         <FormControl sx={{ m: 1, minWidth: 120 }}>
                           <InputLabel id="company-label">{t.Code}</InputLabel>
-                          <Select
-                            labelId="company-label"
-                            value={country || countryOptions[0]?.value}
-                            onChange={handleCountryChange}
-                            className="delimite-text"
-                          >
+                          <Select labelId="company-label" value={country || countryOptions[0]?.value} onChange={handleCountryChange} className="delimite-text">
                             {countryOptions?.map((comp) => (
                               <MenuItem key={comp.value} value={comp.value}>
                                 <div> {comp.label}</div>
@@ -233,46 +199,21 @@ const ProgressRegister = ({ userData }) => {
                       </div>
 
                       <div className="input-box">
-                        <Field
-                          type="text"
-                          id="phoneNumber"
-                          name="phoneNumber"
-                          placeholder=" "
-                        />
+                        <Field type="text" id="phoneNumber" name="phoneNumber" placeholder=" " />
                         <label htmlFor="phoneNumber">{t['Phone Number']}</label>
-                        <ErrorMessage
-                          className="errorMessage"
-                          name="phoneNumber"
-                          component="div"
-                        />
+                        <ErrorMessage className="errorMessage" name="phoneNumber" component="div" />
                       </div>
                     </div>
 
                     <div className="input-box">
-                      <Field
-                        type="email"
-                        name="corporateEmail"
-                        placeholder=" "
-                        value={userData?.sCorreo || ''}
-                        readOnly
-                      />
-                      <label htmlFor="corporateEmail">
-                        {t['Company email']}
-                      </label>
+                      <Field type="email" name="corporateEmail" placeholder=" " value={userData?.sCorreo || ''} readOnly />
+                      <label htmlFor="corporateEmail">{t['Company email']}</label>
                     </div>
                   </div>
 
                   <div className="box-buttons">
                     {values.phoneNumber && values.lastName && (
-                      <button
-                        className={`btn_secundary small ${
-                          'lastName' in errors || 'phoneNumber' in errors
-                            ? 'disabled'
-                            : ''
-                        }`}
-                        disabled={!values.phoneNumber || !values.lastName}
-                        onClick={handleNextStep}
-                      >
+                      <button className={`btn_secundary small ${'lastName' in errors || 'phoneNumber' in errors ? 'disabled' : ''}`} disabled={!values.phoneNumber || !values.lastName} onClick={handleNextStep}>
                         {t.Next}
                         <ImageSvg name="Next" />
                       </button>
@@ -288,8 +229,7 @@ const ProgressRegister = ({ userData }) => {
                   <div>
                     <div>
                       <p>
-                        {t.Corporation}:{' '}
-                        <span>{userData.jCompany.razon_social_company}</span>
+                        {t.Corporation}: <span>{userData.jCompany.razon_social_company}</span>
                       </p>
                     </div>
 
@@ -299,47 +239,23 @@ const ProgressRegister = ({ userData }) => {
 
                     <div className="companies">
                       {userData?.oEmpresa.map((option) => (
-                        <div
-                          className={`box-companies ${
-                            selectedCompanies.includes(option) ? 'selected' : ''
-                          }`}
-                          key={option.id_empresa}
-                          onClick={() => toggleCompanySelection(option)}
-                        >
+                        <div className={`box-companies ${selectedCompanies.includes(option) ? 'selected' : ''}`} key={option.id_empresa} onClick={() => toggleCompanySelection(option)}>
                           <div className="card">
-                            <span className="initial">
-                              {option.razon_social_empresa
-                                .match(/\b\w/g)
-                                .join('')
-                                .slice(0, 2)}
-                            </span>
+                            <span className="initial">{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
                           </div>
-                          <label htmlFor={`companies[${option.id_empresa}]`}>
-                            {option.razon_social_empresa}
-                          </label>
+                          <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   <div className="box-buttons">
-                    <button
-                      type="button"
-                      className="btn_secundary small"
-                      onClick={handlePreviousStep}
-                    >
+                    <button type="button" className="btn_secundary small" onClick={handlePreviousStep}>
                       <ImageSvg name="Back" />
                       {t.Previous}
                     </button>
 
-                    <button
-                      type="button"
-                      className={`btn_secundary small ${
-                        selectedCompanies.length > 0 ? '' : 'disabled'
-                      }`}
-                      onClick={handleNextStep}
-                      disabled={selectedCompanies.length == 0}
-                    >
+                    <button type="button" className={`btn_secundary small ${selectedCompanies.length > 0 ? '' : 'disabled'}`} onClick={handleNextStep} disabled={selectedCompanies.length == 0}>
                       {t.Next}
                       <ImageSvg name="Next" />
                     </button>
@@ -353,43 +269,23 @@ const ProgressRegister = ({ userData }) => {
                   <p>{t['Select how you want to be notified']}</p>
                   <ul>
                     <div className="box-notification">
-                      <Field
-                        type="checkbox"
-                        className="checkboxId"
-                        name="notificationsInBpass"
-                      />
-                      <label htmlFor="notificationsInBpass">
-                        {t['Notifications in ARI']}
-                      </label>
+                      <Field type="checkbox" className="checkboxId" name="notificationsInBpass" />
+                      <label htmlFor="notificationsInBpass">{t['Notifications in ARI']}</label>
                     </div>
 
                     <div className="box-notification">
-                      <Field
-                        type="checkbox"
-                        className="checkboxId"
-                        name="emailNotifications"
-                      />
-                      <label htmlFor="emailNotifications">
-                        {t['Email notifications']}
-                      </label>
+                      <Field type="checkbox" className="checkboxId" name="emailNotifications" />
+                      <label htmlFor="emailNotifications">{t['Email notifications']}</label>
                     </div>
                   </ul>
 
                   <div className="box-buttons">
-                    <button
-                      type="button"
-                      className="btn_secundary small"
-                      onClick={handlePreviousStep}
-                    >
+                    <button type="button" className="btn_secundary small" onClick={handlePreviousStep}>
                       <ImageSvg name="Back" />
                       {t.Previous}
                     </button>
                     {isLastStep && (
-                      <button
-                        type="submit"
-                        className="btn_primary small"
-                        disabled={isSubmitting}
-                      >
+                      <button type="submit" className="btn_primary small" disabled={isSubmitting}>
                         {t.Next}
                         <ImageSvg name="Next" />
                       </button>

@@ -22,24 +22,15 @@ const Tabs = () => {
   return (
     <div className="tabs-container">
       <div className="tab-header">
-        <button
-          className={activeTab === 0 ? 'active complete' : ''}
-          onClick={() => handleTabClick(0)}
-        >
+        <button className={activeTab === 0 ? 'active complete' : ''} onClick={() => handleTabClick(0)}>
           <FaCheck />
           <h4> Personal information</h4>
         </button>
-        <button
-          className={activeTab === 1 ? 'active' : ''}
-          onClick={() => handleTabClick(1)}
-        >
+        <button className={activeTab === 1 ? 'active' : ''} onClick={() => handleTabClick(1)}>
           <FaCheck />
           <h4>Company</h4>
         </button>
-        <button
-          className={activeTab === 2 ? 'active' : ''}
-          onClick={() => handleTabClick(2)}
-        >
+        <button className={activeTab === 2 ? 'active' : ''} onClick={() => handleTabClick(2)}>
           <FaCheck />
           <h4> Notifications </h4>
         </button>
@@ -70,21 +61,13 @@ const Tabs = () => {
                     <div>
                       <Field type="text" name="name" placeholder=" " />
                       <label htmlFor="name">Username</label>
-                      <ErrorMessage
-                        className="errorMessage"
-                        name="name"
-                        component="div"
-                      />
+                      <ErrorMessage className="errorMessage" name="name" component="div" />
                     </div>
 
                     <div>
                       <Field type="text" name="lastName" placeholder=" " />
                       <label htmlFor="lastName">Last Name</label>
-                      <ErrorMessage
-                        className="errorMessage"
-                        name="lastName"
-                        component="div"
-                      />
+                      <ErrorMessage className="errorMessage" name="lastName" component="div" />
                     </div>
 
                     <div className="phone-field">
@@ -99,41 +82,20 @@ const Tabs = () => {
                       </div>
 
                       <div>
-                        <Field
-                          type="text"
-                          id="phoneNumber"
-                          name="phoneNumber"
-                          placeholder=" "
-                        />
+                        <Field type="text" id="phoneNumber" name="phoneNumber" placeholder=" " />
                         <label htmlFor="phoneNumber">Phone Number</label>
-                        <ErrorMessage
-                          className="errorMessage"
-                          name="phoneNumber"
-                          component="div"
-                        />
+                        <ErrorMessage className="errorMessage" name="phoneNumber" component="div" />
                       </div>
                     </div>
 
                     <div>
-                      <Field
-                        type="email"
-                        name="corporateEmail"
-                        placeholder=" "
-                      />
+                      <Field type="email" name="corporateEmail" placeholder=" " />
                       <label htmlFor="corporateEmail">Company email</label>
-                      <ErrorMessage
-                        className="errorMessage"
-                        name="corporateEmail"
-                        component="div"
-                      />
+                      <ErrorMessage className="errorMessage" name="corporateEmail" component="div" />
                     </div>
 
                     <div className="actions">
-                      <button
-                        className="btn_primary small"
-                        type="submit"
-                        disabled={isSubmitting}
-                      >
+                      <button className="btn_primary small" type="submit" disabled={isSubmitting}>
                         NEXT
                       </button>
                     </div>

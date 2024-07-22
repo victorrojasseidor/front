@@ -5,33 +5,15 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { fetchConTokenPost } from '@/helpers/fetch';
 import dayjs from 'dayjs';
-
 import LoadingComponent from '../Atoms/LoadingComponent';
 import { useAuth } from '@/Context/DataContext';
 import ImageSvg from '@/helpers/ImageSVG';
 import { IconArrow } from '@/helpers/report';
 import { Line } from 'react-chartjs-2';
 
-import {
-  Chart as ChartJS,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler,
-} from 'chart.js';
+import { Chart as ChartJS, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 
-ChartJS.register(
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-);
+ChartJS.register(LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 export default function LineChart() {
   const { session, setModalToken, logout, l } = useAuth();
@@ -50,20 +32,7 @@ export default function LineChart() {
 
   const t = l.Reporting;
 
-  const months = [
-    t.January,
-    t.February,
-    t.March,
-    t.April,
-    t.May,
-    t.June,
-    t.July,
-    t.August,
-    t.September,
-    t.October,
-    t.November,
-    t.December,
-  ];
+  const months = [t.January, t.February, t.March, t.April, t.May, t.June, t.July, t.August, t.September, t.October, t.November, t.December];
 
   useEffect(() => {
     const initialDates = getMonthDates(selectedYear, selectedMonth);
@@ -72,11 +41,7 @@ export default function LineChart() {
 
   useEffect(() => {
     if (dates?.sFechaDesde && dates?.sFechaHasta && selectedCurrency) {
-      GetTipoCambioRate(
-        dates?.sFechaDesde,
-        dates?.sFechaHasta,
-        selectedCurrency
-      );
+      GetTipoCambioRate(dates?.sFechaDesde, dates?.sFechaHasta, selectedCurrency);
     }
   }, [dates, selectedCurrency]);
 
@@ -86,9 +51,7 @@ export default function LineChart() {
 
   const getMonthDates = (year, monthIndex) => {
     // Obtener el primer día del mes
-    const startDate = dayjs(`${year}-${monthIndex + 1}-01`).format(
-      'DD/MM/YYYY'
-    );
+    const startDate = dayjs(`${year}-${monthIndex + 1}-01`).format('DD/MM/YYYY');
 
     // Obtener el último día del mes
     const lastDay = dayjs(`${year}-${monthIndex + 1}`)
@@ -96,9 +59,7 @@ export default function LineChart() {
       .format('DD');
 
     // Obtener la fecha final con el último día del mes
-    const endDate = dayjs(`${year}-${monthIndex + 1}-${lastDay}`).format(
-      'DD/MM/YYYY'
-    );
+    const endDate = dayjs(`${year}-${monthIndex + 1}-${lastDay}`).format('DD/MM/YYYY');
 
     return { sFechaDesde: startDate, sFechaHasta: endDate };
   };
@@ -132,11 +93,7 @@ export default function LineChart() {
 
     const tok = session?.sToken;
     try {
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetTipoCambioRate',
-        body,
-        tok
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetTipoCambioRate', body, tok);
       if (responseData.oAuditResponse.iCode == 1) {
         setRequestError(null);
 
@@ -163,9 +120,7 @@ export default function LineChart() {
     }
   }
 
-  const dataOrderTODate = dataType?.sort((a, b) =>
-    a.fecha_tipo_cambio.localeCompare(b.fecha_tipo_cambio)
-  );
+  const dataOrderTODate = dataType?.sort((a, b) => a.fecha_tipo_cambio.localeCompare(b.fecha_tipo_cambio));
 
   const dataTypeTranform = dataOrderTODate?.map((entry, i, array) => {
     const dateType = new Date(entry.fecha_tipo_cambio).getUTCDate();
@@ -181,10 +136,7 @@ export default function LineChart() {
   const dataVenta = dataTypeTranform?.map((entry) => entry.venta);
   const dataFecha = dataTypeTranform?.map((entry) => entry.date);
 
-  const currentYearMonths =
-    Number(currentYear) == Number(selectedYear)
-      ? months.slice(0, currentMonth)
-      : months;
+  const currentYearMonths = Number(currentYear) == Number(selectedYear) ? months.slice(0, currentMonth) : months;
 
   const valorMinimoTipeCompra = dataCompra && Math.min(...dataCompra);
   const valorMaximoTipeCompra = dataCompra && Math?.max(...dataCompra);
@@ -206,14 +158,10 @@ export default function LineChart() {
   const minDateX = valorMinimoFecha - valorMinimoFecha * 0.001;
   const maxDateX = valorMaximoFecha + valorMaximoFecha * 0.005;
 
-  const years = Array.from({ length: currentYear - 2022 }, (_, index) =>
-    (2023 + index).toString()
-  );
+  const years = Array.from({ length: currentYear - 2022 }, (_, index) => (2023 + index).toString());
 
   // // Resaltar el día 10 con un color diferente
-  const borderColorCompra = dataType?.map((day) =>
-    day === currentDay ? '#5DB92C' : '#5DB92C'
-  );
+  const borderColorCompra = dataType?.map((day) => (day === currentDay ? '#5DB92C' : '#5DB92C'));
 
   const midata = {
     labels: dataFecha,
@@ -227,12 +175,7 @@ export default function LineChart() {
         borderColorCompra,
         borderColor: 'rgba(5, 205, 153, 0.50)',
         backgroundColor: (context) => {
-          const gradient = context.chart.ctx.createLinearGradient(
-            0,
-            0,
-            0,
-            context.chart.height
-          );
+          const gradient = context.chart.ctx.createLinearGradient(0, 0, 0, context.chart.height);
           gradient.addColorStop(0, 'rgba(5, 61, 153, 0.005)'); // Color inicial con opacidad
           gradient.addColorStop(0.1, 'rgba(5, 205, 153, 0.002)'); // Color final con opacidad
           return gradient;
@@ -249,12 +192,7 @@ export default function LineChart() {
         fill: 'start',
         borderColor: 'rgba(67, 24, 255, 0.60)',
         backgroundColor: (context) => {
-          const gradient = context.chart.ctx.createLinearGradient(
-            0,
-            0,
-            0,
-            context.chart.height
-          );
+          const gradient = context.chart.ctx.createLinearGradient(0, 0, 0, context.chart.height);
           gradient.addColorStop(0, 'rgba(67, 24, 255, 0.0030)'); // Primer color inicial con opacidad
           gradient.addColorStop(0.1, 'rgba(67, 24, 255, 0.0010)'); // Segundo color con opacidad
 
@@ -372,12 +310,7 @@ export default function LineChart() {
             }}
           >
             <InputLabel id="account-label">{t.Year}</InputLabel>
-            <Select
-              labelId="account-label"
-              value={selectedYear}
-              onChange={handleYearChange}
-              IconComponent={IconArrow}
-            >
+            <Select labelId="account-label" value={selectedYear} onChange={handleYearChange} IconComponent={IconArrow}>
               {/* <MenuItem value=''>
                 <em>{t['All Accounts']}</em>
               </MenuItem> */}
@@ -391,21 +324,11 @@ export default function LineChart() {
 
           <FormControl sx={{ m: 1, minWidth: 100 }}>
             <InputLabel id="account-label">{t.Month}</InputLabel>
-            <Select
-              labelId="account-label"
-              value={selectedMonth}
-              onChange={handleMonthChange}
-              IconComponent={IconArrow}
-            >
+            <Select labelId="account-label" value={selectedMonth} onChange={handleMonthChange} IconComponent={IconArrow}>
               {currentYearMonths
-                ?.filter((_, index) =>
-                  selectedYear == 2023 ? index >= 10 : index >= 0
-                ) // Mostrar solo noviembre y diciembre si el año es 2023
+                ?.filter((_, index) => (selectedYear == 2023 ? index >= 10 : index >= 0)) // Mostrar solo noviembre y diciembre si el año es 2023
                 .map((month, index) => (
-                  <MenuItem
-                    key={month}
-                    value={index + (selectedYear === '2023' ? 10 : 0)}
-                  >
+                  <MenuItem key={month} value={index + (selectedYear === '2023' ? 10 : 0)}>
                     {month}
                   </MenuItem>
                 ))}
@@ -414,12 +337,7 @@ export default function LineChart() {
 
           <FormControl sx={{ m: 1, minWidth: 100 }}>
             <InputLabel id="currencySelect">{t.Currency}</InputLabel>
-            <Select
-              labelId="currencySelect"
-              value={selectedCurrency}
-              onChange={handleCurrencyChange}
-              IconComponent={IconArrow}
-            >
+            <Select labelId="currencySelect" value={selectedCurrency} onChange={handleCurrencyChange} IconComponent={IconArrow}>
               {session?.oMoneda
                 .filter((coin) => coin.id_moneda !== 1) // Excluir moneda con id=1 osea el sol
                 .map((coin) => (

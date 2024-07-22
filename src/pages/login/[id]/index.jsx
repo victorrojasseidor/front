@@ -29,15 +29,8 @@ function LoginConfirmed() {
     };
 
     try {
-      const responseData = await fetchConTokenPost(
-        'General/?Accion=RegistrarUsuarioPendConf',
-        body,
-        token
-      );
-      if (
-        responseData.oAuditResponse.iCode == 29 ||
-        responseData.oAuditResponse.iCode == 1
-      ) {
+      const responseData = await fetchConTokenPost('General/?Accion=RegistrarUsuarioPendConf', body, token);
+      if (responseData.oAuditResponse.iCode == 29 || responseData.oAuditResponse.iCode == 1) {
         setIsconfirmed(true);
         setError(null);
         setTimeout(() => {
@@ -90,10 +83,7 @@ function LoginConfirmed() {
                   {t['was verified']} {t.successfully}
                 </h2>
                 <div className="actions">
-                  <button
-                    className="btn_primary small"
-                    onClick={handleCloseModal}
-                  >
+                  <button className="btn_primary small" onClick={handleCloseModal}>
                     {t.Next}
                   </button>
                 </div>

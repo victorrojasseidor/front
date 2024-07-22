@@ -34,9 +34,7 @@ const LayouReport = ({ defaultTab, children }) => {
         <ImageSvg name="Navegación" />
         {tabs.map((tab, index) => (
           <Link href="#" key={index}>
-            <span onClick={() => handleTabClick(index, tab.path)}>
-              {tab.title}
-            </span>
+            <span onClick={() => handleTabClick(index, tab.path)}>{tab.title}</span>
           </Link>
         ))}
       </NavigationPages>
@@ -44,11 +42,7 @@ const LayouReport = ({ defaultTab, children }) => {
         <div className="horizontalTabs">
           <div className="tab-header">
             {tabs.map((tab, index) => (
-              <button
-                key={index}
-                className={activeTab === index ? 'active' : ''}
-                onClick={() => handleTabClick(index, tab.path)}
-              >
+              <button key={index} className={activeTab === index ? 'active' : ''} onClick={() => handleTabClick(index, tab.path)}>
                 <h4>{tab.title}</h4>
               </button>
             ))}

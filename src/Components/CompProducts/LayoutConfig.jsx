@@ -1,36 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import LayoutProducts from '@/Components/LayoutProducts';
 import FreeTrial from '@/Components/FreeTrial';
-
 import { useAuth } from '@/Context/DataContext';
 import Link from 'next/link';
 import ImageSvg from '@/helpers/ImageSVG';
 import NavigationPages from '../NavigationPages';
 import Apiconfiguration from '../Admi/Apiconfiguration';
 
-export default function LayoutConfig({
-  id,
-  iIdProdEnv,
-  defaultTab,
-  children,
-  NameAcount,
-  idEmpresa,
-}) {
+export default function LayoutConfig({ id, iIdProdEnv, defaultTab, children, idEmpresa }) {
   const [product, setProduct] = useState(null);
   const [activeTab, setActiveTab] = useState(defaultTab || 0);
-  const [component, setComponent] = useState(null);
-
-  const { session, setModalToken, l, logout, idCountry, getProducts } =
-    useAuth();
-
-  const router = useRouter();
-
+  const { session, setModalToken, l, logout, idCountry, getProducts } = useAuth();
   const t = l.Products;
 
   useEffect(() => {
     getDataProduct();
-    const t = l.Products;
   }, [id, idEmpresa, session, t]);
 
   const handleTabClick = (index) => {
@@ -41,11 +25,7 @@ export default function LayoutConfig({
     } else if (index === 1) {
       // Lógica para el tab 1
       // Si iCodeStatus es 28 o 23, se activa el tab 1
-      if (
-        session?.sPerfilCode === 'ADMIN' ||
-        product.iCodeStatus === 28 ||
-        product.iCodeStatus === 23
-      ) {
+      if (session?.sPerfilCode === 'ADMIN' || product.iCodeStatus === 28 || product.iCodeStatus === 23) {
         setActiveTab(index);
       }
     } else if (index === 2) {
@@ -73,9 +53,7 @@ export default function LayoutConfig({
         await logout();
         // setModalToken(true)
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setModalToken(true);
         console.log('errok, ', errorMessage);
       }
@@ -109,29 +87,16 @@ export default function LayoutConfig({
           <div className="idProduct_container">
             <div className="horizontalTabs">
               <div className="tab-header">
-                <Link
-                  href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`}
-                >
-                  <button
-                    className={activeTab === 0 ? 'active ' : ''}
-                    onClick={() => handleTabClick(0)}
-                  >
+                <Link href={`/product/product?type=freetrial&iIdProdEnv=${iIdProdEnv}&iId=${id}&idEmpresa=${idEmpresa}`}>
+                  <button className={activeTab === 0 ? 'active ' : ''} onClick={() => handleTabClick(0)}>
                     <h4> {t['Free Trial']}</h4>
                   </button>
                 </Link>
 
-                <Link
-                  href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`}
-                >
+                <Link href={`/product/product?type=configuration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`}>
                   <button
                     style={{
-                      display:
-                        session?.sPerfilCode === 'ADMIN'
-                          ? 'block'
-                          : product.iCodeStatus === 23 ||
-                            product.iCodeStatus === 28
-                          ? 'block'
-                          : 'none',
+                      display: session?.sPerfilCode === 'ADMIN' ? 'block' : product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'block' : 'none',
                     }}
                     className={activeTab === 1 ? 'active ' : ''}
                     onClick={() => handleTabClick(1)}
@@ -143,14 +108,10 @@ export default function LayoutConfig({
                 <Link
                   href={`/product/product?type=apiconfiguration&iIdProdEnv=${iIdProdEnv}&iId=${id}&pStatus=${product?.iCodeStatus}&idEmpresa=${idEmpresa}`}
                   style={{
-                    display:
-                      session?.sPerfilCode === 'ADMIN' ? 'block' : 'none',
+                    display: session?.sPerfilCode === 'ADMIN' ? 'block' : 'none',
                   }}
                 >
-                  <button
-                    className={activeTab === 2 ? 'active' : ''}
-                    onClick={() => handleTabClick(2)}
-                  >
+                  <button className={activeTab === 2 ? 'active' : ''} onClick={() => handleTabClick(2)}>
                     <h4> {t['Admin confuguratión']}</h4>
                   </button>
                 </Link>
@@ -158,24 +119,17 @@ export default function LayoutConfig({
               <div className="tab-content">
                 {activeTab === 0 && (
                   <div className="tabOne">
-                    <FreeTrial
-                      iIdProd={iIdProdEnv}
-                      nameProduct={product?.sName}
-                    />
+                    <FreeTrial iIdProd={iIdProdEnv} nameProduct={product?.sName} />
                   </div>
                 )}
                 {activeTab === 1 && <div>{children}</div>}
                 {activeTab === 2 && (
                   <div
                     style={{
-                      visibility:
-                        session?.sPerfilCode === 'ADMIN' ? 'visible' : 'hidden',
+                      visibility: session?.sPerfilCode === 'ADMIN' ? 'visible' : 'hidden',
                     }}
                   >
-                    <Apiconfiguration
-                      nameEmpresa={NameEmpresa(idEmpresa)}
-                      product={product}
-                    />
+                    <Apiconfiguration nameEmpresa={NameEmpresa(idEmpresa)} product={product} />
                   </div>
                 )}
               </div>

@@ -23,15 +23,12 @@ import Select from '@mui/material/Select';
 import CaptchaConfig from './CaptchaConfig';
 
 export default function Apiconfiguration({ nameEmpresa }) {
-  const { session, setModalToken, logout, l, idCountry, getProducts } =
-    useAuth();
+  const { session, setModalToken, logout, l, idCountry, getProducts } = useAuth();
   const [product, setProduct] = useState(null);
   const [selectContract, setSelectContract] = useState('other');
   const [contracOther, setContractOther] = useState('');
 
   const router = useRouter();
-
-  const iIdProdEnv = router.query.iIdProdEnv;
   const iId = router.query.iId;
   const idEmpresa = router.query.idEmpresa;
 
@@ -54,9 +51,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -154,11 +149,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
     try {
       const token = session?.sToken;
 
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetHistoricoProducto',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetHistoricoProducto', body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         setHistorical(responseData.oResults);
 
@@ -168,9 +159,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
 
         setTimeout(() => {
@@ -196,25 +185,16 @@ export default function Apiconfiguration({ nameEmpresa }) {
         sProd: product?.sProd,
         iIdProdEnv: product?.iIdProdEnv,
         sMessage: message || 'sin mensaje',
-        sContrato:
-          selectContract == 'other'
-            ? contracOther
-            : selectContract || 'Contrato no definido',
+        sContrato: selectContract == 'other' ? contracOther : selectContract || 'Contrato no definido',
         iIdEmpresa: Number(idEmpresa),
       },
     };
 
-    if (
-      valueState === 'SolicitarProducto' ||
-      valueState === 'NotHiredProducto'
-    ) {
+    if (valueState === 'SolicitarProducto' || valueState === 'NotHiredProducto') {
       body.oResults.sCorreo = session?.sCorreo;
       body.oResults.sTitle = 'Admin';
       body.oResults.sPhoneNumber = session?.sPhone;
-    } else if (
-      valueState === 'AprobarSolProducto' ||
-      valueState === 'ConfirmarConfiguracionProducto'
-    ) {
+    } else if (valueState === 'AprobarSolProducto' || valueState === 'ConfirmarConfiguracionProducto') {
       body.oResults.sCorreo = session?.sCorreo;
       body.oResults.sTitle = 'Admin';
       body.oResults.sPhoneNumber = session?.sPhone;
@@ -226,11 +206,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
     try {
       const token = session?.sToken;
 
-      const responseData = await fetchConTokenPost(
-        `BPasS/?Accion=${valueState}`,
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${valueState}`, body, token);
       console.log({ responseData });
       if (responseData.oAuditResponse?.iCode === 1) {
         // setModalFreeTrial(false)
@@ -246,9 +222,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -341,50 +315,24 @@ export default function Apiconfiguration({ nameEmpresa }) {
           <div className="admin-update">
             <div className="">
               <h3 className="sub"> {t['Update the status']} </h3>
-              <p className="description">
-                {' '}
-                {t['Update the status of digital employees']}{' '}
-              </p>
+              <p className="description"> {t['Update the status of digital employees']} </p>
 
               <div className="content">
                 <FormControl>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-form-control-label-placement"
-                    name="position"
-                    value={valueState}
-                    onChange={handleChangeState}
-                  >
-                    <FormControlLabel
-                      value="NotHiredProducto"
-                      control={<Radio />}
-                      label={t['Not hired']}
-                    />
+                  <RadioGroup row aria-labelledby="demo-form-control-label-placement" name="position" value={valueState} onChange={handleChangeState}>
+                    <FormControlLabel value="NotHiredProducto" control={<Radio />} label={t['Not hired']} />
 
-                    <FormControlLabel
-                      value="SolicitarProducto"
-                      control={<Radio color="success" />}
-                      label={t['Free Trial']}
-                    />
+                    <FormControlLabel value="SolicitarProducto" control={<Radio color="success" />} label={t['Free Trial']} />
 
-                    <FormControlLabel
-                      value="AprobarSolProducto"
-                      control={<Radio />}
-                      label={t.Pending}
-                    />
+                    <FormControlLabel value="AprobarSolProducto" control={<Radio />} label={t.Pending} />
 
-                    <FormControlLabel
-                      value="ConfirmarConfiguracionProducto"
-                      control={<Radio />}
-                      label={t.Configured}
-                    />
+                    <FormControlLabel value="ConfirmarConfiguracionProducto" control={<Radio />} label={t.Configured} />
                   </RadioGroup>
                 </FormControl>
               </div>
             </div>
 
-            {valueState == 'AprobarSolProducto' ||
-            valueState == 'ConfirmarConfiguracionProducto' ? (
+            {valueState == 'AprobarSolProducto' || valueState == 'ConfirmarConfiguracionProducto' ? (
               <div className="box-filter" style={{ flexDirection: 'row' }}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
@@ -429,10 +377,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
             )}
 
             {valueState !== stateInitial || startDate || endDate ? (
-              <div
-                className="box-buttons"
-                style={{ justifyContent: 'flex-start' }}
-              >
+              <div className="box-buttons" style={{ justifyContent: 'flex-start' }}>
                 <button
                   type="button"
                   className="btn_primary small"
@@ -478,9 +423,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
                         draggable
                       >
                         {t['Date modification']}
-                        <button className="btn_crud">
-                          {/* <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} /> */}
-                        </button>
+                        <button className="btn_crud">{/* <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} /> */}</button>
                       </th>
 
                       <th>{t['Star date']}</th>
@@ -551,10 +494,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
                     {t['Free trial contract']}
                   </MenuItem>
                 </Select>
-                <FormHelperText>
-                  {' '}
-                  {selectContract ? '' : t.Select}{' '}
-                </FormHelperText>
+                <FormHelperText> {selectContract ? '' : t.Select} </FormHelperText>
               </FormControl>
             </div>
 
@@ -568,24 +508,8 @@ export default function Apiconfiguration({ nameEmpresa }) {
                 autoComplete="off"
               >
                 <div>
-                  {selectContract === 'other' && (
-                    <TextField
-                      id="outlined-multiline-flexible"
-                      label={t['Contract number']}
-                      multiline
-                      maxRows={4}
-                      value={contracOther}
-                      onChange={handleContractChangeOther}
-                    />
-                  )}
-                  <TextField
-                    id="outlined-multiline-flexible"
-                    label={t.Message}
-                    multiline
-                    value={message}
-                    maxRows={6}
-                    onChange={handleChangemessage}
-                  />
+                  {selectContract === 'other' && <TextField id="outlined-multiline-flexible" label={t['Contract number']} multiline maxRows={4} value={contracOther} onChange={handleContractChangeOther} />}
+                  <TextField id="outlined-multiline-flexible" label={t.Message} multiline value={message} maxRows={6} onChange={handleChangemessage} />
                 </div>
               </Box>
             </div>

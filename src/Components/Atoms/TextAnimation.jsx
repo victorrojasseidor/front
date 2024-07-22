@@ -18,9 +18,7 @@ const TextAnimation = () => {
     <div className="textAnimation">
       <h1 className="text">
         Digital Employees <span> </span>
-        <span className="typing">
-          {text.split('').slice(0, visibleLetters).join('')}s
-        </span>
+        <span className="typing">{text.split('').slice(0, visibleLetters).join('')}s</span>
       </h1>
     </div>
   );

@@ -6,13 +6,7 @@ import { useRouter } from 'next/router';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import { fetchConTokenPost } from '@/helpers/fetch';
 
-export default function EmailsForm({
-  dataEmails,
-  setUpdateEmails,
-  sProduct,
-  get,
-  setGet,
-}) {
+export default function EmailsForm({ dataEmails, setUpdateEmails, sProduct, get, setGet }) {
   const [haveEmails, setHaveEmails] = useState(false); // hay correos ?
   const [valueEmailTo, setValueEmailTo] = useState('');
   const [valueEmailCco, setValueEmailCco] = useState('');
@@ -25,23 +19,16 @@ export default function EmailsForm({
 
   const router = useRouter();
   const iIdProdEnv = router.query.iIdProdEnv;
-  const iId = router.query.iId;
-  const idEmpresa = router.query.idEmpresa;
-
   const { session, setModalToken, logout, l, idCountry } = useAuth();
   const t = l.Currency;
 
   useEffect(() => {
     if (dataEmails?.length > 0) {
-      const filterEmailsTo = dataEmails.filter(
-        (eml) => eml.correo_estado == 'CORREO'
-      );
+      const filterEmailsTo = dataEmails.filter((eml) => eml.correo_estado == 'CORREO');
       const arrayDeCorreos = filterEmailsTo.map((item) => item.correo);
       setEmailsTo(arrayDeCorreos);
 
-      const filterEmailsCco = dataEmails.filter(
-        (eml) => eml.correo_estado == 'CORREO_CC'
-      );
+      const filterEmailsCco = dataEmails.filter((eml) => eml.correo_estado == 'CORREO_CC');
       const arrayDeCorreosCC = filterEmailsCco.map((item) => item.correo);
       setEmailsCco(arrayDeCorreosCC);
       setHaveEmails(true);
@@ -79,13 +66,7 @@ export default function EmailsForm({
     setEmailsTo([...emailsTo, ...validEmails]);
     setValueEmailTo('');
 
-    setErrorTo(
-      invalidEmails.length > 0
-        ? `${t['The following emails are invalid']}: ${invalidEmails.join(
-            ', '
-          )}`
-        : ''
-    );
+    setErrorTo(invalidEmails.length > 0 ? `${t['The following emails are invalid']}: ${invalidEmails.join(', ')}` : '');
     setTimeout(function () {
       setErrorTo('');
     }, 10000);
@@ -125,13 +106,7 @@ export default function EmailsForm({
     setEmailsCco([...emailsCco, ...validEmails]);
     setValueEmailCco('');
 
-    setErrorCco(
-      invalidEmails.length > 0
-        ? `${t['The following emails are invalid']}: ${invalidEmails.join(
-            ', '
-          )}`
-        : ''
-    );
+    setErrorCco(invalidEmails.length > 0 ? `${t['The following emails are invalid']}: ${invalidEmails.join(', ')}` : '');
     setTimeout(function () {
       setErrorCco('');
     }, 10000);
@@ -165,11 +140,7 @@ export default function EmailsForm({
 
     try {
       const token = session?.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=RegistrarCorreoProducto',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarCorreoProducto', body, token);
       console.log('correo', body, { responseData });
 
       if (responseData.oAuditResponse?.iCode === 1) {
@@ -186,9 +157,7 @@ export default function EmailsForm({
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         console.log('errok, ', errorMessage);
         setModalToken(true);
         setModalConfirmationEmail(false);
@@ -222,19 +191,8 @@ export default function EmailsForm({
 
             <div className="contaniner-tables">
               <div className="box-edit">
-                <p>
-                  {' '}
-                  {
-                    t[
-                      'Traceability information will be sent to the following emails'
-                    ]
-                  }
-                  :
-                </p>
-                <button
-                  className="btn_crud"
-                  onClick={() => setHaveEmails(false)}
-                >
+                <p> {t['Traceability information will be sent to the following emails']}:</p>
+                <button className="btn_crud" onClick={() => setHaveEmails(false)}>
                   <ImageSvg name="Edit" />
                 </button>
               </div>
@@ -267,29 +225,13 @@ export default function EmailsForm({
           <div className="box-emails-update">
             <h3 className="title-Config"> {t['Register emails']} </h3>
 
-            <p className="description">
-              {
-                t[
-                  'Please tell us which email addresses we should send our digital employee traceability reports to'
-                ]
-              }
-            </p>
+            <p className="description">{t['Please tell us which email addresses we should send our digital employee traceability reports to']}</p>
 
             <div className="contaniner-tables">
               <h4 className="title-Config"> {t.To}: </h4>
 
-              <form
-                className="form-container"
-                onSubmit={(e) => e.preventDefault()}
-              >
-                <p>
-                  {' '}
-                  {
-                    t[
-                      'Enter one or more emails either separated by spaces, commas or semicolons'
-                    ]
-                  }
-                </p>
+              <form className="form-container" onSubmit={(e) => e.preventDefault()}>
+                <p> {t['Enter one or more emails either separated by spaces, commas or semicolons']}</p>
 
                 <div className="form-emailTo">
                   <div className="input-box">
@@ -327,10 +269,7 @@ export default function EmailsForm({
                     {emailsTo?.map((email, index) => (
                       <li key={index}>
                         {email}{' '}
-                        <button
-                          className="btn_crud"
-                          onClick={() => handleDeleteTo(index)}
-                        >
+                        <button className="btn_crud" onClick={() => handleDeleteTo(index)}>
                           {' '}
                           <ImageSvg name="Delete" />
                         </button>
@@ -344,10 +283,7 @@ export default function EmailsForm({
             <div className="contaniner-tables">
               <h4 className="title-Config"> {t.Cco}: </h4>
 
-              <form
-                className="form-container"
-                onSubmit={(e) => e.preventDefault()}
-              >
+              <form className="form-container" onSubmit={(e) => e.preventDefault()}>
                 {/* <p> {t['Enter one or more emails either separated by spaces, commas or semicolons']}</p> */}
 
                 <div className="form-emailTo">
@@ -365,11 +301,7 @@ export default function EmailsForm({
                   </div>
 
                   <div className="box-add">
-                    <button
-                      type="button"
-                      className="btn_primary black "
-                      onClick={handleAddEmailsCco}
-                    >
+                    <button type="button" className="btn_primary black " onClick={handleAddEmailsCco}>
                       + {t.Add}
                     </button>
                   </div>
@@ -385,10 +317,7 @@ export default function EmailsForm({
                     {emailsCco?.map((email, index) => (
                       <li key={index}>
                         {email}{' '}
-                        <button
-                          className="btn_crud"
-                          onClick={() => handleDeleteCco(index)}
-                        >
+                        <button className="btn_crud" onClick={() => handleDeleteCco(index)}>
                           {' '}
                           <ImageSvg name="Delete" />
                         </button>

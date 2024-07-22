@@ -23,9 +23,7 @@ function MyApp({ Component, pageProps }) {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <DataContextProvider>
-          {isLoading ? <Loading /> : <Component {...pageProps} />}
-        </DataContextProvider>
+        <DataContextProvider>{isLoading ? <Loading /> : <Component {...pageProps} />}</DataContextProvider>
       </ThemeProvider>
     </LocalizationProvider>
   );

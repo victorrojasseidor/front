@@ -42,11 +42,7 @@ export default function CaptchaConfig() {
 
     try {
       const token = session?.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetCaptcha',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetCaptcha', body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         setData(responseData.oResults[0]);
         setModalToken(false);
@@ -55,9 +51,7 @@ export default function CaptchaConfig() {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
 
         setTimeout(() => {
@@ -75,10 +69,7 @@ export default function CaptchaConfig() {
     }
   }
 
-  async function ActualizarServicioCaptcha(
-    values,
-    { setSubmitting, setStatus, resetForm }
-  ) {
+  async function ActualizarServicioCaptcha(values, { resetForm }) {
     setIsLoading(true);
 
     const body = {
@@ -94,11 +85,7 @@ export default function CaptchaConfig() {
 
     try {
       const token = session?.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=ActualizarServicioCaptcha',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarServicioCaptcha', body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setUpdateData(!updateData);
@@ -111,9 +98,7 @@ export default function CaptchaConfig() {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -188,122 +173,51 @@ export default function CaptchaConfig() {
               <Form className="form-container ">
                 <div className="group">
                   <div className="input-box">
-                    <Field
-                      type="text"
-                      id="api"
-                      name="api"
-                      placeholder=" "
-                      autoComplete="off"
-                      disabled={isSubmitting}
-                    />
+                    <Field type="text" id="api" name="api" placeholder=" " autoComplete="off" disabled={isSubmitting} />
                     <label htmlFor="api">{t['API key']}</label>
-                    <ErrorMessage
-                      className="errorMessage"
-                      name="api"
-                      component="span"
-                    />
+                    <ErrorMessage className="errorMessage" name="api" component="span" />
                   </div>
 
                   <div className="input-box">
-                    <Field
-                      type="text"
-                      name="user"
-                      id="user"
-                      placeholder=" "
-                      disabled={isSubmitting}
-                    />
+                    <Field type="text" name="user" id="user" placeholder=" " disabled={isSubmitting} />
                     <label htmlFor="user">{t.User}</label>
-                    <ErrorMessage
-                      className="errorMessage"
-                      name="user"
-                      component="span"
-                    />
+                    <ErrorMessage className="errorMessage" name="user" component="span" />
                   </div>
 
                   <div className="input-box">
-                    <span
-                      className="iconPassword"
-                      onClick={togglePasswordVisibility}
-                    >
-                      <ImageSvg
-                        name={showPassword ? 'ShowPassword' : 'ClosePassword'}
-                      />
+                    <span className="iconPassword" onClick={togglePasswordVisibility}>
+                      <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
                     </span>
-                    <Field
-                      type={showPassword ? 'text' : 'password'}
-                      id="password"
-                      name="password"
-                      placeholder=" "
-                      disabled={isSubmitting}
-                    />
+                    <Field type={showPassword ? 'text' : 'password'} id="password" name="password" placeholder=" " disabled={isSubmitting} />
                     <label htmlFor="password">{t['Update password']}</label>
-                    <ErrorMessage
-                      className="errorMessage"
-                      name="password"
-                      component="span"
-                    />
+                    <ErrorMessage className="errorMessage" name="password" component="span" />
                   </div>
 
                   <div className="input-box">
-                    <Field
-                      type="number"
-                      name="connection"
-                      id="connection"
-                      placeholder=" "
-                    />
-                    <label htmlFor="connection">
-                      {t['Maximum connections']}
-                    </label>
-                    <ErrorMessage
-                      className="errorMessage"
-                      name="connection"
-                      component="span"
-                    />
+                    <Field type="number" name="connection" id="connection" placeholder=" " />
+                    <label htmlFor="connection">{t['Maximum connections']}</label>
+                    <ErrorMessage className="errorMessage" name="connection" component="span" />
                   </div>
                 </div>
 
                 <div className="input-box">
-                  <Field
-                    type="text"
-                    name="descripcion"
-                    id="descripcion"
-                    placeholder=" "
-                  />
+                  <Field type="text" name="descripcion" id="descripcion" placeholder=" " />
                   <label htmlFor="descripcion">
                     {t['Connected RPA - description']} ({t.optional}){' '}
                   </label>
 
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="descripcion"
-                    component="span"
-                  />
+                  <ErrorMessage className="errorMessage" name="descripcion" component="span" />
                 </div>
 
-                {data?.usuario == values.user &&
-                data?.api_key_2captcha == values.api &&
-                !values.password &&
-                data?.conexiones_maximas == values.connection &&
-                data?.rpa_conectados == values.descripcion ? (
+                {data?.usuario == values.user && data?.api_key_2captcha == values.api && !values.password && data?.conexiones_maximas == values.connection && data?.rpa_conectados == values.descripcion ? (
                   <p> </p>
                 ) : (
                   <div className="box-buttons">
-                    <button
-                      type="button"
-                      className={
-                        isValid ? 'btn_secundary' : 'btn_secundary disabled'
-                      }
-                      onClick={() => resetForm(false)}
-                    >
+                    <button type="button" className={isValid ? 'btn_secundary' : 'btn_secundary disabled'} onClick={() => resetForm(false)}>
                       {t.Cancel}
                     </button>
 
-                    <button
-                      type="submit"
-                      className={
-                        isValid ? 'btn_primary' : 'btn_primary disabled'
-                      }
-                    >
+                    <button type="submit" className={isValid ? 'btn_primary' : 'btn_primary disabled'}>
                       {isSubmitting ? `${t.Update}${'....'}` : t.Update}
                     </button>
                   </div>

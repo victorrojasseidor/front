@@ -21,12 +21,8 @@ import { TextField, IconButton, InputAdornment } from '@mui/material';
 
 const Movement = () => {
   const { session, setModalToken, logout, l } = useAuth();
-  const [startDate, setStartDate] = useState(
-    dayjs().startOf('month').format('DD/MM/YYYY')
-  );
-  const [endDate, setEndDate] = useState(
-    dayjs().subtract(1, 'day').format('DD/MM/YYYY')
-  );
+  const [startDate, setStartDate] = useState(dayjs().startOf('month').format('DD/MM/YYYY'));
+  const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'));
   const [dataInitialSelect, setInitialDataselect] = useState([]);
   const [filteredBank, setFilteredBank] = useState(null); // Cambié el nombre a filteredBank
   const [filteredAccounts, setFilteredAccounts] = useState(null); // Estado para cuentas filtradas
@@ -75,11 +71,7 @@ const Movement = () => {
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetInitMovimientos',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetInitMovimientos', body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         const dataInit = responseData.oResults;
         setInitialDataselect(dataInit);
@@ -90,9 +82,7 @@ const Movement = () => {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -125,11 +115,7 @@ const Movement = () => {
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetReporteMovimientos',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetReporteMovimientos', body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
@@ -142,9 +128,7 @@ const Movement = () => {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -184,9 +168,7 @@ const Movement = () => {
       setFilteredBank([]);
       setFilteredAccounts([]);
     } else {
-      const BankForSelectedCompany = movement?.filter(
-        (bank) => bank.id_empresa === selectCompanyValue
-      );
+      const BankForSelectedCompany = movement?.filter((bank) => bank.id_empresa === selectCompanyValue);
 
       const seenIds = new Set();
       const uniqueBanks = [];
@@ -213,9 +195,7 @@ const Movement = () => {
     if (selectedBankValue === '') {
       setFilteredAccounts([]);
     } else {
-      const accountsForSelectedBank = dataInitialSelect.oCuenta.filter(
-        (bank) => bank.id_banco === selectedBankValue
-      );
+      const accountsForSelectedBank = dataInitialSelect.oCuenta.filter((bank) => bank.id_banco === selectedBankValue);
       const seenIds = new Set();
       const uniqueBanks = [];
 
@@ -250,14 +230,7 @@ const Movement = () => {
   };
 
   const hasAppliedFilters = () => {
-    return (
-      selectedCompany !== '' ||
-      selectedtype !== '' ||
-      selectedBank !== '' ||
-      selectedAccount !== '' ||
-      startDate !== dayjs().startOf('month').format('DD/MM/YYYY') ||
-      endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY')
-    );
+    return selectedCompany !== '' || selectedtype !== '' || selectedBank !== '' || selectedAccount !== '' || startDate !== dayjs().startOf('month').format('DD/MM/YYYY') || endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY');
   };
 
   function formatNumberToCurrency(row) {
@@ -394,9 +367,7 @@ const Movement = () => {
       setApply(!apply);
     } else {
       if (movement) {
-        const filteredItems = movement.filter((producto) =>
-          producto[key].toLowerCase().includes(word.toLowerCase())
-        );
+        const filteredItems = movement.filter((producto) => producto[key].toLowerCase().includes(word.toLowerCase()));
         if (filteredItems) {
           setMovement(filteredItems);
         } else {
@@ -413,12 +384,10 @@ const Movement = () => {
           <div className="container-filters">
             <div className="layoutReporting-company">
               <h3>
-                {t['Movement report To']}{' '}
-                {session?.jCompany.razon_social_company}
+                {t['Movement report To']} {session?.jCompany.razon_social_company}
               </h3>
               <p>
-                {t['If you want to view the complete information, use the']}{' '}
-                <span>{t['export option']}</span>
+                {t['If you want to view the complete information, use the']} <span>{t['export option']}</span>
               </p>
             </div>
 
@@ -465,13 +434,7 @@ const Movement = () => {
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="company-label">{t.Company}</InputLabel>
-                <Select
-                  labelId="company-label"
-                  value={selectedCompany}
-                  onChange={handleCompanyChange}
-                  className="delimite-text"
-                  IconComponent={IconArrow}
-                >
+                <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} className="delimite-text" IconComponent={IconArrow}>
                   <MenuItem value="">
                     <em>{t['All Companys']}</em>
                   </MenuItem>
@@ -507,21 +470,13 @@ const Movement = () => {
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="account-label">{t['Account Alias']}</InputLabel>
-                <Select
-                  labelId="account-label"
-                  value={selectedAccount}
-                  onChange={handleAccountChange}
-                  IconComponent={IconArrow}
-                >
+                <Select labelId="account-label" value={selectedAccount} onChange={handleAccountChange} IconComponent={IconArrow}>
                   <MenuItem value="">
                     <em>{t['All Accounts']}</em>
                   </MenuItem>
                   {selectedBank &&
                     filteredAccounts.map((account) => (
-                      <MenuItem
-                        key={account.cuenta_conf_cuenta}
-                        value={account.cuenta}
-                      >
+                      <MenuItem key={account.cuenta_conf_cuenta} value={account.cuenta}>
                         <div> {account.cuenta} </div>
                       </MenuItem>
                     ))}
@@ -531,12 +486,7 @@ const Movement = () => {
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="company-label">{t.Type}</InputLabel>
-                <Select
-                  labelId="type-label"
-                  value={selectedtype}
-                  onChange={handleTypeChange}
-                  IconComponent={IconArrow}
-                >
+                <Select labelId="type-label" value={selectedtype} onChange={handleTypeChange} IconComponent={IconArrow}>
                   <MenuItem value="">
                     <em>{t['All types']}</em>
                   </MenuItem>
@@ -550,23 +500,11 @@ const Movement = () => {
               </FormControl>
 
               <div className="box-clear">
-                <button
-                  className={`btn_primary small  ${
-                    hasAppliedFilters() ? '' : 'desactivo'
-                  }`}
-                  onClick={() => setApply(!apply)}
-                  disabled={!hasAppliedFilters()}
-                >
+                <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => setApply(!apply)} disabled={!hasAppliedFilters()}>
                   {t.Apply}
                 </button>
 
-                <button
-                  className={`btn_secundary small ${
-                    hasAppliedFilters() ? '' : 'desactivo'
-                  }`}
-                  onClick={handleClearFilters}
-                  disabled={!hasAppliedFilters()}
-                >
+                <button className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
                   {t.Clear}
                 </button>
               </div>
@@ -598,105 +536,46 @@ const Movement = () => {
                       <ImageSvg name='Filter' />
                     </button> */}
 
-                    <button
-                      className="btn_crud"
-                      onClick={() => orderDataByDate()}
-                    >
+                    <button className="btn_crud" onClick={() => orderDataByDate()}>
                       <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} />
                     </button>
                   </th>
                   <th>
                     {t.Company}
-                    <button
-                      className="btn_crud"
-                      onClick={() =>
-                        orderDataAlphabetically(
-                          'razon_social_empresa',
-                          setIsCompanySorted,
-                          isCompanySorted
-                        )
-                      }
-                    >
-                      <ImageSvg
-                        name={isCompanySorted ? 'OrderZA' : 'OrderAZ'}
-                      />
+                    <button className="btn_crud" onClick={() => orderDataAlphabetically('razon_social_empresa', setIsCompanySorted, isCompanySorted)}>
+                      <ImageSvg name={isCompanySorted ? 'OrderZA' : 'OrderAZ'} />
                     </button>
                   </th>
                   <th>
                     {t.Bank}
-                    <button
-                      className="btn_crud"
-                      onClick={() =>
-                        orderDataAlphabetically(
-                          'nombre_banco',
-                          setIsBankSorted,
-                          isBankSorted
-                        )
-                      }
-                    >
+                    <button className="btn_crud" onClick={() => orderDataAlphabetically('nombre_banco', setIsBankSorted, isBankSorted)}>
                       <ImageSvg name={isBankSorted ? 'OrderZA' : 'OrderAZ'} />
                     </button>
                   </th>
                   <th>
                     {t['Account Alias']}
-                    <button
-                      className="btn_crud"
-                      onClick={() =>
-                        orderDataAlphabetically(
-                          'cuenta_conf_cuenta',
-                          setIsAccountSorted,
-                          isAccountSorted
-                        )
-                      }
-                    >
-                      <ImageSvg
-                        name={isAccountSorted ? 'OrderZA' : 'OrderAZ'}
-                      />
+                    <button className="btn_crud" onClick={() => orderDataAlphabetically('cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
+                      <ImageSvg name={isAccountSorted ? 'OrderZA' : 'OrderAZ'} />
                     </button>
                   </th>
 
                   <th>
                     {t['Account Description']}
-                    <button
-                      className="btn_crud"
-                      onClick={() =>
-                        orderDataAlphabetically(
-                          'desc_cuenta_conf_cuenta',
-                          setIsAccounDestSorted,
-                          isAccountDesSorted
-                        )
-                      }
-                    >
-                      <ImageSvg
-                        name={isAccountDesSorted ? 'OrderZA' : 'OrderAZ'}
-                      />
+                    <button className="btn_crud" onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccounDestSorted, isAccountDesSorted)}>
+                      <ImageSvg name={isAccountDesSorted ? 'OrderZA' : 'OrderAZ'} />
                     </button>
                   </th>
                   <th>
                     {t.Currency}
 
-                    <button
-                      className="btn_crud"
-                      onClick={() =>
-                        orderDataAlphabetically(
-                          'moneda',
-                          setIsCurrencySorted,
-                          isCurrencySorted
-                        )
-                      }
-                    >
-                      <ImageSvg
-                        name={isCurrencySorted ? 'OrderZA' : 'OrderAZ'}
-                      />
+                    <button className="btn_crud" onClick={() => orderDataAlphabetically('moneda', setIsCurrencySorted, isCurrencySorted)}>
+                      <ImageSvg name={isCurrencySorted ? 'OrderZA' : 'OrderAZ'} />
                     </button>
                   </th>
                   <th className="th-search">
                     {t.Description}
 
-                    <button
-                      className="btn_crud"
-                      onClick={() => setSearchDes(!searchDes)}
-                    >
+                    <button className="btn_crud" onClick={() => setSearchDes(!searchDes)}>
                       <ImageSvg name={searchDes ? ' ' : 'Search'} />
                     </button>
 
@@ -735,37 +614,18 @@ const Movement = () => {
                   <th className="th-search">
                     {t['Operation No.']}
 
-                    <button
-                      className="btn_crud"
-                      onClick={() => setSearchOpe(!searchOpe)}
-                    >
+                    <button className="btn_crud" onClick={() => setSearchOpe(!searchOpe)}>
                       <ImageSvg name="Search" />
                     </button>
 
-                    <button
-                      className="btn_crud"
-                      onClick={() =>
-                        orderDataNumerically(
-                          'operacion',
-                          setIsOperationSorted,
-                          isOperationSorted
-                        )
-                      }
-                    >
-                      <ImageSvg
-                        name={isOperationSorted ? 'OrderDown' : 'OrderUP'}
-                      />
+                    <button className="btn_crud" onClick={() => orderDataNumerically('operacion', setIsOperationSorted, isOperationSorted)}>
+                      <ImageSvg name={isOperationSorted ? 'OrderDown' : 'OrderUP'} />
                     </button>
 
                     {searchOpe && (
                       <div className="container-search">
                         <div className="input-box">
-                          <input
-                            type="text"
-                            placeholder="Buscar por operacion"
-                            value={operacion}
-                            onChange={handleInputChangeSearchOperation}
-                          />
+                          <input type="text" placeholder="Buscar por operacion" value={operacion} onChange={handleInputChangeSearchOperation} />
                         </div>
 
                         {/* <button className='btn_green' onClick={handleSearchClick}> <ImageSvg name='Search' /> </button> */}
@@ -786,19 +646,8 @@ const Movement = () => {
 
                   <th>
                     {t.Amount}
-                    <button
-                      className="btn_crud"
-                      onClick={() =>
-                        orderDataNumerically(
-                          'importe',
-                          setIsAmountSorted,
-                          isAmountSorted
-                        )
-                      }
-                    >
-                      <ImageSvg
-                        name={isAmountSorted ? 'OrderDown' : 'OrderUP'}
-                      />
+                    <button className="btn_crud" onClick={() => orderDataNumerically('importe', setIsAmountSorted, isAmountSorted)}>
+                      <ImageSvg name={isAmountSorted ? 'OrderDown' : 'OrderUP'} />
                     </button>
                   </th>
 
@@ -807,12 +656,7 @@ const Movement = () => {
 
                   <th>
                     {t.RUC}
-                    <button
-                      className="btn_crud"
-                      onClick={() =>
-                        orderDataNumerically('ruc', setIsRucSorted, isRucSorted)
-                      }
-                    >
+                    <button className="btn_crud" onClick={() => orderDataNumerically('ruc', setIsRucSorted, isRucSorted)}>
                       <ImageSvg name={isRucSorted ? 'OrderDown' : 'OrderUP'} />
                     </button>
                   </th>
@@ -828,9 +672,7 @@ const Movement = () => {
                         <td>{row.razon_social_empresa}</td>
                         <td>{row.nombre_banco}</td>
                         <td className="cuenta">{row.cuenta_conf_cuenta}</td>
-                        <td className="cuenta">
-                          {row.desc_cuenta_conf_cuenta}
-                        </td>
+                        <td className="cuenta">{row.desc_cuenta_conf_cuenta}</td>
                         <td>{row.moneda}</td>
                         <td>{row.descripcion}</td>
                         <td
@@ -841,9 +683,7 @@ const Movement = () => {
                           {row.descripcion_tipo}
                         </td>
                         <td>{row.operacion}</td>
-                        <td className="importe">
-                          {formatNumberToCurrency(row)}
-                        </td>
+                        <td className="importe">{formatNumberToCurrency(row)}</td>
                         <td>{row.referencia}</td>
                         <td>{row.utc}</td>
                         <td>{row.ruc}</td>
@@ -860,8 +700,7 @@ const Movement = () => {
           <Stack spacing={2}>
             <div className="pagination">
               <Typography>
-                {t.Page} {page} {t.of}{' '}
-                {Math.ceil(movement?.length / itemsPerPage)}
+                {t.Page} {page} {t.of} {Math.ceil(movement?.length / itemsPerPage)}
               </Typography>
               <Pagination
                 count={Math.ceil(movement?.length / itemsPerPage)} // Calculate the total number of pages
@@ -873,11 +712,7 @@ const Movement = () => {
         </div>
       )}
 
-      <div>
-        {requestError && (
-          <div className="errorMessage"> {requestError.message} </div>
-        )}
-      </div>
+      <div>{requestError && <div className="errorMessage"> {requestError.message} </div>}</div>
     </>
   );
 };

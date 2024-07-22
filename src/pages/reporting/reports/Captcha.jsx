@@ -24,36 +24,19 @@ const Captcha = () => {
   const [activeTab, setActiveTab] = useState(0);
   const { session, setModalToken, logout, l, idCountry, empresa } = useAuth();
   const [page, setPage] = useState(1);
-  const [selectedCompany, setSelectedCompany] = useState(
-    empresa?.id_empresa || session?.oEmpresa[0].id_empresa
-  );
+  const [selectedCompany, setSelectedCompany] = useState(empresa?.id_empresa || session?.oEmpresa[0].id_empresa);
   const [dataSumary, setDataSumary] = useState(null);
   const [dataCaptcha, setDataCaptcha] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [itemsPerPage] = useState(32);
   const [filterDate, setFilterDate] = useState(30);
   const [isDateSorted, setIsDateSorted] = useState(true);
-  const [startDate, setStartDate] = useState(
-    dayjs().subtract(30, 'day').format('YYYY-MM-DD')
-  );
+  const [startDate, setStartDate] = useState(dayjs().subtract(30, 'day').format('YYYY-MM-DD'));
   const [endDate, setEndDate] = useState(dayjs().format('YYYY-MM-DD'));
   const [requestError, setRequestError] = useState();
   const t = l.Captcha;
 
-  const months = [
-    l.Reporting.January,
-    l.Reporting.February,
-    l.Reporting.March,
-    l.Reporting.April,
-    l.Reporting.May,
-    l.Reporting.June,
-    l.Reporting.July,
-    l.Reporting.August,
-    l.Reporting.September,
-    l.Reporting.October,
-    l.Reporting.November,
-    l.Reporting.December,
-  ];
+  const months = [l.Reporting.January, l.Reporting.February, l.Reporting.March, l.Reporting.April, l.Reporting.May, l.Reporting.June, l.Reporting.July, l.Reporting.August, l.Reporting.September, l.Reporting.October, l.Reporting.November, l.Reporting.December];
 
   const transformMonthsFormat = (data) => {
     const partes = data.split('-');
@@ -100,10 +83,7 @@ const Captcha = () => {
     setSelectedCompany(selectCompanyValue);
   };
 
-  const sumCaptchaResolved = (data, key) =>
-    Array.isArray(data)
-      ? data.reduce((total, entry) => total + entry[key], 0)
-      : 0;
+  const sumCaptchaResolved = (data, key) => (Array.isArray(data) ? data.reduce((total, entry) => total + entry[key], 0) : 0);
 
   if (dataCaptcha) {
     sumCaptchaResolved(dataCaptcha);
@@ -133,11 +113,7 @@ const Captcha = () => {
     try {
       const token = session.sToken;
 
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetCabeceraCaptcha',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetCabeceraCaptcha', body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
@@ -154,9 +130,7 @@ const Captcha = () => {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -187,11 +161,7 @@ const Captcha = () => {
     try {
       const token = session.sToken;
 
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetDetalleCaptcha',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetDetalleCaptcha', body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setIsDateSorted(true);
@@ -206,9 +176,7 @@ const Captcha = () => {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -234,9 +202,7 @@ const Captcha = () => {
 
     // Verificar y ordenar la lista 'data_summary' por fecha
     if (Array.isArray(data.data_summary)) {
-      data.data_summary.sort(
-        (a, b) => convertirFecha(b.fecha) - convertirFecha(a.fecha)
-      );
+      data.data_summary.sort((a, b) => convertirFecha(b.fecha) - convertirFecha(a.fecha));
     }
 
     return data;
@@ -318,23 +284,13 @@ const Captcha = () => {
                 <div className="report_data">
                   <div className="box-filter">
                     <FormControl sx={{ m: 1, minWidth: 120 }}>
-                      <InputLabel id="company-label">
-                        {l.Reporting.Company}
-                      </InputLabel>
-                      <Select
-                        labelId="company-label"
-                        value={selectedCompany}
-                        onChange={handleCompanyChange}
-                        IconComponent={IconArrow}
-                      >
+                      <InputLabel id="company-label">{l.Reporting.Company}</InputLabel>
+                      <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
                         <MenuItem value="">
                           <em>{l.Reporting['All Companys']}</em>
                         </MenuItem>
                         {session?.oEmpresa.map((comp) => (
-                          <MenuItem
-                            key={comp.id_empresa}
-                            value={comp.id_empresa}
-                          >
+                          <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
                             <div> {comp.razon_social_empresa}</div>
                           </MenuItem>
                         ))}
@@ -422,47 +378,25 @@ const Captcha = () => {
 
         <div className="captcha-filters">
           <h3> {t['Filter Statistics']} </h3>
-          <p>
-            {' '}
-            {
-              t[
-                'Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.'
-              ]
-            }{' '}
-          </p>
+          <p> {t['Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.']} </p>
           <div className="box-filters">
-            <button
-              className={`btn_filter ${filterDate === 365 ? 'active' : ''}`}
-              onClick={() => rangeDateSelect(365)}
-            >
+            <button className={`btn_filter ${filterDate === 365 ? 'active' : ''}`} onClick={() => rangeDateSelect(365)}>
               {t.Last} 12 {t.Months}
             </button>
 
-            <button
-              className={`btn_filter ${filterDate === 180 ? 'active' : ''}`}
-              onClick={() => rangeDateSelect(180)}
-            >
+            <button className={`btn_filter ${filterDate === 180 ? 'active' : ''}`} onClick={() => rangeDateSelect(180)}>
               {t.Last} 6 {t.Months}
             </button>
 
-            <button
-              className={`btn_filter ${filterDate === 30 ? 'active' : ''}`}
-              onClick={() => rangeDateSelect(30)}
-            >
+            <button className={`btn_filter ${filterDate === 30 ? 'active' : ''}`} onClick={() => rangeDateSelect(30)}>
               {t.Last} 30 {t.Days}
             </button>
 
-            <button
-              className={`btn_filter ${filterDate === 7 ? 'active' : ''}`}
-              onClick={() => rangeDateSelect(7)}
-            >
+            <button className={`btn_filter ${filterDate === 7 ? 'active' : ''}`} onClick={() => rangeDateSelect(7)}>
               {t.Last} 7 {t.Days}
             </button>
 
-            <button
-              className={`btn_filter ${filterDate === null ? 'active' : ''}`}
-              onClick={() => setFilterDate(null)}
-            >
+            <button className={`btn_filter ${filterDate === null ? 'active' : ''}`} onClick={() => setFilterDate(null)}>
               {t['Other Dates']}
 
               <ImageSvg name="Time" />
@@ -514,11 +448,7 @@ const Captcha = () => {
           )}
         </div>
 
-        {requestError && (
-          <div className="errorMessage">
-            {requestError.message || ' error service'}
-          </div>
-        )}
+        {requestError && <div className="errorMessage">{requestError.message || ' error service'}</div>}
 
         {isLoading && <LoadingComponent />}
 
@@ -526,19 +456,13 @@ const Captcha = () => {
           <div className="horizontalTabs">
             <div className="tab-header">
               <Link href="#">
-                <button
-                  className={activeTab === 0 ? 'active' : ''}
-                  onClick={() => handleTabClick(0)}
-                >
+                <button className={activeTab === 0 ? 'active' : ''} onClick={() => handleTabClick(0)}>
                   <h4> {t.Reports}</h4>
                 </button>
               </Link>
 
               <Link href="#">
-                <button
-                  className={activeTab === 1 ? 'active' : ''}
-                  onClick={() => handleTabClick(1)}
-                >
+                <button className={activeTab === 1 ? 'active' : ''} onClick={() => handleTabClick(1)}>
                   <h4> {t.Graphs}</h4>
                 </button>
               </Link>
@@ -554,10 +478,7 @@ const Captcha = () => {
                       </div>
 
                       <div>
-                        <button
-                          className="btn_black "
-                          onClick={() => exportToExcel()}
-                        >
+                        <button className="btn_black " onClick={() => exportToExcel()}>
                           <ImageSvg name="Download" /> {t.Export}
                         </button>
                       </div>
@@ -572,11 +493,7 @@ const Captcha = () => {
                               <th onClick={() => orderDataByDate()}>
                                 {t.Date}
                                 <button className="btn_crud">
-                                  <ImageSvg
-                                    name={
-                                      isDateSorted ? 'OrderDown' : 'OrderUP'
-                                    }
-                                  />
+                                  <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} />
                                 </button>
                               </th>
                               <th> {t.Resolved}</th>
@@ -588,20 +505,15 @@ const Captcha = () => {
 
                           <tbody>
                             {dataCaptcha.length > 0 ? (
-                              dataCaptcha
-                                ?.slice(
-                                  (page - 1) * itemsPerPage,
-                                  page * itemsPerPage
-                                )
-                                .map((row) => (
-                                  <tr key={row.id_captcha_data}>
-                                    <td>{formatDate(row.fecha)}</td>
-                                    <td>{row.captcha_resolved} </td>
-                                    <td>{row.captcha_not_resolved}</td>
-                                    <td>{row.captcha_type}</td>
-                                    <td>{row.captcha_conexion_until_now}</td>
-                                  </tr>
-                                ))
+                              dataCaptcha?.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
+                                <tr key={row.id_captcha_data}>
+                                  <td>{formatDate(row.fecha)}</td>
+                                  <td>{row.captcha_resolved} </td>
+                                  <td>{row.captcha_not_resolved}</td>
+                                  <td>{row.captcha_type}</td>
+                                  <td>{row.captcha_conexion_until_now}</td>
+                                </tr>
+                              ))
                             ) : (
                               <tr>
                                 <td colSpan="5">{t['There is no data']}</td>
@@ -614,8 +526,7 @@ const Captcha = () => {
                       <Stack spacing={2}>
                         <div className="pagination">
                           <Typography>
-                            {t.Page} {page} {t.of}{' '}
-                            {Math.ceil(dataCaptcha.length / itemsPerPage)}
+                            {t.Page} {page} {t.of} {Math.ceil(dataCaptcha.length / itemsPerPage)}
                           </Typography>
                           <Pagination
                             count={Math.ceil(dataCaptcha.length / itemsPerPage)} // Calculate the total number of pages
@@ -627,10 +538,7 @@ const Captcha = () => {
                     </div>
 
                     <div className="reporting-box">
-                      <div
-                        className="report-content"
-                        style={{ paddingLeft: '0rem' }}
-                      >
+                      <div className="report-content" style={{ paddingLeft: '0rem' }}>
                         <div className="report blue">
                           <div className="report_icon  ">
                             <ImageSvg name="IconCaptcha" />
@@ -638,14 +546,7 @@ const Captcha = () => {
 
                           <div className="report_data">
                             <article>{t['Captcha solved']}</article>
-                            <h3>
-                              {' '}
-                              {dataCaptcha &&
-                                sumCaptchaResolved(
-                                  dataCaptcha,
-                                  'captcha_resolved'
-                                )}
-                            </h3>
+                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha, 'captcha_resolved')}</h3>
                           </div>
                         </div>
 
@@ -656,14 +557,7 @@ const Captcha = () => {
 
                           <div className="report_data">
                             <article>{t.Connections}</article>
-                            <h3>
-                              {' '}
-                              {dataCaptcha &&
-                                sumCaptchaResolved(
-                                  dataCaptcha,
-                                  'captcha_conexion_until_now'
-                                )}
-                            </h3>
+                            <h3> {dataCaptcha && sumCaptchaResolved(dataCaptcha, 'captcha_conexion_until_now')}</h3>
                           </div>
                         </div>
                       </div>
@@ -673,12 +567,7 @@ const Captcha = () => {
               )}
               {activeTab === 1 && (
                 <div className="grafics">
-                  <LineCaptcha
-                    captchaData={dataCaptcha}
-                    exportToExcel={exportToExcel}
-                    startDate={startDate}
-                    endDate={endDate}
-                  />
+                  <LineCaptcha captchaData={dataCaptcha} exportToExcel={exportToExcel} startDate={startDate} endDate={endDate} />
                 </div>
               )}
             </div>

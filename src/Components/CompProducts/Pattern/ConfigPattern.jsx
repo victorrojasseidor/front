@@ -11,13 +11,12 @@ import FormPatters from './FormPatters';
 
 export default function ConfigPattern() {
   const [initialEdit, setIinitialEdit] = useState(null);
-  const [isEditing, setIsEditing] = useState(null);
+  const [isEditing] = useState(null);
   const [dataPadrones, setDataPadrones] = useState(null);
   const [dataCardProduct, setdataCardProduct] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [requestError, setRequestError] = useState('');
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [isLoadingComponent, setIsLoadingComponent] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [completeEmails, setcompleteEmails] = useState(false);
@@ -38,8 +37,7 @@ export default function ConfigPattern() {
   const iId = router.query.iId;
   const idEmpresa = router.query.idEmpresa;
 
-  const { session, setModalToken, logout, l, idCountry, getProducts } =
-    useAuth();
+  const { session, setModalToken, logout, l, idCountry, getProducts } = useAuth();
 
   const t = l.Pattern;
 
@@ -49,9 +47,7 @@ export default function ConfigPattern() {
     } else if (response.oAuditResponse?.iCode === 4) {
       await logout();
     } else {
-      const errorMessage = response.oAuditResponse
-        ? response.oAuditResponse.sMessage
-        : 'Error in delete ';
+      const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete ';
       console.log('errok, ', errorMessage);
       setModalToken(false);
       setRequestError(errorMessage);
@@ -80,11 +76,7 @@ export default function ConfigPattern() {
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=RegistrarPadrones',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarPadrones', body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
@@ -119,7 +111,7 @@ export default function ConfigPattern() {
   }, [idEmpresa, updateEmails]);
 
   async function getDataProduct() {
-    setIsLoading(true);
+    setIsLoadingComponent(true);
     try {
       const token = session.sToken;
       const responseData = await getProducts(idEmpresa, token, idCountry);
@@ -135,7 +127,7 @@ export default function ConfigPattern() {
     } catch (error) {
       console.error('error', error);
     } finally {
-      setIsLoading(false);
+      setIsLoadingComponent(false);
     }
   }
 
@@ -150,11 +142,7 @@ export default function ConfigPattern() {
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetPadrones',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetPadrones', body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
@@ -193,11 +181,7 @@ export default function ConfigPattern() {
     };
 
     try {
-      const response = await fetchConTokenPost(
-        'BPasS/?Accion=EliminarPadrones',
-        body,
-        token
-      );
+      const response = await fetchConTokenPost('BPasS/?Accion=EliminarPadrones', body, token);
       console.error('res', response);
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false);
@@ -217,23 +201,12 @@ export default function ConfigPattern() {
     <div className="pattern-configuration">
       <div className="Tabsumenu">
         <div className="Tabsumenu-header ">
-          <button
-            className={` ${activeTab === 0 ? 'activeST' : ''} ${
-              completeEmails ? 'completeST' : ''
-            }`}
-            onClick={() => handleTabClick(0)}
-          >
+          <button className={` ${activeTab === 0 ? 'activeST' : ''} ${completeEmails ? 'completeST' : ''}`} onClick={() => handleTabClick(0)}>
             <ImageSvg name="Check" />
             <h4> {t['Status and emails']} </h4>
           </button>
 
-          <button
-            style={{ visibility: completeEmails ? 'visible' : 'hidden' }}
-            className={` ${activeTab === 1 ? 'activeST' : ''} ${
-              completePadrones ? 'completeST' : ''
-            }`}
-            onClick={() => handleTabClick(1)}
-          >
+          <button style={{ visibility: completeEmails ? 'visible' : 'hidden' }} className={` ${activeTab === 1 ? 'activeST' : ''} ${completePadrones ? 'completeST' : ''}`} onClick={() => handleTabClick(1)}>
             <ImageSvg name="Check" />
             <h4> {t.Pattern} </h4>
           </button>
@@ -275,23 +248,10 @@ export default function ConfigPattern() {
                 </ul>
               </div>
 
-              <EmailsForm
-                dataEmails={dataPadrones?.oCorreo}
-                setUpdateEmails={setUpdateEmails}
-                sProduct={dataCardProduct?.sProd}
-                get={get}
-                setGet={setGet}
-              />
+              <EmailsForm dataEmails={dataPadrones?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 
               <div className="box-buttons">
-                <button
-                  type="button"
-                  className={`btn_secundary small ${
-                    completeEmails ? ' ' : 'disabled'
-                  }`}
-                  onClick={() => handleTabClick(1)}
-                  disabled={!completeEmails}
-                >
+                <button type="button" className={`btn_secundary small ${completeEmails ? ' ' : 'disabled'}`} onClick={() => handleTabClick(1)} disabled={!completeEmails}>
                   {t.Next}
                   <ImageSvg name="Next" />
                 </button>
@@ -305,14 +265,7 @@ export default function ConfigPattern() {
                 <div className="box-search">
                   <div>
                     <h3> {dataCardProduct?.sName} </h3>
-                    <p>
-                      {' '}
-                      {
-                        t[
-                          'This exchange rate is used for the monthly accounting closing'
-                        ]
-                      }{' '}
-                    </p>
+                    <p> {t['This exchange rate is used for the monthly accounting closing']} </p>
                   </div>
 
                   <button
@@ -345,9 +298,7 @@ export default function ConfigPattern() {
                           {dataPadrones?.oPadrones?.map((row) => (
                             <tr key={row.id_principal}>
                               <td>{row.desc_documento}</td>
-                              <td>
-                                {row.id_pais == 1 ? 'Perú' : row.id_pais}{' '}
-                              </td>
+                              <td>{row.id_pais == 1 ? 'Perú' : row.id_pais} </td>
 
                               {/* <td>
                               <span className={row.estado == '23' ? 'status-active' : 'status-disabled'}>{row.estado == '23' ? 'Active' : 'Disabled'}</span>
@@ -376,30 +327,18 @@ export default function ConfigPattern() {
                   {isLoadingComponent && <LoadingComponent />}
                 </div>
 
-                {requestError && (
-                  <div className="errorMessage">{requestError}</div>
-                )}
+                {requestError && <div className="errorMessage">{requestError}</div>}
               </div>
 
               <div>
                 {completePadrones ? (
                   <div className="box-buttons">
-                    <button
-                      type="button"
-                      className="btn_secundary small"
-                      onClick={() => handleTabClick(0)}
-                    >
+                    <button type="button" className="btn_secundary small" onClick={() => handleTabClick(0)}>
                       <ImageSvg name="Back" />
 
                       {t.Previus}
                     </button>
-                    <button
-                      className={`btn_secundary small  ${
-                        completePadrones ? ' ' : 'disabled'
-                      }`}
-                      onClick={() => setConfirmedConfigured(true)}
-                      disabled={!completePadrones}
-                    >
+                    <button className={`btn_secundary small  ${completePadrones ? ' ' : 'disabled'}`} onClick={() => setConfirmedConfigured(true)} disabled={!completePadrones}>
                       {t.Finish}
                       <ImageSvg name="Next" />
                     </button>
@@ -440,18 +379,10 @@ export default function ConfigPattern() {
             <div>
               <h3>{t['Do you want to delete this record']}</h3>
               <div className="box-buttons">
-                <button
-                  type="button"
-                  className="btn_primary small"
-                  onClick={handleDeleteConfirmation}
-                >
+                <button type="button" className="btn_primary small" onClick={handleDeleteConfirmation}>
                   {t.Yeah}
                 </button>
-                <button
-                  type="button"
-                  className="btn_secundary small"
-                  onClick={() => setSelectedRowToDelete(null)}
-                >
+                <button type="button" className="btn_secundary small" onClick={() => setSelectedRowToDelete(null)}>
                   {t.No}
                 </button>
               </div>

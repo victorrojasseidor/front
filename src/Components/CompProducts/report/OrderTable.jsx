@@ -53,22 +53,14 @@ const OrderTable = () => {
         <thead>
           <tr>
             {data.map((column, index) => (
-              <th
-                key={column.key}
-                data-key={column.key}
-                draggable="true"
-                style={{ cursor: 'move' }}
-                onDragStart={() => handleColumnDragStart(index)}
-                onDragOver={(e) => handleColumnDragOver(e, index)}
-                onDragEnd={handleColumnDragEnd}
-              >
+              <th key={column.key} data-key={column.key} draggable="true" style={{ cursor: 'move' }} onDragStart={() => handleColumnDragStart(index)} onDragOver={(e) => handleColumnDragOver(e, index)} onDragEnd={handleColumnDragEnd}>
                 {column.title}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {data.map((user, index) => (
+          {data.map((user) => (
             <tr key={user.id}>
               {data.map((column) => (
                 <td key={`${user.id}-${column.key}`}>{user[column.key]}</td>

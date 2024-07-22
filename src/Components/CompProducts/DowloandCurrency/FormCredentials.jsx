@@ -6,14 +6,7 @@ import ModalForm from '@/Components/Atoms/ModalForm';
 import { useAuth } from '@/Context/DataContext';
 import ImageSvg from '@/helpers/ImageSVG';
 
-const FormCredentials = ({
-  onAgregar,
-  initialVal,
-  setIinitialEdit,
-  dataUser,
-  handleEditListBank,
-  setShowForm,
-}) => {
+const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, handleEditListBank, setShowForm }) => {
   const [countryOptions, setCountryOptions] = useState([]);
   const [bankOptions, setBankOptions] = useState([]);
   const [country, setCountry] = useState(null);
@@ -38,9 +31,7 @@ const FormCredentials = ({
 
     // Si hay un valor preseleccionado en initialValues.country o no estás en modo de edición, seleccionar el país
     if (initialVal && initialVal.country) {
-      const selectedCountryData = countryData.find(
-        (c) => c.value === initialVal.country
-      );
+      const selectedCountryData = countryData.find((c) => c.value === initialVal.country);
       setCountry(selectedCountryData);
     } else {
       setCountry(countryData[0]); // Seleccionar el primer país por defecto
@@ -48,9 +39,7 @@ const FormCredentials = ({
 
     // Cargar las opciones de banco según el país seleccionado
     if (country) {
-      const selectedCountryData = countryData.find(
-        (c) => c.value === country.value
-      );
+      const selectedCountryData = countryData.find((c) => c.value === country.value);
       setBankOptions(selectedCountryData.banks);
     } else {
       setBankOptions([]);
@@ -66,19 +55,12 @@ const FormCredentials = ({
     credential4: initialVal?.usuario_c || '',
     bank: initialVal?.bank || null,
     country: initialVal?.country || null,
-    state:
-      initialVal && initialVal.estado_c == '23'
-        ? 'Active'
-        : initialVal
-        ? 'Disabled'
-        : 'Active',
+    state: initialVal && initialVal.estado_c == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active',
   };
 
   useEffect(() => {
     if (initialVal && bankOptions) {
-      const bankinintial = bankOptions.find(
-        (option) => option.id === initialVal.id_banco
-      );
+      const bankinintial = bankOptions.find((option) => option.id === initialVal.id_banco);
       if (bankinintial) {
         setShowComponent(bankinintial?.jConfCredencial);
       }
@@ -93,16 +75,12 @@ const FormCredentials = ({
       }}
     >
       <div className="Form-listCredential">
-        <h2 className="box">
-          {initialVal ? t['Edit credential'] : t['Add credential']}
-        </h2>
+        <h2 className="box">{initialVal ? t['Edit credential'] : t['Add credential']}</h2>
         <Formik
           initialValues={initialValues}
           // validate={initialVal === null ? validateFormAddListBank : undefined}
           // validate={validateFormAddListBank}
-          validate={(values) =>
-            validateFormAddListBank(values, initialVal, showcomponent)
-          }
+          validate={(values) => validateFormAddListBank(values, initialVal, showcomponent)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
               handleEditListBank(values);
@@ -123,11 +101,7 @@ const FormCredentials = ({
                   <div className="input-box">
                     <Field type="text" name="name" placeholder=" " />
                     <label htmlFor="name">{t['Name of Bank Credential']}</label>
-                    <ErrorMessage
-                      name="name"
-                      component="span"
-                      className="errorMessage"
-                    />
+                    <ErrorMessage name="name" component="span" className="errorMessage" />
                   </div>
 
                   <div className="country-box">
@@ -155,45 +129,22 @@ const FormCredentials = ({
                       name="bank"
                       placeholder={t['Select a bank']}
                       isClearable
-                      value={
-                        values.bank ||
-                        (initialVal &&
-                          bankOptions.find(
-                            (option) => option.id === initialVal.id_banco
-                          ))
-                      }
+                      value={values.bank || (initialVal && bankOptions.find((option) => option.id === initialVal.id_banco))}
                       onChange={(selectedOption) => {
                         setShowComponent(selectedOption?.jConfCredencial);
                         setFieldValue('bank', selectedOption);
                       }}
-                      isDisabled={
-                        initialVal?.oListCuentas.length > 0 ? true : !country
-                      }
+                      isDisabled={initialVal?.oListCuentas.length > 0 ? true : !country}
                     />
                   </div>
 
                   <div className="input-box">
-                    <span
-                      className="iconPassword"
-                      onClick={togglePasswordVisibility}
-                    >
-                      <ImageSvg
-                        name={showPassword ? 'ShowPassword' : 'ClosePassword'}
-                      />
+                    <span className="iconPassword" onClick={togglePasswordVisibility}>
+                      <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
                     </span>
-                    <Field
-                      type={showPassword ? 'text' : 'password'}
-                      name="password"
-                      placeholder=""
-                    />
-                    <label htmlFor="password">
-                      {initialVal ? t['Update old password'] : t.Password}
-                    </label>
-                    <ErrorMessage
-                      name="password"
-                      component="span"
-                      className="errorMessage"
-                    />
+                    <Field type={showPassword ? 'text' : 'password'} name="password" placeholder="" />
+                    <label htmlFor="password">{initialVal ? t['Update old password'] : t.Password}</label>
+                    <ErrorMessage name="password" component="span" className="errorMessage" />
                   </div>
                 </div>
               </div>
@@ -201,69 +152,39 @@ const FormCredentials = ({
               <div className="content">
                 <div className="subtitle">
                   <h5 className="sub"> 2. {t['Add Credential']} </h5>
-                  <p className="description">
-                    {t['Register your credentials']}
-                  </p>
+                  <p className="description">{t['Register your credentials']}</p>
                 </div>
 
                 <div className="group">
                   {showcomponent?.bCredencial1 && (
                     <div className="input-box">
-                      <Field
-                        type="text"
-                        name="principalCredential"
-                        placeholder=" "
-                      />
-                      <label htmlFor="principalCredential">
-                        {showcomponent?.sCredencial1}
-                      </label>
-                      <ErrorMessage
-                        name="principalCredential"
-                        component="span"
-                        className="errorMessage"
-                      />
+                      <Field type="text" name="principalCredential" placeholder=" " />
+                      <label htmlFor="principalCredential">{showcomponent?.sCredencial1}</label>
+                      <ErrorMessage name="principalCredential" component="span" className="errorMessage" />
                     </div>
                   )}
 
                   {showcomponent?.bCredencial2 && (
                     <div className="input-box">
                       <Field type="text" name="credential2" placeholder=" " />
-                      <label htmlFor="credential2">
-                        {showcomponent?.sCredencial2}
-                      </label>
-                      <ErrorMessage
-                        name="credential2"
-                        component="span"
-                        className="errorMessage"
-                      />
+                      <label htmlFor="credential2">{showcomponent?.sCredencial2}</label>
+                      <ErrorMessage name="credential2" component="span" className="errorMessage" />
                     </div>
                   )}
 
                   {showcomponent?.bCredencial3 && (
                     <div className="input-box">
                       <Field type="text" name="credential3" placeholder=" " />
-                      <label htmlFor="credential3">
-                        {showcomponent?.sCredencial3}
-                      </label>
-                      <ErrorMessage
-                        name="credential3"
-                        component="span"
-                        className="errorMessage"
-                      />
+                      <label htmlFor="credential3">{showcomponent?.sCredencial3}</label>
+                      <ErrorMessage name="credential3" component="span" className="errorMessage" />
                     </div>
                   )}
 
                   {showcomponent?.bCredencial4 && (
                     <div className="input-box">
                       <Field type="text" name="credential4" placeholder=" " />
-                      <label htmlFor="credential4">
-                        {showcomponent?.sCredencial4}
-                      </label>
-                      <ErrorMessage
-                        name="credential4"
-                        component="span"
-                        className="errorMessage"
-                      />
+                      <label htmlFor="credential4">{showcomponent?.sCredencial4}</label>
+                      <ErrorMessage name="credential4" component="span" className="errorMessage" />
                     </div>
                   )}
                 </div>
@@ -272,13 +193,7 @@ const FormCredentials = ({
               <div className="content">
                 <div className="subtitle">
                   <h5 className="sub"> 3. {t.State} </h5>
-                  <p className="description">
-                    {
-                      t[
-                        'Activate or deactivate the download of bank statements for this credential'
-                      ]
-                    }
-                  </p>
+                  <p className="description">{t['Activate or deactivate the download of bank statements for this credential']}</p>
                 </div>
                 <div className="state-box">
                   <label>{t.State}: </label>
@@ -306,11 +221,7 @@ const FormCredentials = ({
                   {t.Close}
                 </button>
 
-                <button
-                  type="submit"
-                  className={`btn_primary small ${!isValid ? 'disabled' : ''}`}
-                  disabled={!isValid}
-                >
+                <button type="submit" className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>
                   {initialVal ? 'Update' : 'Add'}
                 </button>
               </div>

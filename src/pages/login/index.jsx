@@ -35,15 +35,9 @@ export default function Login() {
     };
 
     try {
-      const responseData = await fetchNoTokenPost(
-        'BPasS/?Accion=ConsultaUsuario',
-        dataRegister && dataRegister
-      );
+      const responseData = await fetchNoTokenPost('BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister);
       if (responseData.oAuditResponse?.iCode === 1) {
-        localStorage.setItem(
-          'Credential',
-          JSON.stringify(dataRegister.oResults)
-        );
+        localStorage.setItem('Credential', JSON.stringify(dataRegister.oResults));
         setStatus(null);
         const userData = responseData.oResults;
         if (responseData.oResults.iEstado == 28) {
@@ -59,9 +53,7 @@ export default function Login() {
           resetForm();
         }, 10000);
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
 
         setStatus(errorMessage);
         setSubmitting(false);
@@ -115,51 +107,21 @@ export default function Login() {
           {({ isValid, isSubmitting, status }) => (
             <Form className="form-container">
               <div className="input-box">
-                <Field
-                  type="email"
-                  name="corporateEmail"
-                  id="corporateEmail"
-                  placeholder=" "
-                  disabled={!isEmailFieldEnabled || isSubmitting}
-                />
+                <Field type="email" name="corporateEmail" id="corporateEmail" placeholder=" " disabled={!isEmailFieldEnabled || isSubmitting} />
                 <label htmlFor="corporateEmail">{t['Company email']}</label>
-                <ErrorMessage
-                  className="errorMessage"
-                  name="corporateEmail"
-                  component="span"
-                />
+                <ErrorMessage className="errorMessage" name="corporateEmail" component="span" />
               </div>
 
               <div className="input-box">
-                <span
-                  className="iconPassword"
-                  onClick={togglePasswordVisibility}
-                >
-                  <ImageSvg
-                    name={showPassword ? 'ShowPassword' : 'ClosePassword'}
-                  />
+                <span className="iconPassword" onClick={togglePasswordVisibility}>
+                  <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
                 </span>
-                <Field
-                  type={showPassword ? 'text' : 'password'}
-                  id="password"
-                  name="password"
-                  placeholder=" "
-                  disabled={isSubmitting}
-                />
+                <Field type={showPassword ? 'text' : 'password'} id="password" name="password" placeholder=" " disabled={isSubmitting} />
                 <label htmlFor="password"> {t.Password}</label>
-                <ErrorMessage
-                  className="errorMessage"
-                  name="password"
-                  component="span"
-                />
+                <ErrorMessage className="errorMessage" name="password" component="span" />
               </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting || !isEmailFieldEnabled}
-                className={isValid ? 'btn_primary' : 'btn_primary disabled'}
-                onClick={() => setEmailFieldEnabled(true)}
-              >
+              <button type="submit" disabled={isSubmitting || !isEmailFieldEnabled} className={isValid ? 'btn_primary' : 'btn_primary disabled'} onClick={() => setEmailFieldEnabled(true)}>
                 {isSubmitting ? `${t['Log in']}${'....'}` : t['Log in']}
               </button>
 

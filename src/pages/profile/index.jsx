@@ -7,11 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Formik, Form, Field, ErrorMessage, FieldArray } from 'formik';
 import { countryOptions } from '@/helpers/contry';
 import { validateFormprofilestart } from '@/helpers/validateForms';
-import {
-  fetchConTokenPost,
-  fetchNoTokenPost,
-  decodeText,
-} from '@/helpers/fetch';
+import { fetchConTokenPost, fetchNoTokenPost, decodeText } from '@/helpers/fetch';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -23,7 +19,7 @@ import ImageSvg from '@/helpers/ImageSVG';
 import Loading from '@/Components/Atoms/Loading';
 import { IconArrow } from '@/helpers/report';
 
-export default function profile() {
+export default function Profile() {
   const [edit, setEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formValues, setFormValues] = useState({});
@@ -33,8 +29,7 @@ export default function profile() {
   // Nuevo estado para la empresa seleccionada
   const [selectedCompanies, setSelectedCompanies] = useState();
 
-  const { session, setSession, setModalToken, logout, l, refresToken } =
-    useAuth();
+  const { session, setSession, setModalToken, logout, l, refresToken } = useAuth();
 
   const t = l.profile;
   const router = useRouter();
@@ -75,15 +70,8 @@ export default function profile() {
     const tok = session?.sToken;
 
     try {
-      const responseData = await fetchConTokenPost(
-        'General/?Accion=ActualizarDatosUsuario',
-        body,
-        tok
-      );
-      if (
-        responseData.oAuditResponse.iCode == 30 ||
-        responseData.oAuditResponse.iCode == 1
-      ) {
+      const responseData = await fetchConTokenPost('General/?Accion=ActualizarDatosUsuario', body, tok);
+      if (responseData.oAuditResponse.iCode == 30 || responseData.oAuditResponse.iCode == 1) {
         const secretPasw = await decodeText(responseData.oResults.password);
         login(body.oResults.sEmail, secretPasw.oResults);
         setStatus(null);
@@ -117,18 +105,13 @@ export default function profile() {
       },
     };
     try {
-      const responseData = await fetchNoTokenPost(
-        'BPasS/?Accion=ConsultaUsuario',
-        dataRegister && dataRegister
-      );
+      const responseData = await fetchNoTokenPost('BPasS/?Accion=ConsultaUsuario', dataRegister && dataRegister);
       if (responseData.oAuditResponse?.iCode === 1) {
         const userData = responseData.oResults;
         router.push('/profile');
         setSession(userData);
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
       }
     } catch (error) {
@@ -150,17 +133,10 @@ export default function profile() {
     return arrayResultado;
   }
 
-  const empresasofcompaniTotal = eliminarDuplicadosPorPropiedad(
-    session?.oEmpresaTotal,
-    'id_empresa'
-  );
+  const empresasofcompaniTotal = eliminarDuplicadosPorPropiedad(session?.oEmpresaTotal, 'id_empresa');
 
   function validarExistenciaEmpresa(option, selectCompany) {
-    return selectCompany.some(
-      (company) =>
-        option.id_empresa === company.id_empresa &&
-        option.ruc_empresa === company.ruc_empresa
-    );
+    return selectCompany.some((company) => option.id_empresa === company.id_empresa && option.ruc_empresa === company.ruc_empresa);
   }
 
   return (
@@ -194,60 +170,30 @@ export default function profile() {
                   }}
                   enableReinitialize
                 >
-                  {({
-                    isSubmitting,
-                    status,
-                    values,
-                    setFieldValue,
-                    resetForm,
-                  }) => (
+                  {({ isSubmitting, status, values, setFieldValue, resetForm }) => (
                     <Form className="form-container">
                       <div className="form-container_editProfile">
                         <div>
                           <h3> {t['Personal information']}</h3>
                           <div className="box-forms">
                             <div className="input-box">
-                              <Field
-                                type="text"
-                                name="name"
-                                placeholder=" "
-                                readOnly
-                              />
+                              <Field type="text" name="name" placeholder=" " readOnly />
                               <label htmlFor="name">{t.Username}</label>
                             </div>
 
                             <div className="input-box">
-                              <Field
-                                type="text"
-                                name="lastName"
-                                placeholder=" "
-                              />
+                              <Field type="text" name="lastName" placeholder=" " />
                               <label htmlFor="lastName">{t['Last Name']}</label>
-                              <ErrorMessage
-                                className="errorMessage"
-                                name="lastName"
-                                component="div"
-                              />
+                              <ErrorMessage className="errorMessage" name="lastName" component="div" />
                             </div>
 
                             <div className="box-phone">
                               <div className="box-filter">
                                 <FormControl sx={{ m: 1, minWidth: 120 }}>
-                                  <InputLabel id="company-label">
-                                    {t.Code}
-                                  </InputLabel>
-                                  <Select
-                                    labelId="company-label"
-                                    value={country || countryOptions[0]?.value}
-                                    onChange={handleCountryChange}
-                                    className="delimite-text"
-                                    IconComponent={IconArrow}
-                                  >
+                                  <InputLabel id="company-label">{t.Code}</InputLabel>
+                                  <Select labelId="company-label" value={country || countryOptions[0]?.value} onChange={handleCountryChange} className="delimite-text" IconComponent={IconArrow}>
                                     {countryOptions?.map((comp) => (
-                                      <MenuItem
-                                        key={comp.value}
-                                        value={comp.value}
-                                      >
+                                      <MenuItem key={comp.value} value={comp.value}>
                                         <div> {comp.label}</div>
                                       </MenuItem>
                                     ))}
@@ -256,34 +202,15 @@ export default function profile() {
                               </div>
 
                               <div className="input-box">
-                                <Field
-                                  type="text"
-                                  id="phoneNumber"
-                                  name="phoneNumber"
-                                  placeholder=" "
-                                />
-                                <label htmlFor="phoneNumber">
-                                  {t['Phone Number']}
-                                </label>
-                                <ErrorMessage
-                                  className="errorMessage"
-                                  name="phoneNumber"
-                                  component="div"
-                                />
+                                <Field type="text" id="phoneNumber" name="phoneNumber" placeholder=" " />
+                                <label htmlFor="phoneNumber">{t['Phone Number']}</label>
+                                <ErrorMessage className="errorMessage" name="phoneNumber" component="div" />
                               </div>
                             </div>
 
                             <div className="input-box">
-                              <Field
-                                type="email"
-                                name="corporateEmail"
-                                placeholder=" "
-                                value={session?.sCorreo || ''}
-                                readOnly
-                              />
-                              <label htmlFor="corporateEmail">
-                                {t['Company email']}
-                              </label>
+                              <Field type="email" name="corporateEmail" placeholder=" " value={session?.sCorreo || ''} readOnly />
+                              <label htmlFor="corporateEmail">{t['Company email']}</label>
                             </div>
                           </div>
                         </div>
@@ -294,10 +221,7 @@ export default function profile() {
                           <div>
                             <div>
                               <p>
-                                {t.Corporation}:{' '}
-                                <span>
-                                  {session?.jCompany.razon_social_company}
-                                </span>
+                                {t.Corporation}: <span>{session?.jCompany.razon_social_company}</span>
                               </p>
                             </div>
 
@@ -307,30 +231,11 @@ export default function profile() {
 
                             <div className="companies">
                               {empresasofcompaniTotal?.map((option) => (
-                                <div
-                                  className={`box-companies ${
-                                    validarExistenciaEmpresa(
-                                      option,
-                                      selectedCompanies
-                                    )
-                                      ? 'selected'
-                                      : ''
-                                  }`}
-                                  key={option.id_empresa}
-                                >
+                                <div className={`box-companies ${validarExistenciaEmpresa(option, selectedCompanies) ? 'selected' : ''}`} key={option.id_empresa}>
                                   <div className="card">
-                                    <span className="initial">
-                                      {option.razon_social_empresa
-                                        .match(/\b\w/g)
-                                        .join('')
-                                        .slice(0, 2)}
-                                    </span>
+                                    <span className="initial">{option.razon_social_empresa.match(/\b\w/g).join('').slice(0, 2)}</span>
                                   </div>
-                                  <label
-                                    htmlFor={`companies[${option.id_empresa}]`}
-                                  >
-                                    {option.razon_social_empresa}
-                                  </label>
+                                  <label htmlFor={`companies[${option.id_empresa}]`}>{option.razon_social_empresa}</label>
                                 </div>
                               ))}
                             </div>
@@ -342,25 +247,13 @@ export default function profile() {
                           <p>{t['Select how you want to be notified']}</p>
                           <ul>
                             <div className="box-notification">
-                              <Field
-                                type="checkbox"
-                                className="checkboxId"
-                                name="notificationsInBpass"
-                              />
-                              <label htmlFor="notificationsInBpass">
-                                {t['Notifications in ARI']}
-                              </label>
+                              <Field type="checkbox" className="checkboxId" name="notificationsInBpass" />
+                              <label htmlFor="notificationsInBpass">{t['Notifications in ARI']}</label>
                             </div>
 
                             <div className="box-notification">
-                              <Field
-                                type="checkbox"
-                                className="checkboxId"
-                                name="emailNotifications"
-                              />
-                              <label htmlFor="emailNotifications">
-                                {t['Email notifications']}
-                              </label>
+                              <Field type="checkbox" className="checkboxId" name="emailNotifications" />
+                              <label htmlFor="emailNotifications">{t['Email notifications']}</label>
                             </div>
                           </ul>
                         </div>
@@ -377,20 +270,14 @@ export default function profile() {
                             {t.Cancel}
                           </button>
 
-                          <button
-                            type="submit"
-                            className="btn_primary small"
-                            disabled={isSubmitting}
-                          >
+                          <button type="submit" className="btn_primary small" disabled={isSubmitting}>
                             {t.Update}
                           </button>
                         </div>
                       </div>
 
                       <div className="contentError">
-                        <div className="errorMessage">
-                          {status || requestError}
-                        </div>
+                        <div className="errorMessage">{status || requestError}</div>
                       </div>
                     </Form>
                   )}
@@ -432,10 +319,7 @@ export default function profile() {
                     <ul className="info-container">
                       <li className="card-perfil">
                         <span>{t.Corporation}</span>
-                        <p>
-                          {' '}
-                          {session?.jCompany.razon_social_company || 'Admin'}
-                        </p>
+                        <p> {session?.jCompany.razon_social_company || 'Admin'}</p>
                       </li>
 
                       <li className="card-perfil">
@@ -462,10 +346,7 @@ export default function profile() {
                   <div className="box-information style-container">
                     <div className="profile-action">
                       <h3> {t['Personal information']}</h3>
-                      <button
-                        className="btn_primary small"
-                        onClick={() => setEdit(!edit)}
-                      >
+                      <button className="btn_primary small" onClick={() => setEdit(!edit)}>
                         {t['Edit profile']}
                       </button>
                     </div>
@@ -491,12 +372,8 @@ export default function profile() {
                     <h3> {t.Notifications}</h3>
 
                     <ul>
-                      {session?.bCodeNotBpas && (
-                        <li>{t['Notifications in ARI']}</li>
-                      )}
-                      {session?.bCodeNotEmail && (
-                        <li>{t['Email notifications']}</li>
-                      )}
+                      {session?.bCodeNotBpas && <li>{t['Notifications in ARI']}</li>}
+                      {session?.bCodeNotEmail && <li>{t['Email notifications']}</li>}
                     </ul>
                   </div>
 
@@ -504,10 +381,7 @@ export default function profile() {
                     <div className="profile-action">
                       <h3> {t['About the account']} </h3>
 
-                      <button
-                        className="btn_primary small"
-                        onClick={() => router.push('/profile/changepassword')}
-                      >
+                      <button className="btn_primary small" onClick={() => router.push('/profile/changepassword')}>
                         {t['Update password']}
                       </button>
                     </div>

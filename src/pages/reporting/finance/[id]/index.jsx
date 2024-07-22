@@ -67,11 +67,7 @@ const Finance = () => {
         <div className="horizontalTabs">
           <div className="tab-header">
             {tabs.map((tab, index) => (
-              <button
-                key={index}
-                className={tabData?.idTab === tab.idTab ? 'active' : ''}
-                onClick={() => handleTabClick(index, tab)}
-              >
+              <button key={index} className={tabData?.idTab === tab.idTab ? 'active' : ''} onClick={() => handleTabClick(index, tab)}>
                 <h4>{tab.title}</h4>
               </button>
             ))}

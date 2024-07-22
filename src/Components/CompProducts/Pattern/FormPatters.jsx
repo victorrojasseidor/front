@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-
-import { validateFormCurrency } from '@/helpers/validateForms';
+import { Formik, Form } from 'formik';
 import ModalForm from '@/Components/Atoms/ModalForm';
 import { useAuth } from '@/Context/DataContext';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
+import Select from '@mui/material/Select';
 import { IconArrow } from '@/helpers/report';
 
-const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
+const FormPatters = ({ onAgregar, dataPadrones, setShowForm }) => {
   const [selectedCountry, setSelectedCountry] = useState(1 || '');
   const [selectedPattern, setSelectedPattern] = useState('');
-  const [valueState, setValueState] = useState(
-    initialVal && initialVal.estado == '23'
-      ? 'Active'
-      : initialVal
-      ? 'Disabled'
-      : 'Active'
-  );
-
   const [registerDuplicate, setRegisterDuplicate] = useState(false);
 
   const { l } = useAuth();
@@ -45,9 +31,7 @@ const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
         Pattern: regis.id_documento,
       }));
 
-    const isIncluded = dataPadronesTrans?.some(
-      (arr) => JSON.stringify(arr) === JSON.stringify(formValues)
-    );
+    const isIncluded = dataPadronesTrans?.some((arr) => JSON.stringify(arr) === JSON.stringify(formValues));
 
     if (isIncluded) {
       setRegisterDuplicate(true);
@@ -94,14 +78,11 @@ const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
             resetForm();
           }}
         >
-          {({ values, isValid, setFieldValue, status }) => (
+          {({ setFieldValue }) => (
             <Form className="form-Curency">
               <div className="content">
                 <div className="subtitle">
-                  <h5 className="sub">
-                    {' '}
-                    1. {t['Select the type of pattern']}{' '}
-                  </h5>
+                  <h5 className="sub"> 1. {t['Select the type of pattern']} </h5>
                   <p className="description">{t['Add the bank']}</p>
                 </div>
                 <div className="group">
@@ -122,18 +103,12 @@ const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
                         }}
                       >
                         {dataPadrones?.oPais.map((country) => (
-                          <MenuItem
-                            key={country.id_pais}
-                            value={country.id_pais}
-                          >
+                          <MenuItem key={country.id_pais} value={country.id_pais}>
                             {country.descripcion_pais}
                           </MenuItem>
                         ))}
                       </Select>
-                      <FormHelperText>
-                        {' '}
-                        {selectedCountry ? '' : t.Select}{' '}
-                      </FormHelperText>
+                      <FormHelperText> {selectedCountry ? '' : t.Select} </FormHelperText>
                     </FormControl>
 
                     <FormControl sx={{ m: 1, minWidth: 180 }}>
@@ -148,19 +123,13 @@ const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
                         }}
                       >
                         {dataPadrones?.oDocumento.map((option) => (
-                          <MenuItem
-                            key={option.id_documento}
-                            value={option.id_documento}
-                          >
+                          <MenuItem key={option.id_documento} value={option.id_documento}>
                             {option.nombre}
                           </MenuItem>
                         ))}
                       </Select>
 
-                      <FormHelperText>
-                        {' '}
-                        {selectedPattern ? '' : t.Select}{' '}
-                      </FormHelperText>
+                      <FormHelperText> {selectedPattern ? '' : t.Select} </FormHelperText>
                     </FormControl>
                   </div>
                 </div>
@@ -206,9 +175,7 @@ const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
 
               {registerDuplicate && (
                 <div className="error ">
-                  <p className="errorMessage">
-                    {t['These patterns already exist, select another']}
-                  </p>
+                  <p className="errorMessage">{t['These patterns already exist, select another']}</p>
                 </div>
               )}
 
@@ -225,13 +192,7 @@ const FormPatters = ({ onAgregar, dataPadrones, initialVal, setShowForm }) => {
                   {t.Close}
                 </button>
 
-                <button
-                  type="submit"
-                  className={`btn_primary small ${
-                    !selectedPattern || registerDuplicate ? 'disabled' : ''
-                  }`}
-                  disabled={registerDuplicate}
-                >
+                <button type="submit" className={`btn_primary small ${!selectedPattern || registerDuplicate ? 'disabled' : ''}`} disabled={registerDuplicate}>
                   {t.Add}
                 </button>
               </div>

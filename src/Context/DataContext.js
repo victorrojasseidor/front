@@ -10,9 +10,7 @@ const DataContext = createContext();
 export const useAuth = () => {
   const context = useContext(DataContext);
   if (!context) {
-    throw new Error(
-      'useAuth debe ser utilizado dentro de un DataContextProvider'
-    );
+    throw new Error('useAuth debe ser utilizado dentro de un DataContextProvider');
   }
   return context;
 };
@@ -49,11 +47,7 @@ export const DataContextProvider = ({ children }) => {
     try {
       router.push('/login');
       const token = session.sToken;
-      const response = await fetchConTokenPost(
-        'BPasS/?Accion=SalidaUsuario',
-        { oResults: {} },
-        token
-      );
+      const response = await fetchConTokenPost('BPasS/?Accion=SalidaUsuario', { oResults: {} }, token);
       if ([1, 4, 9].includes(response.oAuditResponse?.iCode)) {
         console.log('ejecutaste logout');
         setdataProfileStart(null);
@@ -75,17 +69,11 @@ export const DataContextProvider = ({ children }) => {
     };
 
     try {
-      const resp = await fetchConTokenPost(
-        'General/?Accion=RefreshToken',
-        bodyToken,
-        token
-      );
+      const resp = await fetchConTokenPost('General/?Accion=RefreshToken', bodyToken, token);
       return resp;
     } catch (error) {
       console.error('Error:', error);
-      throw new Error(
-        'Hubo un error en la operación asincrónica de refres token'
-      );
+      throw new Error('Hubo un error en la operación asincrónica de refres token');
     }
   };
 
@@ -98,12 +86,7 @@ export const DataContextProvider = ({ children }) => {
     };
 
     try {
-      const resp = await fetchConTokenPost(
-        'BPasS/?Accion=ConsultaProductoEmpresa',
-        body,
-        token,
-        l === es ? 'es' : 'en'
-      );
+      const resp = await fetchConTokenPost('BPasS/?Accion=ConsultaProductoEmpresa', body, token, l === es ? 'es' : 'en');
       return resp;
     } catch (error) {
       console.error('Error:', error);

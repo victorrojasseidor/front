@@ -6,5 +6,5 @@ module.exports = {
   printWidth: 500, // Limita la longitud de las líneas a 80 caracteres (puedes ajustarlo a tu preferencia)
   tabWidth: 2, // Define el ancho de tabulación como 2 espacios
   useTabs: false,  // Usa espacios en lugar de tabulaciones
-  proseWrap: 'never' // Evita que Prettier divida cadenas de texto largas
+  proseWrap: 'never', // Evita que Prettier divida cadenas de texto largas
 }

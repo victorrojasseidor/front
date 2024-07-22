@@ -34,11 +34,7 @@ function Support() {
       const token = session?.sToken;
 
       setIsLoading(true);
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=EnvioCorreoSoporteSmtp',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=EnvioCorreoSoporteSmtp', body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         SetError(null);
         setModalToken(false);
@@ -53,9 +49,7 @@ function Support() {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         console.log('errok, ', errorMessage);
         setSubmitting(false);
         SetConfirm(false);
@@ -129,43 +123,21 @@ function Support() {
             {({ isSubmitting, values }) => (
               <Form className="form-container">
                 <div className="input-box">
-                  <Field
-                    type="email"
-                    name="corporateEmail"
-                    placeholder=""
-                    readOnly
-                  />
+                  <Field type="email" name="corporateEmail" placeholder="" readOnly />
                   <label htmlFor="corporateEmail"> {t['Company email']}</label>
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="corporateEmail"
-                    component="div"
-                  />
+                  <ErrorMessage className="errorMessage" name="corporateEmail" component="div" />
                 </div>
 
                 <div className="input-box">
                   <Field type="text" name="title" placeholder="" />
                   <label htmlFor="title"> {t.Title} </label>
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="title"
-                    component="div"
-                  />
+                  <ErrorMessage className="errorMessage" name="title" component="div" />
                 </div>
 
                 <div className="input-box">
-                  <Field
-                    type="tel"
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    placeholder=""
-                  />
+                  <Field type="tel" id="phoneNumber" name="phoneNumber" placeholder="" />
                   <label htmlFor="phoneNumber">{t['Phone Number']}</label>
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="phoneNumber"
-                    component="div"
-                  />
+                  <ErrorMessage className="errorMessage" name="phoneNumber" component="div" />
                 </div>
 
                 <div className="input-box">
@@ -180,21 +152,11 @@ function Support() {
                   />
 
                   <label htmlFor="message"> {t.Message}</label>
-                  <ErrorMessage
-                    className="errorMessage"
-                    name="message"
-                    component="div"
-                  />
+                  <ErrorMessage className="errorMessage" name="message" component="div" />
                 </div>
 
                 <div className="containerButton">
-                  <button
-                    className={`btn_primary ${
-                      values.message && values.title ? '' : 'disabled'
-                    }`}
-                    type="submit"
-                    disabled={!values.message || !values.title}
-                  >
+                  <button className={`btn_primary ${values.message && values.title ? '' : 'disabled'}`} type="submit" disabled={!values.message || !values.title}>
                     {t.Send}
                   </button>
                 </div>

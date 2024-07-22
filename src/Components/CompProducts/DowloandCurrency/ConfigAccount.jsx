@@ -5,19 +5,9 @@ import { fetchConTokenPost } from '@/helpers/fetch';
 import ImageSvg from '@/helpers/ImageSVG';
 import Modal from '@/Components/Modal';
 import FormAccounts from '@/Components/CompProducts/DowloandCurrency/FormAccounts';
-import Loading from '@/Components/Atoms/Loading';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 
-export default function ConfigAccount({
-  idbancoCredential,
-  setShowAccounts,
-  setGet,
-  get,
-  getBank,
-  registerAccount,
-  updateAccount,
-  deleteAccount,
-}) {
+export default function ConfigAccount({ idbancoCredential, setGet, get, getBank, registerAccount, updateAccount, deleteAccount }) {
   const [data, setData] = useState(null);
   const [initialEdit, setIinitialEdit] = useState(null);
   const [isEditing, setIsEditing] = useState(null);
@@ -25,7 +15,6 @@ export default function ConfigAccount({
   const [requestError, setRequestError] = useState('');
   const [showcomponent, setShowComponentAccounts] = useState(null);
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [isLoadingComponent, setIsLoadingComponent] = useState(false);
   const [getAccounts, setGetAccounts] = useState(false);
   const { session, setModalToken, logout, l, idCountry } = useAuth();
@@ -41,9 +30,7 @@ export default function ConfigAccount({
     } else if (response.oAuditResponse?.iCode === 4) {
       await logout();
     } else {
-      const errorMessage = response.oAuditResponse
-        ? response.oAuditResponse.sMessage
-        : 'Error in service';
+      const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in service';
       console.log('errok, ', errorMessage);
       setModalToken(false);
       setRequestError(errorMessage);
@@ -70,25 +57,15 @@ export default function ConfigAccount({
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        `BPasS/?Accion=${getBank}`,
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setGet(!get);
         const data = responseData.oResults.oListBancoCredendicial;
-        const filterData = data.filter(
-          (account) =>
-            account.id_banco_credencial == idbancoCredential ||
-            account.id_banco_credencial_est == idbancoCredential
-        ); //para los dos estarctos y estados
+        const filterData = data.filter((account) => account.id_banco_credencial == idbancoCredential || account.id_banco_credencial_est == idbancoCredential); //para los dos estarctos y estados
         setData(filterData[0]);
         const filterOptionsBanks = responseData.oResults.oPaisBanco[0].banks;
-        const filterBank = filterOptionsBanks.filter(
-          (account) => account.id == filterData[0].id_banco
-        );
+        const filterBank = filterOptionsBanks.filter((account) => account.id == filterData[0].id_banco);
         setShowComponentAccounts(filterBank[0].jConfCuenta);
         setModalToken(false);
       } else {
@@ -103,9 +80,7 @@ export default function ConfigAccount({
 
   const handleDeleteConfirmation = async () => {
     if (selectedRowToDelete) {
-      const idDelete =
-        selectedRowToDelete.id_eb_conf_cuentas ||
-        selectedRowToDelete.id_esb_conf_cuentas; // para estados y estractos
+      const idDelete = selectedRowToDelete.id_eb_conf_cuentas || selectedRowToDelete.id_esb_conf_cuentas; // para estados y estractos
       await handleDeleteAccount(idDelete);
       setSelectedRowToDelete(null);
     }
@@ -122,11 +97,7 @@ export default function ConfigAccount({
     };
 
     try {
-      const response = await fetchConTokenPost(
-        `BPasS/?Accion=${deleteAccount}`,
-        body,
-        token
-      );
+      const response = await fetchConTokenPost(`BPasS/?Accion=${deleteAccount}`, body, token);
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         setGetAccounts(!getAccounts);
@@ -146,9 +117,7 @@ export default function ConfigAccount({
     const body = {
       oResults: {
         iIdExtBanc: parseInt(iIdProdEnv),
-        iIdBancoCredencial:
-          parseInt(data.id_banco_credencial) ||
-          parseInt(data.id_banco_credencial_est),
+        iIdBancoCredencial: parseInt(data.id_banco_credencial) || parseInt(data.id_banco_credencial_est),
         iIdTipoArchivo: values.TypeFile?.value,
         sEmpresa: values.Company,
         sEmpresaDescripcion: values.DesCompany,
@@ -164,11 +133,7 @@ export default function ConfigAccount({
     try {
       const token = session.sToken;
 
-      const responseData = await fetchConTokenPost(
-        `BPasS/?Accion=${registerAccount}`,
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${registerAccount}`, body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setGetAccounts(!getAccounts);
@@ -202,14 +167,9 @@ export default function ConfigAccount({
     const body = {
       oResults: {
         iIdExtBanc: parseInt(iIdProdEnv),
-        iIdEBConfCuentas:
-          initialEdit?.id_eb_conf_cuentas || initialEdit?.id_esb_conf_cuentas,
-        iIdBancoCredencial:
-          parseInt(data.id_banco_credencial) ||
-          parseInt(data.id_banco_credencial_est),
-        iIdTipoArchivo: values.TypeFile?.value
-          ? values.TypeFile.value
-          : initialEdit.id_tipo_archivo,
+        iIdEBConfCuentas: initialEdit?.id_eb_conf_cuentas || initialEdit?.id_esb_conf_cuentas,
+        iIdBancoCredencial: parseInt(data.id_banco_credencial) || parseInt(data.id_banco_credencial_est),
+        iIdTipoArchivo: values.TypeFile?.value ? values.TypeFile.value : initialEdit.id_tipo_archivo,
         sEmpresa: values?.Company,
         sEmpresaDescripcion: values?.DesCompany,
         sRuc: values.Ruc,
@@ -223,11 +183,7 @@ export default function ConfigAccount({
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        `BPasS/?Accion=${updateAccount}`,
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${updateAccount}`, body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
@@ -263,7 +219,7 @@ export default function ConfigAccount({
 
   return (
     <>
-      {isLoading && <Loading />}
+      {isLoadingComponent && <LoadingComponent />}
       <section className="config-Automated">
         <div className="config-Automated--tables accounts-tables ">
           <div className="container-status">
@@ -282,9 +238,7 @@ export default function ConfigAccount({
                 <li>
                   <p>{t.State} </p>
                   <p>:</p>
-                  <p className="Active">
-                    {data?.estado_c == 23 ? 'Active' : 'Disabled'}
-                  </p>
+                  <p className="Active">{data?.estado_c == 23 ? 'Active' : 'Disabled'}</p>
                 </li>
 
                 <li>
@@ -313,11 +267,7 @@ export default function ConfigAccount({
                 <p> {t['Register accounts for bank credentials']} </p>
               </div>
 
-              <button
-                className="btn_black"
-                style={{ display: initialEdit !== null ? 'none' : 'block' }}
-                onClick={toggleForm}
-              >
+              <button className="btn_black" style={{ display: initialEdit !== null ? 'none' : 'block' }} onClick={toggleForm}>
                 {showForm ? t['Close Form'] : t['+ Add Account']}
               </button>
             </div>
@@ -342,11 +292,7 @@ export default function ConfigAccount({
                     </thead>
                     <tbody>
                       {data?.oListCuentas?.map((row) => (
-                        <tr
-                          key={
-                            row.id_eb_conf_cuentas || row.id_esb_conf_cuentas
-                          }
-                        >
+                        <tr key={row.id_eb_conf_cuentas || row.id_esb_conf_cuentas}>
                           <td>{row.cuenta}</td>
                           <td>{row.descripcion_cuenta}</td>
                           <td>{row.empresa}</td>
@@ -356,28 +302,14 @@ export default function ConfigAccount({
                           <td>{row.moneda}</td>
                           <td>{row.descripcion_moneda}</td>
                           <td>
-                            <span
-                              className={
-                                row.estado == '23'
-                                  ? 'status-active'
-                                  : 'status-disabled'
-                              }
-                            >
-                              {row.estado == '23' ? 'Active' : 'Disabled'}
-                            </span>
+                            <span className={row.estado == '23' ? 'status-active' : 'status-disabled'}>{row.estado == '23' ? 'Active' : 'Disabled'}</span>
                           </td>
                           <td className="box-actions">
-                            <button
-                              className="btn_crud"
-                              onClick={() => handleEdit(row)}
-                            >
+                            <button className="btn_crud" onClick={() => handleEdit(row)}>
                               {' '}
                               <ImageSvg name="Edit" />{' '}
                             </button>
-                            <button
-                              className="btn_crud"
-                              onClick={() => setSelectedRowToDelete(row)}
-                            >
+                            <button className="btn_crud" onClick={() => setSelectedRowToDelete(row)}>
                               {' '}
                               <ImageSvg name="Delete" />
                             </button>
@@ -390,11 +322,7 @@ export default function ConfigAccount({
               </div>
             )}
 
-            {requestError && (
-              <div className="errorMessage">
-                {requestError.message || ' error service'}
-              </div>
-            )}
+            {requestError && <div className="errorMessage">{requestError.message || ' error service'}</div>}
 
             {isLoadingComponent && <LoadingComponent />}
           </div>
@@ -410,18 +338,10 @@ export default function ConfigAccount({
               <div>
                 <h3>{t['Delete this account?']}</h3>
                 <div className="box-buttons">
-                  <button
-                    type="button"
-                    className="btn_primary small"
-                    onClick={handleDeleteConfirmation}
-                  >
+                  <button type="button" className="btn_primary small" onClick={handleDeleteConfirmation}>
                     {t.YES}
                   </button>
-                  <button
-                    type="button"
-                    className="btn_secundary small"
-                    onClick={() => setSelectedRowToDelete(null)}
-                  >
+                  <button type="button" className="btn_secundary small" onClick={() => setSelectedRowToDelete(null)}>
                     {t.NOT}
                   </button>
                 </div>
@@ -432,18 +352,7 @@ export default function ConfigAccount({
 
         <div />
 
-        {showForm && (
-          <FormAccounts
-            onAgregar={handleAgregar}
-            dataUser={data}
-            initialVal={isEditing ? initialEdit : null}
-            handleEditListAccount={handleEditListAccount}
-            setIinitialEdit={setIinitialEdit}
-            setShowForm={setShowForm}
-            showForm={showForm}
-            showcomponent={showcomponent}
-          />
-        )}
+        {showForm && <FormAccounts onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListAccount={handleEditListAccount} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} showForm={showForm} showcomponent={showcomponent} />}
       </section>
     </>
   );

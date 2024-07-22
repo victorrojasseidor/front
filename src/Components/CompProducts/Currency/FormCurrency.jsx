@@ -1,51 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 
 import { validateFormCurrency } from '@/helpers/validateForms';
 import ModalForm from '@/Components/Atoms/ModalForm';
 import { useAuth } from '@/Context/DataContext';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { IconArrow } from '@/helpers/report';
 
-const FormCurrency = ({
-  onAgregar,
-  initialVal,
-  setIinitialEdit,
-  dataTypeChange,
-  handleEditCurrency,
-  setShowForm,
-  typeOfChange,
-}) => {
-  const [selectedCountry, setSelectedCountry] = useState(
-    initialVal?.id_pais || ''
-  );
-  const [selectedPortal, setSelectedPortal] = useState(
-    initialVal?.id_fuente || ''
-  );
-  const [selectedCoinOrigin, setSelectedCoinOrigin] = useState(
-    initialVal?.id_moneda_origen || ''
-  );
-  const [selectedCoinDestiny, setSelectedCoinDestiny] = useState(
-    initialVal?.id_moneda_destino || ''
-  );
-  const [selectedDays, setSelectedDays] = useState(
-    initialVal?.dias_adicional || '1'
-  );
-  const [valueState, setValueState] = useState(
-    initialVal && initialVal.estado == '23'
-      ? 'Active'
-      : initialVal
-      ? 'Disabled'
-      : 'Active'
-  );
+const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm, typeOfChange }) => {
+  const [selectedCountry, setSelectedCountry] = useState(initialVal?.id_pais || '');
+  const [selectedPortal, setSelectedPortal] = useState(initialVal?.id_fuente || '');
+  const [selectedCoinOrigin, setSelectedCoinOrigin] = useState(initialVal?.id_moneda_origen || '');
+  const [selectedCoinDestiny, setSelectedCoinDestiny] = useState(initialVal?.id_moneda_destino || '');
+  const [selectedDays, setSelectedDays] = useState(initialVal?.dias_adicional || '1');
+  const [valueState, setValueState] = useState(initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active');
 
   const [registerDuplicate, setRegisterDuplicate] = useState(false);
 
@@ -62,9 +37,7 @@ const FormCurrency = ({
   };
 
   useEffect(() => {
-    const typeRe = dataTypeChange[
-      typeOfChange == 1 ? 'oDailyExchange' : 'oMonthExchange'
-    ].map((regis) => ({
+    const typeRe = dataTypeChange[typeOfChange == 1 ? 'oDailyExchange' : 'oMonthExchange'].map((regis) => ({
       country: regis.id_pais,
       fuente: regis.id_fuente,
       coinOrigin: regis.id_moneda_origen,
@@ -72,9 +45,7 @@ const FormCurrency = ({
       days: regis.dias_adicional,
     }));
 
-    const isIncluded = typeRe.some(
-      (arr) => JSON.stringify(arr) === JSON.stringify(formValues)
-    );
+    const isIncluded = typeRe.some((arr) => JSON.stringify(arr) === JSON.stringify(formValues));
 
     if (isIncluded) {
       setRegisterDuplicate(true);
@@ -165,9 +136,7 @@ const FormCurrency = ({
       }}
     >
       <div className="conten-form-Curency">
-        <h2 className="box">
-          {initialVal ? t['Edit exchange rate'] : t['Add exchange rate']}
-        </h2>
+        <h2 className="box">{initialVal ? t['Edit exchange rate'] : t['Add exchange rate']}</h2>
 
         <Formik
           initialValues={formValues}
@@ -195,7 +164,7 @@ const FormCurrency = ({
             resetForm();
           }}
         >
-          {({ values, isValid, setFieldValue, status }) => (
+          {({ isValid, setFieldValue }) => (
             <Form className="form-Curency">
               <div className="content">
                 <div className="subtitle">
@@ -220,24 +189,16 @@ const FormCurrency = ({
                         }}
                       >
                         {dataTypeChange?.oPais.map((country) => (
-                          <MenuItem
-                            key={country.id_pais}
-                            value={country.id_pais}
-                          >
+                          <MenuItem key={country.id_pais} value={country.id_pais}>
                             {country.descripcion_pais}
                           </MenuItem>
                         ))}
                       </Select>
-                      <FormHelperText>
-                        {' '}
-                        {selectedCountry ? '' : t.Select}{' '}
-                      </FormHelperText>
+                      <FormHelperText> {selectedCountry ? '' : t.Select} </FormHelperText>
                     </FormControl>
 
                     <FormControl sx={{ m: 1, minWidth: 180 }}>
-                      <InputLabel id="fuente">
-                        {t['Portal Available']}
-                      </InputLabel>
+                      <InputLabel id="fuente">{t['Portal Available']}</InputLabel>
                       <Select
                         labelId="fuente"
                         value={selectedPortal}
@@ -248,25 +209,17 @@ const FormCurrency = ({
                         }}
                       >
                         {dataTypeChange?.oFuente.map((option) => (
-                          <MenuItem
-                            key={option.id_fuente}
-                            value={option.id_fuente}
-                          >
+                          <MenuItem key={option.id_fuente} value={option.id_fuente}>
                             {option.nombre}
                           </MenuItem>
                         ))}
                       </Select>
 
-                      <FormHelperText>
-                        {' '}
-                        {selectedPortal ? '' : t.Select}{' '}
-                      </FormHelperText>
+                      <FormHelperText> {selectedPortal ? '' : t.Select} </FormHelperText>
                     </FormControl>
 
                     <FormControl sx={{ m: 1, minWidth: 180 }}>
-                      <InputLabel id="coinOrigin">
-                        {t['Source Currency']}
-                      </InputLabel>
+                      <InputLabel id="coinOrigin">{t['Source Currency']}</InputLabel>
                       <Select
                         labelId="coinOrigin"
                         value={selectedCoinOrigin}
@@ -277,33 +230,16 @@ const FormCurrency = ({
                         }}
                       >
                         {dataTypeChange?.oMoneda.map((option) => (
-                          <MenuItem
-                            key={option.id_moneda}
-                            value={option.id_moneda}
-                          >
+                          <MenuItem key={option.id_moneda} value={option.id_moneda}>
                             {option.codigo_moneda} -{option.descripcion_moneda}
                           </MenuItem>
                         ))}
                       </Select>
-                      <FormHelperText>
-                        {' '}
-                        {selectedCoinOrigin ? '' : t.Select}{' '}
-                      </FormHelperText>
-                      {selectedCoinOrigin &&
-                      selectedCoinDestiny &&
-                      selectedCoinDestiny === selectedCoinOrigin ? (
-                        <FormHelperText className="errorMessage">
-                          {' '}
-                          {t['Select different currencies']}{' '}
-                        </FormHelperText>
-                      ) : (
-                        ''
-                      )}
+                      <FormHelperText> {selectedCoinOrigin ? '' : t.Select} </FormHelperText>
+                      {selectedCoinOrigin && selectedCoinDestiny && selectedCoinDestiny === selectedCoinOrigin ? <FormHelperText className="errorMessage"> {t['Select different currencies']} </FormHelperText> : ''}
                     </FormControl>
                     <FormControl sx={{ m: 1, minWidth: 180 }}>
-                      <InputLabel id="coinDestiny">
-                        {t['Target currency']}
-                      </InputLabel>
+                      <InputLabel id="coinDestiny">{t['Target currency']}</InputLabel>
                       <Select
                         labelId="coinDestiny"
                         value={selectedCoinDestiny}
@@ -314,29 +250,14 @@ const FormCurrency = ({
                         }}
                       >
                         {dataTypeChange?.oMoneda.map((option) => (
-                          <MenuItem
-                            key={option.id_moneda}
-                            value={option.id_moneda}
-                          >
+                          <MenuItem key={option.id_moneda} value={option.id_moneda}>
                             {option.codigo_moneda} -{option.descripcion_moneda}
                           </MenuItem>
                         ))}
                       </Select>
-                      <FormHelperText>
-                        {' '}
-                        {selectedCoinDestiny ? '' : t.Select}{' '}
-                      </FormHelperText>
+                      <FormHelperText> {selectedCoinDestiny ? '' : t.Select} </FormHelperText>
 
-                      {selectedCoinOrigin &&
-                      selectedCoinDestiny &&
-                      selectedCoinDestiny === selectedCoinOrigin ? (
-                        <FormHelperText className="errorMessage">
-                          {' '}
-                          {t['Select different currencies']}{' '}
-                        </FormHelperText>
-                      ) : (
-                        ''
-                      )}
+                      {selectedCoinOrigin && selectedCoinDestiny && selectedCoinDestiny === selectedCoinOrigin ? <FormHelperText className="errorMessage"> {t['Select different currencies']} </FormHelperText> : ''}
                     </FormControl>
                   </div>
                 </div>
@@ -373,9 +294,7 @@ const FormCurrency = ({
               <div className="content">
                 <div className="subtitle">
                   <h5 className="sub"> 3. {t.State} </h5>
-                  <p className="description">
-                    {t['Enable or disable exchange rate']}
-                  </p>
+                  <p className="description">{t['Enable or disable exchange rate']}</p>
                 </div>
 
                 <div className="content">
@@ -390,17 +309,9 @@ const FormCurrency = ({
                         setFieldValue('state', values.target.value);
                       }}
                     >
-                      <FormControlLabel
-                        value="Active"
-                        control={<Radio />}
-                        label={t.Active}
-                      />
+                      <FormControlLabel value="Active" control={<Radio />} label={t.Active} />
 
-                      <FormControlLabel
-                        value="Disabled"
-                        control={<Radio />}
-                        label={t.Disabled}
-                      />
+                      <FormControlLabel value="Disabled" control={<Radio />} label={t.Disabled} />
                     </RadioGroup>
                   </FormControl>
                 </div>
@@ -408,9 +319,7 @@ const FormCurrency = ({
 
               {registerDuplicate && (
                 <div className="error ">
-                  <p className="errorMessage">
-                    {t['Exchange rate record already exists']}
-                  </p>
+                  <p className="errorMessage">{t['Exchange rate record already exists']}</p>
                 </div>
               )}
 
@@ -431,13 +340,7 @@ const FormCurrency = ({
                   {t.Close}
                 </button>
 
-                <button
-                  type="submit"
-                  className={`btn_primary small ${
-                    !isValid || registerDuplicate ? 'disabled' : ''
-                  }`}
-                  disabled={!isValid || registerDuplicate}
-                >
+                <button type="submit" className={`btn_primary small ${!isValid || registerDuplicate ? 'disabled' : ''}`} disabled={!isValid || registerDuplicate}>
                   {initialVal ? 'Update' : 'Add'}
                 </button>
               </div>

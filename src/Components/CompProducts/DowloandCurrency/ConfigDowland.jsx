@@ -11,15 +11,7 @@ import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import ConfigAccount from './ConfigAccount';
 import { formatDate } from '@/helpers/report';
 
-export default function ConfigDowland({
-  getBank,
-  registerBank,
-  updateBank,
-  deleteBank,
-  registerAccount,
-  updateAccount,
-  deleteAccount,
-}) {
+export default function ConfigDowland({ getBank, registerBank, updateBank, deleteBank, registerAccount, updateAccount, deleteAccount }) {
   const [initialEdit, setIinitialEdit] = useState(null);
   const [isEditing, setIsEditing] = useState(null);
   const [data, setData] = useState(null);
@@ -47,8 +39,7 @@ export default function ConfigDowland({
   const iId = router.query.iId;
   const idEmpresa = router.query.idEmpresa;
 
-  const { session, setModalToken, logout, l, idCountry, getProducts } =
-    useAuth();
+  const { session, setModalToken, logout, l, idCountry, getProducts } = useAuth();
 
   const t = l.Download;
 
@@ -58,9 +49,7 @@ export default function ConfigDowland({
     } else if (response.oAuditResponse?.iCode === 4) {
       await logout();
     } else {
-      const errorMessage = response.oAuditResponse
-        ? response.oAuditResponse.sMessage
-        : 'Error in services ';
+      const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in services ';
       console.log('errok, ', errorMessage);
       setModalToken(false);
       setRequestError(errorMessage);
@@ -90,11 +79,7 @@ export default function ConfigDowland({
     try {
       const token = session.sToken;
 
-      const responseData = await fetchConTokenPost(
-        `BPasS/?Accion=${registerBank}`,
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${registerBank}`, body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         // const data = responseData.oResults
@@ -127,9 +112,7 @@ export default function ConfigDowland({
 
   const handleDeleteConfirmation = async () => {
     if (selectedRowToDelete) {
-      const idToDelete =
-        selectedRowToDelete.id_banco_credencial ||
-        selectedRowToDelete.id_banco_credencial_est;
+      const idToDelete = selectedRowToDelete.id_banco_credencial || selectedRowToDelete.id_banco_credencial_est;
       //tanto para estractos y estados
       await handleDeleteBancoCredential(idToDelete);
       setSelectedRowToDelete(null);
@@ -141,18 +124,11 @@ export default function ConfigDowland({
     const body = {
       oResults: {
         iIdEmpresa: idEmpresa,
-        iIdCredencial:
-          initialEdit?.id_credenciales || initialEdit?.id_credenciales_est,
-        iIdBancoCredencial:
-          initialEdit?.id_banco_credencial ||
-          initialEdit?.id_banco_credencial_est,
+        iIdCredencial: initialEdit?.id_credenciales || initialEdit?.id_credenciales_est,
+        iIdBancoCredencial: initialEdit?.id_banco_credencial || initialEdit?.id_banco_credencial_est,
         sName: values.name,
         iIdPais: idCountry,
-        iBanco: values.bank
-          ? values.bank.id
-          : initialEdit
-          ? initialEdit.id_banco
-          : null,
+        iBanco: values.bank ? values.bank.id : initialEdit ? initialEdit.id_banco : null,
         ...(values.password && { sPassword: values.password }),
         sCredencial: values.principalCredential,
         sCredencial2: values.credential2,
@@ -164,11 +140,7 @@ export default function ConfigDowland({
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        `BPasS/?Accion=${updateBank}`,
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${updateBank}`, body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         setGet(!get);
@@ -214,11 +186,7 @@ export default function ConfigDowland({
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        `BPasS/?Accion=${getBank}`,
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
@@ -259,11 +227,7 @@ export default function ConfigDowland({
       },
     };
     try {
-      const response = await fetchConTokenPost(
-        `BPasS/?Accion=${deleteBank}`,
-        body,
-        token
-      );
+      const response = await fetchConTokenPost(`BPasS/?Accion=${deleteBank}`, body, token);
       console.error('res', body, response);
       if (response.oAuditResponse?.iCode === 1) {
         setModalToken(false);
@@ -285,10 +249,7 @@ export default function ConfigDowland({
   };
 
   // Función para verificar si un objeto tiene datos en oListCuentas
-  const haveAccounts = (data) =>
-    data?.oListBancoCredendicial.some(
-      (objeto) => objeto.oListCuentas && objeto.oListCuentas.length > 0
-    );
+  const haveAccounts = (data) => data?.oListBancoCredendicial.some((objeto) => objeto.oListCuentas && objeto.oListCuentas.length > 0);
 
   useEffect(() => {
     getDataProduct();
@@ -320,23 +281,12 @@ export default function ConfigDowland({
 
       <div className="Tabsumenu">
         <div className="Tabsumenu-header ">
-          <button
-            className={` ${activeTab === 0 ? 'activeST' : ''} ${
-              completeEmails ? 'completeST' : ''
-            }`}
-            onClick={() => handleTabClick(0)}
-          >
+          <button className={` ${activeTab === 0 ? 'activeST' : ''} ${completeEmails ? 'completeST' : ''}`} onClick={() => handleTabClick(0)}>
             <ImageSvg name="Check" />
             <h4> {t['Status and emails']} </h4>
           </button>
 
-          <button
-            style={{ visibility: completeEmails ? 'visible' : 'hidden' }}
-            className={` ${activeTab === 1 ? 'activeST' : ''} ${
-              completeconfigBank ? 'completeST' : ''
-            }`}
-            onClick={() => handleTabClick(1)}
-          >
+          <button style={{ visibility: completeEmails ? 'visible' : 'hidden' }} className={` ${activeTab === 1 ? 'activeST' : ''} ${completeconfigBank ? 'completeST' : ''}`} onClick={() => handleTabClick(1)}>
             <ImageSvg name="Check" />
             <h4> {t['Bank and Accounts']} </h4>
           </button>
@@ -380,23 +330,10 @@ export default function ConfigDowland({
                 </ul>
               </div>
 
-              <EmailsForm
-                dataEmails={data?.oCorreoEB}
-                setUpdateEmails={setUpdateEmails}
-                sProduct={dataCardProduct?.sProd}
-                get={get}
-                setGet={setGet}
-              />
+              <EmailsForm dataEmails={data?.oCorreoEB} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 
               <div className="box-buttons">
-                <button
-                  type="button"
-                  className={`btn_secundary small ${
-                    completeEmails ? ' ' : 'disabled'
-                  }`}
-                  onClick={() => handleTabClick(1)}
-                  disabled={!completeEmails}
-                >
+                <button type="button" className={`btn_secundary small ${completeEmails ? ' ' : 'disabled'}`} onClick={() => handleTabClick(1)} disabled={!completeEmails}>
                   {t.Next}
                   <ImageSvg name="Next" />
                 </button>
@@ -407,10 +344,7 @@ export default function ConfigDowland({
           {activeTab === 1 && (
             <div className="config-Automated--tables">
               {bankCredential && (
-                <div
-                  className=" title-Config navegation"
-                  style={{ justifyContent: 'flex-start' }}
-                >
+                <div className=" title-Config navegation" style={{ justifyContent: 'flex-start' }}>
                   <button
                     onClick={() => {
                       setShowAccounts(false);
@@ -428,21 +362,7 @@ export default function ConfigDowland({
 
               {showAccounts ? (
                 <>
-                  <ConfigAccount
-                    getBank={getBank}
-                    registerAccount={registerAccount}
-                    updateAccount={updateAccount}
-                    deleteAccount={deleteAccount}
-                    sProduct={dataCardProduct?.sProd}
-                    idbancoCredential={
-                      bankCredential?.id_banco_credencial ||
-                      bankCredential?.id_banco_credencial_est
-                    }
-                    setShowAccounts={setShowAccounts}
-                    OptionBanks={data?.oPaisBanco}
-                    setGet={setGet}
-                    get={get}
-                  />
+                  <ConfigAccount getBank={getBank} registerAccount={registerAccount} updateAccount={updateAccount} deleteAccount={deleteAccount} sProduct={dataCardProduct?.sProd} idbancoCredential={bankCredential?.id_banco_credencial || bankCredential?.id_banco_credencial_est} setShowAccounts={setShowAccounts} OptionBanks={data?.oPaisBanco} setGet={setGet} get={get} />
 
                   <div className="box-buttons">
                     <button
@@ -492,54 +412,30 @@ export default function ConfigDowland({
 
                             <tbody>
                               {data?.oListBancoCredendicial?.map((row) => (
-                                <tr
-                                  key={
-                                    row.id_banco_credencial ||
-                                    row.id_banco_credencial_est
-                                  }
-                                >
+                                <tr key={row.id_banco_credencial || row.id_banco_credencial_est}>
                                   <td>{row.nombre}</td>
                                   <td>{row.usuario}</td>
                                   <td>{row.nombre_banco}</td>
                                   <td>Perú</td>
                                   <td>
-                                    <span
-                                      className={
-                                        row.estado_c == '23'
-                                          ? 'status-active'
-                                          : 'status-disabled'
-                                      }
-                                    >
-                                      {row.estado_c == '23'
-                                        ? 'Active'
-                                        : 'Disabled'}
-                                    </span>
+                                    <span className={row.estado_c == '23' ? 'status-active' : 'status-disabled'}>{row.estado_c == '23' ? 'Active' : 'Disabled'}</span>
                                   </td>
 
                                   <td className="head-status">
                                     {row.oListCuentas.length > 0 ? (
-                                      <button
-                                        className="btn_green"
-                                        onClick={() => handleAcount(row)}
-                                      >
+                                      <button className="btn_green" onClick={() => handleAcount(row)}>
                                         {' '}
                                         {t['Show Accounts']}{' '}
                                       </button>
                                     ) : (
-                                      <button
-                                        className="btn_red"
-                                        onClick={() => handleAcount(row)}
-                                      >
+                                      <button className="btn_red" onClick={() => handleAcount(row)}>
                                         {' '}
                                         {t['Add Accounts']}{' '}
                                       </button>
                                     )}
                                   </td>
                                   <td className="box-actions">
-                                    <button
-                                      className="btn_crud"
-                                      onClick={() => handleEdit(row)}
-                                    >
+                                    <button className="btn_crud" onClick={() => handleEdit(row)}>
                                       <ImageSvg name="Edit" />{' '}
                                     </button>
                                     <button
@@ -562,16 +458,7 @@ export default function ConfigDowland({
                         )}
                       </div>
                       {isLoadingComponent && <LoadingComponent />}
-                      {showForm && (
-                        <FormCredentials
-                          onAgregar={handleAgregar}
-                          dataUser={data}
-                          initialVal={isEditing ? initialEdit : null}
-                          handleEditListBank={handleEditListBank}
-                          setIinitialEdit={setIinitialEdit}
-                          setShowForm={setShowForm}
-                        />
-                      )}
+                      {showForm && <FormCredentials onAgregar={handleAgregar} dataUser={data} initialVal={isEditing ? initialEdit : null} handleEditListBank={handleEditListBank} setIinitialEdit={setIinitialEdit} setShowForm={setShowForm} />}
                     </div>
 
                     {selectedRowToDelete && (
@@ -583,22 +470,12 @@ export default function ConfigDowland({
                         <ImageSvg name="Question" />
 
                         <>
-                          <h3>
-                            {t['Do you want to delete this credential bank ?']}
-                          </h3>
+                          <h3>{t['Do you want to delete this credential bank ?']}</h3>
                           <div className="box-buttons">
-                            <button
-                              type="button"
-                              className="btn_primary small"
-                              onClick={handleDeleteConfirmation}
-                            >
+                            <button type="button" className="btn_primary small" onClick={handleDeleteConfirmation}>
                               {t.YES}
                             </button>
-                            <button
-                              type="button"
-                              className="btn_secundary small"
-                              onClick={() => setSelectedRowToDelete(null)}
-                            >
+                            <button type="button" className="btn_secundary small" onClick={() => setSelectedRowToDelete(null)}>
                               {t.NOT}
                             </button>
                           </div>
@@ -611,42 +488,22 @@ export default function ConfigDowland({
                     <div>
                       {completeconfigBank ? (
                         <div className="box-buttons">
-                          <button
-                            type="button"
-                            className="btn_secundary small"
-                            onClick={() => handleTabClick(0)}
-                          >
+                          <button type="button" className="btn_secundary small" onClick={() => handleTabClick(0)}>
                             <ImageSvg name="Back" />
 
                             {t.Previus}
                           </button>
-                          <button
-                            className={`btn_secundary small  ${
-                              completeconfigBank ? ' ' : 'disabled'
-                            }`}
-                            onClick={() => setModalConfirmationFinish(true)}
-                            disabled={!completeconfigBank}
-                          >
+                          <button className={`btn_secundary small  ${completeconfigBank ? ' ' : 'disabled'}`} onClick={() => setModalConfirmationFinish(true)} disabled={!completeconfigBank}>
                             {t.Next}
                             <ImageSvg name="Next" />
                           </button>
                         </div>
                       ) : (
                         <div className="noti">
+                          <p> {t['Register at least one bank account to proceed to the next step in the setup process']}</p>
                           <p>
                             {' '}
-                            {
-                              t[
-                                'Register at least one bank account to proceed to the next step in the setup process'
-                              ]
-                            }
-                          </p>
-                          <p>
-                            {' '}
-                            <span>
-                              {' '}
-                              {t['Please click on Add Accounts']}{' '}
-                            </span>{' '}
+                            <span> {t['Please click on Add Accounts']} </span>{' '}
                           </p>
                         </div>
                       )}

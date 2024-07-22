@@ -34,11 +34,7 @@ export default function Profilestart() {
           <nav>
             <fieldset>
               <Image src={logo} width={95} alt="imgRegister" />
-              <Cloud
-                imgButton="SignOut"
-                cloudText="Sign Out"
-                onClick={handleLogout}
-              />
+              <Cloud imgButton="SignOut" cloudText="Sign Out" onClick={handleLogout} />
               <Lang />
             </fieldset>
             <ul>
@@ -53,9 +49,7 @@ export default function Profilestart() {
           <section className="formProfile ">
             <div>
               <h2>{t["let's get started"]}</h2>
-              <p>
-                {t['Fill in the following fields to complete your profile']}
-              </p>
+              <p>{t['Fill in the following fields to complete your profile']}</p>
             </div>
 
             <div>

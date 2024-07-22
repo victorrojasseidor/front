@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import LayoutProducts from '@/Components/LayoutProducts';
 import ImageSvg from '@/helpers/ImageSVG';
 import React, { useState, useEffect } from 'react';
@@ -23,16 +24,7 @@ export default function Products() {
   const [hiredProduct, setHiredProduct] = useState('0');
   const [clasTrans, setClasTrans] = useState('');
   const [dataCabecera, setDataCabecera] = useState(null);
-  const {
-    session,
-    setModalToken,
-    logout,
-    l,
-    empresa,
-    setEmpresa,
-    idCountry,
-    getProducts,
-  } = useAuth();
+  const { session, setModalToken, logout, l, empresa, setEmpresa, idCountry, getProducts } = useAuth();
 
   // Nuevo estado para opciones de búsqueda de empresas
   const [companyOptions, setCompanyOptions] = useState([]);
@@ -56,15 +48,8 @@ export default function Products() {
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
-        if (
-          selectedFilterType === 'CLA_01' ||
-          selectedFilterType === 'CLA_02' ||
-          selectedFilterType === 'CLA_03'
-        ) {
-          const filtertypeProduct = data.filter(
-            (product) =>
-              product.sCodeClasificacion === String(selectedFilterType)
-          );
+        if (selectedFilterType === 'CLA_01' || selectedFilterType === 'CLA_02' || selectedFilterType === 'CLA_03') {
+          const filtertypeProduct = data.filter((product) => product.sCodeClasificacion === String(selectedFilterType));
 
           setProduct(filtertypeProduct);
         } else {
@@ -74,9 +59,7 @@ export default function Products() {
         setModalToken(false);
         setRequestError(null);
 
-        const filterHiredProduct = responseData.oResults.filter(
-          (product) => product.iCodeStatus === 23 || product.iCodeStatus === 28
-        );
+        const filterHiredProduct = responseData.oResults.filter((product) => product.iCodeStatus === 23 || product.iCodeStatus === 28);
         setHiredProduct(filterHiredProduct.length);
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true);
@@ -84,9 +67,7 @@ export default function Products() {
         await logout();
         // setModalToken(true)
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         console.log('error', errorMessage);
         setTimeout(() => {
@@ -115,11 +96,7 @@ export default function Products() {
 
     try {
       const token = session?.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=ConsultaCabeceraEmpresa',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=ConsultaCabeceraEmpresa', body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setDataCabecera(data);
@@ -131,9 +108,7 @@ export default function Products() {
         await logout();
         // setModalToken(true)
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         console.log('error', errorMessage);
         setTimeout(() => {
@@ -164,10 +139,7 @@ export default function Products() {
     // Actualiza la empresa seleccionada
     if (newValue) {
       // setEmpresa(newValue)
-      const DataEmpresa = session?.oEmpresa.find(
-        (empres) =>
-          empres.razon_social_empresa === newValue.razon_social_empresa
-      );
+      const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === newValue.razon_social_empresa);
 
       const selectedEmpresa = {
         id_empresa: DataEmpresa.id_empresa,
@@ -197,21 +169,14 @@ export default function Products() {
       let results = product;
       if (selectedFilter !== null) {
         if (selectedFilter === 25) {
-          results = results.filter(
-            (product) =>
-              product.iCodeStatus === 27 || product.iCodeStatus === 28
-          );
+          results = results.filter((product) => product.iCodeStatus === 27 || product.iCodeStatus === 28);
         } else {
-          results = results?.filter(
-            (product) => product.iCodeStatus === selectedFilter
-          );
+          results = results?.filter((product) => product.iCodeStatus === selectedFilter);
         }
       }
 
       if (searchQuery) {
-        results = results.filter((product) =>
-          product.sName.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+        results = results.filter((product) => product.sName.toLowerCase().includes(searchQuery.toLowerCase()));
       }
 
       setSearchResults(results);
@@ -268,9 +233,7 @@ export default function Products() {
     const diferenciaEnMilisegundos = fechaObjetivo - fechaActual;
 
     // Calcular los días restantes
-    const diasRestantes = Math.ceil(
-      diferenciaEnMilisegundos / (1000 * 60 * 60 * 24)
-    );
+    const diasRestantes = Math.ceil(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
 
     return diasRestantes;
   }
@@ -286,40 +249,19 @@ export default function Products() {
 
     if (status === 28 && dayLef >= 0) {
       return (
-        <button
-          className="btn_primary"
-          onClick={() =>
-            handleLink(
-              `/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`
-            )
-          }
-        >
+        <button className="btn_primary" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
           <span> </span> {t.Setup} <span> </span>
         </button>
       );
     } else if (status === 23 && dayLef >= 0) {
       return (
-        <button
-          className="btn_primary"
-          onClick={() =>
-            handleLink(
-              `/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`
-            )
-          }
-        >
+        <button className="btn_primary" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
           <span> </span> {t.Edit} <span> </span>
         </button>
       );
     } else if (status === 31) {
       return (
-        <button
-          className="btn_primary"
-          onClick={() =>
-            handleLink(
-              `/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`
-            )
-          }
-        >
+        <button className="btn_primary" onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
           {t['Try free']}
         </button>
       );
@@ -328,10 +270,7 @@ export default function Products() {
     } else if (dayLef <= 0) {
       return (
         <>
-          <button
-            className="btn_primary"
-            onClick={() => handleLink('https://www.innovativa.la/contacto')}
-          >
+          <button className="btn_primary" onClick={() => handleLink('https://www.innovativa.la/contacto')}>
             {t['Contact technical support']}
           </button>
         </>
@@ -368,9 +307,7 @@ export default function Products() {
               }}
               options={companyOptions}
               getOptionLabel={(option) => option.razon_social_empresa}
-              renderInput={(params) => (
-                <TextField {...params} label={t['To company:']} />
-              )}
+              renderInput={(params) => <TextField {...params} label={t['To company:']} />}
             />
           </div>
         </div>
@@ -380,13 +317,9 @@ export default function Products() {
 
           <div className="welcome">
             <h2>
-              {t.Welcome},
-              <span className="text"> {empresa?.razon_social_empresa} </span>
+              {t.Welcome},<span className="text"> {empresa?.razon_social_empresa} </span>
             </h2>
-            <p>
-              {' '}
-              {t['Our digital employees work to improve your productivity']}
-            </p>
+            <p> {t['Our digital employees work to improve your productivity']}</p>
           </div>
 
           <div className={`reporting-box slider ${clasTrans}`}>
@@ -401,8 +334,7 @@ export default function Products() {
                   <h2> {hiredProduct} </h2>
 
                   <p>
-                    <ImageSvg name="ArrowUp" /> <span> {t.working} </span>{' '}
-                    {t['for you']}{' '}
+                    <ImageSvg name="ArrowUp" /> <span> {t.working} </span> {t['for you']}{' '}
                   </p>
                 </div>
               </div>
@@ -416,22 +348,10 @@ export default function Products() {
 
                 <div className="report_data">
                   <article>{t['Time saved']}</article>
-                  <h2>
-                    {dataCabecera && dataCabecera.tiempo ? (
-                      <Counter
-                        initialValue={0}
-                        finalValue={dataCabecera.tiempo}
-                      />
-                    ) : (
-                      dataCabecera?.tiempo
-                    )}{' '}
-                    hrs
-                  </h2>
+                  <h2>{dataCabecera && dataCabecera.tiempo ? <Counter initialValue={0} finalValue={dataCabecera.tiempo} /> : dataCabecera?.tiempo} hrs</h2>
 
                   <p>
-                    <ImageSvg name="ArrowUp" />{' '}
-                    <span> {dataCabecera?.porcentaje} % </span>{' '}
-                    {t['this month']}{' '}
+                    <ImageSvg name="ArrowUp" /> <span> {dataCabecera?.porcentaje} % </span> {t['this month']}{' '}
                   </p>
                 </div>
               </div>
@@ -444,20 +364,9 @@ export default function Products() {
 
                 <div className="report_data">
                   <article>{t['Bussines agility']}</article>
-                  <h2>
-                    {dataCabecera && dataCabecera?.agilidad ? (
-                      <Counter
-                        initialValue={10}
-                        finalValue={dataCabecera?.agilidad}
-                      />
-                    ) : (
-                      dataCabecera?.agilidad
-                    )}{' '}
-                    %
-                  </h2>
+                  <h2>{dataCabecera && dataCabecera?.agilidad ? <Counter initialValue={10} finalValue={dataCabecera?.agilidad} /> : dataCabecera?.agilidad} %</h2>
                   <p>
-                    <ImageSvg name="ArrowUp" />{' '}
-                    <span> {dataCabecera?.porcentaje_agilidad} %</span> {t.more}{' '}
+                    <ImageSvg name="ArrowUp" /> <span> {dataCabecera?.porcentaje_agilidad} %</span> {t.more}{' '}
                   </p>
                 </div>
               </div>
@@ -466,37 +375,17 @@ export default function Products() {
         </div>
 
         <div className="products_filter-types">
-          <button
-            onClick={() => handleFilterType(null)}
-            className={`btn_filter ${
-              selectedFilterType === null ? 'active' : ''
-            }`}
-          >
+          <button onClick={() => handleFilterType(null)} className={`btn_filter ${selectedFilterType === null ? 'active' : ''}`}>
             <ImageSvg name="All" /> <p> {t.All} </p>
           </button>
-          <button
-            onClick={() => handleFilterType('CLA_01')}
-            className={`btn_filter ${
-              selectedFilterType === 'CLA_01' ? 'active' : ''
-            }`}
-          >
+          <button onClick={() => handleFilterType('CLA_01')} className={`btn_filter ${selectedFilterType === 'CLA_01' ? 'active' : ''}`}>
             <ImageSvg name="Financy" /> <p>{t['Finance and accounting']} </p>
           </button>
 
-          <button
-            onClick={() => handleFilterType('CLA_02')}
-            className={`btn_filter ${
-              selectedFilterType === 'CLA_02' ? 'active' : ''
-            }`}
-          >
+          <button onClick={() => handleFilterType('CLA_02')} className={`btn_filter ${selectedFilterType === 'CLA_02' ? 'active' : ''}`}>
             <ImageSvg name="Tecnology" /> <p> {t.Technology}</p>
           </button>
-          <button
-            onClick={() => handleFilterType('CLA_03')}
-            className={`btn_filter ${
-              selectedFilterType === 'CLA_03' ? 'active' : ''
-            }`}
-          >
+          <button onClick={() => handleFilterType('CLA_03')} className={`btn_filter ${selectedFilterType === 'CLA_03' ? 'active' : ''}`}>
             <ImageSvg name="Human" /> <p> {t['Human Resources']}</p>
           </button>
         </div>
@@ -506,45 +395,20 @@ export default function Products() {
             <button onClick={handleSearch}>
               <ImageSvg name="Search" />
             </button>
-            <input
-              type="text"
-              placeholder={t.Search}
-              value={searchQuery}
-              onChange={handleInputChange}
-            />
+            <input type="text" placeholder={t.Search} value={searchQuery} onChange={handleInputChange} />
           </div>
 
           <div className="filterButtons">
-            <button
-              onClick={() => handleFilter(null)}
-              className={`btn_filter ${
-                selectedFilter === null ? 'active' : ''
-              }`}
-            >
+            <button onClick={() => handleFilter(null)} className={`btn_filter ${selectedFilter === null ? 'active' : ''}`}>
               {t.All}
             </button>
-            <button
-              onClick={() => handleFilter(23)}
-              className={`btn_filter ${selectedFilter === 23 ? 'active' : ''}`}
-            >
+            <button onClick={() => handleFilter(23)} className={`btn_filter ${selectedFilter === 23 ? 'active' : ''}`}>
               {t.Configured}
             </button>
-            <button
-              onClick={() => handleFilter(25)}
-              className={`btn_filter ${
-                selectedFilter === 25 ||
-                selectedFilter === 27 ||
-                selectedFilter === 28
-                  ? 'active'
-                  : ''
-              }`}
-            >
+            <button onClick={() => handleFilter(25)} className={`btn_filter ${selectedFilter === 25 || selectedFilter === 27 || selectedFilter === 28 ? 'active' : ''}`}>
               {t.Pending}
             </button>
-            <button
-              onClick={() => handleFilter(31)}
-              className={`btn_filter ${selectedFilter === 31 ? 'active' : ''}`}
-            >
+            <button onClick={() => handleFilter(31)} className={`btn_filter ${selectedFilter === 31 ? 'active' : ''}`}>
               {t['Not hired']}
             </button>
           </div>
@@ -556,25 +420,12 @@ export default function Products() {
           <ul>
             {searchResults.length > 0 &&
               searchResults.map((product) => (
-                <li
-                  key={product.iId}
-                  className={`card ${
-                    product.sCodeClasificacion === String('CLA_01')
-                      ? 'financy'
-                      : product.sCodeClasificacion === String('CLA_02')
-                      ? 'tecnology'
-                      : product.sCodeClasificacion === String('CLA_03')
-                      ? 'human'
-                      : ''
-                  }`}
-                >
+                <li key={product.iId} className={`card ${product.sCodeClasificacion === String('CLA_01') ? 'financy' : product.sCodeClasificacion === String('CLA_02') ? 'tecnology' : product.sCodeClasificacion === String('CLA_03') ? 'human' : ''}`}>
                   <span className="card_type">
                     {product.sClasificacion}
 
                     {session?.sPerfilCode === 'ADMIN' && (
-                      <Link
-                        href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}
-                      >
+                      <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}>
                         {' '}
                         <p className="admin">
                           {' '}
@@ -587,22 +438,18 @@ export default function Products() {
                   <div className="card_name">
                     <h4> {product.sName}</h4>
 
-                    {product.iCodeStatus === 23 ||
-                    product.iCodeStatus === 28 ? (
+                    {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
                       <p className="dayLetf">
                         {/* <ImageSvg name='Time' /> */}
                         {calcularDiasRestantes(product.sDateEnd) >= 0 ? (
                           <span style={{ color: '#7D86A2' }}>
                             {' '}
-                            {t['Days left:']}{' '}
-                            {calcularDiasRestantes(product.sDateEnd)}
+                            {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
                           </span>
                         ) : (
                           <span className="" style={{ color: 'red' }}>
                             {' '}
-                            {t['Permit expired ago']}{' '}
-                            {-1 * calcularDiasRestantes(product.sDateEnd)}{' '}
-                            {t.days}{' '}
+                            {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
                           </span>
                         )}
                       </p>
@@ -623,13 +470,8 @@ export default function Products() {
                     <div className="status-box">
                       <p>{product.sDescStatus}</p>
 
-                      {product.iId == 4 &&
-                      (product.iCodeStatus === 23 ||
-                        product.iCodeStatus === 28) ? (
-                        <button
-                          className="btn_primary"
-                          onClick={() => handleLink('/reporting/tecnology/1')}
-                        >
+                      {product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28) ? (
+                        <button className="btn_primary" onClick={() => handleLink('/reporting/tecnology/1')}>
                           <span> {l.Reporting.Reporting} </span>
                         </button>
                       ) : (
@@ -645,12 +487,7 @@ export default function Products() {
             <li
               className="card financy"
               style={{
-                display:
-                  (selectedFilter === 31 || !selectedFilter) &&
-                  (selectedFilterType === 'CLA_01' || !selectedFilterType) &&
-                  searchQuery == ''
-                    ? 'flex'
-                    : 'none',
+                display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none',
               }}
             >
               <span className="card_type">{t['Finance and accounting']}</span>
@@ -673,9 +510,7 @@ export default function Products() {
 
                 <div className="status-box">
                   <p> {t['Not hired']}</p>
-                  <Link href="https://www.innovativa.la/digitalemployee">
-                    {t['View more']}
-                  </Link>
+                  <Link href="https://www.innovativa.la/digitalemployee">{t['View more']}</Link>
                 </div>
               </div>
             </li>
@@ -683,12 +518,7 @@ export default function Products() {
             <li
               className="card financy"
               style={{
-                display:
-                  (selectedFilter === 31 || !selectedFilter) &&
-                  (selectedFilterType === 'CLA_01' || !selectedFilterType) &&
-                  searchQuery == ''
-                    ? 'flex'
-                    : 'none',
+                display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none',
               }}
             >
               <span className="card_type">{t['Finance and accounting']}</span>
@@ -711,9 +541,7 @@ export default function Products() {
 
                 <div className="status-box">
                   <p> {t['Not hired']}</p>
-                  <Link href="https://www.innovativa.la/digitalemployee">
-                    {t['View more']}
-                  </Link>
+                  <Link href="https://www.innovativa.la/digitalemployee">{t['View more']}</Link>
                 </div>
               </div>
             </li>
@@ -721,12 +549,7 @@ export default function Products() {
             <li
               className="card financy"
               style={{
-                display:
-                  (selectedFilter === 31 || !selectedFilter) &&
-                  (selectedFilterType === 'CLA_01' || !selectedFilterType) &&
-                  searchQuery == ''
-                    ? 'flex'
-                    : 'none',
+                display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none',
               }}
             >
               <span className="card_type">{t['Finance and accounting']}</span>
@@ -749,9 +572,7 @@ export default function Products() {
 
                 <div className="status-box">
                   <p> {t['Not hired']}</p>
-                  <Link href="https://www.innovativa.la/digitalemployee">
-                    {t['View more']}
-                  </Link>
+                  <Link href="https://www.innovativa.la/digitalemployee">{t['View more']}</Link>
                 </div>
               </div>
             </li>
@@ -759,12 +580,7 @@ export default function Products() {
             <li
               className="card tecnology"
               style={{
-                display:
-                  (selectedFilter === 31 || !selectedFilter) &&
-                  (selectedFilterType === 'CLA_02' || !selectedFilterType) &&
-                  searchQuery == ''
-                    ? 'flex'
-                    : 'none',
+                display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_02' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none',
               }}
             >
               <span className="card_type">{t.Technology}</span>
@@ -784,9 +600,7 @@ export default function Products() {
 
                 <div className="status-box">
                   <p> {t['Not hired']}</p>
-                  <Link href="https://www.innovativa.la/digitalemployee">
-                    {t['View more']}
-                  </Link>
+                  <Link href="https://www.innovativa.la/digitalemployee">{t['View more']}</Link>
                 </div>
               </div>
             </li>
@@ -794,12 +608,7 @@ export default function Products() {
             <li
               className="card human"
               style={{
-                display:
-                  (selectedFilter === 31 || !selectedFilter) &&
-                  (selectedFilterType === 'CLA_03' || !selectedFilterType) &&
-                  searchQuery == ''
-                    ? 'flex'
-                    : 'none',
+                display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_03' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none',
               }}
             >
               <span className="card_type">{t['Human Resources']}</span>
@@ -822,9 +631,7 @@ export default function Products() {
 
                 <div className="status-box">
                   <p> {t['Not hired']}</p>
-                  <Link href="https://www.innovativa.la/digitalemployee">
-                    {t['View more']}
-                  </Link>
+                  <Link href="https://www.innovativa.la/digitalemployee">{t['View more']}</Link>
                 </div>
               </div>
             </li>

@@ -1,5 +1,4 @@
-const baseApiUrl =
-  'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/';
+const baseApiUrl = 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/';
 
 const fetchNoTokenPost = async (endpoint, data, specifiedLocale) => {
   const locale = specifiedLocale || 'en'; // Usar el locale especificado o por defecto 'en'
@@ -76,10 +75,7 @@ const decodeText = async (valor) => {
   };
 
   try {
-    const response = await fetch(
-      'https://api.ariapp.ai/rpa/General/?Accion=DecodificarTexto',
-      settings
-    );
+    const response = await fetch('https://api.ariapp.ai/rpa/General/?Accion=DecodificarTexto', settings);
 
     if (!response.ok) {
       throw new Error('Network response was not ok');

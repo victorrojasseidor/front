@@ -50,9 +50,7 @@ export default function Company() {
               <label>Add business unit or associated company:</label>
               <Field as="select" name="selectedOption">
                 <option value="">SELECT</option>
-                <option value="INNOVATIVA S.A.C - RUC 20517426726">
-                  INNOVATIVA S.A.C - RUC 20517426726
-                </option>
+                <option value="INNOVATIVA S.A.C - RUC 20517426726">INNOVATIVA S.A.C - RUC 20517426726</option>
                 <option value="option 3">Option 3</option>
                 <option value="option 4">Option 4</option>
               </Field>

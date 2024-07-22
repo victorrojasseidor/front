@@ -8,14 +8,7 @@ import { useAuth } from '@/Context/DataContext';
 import LineChart from '@/Components/Grafics/BarChart';
 import { useRouter } from 'next/navigation';
 import { fetchConTokenPost } from '@/helpers/fetch';
-import {
-  format,
-  getDay,
-  addDays,
-  startOfMonth,
-  differenceInDays,
-  parseISO,
-} from 'date-fns';
+import { format, getDay, addDays, startOfMonth, differenceInDays, parseISO } from 'date-fns';
 
 function index(props) {
   const { session, setModalToken, logout, l } = useAuth();
@@ -46,11 +39,7 @@ function index(props) {
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetTotalBanco',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetTotalBanco', body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         const dataInit = responseData.oResults;
@@ -62,9 +51,7 @@ function index(props) {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -105,18 +92,12 @@ function index(props) {
 
     const tok = session?.sToken;
     try {
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetTipoCambioRate',
-        body,
-        tok
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetTipoCambioRate', body, tok);
 
       if (responseData.oAuditResponse.iCode == 1) {
         setRequestError(null);
         const data = responseData.oResults;
-        const dataOrderTODate = data?.sort((a, b) =>
-          b.fecha_tipo_cambio.localeCompare(a.fecha_tipo_cambio)
-        );
+        const dataOrderTODate = data?.sort((a, b) => b.fecha_tipo_cambio.localeCompare(a.fecha_tipo_cambio));
         setTodaytype(dataOrderTODate[0]);
         setModalToken(false);
       } else if (responseData.oAuditResponse?.iCode === 4) {
@@ -158,40 +139,28 @@ function index(props) {
             <h3> {t.Reporting} </h3>
 
             <div className="menu-list">
-              <button
-                className="box-option financy"
-                onClick={() => router.push('/reporting/finance/1')}
-              >
+              <button className="box-option financy" onClick={() => router.push('/reporting/finance/1')}>
                 <div className="report">
                   <ImageSvg name="IconEstractos" />
                   <h4> {t['Bank balances']} </h4>
                 </div>
               </button>
 
-              <button
-                className="box-option financy"
-                onClick={() => router.push('/reporting/finance/2')}
-              >
+              <button className="box-option financy" onClick={() => router.push('/reporting/finance/2')}>
                 <div className="report">
                   <ImageSvg name="IconEstractos" />
                   <h4> {t['Banking transactions']} </h4>
                 </div>
               </button>
 
-              <button
-                className="box-option financy "
-                onClick={() => router.push('/reporting/finance/3')}
-              >
+              <button className="box-option financy " onClick={() => router.push('/reporting/finance/3')}>
                 <div className="report">
                   <ImageSvg name="IconSunat" />
                   <h4> {l.Pattern['SUNAT patterns']} </h4>
                 </div>
               </button>
 
-              <button
-                className="box-option tecnology"
-                onClick={() => router.push('/reporting/tecnology/1')}
-              >
+              <button className="box-option tecnology" onClick={() => router.push('/reporting/tecnology/1')}>
                 <div className="report">
                   <ImageSvg name="IconCaptcha" />
                   <h4> {l.Captcha['Captcha Solver']} </h4>
@@ -247,12 +216,7 @@ function index(props) {
                   <h2> {todaytype?.tipo_cambio_venta}</h2>
                   <p>
                     {' '}
-                    <span>
-                      {' '}
-                      {todaytype &&
-                        formatearFecha(todaytype?.fecha_tipo_cambio)}{' '}
-                    </span>{' '}
-                    USD <ImageSvg name="ArrowLeft" /> PEN{' '}
+                    <span> {todaytype && formatearFecha(todaytype?.fecha_tipo_cambio)} </span> USD <ImageSvg name="ArrowLeft" /> PEN{' '}
                   </p>
                 </div>
               </div>

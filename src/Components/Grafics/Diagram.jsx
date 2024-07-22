@@ -5,17 +5,12 @@ const Diagram = () => {
 
   useEffect(() => {
     const lines = document.querySelectorAll('.line');
-    const commonContainerRect =
-      commonContainerRef.current.getBoundingClientRect();
-    const commonContainerY =
-      commonContainerRect.y + commonContainerRect.height / 2;
+    const commonContainerRect = commonContainerRef.current.getBoundingClientRect();
+    const commonContainerY = commonContainerRect.y + commonContainerRect.height / 2;
 
     lines.forEach((line) => {
       const path = line.querySelector('path');
-      path.setAttribute(
-        'd',
-        `M50 0 Q 50 ${commonContainerY} 50 ${commonContainerY}`
-      );
+      path.setAttribute('d', `M50 0 Q 50 ${commonContainerY} 50 ${commonContainerY}`);
     });
   }, []);
 

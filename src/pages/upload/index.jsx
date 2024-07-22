@@ -78,11 +78,7 @@ const FileUploadForm = () => {
 
   return (
     <section className="containerUpload">
-      <Formik
-        initialValues={{ name: '', files: [] }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
+      <Formik initialValues={{ name: '', files: [] }} validationSchema={validationSchema} onSubmit={handleSubmit}>
         {({ setFieldValue, isSubmitting, isValid }) => (
           <Form className="form-container">
             <h1>Formulario de subida de archivos</h1>
@@ -90,29 +86,12 @@ const FileUploadForm = () => {
             <div className="input-box">
               <Field type="text" id="name" name="name" placeholder="" />
               <label htmlFor="name">Nombre</label>
-              <ErrorMessage
-                className="errorMessage"
-                name="name"
-                component="span"
-              />
+              <ErrorMessage className="errorMessage" name="name" component="span" />
             </div>
 
-            <div
-              className={`dropzone ${dragging ? 'dragging' : ''}`}
-              onDragOver={handleDragOver}
-              onDragLeave={handleDragLeave}
-              onDrop={(event) => handleDrop(event, setFieldValue)}
-            >
-              <label htmlFor="files">
-                Arrastra y suelta archivos aquí o haz click para seleccionar
-              </label>
-              <input
-                id="files"
-                name="files"
-                type="file"
-                multiple
-                onChange={(event) => handleFileChange(event, setFieldValue)}
-              />
+            <div className={`dropzone ${dragging ? 'dragging' : ''}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={(event) => handleDrop(event, setFieldValue)}>
+              <label htmlFor="files">Arrastra y suelta archivos aquí o haz click para seleccionar</label>
+              <input id="files" name="files" type="file" multiple onChange={(event) => handleFileChange(event, setFieldValue)} />
               <ErrorMessage name="files" component="div" />
             </div>
 
@@ -122,18 +101,9 @@ const FileUploadForm = () => {
                 <ul>
                   {files.map((file, index) => (
                     <li key={index}>
-                      {file.type.startsWith('image/') && (
-                        <img
-                          src={URL.createObjectURL(file)}
-                          alt={file.name}
-                          className="previewImage"
-                        />
-                      )}
+                      {file.type.startsWith('image/') && <img src={URL.createObjectURL(file)} alt={file.name} className="previewImage" />}
                       {file.name}
-                      <button
-                        type="button"
-                        onClick={() => handleFileRemove(file, setFieldValue)}
-                      >
+                      <button type="button" onClick={() => handleFileRemove(file, setFieldValue)}>
                         X
                       </button>
                     </li>
@@ -143,11 +113,7 @@ const FileUploadForm = () => {
             )}
 
             <div>
-              <button
-                className={isValid ? 'btn_primary' : 'btn_primary disabled'}
-                type="submit"
-                disabled={isSubmitting}
-              >
+              <button className={isValid ? 'btn_primary' : 'btn_primary disabled'} type="submit" disabled={isSubmitting}>
                 {isSubmitting ? 'Subiendo...' : 'Enviar'}
               </button>
             </div>

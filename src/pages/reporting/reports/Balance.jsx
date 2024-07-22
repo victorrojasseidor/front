@@ -22,12 +22,8 @@ import { TextField, IconButton, InputAdornment } from '@mui/material';
 
 const Balance = () => {
   const { session, setModalToken, logout, l } = useAuth();
-  const [startDate, setStartDate] = useState(
-    dayjs().startOf('month').format('DD/MM/YYYY')
-  );
-  const [endDate, setEndDate] = useState(
-    dayjs().subtract(1, 'day').format('DD/MM/YYYY')
-  );
+  const [startDate, setStartDate] = useState(dayjs().startOf('month').format('DD/MM/YYYY'));
+  const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'));
   const [dataInitialSelect, setInitialDataselect] = useState([]);
   const [filteredBank, setFilteredBank] = useState(null); // Cambié el nombre a filteredBank
   const [filteredAccounts, setFilteredAccounts] = useState(null); // Estado para cuentas filtradas
@@ -81,21 +77,14 @@ const Balance = () => {
     }
 
     // Encuentra los índices de las columnas arrastradas y objetivo
-    const draggedIndex = tableData.findIndex(
-      (col) => col.columnName === draggedColumn
-    );
-    const targetIndex = tableData.findIndex(
-      (col) => col.columnName === targetColumn
-    );
+    const draggedIndex = tableData.findIndex((col) => col.columnName === draggedColumn);
+    const targetIndex = tableData.findIndex((col) => col.columnName === targetColumn);
 
     // Crea una copia del estado actual de tableData
     const updatedData = [...tableData];
 
     // Realiza el intercambio de posiciones de las columnas
-    [updatedData[draggedIndex], updatedData[targetIndex]] = [
-      updatedData[targetIndex],
-      updatedData[draggedIndex],
-    ];
+    [updatedData[draggedIndex], updatedData[targetIndex]] = [updatedData[targetIndex], updatedData[draggedIndex]];
 
     // Actualiza el estado con las columnas reordenadas
     setTableData(updatedData);
@@ -109,11 +98,7 @@ const Balance = () => {
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetInitSaldos',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetInitSaldos', body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         const dataInit = responseData.oResults;
         setInitialDataselect(dataInit);
@@ -124,9 +109,7 @@ const Balance = () => {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -158,11 +141,7 @@ const Balance = () => {
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost(
-        'BPasS/?Accion=GetReporteSaldos',
-        body,
-        token
-      );
+      const responseData = await fetchConTokenPost('BPasS/?Accion=GetReporteSaldos', body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setBalances(data);
@@ -175,9 +154,7 @@ const Balance = () => {
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
       } else {
-        const errorMessage = responseData.oAuditResponse
-          ? responseData.oAuditResponse.sMessage
-          : 'Error in sending the form';
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
         setTimeout(() => {
           setRequestError(null);
@@ -213,9 +190,7 @@ const Balance = () => {
       setFilteredBank([]);
       setFilteredAccounts([]);
     } else {
-      const BankForSelectedCompany = balances.oSaldos.filter(
-        (bank) => bank.id_empresa === selectCompanyValue
-      );
+      const BankForSelectedCompany = balances.oSaldos.filter((bank) => bank.id_empresa === selectCompanyValue);
 
       const seenIds = new Set();
       const uniqueBanks = [];
@@ -242,9 +217,7 @@ const Balance = () => {
     if (selectedBankValue === '') {
       setFilteredAccounts([]);
     } else {
-      const accountsForSelectedBank = dataInitialSelect.oCuenta.filter(
-        (bank) => bank.id_banco === selectedBankValue
-      );
+      const accountsForSelectedBank = dataInitialSelect.oCuenta.filter((bank) => bank.id_banco === selectedBankValue);
 
       const seenIds = new Set();
       const uniqueBanks = [];
@@ -279,13 +252,7 @@ const Balance = () => {
   };
 
   const hasAppliedFilters = () => {
-    return (
-      selectedCompany !== '' ||
-      selectedBank !== '' ||
-      selectedAccount !== '' ||
-      startDate !== dayjs().startOf('month').format('DD/MM/YYYY') ||
-      endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY')
-    );
+    return selectedCompany !== '' || selectedBank !== '' || selectedAccount !== '' || startDate !== dayjs().startOf('month').format('DD/MM/YYYY') || endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY');
   };
 
   function formatNumberToCurrency(number) {
@@ -409,12 +376,10 @@ const Balance = () => {
           <div className="container-filters">
             <div className="layoutReporting-company">
               <h3>
-                {t['Balance report To']}{' '}
-                {session?.jCompany.razon_social_company}
+                {t['Balance report To']} {session?.jCompany.razon_social_company}
               </h3>
               <p>
-                {t['If you want to view the complete information, use the']}{' '}
-                <span>{t['export option']}</span>
+                {t['If you want to view the complete information, use the']} <span>{t['export option']}</span>
               </p>
             </div>
 
@@ -461,12 +426,7 @@ const Balance = () => {
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="company-label">{t.Company}</InputLabel>
-                <Select
-                  labelId="company-label"
-                  value={selectedCompany}
-                  onChange={handleCompanyChange}
-                  IconComponent={IconArrow}
-                >
+                <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
                   <MenuItem value="">
                     <em>{t['All Companys']}</em>
                   </MenuItem>
@@ -481,12 +441,7 @@ const Balance = () => {
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="bank-label">{t.Bank}</InputLabel>
-                <Select
-                  labelId="bank-label"
-                  value={selectedBank}
-                  onChange={handleBankChange}
-                  IconComponent={IconArrow}
-                >
+                <Select labelId="bank-label" value={selectedBank} onChange={handleBankChange} IconComponent={IconArrow}>
                   <MenuItem value="">
                     <em>{t['All Banks']}</em>
                   </MenuItem>
@@ -502,21 +457,13 @@ const Balance = () => {
 
               <FormControl sx={{ m: 1, minWidth: 120 }}>
                 <InputLabel id="account-label">{t['Account Alias']}</InputLabel>
-                <Select
-                  labelId="account-label"
-                  value={selectedAccount}
-                  onChange={handleAccountChange}
-                  IconComponent={IconArrow}
-                >
+                <Select labelId="account-label" value={selectedAccount} onChange={handleAccountChange} IconComponent={IconArrow}>
                   <MenuItem value="">
                     <em>{t['All Accounts']}</em>
                   </MenuItem>
                   {selectedBank &&
                     filteredAccounts.map((account) => (
-                      <MenuItem
-                        key={account.cuenta_conf_cuenta}
-                        value={account.cuenta}
-                      >
+                      <MenuItem key={account.cuenta_conf_cuenta} value={account.cuenta}>
                         <div> {account.cuenta} </div>
                       </MenuItem>
                     ))}
@@ -525,22 +472,10 @@ const Balance = () => {
               </FormControl>
 
               <div className="box-clear">
-                <button
-                  className={`btn_primary small  ${
-                    hasAppliedFilters() ? '' : 'desactivo'
-                  }`}
-                  onClick={() => setApply(!apply)}
-                  disabled={!hasAppliedFilters()}
-                >
+                <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => setApply(!apply)} disabled={!hasAppliedFilters()}>
                   {t.Apply}
                 </button>
-                <button
-                  className={`btn_secundary small ${
-                    hasAppliedFilters() ? '' : 'desactivo'
-                  }`}
-                  onClick={handleClearFilters}
-                  disabled={!hasAppliedFilters()}
-                >
+                <button className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
                   {t.Clear}
                 </button>
               </div>
@@ -564,146 +499,69 @@ const Balance = () => {
               <table className="dataTable Account">
                 <thead>
                   <tr>
-                    <th
-                      onClick={() => orderDataByDate()}
-                      draggable
-                      onDragStart={(e) => handleDragStart(e, 'Date')}
-                      onDragOver={handleDragOver}
-                      onDrop={(e) => handleDrop(e, 'Date')}
-                    >
+                    <th onClick={() => orderDataByDate()} draggable onDragStart={(e) => handleDragStart(e, 'Date')} onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, 'Date')}>
                       {t.Date}
                       <button className="btn_crud">
-                        <ImageSvg
-                          name={isDateSorted ? 'OrderDown' : 'OrderUP'}
-                        />
+                        <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} />
                       </button>
                     </th>
 
-                    <th
-                      onClick={() =>
-                        orderDataAlphabetically(
-                          'razon_social_empresa',
-                          setIsCompanySorted,
-                          isCompanySorted
-                        )
-                      }
-                      draggable
-                      onDragStart={(e) => handleDragStart(e, 'Company')}
-                      onDragOver={handleDragOver}
-                      onDrop={(e) => handleDrop(e, 'Company')}
-                    >
+                    <th onClick={() => orderDataAlphabetically('razon_social_empresa', setIsCompanySorted, isCompanySorted)} draggable onDragStart={(e) => handleDragStart(e, 'Company')} onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, 'Company')}>
                       {t.Company}
                       <button className="btn_crud">
-                        <ImageSvg
-                          name={isCompanySorted ? 'OrderZA' : 'OrderAZ'}
-                        />
+                        <ImageSvg name={isCompanySorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
-                    <th
-                      onClick={() =>
-                        orderDataAlphabetically(
-                          'nombre_banco',
-                          setIsBankSorted,
-                          isBankSorted
-                        )
-                      }
-                    >
+                    <th onClick={() => orderDataAlphabetically('nombre_banco', setIsBankSorted, isBankSorted)}>
                       {t.Bank}
                       <button className="btn_crud">
                         <ImageSvg name={isBankSorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
 
-                    <th
-                      onClick={() =>
-                        orderDataAlphabetically(
-                          'cuenta_conf_cuenta',
-                          setIsAccountSorted,
-                          isAccountSorted
-                        )
-                      }
-                    >
+                    <th onClick={() => orderDataAlphabetically('cuenta_conf_cuenta', setIsAccountSorted, isAccountSorted)}>
                       {t['Account Alias']}
                       <button className="btn_crud">
-                        <ImageSvg
-                          name={isAccountSorted ? 'OrderZA' : 'OrderAZ'}
-                        />
+                        <ImageSvg name={isAccountSorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
 
-                    <th
-                      onClick={() =>
-                        orderDataAlphabetically(
-                          'desc_cuenta_conf_cuenta',
-                          setIsAccounDestSorted,
-                          isAccountDesSorted
-                        )
-                      }
-                    >
+                    <th onClick={() => orderDataAlphabetically('desc_cuenta_conf_cuenta', setIsAccounDestSorted, isAccountDesSorted)}>
                       {t['Account Description']}
                       <button className="btn_crud">
-                        <ImageSvg
-                          name={isAccountDesSorted ? 'OrderZA' : 'OrderAZ'}
-                        />
+                        <ImageSvg name={isAccountDesSorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
 
-                    <th
-                      onClick={() =>
-                        orderDataAlphabetically(
-                          'moneda',
-                          setIsCurrencySorted,
-                          isCurrencySorted
-                        )
-                      }
-                    >
+                    <th onClick={() => orderDataAlphabetically('moneda', setIsCurrencySorted, isCurrencySorted)}>
                       {t.Currency}
                       <button className="btn_crud">
-                        <ImageSvg
-                          name={isCurrencySorted ? 'OrderZA' : 'OrderAZ'}
-                        />
+                        <ImageSvg name={isCurrencySorted ? 'OrderZA' : 'OrderAZ'} />
                       </button>
                     </th>
-                    <th
-                      onClick={() =>
-                        orderDataNumerically(
-                          'saldo',
-                          setIsBalanceSorted,
-                          isBalanceSorted
-                        )
-                      }
-                    >
+                    <th onClick={() => orderDataNumerically('saldo', setIsBalanceSorted, isBalanceSorted)}>
                       {t.Balance}
                       <button className="btn_crud">
-                        <ImageSvg
-                          name={isBalanceSorted ? 'OrderDown' : 'OrderUP'}
-                        />
+                        <ImageSvg name={isBalanceSorted ? 'OrderDown' : 'OrderUP'} />
                       </button>
                     </th>
                   </tr>
                 </thead>
                 <tbody className="rowTable">
                   {balances.oSaldos.length > 0 ? (
-                    balances.oSaldos
-                      .slice((page - 1) * itemsPerPage, page * itemsPerPage)
-                      .map((row) => (
-                        <tr key={row.id_saldos}>
-                          <td>{formatDate(row.fecha)}</td>
-                          <td>{row.razon_social_empresa}</td>
-                          <td>{row.nombre_banco}</td>
-                          <td className="cuenta">{row.cuenta_conf_cuenta}</td>
-                          <td className="cuenta">
-                            {row.desc_cuenta_conf_cuenta}
-                          </td>
-                          <td>{row.moneda}</td>
-                          <td
-                            className="importe"
-                            style={{ color: row.saldo < 0 ? '#E31A1A' : '' }}
-                          >
-                            {formatNumberToCurrency(row.saldo)}
-                          </td>
-                        </tr>
-                      ))
+                    balances.oSaldos.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
+                      <tr key={row.id_saldos}>
+                        <td>{formatDate(row.fecha)}</td>
+                        <td>{row.razon_social_empresa}</td>
+                        <td>{row.nombre_banco}</td>
+                        <td className="cuenta">{row.cuenta_conf_cuenta}</td>
+                        <td className="cuenta">{row.desc_cuenta_conf_cuenta}</td>
+                        <td>{row.moneda}</td>
+                        <td className="importe" style={{ color: row.saldo < 0 ? '#E31A1A' : '' }}>
+                          {formatNumberToCurrency(row.saldo)}
+                        </td>
+                      </tr>
+                    ))
                   ) : (
                     <tr>
                       <td colSpan="6">{t['There is no data']}</td>
@@ -716,8 +574,7 @@ const Balance = () => {
             <Stack spacing={2}>
               <div className="pagination">
                 <Typography>
-                  {t.Page} {page} {t.of}{' '}
-                  {Math.ceil(balances.oSaldos.length / itemsPerPage)}
+                  {t.Page} {page} {t.of} {Math.ceil(balances.oSaldos.length / itemsPerPage)}
                 </Typography>
                 <Pagination
                   count={Math.ceil(balances.oSaldos.length / itemsPerPage)} // Calculate the total number of pages
@@ -730,11 +587,7 @@ const Balance = () => {
         </div>
       )}
 
-      <div>
-        {requestError && (
-          <div className="errorMessage"> {requestError.message} </div>
-        )}
-      </div>
+      <div>{requestError && <div className="errorMessage"> {requestError.message} </div>}</div>
     </>
   );
 };

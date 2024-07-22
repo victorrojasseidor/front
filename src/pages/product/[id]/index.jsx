@@ -13,9 +13,7 @@ export default function productId() {
   useEffect(() => {
     if (!router.isReady) return;
 
-    const selectComponentes = componentsProduct?.find(
-      (p) => p.iId === parseInt(iId)
-    );
+    const selectComponentes = componentsProduct?.find((p) => p.iId === parseInt(iId));
     setComponent(selectComponentes);
 
     // Establecer la pestaña activa basada en el tipo
@@ -38,12 +36,7 @@ export default function productId() {
   }
 
   return (
-    <LayoutConfig
-      id={iId}
-      idEmpresa={Number(idEmpresa)}
-      iIdProdEnv={parseInt(iIdProdEnv)}
-      defaultTab={getTypeValueTab(type) ? getTypeValueTab(type) : activeTab}
-    >
+    <LayoutConfig id={iId} idEmpresa={Number(idEmpresa)} iIdProdEnv={parseInt(iIdProdEnv)} defaultTab={getTypeValueTab(type) ? getTypeValueTab(type) : activeTab}>
       {component?.configuration}
     </LayoutConfig>
   );

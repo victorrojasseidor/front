@@ -27,17 +27,7 @@ const LayoutProducts = ({ children, menu }) => {
   const [isHomeActive, setIsHomeActive] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState('');
   const router = useRouter();
-  const {
-    session,
-    modalToken,
-    logout,
-    l,
-    setSession,
-    isLogout,
-    setIsLogout,
-    isMenuLateralOpen,
-    setMenuLateralOpen,
-  } = useAuth();
+  const { session, modalToken, logout, l, setSession, isLogout, setIsLogout, isMenuLateralOpen, setMenuLateralOpen } = useAuth();
   const { asPath } = useRouter();
   const t = l.header;
 
@@ -76,9 +66,7 @@ const LayoutProducts = ({ children, menu }) => {
   }, [isMobile, isMenuLateralOpen]);
 
   useEffect(() => {
-    setIsHomeActive(
-      asPath === '/product' || asPath.startsWith('/product/product')
-    );
+    setIsHomeActive(asPath === '/product' || asPath.startsWith('/product/product'));
   }, [asPath]);
 
   useEffect(() => {
@@ -99,10 +87,7 @@ const LayoutProducts = ({ children, menu }) => {
             if (asPath === submenuPath) {
               setActiveSubmenu(submenuPath);
             }
-            if (
-              menuPath === '/product' ||
-              asPath.startsWith('/product/product')
-            ) {
+            if (menuPath === '/product' || asPath.startsWith('/product/product')) {
               setActiveSubmenu('/product');
             }
           });
@@ -161,22 +146,13 @@ const LayoutProducts = ({ children, menu }) => {
       <section
         className={`menu ${isMenuLateralOpen ? '' : 'menu-close '}`}
         style={{
-          visibility: isMobile
-            ? isOpenMobile
-              ? 'visible'
-              : 'hidden'
-            : 'visible',
+          visibility: isMobile ? (isOpenMobile ? 'visible' : 'hidden') : 'visible',
         }}
       >
         <div className="menu_Account">
           <div className="imgPerfil">
             <div className="imgPerfil_logo">
-              <Image
-                src={isMenuLateralOpen ? logo : ari}
-                width={isMenuLateralOpen ? 500 : 80}
-                alt="logo"
-                priority
-              />
+              <Image src={isMenuLateralOpen ? logo : ari} width={isMenuLateralOpen ? 500 : 80} alt="logo" priority />
             </div>
           </div>
 
@@ -185,11 +161,7 @@ const LayoutProducts = ({ children, menu }) => {
               <ImageSvg name="Person" />
             </div>
             <div className="box-name_name">
-              <p>
-                {session?.sPerfilCode === 'ADMIN'
-                  ? session?.sPerfilCode
-                  : session?.jCompany.razon_social_company}
-              </p>
+              <p>{session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
 
               <span>{session?.sCorreo}</span>
               {session?.sPerfilCode === 'ADMIN' && <p> Ari v1.2</p>}
@@ -218,23 +190,14 @@ const LayoutProducts = ({ children, menu }) => {
             // eslint-disable-next-line react/jsx-key
             <ul className="list-content">
               {menuItems[menuItem].submenus.length > 0 ? (
-                <li
-                  key={index}
-                  className={`${
-                    asPath.startsWith(menuItems[menuItem].path)
-                      ? 'activeIcon'
-                      : ''
-                  }`}
-                >
+                <li key={index} className={`${asPath.startsWith(menuItems[menuItem].path) ? 'activeIcon' : ''}`}>
                   <button onClick={() => toggleSubmenu(menuItem)}>
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
                     {menuItems[menuItem].submenus.length > 0 && (
                       <div className="img-down">
                         {' '}
-                        <ImageSvg
-                          name={submenuOpen[menuItem] ? 'Down' : 'Up'}
-                        />
+                        <ImageSvg name={submenuOpen[menuItem] ? 'Down' : 'Up'} />
                       </div>
                     )}
                   </button>
@@ -247,40 +210,21 @@ const LayoutProducts = ({ children, menu }) => {
                       }}
                     >
                       <ul className="list-content ">
-                        {menuItems[menuItem].submenus.map(
-                          (submenuItem, subIndex) => (
-                            <li
-                              key={subIndex}
-                              className={`${
-                                asPath === submenuItem.path ||
-                                activeSubmenu === submenuItem.path ||
-                                (menuItems[menuItem] === 'Product' &&
-                                  asPath.startsWith(submenuItem.path))
-                                  ? 'active'
-                                  : ''
-                              }`}
-                            >
-                              <span className="pellet"> </span>
+                        {menuItems[menuItem].submenus.map((submenuItem, subIndex) => (
+                          <li key={subIndex} className={`${asPath === submenuItem.path || activeSubmenu === submenuItem.path || (menuItems[menuItem] === 'Product' && asPath.startsWith(submenuItem.path)) ? 'active' : ''}`}>
+                            <span className="pellet"> </span>
 
-                              <Link href={submenuItem.path}>
-                                <h5>{submenuItem.label}</h5>
-                              </Link>
-                            </li>
-                          )
-                        )}
+                            <Link href={submenuItem.path}>
+                              <h5>{submenuItem.label}</h5>
+                            </Link>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   )}
                 </li>
               ) : (
-                <li
-                  key={index}
-                  className={`${
-                    asPath === menuItem.path || menu === menuItem
-                      ? 'active'
-                      : ''
-                  }`}
-                >
+                <li key={index} className={`${asPath === menuItem.path || menu === menuItem ? 'active' : ''}`}>
                   <Link href={menuItems[menuItem].path}>
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
@@ -313,18 +257,13 @@ const LayoutProducts = ({ children, menu }) => {
         </nav>
       </section>
 
-      <section
-        className="menu_children"
-        style={{ marginLeft: margen, width: isMobile ? '100%' : '85%' }}
-      >
+      <section className="menu_children" style={{ marginLeft: margen, width: isMobile ? '100%' : '85%' }}>
         <div className="childrenTilte">
           <div className="titleMenu">
             <div>
               <h3>{titlePage}</h3>
             </div>
-            <div className="company">
-              {session?.jCompany.razon_social_company}
-            </div>
+            <div className="company">{session?.jCompany.razon_social_company}</div>
           </div>
           <div className="logo-oscuro">
             <Image src={logo} width="100" alt="logoOscuro" priority />
@@ -341,11 +280,7 @@ const LayoutProducts = ({ children, menu }) => {
           </nav>
         </div>
 
-        <section
-          className={`children ${isOpenMobile ? 'children_after' : 'children'}`}
-        >
-          {children}
-        </section>
+        <section className={`children ${isOpenMobile ? 'children_after' : 'children'}`}>{children}</section>
       </section>
 
       <div>{modalToken && session && <RefreshToken />}</div>
