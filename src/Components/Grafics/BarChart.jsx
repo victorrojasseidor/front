@@ -122,7 +122,7 @@ export default function LineChart() {
 
   const dataOrderTODate = dataType?.sort((a, b) => a.fecha_tipo_cambio.localeCompare(b.fecha_tipo_cambio));
 
-  const dataTypeTranform = dataOrderTODate?.map((entry, i, array) => {
+  const dataTypeTranform = dataOrderTODate?.map((entry) => {
     const dateType = new Date(entry.fecha_tipo_cambio).getUTCDate();
 
     const compratype = entry.tipo_cambio_compra;
