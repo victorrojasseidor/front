@@ -4,15 +4,22 @@
     // background-image: linear-gradient(to right, rgba(1, 4, 15, 0.867), #4d08e2);
     display: flex;
     flex-direction: column;
-    height: 110vh;
+    height: auto;
     padding: 1rem 2rem;
-
-    //animación gradiente
-    background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
-    background-size: 400% 400%;
+    background: linear-gradient(-201deg, #4318ff, #4180c4, #021820, #021f29, #007aff, #4d08e2, #1e0258);
+    background-size: 269% 300%;
     -webkit-animation: gradientHome 15s ease infinite;
     animation: gradientHome 15s ease infinite;
+   
 
+    @include media(tablet) {
+       //animación gradiente
+       height: 110vh;
+    background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
+    background-size: 400% 400%;
+    }
+   
+    
     nav {
       position: fixed;
       display: flex;
@@ -20,7 +27,7 @@
       padding: 1rem 2rem;
       flex-direction: row;
       justify-content: space-between;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       width: 100%;
       top: 0;
       left: 0;
@@ -28,15 +35,26 @@
       background-color: transparent;
       transition: background-color 0.6s ease;
 
+      @include media(tablet) {
+        flex-wrap: wrap;
+      }
+
+
       ul {
         @include center-container;
         flex-direction: row;
         gap: 1rem;
+       
+       
+
 
         a {
           color: get-color(forms_s6);
+        
         }
       }
+
+     
 
       .languajes-box {
         @include center-container;
@@ -82,7 +100,6 @@
         display: flex;
         flex-direction: row-reverse;
         width: 100%;
-
         justify-content: space-between;
 
         @include media(desktop) {
@@ -131,7 +148,7 @@
         }
 
         @include media(desktop) {
-          width: 60%;
+          width: 80%;
         }
 
         @include media(extradesktop) {
@@ -141,6 +158,10 @@
         p {
           color: get-color(forms_s6);
           text-align: justify;
+
+          @include media(desktop) {
+            text-align: left;
+          }
         }
 
         span {
@@ -185,7 +206,6 @@
         width: 0%;
         display: flex;
         justify-content: flex-end;
-
         @include media(tablet) {
           width: 100%;
         }
@@ -196,17 +216,18 @@
         top: 100%;
         display: flex;
         justify-content: flex-end;
-        left: 70%;
-        height: 500px;
         width: max-content;
         opacity: 0;
         transform: translateY(-1%);
         /* Movimiento inicial sutil hacia abajo */
         transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-
+        height: 50vh;
+        right: 30%;
         @include media(tablet) {
           left: 8%;
           height: 90vh;
+          left: 70%;
+        
         }
 
         @include media(desktop) {
@@ -1483,12 +1504,13 @@
 //animación para que el texto aparesca
 .letter-container {
   position: relative;
-  width: 100%;
-  margin-top: 1rem;
+   margin-top: 1rem;
   margin-bottom: 6rem;
+  max-width: 15rem;
 
   @include media(tablet) {
     margin-bottom: 10rem;
+    max-width: 100%;
   }
 
   @include media(extradesktop) {
@@ -1499,12 +1521,10 @@
 .letter {
   position: absolute;
   opacity: 0;
-  width: 100%;
   font-size: 2rem;
-
   animation: fadeInOut 10s infinite;
-
   /* Cambiamos la duración total de la animación a 10s */
+
   @include media(tablet) {
     font-size: 3.5rem;
   }
@@ -1522,7 +1542,6 @@
 .background-colored {
   background-image: linear-gradient(to right, get-color(blue_p1), #8d2de2dd, #2e0383);
   background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
-
   background-size: 400% 400%;
   -webkit-animation: gradientHome 15s ease infinite;
   animation: gradientHome 15s ease infinite;
