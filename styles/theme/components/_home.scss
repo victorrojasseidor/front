@@ -11,14 +11,12 @@
     -webkit-animation: gradientHome 15s ease infinite;
     animation: gradientHome 15s ease infinite;
 
-
     @include media(tablet) {
       //animación gradiente
       height: 110vh;
       background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
       background-size: 400% 400%;
     }
-
 
     nav {
       position: fixed;
@@ -36,11 +34,11 @@
       transition: background-color 0.2s ease;
 
       .btn_black {
-        font-size: smaller;
-    
+        font-size: small;
+        padding: 0.5em 1em;
 
         @include media(tablet) {
-          font-size: medium;
+          font-size: 1rem;
         }
       }
 
@@ -48,19 +46,16 @@
         flex-wrap: wrap;
       }
 
-
       ul {
         @include center-container;
         flex-direction: row;
-        gap: 1rem;
+        gap: 0.5rem;
         font-size: small;
 
         @include media(tablet) {
           font-size: medium;
+          gap: 1rem;
         }
-
-
-
 
         a {
           color: get-color(forms_s6);
@@ -69,23 +64,35 @@
           @include media(tablet) {
             font-size: medium;
           }
-
         }
-
-       
       }
-
-      
 
       .languajes-box {
         @include center-container;
-        flex-direction: column;
-        gap: 0.5rem;
 
-        @include media(tablet) {
-          flex-direction: row;
-          gap: 0rem
+       .languajes {
+          flex-direction: column;
+          margin-left: 1rem;
+          gap: 0.25rem;
+
+          @include media(tablet) {
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 0rem;
+          }
         }
+
+
+
+        svg {
+          display: none;
+
+          @include media(tablet) {
+            display: block;
+          }
+        }
+
+
 
         button {
           color: get-color(white_s1);
@@ -103,16 +110,19 @@
 
       .lang_active {
         color: get-color(blue_p1);
-        border-bottom: 1px solid get-color(white_s1);
+        border: 1px solid get-color(white_s1);
+        border-radius: 10px;
+
+        @include media(tablet) {
+          border-style: none;
+          border-bottom: 1px solid get-color(white_s1);
+          border-radius: 0px;
+        }
       }
-
-     
-
-
     }
 
     &-front {
-      margin-top: 6rem;
+      margin-top: 5rem;
       display: flex;
       flex-direction: row;
       width: 100%;
@@ -126,22 +136,6 @@
 
       @include media(extradesktop) {
         height: 100vh;
-      }
-
-      .image-mundo {
-        top: -5%;
-        position: absolute;
-        z-index: -3;
-        right: -10%;
-        display: flex;
-        flex-direction: row-reverse;
-        width: 100%;
-        justify-content: space-between;
-
-        @include media(desktop) {
-          right: 10%;
-          gap: 10rem;
-        }
       }
 
       .subtitle {
@@ -161,7 +155,7 @@
       .btn_secundary {
         box-shadow: none;
         border-style: none;
-        width: auto;
+        width: 12rem;
         // padding: 0.75rem;
         color: get-color(black_p2);
         cursor: pointer;
@@ -169,6 +163,10 @@
         &:hover {
           background-color: rgba(get-color(white_s1), 0.9);
           box-shadow: bsh(2);
+        }
+
+        @include media(tablet) {
+          width: auto;
         }
       }
 
@@ -206,7 +204,12 @@
 
         &-actions {
           display: flex;
-          flex-direction: row;
+          flex-direction: column;
+          gap: 1rem;
+
+          @include media(tablet) {
+            flex-direction: row;
+          }
         }
 
         .account {
@@ -252,9 +255,61 @@
         }
       }
 
+      .image-container-home {
+        position: absolute;
+        top: 105%;
+        left: 3px;
+
+        @include media(tablet) {
+          top: 105%;
+        }
+      }
+
+      .image-mundo {
+        display: none;
+
+        @include media(tablet) {
+          top: -5%;
+          position: absolute;
+          z-index: -3;
+          right: -10%;
+          display: flex;
+          flex-direction: row-reverse;
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        @include media(tablet) {
+          width: 100%;
+        }
+
+        @include media(desktop) {
+          right: 10%;
+          gap: 10rem;
+        }
+      }
+
+
+
+      .container-orbita {
+        display: block;
+        position: absolute;
+        top: 70%;
+        left: 80%;
+        z-index: -40;
+        height: 10px; // puedes ajustar esta altura según tus necesidades
+
+
+
+        @include media(tablet) {
+          display: none;
+        }
+      }
+
+
       .image-home {
         position: absolute;
-        top: 108%;
+        top: 105%;
         display: flex;
         justify-content: flex-end;
         width: max-content;
@@ -264,18 +319,17 @@
         transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         height: 50vh;
         right: 10%;
+        height: 45vh;
 
         @include media(tablet) {
           left: 8%;
           top: 100%;
           height: 90vh;
-          left: 70%;
-
+          left: 20%;
         }
 
         @include media(desktop) {
           top: 100%;
-          left: 20%;
         }
 
         @include media(extradesktop) {
@@ -309,6 +363,10 @@
 
     .languajes-box {
       visibility: hidden;
+
+      @include media(tablet) {
+        visibility: visible;
+      }
 
       button {
         color: rgba(get-color(grey2_s4), 1);

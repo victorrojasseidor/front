@@ -29,6 +29,7 @@ import mundo from '../../../public/img/mundo.webp';
 import asistente from '../../../public/img/asistente.webp';
 import telefonoWEB from '../../../public/img/telefono.webp';
 import SphereCanvas from '@/Components/Grafics/SphereCanvas';
+import Orbita from '@/Components/Grafics/Orbita';
 import giftMovil from '../../../public/img/video/giftMovil.gif';
 import { useAuth } from '@/Context/DataContext';
 import AOS from 'aos'; // Importa AOS aquí
@@ -106,7 +107,7 @@ const Principal = () => {
       title: t['Ari Accounting and Finance'],
       image: finance,
       description: t['The responsibilities of the Administration and Finance Coordinator include bank reconciliation, updating the exchange rate, expense distribution, third-party payments, adjustment entries, support in the financial closing, and declarations to Sunat'],
-      relatedItems: [t['Download Bank Statements'], t['Daily Exchange Rate Automation'], t['Download SUNAT tax Status Registers'], t['Download Bank State']]
+      relatedItems: [t['Download Bank Statements'], t['Daily Exchange Rate Automation'], t['Download SUNAT tax Status Registers'], t['Download Bank State']],
     },
     {
       title: t['Ari Technology'],
@@ -130,9 +131,9 @@ const Principal = () => {
 
   useEffect(() => {
     // Inicializa AOS solo si window está definido para las animaciones
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       AOS.init({
-        duration: 15000
+        duration: 15000,
       });
     }
   }, []);
@@ -170,7 +171,7 @@ const Principal = () => {
   // para cambiar los gifts de process
   useEffect(() => {
     // Verifica si window está definido antes de agregar el event listener
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const handleScroll = () => {
         if (gifRef.current) {
           const rect = gifRef.current.getBoundingClientRect();
@@ -183,7 +184,6 @@ const Principal = () => {
       return () => window.removeEventListener('scroll', handleScroll);
     }
   }, []);
-
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -231,7 +231,6 @@ const Principal = () => {
               {t['ARI Digital Employees, powered by AI']},&nbsp;
               <span>{t['automate repetitive tasks']},</span> &nbsp;
               {t['allowing finance teams to focus on more strategic and valuable activities']}.
-         
             </p>
 
             <div className="welcome-actions">
@@ -248,19 +247,30 @@ const Principal = () => {
             <div className="account">
               {t["You still don't have an account?"]} <Link href="/register"> {t['Sign up']}</Link>
             </div>
+            <Orbita />
           </div>
 
+         
+
           <div data-aos="zoom-in-left" className="image-container">
+         
+
             <div className="image-mundo">
               <SphereCanvas />
 
               <Image src={mundo} width={500} height={500} alt="ari mundo" loading="eager" priority />
             </div>
 
-            <div className="image-container">
+          
+            
+            <div className="container-image-home">
+            
+         
+        
               {imagesHome.map((image, index) => (
                 <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} priority unoptimized={true} />
               ))}
+
             </div>
           </div>
           <div className="custom-shape-divider-bottom-1719330810">
@@ -294,7 +304,7 @@ const Principal = () => {
               </div>
             </div>
 
-            <Image className="gift-advantage" src={giftMovil} alt="giftMoil" width={320} height={320} loading="eager" unoptimized={true}/>
+            <Image className="gift-advantage" src={giftMovil} alt="giftMoil" width={320} height={320} loading="eager" unoptimized={true} />
             <div className="box-advantage" data-aos="zoom-out-down">
               <div className="advantage">
                 <ImageSvg name="Efficiency" />
@@ -394,12 +404,12 @@ const Principal = () => {
           </div>
 
           <figure className="home-how-steps-gift" ref={demoSectionRef}>
-            <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading="eager"  unoptimized={true} />
+            <Image src={gifs[currentGif]} alt={`gif${currentGif + 1}`} loading="eager" unoptimized={true} />
           </figure>
         </section>
 
         <section className="home-gift ">
-          <Image src={flujoAri} width={500} height={500} alt="ari flujo" loading="eager"  unoptimized={true} />
+          <Image src={flujoAri} width={500} height={500} alt="ari flujo" loading="eager" unoptimized={true} />
 
           <div className="description-gift" data-aos="fade-left">
             <h2 className="subtitle"> {t['Connect financial data and understand behavior']}</h2>

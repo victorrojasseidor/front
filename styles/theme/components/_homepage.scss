@@ -7,6 +7,10 @@
   width: 100%;
   // overflow: hidden;
   line-height: 0;
+
+  @include media(extradesktop) {
+    bottom: -75px;
+  }
 }
 
 .custom-shape-divider-bottom-1719330810 svg {
