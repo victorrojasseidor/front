@@ -10,16 +10,16 @@
     background-size: 269% 300%;
     -webkit-animation: gradientHome 15s ease infinite;
     animation: gradientHome 15s ease infinite;
-   
+
 
     @include media(tablet) {
-       //animación gradiente
-       height: 110vh;
-    background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
-    background-size: 400% 400%;
+      //animación gradiente
+      height: 110vh;
+      background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
+      background-size: 400% 400%;
     }
-   
-    
+
+
     nav {
       position: fixed;
       display: flex;
@@ -33,7 +33,16 @@
       left: 0;
       z-index: 1000;
       background-color: transparent;
-      transition: background-color 0.6s ease;
+      transition: background-color 0.2s ease;
+
+      .btn_black {
+        font-size: smaller;
+    
+
+        @include media(tablet) {
+          font-size: medium;
+        }
+      }
 
       @include media(tablet) {
         flex-wrap: wrap;
@@ -44,24 +53,47 @@
         @include center-container;
         flex-direction: row;
         gap: 1rem;
-       
-       
+        font-size: small;
+
+        @include media(tablet) {
+          font-size: medium;
+        }
+
+
 
 
         a {
           color: get-color(forms_s6);
-        
+          font-size: small;
+
+          @include media(tablet) {
+            font-size: medium;
+          }
+
         }
+
+       
       }
 
-     
+      
 
       .languajes-box {
         @include center-container;
-        flex-direction: row;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        @include media(tablet) {
+          flex-direction: row;
+          gap: 0rem
+        }
 
         button {
           color: get-color(white_s1);
+          font-size: small;
+
+          @include media(tablet) {
+            font-size: medium;
+          }
         }
 
         path {
@@ -73,6 +105,10 @@
         color: get-color(blue_p1);
         border-bottom: 1px solid get-color(white_s1);
       }
+
+     
+
+
     }
 
     &-front {
@@ -175,7 +211,7 @@
 
         .account {
           color: get-color(lilac_p3);
-          display: flex;
+          display: none;
           flex-direction: row;
           width: 100%;
           gap: 0.25rem;
@@ -183,6 +219,10 @@
 
           a {
             color: get-color(grey1_s3);
+          }
+
+          @include media(tablet) {
+            display: flex;
           }
         }
 
@@ -206,6 +246,7 @@
         width: 0%;
         display: flex;
         justify-content: flex-end;
+
         @include media(tablet) {
           width: 100%;
         }
@@ -213,7 +254,7 @@
 
       .image-home {
         position: absolute;
-        top: 100%;
+        top: 108%;
         display: flex;
         justify-content: flex-end;
         width: max-content;
@@ -222,12 +263,14 @@
         /* Movimiento inicial sutil hacia abajo */
         transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         height: 50vh;
-        right: 30%;
+        right: 10%;
+
         @include media(tablet) {
           left: 8%;
+          top: 100%;
           height: 90vh;
           left: 70%;
-        
+
         }
 
         @include media(desktop) {
@@ -265,6 +308,8 @@
     // justify-content: flex-end;
 
     .languajes-box {
+      visibility: hidden;
+
       button {
         color: rgba(get-color(grey2_s4), 1);
       }
@@ -281,7 +326,8 @@
     }
 
     .logoAri {
-      background-image: url('../../../public/img/logo-lb.gif');
+      // background-image: url('../../../public/img/logo-lb.gif');
+      visibility: hidden;
     }
   }
 
@@ -1504,7 +1550,7 @@
 //animación para que el texto aparesca
 .letter-container {
   position: relative;
-   margin-top: 1rem;
+  margin-top: 1rem;
   margin-bottom: 6rem;
   max-width: 15rem;
 
@@ -1548,6 +1594,7 @@
 }
 
 @keyframes fadeInOut {
+
   0%,
   50%,
   100% {
