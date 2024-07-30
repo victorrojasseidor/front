@@ -146,10 +146,13 @@ const Principal = () => {
     //animaciones para el header
     const handleScroll = () => {
       const header = document.querySelector('nav');
+      const backButton = document.querySelector('.back');
       if (window.scrollY > 0) {
         header.classList.add('header-colored');
+        backButton.classList.add('back-style');
       } else {
         header.classList.remove('header-colored');
+        backButton.classList.remove('back-style');
       }
     };
 
@@ -200,6 +203,7 @@ const Principal = () => {
       <header className="home-principal">
         <nav>
           <ul className="logoAri" />
+          
 
           <ul>
             <li className="languajes-box">
@@ -250,27 +254,17 @@ const Principal = () => {
             <Orbita />
           </div>
 
-         
-
           <div data-aos="zoom-in-left" className="image-container">
-         
-
             <div className="image-mundo">
               <SphereCanvas />
 
               <Image src={mundo} width={500} height={500} alt="ari mundo" loading="eager" priority />
             </div>
 
-          
-            
             <div className="container-image-home">
-            
-         
-        
               {imagesHome.map((image, index) => (
                 <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} priority unoptimized={true} />
               ))}
-
             </div>
           </div>
           <div className="custom-shape-divider-bottom-1719330810">
@@ -598,6 +592,11 @@ const Principal = () => {
           </div>
         </section>
       </footer>
+      <div className="back">
+            <Link  href="/#">
+              <ImageSvg name="ArrowBack" />
+            </Link>
+          </div>
     </body>
   );
 };
