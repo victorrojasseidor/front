@@ -141,7 +141,6 @@ export default function EmailsForm({ dataEmails, setUpdateEmails, sProduct, get,
     try {
       const token = session?.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarCorreoProducto', body, token);
-      console.log('correo', body, { responseData });
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setGet(!get);
@@ -158,7 +157,7 @@ export default function EmailsForm({ dataEmails, setUpdateEmails, sProduct, get,
         await logout();
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
-        console.log('errok, ', errorMessage);
+        console.log('error, ', errorMessage);
         setModalToken(true);
         setModalConfirmationEmail(false);
       }

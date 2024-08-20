@@ -43,6 +43,7 @@ export default function Products() {
     setIsLoading(true);
     try {
       const token = session?.sToken;
+      console.log(session?.sToken);
       const idEmpresa = empresa.id_empresa;
       const responseData = await getProducts(idEmpresa, token, idCountry);
 

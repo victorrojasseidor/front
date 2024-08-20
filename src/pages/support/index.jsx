@@ -50,7 +50,7 @@ function Support() {
         await logout();
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
-        console.log('errok, ', errorMessage);
+        console.log('error, ', errorMessage);
         setSubmitting(false);
         SetConfirm(false);
         SetError(errorMessage);

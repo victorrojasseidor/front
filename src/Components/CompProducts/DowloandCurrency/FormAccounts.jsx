@@ -24,7 +24,6 @@ const FormAccounts = ({ onAgregar, initialVal, setIinitialEdit, handleEditListAc
     }
   }, [session, iIdProdEnv, showForm, initialVal, l]);
 
-  console.log({ showcomponent });
 
   async function getExtrBancToFile() {
     const body = {

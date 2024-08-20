@@ -31,7 +31,7 @@ export default function ConfigAccount({ idbancoCredential, setGet, get, getBank,
       await logout();
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in service';
-      console.log('errok, ', errorMessage);
+      console.log('error, ', errorMessage);
       setModalToken(false);
       setRequestError(errorMessage);
       setTimeout(() => {

@@ -50,7 +50,7 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
       await logout();
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in services ';
-      console.log('errok, ', errorMessage);
+      console.log('error, ', errorMessage);
       setModalToken(false);
       setRequestError(errorMessage);
       setTimeout(() => {
