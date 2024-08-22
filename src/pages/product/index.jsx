@@ -55,7 +55,6 @@ export default function Products() {
         } else {
           setProduct(data);
         }
-
         setModalToken(false);
         setRequestError(null);
 
