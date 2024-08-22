@@ -308,6 +308,7 @@ export default function Products() {
               options={companyOptions}
               getOptionLabel={(option) => option.razon_social_empresa}
               renderInput={(params) => <TextField {...params} label={t['To company:']} />}
+              isOptionEqualToValue={(option, value) => option.id_empresa === value.id_empresa}
             />
           </div>
         </div>

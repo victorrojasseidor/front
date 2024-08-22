@@ -63,8 +63,6 @@ $pi: 3.14159265359;
   height: 35px;
 
   @include media(tablet) {
-
-
     perspective: $daddy-perspective;
     width: calc(150% + 1.3px);
     width: $daddy-size;
@@ -118,13 +116,12 @@ $pi: 3.14159265359;
   }
 }
 
-
-//orbota 
+//orbota
 // Orbita.scss
 $total: 300; // total particles
 $orb-size: 100px;
 $particle-size: 2px;
-$time: 14s; 
+$time: 14s;
 $base-hue: 180; // change for diff colors (180 is nice)
 
 .container-orbita {
@@ -133,7 +130,6 @@ $base-hue: 180; // change for diff colors (180 is nice)
   align-items: center;
   height: 300px; // puedes ajustar esta altura según tus necesidades
   width: 100%;
-  
 }
 
 .wrap {
@@ -156,21 +152,22 @@ $base-hue: 180; // change for diff colors (180 is nice)
   width: $particle-size;
   height: $particle-size;
   border-radius: 50%;
-  opacity: 0; 
+  opacity: 0;
 }
 
 @for $i from 1 through $total {
   $z: (random(360) * 1deg); // random angle to rotateZ
   $y: (random(360) * 1deg); // random to rotateX
-  $hue: ((40/$total * $i) + $base-hue); // set hue
-  
-  .c:nth-child(#{$i}){ // grab the nth particle
+  $hue: ((40 / $total * $i) + $base-hue); // set hue
+
+  .c:nth-child(#{$i}) {
+    // grab the nth particle
     animation: orbit#{$i} $time infinite;
-    animation-delay: ($i * .01s); 
+    animation-delay: ($i * 0.01s);
     background-color: hsla($hue, 100%, 50%, 1);
   }
 
-  @keyframes orbit#{$i}{ 
+  @keyframes orbit#{$i} {
     20% {
       opacity: 1; // fade in
     }
@@ -182,7 +179,7 @@ $base-hue: 180; // change for diff colors (180 is nice)
       opacity: 1; // hold opacity 20-80
     }
     100% {
-       transform: rotateZ(-$z) rotateY($y) translateX( ($orb-size * 3) ) rotateZ($z); // translateX * 3
+      transform: rotateZ(-$z) rotateY($y) translateX(($orb-size * 3)) rotateZ($z); // translateX * 3
     }
   }
 }

@@ -12,10 +12,12 @@ function RefreshToken() {
   const handleConfirmRefresh = async () => {
     try {
       const newToken = await refresToken(session.sToken); // Llama a la función para refrescar el token
-      setToken(newToken); // Actualiza el estado con el nuevo token refrescado
-      setModalToken(false); // Cierra el modal después de obtener el nuevo token
-      // Refresca la página para que las demás peticiones vuelvan a funcionar con el nuevo token
-      window.location.reload();
+      console.log( newToken)
+
+      // setToken(newToken); // Actualiza el estado con el nuevo token refrescado
+      // setModalToken(false); // Cierra el modal después de obtener el nuevo token
+      // // Refresca la página para que las demás peticiones vuelvan a funcionar con el nuevo token
+      // window.location.reload();
     } catch (error) {
       console.log('Error:', error);
       // Maneja el error si ocurre algún problema al refrescar el token

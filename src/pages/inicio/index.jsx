@@ -63,9 +63,7 @@ const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
         {demo && (
           <button
             className="btn_primary small"
-            onClick={() => {
-              router.push('/product');
-            }}
+            onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}
           >
             Demo
           </button>
@@ -207,14 +205,15 @@ const Principal = () => {
             </li>
 
             <li>
-              <Link className="li-login" href="/login">
-                {t.Login}
+              <Link className="li-login" href="/register">
+              
+                {t['Sign up']}
               </Link>
             </li>
 
             <li>
-              <button className="btn_black" onClick={() => router.push('/register')}>
-                {t['Sign up']}
+              <button className="btn_black" onClick={() => router.push('/login')}>
+              {t.Login}
               </button>
             </li>
           </ul>
@@ -250,27 +249,28 @@ const Principal = () => {
             <Orbita />
           </div>
 
-         
-
           <div data-aos="zoom-in-left" className="image-container">
-         
-
             <div className="image-mundo">
               <SphereCanvas />
 
               <Image src={mundo} width={500} height={500} alt="ari mundo" loading="eager" priority />
             </div>
 
-          
-            
             <div className="container-image-home">
-            
-         
-        
-              {imagesHome.map((image, index) => (
-                <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} priority unoptimized={true} />
-              ))}
+              {/* {imagesHome.map((image, index) => (
+                <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} priority  />
+              ))} */}
 
+              {imagesHome.map((image, index) => (
+                <Image
+                  key={index}
+                  src={image}
+                  alt={`Slide ${index + 1}`}
+                  className={`image-home ${index === currentImageIndex ? 'visible' : 'hidden'}`}
+                  priority={index === currentImageIndex} // Prioriza solo la imagen visible
+                  unoptimized={false} // Deja que Next.js optimice las imágenes
+                />
+              ))}
             </div>
           </div>
           <div className="custom-shape-divider-bottom-1719330810">
