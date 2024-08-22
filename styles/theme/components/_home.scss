@@ -18,6 +18,14 @@
       background-size: 400% 400%;
     }
 
+
+    @include media(extradesktop) {
+       height: auto;
+       padding-bottom: 2rem;
+     
+   
+    }
+
     nav {
       position: fixed;
       display: flex;
@@ -131,7 +139,7 @@
       }
 
       @include media(extradesktop) {
-        height: 100vh;
+        height: 80vh;
       }
 
       .subtitle {
@@ -282,6 +290,7 @@
         @include media(desktop) {
           right: 10%;
           gap: 10rem;
+          top:0%
         }
       }
 
@@ -324,7 +333,7 @@
         }
 
         @include media(extradesktop) {
-          height: 80vh;
+          height: 60vh;
         }
       }
 
@@ -343,7 +352,7 @@
   }
 
   .header-colored {
-    background-color: rgba(get-color(white_s1), 0.1);
+    background-color: rgba(get-color(white_s1), 0.0);
     /* Color blanco con transparencia */
     backdrop-filter: blur(0px);
     /* Desenfoque del fondo */
@@ -355,9 +364,9 @@
     .languajes-box {
       visibility: hidden;
 
-      @include media(tablet) {
-        visibility: visible;
-      }
+      // @include media(tablet) {
+      //   visibility: visible;
+      // }
 
       button {
         color: rgba(get-color(grey2_s4), 1);
@@ -524,7 +533,7 @@
         }
 
         @include media(extradesktop) {
-          max-height: 80vh;
+          max-height: 60vh ;
         }
       }
 
@@ -763,6 +772,11 @@
       -webkit-animation: gradientHome 15s ease infinite;
       animation: gradientHome 15s ease infinite;
 
+      @include media(extradesktop) {
+        justify-content: space-evenly;
+      }
+
+
       li {
         display: flex;
         align-items: center;
@@ -795,6 +809,9 @@
     position: relative;
     overflow: visible;
     z-index: 1;
+    @include media(extradesktop) {
+      width: 95%;
+      }
 
     .title {
       display: flex;
@@ -872,6 +889,9 @@
             background: linear-gradient(to left, white, transparent);
           }
         }
+
+
+       
       }
 
       .ari-tab-content {
@@ -1065,7 +1085,11 @@
     }
 
     @include media(extradesktop) {
-      height: 100vh;
+      height: auto;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
     }
 
     &-description {
@@ -1081,6 +1105,11 @@
       @include media(desktop) {
         width: 50%;
         padding-bottom: 1rem;
+      }
+
+      @include media(extradesktop) {
+        width: 90%;
+      
       }
 
       .discover {
@@ -1159,6 +1188,11 @@
           align-items: flex-start;
           justify-content: flex-start;
           position: relative;
+        }
+
+        @include media(tablet) {
+          gap: 4rem;
+      
         }
 
         svg {
