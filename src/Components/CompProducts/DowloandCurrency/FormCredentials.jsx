@@ -222,7 +222,7 @@ const FormCredentials = ({ onAgregar, initialVal, setIinitialEdit, dataUser, han
                 </button>
 
                 <button type="submit" className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>
-                  {initialVal ? 'Update' : 'Add'}
+                  {initialVal ? t['Update'] : t['Add']}
                 </button>
               </div>
             </Form>

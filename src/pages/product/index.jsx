@@ -43,7 +43,6 @@ export default function Products() {
     setIsLoading(true);
     try {
       const token = session?.sToken;
-      console.log(session?.sToken);
       const idEmpresa = empresa.id_empresa;
       const responseData = await getProducts(idEmpresa, token, idCountry);
 
@@ -56,7 +55,6 @@ export default function Products() {
         } else {
           setProduct(data);
         }
-
         setModalToken(false);
         setRequestError(null);
 
@@ -309,6 +307,7 @@ export default function Products() {
               options={companyOptions}
               getOptionLabel={(option) => option.razon_social_empresa}
               renderInput={(params) => <TextField {...params} label={t['To company:']} />}
+              isOptionEqualToValue={(option, value) => option.id_empresa === value.id_empresa}
             />
           </div>
         </div>

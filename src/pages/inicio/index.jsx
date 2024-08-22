@@ -61,12 +61,7 @@ const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
         </div>
 
         {demo && (
-          <button
-            className="btn_primary small"
-            onClick={() => {
-              router.push('/product');
-            }}
-          >
+          <button className="btn_primary small" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
             Demo
           </button>
         )}
@@ -203,7 +198,6 @@ const Principal = () => {
       <header className="home-principal">
         <nav>
           <ul className="logoAri" />
-          
 
           <ul>
             <li className="languajes-box">
@@ -211,14 +205,14 @@ const Principal = () => {
             </li>
 
             <li>
-              <Link className="li-login" href="/login">
-                {t.Login}
+              <Link className="li-login" href="/register">
+                {t['Sign up']}
               </Link>
             </li>
 
             <li>
-              <button className="btn_black" onClick={() => router.push('/register')}>
-                {t['Sign up']}
+              <button className="btn_black" onClick={() => router.push('/login')}>
+                {t.Login}
               </button>
             </li>
           </ul>
@@ -262,8 +256,19 @@ const Principal = () => {
             </div>
 
             <div className="container-image-home">
+              {/* {imagesHome.map((image, index) => (
+                <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} priority  />
+              ))} */}
+
               {imagesHome.map((image, index) => (
-                <Image key={index} src={image} className={`${'image-home'} ${index === currentImageIndex ? 'visible' : 'hidden'}`} alt={`Slide ${index + 1}`} priority unoptimized={true} />
+                <Image
+                  key={index}
+                  src={image}
+                  alt={`Slide ${index + 1}`}
+                  className={`image-home ${index === currentImageIndex ? 'visible' : 'hidden'}`}
+                  priority={index === currentImageIndex} // Prioriza solo la imagen visible
+                  unoptimized={false} // Deja que Next.js optimice las imágenes
+                />
               ))}
             </div>
           </div>
@@ -593,10 +598,10 @@ const Principal = () => {
         </section>
       </footer>
       <div className="back">
-            <Link  href="/#">
-              <ImageSvg name="ArrowBack" />
-            </Link>
-          </div>
+        <Link href="/#">
+          <ImageSvg name="ArrowBack" />
+        </Link>
+      </div>
     </body>
   );
 };

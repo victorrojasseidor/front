@@ -4,21 +4,20 @@ import { useAuth } from '@/Context/DataContext';
 import ImageSvg from '@/helpers/ImageSVG';
 
 function RefreshToken() {
-  const [setToken] = useState(null);
+  // const [setToken] = useState(null);
 
   const { session, setModalToken, modalToken, l, refresToken, logout } = useAuth();
   const t = l.Modal;
 
   const handleConfirmRefresh = async () => {
     try {
-      const newToken = await refresToken(session.sToken); // Llama a la función para refrescar el token
-      // setToken(newToken); // Actualiza el estado con el nuevo token refrescado
-      if (newToken.oAuditResponse.iCode === 1) {
+      const respToken = await refresToken(session.sToken); // Llama a la función para refrescar el token
+
+      if (respToken.oAuditResponse.iCode == 1) {
         setModalToken(false); // Cierra el modal después de obtener el nuevo token
-        // Refresca la página para que las demás peticiones vuelvan a funcionar con el nuevo token
-        window.location.reload();
+        window.location.reload(); // Refresca la página para que las demás peticiones vuelvan a funcionar con el nuevo token
       } else {
-        setModalToken(true); // Cierra el modal después de obtener el nuevo token
+        setModalToken(true);
       }
     } catch (error) {
       console.log('Error:', error);
@@ -47,7 +46,8 @@ function RefreshToken() {
               <button className="btn_secundary" onClick={() => handleLogout()}>
                 {l.header['Sign Out']}
               </button>
-              <button className="btn_primary" onClick={handleConfirmRefresh}>
+
+              <button className="btn_primary" onClick={() => handleConfirmRefresh()}>
                 {t.Confirm}
               </button>
             </div>

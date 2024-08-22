@@ -68,11 +68,9 @@ export const DataContextProvider = ({ children }) => {
       oResults: {},
     };
 
-   
     try {
       const resp = await fetchConTokenPost('General/?Accion=RefreshToken', bodyToken, token);
       return resp;
-   
     } catch (error) {
       console.error('Error:', error);
       throw new Error('Hubo un error en la operación asincrónica de refres token');

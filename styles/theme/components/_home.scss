@@ -8,7 +8,7 @@
     padding: 1rem 2rem;
     background: linear-gradient(150deg, #4318ff, #1c344d, #021820, #021f29, #007aff, #4d08e2, #1e0258);
     background-size: 269% 260%;
-     -webkit-animation: gradientHome 15s ease infinite;
+    -webkit-animation: gradientHome 15s ease infinite;
     animation: gradientHome 15s ease infinite;
 
     @include media(tablet) {
@@ -16,6 +16,11 @@
       height: 110vh;
       background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
       background-size: 400% 400%;
+    }
+
+    @include media(extradesktop) {
+      height: auto;
+      padding-bottom: 2rem;
     }
 
     nav {
@@ -77,9 +82,9 @@
         @include center-container;
 
         .languajes {
-          // flex-direction: column;
-          // margin-left: 1rem;
-          // gap: 0.25rem;
+          flex-direction: column;
+          margin-left: 1rem;
+          gap: 0.25rem;
 
           @include media(tablet) {
             flex-direction: row;
@@ -88,8 +93,6 @@
           }
         }
 
-
-
         svg {
           display: none;
 
@@ -97,8 +100,6 @@
             display: block;
           }
         }
-
-
 
         button {
           color: get-color(white_s1);
@@ -142,7 +143,7 @@
       }
 
       @include media(extradesktop) {
-        height: 100vh;
+        height: 80vh;
       }
 
       .subtitle {
@@ -293,10 +294,9 @@
         @include media(desktop) {
           right: 10%;
           gap: 10rem;
+          top: 0%;
         }
       }
-
-
 
       .container-orbita {
         display: block;
@@ -306,13 +306,10 @@
         z-index: -40;
         height: 10px; // puedes ajustar esta altura según tus necesidades
 
-
-
         @include media(tablet) {
           display: none;
         }
       }
-
 
       .image-home {
         position: absolute;
@@ -340,7 +337,7 @@
         }
 
         @include media(extradesktop) {
-          height: 80vh;
+          height: 60vh;
         }
       }
 
@@ -359,25 +356,21 @@
   }
 
   .header-colored {
-    background-color: rgba(get-color(white_s1), 0.1);
+    background-color: rgba(get-color(white_s1), 0);
     /* Color blanco con transparencia */
     backdrop-filter: blur(0px);
     /* Desenfoque del fondo */
     padding: 0rem 1rem;
     flex-wrap: nowrap;
 
-    visibility: hidden;
-
-    @include media(tablet) {
-      visibility: visible;
-    }
+    // justify-content: flex-end;
 
     .languajes-box {
       visibility: hidden;
 
-      @include media(tablet) {
-        visibility: visible;
-      }
+      // @include media(tablet) {
+      //   visibility: visible;
+      // }
 
       button {
         color: rgba(get-color(grey2_s4), 1);
@@ -410,20 +403,17 @@
     padding: 1rem;
     position: fixed;
     bottom: 1rem;
-    right:  0;
+    right: 0;
     transition: transform 0.3s ease, background-color 0.3s ease;
     a {
       border-style: none;
-
     }
 
-svg{
-  path {
-    fill: rgba(get-color(t2-ligthBlue), 1);
-  }
-
- 
-}
+    svg {
+      path {
+        fill: rgba(get-color(t2-ligthBlue), 1);
+      }
+    }
 
     @include media(tablet) {
       display: none;
@@ -574,7 +564,7 @@ svg{
         }
 
         @include media(extradesktop) {
-          max-height: 80vh;
+          max-height: 60vh;
         }
       }
 
@@ -813,6 +803,10 @@ svg{
       -webkit-animation: gradientHome 15s ease infinite;
       animation: gradientHome 15s ease infinite;
 
+      @include media(extradesktop) {
+        justify-content: space-evenly;
+      }
+
       li {
         display: flex;
         align-items: center;
@@ -845,6 +839,9 @@ svg{
     position: relative;
     overflow: visible;
     z-index: 1;
+    @include media(extradesktop) {
+      width: 95%;
+    }
 
     .title {
       display: flex;
@@ -1115,7 +1112,11 @@ svg{
     }
 
     @include media(extradesktop) {
-      height: 100vh;
+      height: auto;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
     }
 
     &-description {
@@ -1131,6 +1132,10 @@ svg{
       @include media(desktop) {
         width: 50%;
         padding-bottom: 1rem;
+      }
+
+      @include media(extradesktop) {
+        width: 90%;
       }
 
       .discover {
@@ -1209,6 +1214,10 @@ svg{
           align-items: flex-start;
           justify-content: flex-start;
           position: relative;
+        }
+
+        @include media(tablet) {
+          gap: 4rem;
         }
 
         svg {
@@ -1403,7 +1412,6 @@ svg{
         background-color: #ffffff;
         max-width: 8rem;
         color: rgba(get-color(black_p2), 0.8);
-
       }
     }
   }
@@ -1656,7 +1664,7 @@ svg{
 
   @include media(tablet) {
     margin-bottom: 10rem;
-    max-width: 100%;
+    max-width: 30rem;
   }
 
   @include media(extradesktop) {
@@ -1694,7 +1702,6 @@ svg{
 }
 
 @keyframes fadeInOut {
-
   0%,
   50%,
   100% {
