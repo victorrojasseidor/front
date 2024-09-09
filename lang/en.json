@@ -209,6 +209,7 @@
     "Users": "Users",
     "Notifications": "Notifications",
     "Reporting": "Reporting",
+    "Integration": "Integration",
     "APIS": "APIS",
     "Schedule": "Schedule",
     "Profile": "Profile",
@@ -522,6 +523,27 @@
     "is our top": "is our top",
     "priority": "priority"
   },
+  "Integration": {
+    "Integration": "Integration",
+    "Setting up integrations": "Setting up integrations",
+    "Delivery of information": "Delivery of information",
+    "Configure how you want to receive information from your digital employees reports": "Configure how you want to receive information from your digital employees reports",
+    "Add": "Add",
+    "Actions": "Actions",
+    "Add Configuration Information Delivery": "Add Configuration Information Delivery",
+    "Select the protocol and name": "Select the protocol and name",
+    "Add access mode": "Add access mode",
+    "Name": "Name",
+    "Protocol": "Protocol",
+    "Server": "Server",
+    "Port(optional)": "Port (optional)",
+    "Access mode": "Access mode",
+    "User": "User",
+    "Archive": "Archive",
+    "Cancel": "Cancel",
+    "Save": "Save"
+  },
+
   "freeTrial": {
     "Free trial": "Free trial ",
     "To be able to request the digital employee": "To be able to request the digital employee",

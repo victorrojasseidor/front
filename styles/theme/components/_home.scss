@@ -18,12 +18,9 @@
       background-size: 400% 400%;
     }
 
-
     @include media(extradesktop) {
-       height: auto;
-       padding-bottom: 2rem;
-     
-   
+      height: auto;
+      padding-bottom: 2rem;
     }
 
     nav {
@@ -290,7 +287,7 @@
         @include media(desktop) {
           right: 10%;
           gap: 10rem;
-          top:0%
+          top: 0%;
         }
       }
 
@@ -352,7 +349,7 @@
   }
 
   .header-colored {
-    background-color: rgba(get-color(white_s1), 0.0);
+    background-color: rgba(get-color(white_s1), 0);
     /* Color blanco con transparencia */
     backdrop-filter: blur(0px);
     /* Desenfoque del fondo */
@@ -533,7 +530,7 @@
         }
 
         @include media(extradesktop) {
-          max-height: 60vh ;
+          max-height: 60vh;
         }
       }
 
@@ -776,7 +773,6 @@
         justify-content: space-evenly;
       }
 
-
       li {
         display: flex;
         align-items: center;
@@ -811,7 +807,7 @@
     z-index: 1;
     @include media(extradesktop) {
       width: 95%;
-      }
+    }
 
     .title {
       display: flex;
@@ -889,9 +885,6 @@
             background: linear-gradient(to left, white, transparent);
           }
         }
-
-
-       
       }
 
       .ari-tab-content {
@@ -1109,7 +1102,6 @@
 
       @include media(extradesktop) {
         width: 90%;
-      
       }
 
       .discover {
@@ -1192,7 +1184,6 @@
 
         @include media(tablet) {
           gap: 4rem;
-      
         }
 
         svg {

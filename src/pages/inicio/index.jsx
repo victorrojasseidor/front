@@ -61,10 +61,7 @@ const DigitalProfile = ({ title, image, description, relatedItems, demo }) => {
         </div>
 
         {demo && (
-          <button
-            className="btn_primary small"
-            onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}
-          >
+          <button className="btn_primary small" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
             Demo
           </button>
         )}
@@ -206,14 +203,13 @@ const Principal = () => {
 
             <li>
               <Link className="li-login" href="/register">
-              
                 {t['Sign up']}
               </Link>
             </li>
 
             <li>
               <button className="btn_black" onClick={() => router.push('/login')}>
-              {t.Login}
+                {t.Login}
               </button>
             </li>
           </ul>
