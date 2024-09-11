@@ -505,6 +505,19 @@
     "Result obtained from the SUNAT portal": "Result obtained from the SUNAT portal",
     "SUNAT patterns": "SUNAT patterns"
   },
+  
+    "Detractions": {
+      "Credentials": "Credentials",
+      "Credentials for entry to SUNAT": "Credentials for entry to SUNAT",
+      "Enter credentials from the Tax Obligation Payment System (SPOT)": "Enter credentials from the Tax Obligation Payment System (SPOT)",
+      "Save": "Save",
+      "Edit": "Edit",
+      "RUC": "RUC",
+      "User": "User",
+      "Password": "Password"
+    },
+  
+  
   "Support": {
     "Support": "Support",
     "Contact us": "Contact us",

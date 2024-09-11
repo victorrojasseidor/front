@@ -128,12 +128,12 @@ const LayoutProducts = ({ children, menu }) => {
       submenus: [],
     },
 
-    Integration: {
-      label: t.Integration,
-      icon: 'Integration',
-      path: '/integration',
-      submenus: [],
-    },
+    // Integration: {
+    //   label: t.Integration,
+    //   icon: 'Integration',
+    //   path: '/integration',
+    //   submenus: [],
+    // },
   };
 
   return (

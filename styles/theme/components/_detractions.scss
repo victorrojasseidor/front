@@ -1,0 +1,18 @@
+
+
+    .container-detraccions{
+        
+        align-self: flex-start;
+        @include container;
+
+        .box-title{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap:2rem;
+            flex-wrap: wrap;
+
+            
+        }
+
+    }

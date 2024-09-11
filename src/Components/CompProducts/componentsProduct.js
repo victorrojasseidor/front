@@ -2,6 +2,7 @@ import React from 'react';
 import ConfigCurrency from './Currency/ConfigCurrency';
 import ConfigDowland from '@/Components/CompProducts/DowloandCurrency/ConfigDowland';
 import ConfigPattern from './Pattern/ConfigPattern';
+import ConfigDetracciones from './Detracciones/ConfigDetracciones';
 
 export const componentsProduct = [
   {
@@ -23,11 +24,12 @@ export const componentsProduct = [
     sName: 'Pattern',
     documentation: 'documentation 3',
     apiConfiguration: 'apiconfiguration 3',
-    configuration: <ConfigPattern />,
+    // configuration: <ConfigPattern />,
+    configuration: <ConfigDetracciones />,
   },
   {
     iId: 4,
-    sName: 'aptcha',
+    sName: 'captcha',
     documentation: 'documentation 4',
     apiConfiguration: 'apiconfiguration 4',
     configuration: 'config captcha',
@@ -39,5 +41,12 @@ export const componentsProduct = [
     documentation: 'documentation 5',
     apiConfiguration: 'apiconfiguration 5',
     configuration: <ConfigDowland getBank="GetEstBancario" registerBank="RegistrarEstBancario" updateBank="ActualizarEstBancario" deleteBank="EliminarBancoCredencialEstBancario" registerAccount="RegistrarCuentaEstBancario" updateAccount="ActualizarCuentaEstBancario" deleteAccount="EliminarCuentaEstBancario" confirConfig="ConfirmarConfiguracionEst" />,
+  },
+  {
+    iId: 6,
+    sName: 'Detracciones',
+    documentation: 'documentation 6',
+    apiConfiguration: 'apiconfiguration 6',
+    configuration: <ConfigDetracciones />,
   },
 ];
