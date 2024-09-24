@@ -17,34 +17,36 @@ export default function Lang() {
     setDropdownOpen(false); // Cerrar el dropdown al seleccionar un idioma
   };
 
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+  const handleMouseEnter = () => {
+    setDropdownOpen(true); // Abrir el dropdown cuando el mouse esté sobre el contenedor
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownOpen(false); // Cerrar el dropdown cuando el mouse esté fuera del contenedor
   };
 
   const options = [
     { value: 'en', label: 'En' },
     { value: 'es', label: 'Es' },
-   
   ];
 
-  // Filtrar la opción que no está seleccionada
   const filteredOptions = options.filter((option) => option.value !== selectedLanguage);
 
   return (
-    <div className="container-dropdown">
-      <button className="dropdown-button" onClick={toggleDropdown}>
+    <div className="container-dropdown" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <button className="dropdown-button">
         {selectedLanguage}
-        <span className="icon">{dropdownOpen ? <ImageSvg name="Down" /> : <ImageSvg name="Up" />}</span>
+        <span className={`icon ${dropdownOpen ? 'open' : ''}`}>
+          <ImageSvg name="Up" />
+        </span>
       </button>
-      {dropdownOpen && (
-        <div className="dropdown-options">
-          {filteredOptions.map((option) => (
-            <div key={option.value} onClick={() => handleLanguageSelect(option.value)} className="language-option">
-              {option.label}
-            </div>
-          ))}
-        </div>
-      )}
+      <div className={`dropdown-options ${dropdownOpen ? 'open' : ''}`}>
+        {filteredOptions.map((option) => (
+          <div key={option.value} onClick={() => handleLanguageSelect(option.value)} className="language-option">
+            {option.label}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

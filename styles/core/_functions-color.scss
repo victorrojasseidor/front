@@ -65,7 +65,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+
+
+ 
+
 }
+
+@mixin home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  // margin: 4rem;
+  padding: 4rem  6rem;
+
+
+
+}
+
+
 
 @mixin container {
   padding: 2rem;
