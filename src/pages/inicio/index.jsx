@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Lang from '@/Components/Atoms/Lang';
@@ -13,6 +13,93 @@ import flujoAri from '../../../public/img/flujoAri.gif';
 import simple from '../../../public/img/simple.webp';
 import postOne from '../../../public/img/post/post-one.webp';
 import postTwo from '../../../public/img/post/post-two.webp';
+
+import prod1 from '../../../public/img/card-product/prod1.png';
+import prod2 from '../../../public/img//card-product/prod2.png';
+
+import adama from '../../../public/img/logos/adama.webp';
+import adeco from '../../../public/img/logos/adeco.webp';
+import agrokasa from '../../../public/img/logos/agrokasa.webp';
+import anglo from '../../../public/img/logos/anglo.webp';
+import auna from '../../../public/img/logos/auna.webp';
+import pacasmayo from '../../../public/img/logos/pacasmayo.webp';
+import unacen from '../../../public/img/logos/unacen.webp';
+
+
+
+
+
+const SkillsCard = ({ cardSkills }) => {
+  return (
+    <>
+      {cardSkills.map((prod, index) => {
+        const [isImageInView, setIsImageInView] = useState(false);
+        const imageRef = useRef(null);
+
+        useEffect(() => {
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  setIsImageInView(true);
+                  console.log(`Imagen en vista: ${prod.title}`);
+                } else {
+                  setIsImageInView(false);
+                  console.log(`Imagen fuera de vista: ${prod.title}`);
+                }
+              });
+            },
+            { threshold: 0.1 } // Ajusta el umbral según sea necesario
+          );
+
+          if (imageRef.current) {
+            observer.observe(imageRef.current);
+          }
+
+          return () => {
+            if (imageRef.current) {
+              observer.unobserve(imageRef.current);
+            }
+          };
+        }, [prod.title]); // Añadido prod.title como dependencia
+
+        return (
+          <div className="process" key={index} ref={imageRef}>
+            <div className="process-description">
+              <h3>
+                <span>{prod.type}</span>
+                {prod.title}
+              </h3>
+              <p>{prod.description}</p>
+            </div>
+            <figure  >
+              <Image
+                className="image-one"
+                src={prod.imageone}
+                width={200}
+                height={200}
+                alt={prod.title}
+              />
+              <Image
+                className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`}
+                src={prod.imagetwo}
+                width={200}
+                height={200}
+                alt={prod.title}
+              />
+            </figure>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+
+
+
+
+
 
 export default function index() {
   const { l } = useAuth();
@@ -49,6 +136,32 @@ export default function index() {
         observer.unobserve(counterSectionRef.current);
       }
     };
+  }, []);
+
+  useLayoutEffect(() => {
+    // Asegurarse de que esté en el cliente
+    if (typeof window !== 'undefined') {
+      const header = document.querySelector('header');
+
+      // Verificar si el header existe en el DOM
+      if (!header) return;
+
+      const handleScroll = () => {
+        if (window.scrollY > 0) {
+          header.classList.add('scroll-header');
+        } else {
+          header.classList.remove('scroll-header');
+        }
+      };
+
+      // Añadir el evento de scroll
+      window.addEventListener('scroll', handleScroll);
+
+      // Limpieza del evento
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
   }, []);
 
   const menuData = [
@@ -91,6 +204,51 @@ export default function index() {
       description: 'Pronto un digital Avatar podrá interactuar contigo para proporcionarte información de tus procesos de negocio.',
     },
   ];
+
+
+  const cardSkills = [
+    {
+      title: 'Conciliación bancaria',
+      type: 'Bancos',
+      imageone:prod1,
+      imagetwo:prod2,
+      description: 'Diariamente extrae la información del tipo de cambio de la SBS para diferentes monedas, consolida la información para que puedan ver el histórico y fluctuaciones y luego se carga al ERP mediante un job para actualizar el tipo de cambio compra, venta y cierre (venta y compra). El proceso puede ser definido en el horario de 6pm hasta las 11:59pm o el conveniente para ti.',
+    },
+    {
+      title: 'Actualización de padrones de SUNAT',
+      type: 'Divisas',
+      imageone:prod1,
+      imagetwo:prod2,
+      description: 'Diariamente realiza la revisión y descarga de los padrones de Sunat, tales como, buenos contribuyentes, agentes de retención, agentes de percepción, no habidos, no hallados, entre otros. La información de la fecha de actualización se podrá ver en la aplicación. Luego se carga al ERP SAP mediante un job para actualizar el estado de los Business Partner (Acreedores) y actualización de partidas abiertas', 
+
+    },
+    {
+      title: 'IA Captcha Solver',
+      type: 'Bancos',
+      imageone:prod1,
+      imagetwo:prod2,
+      description: ' Diariamente utiliza este servicio para la resolución de capchas en cualquier página web. Puede resolver captchas simples, complejos, recaptcha V1 y recaptcha V2 , Viene incluido 30 mil conexiones para la utilización de la automatización. Los tipos de captchas tienen equivalencias en las conexiones. Este componente es crucial para automatizar sus procesos',
+    },
+    {
+      title: 'Conciliación bancaria',
+      type: 'Bancos',
+      imageone:prod1,
+      imagetwo:prod2,
+      description: 'Diariamente extrae la información del tipo de cambio de la SBS para diferentes monedas, consolida la información para que puedan ver el histórico y fluctuaciones y luego se carga al ERP mediante un job para actualizar el tipo de cambio compra, venta y cierre (venta y compra). El proceso puede ser definido en el horario de 6pm hasta las 11:59pm o el conveniente para ti.',
+    },
+    {
+      title: 'Descarga de facturas de servicios públicos',
+      type: 'Bancos',
+      imageone:prod1,
+      imagetwo:prod2,
+      description: 'Diariamente realiza la descarga de las facturas de servicios públicos, tales como, Agua, Luz, teléfono, de distintos operadores de servicios para luego consolidarlos, renombrarlos y almancenarlos en un repositorio de información segura de manera estructurada.',
+    },
+    
+  ];
+
+
+
+
 
   const cardInsigths = [
     {
@@ -149,6 +307,12 @@ export default function index() {
     },
   ];
 
+  const logoClient = [adama, adeco, agrokasa, anglo, auna, pacasmayo, unacen];
+
+
+
+
+
   return (
     <section className="home">
       <header className="home-nav">
@@ -186,10 +350,10 @@ export default function index() {
         <div className="welcome">
           <div className="welcome-letter">
             <h1 className="letter-transition gradient">
-              Tu <span>new superpower</span>
+              Tu <span>nuevo superpoder</span>
             </h1>
             <h1 className="letter-transition gradient">
-              Asistentes <span>Digital ARI</span>
+              Asistentes <span>Digitales ARI</span>
             </h1>
           </div>
 
@@ -258,12 +422,45 @@ export default function index() {
           <p className=""> Las habilidades avanzadas de ARI son tareas automatizadas realizadas por nuestros Digital Employees que simplifican procesos operativos en áreas como finanzas, comercial, recursos humanos y tecnología. Estas habilidades avanzadas permiten a los usuarios adaptar ARI a sus procesos de negocio, mejorando la eficiencia y liberando tiempo para enfocarse en actividades estratégicas.</p>
         </div>
 
-        <div className="box-skills">
-          <ButtonGradient> qué hacemos </ButtonGradient>
+        <ButtonGradient> qué hacemos </ButtonGradient>
 
-          <div className="process">procesos lista</div>
+        <div className="box-process">
+       
+{/* 
+        {cardSkills.map((prod, index) => (
+  <div className="process" key={index} >
+    <div className="process-description">
+      <h3>
+        <span>{prod.type}</span>
+        {prod.title}
+      </h3>
+      <p>{prod.description}</p>
+    </div>
+    <figure ref={imageRef}>
+      <Image
+        className="image-one"  
+        src={prod.imageone}
+        width={200}
+        height={200}
+        alt={prod.title}
+      />
+      <Image
+        className={`image-two ${isImageInView ? 'in-view' : ''}`} 
+        src={prod.imagetwo}
+        width={200}
+        height={200}
+        alt={prod.title}
+      />
+    </figure>
+  </div>
+))} */}
+
+
+    <SkillsCard cardSkills={cardSkills}/>
+          
         </div>
       </section>
+
 
       <section className="home-advantages">
         <ButtonGradient classButt="whiteButton">CARACTERÍSTICAS </ButtonGradient>
@@ -332,7 +529,10 @@ export default function index() {
                 <span>{card.type}</span>
               </figure>
 
-              <h3>{card.title}</h3>
+              <Link href="/ruta-ejemplo">
+                {' '}
+                <h3>{card.title}</h3>{' '}
+              </Link>
 
               <div className="insigths-date">
                 <span>{card.autor}</span>
@@ -340,12 +540,33 @@ export default function index() {
               </div>
 
               <p className="insigths-description">{card.description}</p>
-              <Link href="/ruta-ejemplo" className='insigths-link'>Ver post
-              <ImageSvg name="ArrowUp" />
-              </Link>
+              {/* <Link href="/ruta-ejemplo" className="insigths-link">
+                Ver post
+                <ImageSvg name="ArrowUp" />
+              </Link> */}
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="home-client">
+        <ButtonGradient classButt="whiteButton">NUESTROS CLIENTES </ButtonGradient>
+
+        <div className="title-home blacktext">
+          <h2 className="title gradient">
+            {' '}
+            <span> Confian</span> en Ari
+          </h2>
+          <p> Empresas de clase mundial ya cuentan con nuestros empleados digitales</p>
+        </div>
+
+        <article key={index} className="box-client">
+          {logoClient.map((logos, index) => (
+            <figure className="client-image" key={index}>
+              <Image src={logos} width={100} height={100} alt="clients" />
+            </figure>
+          ))}
+        </article>
       </section>
     </section>
   );
