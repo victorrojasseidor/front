@@ -16,6 +16,7 @@ import postTwo from '../../../public/img/post/post-two.webp';
 
 import prod1 from '../../../public/img/card-product/prod1.png';
 import prod2 from '../../../public/img//card-product/prod2.png';
+import prod3 from '../../../public/img//card-product/prod3.png';
 
 import adama from '../../../public/img/logos/adama.webp';
 import adeco from '../../../public/img/logos/adeco.webp';
@@ -25,16 +26,14 @@ import auna from '../../../public/img/logos/auna.webp';
 import pacasmayo from '../../../public/img/logos/pacasmayo.webp';
 import unacen from '../../../public/img/logos/unacen.webp';
 
-
-
-
-
-const SkillsCard = ({ cardSkills }) => {
+const SkillsCard = ({ cardSkills , setIsImageInView, setskillView}) => {
   return (
     <>
       {cardSkills.map((prod, index) => {
-        const [isImageInView, setIsImageInView] = useState(false);
+        // const [isImageInView, setIsImageInView] = useState(false);
         const imageRef = useRef(null);
+
+        
 
         useEffect(() => {
           const observer = new IntersectionObserver(
@@ -42,7 +41,10 @@ const SkillsCard = ({ cardSkills }) => {
               entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                   setIsImageInView(true);
+                  setskillView(prod);
+
                   console.log(`Imagen en vista: ${prod.title}`);
+                  
                 } else {
                   setIsImageInView(false);
                   console.log(`Imagen fuera de vista: ${prod.title}`);
@@ -66,13 +68,13 @@ const SkillsCard = ({ cardSkills }) => {
         return (
           <div className="process" key={index} ref={imageRef}>
             <div className="process-description">
-              <h3>
+              <h3 className="gradient">
                 <span>{prod.type}</span>
                 {prod.title}
               </h3>
               <p>{prod.description}</p>
             </div>
-            <figure  >
+            {/* <figure  >
               <Image
                 className="image-one"
                 src={prod.imageone}
@@ -87,7 +89,7 @@ const SkillsCard = ({ cardSkills }) => {
                 height={200}
                 alt={prod.title}
               />
-            </figure>
+            </figure> */}
           </div>
         );
       })}
@@ -95,21 +97,22 @@ const SkillsCard = ({ cardSkills }) => {
   );
 };
 
-
-
-
-
-
-
 export default function index() {
   const { l } = useAuth();
   const t = l.home;
   const router = useRouter();
 
   const [isCounterSectionInView, setIsCounterSectionInView] = useState(false);
+  const [isImageInView, setIsImageInView] = useState(false);
+  const [skillView, setskillView] = useState(null);
+  
 
   // Referencia a la sección del contador
   const counterSectionRef = useRef(null);
+
+
+  console.log("isImageInView", isImageInView);
+  console.log("skillView",skillView);
 
   // Función para observar si la sección del contador está en vista
   useEffect(() => {
@@ -205,50 +208,48 @@ export default function index() {
     },
   ];
 
-
   const cardSkills = [
     {
       title: 'Conciliación bancaria',
+      id:1,
       type: 'Bancos',
-      imageone:prod1,
-      imagetwo:prod2,
+      imageone: prod1,
+      imagetwo: prod2,
       description: 'Diariamente extrae la información del tipo de cambio de la SBS para diferentes monedas, consolida la información para que puedan ver el histórico y fluctuaciones y luego se carga al ERP mediante un job para actualizar el tipo de cambio compra, venta y cierre (venta y compra). El proceso puede ser definido en el horario de 6pm hasta las 11:59pm o el conveniente para ti.',
     },
     {
       title: 'Actualización de padrones de SUNAT',
+      id:2,
       type: 'Divisas',
-      imageone:prod1,
-      imagetwo:prod2,
-      description: 'Diariamente realiza la revisión y descarga de los padrones de Sunat, tales como, buenos contribuyentes, agentes de retención, agentes de percepción, no habidos, no hallados, entre otros. La información de la fecha de actualización se podrá ver en la aplicación. Luego se carga al ERP SAP mediante un job para actualizar el estado de los Business Partner (Acreedores) y actualización de partidas abiertas', 
-
+      imageone: prod1,
+      imagetwo: prod3,
+      description: 'Diariamente realiza la revisión y descarga de los padrones de Sunat, tales como, buenos contribuyentes, agentes de retención, agentes de percepción, no habidos, no hallados, entre otros. La información de la fecha de actualización se podrá ver en la aplicación. Luego se carga al ERP SAP mediante un job para actualizar el estado de los Business Partner (Acreedores) y actualización de partidas abiertas',
     },
     {
       title: 'IA Captcha Solver',
+      id:3,
       type: 'Bancos',
-      imageone:prod1,
-      imagetwo:prod2,
+      imageone: prod1,
+      imagetwo: prod2,
       description: ' Diariamente utiliza este servicio para la resolución de capchas en cualquier página web. Puede resolver captchas simples, complejos, recaptcha V1 y recaptcha V2 , Viene incluido 30 mil conexiones para la utilización de la automatización. Los tipos de captchas tienen equivalencias en las conexiones. Este componente es crucial para automatizar sus procesos',
     },
     {
-      title: 'Conciliación bancaria',
+      title: 'proceso siguiente',
+      id:4,
       type: 'Bancos',
-      imageone:prod1,
-      imagetwo:prod2,
+      imageone: prod1,
+      imagetwo: prod2,
       description: 'Diariamente extrae la información del tipo de cambio de la SBS para diferentes monedas, consolida la información para que puedan ver el histórico y fluctuaciones y luego se carga al ERP mediante un job para actualizar el tipo de cambio compra, venta y cierre (venta y compra). El proceso puede ser definido en el horario de 6pm hasta las 11:59pm o el conveniente para ti.',
     },
     {
       title: 'Descarga de facturas de servicios públicos',
+      id:5,
       type: 'Bancos',
-      imageone:prod1,
-      imagetwo:prod2,
+      imageone: prod1,
+      imagetwo: prod2,
       description: 'Diariamente realiza la descarga de las facturas de servicios públicos, tales como, Agua, Luz, teléfono, de distintos operadores de servicios para luego consolidarlos, renombrarlos y almancenarlos en un repositorio de información segura de manera estructurada.',
     },
-    
   ];
-
-
-
-
 
   const cardInsigths = [
     {
@@ -308,10 +309,6 @@ export default function index() {
   ];
 
   const logoClient = [adama, adeco, agrokasa, anglo, auna, pacasmayo, unacen];
-
-
-
-
 
   return (
     <section className="home">
@@ -422,11 +419,10 @@ export default function index() {
           <p className=""> Las habilidades avanzadas de ARI son tareas automatizadas realizadas por nuestros Digital Employees que simplifican procesos operativos en áreas como finanzas, comercial, recursos humanos y tecnología. Estas habilidades avanzadas permiten a los usuarios adaptar ARI a sus procesos de negocio, mejorando la eficiencia y liberando tiempo para enfocarse en actividades estratégicas.</p>
         </div>
 
-        <ButtonGradient> qué hacemos </ButtonGradient>
+        <ButtonGradient> Qué hacemos </ButtonGradient>
 
-        <div className="box-process">
-       
-{/* 
+        <div className="container-process">
+          {/* 
         {cardSkills.map((prod, index) => (
   <div className="process" key={index} >
     <div className="process-description">
@@ -455,12 +451,18 @@ export default function index() {
   </div>
 ))} */}
 
+          <div className="box-process">
+            <SkillsCard cardSkills={cardSkills} setskillView={setskillView}  setIsImageInView={setIsImageInView} />
+          </div>
 
-    <SkillsCard cardSkills={cardSkills}/>
-          
+          <article className="box-images">
+            <figure>
+              <Image className="image-one" src={skillView.imageone} width={200} height={200} alt="jemeplo" />
+              <Image className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`} src={skillView.imagetwo} width={200} height={200} alt="ejemplo" />
+            </figure>
+          </article>
         </div>
       </section>
-
 
       <section className="home-advantages">
         <ButtonGradient classButt="whiteButton">CARACTERÍSTICAS </ButtonGradient>
