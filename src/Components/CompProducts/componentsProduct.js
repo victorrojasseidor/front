@@ -25,7 +25,7 @@ export const componentsProduct = [
     documentation: 'documentation 3',
     apiConfiguration: 'apiconfiguration 3',
     // configuration: <ConfigPattern />,
-    configuration: <ConfigDetracciones />,
+    configuration: <ConfigPattern />,
   },
   {
     iId: 4,

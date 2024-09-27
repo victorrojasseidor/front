@@ -3,20 +3,32 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Lang from '@/Components/Atoms/Lang';
 import LogoOscuro from '../../../public/img/logoOscuro.webp';
-import front from '../../../public/img/front.png';
+import front from '../../../public/img/front.svg';
 import ImageSvg from '@/helpers/ImageSVG';
 import Counter from '@/Components/Atoms/Counter';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/Context/DataContext';
 import ButtonGradient from '@/Components/Atoms/ButtonGradient';
 import flujoAri from '../../../public/img/flujoAri.gif';
-import simple from '../../../public/img/simple.webp';
-import postOne from '../../../public/img/post/post-one.webp';
-import postTwo from '../../../public/img/post/post-two.webp';
+import simple from '../../../public/img/simple.svg';
 
-import prod1 from '../../../public/img/card-product/prod1.png';
-import prod2 from '../../../public/img//card-product/prod2.png';
-import prod3 from '../../../public/img//card-product/prod3.png';
+import post1 from '../../../public/img/post/post1.svg';
+import post2 from '../../../public/img/post/post2.svg';
+import post3 from '../../../public/img/post/post3.svg';
+import post4 from '../../../public/img/post/post4.svg';
+import post5 from '../../../public/img/post/post5.svg';
+import post6 from '../../../public/img/post/post6.svg';
+
+
+import prod1 from '../../../public/img/card-product/prod1.svg';
+import prod2 from '../../../public/img//card-product/prod2.svg';
+import prod3 from '../../../public/img//card-product/prod3.svg';
+import prod4 from '../../../public/img//card-product/prod4.svg';
+import prod5 from '../../../public/img//card-product/prod5.svg';
+import prod6 from '../../../public/img//card-product/prod6.svg';
+import prod7 from '../../../public/img//card-product/prod7.svg';
+import prod8 from '../../../public/img//card-product/prod8.svg';
+import prod11 from '../../../public/img//card-product/prod11.svg';
 
 import adama from '../../../public/img/logos/adama.webp';
 import adeco from '../../../public/img/logos/adeco.webp';
@@ -210,43 +222,74 @@ export default function index() {
 
   const cardSkills = [
     {
-      title: 'Conciliación bancaria',
-      id:1,
+      title: 'Conciliación Bancaria diaria',
       type: 'Bancos',
       imageone: prod1,
       imagetwo: prod2,
-      description: 'Diariamente extrae la información del tipo de cambio de la SBS para diferentes monedas, consolida la información para que puedan ver el histórico y fluctuaciones y luego se carga al ERP mediante un job para actualizar el tipo de cambio compra, venta y cierre (venta y compra). El proceso puede ser definido en el horario de 6pm hasta las 11:59pm o el conveniente para ti.',
+      description: 'Diariamente realiza la descarga de extractos bancarios de Entidades financieras (ej. BCP, BBVA, Interbank, Caja Huancayo, BCP Miami, Pichincha, Banco de la Nación, entre muchos otros más), consolidación de información para obtener una posición de caja diaria, almacena los archivos en carpetas y expone o carga al ERP para que mediante un job se ejecuten las compensaciones (match) de partidas bancarias',
     },
+
     {
-      title: 'Actualización de padrones de SUNAT',
-      id:2,
-      type: 'Divisas',
+      title: 'Descarga de estados de cuenta',
+      type: 'Bancos',
       imageone: prod1,
-      imagetwo: prod3,
-      description: 'Diariamente realiza la revisión y descarga de los padrones de Sunat, tales como, buenos contribuyentes, agentes de retención, agentes de percepción, no habidos, no hallados, entre otros. La información de la fecha de actualización se podrá ver en la aplicación. Luego se carga al ERP SAP mediante un job para actualizar el estado de los Business Partner (Acreedores) y actualización de partidas abiertas',
+      imagetwo: prod2,
+      description: 'Mensualmente realiza la descarga de los estados de cuenta  (ej. BCP, BBVA, Interbank, Banco de la Nación, Pichincha, Caja Huancayo, BCP Miami, entre muchos otros más),  renombra el documento y crea una estructura de carpetas de forma ordenada para que pueda almacenarlos en un repositorio de información seguro',
     },
+
+    {
+      title: 'Actualización diaria del tipo de cambio',
+      type: 'Bancos',
+      imageone: prod3,
+      imagetwo: prod4,
+      description: 'Diariamente extrae la información del tipo de cambio de la SBS para diferentes monedas, consolida la información para que puedan ver el histórico y fluctuaciones y luego se carga al ERP mediante un job para actualizar el tipo de cambio compra, venta y cierre (venta y compra). El proceso puede ser definido en el horario de 6pm hasta las 11:59pm o el conveniente para ti',
+    },
+
+
     {
       title: 'IA Captcha Solver',
-      id:3,
-      type: 'Bancos',
-      imageone: prod1,
-      imagetwo: prod2,
-      description: ' Diariamente utiliza este servicio para la resolución de capchas en cualquier página web. Puede resolver captchas simples, complejos, recaptcha V1 y recaptcha V2 , Viene incluido 30 mil conexiones para la utilización de la automatización. Los tipos de captchas tienen equivalencias en las conexiones. Este componente es crucial para automatizar sus procesos',
+   
+      type: 'IA',
+      imageone: prod5,
+      imagetwo: prod6,
+      description: 'Diariamente utiliza este servicio para la resolución de capchas en cualquier página web. Puede resolver captchas simples, complejos, recaptcha V1 y recaptcha V2. Viene incluido 30 mil conexiones para la utilización de la automatización. Los tipos de captchas tienen equivalencias en las conexiones. Este componente es crucial para automatizar sus procesos',
     },
+
     {
-      title: 'proceso siguiente',
-      id:4,
-      type: 'Bancos',
-      imageone: prod1,
-      imagetwo: prod2,
-      description: 'Diariamente extrae la información del tipo de cambio de la SBS para diferentes monedas, consolida la información para que puedan ver el histórico y fluctuaciones y luego se carga al ERP mediante un job para actualizar el tipo de cambio compra, venta y cierre (venta y compra). El proceso puede ser definido en el horario de 6pm hasta las 11:59pm o el conveniente para ti.',
+      title: 'Actualización de padrones de SUNAT',
+    
+      type: 'SUNAT',
+      imageone: prod7,
+      imagetwo: prod8,
+      description: 'Diariamente realiza la revisión y descarga de los padrones de Sunat, tales como, buenos contribuyentes, agentes de retención, agentes de percepción, no habidos, no hallados, entre otros. La información de la fecha de actualización se podrá ver en la aplicación. Luego se carga al ERP SAP mediante un job para actualizar el estado de los Business Partner (Acreedores) y actualización de partidas abiertas',
     },
+
+    {
+      title: 'Descarga de comprobantes de detracción',
+    
+      type: 'SUNAT',
+      imageone: prod7,
+      imagetwo: prod8,
+      description:'Diariamente ingresa a Sunat operaciones en línea (SOL) para que pueda descargar el reporte de detracciones realizadas, con ello obtendrá el número de constancia de detracción, la fecha y otros datos importantes. Este archivo se consolida, se renombra y se almacena en un repositorio de información seguro de manera estructurada'
+    },
+
+    {
+      title: 'Validación de proveedores (Acreedores)',
+    
+      type: 'SUNAT',
+      imageone: prod7,
+      imagetwo: prod8,
+      description:'Diariamente toma los XML de los comprobantes de pago emitidos por sus proveedores y realiza la validación en línea de la autenticidad del documento, además valida si es un agente de retención, buen contribuyente, si está habído o no habído, entre otros datos, para finalmente dejarte un log de validación y almacenado en una carpeta de forma segura y estructurada'
+     },
+
+     
+ 
     {
       title: 'Descarga de facturas de servicios públicos',
-      id:5,
-      type: 'Bancos',
+   
+      type: 'Servicios públicos',
       imageone: prod1,
-      imagetwo: prod2,
+      imagetwo: prod11,
       description: 'Diariamente realiza la descarga de las facturas de servicios públicos, tales como, Agua, Luz, teléfono, de distintos operadores de servicios para luego consolidarlos, renombrarlos y almancenarlos en un repositorio de información segura de manera estructurada.',
     },
   ];
@@ -256,7 +299,7 @@ export default function index() {
       title: 'IA Generativa se afianza en el backoffice financiero',
       autor: 'Menagen Muriagui',
       date: 'June 28, 2018',
-      image: postOne,
+      image: post1,
       type: 'Financial services',
       description: 'La tecnología aumentará las capacidades de los agentes de seguros y ayudará a los clientes a realizar transacciones más sencillas por sí mismos.',
       link: '/insigths/post-ia-genativa',
@@ -265,7 +308,7 @@ export default function index() {
       title: 'Los nuevos agentes digitales son una tendencia',
       autor: 'Jorge Pérez',
       date: 'September 10, 2020',
-      image: postTwo,
+      image: post2,
       type: 'Innovation',
       description: 'La tecnología aumentará las capacidades de los agentes de seguros y ayudará a los clientes a realizar transacciones más sencillas por sí mismos.',
       link: '/insigths/post-agentes-digitales',
@@ -274,7 +317,7 @@ export default function index() {
       title: 'Cómo aplicar la IA en las áreas de finanzas, contabilidad e impuestos',
       autor: 'Claudia Martín',
       date: 'March 15, 2021',
-      image: postOne,
+      image: post3,
       type: 'Technologies',
       description: 'La tecnología aumentará las capacidades de los agentes de seguros y ayudará a los clientes a realizar transacciones más sencillas por sí mismos.',
       link: '/insigths/post-aplicar-ia-finanzas',
@@ -283,7 +326,7 @@ export default function index() {
       title: 'Automatización en el análisis de riesgos con IA',
       autor: 'Laura Gómez',
       date: 'July 22, 2022',
-      image: postOne,
+      image: post4,
       type: 'AI & Automation',
       description: 'El análisis de riesgos se vuelve más eficiente al automatizar procesos clave, reduciendo el margen de error humano.',
       link: '/insigths/post-automatizacion-analisis-riesgos',
@@ -292,7 +335,7 @@ export default function index() {
       title: 'IA y el futuro del servicio al cliente',
       autor: 'Carlos Fernández',
       date: 'August 30, 2023',
-      image: postOne,
+      image: post5,
       type: 'Customer Service',
       description: 'Los agentes virtuales impulsados por IA mejoran la experiencia del cliente, ofreciendo respuestas rápidas y precisas a consultas comunes.',
       link: '/insigths/post-ia-servicio-al-cliente',
@@ -301,7 +344,7 @@ export default function index() {
       title: 'Blockchain e IA: Una alianza para la seguridad financiera',
       autor: 'Ana Rodríguez',
       date: 'November 5, 2023',
-      image: postOne,
+      image: post6,
       type: 'Financial Security',
       description: 'La combinación de blockchain e IA está redefiniendo la seguridad en el sector financiero, mejorando la transparencia y la protección de datos.',
       link: '/insigths/post-blockchain-ia-seguridad',
@@ -331,7 +374,7 @@ export default function index() {
           <li>
             <button className="btn_white" onClick={() => router.push('/login')}>
               <ImageSvg name="Profile" />
-              Ingresar a la ARI
+              Ingresar a ARI
             </button>
           </li>
 
@@ -347,10 +390,10 @@ export default function index() {
         <div className="welcome">
           <div className="welcome-letter">
             <h1 className="letter-transition gradient">
-              Tu <span>nuevo superpoder</span>
+              Tu nuevo<span>  superpoder</span>
             </h1>
             <h1 className="letter-transition gradient">
-              Asistentes <span>Digitales ARI</span>
+              Asistentes<span> Digitales ARI </span> 
             </h1>
           </div>
 
@@ -372,15 +415,15 @@ export default function index() {
 
         <section className="home-counter" ref={counterSectionRef}>
           <ul className="box-counter">
-            <li className="gradient">
+            <li className="">
               <span>{isCounterSectionInView ? <Counter initialValue={0} finalValue={5} /> : 5}</span>
               <p>{t['Digital Employees Automating Your Services']}</p>
             </li>
-            <li className="gradient">
+            <li className="">
               <span>{isCounterSectionInView ? <Counter initialValue={8} finalValue={20} /> : 20}</span>
               <p>{t['Included Skills to Digital Employees']}</p>
             </li>
-            <li className="gradient">
+            <li className="">
               <span>{isCounterSectionInView ? <Counter initialValue={70} finalValue={78} /> : 78} % </span>
               <p>{t['business agility']}</p>
             </li>
@@ -402,6 +445,8 @@ export default function index() {
         <div className="box-flow">
           <Image src={flujoAri} width={500} height={500} alt="ari-flujo" loading="eager" unoptimized={true} />
         </div>
+
+        
       </section>
 
       <section className="home-skills">
@@ -452,13 +497,13 @@ export default function index() {
 ))} */}
 
           <div className="box-process">
-            <SkillsCard cardSkills={cardSkills} setskillView={setskillView}  setIsImageInView={setIsImageInView} />
+            <SkillsCard cardSkills={cardSkills} setskillView={setskillView} setIsImageInView={setIsImageInView} />
           </div>
 
           <article className="box-images">
             <figure>
-              <Image className="image-one" src={skillView.imageone} width={200} height={200} alt="jemeplo" />
-              <Image className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`} src={skillView.imagetwo} width={200} height={200} alt="ejemplo" />
+              <Image className="image-one" src={skillView?.imageone} width={200} height={200} alt="jemeplo" />
+              <Image className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`} src={skillView?.imagetwo} width={200} height={200} alt="ejemplo" />
             </figure>
           </article>
         </div>

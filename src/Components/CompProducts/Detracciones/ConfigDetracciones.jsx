@@ -122,6 +122,7 @@ export default function ConfigDetracciones() {
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const data = responseData.oResults;
+        console.log('data', data);
         const selectedProduct = data.find((p) => p.iId === parseInt(iId));
         setdataCardProduct(selectedProduct);
         // setGet(!get)
