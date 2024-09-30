@@ -36,6 +36,10 @@ import anglo from '../../../public/img/logos/anglo.webp';
 import auna from '../../../public/img/logos/auna.webp';
 import pacasmayo from '../../../public/img/logos/pacasmayo.webp';
 import unacen from '../../../public/img/logos/unacen.webp';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+
+
 
 const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
   return (
@@ -117,6 +121,19 @@ export default function index() {
   const toggleMenuMobile = () => {
     setIsOpenMobile(!isOpenMobile);
   };
+
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      AOS.init({
+        duration: 500, // Ajusta la duración según tus necesidades
+        // once: true, // Si quieres que la animación solo se ejecute una vez
+      });
+    }
+  }, []);
+  
+  
+
 
   // Referencia a la sección del contador
   const counterSectionRef = useRef(null);
@@ -412,11 +429,11 @@ export default function index() {
           Ver demo gratuita
         </button>
 
-        <div className="image-dashboard">
+        <div className="image-dashboard" data-aos="fade-down" >
           <Image src={front} width={1000} height={1000} alt="dashboard" />
         </div>
 
-        <section className="home-counter" ref={counterSectionRef}>
+        <section className="home-counter" ref={counterSectionRef} data-aos="fade-up">
           <ul className="box-counter">
             <li className="">
               <span>{isCounterSectionInView ? <Counter initialValue={0} finalValue={5} /> : 5}</span>
@@ -434,10 +451,10 @@ export default function index() {
         </section>
       </section>
 
-      <section className="home-flow">
+      <section className="home-flow" >
         <ButtonGradient classButt="whiteButton">POR QUÉ ELEGIRNOS</ButtonGradient>
 
-        <div className="title-home blacktext">
+        <div className="title-home blacktext" data-aos="zoom-in">
           <h2 className="title gradient">
             Ari <span> Conecta datos </span> financieros y comprende el comportamiento
           </h2>
@@ -450,12 +467,12 @@ export default function index() {
         </div>
       </section>
 
-      <section className="home-skills">
+      <section className="home-skills"  >
         <button className="record">
           <ImageSvg name="Record" />
           Digital Employess as a service
         </button>
-        <div className="title-home ">
+        <div className="title-home " data-aos="zoom-in">
           <h2 className="title gradient">
             Potencia tus operaciones con nuestras +8
             <span> habilidades avanzadas </span>
@@ -468,35 +485,7 @@ export default function index() {
         <ButtonGradient> Qué hacemos </ButtonGradient>
 
         <div className="container-process">
-          {/* 
-        {cardSkills.map((prod, index) => (
-  <div className="process" key={index} >
-    <div className="process-description">
-      <h3>
-        <span>{prod.type}</span>
-        {prod.title}
-      </h3>
-      <p>{prod.description}</p>
-    </div>
-    <figure ref={imageRef}>
-      <Image
-        className="image-one"  
-        src={prod.imageone}
-        width={200}
-        height={200}
-        alt={prod.title}
-      />
-      <Image
-        className={`image-two ${isImageInView ? 'in-view' : ''}`} 
-        src={prod.imagetwo}
-        width={200}
-        height={200}
-        alt={prod.title}
-      />
-    </figure>
-  </div>
-))} */}
-
+          
           <div className="box-process">
             <SkillsCard cardSkills={cardSkills} setskillView={setskillView} setIsImageInView={setIsImageInView} />
           </div>
@@ -510,10 +499,10 @@ export default function index() {
         </div>
       </section>
 
-      <section className="home-advantages">
+      <section className="home-advantages" >
         <ButtonGradient classButt="whiteButton">CARACTERÍSTICAS </ButtonGradient>
 
-        <div className="title-home blacktext">
+        <div className="title-home blacktext"  data-aos="zoom-in" >
           <h2 className="title gradient">
             Descubre el <span> potencial </span> de ARI Digital Employees
           </h2>
@@ -521,7 +510,7 @@ export default function index() {
           <p> Fácil de usar, rápido de implementar y versátil para automatizar tus procesos de negocio.</p>
         </div>
 
-        <div className="box-advantage">
+        <div className="box-advantage" data-aos="fade-up">
           {cardAdventage.map((card, index) => (
             <article key={index} className="advantage">
               <ImageSvg name={card.icon} />
@@ -532,13 +521,13 @@ export default function index() {
         </div>
       </section>
 
-      <section className="home-simple">
-        <figure>
+      <section className="home-simple" >
+        <figure data-aos="fade-right">
           <Image src={simple} width={500} height={500} alt="img-simple" />
         </figure>
 
         <div className="simple-box">
-          <div className="title-home blacktext">
+          <div className="title-home blacktext" data-aos="zoom-in">
             <h2 className="title gradient">
               Configura en <span> simples pasos</span> tus asistentes digitales con IA
             </h2>
@@ -556,8 +545,8 @@ export default function index() {
         </div>
       </section>
 
-      <section className="home-insigths">
-        <div className="title-home ">
+      <section className="home-insigths" >
+        <div className="title-home "  data-aos="fade-up" >
           {/* <h2 className="title gradient">
             Potencia tus operaciones con nuestras +8
             <span> habilidades avanzadas </span>
@@ -569,7 +558,7 @@ export default function index() {
           <p className=""> Análisis de expertos, pensamiento audaz y recopilación de datos para líderes que desean lograr lo extraordinario </p>
         </div>
 
-        <div className="box-insigths">
+        <div className="box-insigths"   >
           {cardInsigths.map((card, index) => (
             <article key={index} className="insigths">
               <figure className="insigths-image">
@@ -600,7 +589,7 @@ export default function index() {
       <section className="home-client">
         <ButtonGradient classButt="whiteButton">NUESTROS CLIENTES </ButtonGradient>
 
-        <div className="title-home blacktext">
+        <div className="title-home blacktext" data-aos="zoom-in">
           <h2 className="title gradient">
             {' '}
             <span> Confian</span> en Ari
@@ -608,7 +597,7 @@ export default function index() {
           <p> Empresas de clase mundial ya cuentan con nuestros empleados digitales</p>
         </div>
 
-        <article key={index} className="box-client">
+        <article key={index} className="box-client" data-aos="flip-left">
           {logoClient.map((logos, index) => (
             <figure className="client-image" key={index}>
               <Image src={logos} width={100} height={100} alt="clients" />
