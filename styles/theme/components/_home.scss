@@ -1,8 +1,8 @@
 .home {
-  &-nav {
 
+  &-nav {
     margin-top: 0;
-    padding: 0.5rem 8rem;
+    padding: 0.5rem 2rem;
     background-color: transparent;
     // background-color: get-color(black_p2);
     position: fixed;
@@ -13,8 +13,19 @@
     justify-content: space-between;
     z-index: 4;
 
+    @include media(tablet) {
+      padding: 0.5rem 4rem;
+
+    }
+
+    @include media(desktop) {
+      padding: 0.5rem 8rem;
+
+    }
+
+
     ul {
-      width: 100%;
+      // width: 100%;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -23,13 +34,44 @@
 
     .nav-buttons {
       justify-content: flex-end;
+      display: none;
+
+      @include media(tablet) {
+        display: flex;
+
+      }
+
+
     }
+
+    .nav-movil {
+      display: block;
+
+      @include media(tablet) {
+
+        display: none
+      }
+
+      button {
+        background-color: transparent;
+        border-style: none;
+      }
+
+      svg {
+
+        fill: rgba(get-color(white_s1), 1);
+
+      }
+
+
+    }
+
+
   }
 
   &-front {
     @include home-container;
-   
-    padding-top: 16rem;
+    padding-top: 10rem;
     height: auto;
     color: get-color(white_s1);
     background-color: get-color(black_p2);
@@ -40,6 +82,10 @@
     width: 100%;
     gap: 2rem;
 
+    @include media(tablet) {
+      padding-top: 8rem;
+    }
+
     .welcome {
       width: 100%;
       flex: 0.5;
@@ -48,8 +94,12 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 7rem;
-      padding-top: 4rem;
+      gap: 3.5rem;
+
+
+      @include media(tablet) {
+        padding-top: 4rem;
+      }
 
       .text-description {
         display: flex;
@@ -57,21 +107,50 @@
         display: inline-block;
         text-wrap: wrap;
         line-height: 130%;
-        max-width: 50vw;
+
+        padding-top: 0rem;
+
+
         text-align: center;
-        color: rgba(get-color(forms_s6), 0.85)
+        color: rgba(get-color(forms_s6), 0.85);
+
+        @include media(tablet) {
+          padding-top: 1rem;
+          max-width: 50vw;
+        }
       }
 
 
       .welcome-letter {
         display: flex;
-         
+        align-items: center;
         justify-content: center;
-        h1{
-          font-size: 5rem;
+
+
+        h1 {
+          font-size: 3rem;
+          line-height: 0.5;
           font-weight: 500;
-          span{
-          
+          display: flex;
+          text-align: end;
+          align-items: center;
+          flex-direction: column;
+
+
+          @include media(tablet) {
+            font-size: 3rem;
+            line-height: 1;
+            display: flex;
+            flex-direction: row;
+          }
+
+          @include media(desktop) {
+            font-size: 4.5rem;
+            line-height: 1.2;
+          }
+
+          span {
+
             margin-left: -1rem;
             margin-right: -1rem;
           }
@@ -103,8 +182,7 @@
 
   &-counter {
     width: 100%;
-    // @include home-container;
-
+ 
     .box-counter {
       width: 100%;
       display: flex;
@@ -113,12 +191,12 @@
       flex-wrap: wrap;
       gap: 2rem;
       padding: 1rem;
-      // gap: 1rem;
       z-index: 1;
-      margin: 2rem;
+
 
 
       @include media(extradesktop) {
+        margin: 2rem;
         justify-content: space-evenly;
       }
 
@@ -127,10 +205,7 @@
 
         align-items: center;
         flex-direction: column;
-        // background-color: rgba(get-color(lilac_p3), 0.1);
-        // border-radius: brd(f);
-        // box-shadow: bsh(3);
-        // padding: 2rem;;
+
       }
 
       // h2 {
@@ -147,14 +222,19 @@
       }
 
       span {
-        font-size: 4rem;
+        font-size: 2rem;
         display: flex;
-      
+
         font-weight: 500;
         align-items: center;
         justify-content: center;
         flex-direction: row;
         width: 100%;
+
+        @include media(tablet) {
+          font-size: 3rem;
+        }
+
       }
 
 
@@ -200,7 +280,7 @@
     @include home-container;
 
 
-    @include media(tablet) {
+    @include media(extradesktop) {
       padding-right: 0rem !important;
       // margin-right: 0rem;
 
@@ -209,6 +289,7 @@
 
     .box-container-gradient {
       align-self: flex-start;
+      margin-top: 4rem;
     }
 
 
@@ -217,7 +298,7 @@
       justify-content: flex-start;
       flex-direction: column;
       display: flex;
-      gap:1rem;
+      gap: 1rem;
 
       @include media(tablet) {
         flex-direction: row;
@@ -228,7 +309,7 @@
 
     }
 
-   
+
     .box-images {
       flex: 2;
       position: sticky; // Mantiene la sección fija
@@ -243,16 +324,16 @@
         display: flex;
         width: max-content;
         height: 30vh;
-       
+
         flex-direction: row;
-        position: relative;   
+        position: relative;
         display: flex;
         justify-content: flex-start;
-        top:10%;
+        top: 10%;
 
         @include media(tablet) {
           height: 80vh;
-  
+
         }
 
         .image-one {
@@ -263,10 +344,10 @@
           left: 0;
           /* Asegura que la imagen se ajuste al contenedor */
           height: auto;
-          width:max-content;
+          width: max-content;
           height: 100%; // O el valor que prefieras para que ocupe también la altura
           object-fit: fill; // Asegura que la imagen cubra el contenedor completamente, aunque se recorte
-        
+
         }
 
 
@@ -274,8 +355,8 @@
           display: none;
           position: absolute;
           object-fit: cover; // Asegura que la imagen cubra el contenedor completamente, aunque se recorte
-         height: 30vh;
-         left: 20%;
+          height: 30vh;
+          left: 20%;
           z-index: 2;
           transform: translateX(100%);
           /* Mueve el elemento a la derecha inicialmente */
@@ -285,22 +366,27 @@
           /* Transiciones para transform y opacity */
 
           @include media(tablet) {
-            height: 60vh;
+            top: 10%;
+            // transform: translateX(10%);
+            height: 40vh;
             display: block;
-            width: 60vh;
-    
+            left: 20%;
+            width: 30vw;
+
           }
 
           @include media(desktop) {
-           
+            transform: translateX(100%);
+            left: 30%;
+            height: 60vh;
             width: auto;
-    
+
           }
-          
+
         }
 
       }
-    
+
     }
 
     .box-process {
@@ -314,7 +400,7 @@
       overflow-y: auto;
       flex: 1.5;
       overflow-y: auto; // Permite que se desplace verticalmente
-   
+
 
     }
 
@@ -344,10 +430,17 @@
           display: flex;
           justify-content: flex-start;
           flex-direction: column;
-          font-size: 2.5rem;
+          font-size: 2rem;
           font-weight: 400;
           padding-top: 0rem;
           margin-top: 0rem;
+
+
+          @include media(tablet) {
+            font-size: 2.5rem;
+          }
+
+
         }
 
         p {
@@ -363,7 +456,7 @@
         }
       }
 
-      
+
     }
 
 
@@ -383,7 +476,6 @@
 
       @include media(tablet) {
         grid-template-columns: repeat(2, 1fr); // 2 columnas en pantallas medianas
-
       }
 
       @include media(desktop) {
@@ -391,17 +483,11 @@
 
       }
 
-
-
       .advantage {
         display: flex;
-        max-width: 40rem;
-
-
-        padding: 2rem;
-        border-radius: brd(2);
+        max-width: 60rem;
+        padding: 1.5rem;
         box-shadow: bsh(3);
-
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -411,21 +497,24 @@
 
         &:hover {
           box-shadow: bsh(2);
+          border-radius: brd(2);
         }
-
-
 
         svg {
           width: 100%;
-          height: 1.5rem;
+          height: 2rem;
           display: flex;
           align-self: flex-end;
           justify-content: flex-start;
           text-align: start;
 
-          path {
-            fill: get-color(blue_p1);
+          @include media(tablet) {
+            height: 2.5rem;
+          }
 
+          path {
+            fill: transparent;
+            stroke: get-color(blue_p1)
           }
 
 
@@ -436,24 +525,38 @@
           color: get-color(black_p2);
           height: auto;
           font-size: 1.2rem;
+          font-weight: 400;
+
 
           @include media(tablet) {
-            height: 3rem;
+            height: 4rem;
+            font-size: 1rem;
           }
+
+          @include media(desktop) {
+            height: 3rem;
+            font-size: 1.2rem;
+            ;
+          }
+
+
         }
 
         p {
 
           color: get-color(grey2_s4);
-          text-align: justify;
+          text-align: left;
           font-size: 0.9rem;
           height: auto;
           background-color: transparent;
 
           @include media(tablet) {
-            height: 6rem;
+            height: 7rem;
           }
 
+          @include media(desktop) {
+            height: 6rem;
+          }
 
 
         }
@@ -467,14 +570,20 @@
     flex-direction: column-reverse;
     align-items: flex-end;
     padding-bottom: 0rem !important;
-
-    // max-width: 100rem;
-
+    padding-top: 0rem !important;
+    gap: 2rem;
 
     @include media(tablet) {
       flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
     }
 
+    @include media(desktop) {
+
+      justify-content: space-between;
+
+    }
 
 
 
@@ -491,25 +600,35 @@
 
   .box-container-gradient {
     align-self: flex-end;
+    margin-top: 1rem;
   }
 
   figure {
 
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: flex-start;
+    margin-bottom: 0rem;
 
     @include media(tablet) {
-      width: 40%;
+      width: 50%;
+    }
+
+    @include media(desktop) {
+      width: 50%;
     }
 
     img {
       height: 50vh;
       max-height: 50rem;
 
+      @include media(tablet) {
+        height: 30rem;
+      }
+
       @include media(desktop) {
-        height: 35rem;
-        max-height: 50rem;
+        height: 45rem;
+
       }
 
 
@@ -518,15 +637,15 @@
 
   .simples-skills {
     width: 100%;
+
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    gap: 2rem;
+    gap: 1rem;
     padding-top: 1rem;
     padding-bottom: 2rem;
     font-weight: 300;
   }
-
 
 }
 
@@ -601,7 +720,8 @@
       &:focus {
         img {
           filter: grayscale(0%);
-          filter: brightness(1.2); /* Aumenta el brillo en un 20% */
+          filter: brightness(1.2);
+          /* Aumenta el brillo en un 20% */
           /* Remueve el gris al hacer hover o foco */
         }
       }
@@ -740,15 +860,15 @@
     display: flex;
     // justify-content: center;
 
-    gap: 2rem;
+    gap: 1rem;
 
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
 
     @include media(desktop) {
-      width: max-content;
-      justify-content: space-between;
+      width: 100%;
+      justify-content: center;
       flex-direction: row;
     }
   }
@@ -759,8 +879,7 @@
 
 .scroll-header {
 
-  // background-color: #d037d8;
-  background-color: rgba(get-color(black_p2), 0.9);
+  background-color: rgba(get-color(black_p2), 0.95);
 }
 
 
@@ -791,9 +910,9 @@
   flex-direction: column;
 
   h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 400;
-    line-height: 48px;
+
     color: get-color(white_s1);
     display: inline-block;
     text-wrap: wrap;
@@ -801,6 +920,7 @@
 
     @include media(tablet) {
       font-size: 3rem;
+      line-height: 48px;
       max-width: 60vw;
     }
 
@@ -853,9 +973,14 @@
 }
 
 .out-of-view {
-  transform: translateX(100%) !important;
+  transform: translateX(10%) !important;
   /* Mueve el elemento a la derecha */
   opacity: 0 !important;
+
+  @include media(desktop) {
+    transform: translateX(40%) !important;
+  }
+
   /* Hacerse invisible */
 }
 

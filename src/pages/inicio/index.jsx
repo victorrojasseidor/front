@@ -19,7 +19,6 @@ import post4 from '../../../public/img/post/post4.svg';
 import post5 from '../../../public/img/post/post5.svg';
 import post6 from '../../../public/img/post/post6.svg';
 
-
 import prod1 from '../../../public/img/card-product/prod1.svg';
 import prod2 from '../../../public/img//card-product/prod2.svg';
 import prod3 from '../../../public/img//card-product/prod3.svg';
@@ -38,14 +37,12 @@ import auna from '../../../public/img/logos/auna.webp';
 import pacasmayo from '../../../public/img/logos/pacasmayo.webp';
 import unacen from '../../../public/img/logos/unacen.webp';
 
-const SkillsCard = ({ cardSkills , setIsImageInView, setskillView}) => {
+const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
   return (
     <>
       {cardSkills.map((prod, index) => {
         // const [isImageInView, setIsImageInView] = useState(false);
         const imageRef = useRef(null);
-
-        
 
         useEffect(() => {
           const observer = new IntersectionObserver(
@@ -56,7 +53,6 @@ const SkillsCard = ({ cardSkills , setIsImageInView, setskillView}) => {
                   setskillView(prod);
 
                   console.log(`Imagen en vista: ${prod.title}`);
-                  
                 } else {
                   setIsImageInView(false);
                   console.log(`Imagen fuera de vista: ${prod.title}`);
@@ -117,14 +113,16 @@ export default function index() {
   const [isCounterSectionInView, setIsCounterSectionInView] = useState(false);
   const [isImageInView, setIsImageInView] = useState(false);
   const [skillView, setskillView] = useState(null);
-  
+  const [isOpenMobile, setIsOpenMobile] = useState(false);
+  const toggleMenuMobile = () => {
+    setIsOpenMobile(!isOpenMobile);
+  };
 
   // Referencia a la sección del contador
   const counterSectionRef = useRef(null);
 
-
-  console.log("isImageInView", isImageInView);
-  console.log("skillView",skillView);
+  console.log('isImageInView', isImageInView);
+  console.log('skillView', skillView);
 
   // Función para observar si la sección del contador está en vista
   useEffect(() => {
@@ -245,10 +243,9 @@ export default function index() {
       description: 'Diariamente extrae la información del tipo de cambio de la SBS para diferentes monedas, consolida la información para que puedan ver el histórico y fluctuaciones y luego se carga al ERP mediante un job para actualizar el tipo de cambio compra, venta y cierre (venta y compra). El proceso puede ser definido en el horario de 6pm hasta las 11:59pm o el conveniente para ti',
     },
 
-
     {
       title: 'IA Captcha Solver',
-   
+
       type: 'IA',
       imageone: prod5,
       imagetwo: prod6,
@@ -257,7 +254,7 @@ export default function index() {
 
     {
       title: 'Actualización de padrones de SUNAT',
-    
+
       type: 'SUNAT',
       imageone: prod7,
       imagetwo: prod8,
@@ -266,27 +263,25 @@ export default function index() {
 
     {
       title: 'Descarga de comprobantes de detracción',
-    
+
       type: 'SUNAT',
       imageone: prod7,
       imagetwo: prod8,
-      description:'Diariamente ingresa a Sunat operaciones en línea (SOL) para que pueda descargar el reporte de detracciones realizadas, con ello obtendrá el número de constancia de detracción, la fecha y otros datos importantes. Este archivo se consolida, se renombra y se almacena en un repositorio de información seguro de manera estructurada'
+      description: 'Diariamente ingresa a Sunat operaciones en línea (SOL) para que pueda descargar el reporte de detracciones realizadas, con ello obtendrá el número de constancia de detracción, la fecha y otros datos importantes. Este archivo se consolida, se renombra y se almacena en un repositorio de información seguro de manera estructurada',
     },
 
     {
       title: 'Validación de proveedores (Acreedores)',
-    
+
       type: 'SUNAT',
       imageone: prod7,
       imagetwo: prod8,
-      description:'Diariamente toma los XML de los comprobantes de pago emitidos por sus proveedores y realiza la validación en línea de la autenticidad del documento, además valida si es un agente de retención, buen contribuyente, si está habído o no habído, entre otros datos, para finalmente dejarte un log de validación y almacenado en una carpeta de forma segura y estructurada'
-     },
+      description: 'Diariamente toma los XML de los comprobantes de pago emitidos por sus proveedores y realiza la validación en línea de la autenticidad del documento, además valida si es un agente de retención, buen contribuyente, si está habído o no habído, entre otros datos, para finalmente dejarte un log de validación y almacenado en una carpeta de forma segura y estructurada',
+    },
 
-     
- 
     {
       title: 'Descarga de facturas de servicios públicos',
-   
+
       type: 'Servicios públicos',
       imageone: prod1,
       imagetwo: prod11,
@@ -384,16 +379,24 @@ export default function index() {
             </button>
           </li>
         </ul>
+
+        <ul className="nav-movil">
+          <li className="hamburgerMenu">
+            <button onClick={toggleMenuMobile}>
+              <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
+            </button>
+          </li>
+        </ul>
       </header>
 
       <section className="home-front">
         <div className="welcome">
           <div className="welcome-letter">
             <h1 className="letter-transition gradient">
-              Tu nuevo<span>  superpoder</span>
+              Tu nuevo<span> superpoder</span>
             </h1>
             <h1 className="letter-transition gradient">
-              Asistentes<span> Digitales ARI </span> 
+              Asistentes<span> Digitales ARI </span>
             </h1>
           </div>
 
@@ -445,14 +448,12 @@ export default function index() {
         <div className="box-flow">
           <Image src={flujoAri} width={500} height={500} alt="ari-flujo" loading="eager" unoptimized={true} />
         </div>
-
-        
       </section>
 
       <section className="home-skills">
         <button className="record">
           <ImageSvg name="Record" />
-          Digital Employess ass a service
+          Digital Employess as a service
         </button>
         <div className="title-home ">
           <h2 className="title gradient">
