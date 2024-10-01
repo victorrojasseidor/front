@@ -12,22 +12,29 @@ import ButtonGradient from '@/Components/Atoms/ButtonGradient';
 import flujoAri from '../../../public/img/flujoAri.gif';
 import simple from '../../../public/img/simple.svg';
 
+import conci from '../../../public/img/card-product/conci.svg';
+import imgconci from '../../../public/img/card-product/imgconci.svg';
+import estado from '../../../public/img/card-product/estado.svg';
+// import imgestado from '../../../public/img/card-product/imgestado.svg';
+import tipo from '../../../public/img/card-product/tipo.svg';
+import imgtipo from '../../../public/img/card-product/imgtipo.svg';
+import cap from '../../../public/img/card-product/cap.svg';
+import imgcap from '../../../public/img/card-product/imgcap.svg';
+import padro from '../../../public/img/card-product/padro.svg';
+import imgpadro from '../../../public/img/card-product/imgpadro.svg';
+import detra from '../../../public/img/card-product/detra.svg';
+// import imgdetra from '../../../public/img/card-product/imgdetra.svg';
+import vali from '../../../public/img/card-product/vali.svg';
+// import imgvali from '../../../public/img/card-product/imgvali.svg';
+import factu from '../../../public/img/card-product/factu.svg';
+import imgfactu from '../../../public/img/card-product/imgfactu.svg';
+
 import post1 from '../../../public/img/post/post1.svg';
 import post2 from '../../../public/img/post/post2.svg';
 import post3 from '../../../public/img/post/post3.svg';
 import post4 from '../../../public/img/post/post4.svg';
 import post5 from '../../../public/img/post/post5.svg';
 import post6 from '../../../public/img/post/post6.svg';
-
-import prod1 from '../../../public/img/card-product/prod1.svg';
-import prod2 from '../../../public/img//card-product/prod2.svg';
-import prod3 from '../../../public/img//card-product/prod3.svg';
-import prod4 from '../../../public/img//card-product/prod4.svg';
-import prod5 from '../../../public/img//card-product/prod5.svg';
-import prod6 from '../../../public/img//card-product/prod6.svg';
-import prod7 from '../../../public/img//card-product/prod7.svg';
-import prod8 from '../../../public/img//card-product/prod8.svg';
-import prod11 from '../../../public/img//card-product/prod11.svg';
 
 import adama from '../../../public/img/logos/adama.webp';
 import adeco from '../../../public/img/logos/adeco.webp';
@@ -38,8 +45,6 @@ import pacasmayo from '../../../public/img/logos/pacasmayo.webp';
 import unacen from '../../../public/img/logos/unacen.webp';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
-
-
 
 const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
   return (
@@ -86,22 +91,6 @@ const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
               </h3>
               <p>{prod.description}</p>
             </div>
-            {/* <figure  >
-              <Image
-                className="image-one"
-                src={prod.imageone}
-                width={200}
-                height={200}
-                alt={prod.title}
-              />
-              <Image
-                className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`}
-                src={prod.imagetwo}
-                width={200}
-                height={200}
-                alt={prod.title}
-              />
-            </figure> */}
           </div>
         );
       })}
@@ -122,7 +111,6 @@ export default function index() {
     setIsOpenMobile(!isOpenMobile);
   };
 
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init({
@@ -131,9 +119,6 @@ export default function index() {
       });
     }
   }, []);
-  
-  
-
 
   // Referencia a la sección del contador
   const counterSectionRef = useRef(null);
@@ -204,162 +189,150 @@ export default function index() {
 
   const cardAdventage = [
     {
-      title: 'Extracción de información avanzada',
+      title: t['Advanced Information Extraction'],
       icon: 'Extraction',
-      description: 'Integra más de 3,800 fuentes en una sola plataforma, permitiendo a tu equipo automatizar sus procesos de conciliación de forma rápida.',
+      description: t['Integrates over 3,800 sources into a single platform, allowing your team to automate their reconciliation processes quickly.'],
     },
     {
-      title: 'Auditable, rastreable y seguro',
+      title: t['Auditable, Traceable, and Secure'],
       icon: 'Security',
-      description: 'Segregación de funciones, escriptación de datos y log de modificaciones, asegurando el cumplimiento con altos estándares.',
+      description: t['Segregation of duties, data encryption, and modification logs ensure compliance with high standards.'],
     },
     {
-      title: 'Integración directa al ERP',
+      title: t['Direct ERP Integration'],
       icon: 'Integration',
-      description: 'Reduce el trabajo manual y mejora la precisión, asegurando que los datos financieros se actualicen en tiempo real.',
+      description: t['Reduces manual work and improves accuracy, ensuring financial data is updated in real-time.'],
     },
     {
-      title: 'Reportes y Dashboards de información consolidada',
+      title: t['Consolidated Information Reports and Dashboards'],
       icon: 'BarChart',
-      description: 'Ofrece una vista interactiva y personalizable de métricas para un monitoreo eficiente y análisis detallados.',
+      description: t['Provides an interactive and customizable view of metrics for efficient monitoring and detailed analysis.'],
     },
     {
-      title: 'Notificaciones y alarmas de control',
+      title: t['Control Notifications and Alarms'],
       icon: 'Notification',
-      description: 'Notifica a los usuarios sobre inconsistencias rápidamente, garantizando una resolución oportuna de problemas.',
+      description: t['Quickly notifies users about inconsistencies, ensuring timely resolution of issues.'],
     },
     {
-      title: 'New! Coming Soon. Human Avatar',
+      title: t['New! Coming Soon. Human Avatar'],
       icon: 'Avatar',
-      description: 'Pronto un digital Avatar podrá interactuar contigo para proporcionarte información de tus procesos de negocio.',
+      description: t['Soon a digital Avatar will be able to interact with you to provide information about your business processes.'],
     },
   ];
 
   const cardSkills = [
     {
-      title: 'Conciliación Bancaria diaria',
-      type: 'Bancos',
-      imageone: prod1,
-      imagetwo: prod2,
-      description: 'Diariamente realiza la descarga de extractos bancarios de Entidades financieras (ej. BCP, BBVA, Interbank, Caja Huancayo, BCP Miami, Pichincha, Banco de la Nación, entre muchos otros más), consolidación de información para obtener una posición de caja diaria, almacena los archivos en carpetas y expone o carga al ERP para que mediante un job se ejecuten las compensaciones (match) de partidas bancarias',
+      title: t['Daily Bank Reconciliation'],
+      type: t['Banks'],
+      imageone: conci,
+      imagetwo: imgconci,
+      description: t['Downloads bank statements from financial institutions daily (e.g. BCP, BBVA, Interbank, Caja Huancayo, BCP Miami, Pichincha, Banco de la Nación, among many others), consolidating information to obtain a daily cash position, stores files in folders, and exposes or uploads to ERP for job compensation (match) of bank entries.'],
     },
-
     {
-      title: 'Descarga de estados de cuenta',
-      type: 'Bancos',
-      imageone: prod1,
-      imagetwo: prod2,
-      description: 'Mensualmente realiza la descarga de los estados de cuenta  (ej. BCP, BBVA, Interbank, Banco de la Nación, Pichincha, Caja Huancayo, BCP Miami, entre muchos otros más),  renombra el documento y crea una estructura de carpetas de forma ordenada para que pueda almacenarlos en un repositorio de información seguro',
+      title: t['Account Statement Download'],
+      type: t['Banks'],
+      imageone: estado,
+      imagetwo: imgconci,
+      description: t['Downloads account statements monthly (e.g. BCP, BBVA, Interbank, Banco de la Nación, Pichincha, Caja Huancayo, BCP Miami, among many others), renames the document, and creates an organized folder structure for safe information repository.'],
     },
-
     {
-      title: 'Actualización diaria del tipo de cambio',
-      type: 'Bancos',
-      imageone: prod3,
-      imagetwo: prod4,
-      description: 'Diariamente extrae la información del tipo de cambio de la SBS para diferentes monedas, consolida la información para que puedan ver el histórico y fluctuaciones y luego se carga al ERP mediante un job para actualizar el tipo de cambio compra, venta y cierre (venta y compra). El proceso puede ser definido en el horario de 6pm hasta las 11:59pm o el conveniente para ti',
+      title: t['Daily Exchange Rate Update'],
+      type: t['Banks'],
+      imageone: tipo,
+      imagetwo: imgtipo,
+      description: t['Extracts exchange rate information daily from SBS for different currencies, consolidates the information for historical view and fluctuations, and then uploads it to ERP via job to update buying, selling, and closing exchange rates. The process can be scheduled between 6 PM to 11:59 PM or a convenient time for you.'],
     },
-
     {
-      title: 'IA Captcha Solver',
-
-      type: 'IA',
-      imageone: prod5,
-      imagetwo: prod6,
-      description: 'Diariamente utiliza este servicio para la resolución de capchas en cualquier página web. Puede resolver captchas simples, complejos, recaptcha V1 y recaptcha V2. Viene incluido 30 mil conexiones para la utilización de la automatización. Los tipos de captchas tienen equivalencias en las conexiones. Este componente es crucial para automatizar sus procesos',
+      title: t['AI Captcha Solver'],
+      type: t['Artificial Intelligence'],
+      imageone: cap,
+      imagetwo: imgcap,
+      description: t['Uses this service daily to solve captchas on any website. Can solve simple, complex, reCAPTCHA V1, and reCAPTCHA V2. Includes 30,000 connections for automation use. The types of captchas have equivalencies in connections. This component is crucial for automating your processes.'],
     },
-
     {
-      title: 'Actualización de padrones de SUNAT',
-
+      title: t['Update SUNAT Registries'],
       type: 'SUNAT',
-      imageone: prod7,
-      imagetwo: prod8,
-      description: 'Diariamente realiza la revisión y descarga de los padrones de Sunat, tales como, buenos contribuyentes, agentes de retención, agentes de percepción, no habidos, no hallados, entre otros. La información de la fecha de actualización se podrá ver en la aplicación. Luego se carga al ERP SAP mediante un job para actualizar el estado de los Business Partner (Acreedores) y actualización de partidas abiertas',
+      imageone: padro,
+      imagetwo: imgpadro,
+      description: t['Reviews and downloads SUNAT registries daily, such as good taxpayers, withholding agents, perception agents, absent, not found, among others. The update date will be visible in the application. Then uploads to SAP ERP via job to update the status of Business Partners (Creditors) and update open entries.'],
     },
-
     {
-      title: 'Descarga de comprobantes de detracción',
-
+      title: t['Download Detraction Receipts'],
       type: 'SUNAT',
-      imageone: prod7,
-      imagetwo: prod8,
-      description: 'Diariamente ingresa a Sunat operaciones en línea (SOL) para que pueda descargar el reporte de detracciones realizadas, con ello obtendrá el número de constancia de detracción, la fecha y otros datos importantes. Este archivo se consolida, se renombra y se almacena en un repositorio de información seguro de manera estructurada',
+      imageone: detra,
+      imagetwo: imgpadro,
+      description: t['Accesses SUNAT Online Operations (SOL) daily to download the report of deductions made, obtaining the deduction receipt number, date, and other important data. This file is consolidated, renamed, and stored in a secure information repository in a structured manner.'],
     },
-
     {
-      title: 'Validación de proveedores (Acreedores)',
-
+      title: t['Validation of Suppliers (Creditors)'],
       type: 'SUNAT',
-      imageone: prod7,
-      imagetwo: prod8,
-      description: 'Diariamente toma los XML de los comprobantes de pago emitidos por sus proveedores y realiza la validación en línea de la autenticidad del documento, además valida si es un agente de retención, buen contribuyente, si está habído o no habído, entre otros datos, para finalmente dejarte un log de validación y almacenado en una carpeta de forma segura y estructurada',
+      imageone: vali,
+      imagetwo: imgpadro,
+      description: t['Daily takes the XML of payment receipts issued by your suppliers and performs online validation of the document’s authenticity, also validating whether it is a withholding agent, good taxpayer, if it is present or not, among other data, finally leaving a validation log and stored securely and structured in a folder.'],
     },
-
     {
-      title: 'Descarga de facturas de servicios públicos',
-
-      type: 'Servicios públicos',
-      imageone: prod1,
-      imagetwo: prod11,
-      description: 'Diariamente realiza la descarga de las facturas de servicios públicos, tales como, Agua, Luz, teléfono, de distintos operadores de servicios para luego consolidarlos, renombrarlos y almancenarlos en un repositorio de información segura de manera estructurada.',
+      title: t['Download Public Utility Invoices'],
+      type: t['Public Utilities'],
+      imageone: factu,
+      imagetwo: imgfactu,
+      description: t['Downloads invoices for public utilities daily, such as water, electricity, and telephone from various service operators, then consolidates, renames, and stores them in a secure information repository in a structured manner.'],
     },
   ];
 
-  const cardInsigths = [
+  const cardInsights = [
     {
-      title: 'IA Generativa se afianza en el backoffice financiero',
-      autor: 'Menagen Muriagui',
-      date: 'June 28, 2018',
+      title: t['Generative AI Strengthens Financial Back Office'],
+      author: t['Menagen Muriagui'],
+      date: t['June 28, 2018'],
       image: post1,
-      type: 'Financial services',
-      description: 'La tecnología aumentará las capacidades de los agentes de seguros y ayudará a los clientes a realizar transacciones más sencillas por sí mismos.',
-      link: '/insigths/post-ia-genativa',
+      type: t['Financial Services'],
+      description: t['Technology will enhance the capabilities of insurance agents and help clients perform simpler transactions on their own.'],
+      link: '/insights/post-generative-ai',
     },
     {
-      title: 'Los nuevos agentes digitales son una tendencia',
-      autor: 'Jorge Pérez',
-      date: 'September 10, 2020',
+      title: t['New Digital Agents are a Trend'],
+      author: t['Jorge Pérez'],
+      date: t['September 10, 2020'],
       image: post2,
-      type: 'Innovation',
-      description: 'La tecnología aumentará las capacidades de los agentes de seguros y ayudará a los clientes a realizar transacciones más sencillas por sí mismos.',
-      link: '/insigths/post-agentes-digitales',
+      type: t['Innovation'],
+      description: t['Technology will enhance the capabilities of insurance agents and help clients perform simpler transactions on their own.'],
+      link: '/insights/post-digital-agents',
     },
     {
-      title: 'Cómo aplicar la IA en las áreas de finanzas, contabilidad e impuestos',
-      autor: 'Claudia Martín',
-      date: 'March 15, 2021',
+      title: t['How to Apply AI in Finance, Accounting, and Taxes'],
+      author: t['Claudia Martín'],
+      date: t['March 15, 2021'],
       image: post3,
-      type: 'Technologies',
-      description: 'La tecnología aumentará las capacidades de los agentes de seguros y ayudará a los clientes a realizar transacciones más sencillas por sí mismos.',
-      link: '/insigths/post-aplicar-ia-finanzas',
+      type: t['Technologies'],
+      description: t['Technology will enhance the capabilities of insurance agents and help clients perform simpler transactions on their own.'],
+      link: '/insights/post-apply-ai-finance',
     },
     {
-      title: 'Automatización en el análisis de riesgos con IA',
-      autor: 'Laura Gómez',
-      date: 'July 22, 2022',
+      title: t['Automation in Risk Analysis with AI'],
+      author: t['Laura Gómez'],
+      date: t['July 22, 2022'],
       image: post4,
-      type: 'AI & Automation',
-      description: 'El análisis de riesgos se vuelve más eficiente al automatizar procesos clave, reduciendo el margen de error humano.',
-      link: '/insigths/post-automatizacion-analisis-riesgos',
+      type: t['AI & Automation'],
+      description: t['Risk analysis becomes more efficient by automating key processes, reducing human error margins.'],
+      link: '/insights/post-automation-risk-analysis',
     },
     {
-      title: 'IA y el futuro del servicio al cliente',
-      autor: 'Carlos Fernández',
-      date: 'August 30, 2023',
+      title: t['AI and the Future of Customer Service'],
+      author: t['Carlos Fernández'],
+      date: t['August 30, 2023'],
       image: post5,
-      type: 'Customer Service',
-      description: 'Los agentes virtuales impulsados por IA mejoran la experiencia del cliente, ofreciendo respuestas rápidas y precisas a consultas comunes.',
-      link: '/insigths/post-ia-servicio-al-cliente',
+      type: t['Customer Service'],
+      description: t['AI-powered virtual agents improve customer experience by providing quick and accurate responses to common inquiries.'],
+      link: '/insights/post-ai-customer-service',
     },
     {
-      title: 'Blockchain e IA: Una alianza para la seguridad financiera',
-      autor: 'Ana Rodríguez',
-      date: 'November 5, 2023',
+      title: t['Blockchain and AI: An Alliance for Financial Security'],
+      author: t['Ana Rodríguez'],
+      date: t['November 5, 2023'],
       image: post6,
-      type: 'Financial Security',
-      description: 'La combinación de blockchain e IA está redefiniendo la seguridad en el sector financiero, mejorando la transparencia y la protección de datos.',
-      link: '/insigths/post-blockchain-ia-seguridad',
+      type: t['AI & Automation'],
+      description: t['The combination of blockchain and AI is redefining security in the financial sector, improving transparency and data protection.'],
+      link: '/insights/post-blockchain-ai-security',
     },
   ];
 
@@ -379,20 +352,20 @@ export default function index() {
 
           {menuData.map((menu) => (
             <li className="languaje-white" key={menu.label}>
-              <Link href={menu.link}>{menu.label}</Link>
+              <Link href={menu.link}>{t[menu.label]}</Link>
             </li>
           ))}
 
           <li>
             <button className="btn_white" onClick={() => router.push('/login')}>
               <ImageSvg name="Profile" />
-              Ingresar a ARI
+              {t['Log in to ARI']}
             </button>
           </li>
 
           <li>
             <button className="btn_white white" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
-              Solicitar demo
+              {t['Request demo']}
             </button>
           </li>
         </ul>
@@ -410,10 +383,12 @@ export default function index() {
         <div className="welcome">
           <div className="welcome-letter">
             <h1 className="letter-transition gradient">
-              Tu nuevo<span> superpoder</span>
+              {t['Your new']}
+              <span> {t['superpower']}</span>
             </h1>
             <h1 className="letter-transition gradient">
-              Asistentes<span> Digitales ARI </span>
+              {t['Assistants']}
+              <span> {t['digital ARI']} </span>
             </h1>
           </div>
 
@@ -424,12 +399,12 @@ export default function index() {
           </p>
         </div>
 
-        <button className="record">
+        <button className="record" onClick={()=>router.push('https://www.seidor.com/es-pe/contacto')}>
           <ImageSvg name="Record" />
-          Ver demo gratuita
+          {t['View free demo']}
         </button>
 
-        <div className="image-dashboard" data-aos="fade-down" >
+        <div className="image-dashboard" data-aos="fade-down">
           <Image src={front} width={1000} height={1000} alt="dashboard" />
         </div>
 
@@ -441,7 +416,7 @@ export default function index() {
             </li>
             <li className="">
               <span>{isCounterSectionInView ? <Counter initialValue={8} finalValue={20} /> : 20}</span>
-              <p>{t['Included Skills to Digital Employees']}</p>
+              <p>{t['Included Skills for Digital Employees']}</p>
             </li>
             <li className="">
               <span>{isCounterSectionInView ? <Counter initialValue={70} finalValue={78} /> : 78} % </span>
@@ -451,63 +426,62 @@ export default function index() {
         </section>
       </section>
 
-      <section className="home-flow" >
-        <ButtonGradient classButt="whiteButton">POR QUÉ ELEGIRNOS</ButtonGradient>
+      <section className="home-flow">
+        <ButtonGradient classButt="whiteButton">{t['WHY CHOOSE US']}</ButtonGradient>
 
         <div className="title-home blacktext" data-aos="zoom-in">
           <h2 className="title gradient">
-            Ari <span> Conecta datos </span> financieros y comprende el comportamiento
+            {t['Ari']} <span> {t['Connects financial']} </span> {t['data and understands behavior']}
           </h2>
 
-          <p className=""> ARI es la mano de obra basada en software, impulsada por inteligencia artificial, que ejecuta de forma autónoma procesos de trabajo end-to-end utilizando un conjunto diverso de habilidades.</p>
+          <p className="">{t['ARI is the software-based workforce powered by artificial intelligence that autonomously executes end-to-end workflows using a diverse set of skills.']}</p>
         </div>
 
         <div className="box-flow">
-          <Image src={flujoAri} width={500} height={500} alt="ari-flujo" loading="eager" unoptimized={true} />
+          <Image src={flujoAri} width={500} height={500} alt="ari-flow" loading="eager" unoptimized={true} />
         </div>
       </section>
 
-      <section className="home-skills"  >
+      <section className="home-skills">
         <button className="record">
-          <ImageSvg name="Record" />
-          Digital Employess as a service
+          <ImageSvg name="Avatar" />
+          Digital Employees as a Service
         </button>
         <div className="title-home " data-aos="zoom-in">
           <h2 className="title gradient">
-            Potencia tus operaciones con nuestras +8
-            <span> habilidades avanzadas </span>
-            de ARI Digital Employees
+            {t['Empower your operations with our']} +8
+            <span> {t['advanced skills']} </span>
+            {t['of ARI Digital Employees']}
           </h2>
 
-          <p className=""> Las habilidades avanzadas de ARI son tareas automatizadas realizadas por nuestros Digital Employees que simplifican procesos operativos en áreas como finanzas, comercial, recursos humanos y tecnología. Estas habilidades avanzadas permiten a los usuarios adaptar ARI a sus procesos de negocio, mejorando la eficiencia y liberando tiempo para enfocarse en actividades estratégicas.</p>
+          <p className="">{t['The advanced skills of ARI are automated tasks performed by our Digital Employees that simplify operational processes in areas such as finance, sales, human resources, and technology. These advanced skills allow users to adapt ARI to their business processes, improving efficiency and freeing up time to focus on strategic activities.']}</p>
         </div>
 
-        <ButtonGradient> Qué hacemos </ButtonGradient>
+        <ButtonGradient>{t['What we do']}</ButtonGradient>
 
         <div className="container-process">
-          
           <div className="box-process">
             <SkillsCard cardSkills={cardSkills} setskillView={setskillView} setIsImageInView={setIsImageInView} />
           </div>
 
           <article className="box-images">
             <figure>
-              <Image className="image-one" src={skillView?.imageone} width={200} height={200} alt="jemeplo" />
-              <Image className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`} src={skillView?.imagetwo} width={200} height={200} alt="ejemplo" />
+              <Image className="image-one" src={skillView?.imageone} width={200} height={200} alt="example" />
+              <Image className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`} src={skillView?.imagetwo} width={200} height={200} alt="example" />
             </figure>
           </article>
         </div>
       </section>
 
-      <section className="home-advantages" >
-        <ButtonGradient classButt="whiteButton">CARACTERÍSTICAS </ButtonGradient>
+      <section className="home-advantages">
+        <ButtonGradient classButt="whiteButton">{t['FEATURES']}</ButtonGradient>
 
-        <div className="title-home blacktext"  data-aos="zoom-in" >
+        <div className="title-home blacktext" data-aos="zoom-in">
           <h2 className="title gradient">
-            Descubre el <span> potencial </span> de ARI Digital Employees
+            {t['Discover the']} <span> {t['potential']} </span> {t['of ARI Digital Employees']}
           </h2>
 
-          <p> Fácil de usar, rápido de implementar y versátil para automatizar tus procesos de negocio.</p>
+          <p>{t['Easy to use, quick to implement, and versatile to automate your business processes.']}</p>
         </div>
 
         <div className="box-advantage" data-aos="fade-up">
@@ -521,7 +495,7 @@ export default function index() {
         </div>
       </section>
 
-      <section className="home-simple" >
+      <section className="home-simple">
         <figure data-aos="fade-right">
           <Image src={simple} width={500} height={500} alt="img-simple" />
         </figure>
@@ -529,72 +503,62 @@ export default function index() {
         <div className="simple-box">
           <div className="title-home blacktext" data-aos="zoom-in">
             <h2 className="title gradient">
-              Configura en <span> simples pasos</span> tus asistentes digitales con IA
+              {t['Set up your digital assistants with AI in']} <span> {t['simple steps']} </span>
             </h2>
 
-            <p> Solicita una demo y podrás visualizar lo simple que es configurar las habilidades de tu empleado digital Ari, la automatización y la inteligencia artificial avanzadas ofrecen una gran experiencia al cliente a un precio accesible. </p>
+            <p>{t['Digital technologies, automation, and advanced artificial intelligence provide a great customer experience at an accessible price.']}</p>
 
-            <ButtonGradient classButt="whiteButton"> SOLICITAR DEMO </ButtonGradient>
+            <ButtonGradient classButt="whiteButton" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
+              {t['REQUEST DEMO']}
+            </ButtonGradient>
 
             <div className="simples-skills">
-              <span>FINANZAS Y CONTABILIDAD</span>
-              <span>RECURSOS HUMANOS</span>
-              <span>TECNOLOGÍA</span>
+              <span>{t['FINANCE AND ACCOUNTING']}</span>
+              <span>{t['HUMAN RESOURCES']}</span>
+              <span>{t['TECHNOLOGY']}</span>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="home-insigths" >
-        <div className="title-home "  data-aos="fade-up" >
-          {/* <h2 className="title gradient">
-            Potencia tus operaciones con nuestras +8
-            <span> habilidades avanzadas </span>
-            de ARI Digital Employees
-          </h2> */}
+      <section className="home-insigths">
+        <div className="title-home" data-aos="fade-up">
+          <ButtonGradient>{t['INSIGHTS']}</ButtonGradient>
 
-          <ButtonGradient> INSIGHTS </ButtonGradient>
-
-          <p className=""> Análisis de expertos, pensamiento audaz y recopilación de datos para líderes que desean lograr lo extraordinario </p>
+          <p className="">{t['Expert analysis, bold thinking, and data gathering for leaders who want to achieve the extraordinary.']}</p>
         </div>
 
-        <div className="box-insigths"   >
-          {cardInsigths.map((card, index) => (
+        <div className="box-insigths">
+          {cardInsights.map((card, index) => (
             <article key={index} className="insigths">
-              <figure className="insigths-image">
-                <Image src={card.image} width={40} height={40} alt="insigths" />
-                <span>{card.type}</span>
+              <figure className="insigths-image gradient">
+                <Image src={card.image} width={40} height={40} alt="insights" />
+                <div className="title">
+                  <span>{card.type}</span>
+                  <Link href="/example-route">
+                    <h3>{card.title}</h3>{' '}
+                  </Link>
+                </div>
               </figure>
 
-              <Link href="/ruta-ejemplo">
-                {' '}
-                <h3>{card.title}</h3>{' '}
-              </Link>
-
-              <div className="insigths-date">
-                <span>{card.autor}</span>
-                <span>{card.date}</span>
+              <div className="box-description">
+                <div className="insigths-date">
+                  <span>{card.autor}</span>
+                  <span>{card.date}</span>
+                </div>
+                <p className="insigths-description">{card.description}</p>
               </div>
-
-              <p className="insigths-description">{card.description}</p>
-              {/* <Link href="/ruta-ejemplo" className="insigths-link">
-                Ver post
-                <ImageSvg name="ArrowUp" />
-              </Link> */}
             </article>
           ))}
         </div>
       </section>
 
       <section className="home-client">
-        <ButtonGradient classButt="whiteButton">NUESTROS CLIENTES </ButtonGradient>
+        <ButtonGradient classButt="whiteButton">{t['OUR CLIENTS']} </ButtonGradient>
 
         <div className="title-home blacktext" data-aos="zoom-in">
-          <h2 className="title gradient">
-            {' '}
-            <span> Confian</span> en Ari
-          </h2>
-          <p> Empresas de clase mundial ya cuentan con nuestros empleados digitales</p>
+          <h2>{t['Our customers believe in us']}</h2>
+          <p>{t['They have discovered the benefits of automating their financial processes with ARI.']}</p>
         </div>
 
         <article key={index} className="box-client" data-aos="flip-left">
@@ -606,5 +570,7 @@ export default function index() {
         </article>
       </section>
     </section>
+
+    
   );
 }

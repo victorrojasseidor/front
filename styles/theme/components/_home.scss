@@ -94,7 +94,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 3.5rem;
+      gap: 3rem;
 
 
       @include media(tablet) {
@@ -107,14 +107,18 @@
         display: inline-block;
         text-wrap: wrap;
         line-height: 130%;
-
-        padding-top: 0rem;
+        padding-top: 1rem;
 
 
         text-align: center;
         color: rgba(get-color(forms_s6), 0.85);
 
         @include media(tablet) {
+          padding-top: 0rem;
+          max-width: 50vw;
+        }
+
+        @include media(desktop) {
           padding-top: 1rem;
           max-width: 50vw;
         }
@@ -128,8 +132,8 @@
 
 
         h1 {
-          font-size: 3rem;
-          line-height: 0.5;
+          font-size: 2.5rem;
+          line-height: 0;
           font-weight: 500;
           display: flex;
           text-align: end;
@@ -145,7 +149,7 @@
           }
 
           @include media(desktop) {
-            font-size: 4rem;
+            font-size: 4.5rem;
             line-height: 1.2;
           }
 
@@ -449,10 +453,15 @@
 
         span {
           font-size: 1rem;
-          font-weight: 300;
-          color: rgba(get-color(t2-ligthBlue), 1);
+          text-transform: uppercase;
+          font-weight: 400;
+          color: rgba(get-color(white_s1), 1);
           padding-bottom: 0rem;
           margin-bottom: 0rem;
+          text-shadow: 0 0 10px rgba(182, 140, 240, 0.8),
+          0 0 20px rgba(15, 0, 15, 0.6);
+filter: brightness(1);
+letter-spacing: 2px; /* Aumenta el espaciado entre letras */
         }
       }
 
@@ -586,6 +595,7 @@
     }
 
 
+   
 
     .title-home {
 
@@ -596,12 +606,31 @@
       text-align: right;
     }
 
+    // p{
+    //   margin-left: 1rem;
+      
+    // }
+    
+
   }
 
   .box-container-gradient {
     align-self: flex-end;
-    margin-top: 1rem;
+    // margin-top: 1rem;
+    button{
+      cursor: pointer;
+    }
+    
   }
+
+  .simple-box{
+ 
+    height: max-content;
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 4rem;
+  }
+
 
   figure {
 
@@ -627,7 +656,7 @@
       }
 
       @include media(desktop) {
-        height: 45rem;
+        height: 35rem;
 
       }
 
@@ -637,14 +666,18 @@
 
   .simples-skills {
     width: 100%;
-
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 2rem;
-    font-weight: 300;
+ 
+    font-weight: 400;
+    color:rgba(get-color(black_p2), 1);
+
+    @include media(tablet) {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
   }
 
 }
@@ -673,43 +706,33 @@
 
   .insigths {
     max-width: 40rem;
+
     background-color: transparent;
     display: flex;
+    height: max-content;
     justify-content: space-between;
-
-    // padding:  1rem ;
-    // border-radius: brd(2);
-    //  box-shadow: bsh(3);
-    //  border:0.5px solid get-color(white_s1);
-
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%; // Asegura que todas las cards tengan la misma altura
-    gap: 0.75rem;
+    gap: 1rem;
 
-    // &:hover,
-    // &:focus {
-    //   background-image: linear-gradient(90deg, #560969, #5778EA, #0b0224);
-    //   background-size: 200% 200%;
-    //   /* Aumenta el tamaño para un mejor efecto de movimiento */
-    //   animation: gradientAnimation 5s linear infinite;
-    //   /* Añade la animación del fondo */
+ 
+
+
+    // &>*:not(figure, h3) {
+    //   padding-left: 1rem;
+    //   /* Ajusta el valor del padding según sea necesario */
+    //   padding-right: 1rem;
+
     // }
 
 
-    &>*:not(figure) {
-      padding-left: 1rem;
-      /* Ajusta el valor del padding según sea necesario */
-      padding-right: 1rem;
-
-    }
 
     figure {
 
       @include media(tablet) {
-        height: 10rem;
+        // height: 10rem;
       }
 
       display: flex;
@@ -728,124 +751,139 @@
 
       img {
         width: 100%;
-        /* Ocupa todo el ancho del contenedor */
-        height: 100%;
+        /* Ocupa todo el5 ancho del contenedor */
+        height: 15rem;
         /* Ocupa todo el alto del contenedor */
         object-fit: cover;
-        filter: grayscale(30%);
+        filter: grayscale(0%);
         /* Inicialmente la imagen estará un poco gris */
         transition: filter 0.3s ease;
         /* Animación suave para el cambio de filtro */
+      
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7); /* Sombra interna negruzca */
+       
+     
+      
       }
 
-      span {
+      .title{
         position: absolute;
-        font-size: 0.75rem;
-        bottom: 5%;
-        margin-left: 1rem;
-        color: rgba(get-color(white_s1), 0.8);
-      }
-    }
-
-
-
-
-
-
-    h3 {
-      color: rgba(get-color(white_s1), 1);
-      position: relative;
-      display: inline-block;
-
-      // Estilos iniciales sin subrayado
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0; // Ajusta la posición del subrayado
-        width: 100%;
-        height: 2px;
-        // background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
-
-        background-image: linear-gradient(90deg, #d037d8, #6640ff 75%, #0ea4ca);
-
-        transform: scaleX(0); // Inicialmente oculto
-        transform-origin: left;
-        transition: transform 0.4s ease;
-      }
-
-      // Efecto hover para el subrayado
-      &:hover::before {
-        transform: scaleX(1); // Se expande al pasar el mouse
-      }
-
-
-      @include media(tablet) {
-        height: 4.5rem;
-      }
-
-      cursor:pointer;
-      font-size: 1.2rem;
-      font-weight: 300;
-      overflow: hidden;
-      display: -webkit-box;
-      /* Caja flexible compatible con WebKit */
-      -webkit-line-clamp: 3;
-      /* Limita el número de líneas visibles */
-      -webkit-box-orient: vertical;
-      /* Orientación vertical */
-      text-overflow: ellipsis;
-      /* Puntos suspensivos al final */
-      /* Muestra puntos suspensivos si el texto no cabe */
-    }
-
-    .insigths-date {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-
-      color: rgba(get-color(white_s1), 0.6);
-
-
-    }
-
-
-    .insigths-description {
-      font-size: 0.75rem;
-      text-align: justify;
-      color: rgba(get-color(white_s1), 0.8);
-
-      @include media(tablet) {
-        height: 5rem;
-      }
-
-    }
-
-    .insigths-link {
-
-      color: get-color(white_s1);
-      padding-bottom: 1rem;
-      display: flex;
-      flex-direction: row;
-      font-weight: 300;
-
-      svg {
-        height: 1rem;
         display: flex;
-        align-self: flex-end;
-        //  align-items: flex-end;
-        transform: rotate(45deg);
-        /* Rota el SVG 45 grados */
-        transform-origin: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        text-align: left;
+        padding: 1rem;
+        font-size: 0.8rem;
+        right: 0;
+        left: 0;
+        letter-spacing: 2px;
+        top: 50%;
+        gap:0.5rem;
 
-        /* Establece el origen de la rotación en el centro del SVG */
-        path {
-          fill: get-color(white_s1)
+        // margin-left: 1rem;
+        background-color: rgba(get-color(black_p2), 0.65) ;
+
+        span {
+          font-weight: 400;
+                    text-transform: uppercase;
+          color: rgba(get-color(white_s1), 0.8);
+        }
+
+        h3 {
+          color: rgba(get-color(white_s1), 1);
+          position: relative;
+          display: inline-block;
+          
+         
+    
+          // Estilos iniciales sin subrayado
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0; // Ajusta la posición del subrayado
+            width: 100%;
+            height: 2px;
+            // background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+    
+            background-image: linear-gradient(90deg, #d037d8, #6640ff 75%, #0ea4ca);
+    
+            transform: scaleX(0); // Inicialmente oculto
+            transform-origin: left;
+            transition: transform 0.4s ease;
+          }
+    
+          // Efecto hover para el subrayado
+          &:hover::before {
+            transform: scaleX(1); // Se expande al pasar el mouse
+          }
+    
+    
+          @include media(tablet) {
+            height: 4.5rem;
+          }
+    
+          cursor:pointer;
+          font-size: 1.2rem;
+          font-weight: 300;
+          overflow: hidden;
+          display: -webkit-box;
+          /* Caja flexible compatible con WebKit */
+          -webkit-line-clamp: 3;
+          /* Limita el número de líneas visibles */
+          -webkit-box-orient: vertical;
+          /* Orientación vertical */
+          text-overflow: ellipsis;
+          /* Puntos suspensivos al final */
+          /* Muestra puntos suspensivos si el texto no cabe */
         }
       }
 
+      
     }
+
+
+.box-description{
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap:0.5rem;
+ 
+
+
+  .insigths-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: rgba(get-color(white_s1), 0.6);
+    
+  
+  }
+
+
+  .insigths-description {
+
+    font-size: 0.75rem;
+    text-align: justify;
+    color: rgba(get-color(white_s1), 0.8);
+
+    @include media(tablet) {
+      height: 8rem;
+    }
+
+    @include media(tablet) {
+      height: 6rem;
+    }
+
+  }
+}
+   
+
+
+
+   
 
 
 
