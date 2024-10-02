@@ -61,10 +61,10 @@ const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
                   setIsImageInView(true);
                   setskillView(prod);
 
-                  console.log(`Imagen en vista: ${prod.title}`);
+                  // console.log(`Imagen en vista: ${prod.title}`);
                 } else {
                   setIsImageInView(false);
-                  console.log(`Imagen fuera de vista: ${prod.title}`);
+                  // console.log(`Imagen fuera de vista: ${prod.title}`);
                 }
               });
             },
@@ -122,9 +122,6 @@ export default function index() {
 
   // Referencia a la sección del contador
   const counterSectionRef = useRef(null);
-
-  console.log('isImageInView', isImageInView);
-  console.log('skillView', skillView);
 
   // Función para observar si la sección del contador está en vista
   useEffect(() => {
@@ -185,6 +182,37 @@ export default function index() {
       link: '/#insights',
       submenus: [],
     },
+  ];
+
+  const menuMovil = [
+    {
+      label: t['Home'],
+      link: '/#front',
+      submenus: [],
+    },
+
+    {
+      label: t['What we do'],
+      link: '/#skills',
+      submenus: [],
+    },
+    {
+      label: t['WHY CHOOSE US'],
+      link: '/#flow',
+      submenus: [],
+    },
+
+    {
+      label: 'Insigths',
+      link: '/#insights',
+      submenus: [],
+    },
+
+    // {
+    //   label: 'Clientes',
+    //   link: '/#client',
+    //   submenus: [],
+    // }
   ];
 
   const cardAdventage = [
@@ -352,7 +380,9 @@ export default function index() {
 
           {menuData.map((menu) => (
             <li className="languaje-white" key={menu.label}>
-              <Link href={menu.link} scroll={false} >{menu.label}</Link>
+              <Link href={menu.link} scroll={false}>
+                {menu.label}
+              </Link>
             </li>
           ))}
 
@@ -376,10 +406,36 @@ export default function index() {
               <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
             </button>
           </li>
+
+          <div className={`movil-options ${isOpenMobile ? 'openMovil' : ''}`}>
+            {menuMovil.map((menu) => (
+              <li className="languaje-white list-options" key={menu.label}>
+                <Link href={menu.link} scroll={false}>
+                  {' '}
+                  <a onClick={() => setIsOpenMobile(!isOpenMobile)}>{menu.label}</a>
+                </Link>
+              </li>
+            ))}
+
+            <div className="box-buttons-movil">
+              <button className="btn_white" onClick={() => router.push('/login')}>
+                <ImageSvg name="Profile" />
+                {t['Log in to ARI']}
+              </button>
+
+              <button className="btn_white white" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
+                {t['Request demo']}
+              </button>
+
+              <li className="languaje-white">
+                <Lang />
+              </li>
+            </div>
+          </div>
         </ul>
       </header>
 
-      <section className="home-front">
+      <section className="home-front" id="front">
         <div className="welcome">
           <div className="welcome-letter">
             <h1 className="letter-transition gradient">
@@ -392,13 +448,10 @@ export default function index() {
             </h1>
           </div>
 
-          <p className="text-description">
-   
-            {t['ARI Digital Employees automates repetitive tasks with artificial intelligence, freeing finance teams to focus on strategic and high-value activities. Optimize your processes, reduce costs and transform your business with our solution']}
-          </p>
+          <p className="text-description">{t['ARI Digital Employees automates repetitive tasks with artificial intelligence, freeing finance teams to focus on strategic and high-value activities. Optimize your processes, reduce costs and transform your business with our solution']}</p>
         </div>
 
-        <button className="record" onClick={()=>router.push('https://www.seidor.com/es-pe/contacto')}>
+        <button className="record" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
           <ImageSvg name="Record" />
           {t['View free demo']}
         </button>
@@ -425,7 +478,7 @@ export default function index() {
         </section>
       </section>
 
-      <section className="home-flow">
+      <section className="home-flow" id='flow'>
         <ButtonGradient classButt="whiteButton">{t['WHY CHOOSE US']}</ButtonGradient>
 
         <div className="title-home blacktext" data-aos="zoom-in">
@@ -441,7 +494,7 @@ export default function index() {
         </div>
       </section>
 
-      <section className="home-skills">
+      <section className="home-skills" id="skills">
         <button className="record">
           <ImageSvg name="Avatar" />
           Digital Employees as a Service
@@ -472,7 +525,7 @@ export default function index() {
         </div>
       </section>
 
-      <section className="home-advantages">
+      <section className="home-advantages" id="advantages">
         <ButtonGradient classButt="whiteButton">{t['FEATURES']}</ButtonGradient>
 
         <div className="title-home blacktext" data-aos="zoom-in">
@@ -552,7 +605,7 @@ export default function index() {
         </div>
       </section>
 
-      <section className="home-client">
+      <section className="home-client" id="client">
         <ButtonGradient classButt="whiteButton">{t['OUR CLIENTS']} </ButtonGradient>
 
         <div className="title-home blacktext" data-aos="zoom-in">
@@ -569,7 +622,5 @@ export default function index() {
         </article>
       </section>
     </section>
-
-    
   );
 }
