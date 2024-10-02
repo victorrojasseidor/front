@@ -52,8 +52,8 @@
       "Direct ERP Integration": "Integración Directa de ERP",
       "Consolidated Information Reports and Dashboards": "Informes Consolidados de Información y Dashboards",
       "Control Notifications and Alarms": "Control de Notificaciones y Alarmas",
-      "New! Coming Soon. Human Avatar": "¡Nuevo! Próximamente. Avatar Humano",
-      "Integrates over 3,800 sources into a single platform, allowing your team to automate their reconciliation processes quickly.": "Integra más de 3,800 fuentes en una sola plataforma, permitiendo a tu equipo automatizar rápidamente sus procesos de conciliación.",
+      "New! Coming Soon. Human Avatar": "¡Nuevo! Próximamente. Human Avatar",
+      "Integrates over 25 sources into a single platform, allowing your team to automate their reconciliation processes quickly.": "Integra más de 25 fuentes en una sola plataforma, permitiendo a tu equipo automatizar rápidamente sus procesos de conciliación.",
       "Segregation of duties, data encryption, and modification logs ensure compliance with high standards.": "La segregación de funciones, el cifrado de datos y los registros de modificación garantizan el cumplimiento de altos estándares.",
       "Reduces manual work and improves accuracy, ensuring financial data is updated in real-time.": "Reduce el trabajo manual y mejora la precisión, asegurando que los datos financieros se actualicen en tiempo real.",
       "Provides an interactive and customizable view of metrics for efficient monitoring and detailed analysis.": "Proporciona una vista interactiva y personalizable de las métricas para un monitoreo eficiente y un análisis detallado.",
@@ -61,6 +61,7 @@
       "Soon a digital Avatar will be able to interact with you to provide information about your business processes.": "Pronto un Avatar digital podrá interactuar contigo para proporcionar información sobre tus procesos empresariales.",
       "Daily Bank Reconciliation": "Conciliación Bancaria Diaria",
       "Banks": "Bancos",
+      "FOREIGN EXCHANGE MARKET":"MERCADO DE DIVISAS",
       "Artificial Intelligence":"Inteligencia artificial",
       "Public Utilities":"Servicios públicos",
             "Downloads bank statements from financial institutions daily (e.g. BCP, BBVA, Interbank, Caja Huancayo, BCP Miami, Pichincha, Banco de la Nación, among many others), consolidating information to obtain a daily cash position, stores files in folders, and exposes or uploads to ERP for job compensation (match) of bank entries.": "Descarga estados de cuenta bancarios de instituciones financieras a diario (e.g. BCP, BBVA, Interbank, Caja Huancayo, BCP Miami, Pichincha, Banco de la Nación, entre otros), consolidando información para obtener una posición de efectivo diaria, almacena archivos en carpetas y expone o sube a ERP para la compensación de trabajos (coincidencia) de entradas bancarias.",
@@ -104,7 +105,7 @@
       "The combination of blockchain and AI is redefining security in the financial sector, improving transparency and data protection.":"La combinación de blockchain e IA está redefiniendo la seguridad en el sector financiero, mejorando la transparencia y la protección de datos.",
       "AI-powered virtual agents improve customer experience by providing quick and accurate responses to common inquiries.": "Los agentes virtuales impulsados por IA mejoran la experiencia del cliente al proporcionar respuestas rápidas y precisas a consultas comunes.", 
         
-      
+       "ARI Digital Employees automates repetitive tasks with artificial intelligence, freeing finance teams to focus on strategic and high-value activities. Optimize your processes, reduce costs and transform your business with our solution":"ARI Digital Employees automatiza tareas repetitivas con inteligencia artificial, liberando a los equipos financieros para enfocarse en actividades estratégicas y de alto valor. Optimiza tus procesos, reduce costos y transforma tu negocio con nuestra solución",
         "Your new": "Tu nuevo",
         "superpower": "superpoder",
         "Assistants":"Asistentes",

@@ -44,6 +44,7 @@
     "Leader in automated processes": "Leader in automated processes"
   },
   "home": {
+
     
       "Advanced Information Extraction": "Advanced Information Extraction",
       "Auditable, Traceable, and Secure": "Auditable, Traceable, and Secure",
@@ -51,7 +52,7 @@
       "Consolidated Information Reports and Dashboards": "Consolidated Information Reports and Dashboards",
       "Control Notifications and Alarms": "Control Notifications and Alarms",
       "New! Coming Soon. Human Avatar": "New! Coming Soon. Human Avatar",
-      "Integrates over 3,800 sources into a single platform, allowing your team to automate their reconciliation processes quickly.": "Integrates over 3,800 sources into a single platform, allowing your team to automate their reconciliation processes quickly.",
+      "Integrates over 25 sources into a single platform, allowing your team to automate their reconciliation processes quickly.": "Integrates over 25 sources into a single platform, allowing your team to automate their reconciliation processes quickly.",
       "Segregation of duties, data encryption, and modification logs ensure compliance with high standards.": "Segregation of duties, data encryption, and modification logs ensure compliance with high standards.",
       "Reduces manual work and improves accuracy, ensuring financial data is updated in real-time.": "Reduces manual work and improves accuracy, ensuring financial data is updated in real-time.",
       "Provides an interactive and customizable view of metrics for efficient monitoring and detailed analysis.": "Provides an interactive and customizable view of metrics for efficient monitoring and detailed analysis.",
@@ -59,6 +60,7 @@
       "Soon a digital Avatar will be able to interact with you to provide information about your business processes.": "Soon a digital Avatar will be able to interact with you to provide information about your business processes.",
       "Daily Bank Reconciliation": "Daily Bank Reconciliation",
       "Banks": "Banks",
+      "FOREIGN EXCHANGE MARKET":"FOREIGN EXCHANGE MARKET",
       "Downloads bank statements from financial institutions daily (e.g. BCP, BBVA, Interbank, Caja Huancayo, BCP Miami, Pichincha, Banco de la Nación, among many others), consolidating information to obtain a daily cash position, stores files in folders, and exposes or uploads to ERP for job compensation (match) of bank entries.": "Downloads bank statements from financial institutions daily (e.g. BCP, BBVA, Interbank, Caja Huancayo, BCP Miami, Pichincha, Banco de la Nación, among many others), consolidating information to obtain a daily cash position, stores files in folders, and exposes or uploads to ERP for job compensation (match) of bank entries.",
       "Account Statement Download": "Account Statement Download",
       "Downloads account statements monthly (e.g. BCP, BBVA, Interbank, Banco de la Nación, Pichincha, Caja Huancayo, BCP Miami, among many others), renames the document, and creates an organized folder structure for safe information repository.": "Downloads account statements monthly (e.g. BCP, BBVA, Interbank, Banco de la Nación, Pichincha, Caja Huancayo, BCP Miami, among many others), renames the document, and creates an organized folder structure for safe information repository.",
@@ -80,6 +82,7 @@
       "June 28, 2018": "June 28, 2018",
       "Financial Services": "Financial Services",
      
+
       "Technology will enhance the capabilities of insurance agents and help clients perform simpler transactions on their own.": "Technology will enhance the capabilities of insurance agents and help clients perform simpler transactions on their own.",
       "New Digital Agents are a Trend": "New Digital Agents are a Trend",
       "Jorge Pérez": "Jorge Pérez",
@@ -104,7 +107,7 @@
       "AI-powered virtual agents improve customer experience by providing quick and accurate responses to common inquiries.": "AI-powered virtual agents improve customer experience by providing quick and accurate responses to common inquiries.",
       
       
-      
+        "ARI Digital Employees automates repetitive tasks with artificial intelligence, freeing finance teams to focus on strategic and high-value activities. Optimize your processes, reduce costs and transform your business with our solution":"ARI Digital Employees automates repetitive tasks with artificial intelligence, freeing finance teams to focus on strategic and high-value activities. Optimize your processes, reduce costs and transform your business with our solution",
         "Your new": "Your new",
         "superpower": "superpower",
         "Digital": "Digital",
@@ -114,6 +117,7 @@
         "ARI Digital Employees, powered by AI": "ARI Digital Employees, powered by AI",
         "automate repetitive tasks": "automate repetitive tasks",
         "allowing finance teams to focus on more strategic and valuable activities": "allowing finance teams to focus on more strategic and valuable activities",
+        
         "Log in to ARI": "Log in to ARI",
         "Request demo": "Request demo",
         "View free demo": "View free demo",

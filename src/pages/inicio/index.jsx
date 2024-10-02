@@ -182,7 +182,7 @@ export default function index() {
   const menuData = [
     {
       label: 'Insigths',
-      link: '/login',
+      link: '/#insights',
       submenus: [],
     },
   ];
@@ -191,7 +191,7 @@ export default function index() {
     {
       title: t['Advanced Information Extraction'],
       icon: 'Extraction',
-      description: t['Integrates over 3,800 sources into a single platform, allowing your team to automate their reconciliation processes quickly.'],
+      description: t['Integrates over 25 sources into a single platform, allowing your team to automate their reconciliation processes quickly.'],
     },
     {
       title: t['Auditable, Traceable, and Secure'],
@@ -237,7 +237,7 @@ export default function index() {
     },
     {
       title: t['Daily Exchange Rate Update'],
-      type: t['Banks'],
+      type: t['FOREIGN EXCHANGE MARKET'],
       imageone: tipo,
       imagetwo: imgtipo,
       description: t['Extracts exchange rate information daily from SBS for different currencies, consolidates the information for historical view and fluctuations, and then uploads it to ERP via job to update buying, selling, and closing exchange rates. The process can be scheduled between 6 PM to 11:59 PM or a convenient time for you.'],
@@ -345,14 +345,14 @@ export default function index() {
           <Image src={LogoOscuro} width={100} height={100} alt="logooscuro" />
         </ul>
 
-        <ul className="nav-buttons">
+        <ul className="nav-menu">
           <li className="languaje-white">
             <Lang />
           </li>
 
           {menuData.map((menu) => (
             <li className="languaje-white" key={menu.label}>
-              <Link href={menu.link}>{t[menu.label]}</Link>
+              <Link href={menu.link} scroll={false} >{menu.label}</Link>
             </li>
           ))}
 
@@ -393,9 +393,8 @@ export default function index() {
           </div>
 
           <p className="text-description">
-            {t['ARI Digital Employees, powered by AI']},&nbsp;
-            <span>{t['automate repetitive tasks']},</span>&nbsp;
-            {t['allowing finance teams to focus on more strategic and valuable activities']}.
+   
+            {t['ARI Digital Employees automates repetitive tasks with artificial intelligence, freeing finance teams to focus on strategic and high-value activities. Optimize your processes, reduce costs and transform your business with our solution']}
           </p>
         </div>
 
@@ -437,7 +436,7 @@ export default function index() {
           <p className="">{t['ARI is the software-based workforce powered by artificial intelligence that autonomously executes end-to-end workflows using a diverse set of skills.']}</p>
         </div>
 
-        <div className="box-flow">
+        <div className="box-flow" data-aos="zoom-in-up">
           <Image src={flujoAri} width={500} height={500} alt="ari-flow" loading="eager" unoptimized={true} />
         </div>
       </section>
@@ -521,7 +520,7 @@ export default function index() {
         </div>
       </section>
 
-      <section className="home-insigths">
+      <section className="home-insigths" id="insights">
         <div className="title-home" data-aos="fade-up">
           <ButtonGradient>{t['INSIGHTS']}</ButtonGradient>
 
@@ -535,7 +534,7 @@ export default function index() {
                 <Image src={card.image} width={40} height={40} alt="insights" />
                 <div className="title">
                   <span>{card.type}</span>
-                  <Link href="/example-route">
+                  <Link href="">
                     <h3>{card.title}</h3>{' '}
                   </Link>
                 </div>
