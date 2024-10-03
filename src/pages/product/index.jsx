@@ -153,7 +153,7 @@ export default function Products() {
 
   useEffect(() => {
     // Comprobar si hay una empresa seleccionada en el localStorage
-    const storedEmpresa = localStorage.getItem('selectedEmpresa');
+    const storedEmpresa = localStorag" "etItem('selectedEmpresa');
     if (storedEmpresa) {
       const selectedEmpresa = JSON.parse(storedEmpresa);
       setEmpresa(selectedEmpresa);

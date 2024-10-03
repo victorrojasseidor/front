@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Lang from '@/Components/Atoms/Lang';
 import LogoOscuro from '../../../public/img/logoOscuro.webp';
+import logo from '../../../public/img/logoGift.gif';
 import front from '../../../public/img/front.svg';
 import ImageSvg from '@/helpers/ImageSVG';
 import Counter from '@/Components/Atoms/Counter';
@@ -478,7 +479,7 @@ export default function index() {
         </section>
       </section>
 
-      <section className="home-flow" id='flow'>
+      <section className="home-flow" id="flow">
         <ButtonGradient classButt="whiteButton">{t['WHY CHOOSE US']}</ButtonGradient>
 
         <div className="title-home blacktext" data-aos="zoom-in">
@@ -509,7 +510,7 @@ export default function index() {
           <p className="">{t['The advanced skills of ARI are automated tasks performed by our Digital Employees that simplify operational processes in areas such as finance, sales, human resources, and technology. These advanced skills allow users to adapt ARI to their business processes, improving efficiency and freeing up time to focus on strategic activities.']}</p>
         </div>
 
-        <ButtonGradient>{t['What we do']}</ButtonGradient>
+        <ButtonGradient>{t['Skills']}</ButtonGradient>
 
         <div className="container-process">
           <div className="box-process">
@@ -621,6 +622,59 @@ export default function index() {
           ))}
         </article>
       </section>
+
+      <footer className="home-footer">
+        <div className="home-footer-info">
+          <div className="logo-footer">
+            <Image src={logo} width={100} height={100} alt="logo" loading="eager" />
+
+            <ButtonGradient classButt="whiteButton" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
+              {t['Contact us']}
+            </ButtonGradient>
+
+          </div>
+
+          <div className="footer-menu">
+              {menuMovil.map((menu) => (
+                <li className="languaje-white list-options" key={menu.label}>
+                  <Link href={menu.link} scroll={false}>
+                    {menu.label}
+                  </Link>
+                </li>
+              ))}
+            </div>
+
+          <div className="social-media ">
+            <div className="title-home  blacktext  " data-aos="zoom-in">
+              <h2 className="title gradient">
+              
+                <span> {t['Follow us']}  </span> !
+              </h2>
+
+              <div className="follow">
+                <button onClick={() => router.push('https://www.youtube.com/channel/UC1mpIQbKvI37sLlDsxmcyeA')} className="btn_circle" aria-label="Follow us on YouTube">
+                  <ImageSvg name="Youtube" />
+                </button>
+
+                <button onClick={() => router.push('https://www.linkedin.com/company/seidorperu/?originalSubdomain=pe')} className="btn_circle" aria-label="Follow us on LinkedIn">
+                  <ImageSvg name="Linkedin" />
+                </button>
+
+                <button onClick={() => router.push('https://www.instagram.com/seidorperu/')} className="btn_circle" aria-label="Follow us on Instagram">
+                  <ImageSvg name="Instagram" />
+                </button>
+              </div>
+              <p>
+                <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="home-social-copy">
+          <p>Copyright © 2024 ARI Digital Employees</p>
+        </div>
+      </footer>
     </section>
   );
 }
