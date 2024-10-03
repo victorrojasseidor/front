@@ -108,7 +108,7 @@
           cursor: pointer;
           position: relative;
           text-align: center; // Centra el texto dentro del `li`
-          width: 100%; // Ocupa todo el ancho del contenedor padre
+          width: 100%; 
           @include text-underline;
 
 
