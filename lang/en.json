@@ -531,7 +531,12 @@
       "Edit": "Edit",
       "RUC": "RUC",
       "User": "User",
-      "Password": "Password"
+      "Password": "Password",
+      "Cancel": "Cancel",
+      "Setup Completed": "Setup Completed",
+      "Add": "Add",
+      "Back": "Back",
+      "Finish": "Finish"
     },
   
   

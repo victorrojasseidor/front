@@ -1,6 +1,7 @@
 
 
     .container-detraccions{
+            
         
         align-self: flex-start;
         @include container;
@@ -11,8 +12,11 @@
             justify-content: space-between;
             gap:2rem;
             flex-wrap: wrap;
-
-            
+           
+        }
+        .btn_black{
+            align-self: flex-end;
+            margin-left: auto;
         }
 
     }

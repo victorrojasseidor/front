@@ -13,15 +13,13 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 export default function ConfigDetracciones() {
   const [initialEdit, setIinitialEdit] = useState(null);
-  const [isEditing] = useState(null);
-
   const [dataDetracciones, setDataDetracciones] = useState(null);
   const [dataCardProduct, setdataCardProduct] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [requestError, setRequestError] = useState('');
   const [isLoadingComponent, setIsLoadingComponent] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
-  const [completeEmails, setcompleteEmails] = useState(false);
+  const [completeEmails, setcompleteEmails] = useState(false); //poner en false
   const [completeDetracciones, setcompleteDetracciones] = useState(false); //debe ser falso
   const [updateEmails, setUpdateEmails] = useState(true);
   const [confirmedConfigured, setConfirmedConfigured] = useState(false);
@@ -34,6 +32,10 @@ export default function ConfigDetracciones() {
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const toggleForm = () => {
+    setShowForm(!showForm);
   };
 
   const router = useRouter();
@@ -61,52 +63,53 @@ export default function ConfigDetracciones() {
     }
   }
 
-  //   async function handleAgregar(values) {
-  //     setIsLoadingComponent(true);
+    async function handleAgregar(values) {
+      setIsLoadingComponent(true);
 
-  //     const body = {
-  //       oResults: {
-  //         oPadrones: [
-  //           {
-  //             iIdPadrones: parseInt(iIdProdEnv),
-  //             iIdDocumento: values.Pattern,
-  //             iIdPais: values.country,
-  //             bEstado: true,
-  //             // bEstado: values.state === 'Active'
-  //           },
-  //         ],
-  //       },
-  //     };
+        const body = {
+        oResults: {
+         
+              iIdProducto: parseInt(iIdProdEnv),
+              sRuc: values.RUC,
+              sUser: values.User,
+              sPassword: values.password,
+           
+             
+            
+        
+        },
+      };
 
-  //     try {
-  //       const token = session.sToken;
-  //       const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarPadrones', body, token);
+      try {
+        const token = session.sToken;
+        const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarDetraccion', body, token);
+   
+        if (responseData.oAuditResponse?.iCode === 1) {
+          // const data = responseData.oResults
+          setTimeout(() => {
+            setModalToken(false);
+            setShowForm(false);
+            setGet(!get);
+            setRequestError(null);
+            
+          }, 1000);
+        } else {
+          await handleCommonCodes(responseData);
+          setShowForm(true);
+        }
+      } catch (error) {
+        console.error('error', error);
 
-  //       if (responseData.oAuditResponse?.iCode === 1) {
-  //         // const data = responseData.oResults
-  //         setTimeout(() => {
-  //           setModalToken(false);
-  //           setShowForm(false);
-  //           setGet(!get);
-  //           setRequestError(null);
-  //         }, 1000);
-  //       } else {
-  //         await handleCommonCodes(responseData);
-  //         setShowForm(true);
-  //       }
-  //     } catch (error) {
-  //       console.error('error', error);
-
-  //       setShowForm(true);
-  //       setRequestError(error);
-  //     } finally {
-  //       setIsLoadingComponent(false);
-  //     }
-  //   }
+        setShowForm(true);
+        setRequestError(error);
+      } finally {
+        setIsLoadingComponent(false);
+      }
+    }
 
   useEffect(() => {
     if (session) {
-      getPadrones();
+      getDetracciones();
     }
   }, [updateEmails, get]);
 
@@ -122,7 +125,6 @@ export default function ConfigDetracciones() {
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const data = responseData.oResults;
-        console.log('data', data);
         const selectedProduct = data.find((p) => p.iId === parseInt(iId));
         setdataCardProduct(selectedProduct);
         // setGet(!get)
@@ -136,29 +138,38 @@ export default function ConfigDetracciones() {
     }
   }
 
-  async function getPadrones() {
+  async function getDetracciones() {
     setIsLoadingComponent(true);
     const body = {
       oResults: {
-        iIdPadrones: iIdProdEnv, // [1]
+        iIdProducto: iIdProdEnv, // [1]
         iIdPais: idCountry || dataCardProduct?.iCountry,
+
       },
     };
 
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost('BPasS/?Accion=GetPadrones', body, token);
+      const responseData = await fetchConTokenPost('BPasS/?Accion=ObtenerDetraccion', body, token);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;
+        console.log('dataRes', dataRes);
         setDataDetracciones(dataRes);
+        setIinitialEdit(dataRes.oDetracciones[0]);
+
         if (dataRes.oCorreo.length > 0) {
           setcompleteEmails(true);
         }
-        if (dataRes.oPadrones.length > 0) {
+
+        if (dataRes.oDetracciones.length > 0) {
           setcompleteDetracciones(true);
+          
         }
+
+
+
       } else {
         await handleCommonCodes(responseData);
       }
@@ -170,11 +181,13 @@ export default function ConfigDetracciones() {
   }
 
   const initialValues = {
-    RUC: dataDetracciones?.ruc || '',
-    User: dataDetracciones?.user || '',
-    password: dataDetracciones?.password || '',
+    RUC: initialEdit?.sRuc || '',
+    User: initialEdit?.sUsuario || '',
+    password: initialEdit?.sPassword || '',
   };
 
+
+  
   return (
     <div className="pattern-configuration">
       <div className="Tabsumenu">
@@ -197,10 +210,9 @@ export default function ConfigDetracciones() {
                 <h3 className="title-Config"> {l.Download.State} </h3>
                 <ul>
                   <li>
-                    <p>{l.Download['Digital employees']}</p>
+                    <p>{dataCardProduct?.sName}</p>
                     <p>:</p>
-                    {/* <p className="name-blue">{dataCardProduct?.sName}</p> */}
-
+                 
                     <p>Detracciones </p>
                   </li>
                   <li>
@@ -226,6 +238,10 @@ export default function ConfigDetracciones() {
                 </ul>
               </div>
 
+              {isLoadingComponent && <LoadingComponent/>}
+
+              {requestError && <p className="error-message">{requestError}</p>}
+
               <EmailsForm dataEmails={dataDetracciones?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 
               <div className="box-buttons">
@@ -238,6 +254,7 @@ export default function ConfigDetracciones() {
           )}
 
           {activeTab === 1 && (
+            <> 
             <div className="container-detraccions">
               <div className="box-title">
                 <div>
@@ -245,46 +262,49 @@ export default function ConfigDetracciones() {
                   <p>{t['Enter credentials from the Tax Obligation Payment System (SPOT)']}</p>
                 </div>
 
+
+
                 <button
                   className="btn_black"
                   style={{
-                    display: initialEdit !== null ? 'none' : 'block',
+                 visibility: showForm && completeDetracciones ? 'hidden' : 'visible',
+                  
+
                   }}
                   onClick={() => {
-                    // toggleForm();
-                    // setTypeofChange(1);
+                    toggleForm();
+                   
                   }}
                 >
-                  {t.Edit}
+                  { initialEdit?t.Edit: t.Add}
                 </button>
               </div>
 
               <Formik
                 initialValues={initialValues}
-                //   validate={(values) => validateFormAddAccount(values, initialVal, showcomponent)}
+                enableReinitialize={true} // Esto permite que Formik se reinicie con nuevos valores
+
                 onSubmit={(values, { resetForm }) => {
-                  if (dataDetracciones) {
-                    // handleEditListAccount(values);
-                  } else {
-                    // onAgregar(values);
-                  }
+                    handleAgregar(values);
+                 
+                                   
                   resetForm();
                 }}
               >
-                {({ values, isValid, setFieldValue, isSubmitting }) => (
+                {({ values, isValid, setFieldValue, isSubmitting ,resetForm }) => (
                   <Form className="form-container formCredential">
                     <div className="content">
                       <div className="subtitle"></div>
 
                       <div className="input-box">
-                        <Field type="number" name="RUC" placeholder=" " />
+                        <Field type="number" name="RUC" placeholder=" "  disabled={!showForm || isSubmitting}/>
                         <label htmlFor="RUC">{t['RUC']}</label>
                         <ErrorMessage name="RUC" component="span" className="errorMessage" />
                       </div>
 
                       <div className="group">
                         <div className="input-box">
-                          <Field type="text" name="User" placeholder=" " />
+                          <Field type="text" name="User" placeholder=" "  disabled={!showForm || isSubmitting}/>
                           <label htmlFor="User">{t['User']}</label>
                           <ErrorMessage name="User" component="span" className="errorMessage" />
                         </div>
@@ -293,59 +313,75 @@ export default function ConfigDetracciones() {
                           <span className="iconPassword" onClick={togglePasswordVisibility}>
                             <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
                           </span>
-                          <Field type={showPassword ? 'text' : 'password'} id="password" name="password" placeholder=" " disabled={isSubmitting} />
+                          <Field type={showPassword ? 'text' : 'password'} id="password" name="password" placeholder=" "  disabled={!showForm || isSubmitting} />
                           <label htmlFor="password"> {t.Password}</label>
                           <ErrorMessage className="errorMessage" name="password" component="span" />
                         </div>
                       </div>
                     </div>
 
-                    {/* <div className="submit-box">
+                    
+
+                    {
+                      showForm && 
+
+                      <div className="submit-box">
                       <button
-                        type="submit"
+                        type="button"
                         className="btn_secundary small"
                         onClick={() => {
                           setShowForm(false);
-                        }}
+                          resetForm()
+
+                          }}
                       >
-                        {t.Cancel}
+                     {t.Cancel}
+                       
                       </button>
 
-                      <button type="submit" className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}>
-                        {dataDetracciones ? t.Cancel : t.Save}
+                      <button type="submit" className={`btn_primary small ${!values ? 'disabled' : ''}`} >
+                      {t.Save}
+
+                        
                       </button>
-                    </div> */}
+                    </div> 
+                    }
+                   
+
+                    
+                  
                     
                   </Form>
                 )}
+                        
               </Formik>
 
-              {/* {completeDetracciones ? (
-                <div className="box-buttons">
-                  <button type="button" className="btn_secundary small" onClick={() => handleTabClick(0)}>
-                    <ImageSvg name="Back" />
-
-                    {l.Download.Previus}
-                  </button>
-                  <button className={`btn_secundary small  ${completeDetracciones ? ' ' : 'disabled'}`} onClick={() => setConfirmedConfigured(true)} disabled={!completeDetracciones}>
-                    {l.Download.Finish}
-                    <ImageSvg name="Next" />
-                  </button>
-                </div>
-              ) : (
-                <div className="noti">
-                  <p> {t['Register the daily exchange rates']}</p>
-                  <p>
-                    {' '}
-                    <span> {t['click on Add']} </span>{' '}
-                  </p>
-                </div>
-              )} */}
+              
+             
 
             </div>
+
+{completeDetracciones  && !showForm? (
+  <div className="box-buttons">
+    <button type="button" className="btn_secundary small" onClick={() => handleTabClick(0)}>
+      <ImageSvg name="Back" />
+
+     {t.Back}
+    </button>
+    <button className={`btn_secundary small  ${completeDetracciones ? ' ' : 'disabled'}`} onClick={() => setConfirmedConfigured(true)} disabled={!completeDetracciones}>
+      {t.Finish}
+      <ImageSvg name="Next" />
+    </button>
+  </div>
+) : (
+  " "
+)}
+</>
+            
           )}
 
-          
+
+
         </div>
 
         {confirmedConfigured && (
@@ -357,7 +393,7 @@ export default function ConfigDetracciones() {
             <ImageSvg name="Check" />
 
             <div>
-              <h3>{t['Successful configuration']}</h3>
+              <h3>{t['Setup Completed']}</h3>
 
               <div className="box-buttons">
                 <button
@@ -368,8 +404,9 @@ export default function ConfigDetracciones() {
                     setConfirmedConfigured(false);
                   }}
                 >
-                  {t['Return a home']}
+                  {l.Download['Return a home']}
                 </button>
+
               </div>
             </div>
           </Modal>

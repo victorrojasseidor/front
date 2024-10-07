@@ -527,7 +527,12 @@
     "Edit": "Editar",
     "RUC": "RUC",
     "User": "Usuario",
-    "Password": "Contraseña"
+    "Password": "Contraseña",
+    "Cancel": "Cancelar",
+    "Setup Completed": "Configuración completada",
+    "Add": "Agregar",
+    "Back": "Regresar",
+    "Finish": "Finalizar"
   }, 
   
   "Support": {
