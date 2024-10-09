@@ -114,7 +114,7 @@ export default function index() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init({
-        duration: 500, // Ajusta la duración según tus necesidades
+        duration: 300, 
         // once: true, // Si quieres que la animación solo se ejecute una vez
       });
     }
@@ -622,7 +622,7 @@ export default function index() {
         </article>
       </section>
 
-      <footer className="home-footer">
+      <footer className="home-footer" >
         <div className="home-footer-info">
           <div className="logo-footer">
             <Image src={LogoOscuro} width={100} height={100} alt="logo" loading="eager" />
@@ -631,13 +631,12 @@ export default function index() {
 
 
 
-          <div className='message-footer'>
-            <p>
-            "El éxito en la era de la inteligencia artificial no se trata de reemplazar a los humanos, sino de colaborar con la tecnología para aumentar nuestras capacidades."
-         
+          <div className='message-footer' data-aos="zoom-in">
+            <p >
+          "{t['Success in the age of artificial intelligence is not about replacing humans, but about collaborating with technology to increase our capabilities']}."
             </p>
             <p>
-            — Satya Nadella, CEO de Microsoft
+            — Satya Nadella, {t['CEO Microsoft']}
             </p>
      
           </div>
