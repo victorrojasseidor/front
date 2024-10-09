@@ -65,7 +65,7 @@
         align-content: center;
         justify-content: space-around;
         align-items: center;
-        padding: 0rem 2rem;
+        padding: 0rem 1rem;
         z-index: 1;
         top: 208%;
         right: -132%;
@@ -307,7 +307,7 @@
       align-items: flex-start;
 
       img {
-        height: 30vh;
+        height: 28vh;
         image-orientation: center;
 
 
@@ -340,45 +340,52 @@
     .container-process {
       display: flex;
       justify-content: flex-start;
-      flex-direction: column;
+      flex-direction: column-reverse;
       display: flex;
-      gap: 1rem;
+      gap: 2rem;
 
       @include media(tablet) {
         flex-direction: row;
+        gap: 1rem;
       }
     }
 
     .box-images {
       flex: 2;
       position: sticky; // Mantiene la sección fija
-      top: 8rem;
+      top: 20rem;
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
       height: 100%;
+   
+
+     
+          @include media(tablet) {
+            top: 8rem;
+          }
 
       figure {
         display: flex;
         width: max-content;
-        height: 30vh;
-
+        height: 50vh;
         flex-direction: row;
         position: relative;
         display: flex;
         justify-content: flex-start;
         top: 10%;
+        background-color: rgba(get-color(black_p2), 0.85);
 
         @include media(tablet) {
           height: 80vh;
+          background-color: transparent;
         }
 
         .image-one {
           position: relative;
           transition: transform 1s ease-in-out;
-          /* Animación suave */
-          z-index: 1;
+           z-index: 2;
           left: 0;
           /* Asegura que la imagen se ajuste al contenedor */
           height: auto;
@@ -386,32 +393,28 @@
           height: 100%; // O el valor que prefieras para que ocupe también la altura
           object-fit: fill; // Asegura que la imagen cubra el contenedor completamente, aunque se recorte
           overflow-y: hidden;
+          
         }
 
         .image-two {
-          display: none;
+          // display: none;
           position: absolute;
           object-fit: cover; // Asegura que la imagen cubra el contenedor completamente, aunque se recorte
-          height: 30vh;
+          height: 40vh;
           left: 20%;
           z-index: 2;
-          transform: translateX(100%);
+        
           /* Mueve el elemento a la derecha inicialmente */
           opacity: 0;
           /* Comienza invisible */
-          transition: transform 0.5s ease, opacity 0.5s ease;
+          transform: translateX(100%);
           /* Transiciones para transform y opacity */
           overflow-y: hidden;
+          transition: transform 0.5s ease, opacity 0.5s ease;
 
           @include media(tablet) {
-            // top: 10%;
-            // // transform: translateX(10%);
-            // height: 40vh;
-            // display: block;
-            // left: 20%;
-            // width: 30vw;
-
-
+         
+            
             top: 15%;
             height: 59vh;
             display: block;
@@ -442,20 +445,28 @@
       overflow-y: auto;
       flex: 1.5;
       overflow-y: auto; // Permite que se desplace verticalmente
+      background-color: rgba(get-color(black_p2), 0.75);
+   
+      padding: 1rem 1rem 10rem 1rem;
+      @include media(tablet) {
+        gap: 2rem;
+        background-color: transparent;
+        padding: 1rem;
+      }
     }
 
     .process {
       display: flex;
       justify-content: space-between;
       flex-direction: row;
-
       gap: 2rem;
       overflow: hidden;
-
-      height: 77vh;
+      height: 83vh;
+    
 
       @include media(tablet) {
         height: 100vh;
+        gap: 2rem;
       }
 
 
@@ -468,7 +479,7 @@
         justify-content: flex-start;
         gap: 1rem;
         flex-direction: column;
-        z-index: 2;
+        z-index: 0;
         position: relative;
 
         h3 {
@@ -476,7 +487,7 @@
           display: flex;
           justify-content: flex-start;
           flex-direction: column;
-          font-size: 2rem;
+          font-size: 1.5rem;
           font-weight: 400;
           padding-top: 0rem;
           margin-top: 0rem;
@@ -491,7 +502,7 @@
         }
 
         span {
-          font-size: 1rem;
+          font-size: 0.8rem;
           text-transform: uppercase;
           font-weight: 400;
           color: rgba(get-color(white_s1), 1);
@@ -500,6 +511,10 @@
           text-shadow: 0 0 10px rgba(182, 140, 240, 0.8), 0 0 20px rgba(15, 0, 15, 0.6);
           filter: brightness(1);
           letter-spacing: 2px;
+
+          @include media(tablet) {
+            font-size: 1rem;
+          }
           /* Aumenta el espaciado entre letras */
         }
       }
@@ -1068,8 +1083,8 @@
 .openMovil {
   // Cuando el menú esté abierto
 
-  padding: 2rem 2rem !important;
-  max-height: 90vh !important; // Se expande hasta el 60% del alto de la pantalla
+  padding: 1rem 2rem 4rem 1rem !important;
+  max-height: 100vh !important; // Se expande hasta el 60% del alto de la pantalla
 }
 
 
@@ -1142,16 +1157,29 @@
 }
 
 .in-view {
-  transform: translateX(0) !important;
-  /* Mueve el elemento a su posición original */
-  opacity: 1 !important;
-  /* Hacerse visible */
+
+ 
+   
+    transform: translateX(0) !important;
+    /* Mueve el elemento a su posición original */
+    opacity: 1 !important;
+    /* Hacerse visible */
+ 
+
+
+ 
 }
 
 .out-of-view {
-  transform: translateX(10%) !important;
+
+ 
   /* Mueve el elemento a la derecha */
   opacity: 0 !important;
+  transform: translateX(1%) !important;
+
+  @include media(tablet) {
+    transform: translateX(10%) !important;
+  }
 
   @include media(desktop) {
     transform: translateX(40%) !important;
