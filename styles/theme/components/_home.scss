@@ -108,7 +108,7 @@
           cursor: pointer;
           position: relative;
           text-align: center; // Centra el texto dentro del `li`
-          width: 100%; 
+          width: 100%;
           @include text-underline;
 
 
@@ -221,6 +221,7 @@
       img {
         width: 20rem;
         height: auto;
+
         @include media(tablet) {
           height: 40rem;
           width: 40rem;
@@ -306,10 +307,10 @@
       align-items: flex-start;
 
       img {
-       height: 30vh;
+        height: 30vh;
         image-orientation: center;
 
-       
+
         @include media(tablet) {
           height: 40vh;
         }
@@ -412,11 +413,11 @@
 
 
             top: 15%;
-        height: 59vh;
-        display: block;
-        left: 20%;
-        width: 32vw;
-            
+            height: 59vh;
+            display: block;
+            left: 20%;
+            width: 32vw;
+
 
           }
 
@@ -447,7 +448,7 @@
       display: flex;
       justify-content: space-between;
       flex-direction: row;
-      
+
       gap: 2rem;
       overflow: hidden;
 
@@ -457,7 +458,7 @@
         height: 100vh;
       }
 
-        
+
 
 
 
@@ -866,59 +867,54 @@
   }
 
   &-footer {
-    @include home-container;
-    padding-bottom: 1rem;
- 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    margin-right: 0rem;
+    padding-right: 0rem;
     width: 100%;
     justify-content: space-between;
-    gap:1rem;
+    background-color: rgba(get-color(black_p2), 1);
+  
+    @include media(tablet) {
+    background-image: url('../../../public/img/footer.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right top;
+    /* Alinea al lado derecho y arriba */
+    padding: 0;
+    margin: 0;
+    // bottom: -0.5rem;
+    position: relative;
+    /* Necesario para aplicar los ajustes */
+    right: -0.5rem;
+    /* Desplaza la imagen 0.25rem más a la derecha */
+
+    }
+
+
 
     &-info {
       display: flex;
       width: 100%;
       justify-content: space-between;
-      align-items: self-end;
+      flex-direction: column;
       flex-wrap: wrap;
-      padding-bottom: 1rem;
-      gap:2rem;
-      border-bottom: 1px solid rgba(get-color(forms_s6), 0.75);
+      gap: 1rem;
+      padding: 2rem 2rem 0rem 2rem;
+
+      @include media(desktop) {
+        // width: 75%;
+      }
 
 
-      .footer-menu {
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        flex-direction: column;
-        flex-wrap: wrap;
-        gap: 1rem;
-     
-        li {
-          list-style: none;
-          color: rgba(get-color(black_p2), 1);
-          font-weight: 400;
-          text-transform: uppercase;
-          position: relative;
-
-          @include gradient-underline;
-
-          a {
-            list-style: none;
-            color: rgba(get-color(black_p2), 0.95);
-          }
-
-
-
-        }
+      p {
+        color: rgba(get-color(white_s1), 1)
       }
 
 
       .logo-footer {
         display: flex;
         justify-content: flex-start;
-        gap: 1rem;
-        flex-direction: column;
         width: auto;
 
         img {
@@ -926,75 +922,108 @@
           width: 10.5rem;
         }
 
-        svg {
-          path {
-            fill: get-color(grey2_s4);
-          }
-        }
+
       }
 
-
-
-      .social-media {
+      .message-footer {
+        text-align: center;
+        width: 100%;
+        align-items: center;
+        
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: center;
+        p{
+          width: 90%;
+          color: rgba(get-color(white_s1), 1);
+        }
 
-        align-items: flex-start;
+
+
+
+      }
+
+
+
+
+      // .footer-menu {
+      //   display: flex;
+      //   justify-content: flex-start;
+      //   align-items: flex-start;
+      //   flex-direction: column;
+      //   flex-wrap: wrap;
+      //   gap: 1rem;
+
+      //   li {
+      //     list-style: none;
+      //     color: rgba(get-color(black_p2), 1);
+      //     font-weight: 400;
+      //     text-transform: uppercase;
+      //     position: relative;
+
+      //     @include gradient-underline;
+
+      //     a {
+      //       list-style: none;
+      //       color: rgba(get-color(black_p2), 0.95);
+      //     }
+
+
+
+      //   }
+      // }
+
+      .footer-social {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         gap: 1rem;
+        padding: 1rem 0rem 2rem 0rem;
 
-        h2 {
-          width: 100%;
-          text-align: left;
-
-        }
-
-
-        .follow {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          flex-direction: row;
-          gap: 1rem;
-          width: 100%;
-
-
-          .btn_circle {
-            background-color: rgba(get-color(white_s1), 0.4);
-            border-color: rgba(get-color(grey1_s3), 0.8);
-
-            svg {
-
-             
-             
-              path {
-                fill: get-color(blue_p1);
-              }
-            }
-          }
-        }
 
         p {
-          color: rgba(get-color(black_p2), 1);
+          flex: 1;
+          width: 100%;
+          display: flex;
+          // justify-content: flex-start;
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 0.25rem;
+          font-size: 0.9rem;
+          align-self: flex-end;
+          color: rgba(get-color(white_s1), 0.8);
           font-weight: 400;
-          padding-left: 0.25rem;
-          text-align:start;
 
-          svg {
-            path {
-              fill: rgba(get-color(black_p2), 0.65);
-            }
+        }
 
+        .location{
+          flex-direction: row;
+          display: flex;
+          align-self: flex-end;
+          justify-content: flex-end;
+          text-align: initial;
+         
+        }
+
+
+        svg {
+
+          path {
+            fill: transparent;
+            stroke: rgba(get-color(white_s1), 0.8);
           }
         }
       }
+
     }
 
-    &-copy {
-      padding-top: 1rem;
-      display: flex;
-      justify-content: center;
+    &-image {
+      width: 30rem;
+      height: 100%;
+
     }
+
 
 
   }

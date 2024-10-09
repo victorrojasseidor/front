@@ -144,9 +144,11 @@ const ImageSvg = ({ name }) => {
     ),
 
     Location: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="20" fill="none" viewBox="0 0 17 20">
-        <path fill="#05CD99" fillRule="evenodd" d="M0 8.318C0 3.718 3.844 0 8.493 0 13.156 0 17 3.718 17 8.318c0 2.318-.843 4.47-2.23 6.294a22.064 22.064 0 0 1-5.541 5.14c-.486.318-.925.342-1.459 0a21.64 21.64 0 0 1-5.54-5.14C.843 12.788 0 10.636 0 8.318Zm5.694.259c0 1.54 1.258 2.753 2.8 2.753 1.542 0 2.812-1.212 2.812-2.753 0-1.53-1.27-2.8-2.813-2.8a2.813 2.813 0 0 0-2.799 2.8Z" clipRule="evenodd" />
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="#292D32" stroke-width="1.5" d="M12 13.43a3.12 3.12 0 1 0 0-6.24 3.12 3.12 0 0 0 0 6.24Z"/>
+  <path stroke="#292D32" stroke-width="1.5" d="M3.62 8.49c1.97-8.66 14.8-8.65 16.76.01 1.15 5.08-2.01 9.38-4.78 12.04a5.193 5.193 0 0 1-7.21 0c-2.76-2.66-5.92-6.97-4.77-12.05Z"/>
+</svg>
+
     ),
     Download: (
       <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50">

@@ -12,7 +12,7 @@ import { useAuth } from '@/Context/DataContext';
 import ButtonGradient from '@/Components/Atoms/ButtonGradient';
 import flujoAri from '../../../public/img/flujoAri.gif';
 import simple from '../../../public/img/simple.svg';
-
+import footerImage from '../../../public/img/footer.svg';
 import conci from '../../../public/img/card-product/conci.svg';
 import imgconci from '../../../public/img/card-product/imgconci.svg';
 import estado from '../../../public/img/card-product/estado.svg';
@@ -36,7 +36,6 @@ import post3 from '../../../public/img/post/post3.svg';
 import post4 from '../../../public/img/post/post4.svg';
 import post5 from '../../../public/img/post/post5.svg';
 import post6 from '../../../public/img/post/post6.svg';
-
 import adama from '../../../public/img/logos/adama.webp';
 import adeco from '../../../public/img/logos/adeco.webp';
 import agrokasa from '../../../public/img/logos/agrokasa.webp';
@@ -626,15 +625,24 @@ export default function index() {
       <footer className="home-footer">
         <div className="home-footer-info">
           <div className="logo-footer">
-            <Image src={logo} width={100} height={100} alt="logo" loading="eager" />
-
-            <ButtonGradient classButt="whiteButton" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
-              {t['Contact us']}
-            </ButtonGradient>
-
+            <Image src={LogoOscuro} width={100} height={100} alt="logo" loading="eager" />
+        
           </div>
 
-          <div className="footer-menu">
+
+
+          <div className='message-footer'>
+            <p>
+            "El éxito en la era de la inteligencia artificial no se trata de reemplazar a los humanos, sino de colaborar con la tecnología para aumentar nuestras capacidades."
+         
+            </p>
+            <p>
+            — Satya Nadella, CEO de Microsoft
+            </p>
+     
+          </div>
+
+          {/* <div className="footer-menu">
               {menuMovil.map((menu) => (
                 <li className="languaje-white list-options" key={menu.label}>
                   <Link href={menu.link} scroll={false}>
@@ -642,37 +650,40 @@ export default function index() {
                   </Link>
                 </li>
               ))}
-            </div>
+            </div> */}
 
-          <div className="social-media ">
-            <div className="title-home  blacktext  " data-aos="zoom-in">
-              <h2 className="title gradient">
-              
-                <span> {t['Follow us']}  </span> !
-              </h2>
 
-              <div className="follow">
-                <button onClick={() => router.push('https://www.youtube.com/channel/UC1mpIQbKvI37sLlDsxmcyeA')} className="btn_circle" aria-label="Follow us on YouTube">
-                  <ImageSvg name="Youtube" />
-                </button>
+          
 
-                <button onClick={() => router.push('https://www.linkedin.com/company/seidorperu/?originalSubdomain=pe')} className="btn_circle" aria-label="Follow us on LinkedIn">
-                  <ImageSvg name="Linkedin" />
-                </button>
+          <div className="footer-social">
+            
 
-                <button onClick={() => router.push('https://www.instagram.com/seidorperu/')} className="btn_circle" aria-label="Follow us on Instagram">
-                  <ImageSvg name="Instagram" />
-                </button>
-              </div>
-              <p>
+          <p>
+              <span>
+              © 2024 ARI Digital Employees. 
+              </span>
+              <span>
+      
+              Varias marcas comerciales de sus respectivos propietarios
+              </span>
+
+
+            </p>
+
+             
+              <p className='location'>
                 <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
               </p>
-            </div>
+          
           </div>
+
         </div>
 
-        <div className="home-social-copy">
-          <p>Copyright © 2024 ARI Digital Employees</p>
+        <div className="home-footer-image">
+
+        {/* <Image  src={footerImage} width={100} height={100} alt="footer" /> */}
+
+
         </div>
       </footer>
     </section>
