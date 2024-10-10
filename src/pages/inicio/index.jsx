@@ -12,7 +12,6 @@ import { useAuth } from '@/Context/DataContext';
 import ButtonGradient from '@/Components/Atoms/ButtonGradient';
 import flujoAri from '../../../public/img/flujoAri.gif';
 import simple from '../../../public/img/simple.svg';
-import footerImage from '../../../public/img/footer.svg';
 import conci from '../../../public/img/card-product/conci.svg';
 import imgconci from '../../../public/img/card-product/imgconci.svg';
 import estado from '../../../public/img/card-product/estado.svg';
@@ -635,16 +634,15 @@ export default function index() {
 
       <footer className="home-footer">
         <div className="home-footer-info">
-          <div className="logo-footer">
-            <Image src={LogoOscuro} width={100} height={100} alt="logo" loading="eager" />
-          </div>
+          
 
-          <div className="message-footer" data-aos="zoom-in">
+          <div className=" message-footer" >
             <p>"{t['Success in the age of artificial intelligence is not about replacing humans, but about collaborating with technology to increase our capabilities']}."</p>
-            <p>— Satya Nadella, {t['CEO Microsoft']}</p>
+            <p  data-aos="zoom-in">— Satya Nadella , {t['CEO Microsoft']}
+              </p>
           </div>
 
-          {/* <div className="footer-menu">
+          <div className="footer-menu">
               {menuMovil.map((menu) => (
                 <li className="languaje-white list-options" key={menu.label}>
                   <Link href={menu.link} scroll={false}>
@@ -652,17 +650,35 @@ export default function index() {
                   </Link>
                 </li>
               ))}
-            </div> */}
+            </div>
+
+           
 
           <div className="footer-social">
+
+              <div className="logo-footer">
+            <Image src={LogoOscuro} width={100} height={100} alt="logo" loading="eager" />
+          </div> 
+
+               
+        
+            
+            
+
             <p>
-              <span>© 2024 ARI Digital Employees.</span>
-              <span>Varias marcas comerciales de sus respectivos propietarios</span>
+            <span className="location">
+              <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
+            </span>
+            <span>© 2024 ARI Digital Employees.</span>
+            <span style={{fontStyle:"italic"}}>Varias marcas comerciales de sus respectivos propietarios</span>
+              
             </p>
 
-            <p className="location">
-              <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
-            </p>
+           
+          
+
+           
+         
           </div>
         </div>
 
