@@ -69,6 +69,7 @@
         z-index: 1;
         top: 208%;
         right: -132%;
+       
 
         background-color: rgba(get-color(black_p2), 0.95);
         width: 100vw;
@@ -307,7 +308,7 @@
       align-items: flex-start;
 
       img {
-        height: 28vh;
+        height: 22vh;
         image-orientation: center;
 
 
@@ -353,7 +354,7 @@
     .box-images {
       flex: 2;
       position: sticky; // Mantiene la sección fija
-      top: 20rem;
+      top: 56%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -389,10 +390,16 @@
           left: 0;
           /* Asegura que la imagen se ajuste al contenedor */
           height: auto;
-          width: max-content;
+        
           height: 100%; // O el valor que prefieras para que ocupe también la altura
           object-fit: fill; // Asegura que la imagen cubra el contenedor completamente, aunque se recorte
           overflow-y: hidden;
+          width: 24rem;
+          @include media(tablet) {
+         width: auto;
+          }
+
+
           
         }
 
@@ -400,9 +407,10 @@
           // display: none;
           position: absolute;
           object-fit: cover; // Asegura que la imagen cubra el contenedor completamente, aunque se recorte
-          height: 40vh;
+          height: 32vh;
           left: 20%;
           z-index: 2;
+          top: 5%;
         
           /* Mueve el elemento a la derecha inicialmente */
           opacity: 0;
@@ -411,11 +419,11 @@
           /* Transiciones para transform y opacity */
           overflow-y: hidden;
           transition: transform 0.5s ease, opacity 0.5s ease;
+          width: min-content;
 
           @include media(tablet) {
          
-            
-            top: 15%;
+           top: 15%;
             height: 59vh;
             display: block;
             left: 20%;
@@ -956,10 +964,6 @@
           width: 90%;
           color: rgba(get-color(white_s1), 1);
         }
-
-
-
-
       }
 
 
@@ -1049,7 +1053,7 @@
 
 
         svg {
-
+          align-self: flex-start;
           path {
             fill: transparent;
             stroke: rgba(get-color(white_s1), 0.8);

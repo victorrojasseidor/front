@@ -111,11 +111,14 @@ export default function index() {
     setIsOpenMobile(!isOpenMobile);
   };
 
+  // Animaciones AOS
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init({
-        duration: 300, 
-        // once: true, // Si quieres que la animación solo se ejecute una vez
+        offset: -2, // Inicia la animación inmediatamente cuando la sección está visible
+        duration: 500, // Duración de las animaciones
+        // once: true, // Evitar que las animaciones se repitan
+        // easing: 'ease-out', // Añadir un suavizado en la animación
       });
     }
   }, []);
@@ -135,20 +138,25 @@ export default function index() {
           }
         });
       },
-      { threshold: 0.1 } // El 10% de la sección debe estar visible para activar
+      { threshold: 0.0 } // Disparar la animación cuando el 10% de la sección sea visible
     );
 
-    if (counterSectionRef.current) {
-      observer.observe(counterSectionRef.current);
+    const currentRef = counterSectionRef.current;
+
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     // Cleanup al desmontar el componente
     return () => {
-      if (counterSectionRef.current) {
-        observer.unobserve(counterSectionRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
+
+
+  
 
   useLayoutEffect(() => {
     // Asegurarse de que esté en el cliente
@@ -175,6 +183,9 @@ export default function index() {
       };
     }
   }, []);
+
+
+
 
   const menuData = [
     {
@@ -622,23 +633,15 @@ export default function index() {
         </article>
       </section>
 
-      <footer className="home-footer" >
+      <footer className="home-footer">
         <div className="home-footer-info">
           <div className="logo-footer">
             <Image src={LogoOscuro} width={100} height={100} alt="logo" loading="eager" />
-        
           </div>
 
-
-
-          <div className='message-footer' data-aos="zoom-in">
-            <p >
-          "{t['Success in the age of artificial intelligence is not about replacing humans, but about collaborating with technology to increase our capabilities']}."
-            </p>
-            <p>
-            — Satya Nadella, {t['CEO Microsoft']}
-            </p>
-     
+          <div className="message-footer" data-aos="zoom-in">
+            <p>"{t['Success in the age of artificial intelligence is not about replacing humans, but about collaborating with technology to increase our capabilities']}."</p>
+            <p>— Satya Nadella, {t['CEO Microsoft']}</p>
           </div>
 
           {/* <div className="footer-menu">
@@ -651,39 +654,19 @@ export default function index() {
               ))}
             </div> */}
 
-
-          
-
           <div className="footer-social">
-            
-
-          <p>
-              <span>
-              © 2024 ARI Digital Employees. 
-              </span>
-              <span>
-      
-              Varias marcas comerciales de sus respectivos propietarios
-              </span>
-
-
+            <p>
+              <span>© 2024 ARI Digital Employees.</span>
+              <span>Varias marcas comerciales de sus respectivos propietarios</span>
             </p>
 
-             
-              <p className='location'>
-                <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
-              </p>
-          
+            <p className="location">
+              <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
+            </p>
           </div>
-
         </div>
 
-        <div className="home-footer-image">
-
-        {/* <Image  src={footerImage} width={100} height={100} alt="footer" /> */}
-
-
-        </div>
+        <div className="home-footer-image">{/* <Image  src={footerImage} width={100} height={100} alt="footer" /> */}</div>
       </footer>
     </section>
   );
