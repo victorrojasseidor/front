@@ -23,6 +23,7 @@
     box-shadow: 0 2px 8px get-color(pink_s5);
 
     svg {
+
       path,
       polyline {
         stroke: get-color(white_s1);
@@ -60,7 +61,9 @@
     align-items: center;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
     box-shadow: 0 2px 25px get-color(bg-cles);
+
     svg {
+
       path,
       polyline {
         stroke: get-color(blue_p1);
@@ -76,6 +79,7 @@
       border-style: none;
 
       svg {
+
         path,
         polyline {
           stroke: get-color(white_s1);
@@ -83,6 +87,7 @@
         }
       }
     }
+
     &:focus {
       outline: 0;
     }
@@ -93,6 +98,7 @@
       box-shadow: 0 2px 25px get-color(bg-cles);
     }
   }
+
   &_crud {
     border-style: none;
     padding: 0.75em;
@@ -109,6 +115,7 @@
 
     &:hover,
     &:focus {
+
       svg,
       img {
         // filter: brightness(0);
@@ -170,6 +177,7 @@
     svg {
       width: 2rem;
       height: 2rem;
+
       @include media(tablet) {
         width: 1rem;
         height: 1rem;
@@ -179,6 +187,7 @@
         stroke: get-color(grey2_s4);
       }
     }
+
     p {
       display: flex;
       justify-content: flex-start;
@@ -196,6 +205,7 @@
       border-radius: brd(2);
       color: get-color(blue_p1);
       height: inherit;
+
       svg {
         path {
           stroke: get-color(blue_p1);
@@ -230,11 +240,119 @@
         fill: get-color(white_s1);
       }
     }
+
     @include media(tablet) {
       font-size: medium;
       padding: 0.8rem 1.25rem;
       gap: 1em;
     }
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: get-color(white_s1);
+      color: get-color(black_p2);
+      border: 1px solid get-color(black_p2);
+      transform: scale(0.9);
+      box-shadow: 0 2px 25px get-color(bg-cles);
+
+      svg {
+        path {
+          fill: get-color(black_p2);
+        }
+      }
+    }
+  }
+
+  &_white {
+
+    padding: 0.5rem 1rem;
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+    border: 1px solid get-color(white_s1);
+    color: get-color(white_s1);
+    background: get-color(black_p2);
+    border-radius: 100px;
+    justify-content: center;
+    align-items: center;
+    line-height: 120%;
+    text-decoration: none;
+    display: flex;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+
+
+    svg {
+      path {
+        fill: get-color(white_s1);
+      }
+    }
+
+    @include media(tablet) {
+      text-align: left;
+      line-height: 144%;
+
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: get-color(white_s1);
+      color: get-color(black_p2);
+      border: 1px solid get-color(black_p2);
+      transform: scale(0.9);
+      box-shadow: 0 2px 25px get-color(bg-cles);
+
+      svg {
+        path {
+          fill: get-color(black_p2);
+        }
+      }
+    }
+  }
+
+
+  .white {
+    color: get-color(black_p2);
+    background: get-color(white_s1);
+  }
+
+
+
+  &_gradient {
+
+
+    padding: 0.5rem 1rem;
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+    border: 1px solid get-color(white_s1);
+    // color: get-color(white_s1);
+    // background: get-color(black_p2);
+    border-radius: 100px;
+    justify-content: center;
+    align-items: center;
+    line-height: 144%;
+    text-decoration: none;
+    display: flex;
+    transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
+
+
+    svg {
+      path {
+        fill: get-color(white_s1);
+      }
+    }
+
+    // @include media(tablet) {
+    //   font-size: medium;
+
+    //   gap: 1em;
+    // }
 
     &:focus {
       outline: 0;
@@ -268,6 +386,7 @@
     align-items: center;
     flex-direction: column;
     color: get-color(grey2_s4);
+
     img {
       width: 25px;
     }
@@ -292,6 +411,7 @@
     border-radius: brd(2);
     border-style: none;
     width: 9rem;
+
     &:hover {
       padding: 0.5rem 0.6rem;
       font-weight: 600;
@@ -305,6 +425,7 @@
     border-radius: brd(2);
     border-style: none;
     width: 9rem;
+
     &:hover {
       padding: 0.5rem 0.6rem;
       font-weight: 600;
@@ -352,8 +473,10 @@
 .disabled {
   opacity: 0.5;
   border-style: none;
-  cursor: not-allowed; /* Cambia el cursor a "no permitido" */
-  pointer-events: none; /* Desactiva eventos de puntero */
+  cursor: not-allowed;
+  /* Cambia el cursor a "no permitido" */
+  pointer-events: none;
+  /* Desactiva eventos de puntero */
 }
 
 .desactivo {
@@ -383,8 +506,9 @@
   }
 }
 
-button:hover + .cloud {
-  opacity: 1; /* Se hace visible cuando el botón está en :hover */
+button:hover+.cloud {
+  opacity: 1;
+  /* Se hace visible cuando el botón está en :hover */
 }
 
 .box-buttons {
@@ -395,6 +519,7 @@ button:hover + .cloud {
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
+
   @include media(tablet) {
     flex-wrap: nowrap;
   }
@@ -420,6 +545,7 @@ button:hover + .cloud {
     font-weight: 500;
     border-style: none;
     padding: 1em;
+
     &::placeholder {
       color: #8f9bba;
       font-weight: 400;
@@ -434,6 +560,7 @@ button:hover + .cloud {
     align-items: center;
 
     padding-left: 1rem;
+
     svg {
       color: get-color(t1-blue);
       pointer-events: none;
@@ -441,30 +568,88 @@ button:hover + .cloud {
   }
 }
 
-.text-gradient {
-  color: transparent;
-  background-clip: text;
-  animation: colorGrad 3s linear infinite;
-  background-size: 100%;
+// .text-gradient {
+//   color: transparent;
+//   background-clip: text;
+//   animation: colorGrad 3s linear infinite;
+//   background-size: 100%;
 
-  text-transform: capitalize;
+//   text-transform: capitalize;
 
-  /* stroke liner */
-  background: linear-gradient(180deg, #ffffff 50%, rgba(255, 255, 255, 0) 50%), linear-gradient(140deg, #1eaaf1 6.13%, #6ad2ff 30.51%, #6640ff 68.01%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-fill-color: transparent;
-}
+//   /* stroke liner */
+//   background: linear-gradient(180deg, #ffffff 50%, rgba(255, 255, 255, 0) 50%), linear-gradient(140deg, #1eaaf1 6.13%, #6ad2ff 30.51%, #6640ff 68.01%);
+
+//   -webkit-background-clip: text;
+//   -webkit-text-fill-color: transparent;
+//   background-clip: text;
+//   text-fill-color: transparent;
+// }
 
 @keyframes colorGrad {
   0% {
     background-position: 50% 0%;
   }
+
   50% {
     background-position: 50% 100%;
   }
+
   100% {
     background-position: 50% 0%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+// components/GradientButton.module.scss
+.box-container-gradient {
+  position: relative;
+  display: inline-block;
+  border-radius: 100px; /* Radio del contenedor */
+  padding: 0.15rem; /* Espacio alrededor del botón */
+  background-image: linear-gradient(90deg,  #BF4FDB,  #5778EA,  #3DB1F7);
+  background-size: 200% 200%; /* Aumenta el tamaño para un mejor efecto de movimiento */
+  animation: gradientAnimation 5s linear infinite; /* Añade la animación del fondo */
+
+  .gradientButton {
+    padding: 0.75rem 1rem; /* Ajusta según sea necesario */
+    border-radius: 50px; /* Radio del botón */
+    font-size: 16px;
+    font-weight: 500;
+    cursor:auto;
+    background-color: get-color(black_p2); /* Fondo del botón negro */
+    color: get-color(white_s1); /* Color del texto */
+    border: none; /* Sin borde directo */
+    z-index: 2; /* Asegura que el botón esté al frente */
+    text-transform:uppercase; /* Convierte la primera letra de cada palabra a mayúscula */
+    letter-spacing: 1.75px; /* Incrementa la separación entre letras */
+  }
+  
+}
+
+.whiteButton{
+
+
+    background-color:get-color(white_s1) !important; /* Fondo del botón negro */
+    color: get-color(black_p2) !important; /* Color del texto */
+  
+ 
+}
+
+
+/* Definición de la animación */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%; /* Comienza en la posición inicial */
+  }
+  100% {
+    background-position: 100% 50%; /* Termina en la posición final */
   }
 }

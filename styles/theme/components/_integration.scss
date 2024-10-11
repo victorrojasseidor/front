@@ -1,0 +1,47 @@
+.integration {
+ 
+  
+
+
+    &-table {
+        // @include container;
+       
+        @include media(tablet) {
+            width: 90%;
+
+          }
+
+        .btn_black{
+            max-width: 6rem;
+            align-self: flex-end;
+        }
+
+        .dataTable{
+           
+            width: 100%;
+
+         
+
+            .box-actions{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                width: 100%;
+                justify-content:center;
+                
+              
+      
+            }
+        }
+
+    }
+
+    &-forms {
+     
+
+    }
+
+
+
+
+}

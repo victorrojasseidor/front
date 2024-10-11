@@ -24,6 +24,7 @@ const LayoutProducts = ({ children, menu }) => {
   const { session, modalToken, logout, l, setSession, isLogout, setIsLogout, isMenuLateralOpen, setMenuLateralOpen } = useAuth();
   const { asPath } = useRouter();
   const t = l.header;
+  const router = useRouter();
 
   const toggleSubmenu = (menuItem) => {
     setSubmenuOpen((prevState) => ({
@@ -127,6 +128,13 @@ const LayoutProducts = ({ children, menu }) => {
       path: 'https://seidor.mensajea.chat/',
       submenus: [],
     },
+
+    // Integration: {
+    //   label: t.Integration,
+    //   icon: 'Integration',
+    //   path: '/integration',
+    //   submenus: [],
+    // },
   };
 
   return (
@@ -139,7 +147,7 @@ const LayoutProducts = ({ children, menu }) => {
       >
         <div className="menu_Account">
           <div className="imgPerfil">
-            <div className="imgPerfil_logo">
+            <div className="imgPerfil_logo" style={{cursor:"pointer"}}  onClick={()=> router.push('/')}>
               <Image src={isMenuLateralOpen ? logo : ari} width={isMenuLateralOpen ? 500 : 80} alt="logo" priority />
             </div>
           </div>
@@ -161,7 +169,7 @@ const LayoutProducts = ({ children, menu }) => {
           </div>
 
           <div>
-            <button className="action-open-close" onClick={toggleMenu}>
+            <button className="action-open-close" onClick={toggleMenu}> 
               <ImageSvg name={isMenuLateralOpen ? 'CloseMenu' : 'OpenMenu'} />
             </button>
           </div>
@@ -175,33 +183,25 @@ const LayoutProducts = ({ children, menu }) => {
           }}
         >
           {Object.keys(menuItems).map((menuItem, index) => (
-            // eslint-disable-next-line react/jsx-key
-            <ul className="list-content">
+            <ul className="list-content" key={index}>
               {menuItems[menuItem].submenus.length > 0 ? (
-                <li key={index} className={`${asPath.startsWith(menuItems[menuItem].path) ? 'activeIcon' : ''}`}>
+                <li className={`${asPath.startsWith(menuItems[menuItem].path) ? 'activeIcon' : ''}`}>
                   <button onClick={() => toggleSubmenu(menuItem)}>
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
                     {menuItems[menuItem].submenus.length > 0 && (
                       <div className="img-down">
-                        {' '}
                         <ImageSvg name={submenuOpen[menuItem] ? 'Down' : 'Up'} />
                       </div>
                     )}
                   </button>
 
                   {menuItems[menuItem].submenus.length > 0 && (
-                    <div
-                      className="submenu"
-                      style={{
-                        display: submenuOpen[menuItem] ? 'flex' : 'none',
-                      }}
-                    >
+                    <div className="submenu" style={{ display: submenuOpen[menuItem] ? 'flex' : 'none' }}>
                       <ul className="list-content ">
                         {menuItems[menuItem].submenus.map((submenuItem, subIndex) => (
                           <li key={subIndex} className={`${asPath === submenuItem.path || activeSubmenu === submenuItem.path || (menuItems[menuItem] === 'Product' && asPath.startsWith(submenuItem.path)) ? 'active' : ''}`}>
                             <span className="pellet"> </span>
-
                             <Link href={submenuItem.path}>
                               <h5>{submenuItem.label}</h5>
                             </Link>
@@ -212,7 +212,7 @@ const LayoutProducts = ({ children, menu }) => {
                   )}
                 </li>
               ) : (
-                <li key={index} className={`${asPath === menuItem.path || menu === menuItem ? 'active' : ''}`}>
+                <li key={index} className={`${asPath.startsWith(menuItems[menuItem].path) ? 'active' : ''}`}>
                   <Link href={menuItems[menuItem].path}>
                     <ImageSvg name={menuItems[menuItem].icon} />
                     <h5>{menuItems[menuItem].label}</h5>
