@@ -18,7 +18,6 @@ const FormIntegration = ({ onAgregar, initialVal, setIinitialEdit, setShowForm, 
 
   useEffect(() => {
     if (session) {
-
     }
   }, [session, showForm, initialVal, l]);
 
@@ -43,7 +42,7 @@ const FormIntegration = ({ onAgregar, initialVal, setIinitialEdit, setShowForm, 
 
         <Formik
           initialValues={initialValues}
-        //   validate={(values) => validateFormAddAccount(values, initialVal, showcomponent)}
+          //   validate={(values) => validateFormAddAccount(values, initialVal, showcomponent)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
               // handleEditListAccount(values);

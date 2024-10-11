@@ -146,39 +146,36 @@ const ImageSvg = ({ name }) => {
 
     Location: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z"/>
-      <path stroke="url(#b)" stroke-linecap="round" stroke-linejoin="round" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-      <defs>
-        <linearGradient id="a" x1="12" x2="12" y1="1" y2="23" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#784BF3"/>
-          <stop offset="1" stop-color="#BB39D3"/>
-        </linearGradient>
-        <linearGradient id="b" x1="12" x2="12" y1="7" y2="13" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#784BF3"/>
-          <stop offset="1" stop-color="#BB39D3"/>
-        </linearGradient>
-      </defs>
-    </svg>
-    
-
+        <path stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z" />
+        <path stroke="url(#b)" stroke-linecap="round" stroke-linejoin="round" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+        <defs>
+          <linearGradient id="a" x1="12" x2="12" y1="1" y2="23" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#784BF3" />
+            <stop offset="1" stop-color="#BB39D3" />
+          </linearGradient>
+          <linearGradient id="b" x1="12" x2="12" y1="7" y2="13" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#784BF3" />
+            <stop offset="1" stop-color="#BB39D3" />
+          </linearGradient>
+        </defs>
+      </svg>
     ),
 
     Message: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" d="M5.7 4h13.6c.935 0 1.7.844 1.7 1.875v11.25C21 18.156 20.235 19 19.3 19H5.7c-.935 0-1.7-.844-1.7-1.875V5.875C4 4.844 4.765 4 5.7 4Z"/>
-  <path stroke="url(#b)" stroke-linecap="round" stroke-linejoin="round" d="m20 5-7.5 9L5 5"/>
-  <defs>
-    <linearGradient id="a" x1="12.5" x2="12.5" y1="4" y2="19" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#784BF3"/>
-      <stop offset="1" stop-color="#BB39D3"/>
-    </linearGradient>
-    <linearGradient id="b" x1="12.5" x2="12.5" y1="5" y2="14" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#784BF3"/>
-      <stop offset="1" stop-color="#BB39D3"/>
-    </linearGradient>
-  </defs>
-</svg>
-
+        <path stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" d="M5.7 4h13.6c.935 0 1.7.844 1.7 1.875v11.25C21 18.156 20.235 19 19.3 19H5.7c-.935 0-1.7-.844-1.7-1.875V5.875C4 4.844 4.765 4 5.7 4Z" />
+        <path stroke="url(#b)" stroke-linecap="round" stroke-linejoin="round" d="m20 5-7.5 9L5 5" />
+        <defs>
+          <linearGradient id="a" x1="12.5" x2="12.5" y1="4" y2="19" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#784BF3" />
+            <stop offset="1" stop-color="#BB39D3" />
+          </linearGradient>
+          <linearGradient id="b" x1="12.5" x2="12.5" y1="5" y2="14" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#784BF3" />
+            <stop offset="1" stop-color="#BB39D3" />
+          </linearGradient>
+        </defs>
+      </svg>
     ),
 
     Download: (
@@ -276,29 +273,22 @@ const ImageSvg = ({ name }) => {
 
     BarChart: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.102 19.25h11.8c1.5 0 2.1-.64 2.1-2.23v-1.04c0-1.59-.6-2.23-2.1-2.23h-11.8m0-8.5h6.8c1.5 0 2.1.64 2.1 2.23v1.04c0 1.59-.6 2.23-2.1 2.23h-6.8M5 1.99v20"/>
-</svg>
-
-    
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.102 19.25h11.8c1.5 0 2.1-.64 2.1-2.23v-1.04c0-1.59-.6-2.23-2.1-2.23h-11.8m0-8.5h6.8c1.5 0 2.1.64 2.1 2.23v1.04c0 1.59-.6 2.23-2.1 2.23h-6.8M5 1.99v20" />
+      </svg>
     ),
 
     Integration: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m17.15 13.82-3.04 3.04m-7.26-3.04h10.3m-10.3-3.64 3.04-3.04m7.26 3.04H6.85"/>
-      <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"/>
-    </svg>
-    
-    
-    
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m17.15 13.82-3.04 3.04m-7.26-3.04h10.3m-10.3-3.64 3.04-3.04m7.26 3.04H6.85" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" />
+      </svg>
     ),
 
     Security: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.91 11.12c0 4.89-3.55 9.47-8.4 10.81-.33.09-.69.09-1.02 0-4.85-1.34-8.4-5.92-8.4-10.81V6.73c0-.82.62-1.75 1.39-2.06l5.57-2.28c1.25-.51 2.66-.51 3.91 0l5.57 2.28c.76.31 1.39 1.24 1.39 2.06l-.01 4.39Z"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0v3"/>
-</svg>
-
-    
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.91 11.12c0 4.89-3.55 9.47-8.4 10.81-.33.09-.69.09-1.02 0-4.85-1.34-8.4-5.92-8.4-10.81V6.73c0-.82.62-1.75 1.39-2.06l5.57-2.28c1.25-.51 2.66-.51 3.91 0l5.57 2.28c.76.31 1.39 1.24 1.39 2.06l-.01 4.39Z" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0v3" />
+      </svg>
     ),
 
     Efficiency: (
@@ -308,47 +298,27 @@ const ImageSvg = ({ name }) => {
     ),
 
     Extraction: (
-     
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M14.262 15.998h-5"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m12.66 2.518-.03.07-2.9 6.73H6.88c-.68 0-1.33.14-1.92.39l1.75-4.18.04-.1.07-.16c.02-.06.04-.12.07-.17 1.31-3.03 2.79-3.72 5.77-2.58Z"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.05 9.518c-.45-.14-.93-.2-1.41-.2H9.73l2.9-6.73.03-.07c.15.05.29.12.44.18l2.21.93c1.23.51 2.09 1.04 2.61 1.68.1.12.18.23.25.36.09.14.16.28.2.43.04.09.07.18.09.26.27.84.11 1.87-.41 3.16Z"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.522 14.198v1.95c0 .2-.01.4-.02.6-.19 3.49-2.14 5.25-5.84 5.25h-7.8c-.24 0-.48-.02-.71-.05-3.18-.21-4.88-1.91-5.09-5.09-.03-.23-.05-.47-.05-.71v-1.95c0-2.01 1.22-3.74 2.96-4.49.6-.25 1.24-.39 1.92-.39h9.76c.49 0 .97.07 1.41.2 1.99.61 3.46 2.47 3.46 4.68Z"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6.71 5.527-1.75 4.18A4.894 4.894 0 0 0 2 14.197v-2.93c0-2.84 2.02-5.21 4.71-5.74Zm14.809 5.741v2.93c0-2.2-1.46-4.07-3.46-4.67.52-1.3.67-2.32.42-3.17-.02-.09-.05-.18-.09-.26 1.86.96 3.13 2.93 3.13 5.17Z"/>
-</svg>
-
-    
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M14.262 15.998h-5" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m12.66 2.518-.03.07-2.9 6.73H6.88c-.68 0-1.33.14-1.92.39l1.75-4.18.04-.1.07-.16c.02-.06.04-.12.07-.17 1.31-3.03 2.79-3.72 5.77-2.58Z" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.05 9.518c-.45-.14-.93-.2-1.41-.2H9.73l2.9-6.73.03-.07c.15.05.29.12.44.18l2.21.93c1.23.51 2.09 1.04 2.61 1.68.1.12.18.23.25.36.09.14.16.28.2.43.04.09.07.18.09.26.27.84.11 1.87-.41 3.16Z" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.522 14.198v1.95c0 .2-.01.4-.02.6-.19 3.49-2.14 5.25-5.84 5.25h-7.8c-.24 0-.48-.02-.71-.05-3.18-.21-4.88-1.91-5.09-5.09-.03-.23-.05-.47-.05-.71v-1.95c0-2.01 1.22-3.74 2.96-4.49.6-.25 1.24-.39 1.92-.39h9.76c.49 0 .97.07 1.41.2 1.99.61 3.46 2.47 3.46 4.68Z" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6.71 5.527-1.75 4.18A4.894 4.894 0 0 0 2 14.197v-2.93c0-2.84 2.02-5.21 4.71-5.74Zm14.809 5.741v2.93c0-2.2-1.46-4.07-3.46-4.67.52-1.3.67-2.32.42-3.17-.02-.09-.05-.18-.09-.26 1.86.96 3.13 2.93 3.13 5.17Z" />
+      </svg>
     ),
 
-    Notification:
-    (
-      
+    Notification: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5" d="M12 6.44v3.33M12.02 2C8.34 2 5.36 4.98 5.36 8.66v2.1c0 .68-.28 1.7-.63 2.28l-1.27 2.12c-.78 1.31-.24 2.77 1.2 3.25a23.34 23.34 0 0 0 14.73 0 2.22 2.22 0 0 0 1.2-3.25l-1.27-2.12c-.35-.58-.63-1.61-.63-2.28v-2.1C18.68 5 15.68 2 12.02 2Z"/>
-  <path stroke="#292D32" stroke-miterlimit="10" stroke-width="1.5" d="M15.33 18.82c0 1.83-1.5 3.33-3.33 3.33-.91 0-1.75-.38-2.35-.98-.6-.6-.98-1.44-.98-2.35"/>
-</svg>
-
-
-
-    )
-    ,
-
-    Avatar:
-    (
-   
+        <path stroke="#292D32" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5" d="M12 6.44v3.33M12.02 2C8.34 2 5.36 4.98 5.36 8.66v2.1c0 .68-.28 1.7-.63 2.28l-1.27 2.12c-.78 1.31-.24 2.77 1.2 3.25a23.34 23.34 0 0 0 14.73 0 2.22 2.22 0 0 0 1.2-3.25l-1.27-2.12c-.35-.58-.63-1.61-.63-2.28v-2.1C18.68 5 15.68 2 12.02 2Z" />
+        <path stroke="#292D32" stroke-miterlimit="10" stroke-width="1.5" d="M15.33 18.82c0 1.83-1.5 3.33-3.33 3.33-.91 0-1.75-.38-2.35-.98-.6-.6-.98-1.44-.98-2.35" />
+      </svg>
+    ),
+    Avatar: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12.119 12.78a.963.963 0 0 0-.24 0 3.269 3.269 0 0 1-3.16-3.27c0-1.81 1.46-3.28 3.28-3.28a3.276 3.276 0 0 1 .12 6.55Zm6.623 6.6a9.934 9.934 0 0 1-6.74 2.62c-2.6 0-4.96-.99-6.74-2.62.1-.94.7-1.86 1.77-2.58 2.74-1.82 7.22-1.82 9.94 0 1.07.72 1.67 1.64 1.77 2.58Z"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"/>
-</svg>
-
-
-    )
-,
-
-
-
-    
-
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12.119 12.78a.963.963 0 0 0-.24 0 3.269 3.269 0 0 1-3.16-3.27c0-1.81 1.46-3.28 3.28-3.28a3.276 3.276 0 0 1 .12 6.55Zm6.623 6.6a9.934 9.934 0 0 1-6.74 2.62c-2.6 0-4.96-.99-6.74-2.62.1-.94.7-1.86 1.77-2.58 2.74-1.82 7.22-1.82 9.94 0 1.07.72 1.67 1.64 1.77 2.58Z" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" />
+      </svg>
+    ),
     // menú icons
     MenuOpen: <RiMenu3Line />,
     MenuClose: <RiCloseLine />,

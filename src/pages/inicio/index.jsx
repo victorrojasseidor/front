@@ -114,7 +114,7 @@ export default function index() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init({
-        offset: -2, // Inicia la animación inmediatamente cuando la sección está visible
+        offset: -1, // Inicia la animación inmediatamente cuando la sección está visible
         duration: 500, // Duración de las animaciones
         // once: true, // Evitar que las animaciones se repitan
         // easing: 'ease-out', // Añadir un suavizado en la animación
@@ -137,7 +137,7 @@ export default function index() {
           }
         });
       },
-      { threshold: 0.001 } // Disparar la animación cuando el 10% de la sección sea visible
+      { threshold: 0.0001 } // Disparar la animación cuando el 10% de la sección sea visible
     );
 
     const currentRef = counterSectionRef.current;
@@ -373,8 +373,8 @@ export default function index() {
   return (
     <section className="home">
       <header className="home-nav">
-        <ul className='logo-img' onClick={() => router.push('/')}>
-          <Image src={LogoOscuro} width={100} height={100} alt="logooscuro"  />
+        <ul className="logo-img" onClick={() => router.push('/')}>
+          <Image src={LogoOscuro} width={100} height={100} alt="logooscuro" priority />
         </ul>
 
         <ul className="nav-menu">
@@ -503,7 +503,7 @@ export default function index() {
           <ImageSvg name="Avatar" />
           Digital Employees as a Service
         </button>
-        <div className="title-home " data-aos="zoom-in">
+        <div className="title-home" data-aos="zoom-in">
           <h2 className="title gradient">
             {t['Empower your operations with our']} +8
             <span> {t['advanced skills']} </span>
@@ -522,7 +522,7 @@ export default function index() {
 
           <article className="box-images">
             <figure>
-              <Image className="image-one" src={skillView?.imageone} width={200} height={200} alt="example" />
+              <Image className="image-one" src={skillView?.imageone} width={200} height={200} alt="example" priority />
               <Image className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`} src={skillView?.imagetwo} width={200} height={200} alt="example" />
             </figure>
           </article>
@@ -584,7 +584,7 @@ export default function index() {
           <p className="">{t['Expert analysis, bold thinking, and data gathering for leaders who want to achieve the extraordinary.']}</p>
         </div>
 
-        <div className="box-insigths">
+        <div className="box-insigths" data-aos="zoom-in-up">
           {cardInsights.map((card, index) => (
             <article key={index} className="insigths">
               <figure className="insigths-image gradient">
@@ -628,7 +628,7 @@ export default function index() {
 
       <footer className="home-footer">
         <div className="home-footer-info">
-          <div className="footer-message gradient">
+          <div className="footer-message gradient" data-aos="fade-up">
             <p className="message">
               "{t['True success in the era of artificial intelligence lies in collaborating with technology to']}
               <span> {t['transform limitations into opportunities']} </span>

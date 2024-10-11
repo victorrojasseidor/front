@@ -147,7 +147,7 @@ const LayoutProducts = ({ children, menu }) => {
       >
         <div className="menu_Account">
           <div className="imgPerfil">
-            <div className="imgPerfil_logo" style={{cursor:"pointer"}}  onClick={()=> router.push('/')}>
+            <div className="imgPerfil_logo" style={{ cursor: 'pointer' }} onClick={() => router.push('/')}>
               <Image src={isMenuLateralOpen ? logo : ari} width={isMenuLateralOpen ? 500 : 80} alt="logo" priority />
             </div>
           </div>
@@ -169,7 +169,7 @@ const LayoutProducts = ({ children, menu }) => {
           </div>
 
           <div>
-            <button className="action-open-close" onClick={toggleMenu}> 
+            <button className="action-open-close" onClick={toggleMenu}>
               <ImageSvg name={isMenuLateralOpen ? 'CloseMenu' : 'OpenMenu'} />
             </button>
           </div>

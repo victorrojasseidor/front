@@ -71,7 +71,7 @@ const Detracctions = () => {
         {requestError && <div className="errorMessage"> {requestError.error}</div>}
         <div className="box-tabs">
           <div className="tab-content">
-            detractions 
+            detractions
             <div className="tabOne">
               <div className="contaniner-tables">
                 <div className="box-search">
