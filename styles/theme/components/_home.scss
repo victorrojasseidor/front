@@ -397,6 +397,10 @@
           width: 20rem;
 
           @include media(tablet) {
+            width: 28rem;
+          }
+
+          @include media(desktop) {
             width: auto;
           }
 
@@ -428,13 +432,13 @@
             height: 59vh;
             display: block;
             left: 20%;
-            width: 32vw;
+            width: 38vw;
 
 
           }
 
           @include media(desktop) {
-            transform: translateX(100%);
+            
             left: 20%;
             height: 60vh;
             width: 36vw;
@@ -895,87 +899,43 @@
   &-footer {
     display: flex;
     flex-direction: row;
-    margin-right: 0rem;
-    padding-right: 0rem;
-    width: 100%;
-    justify-content: space-between;
+    flex-direction: column;
     background-color: rgba(get-color(black_p2), 1);
 
-    @include media(tablet) {
-      background-image: url('../../../public/img/footer.webp');
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: right top;
-      background-position: 102%;
-      /* Alinea al lado derecho y arriba */
-      padding: 0;
-      margin: 0;
-      // bottom: -0.5rem;
-      position: relative;
-      /* Necesario para aplicar los ajustes */
-      // right: -0.5rem;
-
-      /* Desplaza la imagen 0.25rem más a la derecha */
-
-    }
-
-
+    @include home-container;
+    gap: 2rem;
+    @include media(tablet) {}
 
     &-info {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      flex-direction: column;
-      flex-wrap: wrap;
-      gap: 1rem;
-      padding: 2rem 2rem 0rem 2rem;
+      display: grid;
+      gap: 3rem;
+      padding: auto;
 
-      @include media(desktop) {
-        // width: 75%;
+      grid-template-columns: 1fr; // 1 columna en pantallas pequeñas
+
+      @include media(tablet) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+
+      p,a{
+        font-size: 1rem;
+        font-weight: 400;
       }
 
 
-      p {
-        color: rgba(get-color(white_s1), 1)
-      }
 
-
-      .logo-footer {
-        display: flex;
-        justify-content: flex-start;
+      .footer-message {
         width: auto;
-     
-
-        img {
-          height: auto;
-          width: auto;
-        
-          filter: grayscale(100%);
-        
-
-
-        }
-
-
-      }
-
-      .message-footer {
-        text-align: center;
-        width: 100%;
-        align-items: center;
-        padding-bottom: 2rem;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      
 
         p {
-          width: 80%;
-          color: rgba(get-color(white_s1), 1);
+          text-wrap: wrap;
+        }
+        .message{
+          text-align: start;
+          font-style: oblique;
         }
       }
-
 
 
 
@@ -989,26 +949,44 @@
         // padding: 1rem 0rem 1rem 0rem;
 
         @include media(tablet) {
-          flex-direction: row;
-          justify-content: center;
-         
+          flex-direction: column;
+          justify-content: flex-start;
+
         }
 
-
+        h4{
+          color:rgba(get-color(white_s1), 1)
+        }
 
 
         li {
           list-style: none;
           color: rgba(get-color(white_s1), 1);
           font-weight: 400;
-          text-transform: uppercase;
+          text-transform:uppercase;
           position: relative;
+          width: 100%; 
+          justify-content: center;
+          align-items: flex-start;
 
-          @include gradient-underline;
+
+          @include text-underline;
+
+
+          @include media(tablet) {
+
+            text-transform:initial;
+            
+          }
 
           a {
             list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            text-align: start;
             color: rgba(get-color(white_s1), 0.95);
+            font-size: 1rem;
           }
 
 
@@ -1017,99 +995,70 @@
       }
 
       .footer-social {
+
         display: flex;
-        justify-content: space-between;
-        // align-items: flex-start;
+        justify-content: flex-start;
+        align-items: flex-start;
         flex-direction: column;
-        // gap: 1rem;
-        padding: 0rem 0rem 1rem 0rem;
-        flex-wrap: wrap;
-         border-top: 0.25px solid rgba(get-color(forms_s6), 0.45);
-
-
-
-        @include media(tablet) {
-          flex-direction: column;
-          // justify-content:space-between;
-          // align-items: center;
-        }
-
+        text-align: start;
+        gap: 1rem;
 
         p {
-                 
-          font-size: 0.9rem;
-                color: rgba(get-color(white_s1), 0.8);
-          font-weight: 400;
+          text-align: start;
           display: flex;
-          flex-direction: column;
-          // flex-wrap: wrap;
-
-          // align-items: flex-start;
-          gap:0.5rem; 
-        
-          align-self: flex-start;
-
-          span{
-            align-self: flex-start;
-          }
-           
-       
-
-          @include media(tablet) {
-            justify-content: flex-start;
-            // align-items: center;
-            // flex-direction: column;
-            
-          }
-
-
-        }
-
-        .location {
-          flex-direction: column;
-          display: flex;
-          gap:0.5rem;
           align-items: flex-start;
-           
-       
-
-          @include media(tablet) {
-            justify-content: center;
-            flex-direction: row;
-            
-          }
-
-
+          gap:0.25rem;
+          color: rgba(get-color(white_s1), 0.85);
+         
         }
-
 
         svg {
-          align-self: flex-start;
-
-          path {
-            fill: transparent;
-            stroke: rgba(get-color(white_s1), 0.8);
-          }
+          display: flex;
+          align-self:baseline;
+          
+          
         }
+
+
       }
 
     }
 
-    &-image {
-      width: 0rem;
-      height: 100%;
+    &-logo {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      width: 100%;
+      align-items: flex-start;
+      color:rgba(get-color(white_s1), 0.75);
+
 
       @include media(tablet) {
-        width: 30rem;
+        flex-direction: row;
+        align-items: flex-end;
       }
 
 
+    }
+
+    dir {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      font-size: 0.9rem;
+
+
+     
+      
     }
 
 
 
   }
 }
+
+
+
 
 .scroll-header {
   background-color: rgba(get-color(black_p2), 0.95);

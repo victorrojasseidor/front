@@ -145,11 +145,41 @@ const ImageSvg = ({ name }) => {
 
     Location: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-width="1.5" d="M12 13.43a3.12 3.12 0 1 0 0-6.24 3.12 3.12 0 0 0 0 6.24Z"/>
-  <path stroke="#292D32" stroke-width="1.5" d="M3.62 8.49c1.97-8.66 14.8-8.65 16.76.01 1.15 5.08-2.01 9.38-4.78 12.04a5.193 5.193 0 0 1-7.21 0c-2.76-2.66-5.92-6.97-4.77-12.05Z"/>
+      <path stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z"/>
+      <path stroke="url(#b)" stroke-linecap="round" stroke-linejoin="round" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+      <defs>
+        <linearGradient id="a" x1="12" x2="12" y1="1" y2="23" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#784BF3"/>
+          <stop offset="1" stop-color="#BB39D3"/>
+        </linearGradient>
+        <linearGradient id="b" x1="12" x2="12" y1="7" y2="13" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#784BF3"/>
+          <stop offset="1" stop-color="#BB39D3"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    
+
+    ),
+
+    Message: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+  <path stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" d="M5.7 4h13.6c.935 0 1.7.844 1.7 1.875v11.25C21 18.156 20.235 19 19.3 19H5.7c-.935 0-1.7-.844-1.7-1.875V5.875C4 4.844 4.765 4 5.7 4Z"/>
+  <path stroke="url(#b)" stroke-linecap="round" stroke-linejoin="round" d="m20 5-7.5 9L5 5"/>
+  <defs>
+    <linearGradient id="a" x1="12.5" x2="12.5" y1="4" y2="19" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#784BF3"/>
+      <stop offset="1" stop-color="#BB39D3"/>
+    </linearGradient>
+    <linearGradient id="b" x1="12.5" x2="12.5" y1="5" y2="14" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#784BF3"/>
+      <stop offset="1" stop-color="#BB39D3"/>
+    </linearGradient>
+  </defs>
 </svg>
 
     ),
+
     Download: (
       <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50">
         <path d="M 28.875 0 C 28.855469 0.0078125 28.832031 0.0195313 28.8125 0.03125 L 0.8125 5.34375 C 0.335938 5.433594 -0.0078125 5.855469 0 6.34375 L 0 43.65625 C -0.0078125 44.144531 0.335938 44.566406 0.8125 44.65625 L 28.8125 49.96875 C 29.101563 50.023438 29.402344 49.949219 29.632813 49.761719 C 29.859375 49.574219 29.996094 49.296875 30 49 L 30 44 L 47 44 C 48.09375 44 49 43.09375 49 42 L 49 8 C 49 6.90625 48.09375 6 47 6 L 30 6 L 30 1 C 30.003906 0.710938 29.878906 0.4375 29.664063 0.246094 C 29.449219 0.0546875 29.160156 -0.0351563 28.875 0 Z M 28 2.1875 L 28 6.53125 C 27.867188 6.808594 27.867188 7.128906 28 7.40625 L 28 42.8125 C 27.972656 42.945313 27.972656 43.085938 28 43.21875 L 28 47.8125 L 2 42.84375 L 2 7.15625 Z M 30 8 L 47 8 L 47 42 L 30 42 L 30 37 L 34 37 L 34 35 L 30 35 L 30 29 L 34 29 L 34 27 L 30 27 L 30 22 L 34 22 L 34 20 L 30 20 L 30 15 L 34 15 L 34 13 L 30 13 Z M 36 13 L 36 15 L 44 15 L 44 13 Z M 6.6875 15.6875 L 12.15625 25.03125 L 6.1875 34.375 L 11.1875 34.375 L 14.4375 28.34375 C 14.664063 27.761719 14.8125 27.316406 14.875 27.03125 L 14.90625 27.03125 C 15.035156 27.640625 15.160156 28.054688 15.28125 28.28125 L 18.53125 34.375 L 23.5 34.375 L 17.75 24.9375 L 23.34375 15.6875 L 18.65625 15.6875 L 15.6875 21.21875 C 15.402344 21.941406 15.199219 22.511719 15.09375 22.875 L 15.0625 22.875 C 14.898438 22.265625 14.710938 21.722656 14.5 21.28125 L 11.8125 15.6875 Z M 36 20 L 36 22 L 44 22 L 44 20 Z M 36 27 L 36 29 L 44 29 L 44 27 Z M 36 35 L 36 37 L 44 37 L 44 35 Z" />

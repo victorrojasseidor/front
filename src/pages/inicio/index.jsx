@@ -137,7 +137,7 @@ export default function index() {
           }
         });
       },
-      { threshold: 0.0 } // Disparar la animación cuando el 10% de la sección sea visible
+      { threshold: 0.001 } // Disparar la animación cuando el 10% de la sección sea visible
     );
 
     const currentRef = counterSectionRef.current;
@@ -153,9 +153,6 @@ export default function index() {
       }
     };
   }, []);
-
-
-  
 
   useLayoutEffect(() => {
     // Asegurarse de que esté en el cliente
@@ -182,9 +179,6 @@ export default function index() {
       };
     }
   }, []);
-
-
-
 
   const menuData = [
     {
@@ -324,7 +318,7 @@ export default function index() {
       date: t['June 28, 2018'],
       image: post1,
       type: t['Financial Services'],
-      description: t['Technology will enhance the capabilities of insurance agents and help clients perform simpler transactions on their own.'],
+      description: t['Our AI automates financial processes, optimizing management and reducing time in back office tasks'],
       link: '/insights/post-generative-ai',
     },
     {
@@ -333,7 +327,7 @@ export default function index() {
       date: t['September 10, 2020'],
       image: post2,
       type: t['Innovation'],
-      description: t['Technology will enhance the capabilities of insurance agents and help clients perform simpler transactions on their own.'],
+      description: t['Digital agents enhance efficiency in financial transactions, offering quick and personalized solutions for your accounting needs'],
       link: '/insights/post-digital-agents',
     },
     {
@@ -342,7 +336,7 @@ export default function index() {
       date: t['March 15, 2021'],
       image: post3,
       type: t['Technologies'],
-      description: t['Technology will enhance the capabilities of insurance agents and help clients perform simpler transactions on their own.'],
+      description: t['Automate financial management with AI to increase accuracy and simplify complex tasks in accounting and taxes'],
       link: '/insights/post-apply-ai-finance',
     },
     {
@@ -634,55 +628,60 @@ export default function index() {
 
       <footer className="home-footer">
         <div className="home-footer-info">
-          
+       
+          <div className="footer-message gradient">
 
-          <div className=" message-footer" >
-            <p>"{t['Success in the age of artificial intelligence is not about replacing humans, but about collaborating with technology to increase our capabilities']}."</p>
-            <p  data-aos="zoom-in">— Satya Nadella , {t['CEO Microsoft']}
-              </p>
+            <p className='message'>
+             "{t['True success in the era of artificial intelligence lies in collaborating with technology to']} 
+              <span> {t['transform limitations into opportunities']}  </span>
+              {t['and release the extraordinary in each one']}"
+            </p>
+            <p>
+            — Menagen Murriagui, {t['Ari CEO']} 
+            </p>
+
           </div>
 
           <div className="footer-menu">
-              {menuMovil.map((menu) => (
-                <li className="languaje-white list-options" key={menu.label}>
-                  <Link href={menu.link} scroll={false}>
-                    {menu.label}
-                  </Link>
-                </li>
-              ))}
-            </div>
-
-           
+            {/* <h4> A cerca de :</h4> */}
+            {menuMovil.map((menu) => (
+              <li className="languaje-white list-options" key={menu.label}>
+                <Link href={menu.link} scroll={false}>
+                  {menu.label}
+                </Link>
+              </li>
+            ))}
+          </div>
 
           <div className="footer-social">
-
-              <div className="logo-footer">
-            <Image src={LogoOscuro} width={100} height={100} alt="logo" loading="eager" />
-          </div> 
-
-               
-        
-            
-            
-
             <p>
-            <span className="location">
-              <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
-            </span>
-            <span>© 2024 ARI Digital Employees.</span>
-            <span style={{fontStyle:"italic"}}>Varias marcas comerciales de sus respectivos propietarios</span>
-              
+            <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
+
+
             </p>
-
-           
-          
-
-           
-         
+            <p>
+            <ImageSvg name="Message" /> Seidor@seidor
+            </p>
+            
           </div>
         </div>
 
-        <div className="home-footer-image">{/* <Image  src={footerImage} width={100} height={100} alt="footer" /> */}</div>
+        <div className="home-footer-logo">
+          <div className="logo-footer">
+            <Image src={LogoOscuro} width={100} height={100} alt="logo" loading="eager" />
+            © 2024 ARI Digital Employees. All Rights Reserved
+          </div>
+          <dir>
+            <p>
+            {t['Privacy Policy']} 
+            </p>
+
+            <p>
+           {t['Terms of Use']} 
+            </p>
+          </dir>
+
+        </div>
       </footer>
     </section>
   );
