@@ -373,7 +373,7 @@ export default function index() {
   return (
     <section className="home">
       <header className="home-nav">
-        <ul>
+        <ul className='logo-img'>
           <Image src={LogoOscuro} width={100} height={100} alt="logooscuro" />
         </ul>
 
@@ -628,18 +628,13 @@ export default function index() {
 
       <footer className="home-footer">
         <div className="home-footer-info">
-       
           <div className="footer-message gradient">
-
-            <p className='message'>
-             "{t['True success in the era of artificial intelligence lies in collaborating with technology to']} 
-              <span> {t['transform limitations into opportunities']}  </span>
-              {t['and release the extraordinary in each one']}"
+            <p className="message">
+              "{t['True success in the era of artificial intelligence lies in collaborating with technology to']}
+              <span> {t['transform limitations into opportunities']} </span>
+              {t['and release the extraordinary in each one']}".
             </p>
-            <p>
-            — Menagen Murriagui, {t['Ari CEO']} 
-            </p>
-
+            <p>— Menagen Murriagui, {t['Ari CEO']}</p>
           </div>
 
           <div className="footer-menu">
@@ -655,32 +650,24 @@ export default function index() {
 
           <div className="footer-social">
             <p>
-            <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
-
-
+              <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
             </p>
             <p>
-            <ImageSvg name="Message" /> Seidor@seidor
+              <ImageSvg name="Message" /> info.pe@seidor.com
             </p>
-            
           </div>
         </div>
 
         <div className="home-footer-logo">
           <div className="logo-footer">
             <Image src={LogoOscuro} width={100} height={100} alt="logo" loading="eager" />
-            © 2024 ARI Digital Employees. All Rights Reserved
+            <p>© 2024 ARI Digital Employees. All Rights Reserved</p>
           </div>
-          <dir>
-            <p>
-            {t['Privacy Policy']} 
-            </p>
+          <div className="footer-privacy">
+            <p>{t['Privacy Policy']}</p>
 
-            <p>
-           {t['Terms of Use']} 
-            </p>
-          </dir>
-
+            <p>{t['Terms of Use']}</p>
+          </div>
         </div>
       </footer>
     </section>
