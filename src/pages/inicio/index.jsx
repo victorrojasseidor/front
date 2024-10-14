@@ -42,6 +42,7 @@ import anglo from '../../../public/img/logos/anglo.webp';
 import auna from '../../../public/img/logos/auna.webp';
 import pacasmayo from '../../../public/img/logos/pacasmayo.webp';
 import unacen from '../../../public/img/logos/unacen.webp';
+import LayoutHome from '@/Components/LayoutHome';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 
@@ -105,10 +106,10 @@ export default function index() {
   const [isCounterSectionInView, setIsCounterSectionInView] = useState(false);
   const [isImageInView, setIsImageInView] = useState(false);
   const [skillView, setskillView] = useState(null);
-  const [isOpenMobile, setIsOpenMobile] = useState(false);
-  const toggleMenuMobile = () => {
-    setIsOpenMobile(!isOpenMobile);
-  };
+  // const [isOpenMobile, setIsOpenMobile] = useState(false);
+  // const toggleMenuMobile = () => {
+  //   setIsOpenMobile(!isOpenMobile);
+  // };
 
   // Animaciones AOS
   useEffect(() => {
@@ -154,70 +155,70 @@ export default function index() {
     };
   }, []);
 
-  useLayoutEffect(() => {
-    // Asegurarse de que esté en el cliente
-    if (typeof window !== 'undefined') {
-      const header = document.querySelector('header');
+  // useLayoutEffect(() => {
+  //   // Asegurarse de que esté en el cliente
+  //   if (typeof window !== 'undefined') {
+  //     const header = document.querySelector('header');
 
-      // Verificar si el header existe en el DOM
-      if (!header) return;
+  //     // Verificar si el header existe en el DOM
+  //     if (!header) return;
 
-      const handleScroll = () => {
-        if (window.scrollY > 0) {
-          header.classList.add('scroll-header');
-        } else {
-          header.classList.remove('scroll-header');
-        }
-      };
+  //     const handleScroll = () => {
+  //       if (window.scrollY > 0) {
+  //         header.classList.add('scroll-header');
+  //       } else {
+  //         header.classList.remove('scroll-header');
+  //       }
+  //     };
 
-      // Añadir el evento de scroll
-      window.addEventListener('scroll', handleScroll);
+  //     // Añadir el evento de scroll
+  //     window.addEventListener('scroll', handleScroll);
 
-      // Limpieza del evento
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, []);
+  //     // Limpieza del evento
+  //     return () => {
+  //       window.removeEventListener('scroll', handleScroll);
+  //     };
+  //   }
+  // }, []);
 
-  const menuData = [
-    {
-      label: 'Insigths',
-      link: '/#insights',
-      submenus: [],
-    },
-  ];
+  // const menuData = [
+  //   {
+  //     label: 'Insigths',
+  //     link: '/#insights',
+  //     submenus: [],
+  //   },
+  // ];
 
-  const menuMovil = [
-    {
-      label: t['Home'],
-      link: '/#front',
-      submenus: [],
-    },
+  // const menuMovil = [
+  //   {
+  //     label: t['Home'],
+  //     link: '/#front',
+  //     submenus: [],
+  //   },
 
-    {
-      label: t['What we do'],
-      link: '/#skills',
-      submenus: [],
-    },
-    {
-      label: t['WHY CHOOSE US'],
-      link: '/#flow',
-      submenus: [],
-    },
+  //   {
+  //     label: t['What we do'],
+  //     link: '/#skills',
+  //     submenus: [],
+  //   },
+  //   {
+  //     label: t['WHY CHOOSE US'],
+  //     link: '/#flow',
+  //     submenus: [],
+  //   },
 
-    {
-      label: 'Insigths',
-      link: '/#insights',
-      submenus: [],
-    },
+  //   {
+  //     label: 'Insigths',
+  //     link: '/#insights',
+  //     submenus: [],
+  //   },
 
-    // {
-    //   label: 'Clientes',
-    //   link: '/#client',
-    //   submenus: [],
-    // }
-  ];
+  //   // {
+  //   //   label: 'Clientes',
+  //   //   link: '/#client',
+  //   //   submenus: [],
+  //   // }
+  // ];
 
   const cardAdventage = [
     {
@@ -371,74 +372,9 @@ export default function index() {
   const logoClient = [adama, adeco, agrokasa, anglo, auna, pacasmayo, unacen];
 
   return (
-    <section className="home">
-      <header className="home-nav">
-        <ul className='logo-img'>
-          <Image src={LogoOscuro} width={100} height={100} alt="logooscuro" />
-        </ul>
 
-        <ul className="nav-menu">
-          <li className="languaje-white">
-            <Lang />
-          </li>
-
-          {menuData.map((menu) => (
-            <li className="languaje-white" key={menu.label}>
-              <Link href={menu.link} scroll={false}>
-                {menu.label}
-              </Link>
-            </li>
-          ))}
-
-          <li>
-            <button className="btn_white" onClick={() => router.push('/login')}>
-              <ImageSvg name="Profile" />
-              {t['Log in to ARI']}
-            </button>
-          </li>
-
-          <li>
-            <button className="btn_white white" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
-              {t['Request demo']}
-            </button>
-          </li>
-        </ul>
-
-        <ul className="nav-movil">
-          <li className="hamburgerMenu">
-            <button onClick={toggleMenuMobile}>
-              <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
-            </button>
-          </li>
-
-          <div className={`movil-options ${isOpenMobile ? 'openMovil' : ''}`}>
-            {menuMovil.map((menu) => (
-              <li className="languaje-white list-options" key={menu.label}>
-                <Link href={menu.link} scroll={false}>
-                  {' '}
-                  <a onClick={() => setIsOpenMobile(!isOpenMobile)}>{menu.label}</a>
-                </Link>
-              </li>
-            ))}
-
-            <div className="box-buttons-movil">
-              <button className="btn_white" onClick={() => router.push('/login')}>
-                <ImageSvg name="Profile" />
-                {t['Log in to ARI']}
-              </button>
-
-              <button className="btn_white white" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
-                {t['Request demo']}
-              </button>
-
-              <li className="languaje-white">
-                <Lang />
-              </li>
-            </div>
-          </div>
-        </ul>
-      </header>
-
+    <LayoutHome >
+   
       <section className="home-front" id="front">
         <div className="welcome">
           <div className="welcome-letter">
@@ -626,50 +562,7 @@ export default function index() {
         </article>
       </section>
 
-      <footer className="home-footer">
-        <div className="home-footer-info">
-          <div className="footer-message gradient">
-            <p className="message">
-              "{t['True success in the era of artificial intelligence lies in collaborating with technology to']}
-              <span> {t['transform limitations into opportunities']} </span>
-              {t['and release the extraordinary in each one']}".
-            </p>
-            <p>— Menagen Murriagui, {t['Ari CEO']}</p>
-          </div>
-
-          <div className="footer-menu">
-            {/* <h4> A cerca de :</h4> */}
-            {menuMovil.map((menu) => (
-              <li className="languaje-white list-options" key={menu.label}>
-                <Link href={menu.link} scroll={false}>
-                  {menu.label}
-                </Link>
-              </li>
-            ))}
-          </div>
-
-          <div className="footer-social">
-            <p>
-              <ImageSvg name="Location" /> Vittore Carpaccio 250, San Borja, Lima , Perú
-            </p>
-            <p>
-              <ImageSvg name="Message" /> info.pe@seidor.com
-            </p>
-          </div>
-        </div>
-
-        <div className="home-footer-logo">
-          <div className="logo-footer">
-            <Image src={LogoOscuro} width={100} height={100} alt="logo" loading="eager" />
-            <p>© 2024 ARI Digital Employees. All Rights Reserved</p>
-          </div>
-          <div className="footer-privacy">
-            <p>{t['Privacy Policy']}</p>
-
-            <p>{t['Terms of Use']}</p>
-          </div>
-        </div>
-      </footer>
-    </section>
+      
+    </ LayoutHome >
   );
 }

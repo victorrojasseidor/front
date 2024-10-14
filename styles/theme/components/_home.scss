@@ -1,9 +1,10 @@
 .home {
+ 
   &-nav {
     margin-top: 0;
     padding: 0.5rem 2rem;
     background-color: transparent;
-    // background-color: get-color(black_p2);
+    background-color: get-color(black_p2);
     position: fixed;
     display: flex;
     width: 100%;
@@ -237,7 +238,7 @@
         height: auto;
 
         @include media(tablet) {
-          height: 40rem;
+          height: auto;
           width: 40rem;
         }
 
@@ -914,6 +915,8 @@
     flex-direction: row;
     flex-direction: column;
     background-color: rgba(get-color(black_p2), 1);
+  
+  
 
     @include home-container;
     gap: 2rem;

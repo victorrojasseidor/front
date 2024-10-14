@@ -237,6 +237,12 @@ const ImageSvg = ({ name }) => {
       </svg>
     ),
 
+    Navigation:
+    (<svg xmlns="http://www.w3.org/2000/svg" width="8" height="10" fill="none" viewBox="0 0 8 10">
+      <path fill="#6C7880" d="M7.542 5.351 0 9.851v-1.35l5.76-3.51L0 1.463V.149l7.542 4.536v.666Z"/>
+    </svg>
+    ),
+
     Down: (
       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6" fill="none">
         <path
