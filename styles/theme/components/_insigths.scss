@@ -1,0 +1,54 @@
+.insigths{
+    @include home-container;
+    min-height: 100vh;
+    display: flex;
+   flex-direction: column;
+//    padding-top: 4rem;
+
+   &-navigation{
+    width: max-content;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:0.25rem;
+    flex-direction:row ;
+    background-color:rgba(get-color(grey1_s3), 0.4) ;
+    color:get-color(grey2_s4);
+    padding:  0.5rem;
+    border-radius: brd(1);
+    align-self: flex-start;
+
+    
+   }
+
+
+
+ &-container-posts{
+    display:flex;
+    flex-direction: row;    
+    flex-wrap: wrap;
+    background-color: aquamarine;
+    width: 100%;
+    
+
+   }
+
+   &-post{
+    display: flex;
+    flex-direction: column;
+  
+    flex: 3;
+    background-color: azure;
+
+   }
+
+   &-sugestions{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+   }
+
+ 
+
+}
