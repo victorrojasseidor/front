@@ -7,6 +7,8 @@ import Image from 'next/image';
 import { useAuth } from '@/Context/DataContext';
 import autor from '../../../../public/img/post/autor.jpg';
 
+
+
 export default function Index() {
   const { l } = useAuth();
   const t = l.home;
@@ -56,6 +58,8 @@ export default function Index() {
       },
     ],
   };
+
+
 
   const posts = [
     { id: 1, title: 'Exploring Generative AI in Content Creation', link: '/posts/1' },
@@ -112,6 +116,19 @@ export default function Index() {
         {/* Canonical URL */}
         <link rel="canonical" href={cardInsights.link} />
       </Head>
+
+      {/* <ul>
+        {blogs.map((blog) => (
+          <li key={blog.id}>
+            <h2>{blog.attributes.title}</h2>
+            <p>{blog.attributes.content.substring(0, 100)}...</p>
+            <img
+              src={blog.attributes.coverImage?.data?.attributes?.url || '/default-image.jpg'}
+              alt={blog.attributes.title}
+            />
+          </li>
+        ))}
+      </ul> */}
 
       <section className="insigths">
         <section className="insigths-navigation">

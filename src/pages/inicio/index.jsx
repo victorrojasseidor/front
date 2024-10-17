@@ -98,18 +98,37 @@ const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
   );
 };
 
-export default function index() {
+
+
+export default function index({blogs}) {
   const { l } = useAuth();
   const t = l.home;
   const router = useRouter();
 
+
   const [isCounterSectionInView, setIsCounterSectionInView] = useState(false);
   const [isImageInView, setIsImageInView] = useState(false);
   const [skillView, setskillView] = useState(null);
-  // const [isOpenMobile, setIsOpenMobile] = useState(false);
-  // const toggleMenuMobile = () => {
-  //   setIsOpenMobile(!isOpenMobile);
-  // };
+ 
+
+  async function getDatastrapi() {
+    // Hacemos la petición a la API de Strapi
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/blogs?populate=*`);
+    const data = await res.json();
+      console.log("data", data);
+  
+    if (!data || !data.data) {
+      return {
+        notFound: true, // Si no hay datos, mostramos una página 404
+      };
+    }
+  
+    const blogs = data.data; // Aquí están los datos de los blogs
+    
+    return blogs;
+  }
+  
+
 
   // Animaciones AOS
   useEffect(() => {
@@ -128,6 +147,7 @@ export default function index() {
 
   // Función para observar si la sección del contador está en vista
   useEffect(() => {
+    getDatastrapi();
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -155,70 +175,6 @@ export default function index() {
     };
   }, []);
 
-  // useLayoutEffect(() => {
-  //   // Asegurarse de que esté en el cliente
-  //   if (typeof window !== 'undefined') {
-  //     const header = document.querySelector('header');
-
-  //     // Verificar si el header existe en el DOM
-  //     if (!header) return;
-
-  //     const handleScroll = () => {
-  //       if (window.scrollY > 0) {
-  //         header.classList.add('scroll-header');
-  //       } else {
-  //         header.classList.remove('scroll-header');
-  //       }
-  //     };
-
-  //     // Añadir el evento de scroll
-  //     window.addEventListener('scroll', handleScroll);
-
-  //     // Limpieza del evento
-  //     return () => {
-  //       window.removeEventListener('scroll', handleScroll);
-  //     };
-  //   }
-  // }, []);
-
-  // const menuData = [
-  //   {
-  //     label: 'Insigths',
-  //     link: '/#insights',
-  //     submenus: [],
-  //   },
-  // ];
-
-  // const menuMovil = [
-  //   {
-  //     label: t['Home'],
-  //     link: '/#front',
-  //     submenus: [],
-  //   },
-
-  //   {
-  //     label: t['What we do'],
-  //     link: '/#skills',
-  //     submenus: [],
-  //   },
-  //   {
-  //     label: t['WHY CHOOSE US'],
-  //     link: '/#flow',
-  //     submenus: [],
-  //   },
-
-  //   {
-  //     label: 'Insigths',
-  //     link: '/#insights',
-  //     submenus: [],
-  //   },
-
-  //   // {
-  //   //   label: 'Clientes',
-  //   //   link: '/#client',
-  //   //   submenus: [],
-  //   // }
-  // ];
 
   const cardAdventage = [
     {
