@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import en from '../../../lang/en.json';
 import Lang from '@/Components/Atoms/Lang';
 import LogoOscuro from '../../../public/img/logoOscuro.webp';
 import logo from '../../../public/img/logoGift.gif';
@@ -28,7 +29,7 @@ import vali from '../../../public/img/card-product/vali.svg';
 // import imgvali from '../../../public/img/card-product/imgvali.svg';
 import factu from '../../../public/img/card-product/factu.svg';
 import imgfactu from '../../../public/img/card-product/imgfactu.svg';
-
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import post1 from '../../../public/img/post/post1.svg';
 import post2 from '../../../public/img/post/post2.svg';
 import post3 from '../../../public/img/post/post3.svg';
@@ -44,6 +45,7 @@ import pacasmayo from '../../../public/img/logos/pacasmayo.webp';
 import unacen from '../../../public/img/logos/unacen.webp';
 import LayoutHome from '@/Components/LayoutHome';
 import AOS from 'aos';
+import { formatDate } from '@/helpers/report';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 
 const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
@@ -98,37 +100,32 @@ const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
   );
 };
 
-
-
-export default function index({blogs}) {
+export default function index() {
   const { l } = useAuth();
   const t = l.home;
   const router = useRouter();
 
-
   const [isCounterSectionInView, setIsCounterSectionInView] = useState(false);
   const [isImageInView, setIsImageInView] = useState(false);
   const [skillView, setskillView] = useState(null);
- 
+  const [dataInsigths, setDataInsigths] = useState(null);
 
   async function getDatastrapi() {
     // Hacemos la petición a la API de Strapi
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/blogs?populate=*`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/posts?locale=${router.locale === 'en'?"en":"es"}&populate=image`);
     const data = await res.json();
-      console.log("data", data);
-  
+
     if (!data || !data.data) {
       return {
         notFound: true, // Si no hay datos, mostramos una página 404
       };
     }
-  
-    const blogs = data.data; // Aquí están los datos de los blogs
-    
-    return blogs;
-  }
-  
 
+    const blogs = data.data;
+    setDataInsigths(blogs);
+  }
+
+  console.log({ dataInsigths });
 
   // Animaciones AOS
   useEffect(() => {
@@ -142,12 +139,18 @@ export default function index({blogs}) {
     }
   }, []);
 
+
+  useEffect(() => {
+    getDatastrapi();
+
+  }, [l,router.locale]);
+
   // Referencia a la sección del contador
   const counterSectionRef = useRef(null);
 
   // Función para observar si la sección del contador está en vista
   useEffect(() => {
-    getDatastrapi();
+  
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -174,7 +177,6 @@ export default function index({blogs}) {
       }
     };
   }, []);
-
 
   const cardAdventage = [
     {
@@ -328,9 +330,7 @@ export default function index({blogs}) {
   const logoClient = [adama, adeco, agrokasa, anglo, auna, pacasmayo, unacen];
 
   return (
-
-    <LayoutHome >
-   
+    <LayoutHome>
       <section className="home-front" id="front">
         <div className="welcome">
           <div className="welcome-letter">
@@ -477,24 +477,32 @@ export default function index({blogs}) {
         </div>
 
         <div className="box-insigths">
-          {cardInsights.map((card, index) => (
-            <article key={index} className="insigths">
+
+        
+          {dataInsigths?.map((post, index) => (
+            <article key={post.documentId} className="insigths">
               <figure className="insigths-image gradient">
-                <Image src={card.image} width={40} height={40} alt="insights" />
+               
+                <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${post.image[0].url}`} width={40} height={40} alt="post" />
+
                 <div className="title">
-                  <span>{card.type}</span>
-                  <Link href="">
-                    <h3>{card.title}</h3>{' '}
+                  <span>{post.type}</span>
+                  <Link href={`/insigth/${post.documentId}`}>
+                    <h3>{post.title}</h3>{' '}
                   </Link>
                 </div>
               </figure>
 
               <div className="box-description">
                 <div className="insigths-date">
-                  <span>{card.autor}</span>
-                  <span>{card.date}</span>
+                  <span>{post.autor}</span>
+                  <span>{formatDate(post.publishedAt)}</span>
                 </div>
-                <p className="insigths-description">{card.description}</p>
+                <p className="insigths-description">
+                <BlocksRenderer content={post.description} />
+                 
+                  
+                  </p>
               </div>
             </article>
           ))}
@@ -517,8 +525,6 @@ export default function index({blogs}) {
           ))}
         </article>
       </section>
-
-      
-    </ LayoutHome >
+    </LayoutHome>
   );
 }

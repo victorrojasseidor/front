@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "post_types",
+  "info": {
+    "singularName": "post-type",
+    "pluralName": "post-types",
+    "displayName": "PostType",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Financial Services",
+        "Innovation",
+        "Technologies",
+        "AI & Automation",
+        "Customer Service"
+      ]
+    }
+  }
+}
