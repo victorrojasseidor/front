@@ -24,7 +24,7 @@
 
       
       @include media(tablet) {
-         margin-top: 0rem;
+         margin-top: 1rem;
          margin-bottom: 0rem;
          
       }
@@ -84,12 +84,14 @@
       display: flex;
       flex-direction: column;
       flex: 3;
-      gap: 2rem;
+      gap: 1rem;
 
       .image--post {
          width: 100%;
          position: relative;
          border-radius: brd(2);
+         border:1px solid rgba(get-color(black_p2), 1);
+         background-color:rgba(get-color(black_p2), 1);
        
          height: 40vh;
 
@@ -100,16 +102,18 @@
          }
 
          @include media(tablet) {
-            height: 70vh;
+            height: 65vh;
           
 
          }
+
+       
 
 
          img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit:cover;
             border-radius: brd(2);
          }
 
@@ -124,7 +128,7 @@
             width: 100%;
             padding:  1rem;
             gap: 0.5rem;
-            margin: 0.25rem 0.0rem;
+            // margin: 0.25rem 0.0rem;
             background-color: rgba(get-color(black_p2), 0.1);
             backdrop-filter: blur(31px);
             border-radius: 0 0 brd(2) brd(2);
@@ -149,6 +153,11 @@
          }
 
 
+      }
+
+
+      h2{
+         margin-top: 2rem;
       }
 
       .paragraphs-post {

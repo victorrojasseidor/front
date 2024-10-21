@@ -82,6 +82,18 @@
         "AI & Automation",
         "Customer Service"
       ]
+    },
+    "autorImage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
     }
   }
 }
