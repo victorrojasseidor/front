@@ -65,11 +65,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-
-
- 
-
 }
 
 @mixin home-container {
@@ -79,27 +74,23 @@
   flex-direction: column;
   gap: 2rem;
   // margin: 4rem;
-  padding: 4rem  2rem;
-  
+  padding: 4rem 2rem;
+
   // > * {
   //   max-width: 100rem;
   //   width: 100%; // para que tomen todo el ancho disponible hasta el máximo
   // }
 
-
   @include media(tablet) {
-    padding: 6rem  6rem;
+    padding: 6rem 6rem;
   }
 
   @include media(desktop) {
-    padding: 6rem  8rem;
+    padding: 6rem 8rem;
   }
-
-
 }
 
-@mixin gradient-underline{
-
+@mixin gradient-underline {
   // Estilos iniciales sin subrayado
   &::before {
     content: '';
@@ -121,14 +112,11 @@
   &:hover::before {
     transform: scaleX(1); // Se expande al pasar el mouse
   }
-
 }
 
-
-@mixin text-underline{
-
-   // Estilos iniciales del subrayado
-   &::before {
+@mixin text-underline {
+  // Estilos iniciales del subrayado
+  &::before {
     content: '';
     position: absolute;
     bottom: 0; // Posiciona el subrayado justo debajo del texto
@@ -144,14 +132,7 @@
   &:hover::before {
     width: 50%; // El subrayado abarcará todo el ancho del texto al hacer hover
   }
-
 }
-
-
-
-
-
-
 
 @mixin container {
   padding: 2rem;

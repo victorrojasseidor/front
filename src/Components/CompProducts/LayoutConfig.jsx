@@ -55,7 +55,7 @@ export default function LayoutConfig({ id, iIdProdEnv, defaultTab, children, idE
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setModalToken(true);
-        console.log('errok, ', errorMessage);
+        console.log('error, ', errorMessage);
       }
     } catch (error) {
       setModalToken(true);

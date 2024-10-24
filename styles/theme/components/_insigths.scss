@@ -1,323 +1,280 @@
 .insigth {
-   @include home-container;
-   min-height: 100vh;
-   display: flex;
-   align-items: flex-start;
-   justify-content: flex-start;
-   flex-direction: column;
-   gap: 2rem;
-   // padding-top: 8rem;
+  @include home-container;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 2rem;
+  // padding-top: 8rem;
 
-   &-navigation {
-      width: max-content;
+  &-navigation {
+    width: max-content;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.25rem;
+    flex-direction: row;
+    background-color: rgba(get-color(grey1_s3), 0.3);
+    color: get-color(grey2_s4);
+    padding: 0.5rem;
+    border-radius: brd(1);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    @include media(tablet) {
+      margin-top: 1rem;
+      margin-bottom: 0rem;
+    }
+
+    .title--post {
+      color: rgba(get-color(blue_p1), 0.9);
+      max-width: 11rem;
+      /* Ajusta el ancho máximo según tus necesidades */
+      white-space: nowrap;
+      /* Evita que el texto se envuelva en varias líneas */
+      overflow: hidden;
+      /* Oculta el desbordamiento del texto */
+      text-overflow: ellipsis;
+      /* Agrega los tres puntos suspensivos al final */
+
+      @include media(tablet) {
+        max-width: min-content;
+      }
+
+      @include media(desktop) {
+        max-width: 100%;
+      }
+
+      @include media() {
+        max-width: 100%;
+      }
+    }
+  }
+
+  &-suggestions-posts {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 2rem;
+
+    @include media(tablet) {
+      flex-direction: row;
+    }
+  }
+
+  &-post {
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+    gap: 1rem;
+
+    .image--post {
+      width: 100%;
+      position: relative;
+      border-radius: brd(2);
+      // border:1px solid rgba(get-color(black_p2), 1);
+      // background-color:rgba(get-color(black_p2), 1);
+
+      height: 50vh;
+
+      @include media(tablet) {
+        height: max-content;
+      }
+
+      @include media(tablet) {
+        height: 65vh;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: brd(2);
+        
+      }
+
+      .box-title {
+        position: absolute;
+        display: flex;
+        bottom: 0;
+        right: 0;
+        bottom: -0.5rem;
+        left: 0.3%;
+        
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 99.4%;
+        padding: 1rem;
+        gap: 0.5rem;
+        // margin: 0.25rem 0.0rem;
+        background-color: rgba(get-color(black_p2), 0.1);
+        backdrop-filter: blur(31px);
+        border-radius: 0 0 brd(2) brd(2);
+
+        span {
+          background-color: rgba(get-color(pink_s5), 0.9);
+          border-radius: brd(1);
+          width: max-content;
+          padding: 0.5rem;
+        }
+
+        h1 {
+          color: rgba(get-color(white_s1), 1);
+        }
+
+        p {
+          color: rgba(get-color(white_s1), 0.8);
+        }
+      }
+    }
+
+    h2 {
+      margin-top: 2rem;
+    }
+
+    p {
+      display: inline-block;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    // .paragraphs-post {
+    //    display: flex;
+    //    gap: 0.5rem;
+    //    flex-direction: column;
+    //    align-items: flex-start;
+
+    //    p {
+    //       line-height: 150%;
+    //       font-size: 400;
+    //    }
+
+    //    span {
+    //       color: rgba(get-color(blue_p1), 0.9);
+    //    }
+
+    // }
+  }
+
+  &-suggestions {
+    display: flex;
+    flex-direction: column;
+    flex: 1.25;
+    gap: 2rem;
+
+    .box-autor {
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+
+      img {
+        width: 5rem;
+        border: 2px solid rgba(get-color(grey1_s3), 1);
+        border-radius: brd(2);
+      }
+
+      .dates-autor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          font-weight: 600;
+        }
+
+        span {
+          color: rgba(get-color(grey2_s4), 1);
+          font-style: italic;
+        }
+      }
+    }
+
+    .box-shared {
+      background-image: src;
+      background-image: url('../../../public/img/post/share.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      width: 100%;
       display: flex;
       justify-content: flex-start;
-      align-items: center;
-      gap: 0.25rem;
-      flex-direction: row;
-      background-color: rgba(get-color(grey1_s3), 0.3);
-      color: get-color(grey2_s4);
-      padding: 0.5rem;
+      padding: 1rem;
+
+      flex-direction: column;
       border-radius: brd(1);
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-
-      
-      @include media(tablet) {
-         margin-top: 1rem;
-         margin-bottom: 0rem;
-         
-      }
-
-
-
-      .title--post {
-         color: rgba(get-color(blue_p1), 0.9);
-         max-width: 11rem;
-         /* Ajusta el ancho máximo según tus necesidades */
-         white-space: nowrap;
-         /* Evita que el texto se envuelva en varias líneas */
-         overflow: hidden;
-         /* Oculta el desbordamiento del texto */
-         text-overflow: ellipsis;
-         /* Agrega los tres puntos suspensivos al final */
-
-       
-         @include media(tablet) {
-            max-width: min-content;
-            
-         }
-
-         @include media(desktop) {
-            max-width: 100%;
-         }
-
-         @include media() {
-            max-width: 100%;
-         }
-
-
-
-
-      }
-   }
-
-
-
-   &-suggestions-posts {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      width: 100%;
-      gap: 2rem;
-      @include media(tablet) {
-         flex-direction: row;
-         
-      }
-
-
-
-
-   }
-
-   &-post {
-      display: flex;
-      flex-direction: column;
-      flex: 3;
       gap: 1rem;
 
-      .image--post {
-         width: 100%;
-         position: relative;
-         border-radius: brd(2);
-         border:1px solid rgba(get-color(black_p2), 1);
-         background-color:rgba(get-color(black_p2), 1);
-       
-         height: 40vh;
+      .share-buttons {
+        display: flex;
 
-         @include media(tablet) {
-            height: max-content;
-          
+        gap: 1rem;
 
-         }
+        flex-direction: row;
+        align-items: center;
 
-         @include media(tablet) {
-            height: 65vh;
-          
+        svg {
+          height: 1.5rem;
 
-         }
+          path {
+            fill: rgba(get-color(black_p2), 1);
+          }
+        }
 
-       
+        button {
+          border-style: none;
+          background-color: transparent;
 
-
-         img {
-            width: 100%;
-            height: 100%;
-            object-fit:cover;
-            border-radius: brd(2);
-         }
-
-         .box-title {
-            position: absolute;
-            display: flex;
-            bottom: 0;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-            align-items: flex-start;
-            width: 100%;
-            padding:  1rem;
-            gap: 0.5rem;
-            // margin: 0.25rem 0.0rem;
-            background-color: rgba(get-color(black_p2), 0.1);
-            backdrop-filter: blur(31px);
-            border-radius: 0 0 brd(2) brd(2);
-
-            span {
-               background-color: rgba(get-color(pink_s5), 0.9);
-               border-radius: brd(1);
-               width: max-content;
-               padding: 0.5rem;
-
-            }
-
-            h1 {
-               color: rgba(get-color(white_s1), 1)
-            }
-
-            p {
-               color: rgba(get-color(white_s1), 0.7);
-
-            }
-
-         }
-
-
-      }
-
-
-      h2{
-         margin-top: 2rem;
-      }
-
-      .paragraphs-post {
-         display: flex;
-         gap: 0.5rem;
-         flex-direction: column;
-         align-items: flex-start;
-
-         p {
-            line-height: 150%;
-            font-size: 400;
-         }
-
-         span {
+          &:hover {
+            background-color: rgba(get-color(grey1_s3), 0.3);
             color: rgba(get-color(blue_p1), 0.9);
-         }
-
+          }
+        }
       }
+    }
 
-
-
-   }
-
-   &-suggestions {
+    .box-list-post {
       display: flex;
       flex-direction: column;
-      flex: 1.25;
-      gap: 2rem;
+      justify-content: flex-start;
+      gap: 1rem;
 
-      .box-autor {
-         display: flex;
-         flex-direction: row;
-         gap: 0.5rem;
+      ul {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
 
-
-         img {
-            width: 5rem;
-            border: 2px solid rgba(get-color(grey1_s3), 1);
-            border-radius: brd(2);
-
-
-         }
-
-         .dates-autor {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            p {
-               font-weight: 600;
-            }
-
-            span {
-               color: rgba(get-color(grey2_s4), 1);
-               font-style: italic;
-            }
-
-
-         }
-
+        a {
+          list-style: none;
+          text-align: start;
+          color: rgba(get-color(grey2_s4), 1);
+          padding-left: 0.5rem;
+        }
       }
 
-      .box-shared {
+      .active-post {
+        a {
+          color: rgba(get-color(blue_p1), 1) !important;
+          position: relative;
+          // border-left: 2px solid rgba(get-color(blue_p1), 0.9);
 
-         background-image: src;
-         background-image: url('../../../public/img/post/share.svg');
-         background-repeat: no-repeat;
-         background-size: cover;
-         background-position: center;
-         width: 100%;
-         display: flex;
-         justify-content: flex-start;
-         padding: 1rem;
-
-         flex-direction: column;
-         border-radius: brd(1);
-         gap: 1rem;
-
-         .share-buttons {
-            display: flex;
-
-
-            gap: 1rem;
-
-            flex-direction: row;
-            align-items: center;
-
-            svg {
-               height: 1.5rem;
-
-               path {
-                  fill: rgba(get-color(black_p2), 1)
-               }
-            }
-
-
-
-
-            button {
-               border-style: none;
-               background-color: transparent;
-
-               &:hover {
-                  background-color: rgba(get-color(grey1_s3), 0.3);
-                  color: rgba(get-color(blue_p1), 0.9)
-               }
-            }
-         }
+          &::after {
+            content: '';
+            position: absolute;
+            width: 0.25rem;
+            height: 100%;
+            top: 0;
+            left: 0%;
+            background-color: rgba(get-color(blue_p1), 1);
+          }
+        }
       }
-
-      .box-list-post {
-         display: flex;
-         flex-direction: column;
-         justify-content: flex-start;
-         gap: 1rem;
-
-         ul {
-            display: flex;
-            justify-content: flex-start;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
-
-            a {
-               list-style: none;
-               text-align: start;
-               color: rgba(get-color(grey2_s4), 1);
-               padding-left: 0.5rem;
-            }
-
-         }
-
-         .active-post {
-            a {
-               color: rgba(get-color(blue_p1), 1) !important;
-               position: relative;
-               // border-left: 2px solid rgba(get-color(blue_p1), 0.9);
-
-               &::after {
-                  content: "";
-                  position: absolute;
-                  width: 0.25rem;
-                  height: 100%;
-                  top: 0;
-                  left: 0%;
-                  background-color: rgba(get-color(blue_p1), 1);
-               }
-            }
-
-         }
-
-
-      }
-
-
-   }
-
-
-
-
-
+    }
+  }
 }

@@ -112,7 +112,7 @@ export default function index() {
 
   async function getDatastrapi() {
     // Hacemos la petición a la API de Strapi
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/posts?locale=${router.locale === 'en'?"en":"es"}&populate=image`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&populate=image`);
     const data = await res.json();
 
     if (!data || !data.data) {
@@ -131,7 +131,7 @@ export default function index() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       AOS.init({
-        offset: -2, // Inicia la animación inmediatamente cuando la sección está visible
+        offset: -1, // Inicia la animación inmediatamente cuando la sección está visible
         duration: 500, // Duración de las animaciones
         // once: true, // Evitar que las animaciones se repitan
         // easing: 'ease-out', // Añadir un suavizado en la animación
@@ -139,18 +139,15 @@ export default function index() {
     }
   }, []);
 
-
   useEffect(() => {
     getDatastrapi();
-
-  }, [l,router.locale]);
+  }, [l, router.locale]);
 
   // Referencia a la sección del contador
   const counterSectionRef = useRef(null);
 
   // Función para observar si la sección del contador está en vista
   useEffect(() => {
-  
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -161,7 +158,7 @@ export default function index() {
           }
         });
       },
-      { threshold: 0.001 } // Disparar la animación cuando el 10% de la sección sea visible
+      { threshold: 0.0001 } // Disparar la animación cuando el 10% de la sección sea visible
     );
 
     const currentRef = counterSectionRef.current;
@@ -395,7 +392,7 @@ export default function index() {
           <ImageSvg name="Avatar" />
           Digital Employees as a Service
         </button>
-        <div className="title-home " data-aos="zoom-in">
+        <div className="title-home" data-aos="zoom-in">
           <h2 className="title gradient">
             {t['Empower your operations with our']} +8
             <span> {t['advanced skills']} </span>
@@ -414,7 +411,7 @@ export default function index() {
 
           <article className="box-images">
             <figure>
-              <Image className="image-one" src={skillView?.imageone} width={200} height={200} alt="example" />
+              <Image className="image-one" src={skillView?.imageone} width={200} height={200} alt="example" priority />
               <Image className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`} src={skillView?.imagetwo} width={200} height={200} alt="example" />
             </figure>
           </article>
@@ -477,18 +474,19 @@ export default function index() {
         </div>
 
         <div className="box-insigths">
-
-        
-          {dataInsigths?.map((post, index) => (
-            <article key={post.documentId} className="insigths">
+          {dataInsigths?.map((post) => (
+            <article key={post.id} className="insigths">
               <figure className="insigths-image gradient">
-               
-                <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${post.image[0].url}`} width={40} height={40} alt="post" />
-
+                <Image
+                  src={`${post.attributes.image.data.attributes.url}`}
+                  width={40}
+                  height={40}
+                  alt={post.attributes.title} // Cambié el alt para usar el título del post
+                />
                 <div className="title">
-                  <span>{post.type}</span>
-                  <Link href={`/insigth/${post.documentId}`}>
-                    <h3>{post.title}</h3>{' '}
+                  <span>{post.attributes.type}</span>
+                  <Link href={`/insigth/${post.id}`}>
+                    <h3>{post.attributes.title}</h3>
                   </Link>
                 </div>
               </figure>
@@ -496,13 +494,13 @@ export default function index() {
               <div className="box-description">
                 <div className="insigths-date">
                   <span>{post.autor}</span>
-                  <span>{formatDate(post.publishedAt)}</span>
+                  <span>{formatDate(post.attributes.createdAt)}</span>
                 </div>
                 <p className="insigths-description">
-                <BlocksRenderer content={post.description} />
-                 
-                  
-                  </p>
+                  {/* <BlocksRenderer content={post.attributes.description} /> */}
+
+                  {post.attributes.description}
+                </p>
               </div>
             </article>
           ))}
@@ -517,7 +515,7 @@ export default function index() {
           <p>{t['They have discovered the benefits of automating their financial processes with ARI.']}</p>
         </div>
 
-        <article key={index} className="box-client" data-aos="flip-left">
+        <article key={index} className="box-client" data-aos="zoom-in">
           {logoClient.map((logos, index) => (
             <figure className="client-image" key={index}>
               <Image src={logos} width={100} height={100} alt="clients" />

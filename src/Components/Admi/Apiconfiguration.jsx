@@ -207,7 +207,6 @@ export default function Apiconfiguration({ nameEmpresa }) {
       const token = session?.sToken;
 
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${valueState}`, body, token);
-      console.log({ responseData });
       if (responseData.oAuditResponse?.iCode === 1) {
         // setModalFreeTrial(false)
         setModalConfirmed(false);

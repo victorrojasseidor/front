@@ -23,7 +23,6 @@
     box-shadow: 0 2px 8px get-color(pink_s5);
 
     svg {
-
       path,
       polyline {
         stroke: get-color(white_s1);
@@ -63,7 +62,6 @@
     box-shadow: 0 2px 25px get-color(bg-cles);
 
     svg {
-
       path,
       polyline {
         stroke: get-color(blue_p1);
@@ -79,7 +77,6 @@
       border-style: none;
 
       svg {
-
         path,
         polyline {
           stroke: get-color(white_s1);
@@ -115,7 +112,6 @@
 
     &:hover,
     &:focus {
-
       svg,
       img {
         // filter: brightness(0);
@@ -268,7 +264,6 @@
   }
 
   &_white {
-
     padding: 0.5rem 1rem;
     grid-column-gap: 8px;
     grid-row-gap: 8px;
@@ -283,7 +278,6 @@
     display: flex;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
 
-
     svg {
       path {
         fill: get-color(white_s1);
@@ -293,7 +287,6 @@
     @include media(tablet) {
       text-align: left;
       line-height: 144%;
-
     }
 
     &:focus {
@@ -316,17 +309,12 @@
     }
   }
 
-
   .white {
     color: get-color(black_p2);
     background: get-color(white_s1);
   }
 
-
-
   &_gradient {
-
-
     padding: 0.5rem 1rem;
     grid-column-gap: 8px;
     grid-row-gap: 8px;
@@ -340,7 +328,6 @@
     text-decoration: none;
     display: flex;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-
 
     svg {
       path {
@@ -506,7 +493,7 @@
   }
 }
 
-button:hover+.cloud {
+button:hover + .cloud {
   opacity: 1;
   /* Se hace visible cuando el botón está en :hover */
 }
@@ -599,22 +586,13 @@ button:hover+.cloud {
   }
 }
 
-
-
-
-
-
-
-
-
-
 // components/GradientButton.module.scss
 .box-container-gradient {
   position: relative;
   display: inline-block;
   border-radius: 100px; /* Radio del contenedor */
   padding: 0.15rem; /* Espacio alrededor del botón */
-  background-image: linear-gradient(90deg,  #BF4FDB,  #5778EA,  #3DB1F7);
+  background-image: linear-gradient(90deg, #bf4fdb, #5778ea, #3db1f7);
   background-size: 200% 200%; /* Aumenta el tamaño para un mejor efecto de movimiento */
   animation: gradientAnimation 5s linear infinite; /* Añade la animación del fondo */
 
@@ -623,26 +601,20 @@ button:hover+.cloud {
     border-radius: 50px; /* Radio del botón */
     font-size: 16px;
     font-weight: 500;
-    cursor:auto;
+    cursor: auto;
     background-color: get-color(black_p2); /* Fondo del botón negro */
     color: get-color(white_s1); /* Color del texto */
     border: none; /* Sin borde directo */
     z-index: 2; /* Asegura que el botón esté al frente */
-    text-transform:uppercase; /* Convierte la primera letra de cada palabra a mayúscula */
+    text-transform: uppercase; /* Convierte la primera letra de cada palabra a mayúscula */
     letter-spacing: 1.75px; /* Incrementa la separación entre letras */
   }
-  
 }
 
-.whiteButton{
-
-
-    background-color:get-color(white_s1) !important; /* Fondo del botón negro */
-    color: get-color(black_p2) !important; /* Color del texto */
-  
- 
+.whiteButton {
+  background-color: get-color(white_s1) !important; /* Fondo del botón negro */
+  color: get-color(black_p2) !important; /* Color del texto */
 }
-
 
 /* Definición de la animación */
 @keyframes gradientAnimation {

@@ -63,49 +63,43 @@ export default function ConfigDetracciones() {
     }
   }
 
-    async function handleAgregar(values) {
-      setIsLoadingComponent(true);
+  async function handleAgregar(values) {
+    setIsLoadingComponent(true);
 
-        const body = {
-        oResults: {
-         
-              iIdProducto: parseInt(iIdProdEnv),
-              sRuc: values.RUC,
-              sUser: values.User,
-              sPassword: values.password,
-           
-             
-            
-        
-        },
-      };
+    const body = {
+      oResults: {
+        iIdProducto: parseInt(iIdProdEnv),
+        sRuc: values.RUC,
+        sUser: values.User,
+        sPassword: values.password,
+      },
+    };
 
-      try {
-        const token = session.sToken;
-        const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarDetraccion', body, token);
-   
-        if (responseData.oAuditResponse?.iCode === 1) {
-          // const data = responseData.oResults
-          setTimeout(() => {
-            setModalToken(false);
-            setShowForm(false);
-            setGet(!get);
-            setRequestError(null);
-            
-          }, 1000);
-        } else {
-          await handleCommonCodes(responseData);
-          setShowForm(true);
-        }
-      } catch (error) {
-        console.error('error', error);
+    try {
+      const token = session.sToken;
+      const responseData = await fetchConTokenPost('BPasS/?Accion=RegistrarDetraccion', body, token);
 
+      if (responseData.oAuditResponse?.iCode === 1) {
+        // const data = responseData.oResults
+        setTimeout(() => {
+          setModalToken(false);
+          setShowForm(false);
+          setGet(!get);
+          setRequestError(null);
+        }, 1000);
+      } else {
+        await handleCommonCodes(responseData);
         setShowForm(true);
-        setRequestError(error);
-      } finally {
-        setIsLoadingComponent(false);
       }
+    } catch (error) {
+      console.error('error', error);
+
+      setShowForm(true);
+      setRequestError(error);
+    } finally {
+      setIsLoadingComponent(false);
     }
+  }
 
   useEffect(() => {
     if (session) {
@@ -144,7 +138,6 @@ export default function ConfigDetracciones() {
       oResults: {
         iIdProducto: iIdProdEnv, // [1]
         iIdPais: idCountry || dataCardProduct?.iCountry,
-
       },
     };
 
@@ -165,11 +158,7 @@ export default function ConfigDetracciones() {
 
         if (dataRes.oDetracciones.length > 0) {
           setcompleteDetracciones(true);
-          
         }
-
-
-
       } else {
         await handleCommonCodes(responseData);
       }
@@ -186,8 +175,6 @@ export default function ConfigDetracciones() {
     password: initialEdit?.sPassword || '',
   };
 
-
-  
   return (
     <div className="pattern-configuration">
       <div className="Tabsumenu">
@@ -212,7 +199,7 @@ export default function ConfigDetracciones() {
                   <li>
                     <p>{dataCardProduct?.sName}</p>
                     <p>:</p>
-                 
+
                     <p>Detracciones </p>
                   </li>
                   <li>
@@ -238,7 +225,7 @@ export default function ConfigDetracciones() {
                 </ul>
               </div>
 
-              {isLoadingComponent && <LoadingComponent/>}
+              {isLoadingComponent && <LoadingComponent />}
 
               {requestError && <p className="error-message">{requestError}</p>}
 
@@ -254,134 +241,105 @@ export default function ConfigDetracciones() {
           )}
 
           {activeTab === 1 && (
-            <> 
-            <div className="container-detraccions">
-              <div className="box-title">
-                <div>
-                  <h3 className="sub"> {t['Credentials for entry to SUNAT']} </h3>
-                  <p>{t['Enter credentials from the Tax Obligation Payment System (SPOT)']}</p>
+            <>
+              <div className="container-detraccions">
+                <div className="box-title">
+                  <div>
+                    <h3 className="sub"> {t['Credentials for entry to SUNAT']} </h3>
+                    <p>{t['Enter credentials from the Tax Obligation Payment System (SPOT)']}</p>
+                  </div>
+
+                  <button
+                    className="btn_black"
+                    style={{
+                      visibility: showForm && completeDetracciones ? 'hidden' : 'visible',
+                    }}
+                    onClick={() => {
+                      toggleForm();
+                    }}
+                  >
+                    {initialEdit ? t.Edit : t.Add}
+                  </button>
                 </div>
 
+                <Formik
+                  initialValues={initialValues}
+                  enableReinitialize={true} // Esto permite que Formik se reinicie con nuevos valores
+                  onSubmit={(values, { resetForm }) => {
+                    handleAgregar(values);
 
-
-                <button
-                  className="btn_black"
-                  style={{
-                 visibility: showForm && completeDetracciones ? 'hidden' : 'visible',
-                  
-
-                  }}
-                  onClick={() => {
-                    toggleForm();
-                   
+                    resetForm();
                   }}
                 >
-                  { initialEdit?t.Edit: t.Add}
-                </button>
+                  {({ values, isValid, setFieldValue, isSubmitting, resetForm }) => (
+                    <Form className="form-container formCredential">
+                      <div className="content">
+                        <div className="subtitle"></div>
+
+                        <div className="input-box">
+                          <Field type="number" name="RUC" placeholder=" " disabled={!showForm || isSubmitting} />
+                          <label htmlFor="RUC">{t['RUC']}</label>
+                          <ErrorMessage name="RUC" component="span" className="errorMessage" />
+                        </div>
+
+                        <div className="group">
+                          <div className="input-box">
+                            <Field type="text" name="User" placeholder=" " disabled={!showForm || isSubmitting} />
+                            <label htmlFor="User">{t['User']}</label>
+                            <ErrorMessage name="User" component="span" className="errorMessage" />
+                          </div>
+
+                          <div className="input-box">
+                            <span className="iconPassword" onClick={togglePasswordVisibility}>
+                              <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
+                            </span>
+                            <Field type={showPassword ? 'text' : 'password'} id="password" name="password" placeholder=" " disabled={!showForm || isSubmitting} />
+                            <label htmlFor="password"> {t.Password}</label>
+                            <ErrorMessage className="errorMessage" name="password" component="span" />
+                          </div>
+                        </div>
+                      </div>
+
+                      {showForm && (
+                        <div className="submit-box">
+                          <button
+                            type="button"
+                            className="btn_secundary small"
+                            onClick={() => {
+                              setShowForm(false);
+                              resetForm();
+                            }}
+                          >
+                            {t.Cancel}
+                          </button>
+
+                          <button type="submit" className={`btn_primary small ${!values ? 'disabled' : ''}`}>
+                            {t.Save}
+                          </button>
+                        </div>
+                      )}
+                    </Form>
+                  )}
+                </Formik>
               </div>
 
-              <Formik
-                initialValues={initialValues}
-                enableReinitialize={true} // Esto permite que Formik se reinicie con nuevos valores
+              {completeDetracciones && !showForm ? (
+                <div className="box-buttons">
+                  <button type="button" className="btn_secundary small" onClick={() => handleTabClick(0)}>
+                    <ImageSvg name="Back" />
 
-                onSubmit={(values, { resetForm }) => {
-                    handleAgregar(values);
-                 
-                                   
-                  resetForm();
-                }}
-              >
-                {({ values, isValid, setFieldValue, isSubmitting ,resetForm }) => (
-                  <Form className="form-container formCredential">
-                    <div className="content">
-                      <div className="subtitle"></div>
-
-                      <div className="input-box">
-                        <Field type="number" name="RUC" placeholder=" "  disabled={!showForm || isSubmitting}/>
-                        <label htmlFor="RUC">{t['RUC']}</label>
-                        <ErrorMessage name="RUC" component="span" className="errorMessage" />
-                      </div>
-
-                      <div className="group">
-                        <div className="input-box">
-                          <Field type="text" name="User" placeholder=" "  disabled={!showForm || isSubmitting}/>
-                          <label htmlFor="User">{t['User']}</label>
-                          <ErrorMessage name="User" component="span" className="errorMessage" />
-                        </div>
-
-                        <div className="input-box">
-                          <span className="iconPassword" onClick={togglePasswordVisibility}>
-                            <ImageSvg name={showPassword ? 'ShowPassword' : 'ClosePassword'} />
-                          </span>
-                          <Field type={showPassword ? 'text' : 'password'} id="password" name="password" placeholder=" "  disabled={!showForm || isSubmitting} />
-                          <label htmlFor="password"> {t.Password}</label>
-                          <ErrorMessage className="errorMessage" name="password" component="span" />
-                        </div>
-                      </div>
-                    </div>
-
-                    
-
-                    {
-                      showForm && 
-
-                      <div className="submit-box">
-                      <button
-                        type="button"
-                        className="btn_secundary small"
-                        onClick={() => {
-                          setShowForm(false);
-                          resetForm()
-
-                          }}
-                      >
-                     {t.Cancel}
-                       
-                      </button>
-
-                      <button type="submit" className={`btn_primary small ${!values ? 'disabled' : ''}`} >
-                      {t.Save}
-
-                        
-                      </button>
-                    </div> 
-                    }
-                   
-
-                    
-                  
-                    
-                  </Form>
-                )}
-                        
-              </Formik>
-
-              
-             
-
-            </div>
-
-{completeDetracciones  && !showForm? (
-  <div className="box-buttons">
-    <button type="button" className="btn_secundary small" onClick={() => handleTabClick(0)}>
-      <ImageSvg name="Back" />
-
-     {t.Back}
-    </button>
-    <button className={`btn_secundary small  ${completeDetracciones ? ' ' : 'disabled'}`} onClick={() => setConfirmedConfigured(true)} disabled={!completeDetracciones}>
-      {t.Finish}
-      <ImageSvg name="Next" />
-    </button>
-  </div>
-) : (
-  " "
-)}
-</>
-            
+                    {t.Back}
+                  </button>
+                  <button className={`btn_secundary small  ${completeDetracciones ? ' ' : 'disabled'}`} onClick={() => setConfirmedConfigured(true)} disabled={!completeDetracciones}>
+                    {t.Finish}
+                    <ImageSvg name="Next" />
+                  </button>
+                </div>
+              ) : (
+                ' '
+              )}
+            </>
           )}
-
-
-
         </div>
 
         {confirmedConfigured && (
@@ -406,7 +364,6 @@ export default function ConfigDetracciones() {
                 >
                   {l.Download['Return a home']}
                 </button>
-
               </div>
             </div>
           </Modal>

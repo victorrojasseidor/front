@@ -38,9 +38,10 @@
       }
     }
 
-    .logo-img{
-        
-      img{
+    .logo-img {
+      cursor: pointer;
+
+      img {
         height: 3rem;
         width: auto;
         @include media(tablet) {
@@ -57,8 +58,6 @@
         display: none;
       }
 
-   
-
       .hamburgerMenu {
         button {
           background-color: transparent;
@@ -70,7 +69,6 @@
           fill: rgba(get-color(white_s1), 1);
         }
       }
-
 
       .movil-options {
         position: absolute;
@@ -84,14 +82,11 @@
         top: 160%;
         right: -132%;
 
-
         background-color: rgba(get-color(black_p2), 0.95);
         width: 100vw;
         max-height: 0; // Inicialmente oculto
         overflow: hidden; // Evita que el contenido se desborde
         transition: max-height 0.45s ease-in-out; // Animación suave
-
-
 
         .box-buttons-movil {
           display: flex;
@@ -106,14 +101,8 @@
           }
 
           .languaje-white {
-
             align-self: center;
           }
-
-
-
-
-
         }
 
         .list-options {
@@ -125,18 +114,8 @@
           text-align: center; // Centra el texto dentro del `li`
           width: 100%;
           @include text-underline;
-
-
         }
-
-
-
-
-
-
       }
-
-
     }
   }
 
@@ -325,7 +304,6 @@
         height: 22vh;
         image-orientation: center;
 
-
         @include media(tablet) {
           height: 40vh;
         }
@@ -375,8 +353,6 @@
       width: 100%;
       height: 100%;
 
-
-
       @include media(tablet) {
         top: 8rem;
       }
@@ -417,9 +393,6 @@
           @include media(desktop) {
             width: auto;
           }
-
-
-
         }
 
         .image-two {
@@ -441,22 +414,17 @@
           width: min-content;
 
           @include media(tablet) {
-
             top: 15%;
             height: 59vh;
             display: block;
             left: 20%;
             width: 38vw;
-
-
           }
 
           @include media(desktop) {
-
             left: 20%;
             height: 60vh;
             width: 36vw;
-
           }
         }
       }
@@ -491,15 +459,10 @@
       overflow: hidden;
       height: 83vh;
 
-
       @include media(tablet) {
         height: 100vh;
         gap: 2rem;
       }
-
-
-
-
 
       .process-description {
         width: 100%;
@@ -658,7 +621,6 @@
     }
 
     .title-home {
-
       h2,
       p {
         text-align: right;
@@ -834,7 +796,6 @@
 
             @include gradient-underline;
 
-
             @include media(tablet) {
               height: 4.5rem;
             }
@@ -891,7 +852,6 @@
   &-client {
     @include home-container;
 
-
     .box-client {
       display: flex;
       // justify-content: center;
@@ -927,7 +887,6 @@
       font-weight: 400;
     }
 
-
     &-info {
       display: grid;
       gap: 3rem;
@@ -939,9 +898,6 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
       }
-
-
-
 
       .footer-message {
         width: auto;
@@ -956,8 +912,6 @@
         }
       }
 
-
-
       .footer-menu {
         display: flex;
         justify-content: flex-start;
@@ -970,13 +924,11 @@
         @include media(tablet) {
           flex-direction: column;
           justify-content: flex-start;
-
         }
 
         h4 {
-          color: rgba(get-color(white_s1), 1)
+          color: rgba(get-color(white_s1), 1);
         }
-
 
         li {
           list-style: none;
@@ -988,14 +940,10 @@
           justify-content: center;
           align-items: flex-start;
 
-
           @include text-underline;
 
-
           @include media(tablet) {
-
             text-transform: initial;
-
           }
 
           a {
@@ -1005,16 +953,11 @@
             align-items: flex-start;
             text-align: start;
             color: rgba(get-color(white_s1), 0.95);
-
           }
-
-
-
         }
       }
 
       .footer-social {
-
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
@@ -1028,19 +971,13 @@
           align-items: flex-start;
           gap: 0.25rem;
           color: rgba(get-color(white_s1), 0.85);
-
         }
 
         svg {
           display: flex;
           align-self: baseline;
-
-
         }
-
-
       }
-
     }
 
     &-logo {
@@ -1057,7 +994,7 @@
         flex-direction: row;
         align-items: flex-end;
       }
-      img{
+      img {
         height: 3rem;
         width: auto;
         @include media(tablet) {
@@ -1070,23 +1007,13 @@
         flex-direction: row;
         gap: 1rem;
       }
-
     }
-
-
-
-
-
   }
 }
-
-
-
 
 .scroll-header {
   background-color: rgba(get-color(black_p2), 0.95);
 }
-
 
 .openMovil {
   // Cuando el menú esté abierto
@@ -1094,8 +1021,6 @@
   padding: 1rem 2rem 4rem 1rem !important;
   max-height: 100vh !important; // Se expande hasta el 60% del alto de la pantalla
 }
-
-
 
 .record {
   background-color: transparent;
@@ -1153,7 +1078,6 @@
 }
 
 .blacktext {
-
   h2,
   p {
     color: get-color(black_p2);
@@ -1165,22 +1089,13 @@
 }
 
 .in-view {
-
-
-
   transform: translateX(0) !important;
   /* Mueve el elemento a su posición original */
   opacity: 1 !important;
   /* Hacerse visible */
-
-
-
-
 }
 
 .out-of-view {
-
-
   /* Mueve el elemento a la derecha */
   opacity: 0 !important;
   transform: translateX(1%) !important;
@@ -1195,7 +1110,6 @@
 
   @include media(extradesktop) {
     transform: translateX(10%) !important;
-
   }
 
   /* Hacerse invisible */
@@ -1241,7 +1155,6 @@
 }
 
 @keyframes fadeInOut {
-
   0%,
   50%,
   100% {

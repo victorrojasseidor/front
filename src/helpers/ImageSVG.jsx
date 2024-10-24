@@ -16,6 +16,7 @@ import Iconspain from '../../public/icons/spain.svg';
 import Iconeeuu from '../../public/icons/eeuu.svg';
 import IconPerson from '../../public/img/new-icons/person.svg';
 import bot from '../../public/img/bot2.webp';
+import { ArrowBack } from '@mui/icons-material';
 
 const ImageSvg = ({ name }) => {
   const icons = {
@@ -145,39 +146,36 @@ const ImageSvg = ({ name }) => {
 
     Location: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z"/>
-      <path stroke="url(#b)" stroke-linecap="round" stroke-linejoin="round" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-      <defs>
-        <linearGradient id="a" x1="12" x2="12" y1="1" y2="23" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#784BF3"/>
-          <stop offset="1" stop-color="#BB39D3"/>
-        </linearGradient>
-        <linearGradient id="b" x1="12" x2="12" y1="7" y2="13" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#784BF3"/>
-          <stop offset="1" stop-color="#BB39D3"/>
-        </linearGradient>
-      </defs>
-    </svg>
-    
-
+        <path stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0Z" />
+        <path stroke="url(#b)" stroke-linecap="round" stroke-linejoin="round" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+        <defs>
+          <linearGradient id="a" x1="12" x2="12" y1="1" y2="23" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#784BF3" />
+            <stop offset="1" stop-color="#BB39D3" />
+          </linearGradient>
+          <linearGradient id="b" x1="12" x2="12" y1="7" y2="13" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#784BF3" />
+            <stop offset="1" stop-color="#BB39D3" />
+          </linearGradient>
+        </defs>
+      </svg>
     ),
 
     Message: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" d="M5.7 4h13.6c.935 0 1.7.844 1.7 1.875v11.25C21 18.156 20.235 19 19.3 19H5.7c-.935 0-1.7-.844-1.7-1.875V5.875C4 4.844 4.765 4 5.7 4Z"/>
-  <path stroke="url(#b)" stroke-linecap="round" stroke-linejoin="round" d="m20 5-7.5 9L5 5"/>
-  <defs>
-    <linearGradient id="a" x1="12.5" x2="12.5" y1="4" y2="19" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#784BF3"/>
-      <stop offset="1" stop-color="#BB39D3"/>
-    </linearGradient>
-    <linearGradient id="b" x1="12.5" x2="12.5" y1="5" y2="14" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#784BF3"/>
-      <stop offset="1" stop-color="#BB39D3"/>
-    </linearGradient>
-  </defs>
-</svg>
-
+        <path stroke="url(#a)" stroke-linecap="round" stroke-linejoin="round" d="M5.7 4h13.6c.935 0 1.7.844 1.7 1.875v11.25C21 18.156 20.235 19 19.3 19H5.7c-.935 0-1.7-.844-1.7-1.875V5.875C4 4.844 4.765 4 5.7 4Z" />
+        <path stroke="url(#b)" stroke-linecap="round" stroke-linejoin="round" d="m20 5-7.5 9L5 5" />
+        <defs>
+          <linearGradient id="a" x1="12.5" x2="12.5" y1="4" y2="19" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#784BF3" />
+            <stop offset="1" stop-color="#BB39D3" />
+          </linearGradient>
+          <linearGradient id="b" x1="12.5" x2="12.5" y1="5" y2="14" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#784BF3" />
+            <stop offset="1" stop-color="#BB39D3" />
+          </linearGradient>
+        </defs>
+      </svg>
     ),
 
     Download: (
@@ -185,6 +183,12 @@ const ImageSvg = ({ name }) => {
         <path d="M 28.875 0 C 28.855469 0.0078125 28.832031 0.0195313 28.8125 0.03125 L 0.8125 5.34375 C 0.335938 5.433594 -0.0078125 5.855469 0 6.34375 L 0 43.65625 C -0.0078125 44.144531 0.335938 44.566406 0.8125 44.65625 L 28.8125 49.96875 C 29.101563 50.023438 29.402344 49.949219 29.632813 49.761719 C 29.859375 49.574219 29.996094 49.296875 30 49 L 30 44 L 47 44 C 48.09375 44 49 43.09375 49 42 L 49 8 C 49 6.90625 48.09375 6 47 6 L 30 6 L 30 1 C 30.003906 0.710938 29.878906 0.4375 29.664063 0.246094 C 29.449219 0.0546875 29.160156 -0.0351563 28.875 0 Z M 28 2.1875 L 28 6.53125 C 27.867188 6.808594 27.867188 7.128906 28 7.40625 L 28 42.8125 C 27.972656 42.945313 27.972656 43.085938 28 43.21875 L 28 47.8125 L 2 42.84375 L 2 7.15625 Z M 30 8 L 47 8 L 47 42 L 30 42 L 30 37 L 34 37 L 34 35 L 30 35 L 30 29 L 34 29 L 34 27 L 30 27 L 30 22 L 34 22 L 34 20 L 30 20 L 30 15 L 34 15 L 34 13 L 30 13 Z M 36 13 L 36 15 L 44 15 L 44 13 Z M 6.6875 15.6875 L 12.15625 25.03125 L 6.1875 34.375 L 11.1875 34.375 L 14.4375 28.34375 C 14.664063 27.761719 14.8125 27.316406 14.875 27.03125 L 14.90625 27.03125 C 15.035156 27.640625 15.160156 28.054688 15.28125 28.28125 L 18.53125 34.375 L 23.5 34.375 L 17.75 24.9375 L 23.34375 15.6875 L 18.65625 15.6875 L 15.6875 21.21875 C 15.402344 21.941406 15.199219 22.511719 15.09375 22.875 L 15.0625 22.875 C 14.898438 22.265625 14.710938 21.722656 14.5 21.28125 L 11.8125 15.6875 Z M 36 20 L 36 22 L 44 22 L 44 20 Z M 36 27 L 36 29 L 44 29 L 44 27 Z M 36 35 L 36 37 L 44 37 L 44 35 Z" />
       </svg>
     ),
+    ArrowBack: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path fill="#292D32" d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2Zm4.06 11.79c-.15.15-.34.22-.53.22s-.38-.07-.53-.22l-3-3-3 3c-.29.29-.77.29-1.06 0a.754.754 0 0 1 0-1.06l3.53-3.53c.29-.29.77-.29 1.06 0l3.53 3.53c.29.3.29.77 0 1.06Z" />
+      </svg>
+    ),
+
     Admin: (
       <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none">
         <path
@@ -275,29 +279,22 @@ const ImageSvg = ({ name }) => {
 
     BarChart: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.102 19.25h11.8c1.5 0 2.1-.64 2.1-2.23v-1.04c0-1.59-.6-2.23-2.1-2.23h-11.8m0-8.5h6.8c1.5 0 2.1.64 2.1 2.23v1.04c0 1.59-.6 2.23-2.1 2.23h-6.8M5 1.99v20"/>
-</svg>
-
-    
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.102 19.25h11.8c1.5 0 2.1-.64 2.1-2.23v-1.04c0-1.59-.6-2.23-2.1-2.23h-11.8m0-8.5h6.8c1.5 0 2.1.64 2.1 2.23v1.04c0 1.59-.6 2.23-2.1 2.23h-6.8M5 1.99v20" />
+      </svg>
     ),
 
     Integration: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-      <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m17.15 13.82-3.04 3.04m-7.26-3.04h10.3m-10.3-3.64 3.04-3.04m7.26 3.04H6.85"/>
-      <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"/>
-    </svg>
-    
-    
-    
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="m17.15 13.82-3.04 3.04m-7.26-3.04h10.3m-10.3-3.64 3.04-3.04m7.26 3.04H6.85" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" />
+      </svg>
     ),
 
     Security: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.91 11.12c0 4.89-3.55 9.47-8.4 10.81-.33.09-.69.09-1.02 0-4.85-1.34-8.4-5.92-8.4-10.81V6.73c0-.82.62-1.75 1.39-2.06l5.57-2.28c1.25-.51 2.66-.51 3.91 0l5.57 2.28c.76.31 1.39 1.24 1.39 2.06l-.01 4.39Z"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0v3"/>
-</svg>
-
-    
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.91 11.12c0 4.89-3.55 9.47-8.4 10.81-.33.09-.69.09-1.02 0-4.85-1.34-8.4-5.92-8.4-10.81V6.73c0-.82.62-1.75 1.39-2.06l5.57-2.28c1.25-.51 2.66-.51 3.91 0l5.57 2.28c.76.31 1.39 1.24 1.39 2.06l-.01 4.39Z" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0v3" />
+      </svg>
     ),
 
     Efficiency: (
@@ -307,47 +304,27 @@ const ImageSvg = ({ name }) => {
     ),
 
     Extraction: (
-     
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M14.262 15.998h-5"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m12.66 2.518-.03.07-2.9 6.73H6.88c-.68 0-1.33.14-1.92.39l1.75-4.18.04-.1.07-.16c.02-.06.04-.12.07-.17 1.31-3.03 2.79-3.72 5.77-2.58Z"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.05 9.518c-.45-.14-.93-.2-1.41-.2H9.73l2.9-6.73.03-.07c.15.05.29.12.44.18l2.21.93c1.23.51 2.09 1.04 2.61 1.68.1.12.18.23.25.36.09.14.16.28.2.43.04.09.07.18.09.26.27.84.11 1.87-.41 3.16Z"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.522 14.198v1.95c0 .2-.01.4-.02.6-.19 3.49-2.14 5.25-5.84 5.25h-7.8c-.24 0-.48-.02-.71-.05-3.18-.21-4.88-1.91-5.09-5.09-.03-.23-.05-.47-.05-.71v-1.95c0-2.01 1.22-3.74 2.96-4.49.6-.25 1.24-.39 1.92-.39h9.76c.49 0 .97.07 1.41.2 1.99.61 3.46 2.47 3.46 4.68Z"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6.71 5.527-1.75 4.18A4.894 4.894 0 0 0 2 14.197v-2.93c0-2.84 2.02-5.21 4.71-5.74Zm14.809 5.741v2.93c0-2.2-1.46-4.07-3.46-4.67.52-1.3.67-2.32.42-3.17-.02-.09-.05-.18-.09-.26 1.86.96 3.13 2.93 3.13 5.17Z"/>
-</svg>
-
-    
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" d="M14.262 15.998h-5" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m12.66 2.518-.03.07-2.9 6.73H6.88c-.68 0-1.33.14-1.92.39l1.75-4.18.04-.1.07-.16c.02-.06.04-.12.07-.17 1.31-3.03 2.79-3.72 5.77-2.58Z" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.05 9.518c-.45-.14-.93-.2-1.41-.2H9.73l2.9-6.73.03-.07c.15.05.29.12.44.18l2.21.93c1.23.51 2.09 1.04 2.61 1.68.1.12.18.23.25.36.09.14.16.28.2.43.04.09.07.18.09.26.27.84.11 1.87-.41 3.16Z" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.522 14.198v1.95c0 .2-.01.4-.02.6-.19 3.49-2.14 5.25-5.84 5.25h-7.8c-.24 0-.48-.02-.71-.05-3.18-.21-4.88-1.91-5.09-5.09-.03-.23-.05-.47-.05-.71v-1.95c0-2.01 1.22-3.74 2.96-4.49.6-.25 1.24-.39 1.92-.39h9.76c.49 0 .97.07 1.41.2 1.99.61 3.46 2.47 3.46 4.68Z" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6.71 5.527-1.75 4.18A4.894 4.894 0 0 0 2 14.197v-2.93c0-2.84 2.02-5.21 4.71-5.74Zm14.809 5.741v2.93c0-2.2-1.46-4.07-3.46-4.67.52-1.3.67-2.32.42-3.17-.02-.09-.05-.18-.09-.26 1.86.96 3.13 2.93 3.13 5.17Z" />
+      </svg>
     ),
 
-    Notification:
-    (
-      
+    Notification: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5" d="M12 6.44v3.33M12.02 2C8.34 2 5.36 4.98 5.36 8.66v2.1c0 .68-.28 1.7-.63 2.28l-1.27 2.12c-.78 1.31-.24 2.77 1.2 3.25a23.34 23.34 0 0 0 14.73 0 2.22 2.22 0 0 0 1.2-3.25l-1.27-2.12c-.35-.58-.63-1.61-.63-2.28v-2.1C18.68 5 15.68 2 12.02 2Z"/>
-  <path stroke="#292D32" stroke-miterlimit="10" stroke-width="1.5" d="M15.33 18.82c0 1.83-1.5 3.33-3.33 3.33-.91 0-1.75-.38-2.35-.98-.6-.6-.98-1.44-.98-2.35"/>
-</svg>
-
-
-
-    )
-    ,
-
-    Avatar:
-    (
-   
+        <path stroke="#292D32" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5" d="M12 6.44v3.33M12.02 2C8.34 2 5.36 4.98 5.36 8.66v2.1c0 .68-.28 1.7-.63 2.28l-1.27 2.12c-.78 1.31-.24 2.77 1.2 3.25a23.34 23.34 0 0 0 14.73 0 2.22 2.22 0 0 0 1.2-3.25l-1.27-2.12c-.35-.58-.63-1.61-.63-2.28v-2.1C18.68 5 15.68 2 12.02 2Z" />
+        <path stroke="#292D32" stroke-miterlimit="10" stroke-width="1.5" d="M15.33 18.82c0 1.83-1.5 3.33-3.33 3.33-.91 0-1.75-.38-2.35-.98-.6-.6-.98-1.44-.98-2.35" />
+      </svg>
+    ),
+    Avatar: (
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12.119 12.78a.963.963 0 0 0-.24 0 3.269 3.269 0 0 1-3.16-3.27c0-1.81 1.46-3.28 3.28-3.28a3.276 3.276 0 0 1 .12 6.55Zm6.623 6.6a9.934 9.934 0 0 1-6.74 2.62c-2.6 0-4.96-.99-6.74-2.62.1-.94.7-1.86 1.77-2.58 2.74-1.82 7.22-1.82 9.94 0 1.07.72 1.67 1.64 1.77 2.58Z"/>
-  <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"/>
-</svg>
-
-
-    )
-,
-
-
-
-    
-
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12.119 12.78a.963.963 0 0 0-.24 0 3.269 3.269 0 0 1-3.16-3.27c0-1.81 1.46-3.28 3.28-3.28a3.276 3.276 0 0 1 .12 6.55Zm6.623 6.6a9.934 9.934 0 0 1-6.74 2.62c-2.6 0-4.96-.99-6.74-2.62.1-.94.7-1.86 1.77-2.58 2.74-1.82 7.22-1.82 9.94 0 1.07.72 1.67 1.64 1.77 2.58Z" />
+        <path stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" />
+      </svg>
+    ),
     // menú icons
     MenuOpen: <RiMenu3Line />,
     MenuClose: <RiCloseLine />,

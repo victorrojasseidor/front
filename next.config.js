@@ -17,7 +17,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/api/uipath-jobs/:path*', // Ajusta la ruta según tus necesidades
+        source: '/api/uipath-jobs/:path*',
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
@@ -52,7 +52,15 @@ const nextConfig = {
       },
     ];
   },
-
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
+    ],
+  },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,

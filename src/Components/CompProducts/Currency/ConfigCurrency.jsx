@@ -51,7 +51,7 @@ export default function ConfigCurrency() {
       await logout();
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete ';
-      console.log('errok, ', errorMessage);
+      console.log('error, ', errorMessage);
       setModalToken(false);
       setRequestError(errorMessage);
       setTimeout(() => {
@@ -149,7 +149,6 @@ export default function ConfigCurrency() {
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetTipCambio', body, token);
-      console.log({ responseData });
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;

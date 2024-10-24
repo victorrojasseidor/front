@@ -24,6 +24,7 @@ const LayoutProducts = ({ children, menu }) => {
   const { session, modalToken, logout, l, setSession, isLogout, setIsLogout, isMenuLateralOpen, setMenuLateralOpen } = useAuth();
   const { asPath } = useRouter();
   const t = l.header;
+  const router = useRouter();
 
   const toggleSubmenu = (menuItem) => {
     setSubmenuOpen((prevState) => ({
@@ -146,7 +147,7 @@ const LayoutProducts = ({ children, menu }) => {
       >
         <div className="menu_Account">
           <div className="imgPerfil">
-            <div className="imgPerfil_logo">
+            <div className="imgPerfil_logo" style={{ cursor: 'pointer' }} onClick={() => router.push('/')}>
               <Image src={isMenuLateralOpen ? logo : ari} width={isMenuLateralOpen ? 500 : 80} alt="logo" priority />
             </div>
           </div>

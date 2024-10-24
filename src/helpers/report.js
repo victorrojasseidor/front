@@ -116,4 +116,20 @@ const IconDate = () => {
   );
 };
 
-export { formatDate, IconArrow, IconDate, exportToExcelFormat };
+
+// utils/markdownConverter.js
+import { marked } from 'marked';
+
+const convertMarkdownToHTML = (markdownContent) => {
+    // Set options for marked if needed
+    marked.setOptions({
+      gfm: true,  // Habilita GitHub Flavored Markdown
+      breaks: true, // Permite saltos de línea
+      headerIds: false, // Desactiva la generación automática de IDs para encabezados
+    });
+
+    // Convert Markdown to HTML
+    return marked(markdownContent);
+};
+
+export { formatDate, IconArrow, IconDate, exportToExcelFormat, convertMarkdownToHTML };

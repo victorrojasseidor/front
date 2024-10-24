@@ -48,7 +48,7 @@ export default function ConfigPattern() {
       await logout();
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete ';
-      console.log('errok, ', errorMessage);
+      console.log('error, ', errorMessage);
       setModalToken(false);
       setRequestError(errorMessage);
       setTimeout(() => {

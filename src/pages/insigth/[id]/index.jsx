@@ -12,6 +12,7 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { formatDate } from '@/helpers/report';
 import Link from 'next/link';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
+import { convertMarkdownToHTML } from '@/helpers/report';
 
 export default function Index() {
   const { l } = useAuth();
@@ -21,23 +22,6 @@ export default function Index() {
   const [copied, setCopied] = useState(false); // Estado para mostrar si el link fue copiado
   const [posts, getpost] = useState([]);
   const [cardInsights, setcardInsights] = useState(null);
-
-  const InsightsStyle = ({ content, keyboards }) => {
-    const applyStylesToKeywords = (text, keywords, styleTag, styleAttr = '') => {
-      keywords.forEach((keyword) => {
-        const regex = new RegExp(`\\b(${keyword})\\b`, 'gi');
-        text = text.replace(regex, `<${styleTag} ${styleAttr}>$1</${styleTag}>`);
-      });
-      return text;
-    };
-
-    let formattedContent = content;
-
-    formattedContent = applyStylesToKeywords(formattedContent, keyboards.negrita, 'strong');
-    formattedContent = applyStylesToKeywords(formattedContent, keyboards.color.split(' '), 'span', 'style="color: #2b3674;"');
-
-    return <p dangerouslySetInnerHTML={{ __html: formattedContent }}></p>;
-  };
 
   async function getPostStrapi() {
     // Hacemos la petición a la API de Strapi
@@ -57,7 +41,7 @@ export default function Index() {
 
   async function getDataCardInsights() {
     // Hacemos la petición a la API de Strapi
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/posts?filters[documentId]=${id}&populate=image&locale=${router.locale === 'en' ? 'en' : 'es'}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/posts?filters[id]=${id}&populate=*&locale=${router.locale === 'en' ? 'en' : 'es'}`);
 
     const data = await res.json();
     if (!data || !data.data) {
@@ -92,16 +76,16 @@ export default function Index() {
         <meta name="keywords" content="AI, financial processes, automation, efficiency" />
 
         {/* Open Graph for LinkedIn and Facebook */}
-        <meta property="og:title" content={cardInsights?.title} />
-        <meta property="og:description" content={cardInsights?.description} />
+        <meta property="og:title" content={cardInsights?.attributes.title} />
+        <meta property="og:description" content={cardInsights?.attributes.description} />
         <meta property="og:image" content="/img/post/post1.svg" />
         <meta property="og:url" content={cardInsights?.link} />
         <meta property="og:type" content="article" />
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={cardInsights?.title} />
-        <meta name="twitter:description" content={cardInsights?.description} />
+        <meta name="twitter:title" content={cardInsights?.attributes.title} />
+        <meta name="twitter:description" content={cardInsights?.attributes.description} />
         <meta name="twitter:image" content="/img/post/post1.svg" />
         <meta name="twitter:site" content="@yourTwitterHandle" />
 
@@ -114,41 +98,31 @@ export default function Index() {
           <section className="insigth-navigation">
             <span> Home</span>
             <ImageSvg name="Navigation" />
-            <span className="title--post"> {cardInsights?.title} </span>
+            <span className="title--post"> {cardInsights?.attributes.title} </span>
           </section>
 
           <section className="insigth-suggestions-posts">
             <div className="insigth-post">
               <figure className="image--post">
-                {/* {cardInsights?.image[0].url &&  <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${cardInsights.image[0]?.url}`} width={40} height={40} alt="post" /> } */}
-                <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${cardInsights.image[0]?.url}`} width={40} height={40} alt="post" />
+                <Image src={`${cardInsights?.attributes.image.data.attributes.url}`} width={40} height={40} alt={cardInsights?.attributes.title} />
 
                 <div className="box-title">
-                  <span>{cardInsights?.type}</span>
-                  <h1>{cardInsights?.title}</h1>
-                  <p>{cardInsights && formatDate(cardInsights?.publishedAt)}</p>
+                  <span>{cardInsights?.attributes.type}</span>
+                  <h1>{cardInsights?.attributes.title}</h1>
+                  <p>{cardInsights && formatDate(cardInsights?.attributes.updatedAt)}</p>
                 </div>
               </figure>
 
-              {cardInsights?.content && <BlocksRenderer content={cardInsights?.content} />}
-
-              {/* {cardInsights.content.map((post, index) => (
-              <article key={index} className="paragraphs-post">
-                <h2>{post.title}</h2>
-                <InsightsStyle content={post.content} keyboards={post.keyboards} />
-              </article>
-            ))} */}
+              <div dangerouslySetInnerHTML={{ __html: convertMarkdownToHTML(cardInsights?.attributes.content) }} />
             </div>
 
             <div className="insigth-suggestions">
               <div className="box-autor">
-                <Image src={autor} width={40} height={40} alt="autor" />
-
-                {/* <Image src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${cardInsights?.image[0].url}`} width={40} height={40} alt="post" /> */}
+                <Image src={`${cardInsights?.attributes.imgAutor.data.attributes.url}`} width={40} height={40} alt={cardInsights?.attributes.autor} />
 
                 <div className="dates-autor">
-                  <p> {cardInsights?.autor}</p>
-                  <span>Ceo de Innovativa Seidor</span>
+                  <p> {cardInsights?.attributes.autor}</p>
+                  <span>{cardInsights?.attributes.authorRole}</span>
                 </div>
               </div>
 
@@ -172,8 +146,8 @@ export default function Index() {
                 <ul>
                   {posts &&
                     posts?.map((post) => (
-                      <li key={post.documentId} className={post.documentId == id ? 'active-post' : ''}>
-                        <Link href={`/insigth/${post.documentId}`}>{post.title}</Link>
+                      <li key={post.id} className={post.id == id ? 'active-post' : ''}>
+                        <Link href={`/insigth/${post.id}`}>{post.attributes.title}</Link>
                       </li>
                     ))}
                 </ul>

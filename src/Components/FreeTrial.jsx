@@ -59,7 +59,7 @@ function FreeTrial({ nameProduct, iIdProd }) {
         }, 1000); // Adjust the delay time as needed
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
-        console.log('errok, ', errorMessage);
+        console.log('error, ', errorMessage);
         setModalToken(true);
         setSubmitting(false);
         SetConfirm(false);
