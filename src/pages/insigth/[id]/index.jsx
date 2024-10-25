@@ -23,9 +23,11 @@ export default function Index() {
   const [posts, getpost] = useState([]);
   const [cardInsights, setcardInsights] = useState(null);
 
+  const strapiURL ="https://test-post-07ho.onrender.com"
+
   async function getPostStrapi() {
     // Hacemos la petición a la API de Strapi
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&populate=image`);
+    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&populate=image`);
     const data = await res.json();
 
     if (!data || !data.data) {
@@ -41,7 +43,8 @@ export default function Index() {
 
   async function getDataCardInsights() {
     // Hacemos la petición a la API de Strapi
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/posts?filters[id]=${id}&populate=*&locale=${router.locale === 'en' ? 'en' : 'es'}`);
+    const res = await fetch(`${strapiURL}/api/posts?filters[id]=${id}&populate=*&locale=${router.locale === 'en' ? 'en' : 'es'}`);
+    // const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/posts?filters[id]=${id}&populate=*&locale=${router.locale === 'en' ? 'en' : 'es'}`);
 
     const data = await res.json();
     if (!data || !data.data) {

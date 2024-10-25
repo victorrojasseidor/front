@@ -109,10 +109,11 @@ export default function index() {
   const [isImageInView, setIsImageInView] = useState(false);
   const [skillView, setskillView] = useState(null);
   const [dataInsigths, setDataInsigths] = useState(null);
+  const strapiURL ="https://test-post-07ho.onrender.com"
 
   async function getDatastrapi() {
     // Hacemos la petición a la API de Strapi
-    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&populate=image`);
+    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&populate=image`);
     const data = await res.json();
 
     if (!data || !data.data) {
