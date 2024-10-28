@@ -49,6 +49,11 @@
       @include media() {
         max-width: 100%;
       }
+
+      a{
+        font-style: none;
+        color:rgba(get-color(grey2_s4), 1);
+      }
     }
   }
 
@@ -167,8 +172,19 @@
   &-suggestions {
     display: flex;
     flex-direction: column;
+   
     flex: 1.25;
     gap: 2rem;
+
+
+    @include media(tablet) {
+      position: sticky;
+
+      height: 110vh;
+      top: 1%;
+    }
+
+   
 
     .box-autor {
       display: flex;
@@ -184,7 +200,7 @@
       .dates-autor {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
 
         p {
@@ -247,18 +263,44 @@
       justify-content: flex-start;
       gap: 1rem;
 
+  
+
       ul {
         display: flex;
         justify-content: flex-start;
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
+     
+
 
         a {
           list-style: none;
           text-align: start;
           color: rgba(get-color(grey2_s4), 1);
           padding-left: 0.5rem;
+          position: relative;
+
+          &:hover {
+            color: rgba(get-color(black_p2), 1);
+            font-weight: 500;
+           
+            &::after {
+              content: '';
+              position: absolute;
+              width: 0.25rem;
+              height: 100%;
+              top: 0;
+              left: 0%;
+              background-image: linear-gradient(180deg, #d037d8, #6640ff 75%, #0ea4ca);
+
+              animation: bolt 1s infinite; // Aplica la animación
+            
+            }
+       
+
+
+          }
         }
       }
 
@@ -276,9 +318,24 @@
             top: 0;
             left: 0%;
             background-color: rgba(get-color(blue_p1), 1);
+          
           }
         }
       }
     }
+  }
+}
+
+
+// Define la animación "bolt"
+@keyframes bolt {
+  0% {
+    transform: scaleY(0);
+  }
+  50% {
+    transform: scaleY(1); // Escala al 100%
+  }
+  100% {
+    transform: scaleY(0);
   }
 }

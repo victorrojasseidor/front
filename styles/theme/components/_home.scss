@@ -846,6 +846,8 @@
           }
         }
       }
+
+     
     }
   }
 
@@ -1030,11 +1032,26 @@
   color: get-color(grey1_s3);
   align-items: center;
 
+
+
+  
+
   path {
     padding: 0.25rem;
-    // fill:get-color(blue_p1);
+ 
     stroke: get-color(grey1_s3);
   }
+
+  
+}
+
+.strokeTransparent {
+
+  path{
+    stroke: none !important;
+    fill:rgba(get-color(white_s1), 0.95) !important;
+  }
+
 }
 
 .title-home {

@@ -8,7 +8,6 @@ import autor from '../../../../public/img/post/autor.jpg';
 import { useRouter } from 'next/router';
 import { formatDate } from '@/helpers/report';
 import Link from 'next/link';
-import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import { convertMarkdownToHTML } from '@/helpers/report';
 
 export default function Index() {
@@ -23,7 +22,12 @@ export default function Index() {
   const strapiURL = 'https://test-post-07ho.onrender.com';
 
   async function getPostStrapi() {
-    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&populate=image`);
+    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&sort=order:asc`, {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+      },
+    });
+
     const data = await res.json();
 
     if (!data || !data.data) {
@@ -33,12 +37,17 @@ export default function Index() {
     }
 
     const post = data.data;
-    console.log({ post });
     getpost(post);
   }
 
   async function getDataCardInsights() {
-    const res = await fetch(`${strapiURL}/api/posts?filters[id]=${id}&populate=*&locale=${router.locale === 'en' ? 'en' : 'es'}`);
+    // const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&filters[id]=${id}&populate=*`);
+    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'es' ? 'es' : 'en'}&filters[id]=${id}&populate=*`, {
+      headers: {
+        Authorization: `Bearer  ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+      },
+    });
+
     const data = await res.json();
     if (!data || !data.data) {
       return {
@@ -66,9 +75,6 @@ export default function Index() {
     const linkedinShareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(postLink)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(summary)}&source=${encodeURIComponent(strapiURL)}`;
     const twitterShareURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(postLink)}&via=yourTwitterHandle`;
 
-    console.log('URL de LinkedIn:', linkedinShareURL);
-    console.log('URL de Twitter:', twitterShareURL);
-
     return { linkedinShareURL, twitterShareURL };
   };
 
@@ -94,7 +100,6 @@ export default function Index() {
       });
   };
 
-  
   return (
     <LayoutHome>
       <Head>
@@ -116,18 +121,19 @@ export default function Index() {
         {/* URL canónica */}
         <link rel="canonical" href={`${window.location.origin}/insigth/${cardInsights?.id}`} />
       </Head>
-      {cardInsights && Object.keys(cardInsights).length > 0 ? (
-        <section className="insigth">
-          <section className="insigth-navigation">
-            <span> Home</span>
-            <ImageSvg name="Navigation" />
-            <span className="title--post"> {cardInsights?.attributes.title} </span>
-          </section>
 
-          <section className="insigth-suggestions-posts">
+      <section className="insigth">
+        <section className="insigth-navigation">
+          <Link href="/#insights"> Insigths</Link>
+          <ImageSvg name="Navigation" />
+          <span className="title--post"> {cardInsights?.attributes.title} </span>
+        </section>
+
+        <section className="insigth-suggestions-posts">
+          {cardInsights && Object.keys(cardInsights).length > 0 ? (
             <div className="insigth-post">
               <figure className="image--post">
-                <Image src={cardInsights?.attributes.image.data.attributes.url} width={400} height={300} alt={cardInsights?.attributes.title} />
+                <Image src={cardInsights?.attributes.image.data.attributes.url} width={400} height={300} alt={cardInsights?.attributes.title} priority />
 
                 <div className="box-title">
                   <span>{cardInsights?.attributes.type}</span>
@@ -138,49 +144,49 @@ export default function Index() {
 
               <div dangerouslySetInnerHTML={{ __html: convertMarkdownToHTML(cardInsights?.attributes.content) }} />
             </div>
+          ) : (
+            <p> {t['Waiting articles']}</p>
+          )}
 
-            <div className="insigth-suggestions">
-              <div className="box-autor">
-                <Image src={cardInsights?.attributes?.imgAutor?.data ? cardInsights.attributes.imgAutor.data.attributes.url : autor} width={40} height={40} alt={cardInsights?.attributes?.autor} />
+          <div className="insigth-suggestions">
+            <div className="box-autor">
+              <Image src={cardInsights?.attributes?.imgAutor?.data ? cardInsights.attributes.imgAutor.data.attributes.url : autor} width={40} height={40} alt={cardInsights?.attributes?.autor} />
 
-                <div className="dates-autor">
-                  <p> {cardInsights?.attributes.autor}</p>
-                  <span>{cardInsights?.attributes.authorRole}</span>
-                </div>
-              </div>
-
-              <div className="box-shared">
-                <h4>Share with your community!</h4>
-
-                <div className="share-buttons">
-                  <a href={getShareLink().linkedinShareURL} target="_blank" rel="noopener noreferrer">
-                    <ImageSvg name="Linkedin" />
-                  </a>
-                  <a href={getShareLink().twitterShareURL} target="_blank" rel="noopener noreferrer">
-                    <ImageSvg name="Twitter" />
-                  </a>
-                  <button onClick={copyLinkToClipboard}>{copied ? <ImageSvg name="Check" /> : <ImageSvg name="Copy" />}</button>
-                </div>
-              </div>
-
-              <div className="box-list-post">
-                <h3>Other recommended articles</h3>
-
-                <ul>
-                  {posts &&
-                    posts?.map((post) => (
-                      <li key={post.id} className={post.id == id ? 'active-post' : ''}>
-                        <Link href={`/insigth/${post.id}`}>{post.attributes.title}</Link>
-                      </li>
-                    ))}
-                </ul>
+              <div className="dates-autor">
+                <p> {cardInsights?.attributes.autor}</p>
+                <span>{cardInsights?.attributes.authorRole}</span>
               </div>
             </div>
-          </section>
+
+            <div className="box-shared">
+              <h4>{t['Share with your community!']}</h4>
+
+              <div className="share-buttons">
+                <a href={getShareLink().linkedinShareURL} target="_blank" rel="noopener noreferrer">
+                  <ImageSvg name="Linkedin" />
+                </a>
+                <a href={getShareLink().twitterShareURL} target="_blank" rel="noopener noreferrer">
+                  <ImageSvg name="Twitter" />
+                </a>
+                <button onClick={copyLinkToClipboard}>{copied ? <ImageSvg name="Check" /> : <ImageSvg name="Copy" />}</button>
+              </div>
+            </div>
+
+            <div className="box-list-post">
+              <h3>{t['Other recommended articles']}</h3>
+
+              <ul>
+                {posts &&
+                  posts?.map((post) => (
+                    <li key={post.id} className={post.id == id ? 'active-post' : ''}>
+                      <Link href={`/insigth/${post.id}`}>{post.attributes.title}</Link>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </div>
         </section>
-      ) : (
-        <p>waiting</p>
-      )}
+      </section>
     </LayoutHome>
   );
 }
