@@ -41,13 +41,13 @@ const Finance = () => {
       component: <Padrones />,
       type: l.header['Finance and accounting'],
     },
-    // {
-    //   idTab: 4,
-    //   title: "Detracciones",
-    //   path: '/reporting/finance/4',
-    //   component: <Detracctions />,
-    //   type: l.header['Finance and accounting'],
-    // },
+    {
+      idTab: 4,
+      title: "Detracciones",
+      path: '/reporting/finance/4',
+      component: <Detracctions />,
+      type: l.header['Finance and accounting'],
+    },
   ];
 
   const handleTabClick = (index, data) => {

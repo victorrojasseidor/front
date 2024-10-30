@@ -9,8 +9,43 @@
     gap: 2rem;
     flex-wrap: wrap;
   }
+
   .btn_black {
     align-self: flex-end;
     margin-left: auto;
   }
+
+
+
+}
+
+
+.reporting-detraccions {
+
+  .box-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .box-search{
+    display:flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .box-filter {
+
+
+    @include container;
+
+
+  }
+
+  .box-export{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+  }
+
 }
