@@ -13,23 +13,21 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import { IconDate, IconArrow } from '@/helpers/report';
+import { exportToExcelFormat,  IconDate, IconArrow } from '@/helpers/report';
 import ImageSvg from '@/helpers/ImageSVG';
-import Loading from '@/Components/Atoms/Loading';
 import { TextField } from '@mui/material';
 import Select from '@mui/material/Select';
 
 const Detracctions = () => {
-  const { session, setModalToken, logout, l } = useAuth();
+  const { session, setModalToken, logout, l, empresa } = useAuth();
   const [requestError, setRequestError] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [dataDetracciones, setDataDetracciones] = useState(null);
   const [itemsPerPage] = useState(25);
   const [page, setPage] = useState(1);
-  const [selectedCompany, setSelectedCompany] = useState('');
+  const [selectedCompany, setSelectedCompany] = useState(session?.oEmpresa[0].id_empresa);
   const [startDate, setStartDate] = useState(dayjs().startOf('month').format('DD/MM/YYYY'));
   const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'));
-  const [dataInitialSelect, setInitialDataselect] = useState([]);
   const [apply, setApply] = useState(false);
   const t = l.Reporting;
 
@@ -99,7 +97,7 @@ const Detracctions = () => {
   }
 
   const hasAppliedFilters = () => {
-    return selectedCompany !== '' || startDate !== dayjs().startOf('month').format('DD/MM/YYYY') || endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY');
+    return  selectedCompany !== '' || startDate !== dayjs().startOf('month').format('DD/MM/YYYY') || endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY');
   };
 
   const handleClearFilters = () => {
@@ -110,23 +108,33 @@ const Detracctions = () => {
   };
 
   const exportToExcel = () => {
-    // if (balances && balances.oSaldos.length > 0) {
-    //   const filteredData = balances.oSaldos.map((row) => ({
-    //     Date: formatDate(row.fecha),
-    //     Company: row.razon_social_empresa,
-    //     Bank: row.nombre_banco,
-    //     Account: row.desc_cuenta_conf_cuenta,
-    //     Currency: row.moneda,
-    //     Balance: row.saldo,
-    //   }));
-    //   if (filteredData.length > 0) {
-    //     const ws = XLSX.utils.json_to_sheet(filteredData);
-    //     const wb = XLSX.utils.book_new();
-    //     XLSX.utils.book_append_sheet(wb, ws, 'Balance Report');
-    //     XLSX.writeFile(wb, 'balance_report.xlsx');
-    //   }
-    // }
+    if (!dataDetracciones?.length) return;
+  
+    const fileName = `Detracciones_report_${startDate}-hasta-${endDate}.xlsx`;
+    const headers = [
+      { header: 'Fecha Pago', key: 'fecha_pago', width: 20 },
+      { header: 'Razón Social', key: 'razon_social_empresa', width: 25 },
+      { header: 'RUC', key: 'ruc_empresa', width: 20 },
+      { header: 'Tipo Cuenta', key: 'tipo_cuenta', width: 20 },
+      { header: 'Tipo Descarga', key: 'tipo_descarga', width: 20 },
+      
+      { header: 'Número', key: 'numero', width: 15 },
+      { header: 'Archivo', key: 'archivo', width: 20 },
+      { header: 'Importe Total', key: 'importe_total', width: 20 },
+      { header: 'Numero de pago de detracciones', key: 'numero_pago_detracciones', width: 20 },
+      
+    ];
+  
+   
+    const formattedData = dataDetracciones.map((row) => ({
+      ...row,
+      fecha_pago: formatDate(row.fecha_pago) ,// Formato explícito para fecha_pago
+      numero_pago_detracciones:row.numero_pago_detracciones=="String/null"? null:row.numero_pago_detracciones.toString(), // Formato explícito para numero_pago_detracciones
+    }));
+  
+    exportToExcelFormat(formattedData, fileName, headers, (row) => row);
   };
+  
 
   return (
     <>
@@ -137,7 +145,7 @@ const Detracctions = () => {
         <div className="box-tabs">
           <div className="box-filter">
             <div className="box-search">
-              <h3> Detractions report </h3>
+              <h3> {t['Detractions report']} </h3>
 
               <p>
                 {t['If you want to view the complete information, use the']} <span>{t['export option']}</span>
@@ -226,15 +234,13 @@ const Detracctions = () => {
                     <table className="dataTable">
                       <thead>
                         <tr>
-                          <th> Payment date                           </th>
-                          <th>  Company </th>
-                          <th>  Account type </th>
-                          <th>  Number </th>
-                          <th>  File </th>
-                          <th>  Total amount </th>
-                          <th>  Deduction payment number </th>
-
-
+                          <th> {t['Payment date']} </th>
+                          <th> {t['Company']} </th>
+                          <th> {t['Account type']} </th>
+                          <th> {t['Number']} </th>
+                          <th> {t['File']} </th>
+                          <th> {t['Total amount']} </th>
+                          <th> {t['Deduction payment number']} </th>
                         </tr>
                       </thead>
                       <tbody className="rowTable">
@@ -243,17 +249,14 @@ const Detracctions = () => {
                             .slice((page - 1) * itemsPerPage, page * itemsPerPage) // Slice the array based on the current page
                             .map((row) => (
                               <tr key={row.id_detracciones_pago}>
-                               
                                 <td>{formatDate(row.fecha_pago)}</td>
                                 <td>{row.razon_social_empresa}</td>
                                 <td>{row.tipo_cuenta}</td>
-                             
+
                                 <td>{row.numero}</td>
                                 <td>{row.archivo}</td>
                                 <td>{row.importe_total}</td>
-                                <td> {row.numero_pago_detracciones}</td>
-                                
-
+                                <td> {row.numero_pago_detracciones=="String/null"?"-":row.numero_pago_detracciones}</td>
                               </tr>
                             ))
                         ) : (

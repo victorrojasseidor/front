@@ -688,7 +688,15 @@
     "November": "November",
     "December": "December",
     "Account Alias": "Account Alias",
-    "Account Description": "Account Description"
+    "Account Description": "Account Description",
+    "Payment date": "Payment date",
+    "Account type": "Account type",
+    "Number": "Number",
+    "File": "File",
+    "Total amount": "Total amount",
+    "Deduction payment number": "Deduction payment number",
+    "Detractions report": "Detractions report"
+
   },
   "Captcha": {
     "Captcha solved": "Captcha Solved",

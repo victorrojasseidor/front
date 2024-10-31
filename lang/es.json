@@ -684,7 +684,14 @@
     "November": "Noviembre",
     "December": "Diciembre",
     "Account Alias": "Alias de la cuenta",
-    "Account Description": "Descripción de la cuenta"
+    "Account Description": "Descripción de la cuenta",
+    "Payment date": "Fecha de pago",
+  "Account type": "Tipo de cuenta",
+  "Number": "Número",
+  "File": "Archivo",
+  "Total amount": "Importe total",
+  "Deduction payment number": "Número de pago de detracción",
+  "Detractions report": "Reporte de detracciones"
   },
   "Captcha": {
     "Captcha solved": "Captcha Resuelto",
