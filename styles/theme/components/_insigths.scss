@@ -106,13 +106,13 @@
         bottom: 0;
         right: 0;
         bottom: -0.5rem;
-        left: 0.3%;
+        left: 0%;
         
         display: flex;
         justify-content: space-between;
         flex-direction: column;
         align-items: flex-start;
-        width: 99.4%;
+        width: 99.99%;
         padding: 1rem;
         gap: 0.5rem;
         // margin: 0.25rem 0.0rem;
@@ -194,6 +194,7 @@
         width: 5rem;
         border: 2px solid rgba(get-color(grey1_s3), 1);
         border-radius: brd(2);
+        height: 5rem;
       }
 
       .dates-autor {

@@ -43,7 +43,7 @@ const Finance = () => {
     },
     {
       idTab: 4,
-      title: "Detracciones",
+      title: t.Detractions,
       path: '/reporting/finance/4',
       component: <Detracctions />,
       type: l.header['Finance and accounting'],

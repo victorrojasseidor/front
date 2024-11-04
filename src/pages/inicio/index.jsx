@@ -183,7 +183,6 @@ export default function index() {
   }, []);
 
 
-  console.log(dataInsigths);
 
   const cardAdventage = [
     {

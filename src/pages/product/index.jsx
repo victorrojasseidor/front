@@ -215,11 +215,14 @@ export default function Products() {
     } else if (id === 4) {
       return 'IconCaptcha';
     } else if (id === 6) {
-      return 'IconImage';
+      return 'IconDetraccion';
     } else if (id === 7) {
       return 'IconMass';
     } else if (id === 8) {
       return 'IconSupplier';
+    } else if (id === 9) {
+      return 'IconImage';
+
     } else return 'IconCard';
   };
 
@@ -596,7 +599,7 @@ export default function Products() {
               <div className="card_actions">
                 <div className="box-img">
                   <div className="type_icon">
-                    <ImageSvg name={imgProduct(6)} />
+                    <ImageSvg name={imgProduct(9)} />
                   </div>
                 </div>
 

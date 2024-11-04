@@ -98,14 +98,18 @@
     width: 100%;
     border-radius: 0px 10px 10px 0px;
     background-color: get-color(white_s1);
-
     flex-wrap: nowrap;
     overflow-x: auto;
     @include scrollTeme;
 
     @include media(tablet) {
+      width: 100%;
+    }
+
+    @include media(desktop) {
       width: fit-content;
     }
+
 
     h4 {
       color: get-color(grey2_s4);

@@ -160,12 +160,23 @@ function Tecnology() {
                 </div>
               </button>
 
+              <button className="box-option financy" onClick={() => router.push('/reporting/finance/4')}>
+                <div className="report">
+                  <ImageSvg name="IconDetraccion" />
+                  <h4> {l.Reporting['Detractions report']} </h4>
+                </div>
+              </button>
+
               <button className="box-option tecnology" onClick={() => router.push('/reporting/tecnology/1')}>
                 <div className="report">
                   <ImageSvg name="IconCaptcha" />
                   <h4> {l.Captcha['Captcha Solver']} </h4>
                 </div>
               </button>
+
+             
+
+
             </div>
           </div>
 
