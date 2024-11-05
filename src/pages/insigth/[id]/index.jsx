@@ -4,7 +4,7 @@ import LayoutHome from '@/Components/LayoutHome';
 import ImageSvg from '@/helpers/ImageSVG';
 import Image from 'next/image';
 import { useAuth } from '@/Context/DataContext';
-import autor from '../../../../public/img/post/autor.jpg';
+import autor from '../../../../public/img/post/autor.webp';
 import { useRouter } from 'next/router';
 import { formatDate } from '@/helpers/report';
 import Link from 'next/link';
@@ -150,7 +150,8 @@ export default function Index() {
 
           <div className="insigth-suggestions">
             <div className="box-autor">
-              <Image src={cardInsights?.attributes?.imgAutor?.data ? cardInsights.attributes.imgAutor.data.attributes.url : autor} width={40} height={40} alt={cardInsights?.attributes?.autor} />
+              {/* <Image src={cardInsights?.attributes?.imgAutor?.data ? cardInsights.attributes.imgAutor.data.attributes.url : autor} width={40} height={40} alt={cardInsights?.attributes?.autor} /> */}
+              <Image src={autor} width={40} height={40} alt="AUTOR"/>
 
               <div className="dates-autor">
                 <p> {cardInsights?.attributes.autor}</p>

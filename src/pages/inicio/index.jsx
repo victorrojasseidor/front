@@ -113,14 +113,11 @@ export default function index() {
   const strapiURL = 'https://test-post-07ho.onrender.com';
 
   async function getDatastrapi() {
-     const res = await fetch(
-      `${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&sort=order:asc&populate=image`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
-        },
-      }
-    );
+    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&sort=order:asc&populate=image`, {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+      },
+    });
     const data = await res.json();
 
     if (!data || !data.data) {
@@ -132,7 +129,6 @@ export default function index() {
     const blogs = data.data;
     setDataInsigths(blogs);
   }
-
 
   // Animaciones AOS
   useEffect(() => {
@@ -181,8 +177,6 @@ export default function index() {
       }
     };
   }, []);
-
-
 
   const cardAdventage = [
     {
@@ -335,7 +329,6 @@ export default function index() {
 
   const logoClient = [adama, adeco, agrokasa, anglo, auna, pacasmayo, unacen];
 
-
   return (
     <LayoutHome>
       <section className="home-front" id="front">
@@ -346,7 +339,7 @@ export default function index() {
               <span> {t['superpower']}</span>
             </h1>
             <h1 className="letter-transition gradient">
-              {t['Assistants']}
+              {t['Agents']}
               <span> {t['digital ARI']} </span>
             </h1>
           </div>
@@ -484,42 +477,55 @@ export default function index() {
         </div>
 
         <div className="box-insigths">
-          {  dataInsigths &&    dataInsigths?.slice(0, isShowMore ? dataInsigths.length : 6).map((post) => (
-            <article key={post.id} className="insigths">
-              <figure className="insigths-image gradient">
-                <Image
-                  src={`${post?.attributes.image.data.attributes.url}`}
-                  width={40}
-                  height={40}
-                  alt={post?.attributes.title} // Cambié el alt para usar el título del post
-                />
-                <div className="title">
-                  <span>{post?.attributes.type}</span>
-                  <Link href={`/insigth/${post.id}`}>
-                    <h3>{post?.attributes.title}</h3>
-                  </Link>
-                </div>
-              </figure>
+          {dataInsigths && dataInsigths.length > 0
+            ? dataInsigths.slice(0, isShowMore ? dataInsigths.length : 6).map((post) => (
+                <article key={post.id} className="insigths">
+                  <figure className="insigths-image gradient">
+                    <Image src={`${post?.attributes.image.data.attributes.url}`} width={40} height={40} alt={post?.attributes.title} />
+                    <div className="title">
+                      <span>{post?.attributes.type}</span>
+                      <Link href={`/insigth/${post.id}`}>
+                        <h3>{post?.attributes.title}</h3>
+                      </Link>
+                    </div>
+                  </figure>
 
-              <div className="box-description">
-                <div className="insigths-date">
-                  <span>{post.autor}</span>
-                  <span>{formatDate(post.attributes.createdAt)}</span>
-                </div>
-                <p className="insigths-description">
-                  {/* <BlocksRenderer content={post.attributes.description} /> */}
+                  <div className="box-description">
+                    <div className="insigths-date">
+                      <span>{post.autor}</span>
+                      <span>{formatDate(post.attributes.createdAt)}</span>
+                    </div>
+                    <p className="insigths-description">{post?.attributes.description}</p>
+                  </div>
+                </article>
+              ))
+            : cardInsights.map((card, index) => (
+                <article key={index} className="insigths">
+                  <figure className="insigths-image gradient">
+                    <Image src={card.image} width={40} height={40} alt="insights" />
+                    <div className="title">
+                      <span>{card.type}</span>
+                      <Link href="">
+                        <h3>{card.title}</h3>
+                      </Link>
+                    </div>
+                  </figure>
 
-                  {post?.attributes.description}
-                </p>
-              </div>
-            </article>
-          ))}
+                  <div className="box-description">
+                    <div className="insigths-date">
+                      <span>{card.autor}</span>
+                      <span>{card.date}</span>
+                    </div>
+                    <p className="insigths-description">{card.description}</p>
+                  </div>
+                </article>
+              ))}
         </div>
 
         {dataInsigths && (
           <button className="record strokeTransparent" onClick={() => setIsShowMore((prevState) => !prevState)}>
-            <ImageSvg name={isShowMore?"Down": "Up" }/>
-                       {isShowMore ? t['View less'] : t['View more']}
+            <ImageSvg name={isShowMore ? 'Down' : 'Up'} />
+            {isShowMore ? t['View less'] : t['View more']}
           </button>
         )}
       </section>
