@@ -564,8 +564,9 @@ export default function index() {
       <Swiper
         spaceBetween={20} // Espacio entre los logos
     
-        slidesPerView={4} // Muestra cuatro logos a la vez
-       
+        slidesPerView={2} // Muestra cuatro logos a la vez
+        loop={true} // Activa el loop para que sea cíclico
+  loopFillGroupWithBlank={false} // Evita espacios en blanco al final del loop
         centeredSlides={true}
         autoplay={{
           delay: 1000,
@@ -578,9 +579,9 @@ export default function index() {
         modules={[Autoplay, Pagination, Navigation]}
        
         breakpoints={{
-          640: { slidesPerView: 2 },
+          430: { slidesPerView: 2 },
           768: { slidesPerView: 3 },
-          1024: { slidesPerView: 5 },
+          1024: { slidesPerView: 6 },
         }}
 
         className="mySwiper"
