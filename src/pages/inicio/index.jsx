@@ -63,14 +63,14 @@ const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
                   setIsImageInView(true);
                   setskillView(prod);
 
-                  // console.log(`Imagen en vista: ${prod.title}`);
+                  console.log(`Imagen en vista: ${prod.title}`);
                 } else {
                   setIsImageInView(false);
                   // console.log(`Imagen fuera de vista: ${prod.title}`);
                 }
               });
             },
-            { threshold: 0.1 } // Ajusta el umbral según sea necesario
+            { threshold: 0.5 } // Ajusta el umbral según sea necesario
           );
 
           if (imageRef.current) {
@@ -332,12 +332,11 @@ export default function index() {
   return (
     <LayoutHome>
       <section className="home-front" id="front">
-
-      <div className="back-front">
-      <div className="maskBack">
-        <div className="animation"></div>
-      </div>
-    </div>
+        <div className="back-front">
+          <div className="maskBack">
+            <div className="animation"></div>
+          </div>
+        </div>
         <div className="welcome">
           <div className="welcome-letter">
             <h1 className="letter-transition gradient">
