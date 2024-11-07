@@ -13,6 +13,7 @@ import { useAuth } from '@/Context/DataContext';
 import ButtonGradient from '@/Components/Atoms/ButtonGradient';
 import flujoAri from '../../../public/img/flujoAri.gif';
 import simple from '../../../public/img/simple.svg';
+import imgloading from '../../../public/img/img-loading.svg';
 import conci from '../../../public/img/card-product/conci.svg';
 import imgconci from '../../../public/img/card-product/imgconci.svg';
 import estado from '../../../public/img/card-product/estado.svg';
@@ -43,10 +44,25 @@ import anglo from '../../../public/img/logos/anglo.webp';
 import auna from '../../../public/img/logos/auna.webp';
 import pacasmayo from '../../../public/img/logos/pacasmayo.webp';
 import unacen from '../../../public/img/logos/unacen.webp';
+import superm from '../../../public/img/logos/super.webp';
+import tekno from '../../../public/img/logos/tekno.webp';
 import LayoutHome from '@/Components/LayoutHome';
 import AOS from 'aos';
 import { formatDate } from '@/helpers/report';
-import 'aos/dist/aos.css'; // You can also use <link> for styles
+import 'aos/dist/aos.css';
+
+
+// Import Swiper React components
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+// import required modules
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+
 
 const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
   return (
@@ -327,7 +343,7 @@ export default function index() {
     },
   ];
 
-  const logoClient = [adama, adeco, agrokasa, anglo, auna, pacasmayo, unacen];
+  const logoClient = [adama, adeco, agrokasa, anglo, auna, pacasmayo, unacen, superm, tekno];
 
   return (
     <LayoutHome>
@@ -419,7 +435,7 @@ export default function index() {
 
           <article className="box-images">
             <figure>
-              <Image className="image-one" src={skillView?.imageone} width={200} height={200} alt="example" priority />
+              <Image className="image-one" src={ skillView? skillView.imageone:imgloading } width={200} height={200} alt="imageone" priority />
               <Image className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`} src={skillView?.imagetwo} width={200} height={200} alt="example" />
             </figure>
           </article>
@@ -543,13 +559,43 @@ export default function index() {
           <p>{t['They have discovered the benefits of automating their financial processes with ARI.']}</p>
         </div>
 
-        <article key={index} className="box-client" data-aos="zoom-in">
-          {logoClient.map((logos, index) => (
-            <figure className="client-image" key={index}>
-              <Image src={logos} width={100} height={100} alt="clients" />
+        <article className="box-client" >
+
+      <Swiper
+        spaceBetween={20} // Espacio entre los logos
+    
+        slidesPerView={4} // Muestra cuatro logos a la vez
+       
+        centeredSlides={true}
+        autoplay={{
+          delay: 1000,
+          disableOnInteraction: true,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        // navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+       
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 5 },
+        }}
+
+        className="mySwiper"
+        
+      >
+        {logoClient.map((logo, index) => (
+          <SwiperSlide key={index}>
+            <figure className="client-image">
+              <Image src={logo} width={100} height={100} alt="clients" />
             </figure>
-          ))}
-        </article>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </article>
+
       </section>
     </LayoutHome>
   );

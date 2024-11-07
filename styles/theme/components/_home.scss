@@ -1,5 +1,5 @@
 .home {
- 
+
   &-nav {
     margin-top: 0;
     padding: 0.5rem 2rem;
@@ -44,6 +44,7 @@
       img {
         height: 3rem;
         width: auto;
+
         @include media(tablet) {
           height: auto;
         }
@@ -309,7 +310,7 @@
         }
 
         @include media(desktop) {
-          height: 30rem;
+          height: 36rem;
           max-height: 80rem;
         }
       }
@@ -621,6 +622,7 @@
     }
 
     .title-home {
+
       h2,
       p {
         text-align: right;
@@ -721,10 +723,10 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 100%; 
+      height: 100%;
       gap: 1rem;
 
-        figure {
+      figure {
         @include media(tablet) {
           // height: 10rem;
         }
@@ -839,7 +841,7 @@
         }
       }
 
-     
+
     }
   }
 
@@ -848,19 +850,71 @@
 
     .box-client {
       display: flex;
-      // justify-content: center;
-
       gap: 1rem;
-
       align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
+      
 
       @include media(desktop) {
         width: 100%;
         justify-content: center;
         flex-direction: row;
+       align-self: center;
+        align-items: center;
+
       }
+
+      .client-image {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: auto;
+        align-self: center;
+        height: 100%;
+        width: max-content;
+    
+
+        
+      }
+
+      .mySwiper {
+
+
+        .swiper {
+          width: 100%;
+          height: 100%;
+        }
+
+        .swiper-slide {
+          text-align: center;
+          font-size: 18px;
+          background: #fff;
+
+          /* Center slide text vertically */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .swiper-wrapper{
+          align-items: center;
+        }
+
+        .swiper-slide img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+         .swiper-pagination-bullet-active{
+          background-color: transparent;
+          background-image: linear-gradient(60deg, #d037d8, #6640ff 75%, #0ea4ca);
+     
+         }
+
+      }
+
     }
   }
 
@@ -869,8 +923,8 @@
     flex-direction: row;
     flex-direction: column;
     background-color: rgba(get-color(black_p2), 1);
-  
-  
+
+
 
     @include home-container;
     gap: 2rem;
@@ -988,9 +1042,11 @@
         flex-direction: row;
         align-items: flex-end;
       }
+
       img {
         height: 3rem;
         width: auto;
+
         @include media(tablet) {
           height: auto;
         }
@@ -1026,22 +1082,22 @@
 
 
 
-  
+
 
   path {
     padding: 0.25rem;
- 
+
     stroke: get-color(grey1_s3);
   }
 
-  
+
 }
 
 .strokeTransparent {
 
-  path{
+  path {
     stroke: none !important;
-    fill:rgba(get-color(white_s1), 0.95) !important;
+    fill: rgba(get-color(white_s1), 0.95) !important;
   }
 
 }
@@ -1087,6 +1143,7 @@
 }
 
 .blacktext {
+
   h2,
   p {
     color: get-color(black_p2);
@@ -1164,6 +1221,7 @@
 }
 
 @keyframes fadeInOut {
+
   0%,
   50%,
   100% {
@@ -1218,31 +1276,29 @@
   mask-size: cover;
   z-index: 9;
   opacity: 1;
-  
+
 
   .animation {
     animation: topAnimation 6s cubic-bezier(0.62, 0.62, 0.28, 0.67) infinite;
-    background: linear-gradient(
-      rgba(183, 164, 251, 0) 0px,
-      rgb(164, 216, 251) 100%,
-      rgb(161, 21, 216) 100%,
-      rgba(133, 98, 255, 0) 0%
-    );
+    background: linear-gradient(rgba(183, 164, 251, 0) 0px,
+        rgb(164, 216, 251) 100%,
+        rgb(161, 21, 216) 100%,
+        rgba(133, 98, 255, 0) 0%);
     height: 500px;
     width: 100%;
     position: absolute;
     top: 0;
     z-index: -100;
   }
-  
+
 }
 
 
 @keyframes topAnimation {
   0% {
-    transform:translateY(-302px)
+    transform: translateY(-302px)
   }
- 
+
   100% {
     transform: translateY(400px);
   }
