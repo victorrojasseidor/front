@@ -153,9 +153,11 @@
   0% {
     background-position: 0 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0 50%;
   }
@@ -182,7 +184,8 @@
     @include media(tablet) {
       padding: 2rem;
       background: url('../../../public/img/home.webp') center top no-repeat, transparent;
-      background-size: cover, auto; /* Ajusta el tamaño de la imagen al contenedor */
+      background-size: cover, auto;
+      /* Ajusta el tamaño de la imagen al contenedor */
       // background-position: left bottom;
     }
 
@@ -217,9 +220,11 @@
           }
         }
       }
+
       p {
         color: get-color(grey2_s4);
       }
+
       @include media(tablet) {
         align-items: flex-end;
       }
@@ -234,13 +239,22 @@
         z-index: 1;
         left: 0;
         bottom: 0;
-        background: url('../../../public/img/home-3.webp') no-repeat;
+        // background: url('../../../public/img/home-3.webp') no-repeat;
         background-size: contain;
+        background-repeat: no-repeat; // Aplica no-repeat fuera de la animación
+        // Animación para cambiar de imagen cada 3 segundos
+        animation: changeImage 9s infinite;
+
+        img{
+          object-fit:contain;
+        }
+        
       }
 
       @include media(desktop) {
-        height: 27rem;
+        height: 25rem;
       }
+
       @include media(extradesktop) {
         height: 22rem;
         width: 25rem;
@@ -404,6 +418,7 @@
         background-color: get-color(bg-cles);
       }
     }
+
     .dayLetf {
       display: flex;
       justify-content: center;
@@ -416,6 +431,7 @@
         color: get-color(grey2_s4);
         font-size: 1rem;
         display: inline-block;
+
         path {
           fill: get-color(grey2_s4);
         }
@@ -564,6 +580,7 @@
 
     .languajes-box {
       display: none;
+
       @include media(tablet) {
         width: 15%;
         display: flex;
@@ -572,6 +589,7 @@
         align-items: flex-start;
         gap: 0.5rem;
       }
+
       svg {
         path {
           fill: get-color(grey2_s4);
@@ -597,6 +615,7 @@
   gap: 0.25rem;
   align-items: center;
   width: 100%;
+
   @include media(tablet) {
     flex-wrap: wrap;
   }
@@ -614,6 +633,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+
     path {
       fill: get-color(grey2_s4);
     }
@@ -667,6 +687,7 @@
 
   .css-17l143u-MuiAutocomplete-root {
     min-width: 16rem;
+
     @include media(tablet) {
       min-width: 22rem;
     }
@@ -706,6 +727,7 @@
 
   .css-154wcn3 {
     max-width: 18rem !important;
+
     @include media(tablet) {
       max-width: 22.5rem;
     }
@@ -720,7 +742,8 @@
       height: 1.5rem;
       position: relative;
       background-image: url('../../../public/icons/arrow.svg');
-      background-size: contain; /* Ajusta el tamaño del fondo para cubrir el contenedor */
+      background-size: contain;
+      /* Ajusta el tamaño del fondo para cubrir el contenedor */
       display: inline-block;
 
       path {
@@ -745,8 +768,10 @@
     background-color: get-color(bg-cles);
     border-radius: brd(2);
     width: 16rem !important;
+
     @include media(tablet) {
       background-color: get-color(white_s1);
+
       @include media(tablet) {
         width: 20rem !important;
       }
@@ -776,6 +801,7 @@
 }
 
 .slider {
+
   // Permite posicionar los elementos del slider
   @include media(mobile) {
     overflow: hidden; // Oculta los elementos que se desbordan del contenedor
@@ -820,6 +846,7 @@
       background-image: linear-gradient(to right, rgba(#000846, 0.5), rgba(#000846, 1), rgba(#000846, 0.8), rgba(get-color(t1-blue), 0.4));
 
       .report_data {
+
         article,
         p {
           color: rgba(get-color(grey1_s3), 0.7);
@@ -849,6 +876,7 @@
         svg,
         span {
           color: hsl_l(blue_p1, 25);
+
           path {
             fill: hsl_l(blue_p1, 25);
           }
@@ -887,13 +915,37 @@
   0% {
     transform: translateX(90%); // Inicio de la animación: sin desplazamiento
   }
+
   33.33% {
     transform: translateX(-100%); // Desplazamiento hacia la izquierda
   }
+
   66.66% {
     transform: translateX(-200%); // Desplazamiento hacia la izquierda
   }
+
   100% {
     transform: translateX(100%); // Final de la animación: sin desplazamiento
+  }
+}
+
+
+
+// Definición de la animación
+@keyframes changeImage {
+
+  0%,
+  33% {
+    background-image: url('../../../public/img/home-3.webp');
+  }
+
+  34%,
+  66% {
+    background-image: url('../../../public/img/home-5.svg');
+  }
+
+  67%,
+  100% {
+    background-image: url('../../../public/img/home-12.svg');
   }
 }

@@ -332,6 +332,12 @@ export default function index() {
   return (
     <LayoutHome>
       <section className="home-front" id="front">
+
+      <div className="back-front">
+      <div className="maskBack">
+        <div className="animation"></div>
+      </div>
+    </div>
         <div className="welcome">
           <div className="welcome-letter">
             <h1 className="letter-transition gradient">

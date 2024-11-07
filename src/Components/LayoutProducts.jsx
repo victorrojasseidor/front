@@ -225,13 +225,13 @@ const LayoutProducts = ({ children, menu }) => {
 
         <nav className="menu_nav  menu_profile">
           <div className="box-name ">
-            <div className="box-name_person fondoPerfil">
+            {/* <div className="box-name_person fondoPerfil">
               <ImageSvg name="Users" />
             </div>
             <div className="box-name_name fondoPerfil_color">
               <p>{session?.sUserName}</p>
               <span>{session?.sLastName}</span>
-            </div>
+            </div> */}
           </div>
 
           <ul className="list-content">

@@ -87,7 +87,10 @@ export default function LayoutHome({ children }) {
     <section className="home">
       <header className="home-nav">
         <ul className="logo-img">
+          <Link href='/#front'>
           <Image src={LogoOscuro} width={100} height={100} alt="logooscuro" />
+          </Link>
+      
         </ul>
 
         <ul className="nav-menu">
