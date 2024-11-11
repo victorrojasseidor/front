@@ -1,5 +1,5 @@
 .home {
- 
+
   &-nav {
     margin-top: 0;
     padding: 0.5rem 2rem;
@@ -44,6 +44,7 @@
       img {
         height: 3rem;
         width: auto;
+
         @include media(tablet) {
           height: auto;
         }
@@ -309,7 +310,7 @@
         }
 
         @include media(desktop) {
-          height: 30rem;
+          height: 36rem;
           max-height: 80rem;
         }
       }
@@ -424,7 +425,7 @@
           @include media(desktop) {
             left: 20%;
             height: 60vh;
-            width: 36vw;
+            width: 35vw;
           }
         }
       }
@@ -621,6 +622,7 @@
     }
 
     .title-home {
+
       h2,
       p {
         text-align: right;
@@ -714,7 +716,6 @@
 
     .insigths {
       max-width: 40rem;
-
       background-color: transparent;
       display: flex;
       height: max-content;
@@ -722,15 +723,8 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      height: 100%; // Asegura que todas las cards tengan la misma altura
+      height: 100%;
       gap: 1rem;
-
-      // &>*:not(figure, h3) {
-      //   padding-left: 1rem;
-      //   /* Ajusta el valor del padding según sea necesario */
-      //   padding-right: 1rem;
-
-      // }
 
       figure {
         @include media(tablet) {
@@ -847,7 +841,7 @@
         }
       }
 
-     
+
     }
   }
 
@@ -856,19 +850,72 @@
 
     .box-client {
       display: flex;
-      // justify-content: center;
-
       gap: 1rem;
-
       align-items: center;
       justify-content: center;
-      flex-wrap: wrap;
+      width: 100%;
+      
 
       @include media(desktop) {
         width: 100%;
         justify-content: center;
         flex-direction: row;
+       align-self: center;
+        align-items: center;
+
       }
+
+      .client-image {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: auto;
+        align-self: center;
+        height: 100%;
+        width: max-content;
+    
+
+        
+      }
+
+      .mySwiper {
+
+
+        .swiper {
+          width: 100%;
+          height: 100%;
+        }
+
+        .swiper-slide {
+          text-align: center;
+          font-size: 18px;
+          background: #fff;
+
+          /* Center slide text vertically */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .swiper-wrapper{
+          align-items: center;
+        }
+
+        .swiper-slide img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+         .swiper-pagination-bullet-active{
+          background-color: transparent;
+          background-image: linear-gradient(60deg, #d037d8, #6640ff 75%, #0ea4ca);
+     
+         }
+
+      }
+
     }
   }
 
@@ -877,8 +924,8 @@
     flex-direction: row;
     flex-direction: column;
     background-color: rgba(get-color(black_p2), 1);
-  
-  
+
+
 
     @include home-container;
     gap: 2rem;
@@ -996,9 +1043,11 @@
         flex-direction: row;
         align-items: flex-end;
       }
+
       img {
         height: 3rem;
         width: auto;
+
         @include media(tablet) {
           height: auto;
         }
@@ -1034,22 +1083,22 @@
 
 
 
-  
+
 
   path {
     padding: 0.25rem;
- 
+
     stroke: get-color(grey1_s3);
   }
 
-  
+
 }
 
 .strokeTransparent {
 
-  path{
+  path {
     stroke: none !important;
-    fill:rgba(get-color(white_s1), 0.95) !important;
+    fill: rgba(get-color(white_s1), 0.95) !important;
   }
 
 }
@@ -1095,6 +1144,7 @@
 }
 
 .blacktext {
+
   h2,
   p {
     color: get-color(black_p2);
@@ -1172,6 +1222,7 @@
 }
 
 @keyframes fadeInOut {
+
   0%,
   50%,
   100% {
@@ -1195,5 +1246,72 @@
 
   100% {
     background-position: 0% 50%;
+  }
+}
+
+
+
+/* components/BackEffect.module.css */
+.back-front {
+  background: url('../../../public/img/hero_bg_top_maskm.png') center top / cover no-repeat;
+  width: 100%;
+  height: 300px;
+
+  position: absolute;
+  justify-content: flex-start;
+  z-index: 0;
+  top: -20%;
+  left: 0;
+  opacity: 0.4;
+  @include media(tablet) {
+    height: 500px;
+  }
+}
+
+.maskBack {
+  mask-image: url('../../../public/img/hero_bg_top.png');
+  // mask-image: url('../../../public/img/fondo.svg');
+  mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  mask-position: center top;
+  background-position: center top;
+  width: 100%;
+  height: 300px;
+  mask-size: cover;
+  z-index: 9;
+  opacity: 1;
+  @include media(tablet) {
+    height: 500px;
+  }
+
+
+  .animation {
+    animation: topAnimation 6s cubic-bezier(0.62, 0.62, 0.28, 0.67) infinite;
+    animation: 6s cubic-bezier(0.62, 0.62, 0.28, 0.67) 0s infinite normal none running topAnimation;
+    background: linear-gradient(rgba(183, 164, 251, 0) 0px,
+        rgb(164, 216, 251) 100%,
+        rgb(161, 21, 216) 100%,
+        rgba(133, 98, 255, 0) 0%);
+    height: 300px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: -100;
+
+    @include media(tablet) {
+      height: 500px;
+    }
+  }
+
+}
+
+
+@keyframes topAnimation {
+  0% {
+    transform: translateY(-302px)
+  }
+
+  100% {
+    transform: translateY(400px);
   }
 }

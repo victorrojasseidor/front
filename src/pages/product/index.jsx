@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import { fetchConTokenPost } from '@/helpers/fetch';
 import Counter from '@/Components/Atoms/Counter';
 
+
 export default function Products() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
