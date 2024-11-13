@@ -108,15 +108,20 @@ export default function Index() {
       <Head>
         <title>{cardInsights?.attributes.title}</title>
         <meta content={cardInsights?.attributes.title} property="og:title"/>
-        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={cardInsights?.attributes.description} />
+        <meta name="description" content="publicación de ari" />
         
         <meta name="keywords" content={cardInsights?.attributes.keyboards} />
+        <meta name="keywords" content="Ingenieria artifical, IA" />
+
+
+
         {/* Metadatos para Open Graph (LinkedIn, Facebook, etc.) */}
         <meta property="og:title" content={cardInsights?.attributes.title} />
         <meta property="og:description" content={cardInsights?.attributes.description} />
         {/* <meta property="og:image" content={cardInsights?.attributes.image.data.attributes.url} /> */}
-        <meta property="og:image" name="image" content={compartir.src} />
+        <meta property="og:image" name="image" content={`${window.location.origin}${compartir.src}`} />
         <meta property="og:url" content={`${window.location.origin}/insigth/${cardInsights?.id}`} /> {/* URL del post */}
         <meta property="og:type" content="article" />
         <meta content="ariapp.ai" property="og:site_name"/>
@@ -128,8 +133,8 @@ export default function Index() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={cardInsights?.attributes.title} />
         <meta name="twitter:description" content={cardInsights?.attributes.description} />
-        <meta name="twitter:image" content={compartir.src} />
-        <meta name="twitter:site" content="@yourTwitterHandle" />
+        <meta name="twitter:image" content={`${window.location.origin}${compartir.src}`} />
+        <meta name="twitter:site" content="@seidor" />
         {/* URL canónica */}
         <link rel="canonical" href={`${window.location.origin}/insigth/${cardInsights?.id}`} />
       </Head>
