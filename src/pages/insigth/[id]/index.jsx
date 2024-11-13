@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { formatDate } from '@/helpers/report';
 import Link from 'next/link';
 import { convertMarkdownToHTML } from '@/helpers/report';
+import compartir from '../../../../public/img/post/compartir.jpg';
 
 export default function Index() {
   const { l } = useAuth();
@@ -100,23 +101,34 @@ export default function Index() {
       });
   };
 
+  console.log(compartir)
+
   return (
     <LayoutHome>
       <Head>
         <title>{cardInsights?.attributes.title}</title>
+        <meta content={cardInsights?.attributes.title} property="og:title"/>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
         <meta name="description" content={cardInsights?.attributes.description} />
+        
         <meta name="keywords" content={cardInsights?.attributes.keyboards} />
         {/* Metadatos para Open Graph (LinkedIn, Facebook, etc.) */}
         <meta property="og:title" content={cardInsights?.attributes.title} />
         <meta property="og:description" content={cardInsights?.attributes.description} />
-        <meta property="og:image" content={cardInsights?.attributes.image.data.attributes.url} />
+        {/* <meta property="og:image" content={cardInsights?.attributes.image.data.attributes.url} /> */}
+        <meta property="og:image" name="image" content={compartir.src} />
         <meta property="og:url" content={`${window.location.origin}/insigth/${cardInsights?.id}`} /> {/* URL del post */}
         <meta property="og:type" content="article" />
+        <meta content="ariapp.ai" property="og:site_name"/>
+        <meta content="website" property="og:type"/>
+        <meta content="1200" property="og:image:width"/>
+        <meta content="630" property="og:image:height"/>
+
         {/* Metadatos para Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={cardInsights?.attributes.title} />
         <meta name="twitter:description" content={cardInsights?.attributes.description} />
-        <meta name="twitter:image" content={cardInsights?.attributes.image.data.attributes.url} />
+        <meta name="twitter:image" content={compartir.src} />
         <meta name="twitter:site" content="@yourTwitterHandle" />
         {/* URL canónica */}
         <link rel="canonical" href={`${window.location.origin}/insigth/${cardInsights?.id}`} />
