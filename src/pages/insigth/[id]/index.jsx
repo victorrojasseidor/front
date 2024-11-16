@@ -101,22 +101,18 @@ export default function Index() {
       });
   };
 
-  console.log(compartir)
+  console.log(compartir);
 
   return (
     <LayoutHome>
       <Head>
         <title>{cardInsights?.attributes.title}</title>
-        <meta content={cardInsights?.attributes.title} property="og:title"/>
+        <meta content={cardInsights?.attributes.title} property="og:title" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={cardInsights?.attributes.description} />
         <meta name="description" content="publicación de ari" />
-        
         <meta name="keywords" content={cardInsights?.attributes.keyboards} />
         <meta name="keywords" content="Ingenieria artifical, IA" />
-
-
-
         {/* Metadatos para Open Graph (LinkedIn, Facebook, etc.) */}
         <meta property="og:title" content={cardInsights?.attributes.title} />
         <meta property="og:description" content={cardInsights?.attributes.description} />
@@ -124,11 +120,10 @@ export default function Index() {
         <meta property="og:image" name="image" content={`${window.location.origin}${compartir.src}`} />
         <meta property="og:url" content={`${window.location.origin}/insigth/${cardInsights?.id}`} /> {/* URL del post */}
         <meta property="og:type" content="article" />
-        <meta content="ariapp.ai" property="og:site_name"/>
-        <meta content="website" property="og:type"/>
-        <meta content="1200" property="og:image:width"/>
-        <meta content="630" property="og:image:height"/>
-
+        <meta content="ariapp.ai" property="og:site_name" />
+        <meta content="website" property="og:type" />
+        <meta content="1200" property="og:image:width" />
+        <meta content="630" property="og:image:height" />
         {/* Metadatos para Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={cardInsights?.attributes.title} />
@@ -168,7 +163,7 @@ export default function Index() {
           <div className="insigth-suggestions">
             <div className="box-autor">
               {/* <Image src={cardInsights?.attributes?.imgAutor?.data ? cardInsights.attributes.imgAutor.data.attributes.url : autor} width={40} height={40} alt={cardInsights?.attributes?.autor} /> */}
-              <Image src={autor} width={40} height={40} alt="AUTOR"/>
+              <Image src={autor} width={40} height={40} alt="AUTOR" />
 
               <div className="dates-autor">
                 <p> {cardInsights?.attributes.autor}</p>

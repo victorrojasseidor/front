@@ -22,11 +22,13 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Select from '@mui/material/Select';
 import CaptchaConfig from './CaptchaConfig';
 
+
 export default function Apiconfiguration({ nameEmpresa }) {
   const { session, setModalToken, logout, l, idCountry, getProducts } = useAuth();
   const [product, setProduct] = useState(null);
   const [selectContract, setSelectContract] = useState('other');
   const [contracOther, setContractOther] = useState('');
+ 
 
   const router = useRouter();
   const iId = router.query.iId;
@@ -36,6 +38,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
 
   const pStatus = product?.iCodeStatus;
 
+ console.log(product)
   async function getDataProduct() {
     setIsLoading(true);
     try {
@@ -45,7 +48,9 @@ export default function Apiconfiguration({ nameEmpresa }) {
         setModalToken(false);
         const data = responseData.oResults;
         const selectedProduct = data.find((p) => p.iId === parseInt(iId));
+
         setProduct(selectedProduct);
+        setStateSFTP(selectedProduct?.bSftp);
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true);
       } else if (responseData.oAuditResponse?.iCode === 4) {
@@ -84,10 +89,17 @@ export default function Apiconfiguration({ nameEmpresa }) {
   const [modalConfirmed, setModalConfirmed] = useState(false);
   const [message, setMessage] = useState(null);
   const [historical, setHistorical] = useState(null);
+  const [service, setService] = useState( false);
+  const [stateSFTP, setStateSFTP] = useState( false);
+  const [activeTab, setActiveTab] = useState(0);
+  const [updateSFT, setUpdateSFT] = useState(false);
 
+  const handleTabClick = (index) => {
+    setActiveTab(index);
+  };
   useEffect(() => {
     getDataProduct();
-  }, [pStatus, valueState, modalConfirmed, startDate, endDate]);
+  }, [pStatus, valueState, modalConfirmed, startDate, endDate , service ]);
 
   useEffect(() => {
     if (product) {
@@ -112,6 +124,23 @@ export default function Apiconfiguration({ nameEmpresa }) {
     const selectValue = event.target.value;
     setContractOther(selectValue);
   };
+
+
+const handleSFTP = (event) => {
+  const selectValue = event.target.value;
+  console.log(selectValue)
+  setStateSFTP(selectValue)
+  if(selectValue=="true"){
+    setStateSFTP(true)
+  }else{
+    setStateSFTP(false)
+  }
+ 
+};
+
+
+
+
   useEffect(() => {
     if (pStatus == 31) {
       setValueState('NotHiredProducto');
@@ -127,6 +156,12 @@ export default function Apiconfiguration({ nameEmpresa }) {
       setStateInitial('ConfirmarConfiguracionProducto');
     }
   }, [pStatus]);
+
+
+ 
+  useEffect(() => {
+    ActualizarSftpTipoCambio()
+  }, [stateSFTP]);
 
   const handleStartDateChange = (newValue) => {
     setStartDate(newValue.format('YYYY-MM-DDTHH:mm:ss.SSSZ'));
@@ -152,7 +187,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetHistoricoProducto', body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         setHistorical(responseData.oResults);
-
+       
         setModalToken(false);
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true);
@@ -254,208 +289,288 @@ export default function Apiconfiguration({ nameEmpresa }) {
     return fechaFormateada;
   };
 
+
+  async function ActualizarSftpTipoCambio() {
+    setIsLoading(true);
+
+    const body = {
+      oResults: {
+        bSftp: stateSFTP,
+        iIdEmpresa: Number(idEmpresa),
+        // oTipoCambio:1
+      },
+    };
+
+    try {
+      const token = session?.sToken;
+      const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarSftpTipoCambio', body, token);
+      console.log( body, 'sftp', responseData);
+      if (responseData.oAuditResponse?.iCode === 1) {
+        // setHistorical(responseData.oResults);
+        setUpdateSFT(true)
+        setTimeout(() => {
+          setService(!service);
+          setUpdateSFT(false)
+
+        }, 3000);
+        setModalToken(false);
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true);
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout();
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
+        setRequestError(errorMessage);
+
+        setTimeout(() => {
+          setRequestError(null);
+
+        }, 5000);
+      }
+    } catch (error) {
+      console.error('error', error);
+      setRequestError(error.message);
+      setTimeout(() => {
+        setRequestError(null);
+        setUpdateSFT(false)
+      }, 5000);
+    } finally {
+      setIsLoading(false); // Ocultar señal de carga
+    }
+  }
+
   return (
     <>
-      <div className="apiconfiguration">
-        <div className="admin">
-          <div className="admin-product ">
-            <div className="reporting-box ">
-              <div className="report-content">
-                <div className="report red">
-                  <div className="report_icon  ">
-                    <ImageSvg name="Profile" />
-                  </div>
+      <div className="Tabsumenu">
+        <div className="Tabsumenu-header ">
+          <button className={` ${activeTab === 0 ? 'activeST' : ''} ${true ? 'completeST' : ''}`} onClick={() => handleTabClick(0)}>
+            <ImageSvg name="Check" />
+            <h4> Updtate estatus {t['Status and emails']} </h4>
+          </button>
 
-                  <div className="report_data">
-                    <article>{t.Company}:</article>
-                    <h4> {nameEmpresa}</h4>
-                  </div>
-                </div>
-
-                <div className="report green ">
-                  <div className="report_icon  ">
-                    <ImageSvg name="Account" />
-                  </div>
-
-                  <div className="report_data">
-                    <article>{t['Digital employees']}:</article>
-                    <h4>{product?.sName} </h4>
-                  </div>
-                </div>
-
-                <div className="report  blue">
-                  <div className="report_icon  ">
-                    <ImageSvg name="Support" />
-                  </div>
-
-                  <div className="report_data">
-                    <article>{t.State}:</article>
-                    <h4>
-                      {' '}
-                      {pStatus} - {product?.sDescStatus}
-                    </h4>
-
-                    <p>
-                      {' '}
-                      <span> {t['Service start date']}: </span>
-                      {formatDate(product?.sDateInit)}
-                    </p>
-                    <p>
-                      {' '}
-                      <span> {t['End of service date']}: </span>
-                      {formatDate(product?.sDateEnd)}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="admin-update">
-            <div className="">
-              <h3 className="sub"> {t['Update the status']} </h3>
-              <p className="description"> {t['Update the status of digital employees']} </p>
-
-              <div className="content">
-                <FormControl>
-                  <RadioGroup row aria-labelledby="demo-form-control-label-placement" name="position" value={valueState} onChange={handleChangeState}>
-                    <FormControlLabel value="NotHiredProducto" control={<Radio />} label={t['Not hired']} />
-
-                    <FormControlLabel value="SolicitarProducto" control={<Radio color="success" />} label={t['Free Trial']} />
-
-                    <FormControlLabel value="AprobarSolProducto" control={<Radio />} label={t.Pending} />
-
-                    <FormControlLabel value="ConfirmarConfiguracionProducto" control={<Radio />} label={t.Configured} />
-                  </RadioGroup>
-                </FormControl>
-              </div>
-            </div>
-
-            {valueState == 'AprobarSolProducto' || valueState == 'ConfirmarConfiguracionProducto' ? (
-              <div className="box-filter" style={{ flexDirection: 'row' }}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    label={t.From}
-                    value={dayjs(parsedStartDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
-                    slotProps={{
-                      textField: {
-                        helperText: t['Service start date'],
-                      },
-                    }}
-                    onChange={handleStartDateChange}
-                    format="DD-MM-YYYY"
-                    components={{
-                      OpenPickerIcon: IconDate,
-                      CalendarIcon: IconDate,
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    label={t.To}
-                    value={dayjs(parsedEndDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
-                    slotProps={{
-                      textField: {
-                        helperText: t['End of service date'],
-                      },
-                    }}
-                    onChange={handleEndDateChange}
-                    format="DD-MM-YYYY"
-                    components={{
-                      OpenPickerIcon: IconDate,
-                      CalendarIcon: IconDate,
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </div>
-            ) : (
-              ''
-            )}
-
-            {valueState !== stateInitial || startDate || endDate ? (
-              <div className="box-buttons" style={{ justifyContent: 'flex-start' }}>
-                <button
-                  type="button"
-                  className="btn_primary small"
-                  onClick={() => {
-                    setModalConfirmed(true);
-                  }}
-                >
-                  {t.Update}
-                </button>
-
-                <button
-                  type="button"
-                  className="btn_secundary small"
-                  onClick={() => {
-                    setValueState(stateInitial);
-                    setEndDate(null);
-                    setStartDate(null);
-                  }}
-                >
-                  {t.Cancel}
-                </button>
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
+          <button className={` ${activeTab === 1 ? 'activeST' : ''} ${true ? 'completeST' : ''}`} onClick={() => handleTabClick(1)}>
+            <ImageSvg name="Check" />
+            <h4> Conexiones </h4>
+          </button>
         </div>
 
-        {product?.iId === 4 && <CaptchaConfig />}
+        <div className="Tabsumenu-content">
+          {activeTab === 0 && (
+            <div className="apiconfiguration">
+              <div className="admin-product ">
+                <div className="reporting-box ">
+                  <div className="report-content">
+                    <div className="report red">
+                      <div className="report_icon  ">
+                        <ImageSvg name="Profile" />
+                      </div>
 
-        <div className="historical">
-          <div className="contaniner-tables">
-            <div className="boards">
-              <div className="box-search">
-                <h3>{t['History of changes']}</h3>
+                      <div className="report_data">
+                        <article>{t.Company}:</article>
+                        <h4> {nameEmpresa}</h4>
+                      </div>
+                    </div>
+
+                    <div className="report green ">
+                      <div className="report_icon  ">
+                        <ImageSvg name="Account" />
+                      </div>
+
+                      <div className="report_data">
+                        <article>{t['Digital employees']}:</article>
+                        <h4>{product?.sName} </h4>
+                      </div>
+                    </div>
+
+                    <div className="report  blue">
+                      <div className="report_icon  ">
+                        <ImageSvg name="Support" />
+                      </div>
+
+                      <div className="report_data">
+                        <article>{t.State}:</article>
+                        <h4>
+                          {pStatus} - {product?.sDescStatus}
+                        </h4>
+
+                        <p>
+                          <span> Desde </span>
+                          {formatDate(product?.sDateInit)} <span> Hasta </span> {formatDate(product?.sDateEnd)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="tableContainer">
-                <table className="dataTable Account">
-                  <thead>
-                    <tr>
-                      <th
-                        // onClick={() => orderDataByDate()}
-                        draggable
+
+              <div className="admin">
+                {product?.iId === 4 && <CaptchaConfig />}
+
+                <div className="admin-update">
+                  <div className="">
+                    <h3 className="sub"> {t['Update the status']} </h3>
+                    <p className="description"> {t['Update the status of digital employees']} </p>
+
+                    <div className="content">
+                      <FormControl>
+                        <RadioGroup row aria-labelledby="demo-form-control-label-placement" name="position" value={valueState} onChange={handleChangeState}>
+                          <FormControlLabel value="NotHiredProducto" control={<Radio />} label={t['Not hired']} />
+
+                          <FormControlLabel value="SolicitarProducto" control={<Radio color="success" />} label={t['Free Trial']} />
+
+                          <FormControlLabel value="AprobarSolProducto" control={<Radio />} label={t.Pending} />
+
+                          <FormControlLabel value="ConfirmarConfiguracionProducto" control={<Radio />} label={t.Configured} />
+                        </RadioGroup>
+                      </FormControl>
+                    </div>
+                  </div>
+
+                  {valueState == 'AprobarSolProducto' || valueState == 'ConfirmarConfiguracionProducto' ? (
+                    <div className="box-filter" style={{ flexDirection: 'row' }}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={t.From}
+                          value={dayjs(parsedStartDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
+                          slotProps={{
+                            textField: {
+                              helperText: t['Service start date'],
+                            },
+                          }}
+                          onChange={handleStartDateChange}
+                          format="DD-MM-YYYY"
+                          components={{
+                            OpenPickerIcon: IconDate,
+                            CalendarIcon: IconDate,
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </LocalizationProvider>
+
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={t.To}
+                          value={dayjs(parsedEndDate, 'YYYY-MM-DDTHH:mm:ss.SSSZ')}
+                          slotProps={{
+                            textField: {
+                              helperText: t['End of service date'],
+                            },
+                          }}
+                          onChange={handleEndDateChange}
+                          format="DD-MM-YYYY"
+                          components={{
+                            OpenPickerIcon: IconDate,
+                            CalendarIcon: IconDate,
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </LocalizationProvider>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+
+                  {valueState !== stateInitial || startDate || endDate ? (
+                    <div className="box-buttons" style={{ justifyContent: 'flex-start' }}>
+                      <button
+                        type="button"
+                        className="btn_primary small"
+                        onClick={() => {
+                          setModalConfirmed(true);
+                        }}
                       >
-                        {t['Date modification']}
-                        <button className="btn_crud">{/* <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} /> */}</button>
-                      </th>
+                        {t.Update}
+                      </button>
 
-                      <th>{t['Star date']}</th>
+                      <button
+                        type="button"
+                        className="btn_secundary small"
+                        onClick={() => {
+                          setValueState(stateInitial);
+                          setEndDate(null);
+                          setStartDate(null);
+                        }}
+                      >
+                        {t.Cancel}
+                      </button>
+                    </div>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              </div>
 
-                      <th> {t['End date']} </th>
-                      <th> {t.State} </th>
-                      <th> {t.Contract}</th>
-                      <th>{t.Message}</th>
-                    </tr>
-                  </thead>
-                  <tbody className="rowTable">
-                    {historical?.length > 0 ? (
-                      historical.map((row) => (
-                        <tr key={row.id_historico_producto}>
-                          <td>{formatDate(row.fecha_modifica)}</td>
-                          <td>{row.fecha_inicio_servicio}</td>
+              <div className="admin-historical">
+                <div className="contaniner-tables">
+                  <div className="boards">
+                    <div className="box-search">
+                      <h3>{t['History of changes']}</h3>
+                    </div>
+                    <div className="tableContainer">
+                      <table className="dataTable Account">
+                        <thead>
+                          <tr>
+                            <th
+                              // onClick={() => orderDataByDate()}
+                              draggable
+                            >
+                              {t['Date modification']}
+                              <button className="btn_crud">{/* <ImageSvg name={isDateSorted ? 'OrderDown' : 'OrderUP'} /> */}</button>
+                            </th>
 
-                          <td> {row.fecha_fin_servicio}</td>
-                          <td>{row.codigo_proceso}</td>
-                          <td>{row.contrato}</td>
-                          <td>{row.mensaje}</td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="6">{t['There is no data']}</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+                            <th>{t['Star date']}</th>
+
+                            <th> {t['End date']} </th>
+                            <th> {t.State} </th>
+                            <th> {t.Contract}</th>
+                            <th>{t.Message}</th>
+                          </tr>
+                        </thead>
+                        <tbody className="rowTable">
+                          {historical?.length > 0 ? (
+                            historical.map((row) => (
+                              <tr key={row.id_historico_producto}>
+                                <td>{formatDate(row.fecha_modifica)}</td>
+                                <td>{row.fecha_inicio_servicio}</td>
+
+                                <td> {row.fecha_fin_servicio}</td>
+                                <td>{row.codigo_proceso}</td>
+                                <td>{row.contrato}</td>
+                                <td>{row.mensaje}</td>
+                              </tr>
+                            ))
+                          ) : (
+                            <tr>
+                              <td colSpan="6">{t['There is no data']}</td>
+                            </tr>
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+
+          {activeTab === 1 && (
+            <div className="content">
+
+               {updateSFT && 
+               <p> actualizaso!! </p>
+               }
+
+
+              <FormControl>
+                <RadioGroup row aria-labelledby="demo-form-control-label-placement" name="sftp" value={stateSFTP} onChange={handleSFTP}>
+                  <FormControlLabel value={true} control={<Radio />} label="Conectado con sftp" />
+
+                  <FormControlLabel value={false} control={<Radio  />} label="No conectado" />
+                </RadioGroup>
+              </FormControl>
+            </div>
+          )}
+
         </div>
 
         {isLoading && <Loading />}
@@ -531,7 +646,6 @@ export default function Apiconfiguration({ nameEmpresa }) {
                   className="btn_secundary small"
                   onClick={() => {
                     setModalConfirmed(false);
-                    // Reset contractNumber when modal is closed
                     setMessage(null);
                     setContractOther('');
                   }}
@@ -542,9 +656,10 @@ export default function Apiconfiguration({ nameEmpresa }) {
             )}
           </Modal>
         )}
-      </div>
 
-      {requestError && <div className="requestError"> {requestError}</div>}
+        {requestError && <div className="requestError"> {requestError}</div>}
+      </div>
     </>
   );
+  console.log('🚀 ~ Apiconfiguration ~ onexion:', onexion);
 }
