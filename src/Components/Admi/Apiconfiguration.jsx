@@ -21,14 +21,13 @@ import TextField from '@mui/material/TextField';
 import FormHelperText from '@mui/material/FormHelperText';
 import Select from '@mui/material/Select';
 import CaptchaConfig from './CaptchaConfig';
-
+import LoadingComponent from '../Atoms/LoadingComponent';
 
 export default function Apiconfiguration({ nameEmpresa }) {
   const { session, setModalToken, logout, l, idCountry, getProducts } = useAuth();
   const [product, setProduct] = useState(null);
   const [selectContract, setSelectContract] = useState('other');
   const [contracOther, setContractOther] = useState('');
- 
 
   const router = useRouter();
   const iId = router.query.iId;
@@ -38,7 +37,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
 
   const pStatus = product?.iCodeStatus;
 
- console.log(product)
+  console.log(product);
   async function getDataProduct() {
     setIsLoading(true);
     try {
@@ -89,8 +88,8 @@ export default function Apiconfiguration({ nameEmpresa }) {
   const [modalConfirmed, setModalConfirmed] = useState(false);
   const [message, setMessage] = useState(null);
   const [historical, setHistorical] = useState(null);
-  const [service, setService] = useState( false);
-  const [stateSFTP, setStateSFTP] = useState( false);
+  const [service, setService] = useState(false);
+  const [stateSFTP, setStateSFTP] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [updateSFT, setUpdateSFT] = useState(false);
 
@@ -99,7 +98,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
   };
   useEffect(() => {
     getDataProduct();
-  }, [pStatus, valueState, modalConfirmed, startDate, endDate , service ]);
+  }, [pStatus, valueState, modalConfirmed, startDate, endDate, service]);
 
   useEffect(() => {
     if (product) {
@@ -125,21 +124,16 @@ export default function Apiconfiguration({ nameEmpresa }) {
     setContractOther(selectValue);
   };
 
-
-const handleSFTP = (event) => {
-  const selectValue = event.target.value;
-  console.log(selectValue)
-  setStateSFTP(selectValue)
-  if(selectValue=="true"){
-    setStateSFTP(true)
-  }else{
-    setStateSFTP(false)
-  }
- 
-};
-
-
-
+  const handleSFTP = (event) => {
+    const selectValue = event.target.value;
+    console.log(selectValue);
+    setStateSFTP(selectValue);
+    if (selectValue == 'true') {
+      setStateSFTP(true);
+    } else {
+      setStateSFTP(false);
+    }
+  };
 
   useEffect(() => {
     if (pStatus == 31) {
@@ -157,10 +151,8 @@ const handleSFTP = (event) => {
     }
   }, [pStatus]);
 
-
- 
   useEffect(() => {
-    ActualizarSftpTipoCambio()
+    ActualizarSftpTipoCambio();
   }, [stateSFTP]);
 
   const handleStartDateChange = (newValue) => {
@@ -187,7 +179,7 @@ const handleSFTP = (event) => {
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetHistoricoProducto', body, token);
       if (responseData.oAuditResponse?.iCode === 1) {
         setHistorical(responseData.oResults);
-       
+
         setModalToken(false);
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true);
@@ -289,7 +281,6 @@ const handleSFTP = (event) => {
     return fechaFormateada;
   };
 
-
   async function ActualizarSftpTipoCambio() {
     setIsLoading(true);
 
@@ -304,14 +295,13 @@ const handleSFTP = (event) => {
     try {
       const token = session?.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarSftpTipoCambio', body, token);
-      console.log( body, 'sftp', responseData);
+      console.log(body, 'sftp', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         // setHistorical(responseData.oResults);
-        setUpdateSFT(true)
+        setUpdateSFT(true);
         setTimeout(() => {
           setService(!service);
-          setUpdateSFT(false)
-
+          setUpdateSFT(false);
         }, 3000);
         setModalToken(false);
       } else if (responseData.oAuditResponse?.iCode === 27) {
@@ -324,7 +314,6 @@ const handleSFTP = (event) => {
 
         setTimeout(() => {
           setRequestError(null);
-
         }, 5000);
       }
     } catch (error) {
@@ -332,7 +321,7 @@ const handleSFTP = (event) => {
       setRequestError(error.message);
       setTimeout(() => {
         setRequestError(null);
-        setUpdateSFT(false)
+        setUpdateSFT(false);
       }, 5000);
     } finally {
       setIsLoading(false); // Ocultar señal de carga
@@ -345,12 +334,12 @@ const handleSFTP = (event) => {
         <div className="Tabsumenu-header ">
           <button className={` ${activeTab === 0 ? 'activeST' : ''} ${true ? 'completeST' : ''}`} onClick={() => handleTabClick(0)}>
             <ImageSvg name="Check" />
-            <h4> Updtate estatus {t['Status and emails']} </h4>
+            <h4>   {t['Update status']} </h4>
           </button>
 
           <button className={` ${activeTab === 1 ? 'activeST' : ''} ${true ? 'completeST' : ''}`} onClick={() => handleTabClick(1)}>
             <ImageSvg name="Check" />
-            <h4> Conexiones </h4>
+            <h4>  {t['Connections']}</h4>
           </button>
         </div>
 
@@ -554,23 +543,36 @@ const handleSFTP = (event) => {
           )}
 
           {activeTab === 1 && (
-            <div className="content">
+            <div className="integration">
+              <div>
+                <h3 className="sub">  {t['SFTP Integration for ERP']} </h3>
 
-               {updateSFT && 
-               <p> actualizaso!! </p>
-               }
+                <p className="description"> 
 
+                {t['By enabling this button, the integration with SFTP for the Exchange Rate service is activated, allowing the ERP team to access data from generated text files instead of APIs']} 
+                  </p>
+              </div>
+
+              {updateSFT && (
+                <div className="loadding-container">
+                  <LoadingComponent />
+                  <p> 
+
+                  {t['Updating']}
+
+                  </p>
+                </div>
+              )}
 
               <FormControl>
                 <RadioGroup row aria-labelledby="demo-form-control-label-placement" name="sftp" value={stateSFTP} onChange={handleSFTP}>
-                  <FormControlLabel value={true} control={<Radio />} label="Conectado con sftp" />
+                  <FormControlLabel value={true} control={<Radio />} label={t.Enabled} />
 
-                  <FormControlLabel value={false} control={<Radio  />} label="No conectado" />
+                  <FormControlLabel value={false} control={<Radio />} label={t.Disabled} />
                 </RadioGroup>
               </FormControl>
             </div>
           )}
-
         </div>
 
         {isLoading && <Loading />}
@@ -661,5 +663,4 @@ const handleSFTP = (event) => {
       </div>
     </>
   );
-  console.log('🚀 ~ Apiconfiguration ~ onexion:', onexion);
 }

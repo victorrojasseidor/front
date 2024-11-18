@@ -334,7 +334,14 @@
     "Other": "Otros",
     "Free trial contract": "Contrato de prueba gratuita",
     "Contract number": "Número de contrato",
-    "Not configured": "No Configurado"
+    "Not configured": "No Configurado",
+    "Updating": "Actualizando",
+    "SFTP Integration for ERP": "Integración SFTP para ERP",
+    "By enabling this button, the integration with SFTP for the Exchange Rate service is activated, allowing the ERP team to access data from generated text files instead of APIs": "Al habilitar este botón, se activa la integración con SFTP Para el servicio de Tipo de cambio, permitiendo al equipo de ERP acceder a los datos desde archivos de texto generados, en lugar de APIs",
+    "Connections": "Conexiones",
+    "Update status": "Actualizar estado",
+    "Enabled": "Activado",
+    "Disabled": "Desactivado"
   },
   "Download": {
     "Digital employees": "Empleados digitales",

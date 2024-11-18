@@ -159,5 +159,33 @@
     }
   }
 
+  
+  
 
+
+}
+
+
+
+.integration {
+
+  @include container; 
+  display: flex;
+  flex-direction: column;
+  gap:2rem;
+  
+
+  .loadding-container{
+    display: flex;
+
+    justify-content: center;
+    flex-direction: column;
+    p{
+      width: 100%;
+      text-align: center;
+      color: rgba(get-color(blue_p1), 0.9)
+    }
+  }
+
+  
 }
