@@ -8,8 +8,8 @@ import autor from '../../../../public/img/post/autor.webp';
 import { useRouter } from 'next/router';
 import { formatDate } from '@/helpers/report';
 import Link from 'next/link';
-import { convertMarkdownToHTML } from '@/helpers/report';
 import compartir from '../../../../public/img/post/compartir.jpg';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 
 export default function Index() {
   const { l } = useAuth();
@@ -20,12 +20,12 @@ export default function Index() {
   const [posts, getpost] = useState([]);
   const [cardInsights, setcardInsights] = useState(null);
 
-  const strapiURL = 'https://test-post-07ho.onrender.com';
+  const strapiURL = 'https://strapi-aws.onrender.com';
 
   async function getPostStrapi() {
     const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&sort=order:asc`, {
       headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+        // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
       },
     });
 
@@ -45,7 +45,7 @@ export default function Index() {
     // const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&filters[id]=${id}&populate=*`);
     const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'es' ? 'es' : 'en'}&filters[id]=${id}&populate=*`, {
       headers: {
-        Authorization: `Bearer  ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+        // Authorization: `Bearer  ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
       },
     });
 
@@ -70,8 +70,8 @@ export default function Index() {
     const baseURL = window.location.origin;
     const postLink = `${baseURL}/insigth/${cardInsights?.id}`; // Ajusta la ruta según sea necesario
 
-    const title = cardInsights ? cardInsights.attributes.title : 'Título por defecto';
-    const summary = cardInsights ? cardInsights.attributes.description : 'Descripción por defecto';
+    const title = cardInsights ? cardInsights.title : 'Título por defecto';
+    const summary = cardInsights ? cardInsights.description : 'Descripción por defecto';
 
     const linkedinShareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(postLink)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(summary)}&source=${encodeURIComponent(strapiURL)}`;
     const twitterShareURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(postLink)}&via=yourTwitterHandle`;
@@ -101,21 +101,20 @@ export default function Index() {
       });
   };
 
-  console.log(compartir);
 
   return (
     <LayoutHome>
       <Head>
-        <title>{cardInsights?.attributes.title}</title>
-        <meta content={cardInsights?.attributes.title} property="og:title" />
+        <title>{cardInsights?.title}</title>
+        <meta content={cardInsights?.title} property="og:title" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content={cardInsights?.attributes.description} />
+        <meta name="description" content={cardInsights?.description} />
         <meta name="description" content="publicación de ari" />
-        <meta name="keywords" content={cardInsights?.attributes.keyboards} />
+        <meta name="keywords" content={cardInsights?.keyboards} />
         <meta name="keywords" content="Ingenieria artifical, IA" />
         {/* Metadatos para Open Graph (LinkedIn, Facebook, etc.) */}
-        <meta property="og:title" content={cardInsights?.attributes.title} />
-        <meta property="og:description" content={cardInsights?.attributes.description} />
+        <meta property="og:title" content={cardInsights?.title} />
+        <meta property="og:description" content={cardInsights?.description} />
         {/* <meta property="og:image" content={cardInsights?.attributes.image.data.attributes.url} /> */}
         <meta property="og:image" name="image" content={`${window.location.origin}${compartir.src}`} />
         <meta property="og:url" content={`${window.location.origin}/insigth/${cardInsights?.id}`} /> {/* URL del post */}
@@ -126,8 +125,8 @@ export default function Index() {
         <meta content="630" property="og:image:height" />
         {/* Metadatos para Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={cardInsights?.attributes.title} />
-        <meta name="twitter:description" content={cardInsights?.attributes.description} />
+        <meta name="twitter:title" content={cardInsights?.title} />
+        <meta name="twitter:description" content={cardInsights?.description} />
         <meta name="twitter:image" content={`${window.location.origin}${compartir.src}`} />
         <meta name="twitter:site" content="@seidor" />
         {/* URL canónica */}
@@ -138,23 +137,25 @@ export default function Index() {
         <section className="insigth-navigation">
           <Link href="/#insights"> Insigths</Link>
           <ImageSvg name="Navigation" />
-          <span className="title--post"> {cardInsights?.attributes.title} </span>
+          <span className="title--post"> {cardInsights?.title} </span>
         </section>
 
         <section className="insigth-suggestions-posts">
           {cardInsights && Object.keys(cardInsights).length > 0 ? (
             <div className="insigth-post">
               <figure className="image--post">
-                <Image src={cardInsights?.attributes.image.data.attributes.url} width={400} height={300} alt={cardInsights?.attributes.title} priority />
+                <Image src={cardInsights?.image.url} width={400} height={300} alt={cardInsights?.title} priority />
 
                 <div className="box-title">
-                  <span>{cardInsights?.attributes.type}</span>
-                  <h1>{cardInsights?.attributes.title}</h1>
-                  <p>{cardInsights && formatDate(cardInsights?.attributes.updatedAt)}</p>
+                  <span>{cardInsights?.type}</span>
+                  <h1>{cardInsights?.title}</h1>
+                  <p>{cardInsights && formatDate(cardInsights?.updatedAt)}</p>
                 </div>
               </figure>
 
-              <div dangerouslySetInnerHTML={{ __html: convertMarkdownToHTML(cardInsights?.attributes.content) }} />
+              
+              {cardInsights?.content && <BlocksRenderer content={cardInsights?.content} />}
+
             </div>
           ) : (
             <p> {t['Waiting articles']}</p>
@@ -166,8 +167,8 @@ export default function Index() {
               <Image src={autor} width={40} height={40} alt="AUTOR" />
 
               <div className="dates-autor">
-                <p> {cardInsights?.attributes.autor}</p>
-                <span>{cardInsights?.attributes.authorRole}</span>
+                <p> {cardInsights?.autor || "Menagen Murriagui Hananel"}</p>
+                <span>{cardInsights?.authorRole ||  "Innovativa Seidor CEO"}</span>
               </div>
             </div>
 
@@ -192,7 +193,7 @@ export default function Index() {
                 {posts &&
                   posts?.map((post) => (
                     <li key={post.id} className={post.id == id ? 'active-post' : ''}>
-                      <Link href={`/insigth/${post.id}`}>{post.attributes.title}</Link>
+                      <Link href={`/insigth/${post.id}`}>{post.title}</Link>
                     </li>
                   ))}
               </ul>
