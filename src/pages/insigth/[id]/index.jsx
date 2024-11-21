@@ -10,6 +10,8 @@ import { formatDate } from '@/helpers/report';
 import Link from 'next/link';
 import compartir from '../../../../public/img/post/compartir.jpg';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+import qs from 'qs';
+
 
 export default function Index() {
   const { l } = useAuth();
@@ -20,14 +22,36 @@ export default function Index() {
   const [posts, getpost] = useState([]);
   const [cardInsights, setcardInsights] = useState(null);
 
+
+  
+
+ 
   const strapiURL = 'https://strapi-aws.onrender.com';
 
   async function getPostStrapi() {
-    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&sort=order:asc`, {
-      headers: {
-        // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+
+
+    const query = qs.stringify(
+      {
+        fields: ['id', 'title' ],
+        locale: 'es',
+        sort: ['order:asc'],
+        populate: {
+          image: {
+            fields: ['url'],
+          },
+        },
       },
-    });
+      { encodeValuesOnly: true } // Opcional para codificar solo valores
+    );
+
+          // Hacemos la petición
+  const res = await fetch(`${strapiURL}/api/posts?${query}`, {
+    headers: {
+      // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`, // Si tienes token, descomenta esta línea
+    },
+  });
+  
 
     const data = await res.json();
 

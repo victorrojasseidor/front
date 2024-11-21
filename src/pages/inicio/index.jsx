@@ -44,6 +44,7 @@ import LayoutHome from '@/Components/LayoutHome';
 import AOS from 'aos';
 import { formatDate } from '@/helpers/report';
 import 'aos/dist/aos.css';
+import qs from 'qs';
 
 
 // Import Swiper React components
@@ -72,15 +73,14 @@ const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
                 if (entry.isIntersecting) {
                   setIsImageInView(true);
                   setskillView(prod);
-
-                  console.log(`Imagen en vista: ${prod.title}`);
+                 
                 } else {
                   setIsImageInView(false);
-                  // console.log(`Imagen fuera de vista: ${prod.title}`);
+                 
                 }
               });
             },
-            { threshold: 0.5 } // Ajusta el umbral según sea necesario
+            { threshold: 0.5 } 
           );
 
           if (imageRef.current) {
@@ -121,14 +121,33 @@ export default function index() {
   const [isShowMore, setIsShowMore] = useState(false);
   const [dataInsigths, setDataInsigths] = useState(null);
 
-  const strapiURL = 'https://strapi-aws.onrender.com';
 
   async function getDatastrapi() {
-    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&sort=order:asc&populate=image`, {
-      headers: {
-        // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+
+    const strapiURL = 'https://strapi-aws.onrender.com';
+
+    const query = qs.stringify(
+      {
+        fields: ['id', 'title', 'type', 'updatedAt', 'description'],
+        locale: 'es',
+        sort: ['order:asc'],
+        populate: {
+          image: {
+            fields: ['url'],
+          },
+        },
       },
-    });
+      { encodeValuesOnly: true } // Opcional para codificar solo valores
+    );
+
+ 
+
+      // Hacemos la petición
+  const res = await fetch(`${strapiURL}/api/posts?${query}`, {
+    headers: {
+      // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`, // Si tienes token, descomenta esta línea
+    },
+  });
     const data = await res.json();
 
     if (!data || !data.data) {
@@ -142,6 +161,7 @@ export default function index() {
     setDataInsigths(blogs);
   }
 
+  
   // Animaciones AOS
   useEffect(() => {
     if (typeof window !== 'undefined') {
