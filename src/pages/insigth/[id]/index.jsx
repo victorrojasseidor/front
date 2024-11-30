@@ -23,10 +23,8 @@ export default function Index() {
   const [cardInsights, setcardInsights] = useState(null);
 
 
-  
-
  
-  const strapiURL = 'https://strapi-aws.onrender.com';
+  const strapiURL = 'https://blog.ariapp.ai';
 
   async function getPostStrapi() {
 

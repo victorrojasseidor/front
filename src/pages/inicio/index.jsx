@@ -124,7 +124,8 @@ export default function index() {
 
   async function getDatastrapi() {
 
-    const strapiURL = 'https://strapi-aws.onrender.com';
+    const strapiURL = 'https://blog.ariapp.ai';
+
 
     const query = qs.stringify(
       {
