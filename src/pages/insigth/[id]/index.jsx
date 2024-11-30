@@ -22,7 +22,6 @@ export default function Index() {
   const [posts, getpost] = useState([]);
   const [cardInsights, setcardInsights] = useState(null);
 
-
  
   const strapiURL = 'https://blog.ariapp.ai';
 
