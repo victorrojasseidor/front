@@ -138,8 +138,10 @@
           color: get-color(white_s1);
           font-weight: 600;
         }
+
         &:last-child {
-          border-radius: 0 10px 10px 0; /* Aplica bordes redondeados solo al lado derecho del último botón */
+          border-radius: 0 10px 10px 0;
+          /* Aplica bordes redondeados solo al lado derecho del último botón */
         }
       }
     }
@@ -153,6 +155,7 @@
   font-size: 1.2rem;
   flex-direction: column;
   cursor: pointer;
+
   @include media(tablet) {
     flex-direction: row;
   }
@@ -216,6 +219,7 @@
     padding: 0.5em;
 
     width: 100%;
+
     p {
       color: get-color(grey2_s4);
     }
@@ -297,6 +301,7 @@
         width: 4.2rem; // Ajusta la longitud de la línea según tus necesidades
         transform: translateY(-1px);
         border-bottom: 2px dashed get-color(grey2_s4); // Ajusta la posición vertical
+
         @include media(desktop) {
           width: 5rem; // Ajusta la longitud de la línea según tus necesidades
         }
@@ -379,6 +384,7 @@
 .registration-form {
   max-width: 500px;
   margin: 0 auto;
+
   &-progress {
     display: flex;
     justify-content: space-evenly;
@@ -424,18 +430,22 @@
     padding: 1em;
     display: flex;
     flex-direction: column;
+
     svg {
       border-style: none;
       font-size: 1.1rem;
+
       path {
         // fill: get-color(black_p2);
         border-style: none;
       }
     }
+
     ul {
       display: flex;
       flex-direction: column;
       gap: 1em;
+
       li {
         display: flex;
         background-color: get-color(pink_s5);
@@ -446,6 +456,7 @@
         border-radius: 5px;
 
         display: flex;
+
         p {
           color: get-color(black_p2);
         }
@@ -510,6 +521,7 @@
   align-items: center;
   justify-content: center;
   justify-items: center;
+
   ul {
     display: flex;
     flex-direction: row;
@@ -518,6 +530,7 @@
     align-items: center;
     justify-items: center;
   }
+
   .box-notification {
     display: flex;
     gap: 0.5em;
@@ -532,4 +545,72 @@
   text-align: start;
   display: flex;
   justify-content: flex-start;
+}
+
+
+
+
+//probar scroll table 
+
+.scrollWrapper {
+  position: relative;
+  width: 100%;
+  top: 200%;
+  width: 100%;
+  z-index: 100;
+
+  .scrollButtons {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+
+    pointer-events: none;
+    gap: 1rem;
+
+    justify-content: space-between;
+
+  }
+
+  .scrollButton {
+
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem 0rem;
+    pointer-events: auto;
+    z-index: 10;
+    font-size: 1.5rem;
+    // color:get-color(blue_p1);
+
+    svg {
+      path {
+        // fill:rgba(get-color(blue_p1), 0.9);
+        stroke: rgba(get-color(grey2_s4), 1)
+      }
+
+    }
+
+    // margin-top: 1rem;
+
+    &:hover {
+
+      svg {
+        path {
+          stroke: rgba(get-color(black_p2), 1)
+        }
+
+      }
+    }
+  }
+
+  .left {
+    margin: 0rem -0.25rem;
+  }
+
+  .right {
+    margin: -0rem -0.25rem;
+  }
+
+
 }

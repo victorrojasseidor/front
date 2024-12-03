@@ -17,6 +17,7 @@ import ImageSvg from '@/helpers/ImageSVG';
 import Loading from '@/Components/Atoms/Loading';
 import { IconArrow, IconDate } from '@/helpers/report';
 import { TextField } from '@mui/material';
+import ScrollableTable from '@/Components/Atoms/ScrollTable';
 
 const Movement = () => {
   const { session, setModalToken, logout, l } = useAuth();
@@ -522,6 +523,8 @@ const Movement = () => {
               <ImageSvg name="Download" /> {t['Export to Excel']}
             </button>
           </div>
+
+          <ScrollableTable tableRef={tableRef} />
 
           <div className="tableContainer" ref={tableRef}>
             <div className="scrollbarContainer" />

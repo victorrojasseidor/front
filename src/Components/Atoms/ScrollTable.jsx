@@ -1,55 +1,55 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from 'react';
+import ImageSvg from '@/helpers/ImageSVG';
 
-const ScrollableTable = () => {
-    const data = Array.from({ length: 10 }, (_, i) => ({
-      id: i + 1,
-      name: `Usuario ${i + 1}`,
-      email: `usuario${i + 1}@ejemplo.com`,
-      role: i % 2 === 0 ? "Admin" : "Editor",
-    }));
+const ScrollableTable = ({tableRef}) => {
+  const [showScrollButtons, setShowScrollButtons] = useState(false);
+
   
-    return (
-      <div className="scrollWrapper">
-        <div className="scrollButton left" onClick={() => scrollTable("left")}>
-          ⬅
-        </div>
-        <div className="tableContainer">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Rol</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="scrollButton right" onClick={() => scrollTable("right")}>
-          ➡
-        </div>
-      </div>
-    );
-  };
-  
-  // Simular el desplazamiento
-  const scrollTable = (direction) => {
-    const tableContainer = document.querySelector(".tableContainer");
-    if (tableContainer) {
-      const scrollAmount = 100;
-      tableContainer.scrollLeft += direction === "right" ? scrollAmount : -scrollAmount;
+  // Ref para el contenedor de la tabla
+  const tableContainerRef = tableRef;
+  // Función para verificar si hay desbordamiento
+  const checkOverflow = () => {
+    if (tableContainerRef.current) {
+      const { scrollWidth, clientWidth } = tableContainerRef.current;
+      setShowScrollButtons(scrollWidth > clientWidth);
     }
   };
-  
-  export default ScrollableTable;
-  
+
+  // Ejecuta la comprobación de desbordamiento cuando se monta el componente o cambia el tamaño de la ventana
+  useEffect(() => {
+    checkOverflow();
+    window.addEventListener('resize', checkOverflow);
+    return () => {
+      window.removeEventListener('resize', checkOverflow);
+    };
+  }, []);
+
+  // Función para desplazar la tabla
+  const scrollTable = (direction) => {
+    if (tableContainerRef.current) {
+      const scrollAmount = 100; // Cantidad de desplazamiento
+      tableContainerRef.current.scrollLeft += direction === 'right' ? scrollAmount : -scrollAmount;
+    }
+  };
+
+  return (
+    <div className="scrollWrapper">
+      <div className="scrollButtons" style={{ display: showScrollButtons ? 'flex' : 'none' }}>
+        {/* <ScrollableTable />  */}
+
+        <div className="scrollButton left" onClick={() => scrollTable('left')}>
+          {/* <ImageSvg name="CloseMenu" /> */}
+
+          <ImageSvg name="Left" />
+        </div>
+
+        <div className="scrollButton right" onClick={() => scrollTable('right')}>
+          {/* <ImageSvg name="OpenMenu" /> */}
+          <ImageSvg name="Rigth" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ScrollableTable;
