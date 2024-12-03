@@ -22,8 +22,9 @@ export default function Index() {
   const [posts, getpost] = useState([]);
   const [cardInsights, setcardInsights] = useState(null);
 
+  console.log(id);
  
-  const strapiURL = 'https://blog.ariapp.ai';
+  const strapiURL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
   async function getPostStrapi() {
 
@@ -63,8 +64,10 @@ export default function Index() {
   }
 
   async function getDataCardInsights() {
-    // const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&filters[id]=${id}&populate=*`);
-    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'es' ? 'es' : 'en'}&filters[id]=${id}&populate=*`, {
+
+    console.log("carda",`${strapiURL}/api/posts?locale=${router.locale === 'es' ? 'es' : 'en'}&filters[documentId]=${id}&populate=*`); 
+  
+    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'es' ? 'es' : 'en'}&filters[documentId]=${id}&populate=*`, {
       headers: {
         // Authorization: `Bearer  ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
       },
@@ -213,8 +216,8 @@ export default function Index() {
               <ul>
                 {posts &&
                   posts?.map((post) => (
-                    <li key={post.id} className={post.id == id ? 'active-post' : ''}>
-                      <Link href={`/insigth/${post.id}`}>{post.title}</Link>
+                    <li key={post.id} className={post.documentId == id ? 'active-post' : ''}>
+                      <Link href={`/insigth/${post.documentId}`}>{post.title}</Link>
                     </li>
                   ))}
               </ul>

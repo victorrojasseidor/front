@@ -124,7 +124,7 @@ export default function index() {
 
   async function getDatastrapi() {
 
-    const strapiURL = 'https://blog.ariapp.ai';
+    const strapiURL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
 
     const query = qs.stringify(
@@ -525,7 +525,7 @@ export default function index() {
                     
                     <div className="title">
                       <span>{post?.type}</span>
-                      <Link href={`/insigth/${post.id}`}>
+                      <Link href={`/insigth/${post.documentId}`}>
                         <h3>{post?.title}</h3>
                       </Link>
                     </div>
