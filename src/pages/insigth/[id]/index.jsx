@@ -22,7 +22,6 @@ export default function Index() {
   const [posts, getpost] = useState([]);
   const [cardInsights, setcardInsights] = useState(null);
 
-  console.log(id);
  
   const strapiURL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
@@ -65,7 +64,6 @@ export default function Index() {
 
   async function getDataCardInsights() {
 
-    console.log("carda",`${strapiURL}/api/posts?locale=${router.locale === 'es' ? 'es' : 'en'}&filters[documentId]=${id}&populate=*`); 
   
     const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'es' ? 'es' : 'en'}&filters[documentId]=${id}&populate=*`, {
       headers: {
