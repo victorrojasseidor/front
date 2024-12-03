@@ -337,7 +337,14 @@
     "Contract number": "Contract number",
     "Other": "Other",
     "Free trial contract": "Free trial contract",
-    "Not configured": "Not configured"
+    "Not configured": "Not configured",
+    "Updating": "Updating",
+    "SFTP Integration for ERP": "SFTP Integration for ERP",
+    "By enabling this button, the integration with SFTP for the Exchange Rate service is activated, allowing the ERP team to access data from generated text files instead of APIs": "By enabling this button, the integration with SFTP for the Exchange Rate service is activated, allowing the ERP team to access data from generated text files instead of APIs",
+    "Connections": "Connections",
+    "Update status": "Update status",
+    "Enabled": "Enabled",
+    "Disabled": "Disabled"
   },
   "Download": {
     "Digital employees": "Digital employees",

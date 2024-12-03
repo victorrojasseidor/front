@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import en from '../../../lang/en.json';
-import Lang from '@/Components/Atoms/Lang';
-import LogoOscuro from '../../../public/img/logoOscuro.webp';
-import logo from '../../../public/img/logoGift.gif';
 import front from '../../../public/img/front.svg';
 import ImageSvg from '@/helpers/ImageSVG';
 import Counter from '@/Components/Atoms/Counter';
@@ -25,9 +21,7 @@ import imgcap from '../../../public/img/card-product/imgcap.svg';
 import padro from '../../../public/img/card-product/padro.svg';
 import imgpadro from '../../../public/img/card-product/imgpadro.svg';
 import detra from '../../../public/img/card-product/detra.svg';
-// import imgdetra from '../../../public/img/card-product/imgdetra.svg';
 import vali from '../../../public/img/card-product/vali.svg';
-// import imgvali from '../../../public/img/card-product/imgvali.svg';
 import factu from '../../../public/img/card-product/factu.svg';
 import imgfactu from '../../../public/img/card-product/imgfactu.svg';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
@@ -50,6 +44,7 @@ import LayoutHome from '@/Components/LayoutHome';
 import AOS from 'aos';
 import { formatDate } from '@/helpers/report';
 import 'aos/dist/aos.css';
+import qs from 'qs';
 
 
 // Import Swiper React components
@@ -78,15 +73,14 @@ const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
                 if (entry.isIntersecting) {
                   setIsImageInView(true);
                   setskillView(prod);
-
-                  console.log(`Imagen en vista: ${prod.title}`);
+                 
                 } else {
                   setIsImageInView(false);
-                  // console.log(`Imagen fuera de vista: ${prod.title}`);
+                 
                 }
               });
             },
-            { threshold: 0.5 } // Ajusta el umbral según sea necesario
+            { threshold: 0.5 } 
           );
 
           if (imageRef.current) {
@@ -126,14 +120,35 @@ export default function index() {
   const [skillView, setskillView] = useState(null);
   const [isShowMore, setIsShowMore] = useState(false);
   const [dataInsigths, setDataInsigths] = useState(null);
-  const strapiURL = 'https://test-post-07ho.onrender.com';
+
 
   async function getDatastrapi() {
-    const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'en' ? 'en' : 'es'}&sort=order:asc&populate=image`, {
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
+
+    const strapiURL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+
+
+    const query = qs.stringify(
+      {
+        fields: ['id', 'title', 'type', 'updatedAt', 'description'],
+        locale: 'es',
+        sort: ['order:asc'],
+        populate: {
+          image: {
+            fields: ['url'],
+          },
+        },
       },
-    });
+      { encodeValuesOnly: true } // Opcional para codificar solo valores
+    );
+
+ 
+
+      // Hacemos la petición
+  const res = await fetch(`${strapiURL}/api/posts?${query}`, {
+    headers: {
+      // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`, // Si tienes token, descomenta esta línea
+    },
+  });
     const data = await res.json();
 
     if (!data || !data.data) {
@@ -143,9 +158,11 @@ export default function index() {
     }
 
     const blogs = data.data;
+    console.log(blogs);
     setDataInsigths(blogs);
   }
 
+  
   // Animaciones AOS
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -345,6 +362,8 @@ export default function index() {
 
   const logoClient = [adama, adeco, agrokasa, anglo, auna, pacasmayo, unacen, superm, tekno];
 
+  
+
   return (
     <LayoutHome>
       <section className="home-front" id="front">
@@ -502,11 +521,12 @@ export default function index() {
             ? dataInsigths.slice(0, isShowMore ? dataInsigths.length : 6).map((post) => (
                 <article key={post.id} className="insigths">
                   <figure className="insigths-image gradient">
-                    <Image src={`${post?.attributes.image.data.attributes.url}`} width={40} height={40} alt={post?.attributes.title} />
+                    <Image src={`${post?.image.url}`} width={40} height={40} alt={post?.title} />
+                    
                     <div className="title">
-                      <span>{post?.attributes.type}</span>
-                      <Link href={`/insigth/${post.id}`}>
-                        <h3>{post?.attributes.title}</h3>
+                      <span>{post?.type}</span>
+                      <Link href={`/insigth/${post.documentId}`}>
+                        <h3>{post?.title}</h3>
                       </Link>
                     </div>
                   </figure>
@@ -514,9 +534,9 @@ export default function index() {
                   <div className="box-description">
                     <div className="insigths-date">
                       <span>{post.autor}</span>
-                      <span>{formatDate(post.attributes.createdAt)}</span>
+                      <span>{formatDate(post?.updatedAt)}</span>
                     </div>
-                    <p className="insigths-description">{post?.attributes.description}</p>
+                    <p className="insigths-description">{post?.description}</p>
                   </div>
                 </article>
               ))
@@ -572,9 +592,9 @@ export default function index() {
           delay: 1000,
           disableOnInteraction: true,
         }}
-        pagination={{
-          clickable: true,
-        }}
+        // pagination={{
+        //   clickable: false,
+        // }}
         // navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
        

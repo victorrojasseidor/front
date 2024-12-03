@@ -18,6 +18,7 @@ import ImageSvg from '@/helpers/ImageSVG';
 import Loading from '@/Components/Atoms/Loading';
 import { IconArrow, IconDate } from '@/helpers/report';
 import { TextField } from '@mui/material';
+import ScrollableTable from '@/Components/Atoms/ScrollTable';
 
 const Balance = () => {
   const { session, setModalToken, logout, l } = useAuth();
@@ -585,6 +586,8 @@ const Balance = () => {
           </div>
         </div>
       )}
+
+      {/* <ScrollableTable /> */}
 
       <div>{requestError && <div className="errorMessage"> {requestError.message} </div>}</div>
     </>
