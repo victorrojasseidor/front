@@ -1,4 +1,5 @@
 const baseApiUrl = 'https://api.ariapp.ai/bpass/';
+// master 
 
 const fetchNoTokenPost = async (endpoint, data, specifiedLocale) => {
   const locale = specifiedLocale || 'en'; // Usar el locale especificado o por defecto 'en'
