@@ -333,6 +333,7 @@
     justify-content: flex-start;
     gap: 1em;
     width: auto;
+    padding-bottom: 2rem;
 
     ul {
       display: grid;
@@ -568,106 +569,6 @@
   }
 }
 
-.navigation-box {
-  display: flex;
-  flex-direction: column;
-
-  .header-box {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-bottom: 1rem;
-
-    .languajes-box {
-      display: none;
-
-      @include media(tablet) {
-        width: 15%;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-
-      svg {
-        path {
-          fill: get-color(grey2_s4);
-        }
-      }
-    }
-
-    .titlePage {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-  }
-}
-
-.navegation {
-  color: get-color(grey2_s4);
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: row;
-
-  flex-wrap: nowrap;
-  gap: 0.25rem;
-  align-items: center;
-  width: 100%;
-
-  @include media(tablet) {
-    flex-wrap: wrap;
-  }
-
-  &_title {
-    color: get-color(t1-blue);
-  }
-
-  button {
-    border-style: none;
-    background-color: transparent;
-  }
-
-  svg {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-
-    path {
-      fill: get-color(grey2_s4);
-    }
-  }
-
-  a,
-  p,
-  span,
-  button {
-    color: get-color(grey2_s4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    font-style: normal;
-    font-size: 0.875rem;
-    color: inherit;
-    text-align: center;
-    line-height: 1rem;
-    cursor: pointer;
-
-    &:hover,
-    & :focus {
-      color: get-color(blue_p1);
-    }
-
-    .box-languajes {
-      display: flex;
-      justify-content: center;
-      flex-direction: row;
-      width: 100%;
-    }
-  }
-}
 
 .box-empresa {
   display: flex;

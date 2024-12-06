@@ -194,7 +194,7 @@ export default function index() {
           }
         });
       },
-      { threshold: 0.0001 } // Disparar la animación cuando el 10% de la sección sea visible
+      { threshold: 0.0001 } // Disparar la animación cuando el % de la sección sea visible
     );
 
     const currentRef = counterSectionRef.current;
