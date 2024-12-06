@@ -54,6 +54,15 @@
     
   }
 
+  .nav-movil{
+    display: block;
+ 
+  
+    @include media(tablet) {
+      display: none;
+    }
+  }
+
   &-front {
     @include home-container;
     padding-top: 10rem;
@@ -922,7 +931,6 @@
           width: 100%;
           justify-content: center;
           align-items: flex-start;
-
           @include text-underline;
 
           @include media(tablet) {
@@ -1009,12 +1017,7 @@
 
 
 .nav-movil {
-  display: block;
   position: relative;
-
-  @include media(tablet) {
-    display: none;
-  }
 
   .hamburgerMenu {
     button {
@@ -1039,7 +1042,6 @@
     z-index: 1;
     top: 160%;
     right: -132%;
-
     background-color: rgba(get-color(black_p2), 0.95);
     width: 100vw;
     max-height: 0; // Inicialmente oculto
@@ -1071,8 +1073,8 @@
       position: relative;
       text-align: center; // Centra el texto dentro del `li`
       width: 100%;
-        @include text-underline;
-    
+      @include text-underline;
+        
       
     }
 

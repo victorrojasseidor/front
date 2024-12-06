@@ -310,9 +310,30 @@ const LayoutProducts = ({ children, menu }) => {
                 </li>
                 <div className="nav-movil">
                   <div className={`movil-options ${isOpenMobile ? 'openMovil' : ''}`}>
+
+                    <div className='content-personal'>
+                      <div className="box-name">
+                      <div className="box-name_person">
+                        <ImageSvg name="Person" />
+                      </div>
+                      <div className="box-name_name">
+                        <p>{session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
+
+                        <span>{session?.sCorreo}</span>
+                        {session?.sPerfilCode === 'ADMIN' && <p> Ari v1.2</p>}
+                      </div>
+                      
+                    </div>
+
+                    <div className="languajes-box">
+                      <Lang />
+                    </div>
+                    </div>
+                    
+
                     {menuMovil?.map((menu) => (
                       <li className="languaje-white list-options" key={menu.label}>
-                        <Link href={menu.link} scroll={false} onClick={() => setIsOpenMobile(!isOpenMobile)}>
+                        <Link href={menu.link} scroll={false} onClick={() => setIsOpenMobile(!isOpenMobile)} className={`${titlePage == menu.label ? 'active' : ''}`}>
                           {menu.label}
                         </Link>
 
@@ -327,7 +348,11 @@ const LayoutProducts = ({ children, menu }) => {
                         )}
                       </li>
                     ))}
+
+                    
                   </div>
+
+                 
                 </div>
               </ul>
 
