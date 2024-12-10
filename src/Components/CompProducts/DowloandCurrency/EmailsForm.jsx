@@ -186,7 +186,7 @@ export default function EmailsForm({ dataEmails, setUpdateEmails, sProduct, get,
 
         {haveEmails ? (
           <div className="box-emails-show">
-            <h3 className="title-Config">{t['Emails for notifications']}</h3>
+            <h3 className="title-Config">{l.Download['Emails for notifications']}</h3>
 
             <div className="contaniner-tables">
               <div className="box-edit">
