@@ -1,8 +1,3 @@
-// .tabs-container {
-//   display: flex;
-//   flex-direction: row;
-// }
-
 .tab-header {
   flex-direction: column;
   // padding-right: 10px;
@@ -22,7 +17,7 @@
     @include media(tablet) {
       gap: 1em;
       padding: 1em;
-      min-width: 12rem;
+      min-width: auto;
     }
 
     cursor: pointer;
@@ -35,7 +30,7 @@
 
     &.active {
       color: get-color(blue_p1);
-      // background-color: #ccc;
+
       border-right: 2px solid get-color(lilac_p3);
     }
 
@@ -50,8 +45,6 @@
 }
 
 .tab-content {
-  //  padding: 2rem;
-
   min-height: 58.5vh;
   width: 100%;
   display: flex;
@@ -85,10 +78,10 @@
   display: flex;
   flex-direction: column;
   border-radius: brd(1);
-
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 
   .tab-header {
     display: flex;
@@ -96,10 +89,12 @@
     align-items: center;
     flex-direction: row;
     width: 100%;
-    border-radius: 0px 10px 10px 0px;
-    background-color: get-color(white_s1);
+    // border-radius: 0px 10px 10px 0px;
+    // background-color: get-color(white_s1);
     flex-wrap: nowrap;
     overflow-x: auto;
+    border-bottom: 1px solid rgba(get-color(forms_s6), 1);
+
     @include scrollTeme;
 
     @include media(tablet) {
@@ -109,7 +104,6 @@
     @include media(desktop) {
       width: fit-content;
     }
-
 
     h4 {
       color: get-color(grey2_s4);
@@ -122,26 +116,25 @@
       border-style: none;
       justify-content: center;
       align-items: center;
-      padding: 1em;
+      padding: 0.5em;
       align-items: center;
       width: 100%;
 
       @include media(tablet) {
-        padding: 1em;
+        padding: 0.5rem 1rem;
       }
 
       &.active {
-        color: get-color(white_s1);
-        background-color: get-color(blue_p1);
+        color: get-color(blue_p1);
+        border-bottom: 2px solid rgba(get-color(blue_p1), 1);
 
         h4 {
-          color: get-color(white_s1);
+          color: get-color(blue_p1);
           font-weight: 600;
         }
 
         &:last-child {
-          border-radius: 0 10px 10px 0;
-          /* Aplica bordes redondeados solo al lado derecho del último botón */
+          // border-radius: 0 10px 10px 0;
         }
       }
     }
@@ -547,10 +540,7 @@
   justify-content: flex-start;
 }
 
-
-
-
-//probar scroll table 
+//probar scroll table
 
 .scrollWrapper {
   position: relative;
@@ -569,11 +559,9 @@
     gap: 1rem;
 
     justify-content: space-between;
-
   }
 
   .scrollButton {
-
     border: none;
     cursor: pointer;
     font-size: 1rem;
@@ -586,20 +574,17 @@
     svg {
       path {
         // fill:rgba(get-color(blue_p1), 0.9);
-        stroke: rgba(get-color(grey2_s4), 1)
+        stroke: rgba(get-color(grey2_s4), 1);
       }
-
     }
 
     // margin-top: 1rem;
 
     &:hover {
-
       svg {
         path {
-          stroke: rgba(get-color(black_p2), 1)
+          stroke: rgba(get-color(black_p2), 1);
         }
-
       }
     }
   }
@@ -611,6 +596,4 @@
   .right {
     margin: -0rem -0.25rem;
   }
-
-
 }

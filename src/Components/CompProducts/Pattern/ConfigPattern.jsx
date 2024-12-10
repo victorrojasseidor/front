@@ -215,38 +215,7 @@ export default function ConfigPattern() {
         <div className="Tabsumenu-content">
           {activeTab === 0 && (
             <div className="container-status">
-              {/* <h1> {t['Currency Exchange rates automation']} </h1> */}
-
-              <div className="status-config">
-                <h3 className="title-Config"> {t.State} </h3>
-                <ul>
-                  <li>
-                    <p>{t['Digital employees']}</p>
-                    <p>:</p>
-                    <p className="name-blue">{dataCardProduct?.sName}</p>
-                  </li>
-                  <li>
-                    <p>{t['Start service:']}</p>
-                    <p>:</p>
-                    <p> {formatDate(dataCardProduct?.sDateInit)}</p>
-                  </li>
-                  <li>
-                    <p>{t['End service:']}</p>
-                    <p>:</p>
-                    <p> {formatDate(dataCardProduct?.sDateEnd)} </p>
-                  </li>
-                  <li>
-                    <p>{t.Country} </p>
-                    <p>:</p>
-                    <p>{dataCardProduct?.sCountry}</p>
-                  </li>
-                  <li>
-                    <p>{t.State} </p>
-                    <p>:</p>
-                    <p className="Active">{dataCardProduct?.sDescStatus}</p>
-                  </li>
-                </ul>
-              </div>
+             
 
               <EmailsForm dataEmails={dataPadrones?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 

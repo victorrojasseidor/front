@@ -346,52 +346,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
         <div className="Tabsumenu-content">
           {activeTab === 0 && (
             <div className="apiconfiguration">
-              <div className="admin-product ">
-                <div className="reporting-box ">
-                  <div className="report-content">
-                    <div className="report red">
-                      <div className="report_icon  ">
-                        <ImageSvg name="Profile" />
-                      </div>
-
-                      <div className="report_data">
-                        <article>{t.Company}:</article>
-                        <h4> {nameEmpresa}</h4>
-                      </div>
-                    </div>
-
-                    <div className="report green ">
-                      <div className="report_icon  ">
-                        <ImageSvg name="Account" />
-                      </div>
-
-                      <div className="report_data">
-                        <article>{t['Digital employees']}:</article>
-                        <h4>{product?.sName} </h4>
-                      </div>
-                    </div>
-
-                    <div className="report  blue">
-                      <div className="report_icon  ">
-                        <ImageSvg name="Support" />
-                      </div>
-
-                      <div className="report_data">
-                        <article>{t.State}:</article>
-                        <h4>
-                          {pStatus} - {product?.sDescStatus}
-                        </h4>
-
-                        <p>
-                          <span> Desde </span>
-                          {formatDate(product?.sDateInit)} <span> Hasta </span> {formatDate(product?.sDateEnd)}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+              
               <div className="admin">
                 {product?.iId === 4 && <CaptchaConfig />}
 

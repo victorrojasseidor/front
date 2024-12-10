@@ -212,10 +212,10 @@ const LayoutProducts = ({ children, menu }) => {
                 <ImageSvg name="Person" />
               </div>
               <div className="box-name_name">
-                <p>{session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
+                <p>{session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}   -  {session?.sPerfilCode === 'ADMIN' &&  "Ari:v2"}</p>
 
                 <span>{session?.sCorreo}</span>
-                {session?.sPerfilCode === 'ADMIN' && <p> Ari v1.2</p>}
+               
               </div>
             </div>
           </div>

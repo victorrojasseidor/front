@@ -146,15 +146,7 @@
         align-items: center;
         font-size: smaller;
 
-        // .description{
-        //   display: flex;
-        //   justify-content: flex-start;
-        //   background-color: aqua;
-        //   align-items: flex-start;
-        //   width: 100%;
-        //   text-align: start;
-        // }
-
+      
         .box-update {
           padding: 1rem;
           width: 100%;
@@ -186,15 +178,7 @@
         }
       }
 
-      // p {
-      //   display: inline-flex;
-      //   justify-content: center;
-      //   align-items: center;
-      //   // justify-content: center;
-      //   // align-items: center;
-      //   gap: 0.25em;
-      //   // white-space: nowrap;
-      // }
+    
     }
   }
 
@@ -233,7 +217,7 @@
       }
 
       li {
-        // background-color: aqua;
+   
         background-color: get-color(bone_s2);
         color: get-color(black_p2);
 
