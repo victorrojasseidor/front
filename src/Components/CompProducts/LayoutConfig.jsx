@@ -4,7 +4,6 @@ import FreeTrial from '@/Components/FreeTrial';
 import { useAuth } from '@/Context/DataContext';
 import Link from 'next/link';
 import ImageSvg from '@/helpers/ImageSVG';
-import NavigationPages from '../NavigationPages';
 import Apiconfiguration from '../Admi/Apiconfiguration';
 import { formatDate } from '@/helpers/report';
 

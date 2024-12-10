@@ -141,11 +141,11 @@ const LayoutProducts = ({ children, menu }) => {
   };
 
   const menuMovil = [
-    {
-      label: 'Ari',
-      link: '/#front',
-      submenus: [],
-    },
+    // {
+    //   label: 'Ari',
+    //   link: '/#front',
+    //   submenus: [],
+    // },
 
     {
       label: t['Digital employees'],

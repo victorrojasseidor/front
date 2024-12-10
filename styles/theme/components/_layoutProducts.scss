@@ -114,7 +114,7 @@
 
 
     .titlePage {
-      margin-left: 0.5rem;
+      margin-left: 1.2rem;
 
     }
 
@@ -680,11 +680,11 @@
 
           .content-personal {
             border-bottom: 1px solid rgba(get-color(grey1_s3), 1);
-            padding-bottom: 2rem;
+            padding-bottom: 1rem;
             width: 100%;
             display: flex;
             gap: 1rem;
-            padding-top: 2rem;
+            padding-top: 1rem;
 
             .box-name {
               border-left: none;
@@ -696,9 +696,8 @@
             .languajes-box {
               background-color: rgba(get-color(forms_s6), 0.3);
               border-radius: brd(1);
-              // margin-top: 2rem;
-              width: min-content;
-
+              width: 5rem;
+              height: 2.5rem;
 
               svg {
 
@@ -713,7 +712,7 @@
             background-color: rgba(get-color(white_s1), 1);
             box-shadow: bsh(3);
             border-radius: brd(2);
-            height: 85vh;
+            height: auto;
             justify-content: flex-start;
             align-items: start;
             top: 25%;
@@ -815,7 +814,7 @@
       }
 
       .children {
-        padding: 0rem 2rem;
+        padding: 2rem 2rem;
         background-color: get-color(white_s1);
         height: auto;
         width: 100%;

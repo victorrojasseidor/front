@@ -5,7 +5,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'; // Changed from 'next/navigation'
 import { useAuth } from '@/Context/DataContext';
-import NavigationPages from '@/Components/NavigationPages';
 import Loading from '@/Components/Atoms/Loading';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -295,11 +294,7 @@ export default function Products() {
       {!session && <Loading />}
 
       <div className="products">
-        <NavigationPages title={t['Digital employees']}>
-          <Link href="/product">{t.Home}</Link>
-        </NavigationPages>
-
-        <div className="products_empresa">
+              <div className="products_empresa">
           <div className="box-empresa">
             {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
             <Autocomplete
