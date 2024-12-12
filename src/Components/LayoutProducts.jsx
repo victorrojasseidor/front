@@ -14,7 +14,6 @@ import Lang from './Atoms/Lang';
 const LayoutProducts = ({ children, menu }) => {
   const [isOpenMobile, setIsOpenMobile] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [margen, setMargen] = useState('0rem');
   const [withMenu, setWithMenu] = useState('200px');
 
   const [titlePage, setTitlePage] = useState('');
@@ -28,6 +27,7 @@ const LayoutProducts = ({ children, menu }) => {
   const { asPath } = useRouter();
   const t = l.header;
   const router = useRouter();
+
 
   const toggleSubmenu = (menuItem) => {
     setSubmenuOpen((prevState) => ({
@@ -140,6 +140,8 @@ const LayoutProducts = ({ children, menu }) => {
     // },
   };
 
+  console.log(session)
+
   const menuMovil = [
     // {
     //   label: 'Ari',
@@ -173,12 +175,6 @@ const LayoutProducts = ({ children, menu }) => {
       link: 'https://seidor.mensajea.chat/',
       submenus: [],
     },
-
-    // {
-    //   label: 'Clientes',
-    //   link: '/#client',
-    //   submenus: [],
-    // }
   ];
 
   return (
@@ -194,8 +190,10 @@ const LayoutProducts = ({ children, menu }) => {
 
             <div className="titlePage">
               <Link className="navegation" href={'/product'}>
-                <ImageSvg name="Return" /> {t.Home}
+
+                {router.asPath == '/product' ? '' : <ImageSvg name="Return" />} {t.Home}
               </Link>
+
               <div>
                 <h4 className="navegation_title"> {titlePage}</h4>
               </div>
@@ -212,12 +210,71 @@ const LayoutProducts = ({ children, menu }) => {
                 <ImageSvg name="Person" />
               </div>
               <div className="box-name_name">
-                <p>{session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}   -  {session?.sPerfilCode === 'ADMIN' &&  "Ari:v2"}</p>
+                <p>
+                  {session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company} - {session?.sPerfilCode === 'ADMIN' && 'Ari:v2'}
+                </p>
 
-                <span>{session?.sCorreo}</span>
-               
+                <span style={{ textTransform: 'capitalize' }}>{session?.sUserName} {session?.sLastName}</span>
               </div>
             </div>
+          </div>
+
+          <div className="movil-content">
+            <ul>
+              <li className="hamburgerMenu">
+                <button className="btn_crud" onClick={toggleMenuMobile}>
+                  <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
+                </button>
+              </li>
+              <div className="nav-movil">
+                <div className={`movil-options ${isOpenMobile ? 'openMovil' : ''}`}>
+                  <div className="content-personal">
+                    <div className="box-name">
+                      <div className="box-name_person">
+                        <ImageSvg name="Person" />
+                      </div>
+                      <div className="box-name_name">
+                        <p>
+                          {session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company} - {session?.sPerfilCode === 'ADMIN' && 'Ari:v2'}
+                        </p>
+                        <span style={{ textTransform: 'capitalize' }}>{session?.sUserName} {session?.sLastName}</span>
+                      </div>
+                    </div>
+
+                    <div className="languajes-box">
+                      <Lang />
+                    </div>
+                  </div>
+
+                  {menuMovil?.map((menu) => (
+                    <li className="languaje-white list-options" key={menu.label}>
+                      <Link href={menu.link} scroll={false} onClick={() => setIsOpenMobile(!isOpenMobile)} className={`${titlePage == menu.label ? 'active' : ''}`}>
+                        {menu.label}
+                      </Link>
+
+                      {menu.submenus.length > 0 && (
+                        <div className="submenu">
+                          {menu.submenus.map((sub, index) => (
+                            <Link href={sub.link} key={index} scroll={false} onClick={() => setIsOpenMobile(!isOpenMobile)} className={router.asPath.startsWith(sub.link) ? 'active' : ''}>
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </div>
+              </div>
+            </ul>
+
+            {/* <div className="titleMenu">
+              <div>
+                <h3>{titlePage}</h3>
+              </div>
+              <div className="company">{session?.jCompany.razon_social_company}</div>
+            </div> */}
+
+
           </div>
         </div>
 
@@ -232,7 +289,6 @@ const LayoutProducts = ({ children, menu }) => {
             <nav
               className="menu_nav"
               style={{
-                // minHeight: isMobile ? '8rem' : '25rem',
                 justifyContent: 'flex-start',
               }}
             >
@@ -295,77 +351,9 @@ const LayoutProducts = ({ children, menu }) => {
             </nav>
           </section>
 
-          {/* <section className="menu_children" style={{ marginLeft: margen, width: isMobile ? '100%' : '85%' }}> */}
-
           <section className="menu_children">
-            <div className="childrenTilte">
-              <div className="logo-oscuro">
-                <Image src={logo} width="100" alt="logoOscuro" priority />
-              </div>
 
-              <ul>
-                <li className="hamburgerMenu">
-                  <button className="btn_crud" onClick={toggleMenuMobile}>
-                    <ImageSvg name={isOpenMobile ? 'MenuClose' : 'MenuOpen'} />
-                  </button>
-                </li>
-                <div className="nav-movil">
-                  <div className={`movil-options ${isOpenMobile ? 'openMovil' : ''}`}>
 
-                    <div className='content-personal'>
-                      <div className="box-name">
-                      <div className="box-name_person">
-                        <ImageSvg name="Person" />
-                      </div>
-                      <div className="box-name_name">
-                        <p>{session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company}</p>
-
-                        <span>{session?.sCorreo}</span>
-                        {session?.sPerfilCode === 'ADMIN' && <p> Ari v1.2</p>}
-                      </div>
-                      
-                    </div>
-
-                    <div className="languajes-box">
-                      <Lang />
-                    </div>
-                    </div>
-                    
-
-                    {menuMovil?.map((menu) => (
-                      <li className="languaje-white list-options" key={menu.label}>
-                        <Link href={menu.link} scroll={false} onClick={() => setIsOpenMobile(!isOpenMobile)} className={`${titlePage == menu.label ? 'active' : ''}`}>
-                          {menu.label}
-                        </Link>
-
-                        {menu.submenus.length > 0 && (
-                          <div className="submenu">
-                            {menu.submenus.map((sub, index) => (
-                              <Link href={sub.link} key={index} scroll={false} onClick={() => setIsOpenMobile(!isOpenMobile)}>
-                                {sub.label}
-                              </Link>
-                            ))}
-                          </div>
-                        )}
-                      </li>
-                    ))}
-
-                    
-                  </div>
-
-                 
-                </div>
-              </ul>
-
-              <div className="titleMenu">
-                <div>
-                  <h3>{titlePage}</h3>
-                </div>
-                <div className="company">{session?.jCompany.razon_social_company}</div>
-              </div>
-            </div>
-
-            {/* <section className={`children ${isOpenMobile ? 'children_after' : 'children'}`} */}
 
             <section className={`children`} style={{ marginLeft: withMenu, width: `calc(100% - ${withMenu})` }}>
               {children}

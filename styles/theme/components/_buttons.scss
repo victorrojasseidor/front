@@ -209,7 +209,6 @@
       }
 
       @include media(tablet) {
-        background-color: get-color(white_s1);
         border-radius: brd(f);
       }
     }

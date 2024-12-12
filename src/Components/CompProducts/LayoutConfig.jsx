@@ -72,7 +72,7 @@ export default function LayoutConfig({ id, iIdProdEnv, defaultTab, children, idE
     <LayoutProducts menu="Product">
       <div className="idProduct-header">
         <div>
-          <h2>{product?.sName}</h2>
+          <h3>{product?.sName}</h3>
           <p>
             <ImageSvg name="ReportExpenses" />{NameEmpresa(idEmpresa)}
           </p>
