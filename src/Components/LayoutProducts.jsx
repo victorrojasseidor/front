@@ -140,7 +140,6 @@ const LayoutProducts = ({ children, menu }) => {
     // },
   };
 
-  console.log(session)
 
   const menuMovil = [
     // {
