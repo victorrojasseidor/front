@@ -164,8 +164,6 @@
 }
 
 .products {
-  // background-color: aqua;
-  // margin: 0em 1em 0 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -275,10 +273,8 @@
   &_filter-types {
     display: flex;
     flex-direction: column;
+    margin-top: 1rem;
  
-
-
-
     @include media(tablet) {
       flex-direction: row;
       align-items: flex-start;
@@ -378,7 +374,7 @@
       }
 
       @include media(desktop) {
-        grid-template-columns: repeat(3, 1fr); // 3 columnas de igual tamaño
+        grid-template-columns: repeat(4, 1fr); // 3 columnas de igual tamaño
       }
 
       @include media(extradesktop) {
@@ -395,39 +391,21 @@
   display: flex;
   background: get-color(white_s1);
   flex-direction: column;
-  min-width: 17rem;
-  height: 20rem;
+  min-width: 15rem;
   padding: 1em;
-  border-radius: brd(2);
+  border-radius: brd(1);
   gap: 1rem;
   position: relative;
 
-  // @include media(tablet) {
-  //   width: 18rem;
-  //   gap: 0.5em;
-  //   padding: 1em 1.5em;
-  // }
-
-  // @include media(desktop) {
-  //   width: 18rem;
-  // }
-
-  // @include media(extradesktop) {
-  //   width: 18rem;
-  //   gap: 1rem;
-  // }
-
+ 
   &_type {
     display: flex;
-    align-items: center;
-    padding: 0.5rem;
+    align-items: flex-start;
     font-size: 0.875rem;
     justify-content: flex-start;
-    border-radius: brd(2);
+    text-align: right;
 
-    @include media(tablet) {
-      width: 75%;
-    }
+    
   }
 
   &_name {
@@ -438,7 +416,7 @@
     gap: 0.25rem;
 
     @include media(tablet) {
-      height: 5.5rem;
+      height: 5rem;
     }
 
     h4 {
@@ -450,33 +428,7 @@
       }
     }
 
-    .dayLetf {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.8rem;
-      color: get-color(grey2_s4);
-      gap: 0.25rem;
-
-      svg {
-        color: get-color(grey2_s4);
-        font-size: 1rem;
-        display: inline-block;
-
-        path {
-          fill: get-color(grey2_s4);
-        }
-      }
-
-      span {
-        color: get-color(black_p2);
-        justify-content: center;
-        border-radius: brd(1);
-        display: inline-block;
-        font-size: 0.8rem;
-        text-align: center;
-      }
-    }
+   
   }
 
   .admin {
@@ -495,69 +447,83 @@
   }
 
   &_actions {
-    height: 7.5rem;
-    padding: 0.5rem;
+  
     display: flex;
-
     flex-direction: row;
     flex-wrap: nowrap;
     border-radius: brd(2);
     gap: 1rem;
+    justify-content: flex-end;
+    align-items: center;
+  
+   
+  }
 
-    @include center-container;
+  .status-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    // gap: 1rem;
+    width: 100%;
 
-    .status-box {
-      display: flex;
-      justify-content: flex-start;
-
-      align-items: center;
-      flex-direction: column;
-      gap: 1rem;
-
-      color: get-color(white_s1);
-
-      a {
-        color: get-color(white_s1);
-        @include center-container;
-        text-align: center;
-        font-weight: 500;
-        padding: 0.25rem;
-      }
-
-      .btn_primary {
-        background-color: transparent;
-        border-style: none;
-        border: 1.5px solid get-color(white_s1);
-        box-shadow: none;
-        padding: 0.5rem;
-        margin-top: 0;
-        min-width: 6rem;
-      }
-    }
-
-    .box-img {
+    .dayLetf {
       display: flex;
       justify-content: center;
-      flex-direction: column;
       align-items: center;
-    }
+      color: get-color(grey2_s4);
+      gap: 0.25rem;
 
-    .type_icon {
-      width: 100%;
-      @include center-container;
-      border-radius: brd(2);
-
-      padding: 0.5rem;
-      justify-content: center;
-
-      svg {
+     
+      span {
+        color: get-color(blue_p1);
         justify-content: center;
-        width: 4rem;
-        height: 4rem;
+        border-radius: brd(1);
+        display: inline-block;
+        font-size: 0.75rem;
+        text-align: center;
+      }
+    }
+   
 
-        path {
-          fill: get-color(white_s1);
-        }
+    a,p {
+      // color: get-color(white_s1);
+      // @include center-container;
+      text-align: center;
+      font-weight: 300;
+      font-size: medium;
+    }
+
+  
+
+    .btn_secundary {
+ 
+      padding: 0.5rem;
+  
+    }
+  }
+
+  .box-img {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    
+
+  }
+
+  .type_icon {
+    width: 100%;
+    // @include center-container;
+    border-radius: brd(2);
+    justify-content: center;
+
+    svg {
+      justify-content: center;
+      width: 3.5rem;
+      height: 3.5rem;
+
+      path {
+        fill: get-color(white_s1);
       }
     }
   }
