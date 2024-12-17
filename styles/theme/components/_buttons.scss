@@ -155,19 +155,17 @@
     justify-content: flex-start;
     background-color: transparent;
     align-items: center;
-    gap: 0.5rem;
     font-weight: 500;
-    padding: 0.5rem 1rem;
+    // padding: 0rem 1rem;
     border-radius: brd(3);
     cursor: pointer;
-    color: get-color(grey2_s4);
+    color: rgba(get-color(grey2_s4), 0.6);
     flex-direction: column;
 
     @include media(tablet) {
       width: auto;
       flex-direction: row;
-      min-width: 5em;
-      padding: 0.75rem 1rem;
+      padding-left:1rem;
     }
 
     svg {
@@ -197,9 +195,9 @@
     }
 
     &.active {
-      background-color: get-color(bg-cles);
-      border-radius: brd(2);
-      color: get-color(blue_p1);
+      // background-color: get-color(bg-cles);
+      // border-radius: brd(2);
+      color: get-color(t1-blue);
       height: inherit;
 
       svg {
@@ -517,10 +515,9 @@ button:hover + .cloud {
   width: 100%;
   background-color: get-color(white_s1);
   height: 2.5em;
-  border-radius: brd(3);
-
+  border-radius: brd(2);
   @include media(tablet) {
-    max-width: 14rem;
+    width: auto;
   }
 
   input {
@@ -531,6 +528,7 @@ button:hover + .cloud {
     font-weight: 500;
     border-style: none;
     padding: 1em;
+    width: 100%;
 
     &::placeholder {
       color: #8f9bba;
