@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import LayoutProducts from '@/Components/LayoutProducts';
 import ImageSvg from '@/helpers/ImageSVG';
 import Link from 'next/link';
-import NavigationPages from '@/Components/NavigationPages';
 import { useAuth } from '@/Context/DataContext';
 import { useRouter } from 'next/router';
 import Captcha from '../../reports/Captcha';
@@ -39,15 +38,7 @@ const Tecnology = () => {
 
   return (
     <LayoutProducts menu="Reporting">
-      <NavigationPages title={tabData?.type}>
-        <Link href="/reporting">
-          <ImageSvg name="Dashboard" />
-          <p>{t.Reporting}</p>
-        </Link>
-        <ImageSvg name="Navegación" />
-        {tabData?.title}
-      </NavigationPages>
-      <section className="layoutReporting">
+        <section className="layoutReporting">
         <div className="horizontalTabs">
           <div className="tab-header">
             {tabs.map((tab, index) => (

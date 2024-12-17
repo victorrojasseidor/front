@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import LayoutProducts from '@/Components/LayoutProducts';
 import ImageSvg from '@/helpers/ImageSVG';
 import Link from 'next/link';
-import NavigationPages from '@/Components/NavigationPages';
 import { useAuth } from '@/Context/DataContext';
 import LineChart from '@/Components/Grafics/BarChart';
 import { useRouter } from 'next/navigation';
@@ -130,10 +129,7 @@ function Tecnology() {
 
   return (
     <LayoutProducts menu="Reporting">
-      <NavigationPages title={t.Reporting}>
-        <Link href="/product">{t.Home}</Link>
-      </NavigationPages>
-      <section className="reporting">
+        <section className="reporting">
         <div className="reporting-head">
           <div className="reporting-menu">
             <h3> {t.Reporting} </h3>

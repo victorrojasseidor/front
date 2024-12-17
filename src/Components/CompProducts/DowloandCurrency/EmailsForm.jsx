@@ -186,37 +186,52 @@ export default function EmailsForm({ dataEmails, setUpdateEmails, sProduct, get,
 
         {haveEmails ? (
           <div className="box-emails-show">
-            <h3 className="title-Config">{t['Emails for notifications']}</h3>
-
-            <div className="contaniner-tables">
-              <div className="box-edit">
+            <div className="box-title">
+              <div className="">
+                <h3 className="title-Config">{l.Download['Emails for notifications']}</h3>
                 <p> {t['Traceability information will be sent to the following emails']}:</p>
+              </div>
+
+              <div className="box-edit">
                 <button className="btn_crud" onClick={() => setHaveEmails(false)}>
                   <ImageSvg name="Edit" />
                 </button>
               </div>
+            </div>
 
-              <div className="emails">
+            <div className="box-emails">
+              <div className="list-emails">
                 <h4> {t.To}: </h4>
-                {dataEmails
-                  ?.filter((eml) => eml.correo_estado == 'CORREO')
-                  ?.slice(0, 6)
-                  .map((email) => (
-                    <p key={email.id_correo_eb}>{email.correo}</p>
-                  ))}
-                <span>...</span>
+
+                <div className="cards">
+                  {dataEmails
+                    ?.filter((eml) => eml.correo_estado == 'CORREO')
+                    ?.slice(0, 6)
+                    .map((email, index, arr) => (
+                      <p key={email.id_correo_eb}>
+                        {email.correo} 
+                        {index === arr.length - 1 ? '' : ','}{' '}
+                      </p>
+                    ))}
+                  {/* <span>, </span> */}
+                </div>
               </div>
 
-              <div className="emails">
+              <div className="list-emails copia">
                 <h4> {t.Cco}: </h4>
 
-                {dataEmails
-                  ?.filter((eml) => eml.correo_estado == 'CORREO_CC')
-                  ?.slice(0, 6)
-                  .map((email) => (
-                    <p key={email.id_correo_eb}>{email.correo}</p>
-                  ))}
-                <span>...</span>
+                <div className="cards">
+                  {dataEmails
+                    ?.filter((eml) => eml.correo_estado == 'CORREO_CC')
+                    ?.slice(0, 6)
+                    .map((email, index, arr) => (
+                      <p key={email.id_correo_eb}>
+                        {email.correo}
+                        {index === arr.length - 1 ? '' : ','}
+                      </p>
+                    ))}
+                  {/* <span>...</span> */}
+                </div>
               </div>
             </div>
           </div>
@@ -231,7 +246,6 @@ export default function EmailsForm({ dataEmails, setUpdateEmails, sProduct, get,
 
               <form className="form-container" onSubmit={(e) => e.preventDefault()}>
                 <p> {t['Enter one or more emails either separated by spaces, commas or semicolons']}</p>
-
                 <div className="form-emailTo">
                   <div className="input-box">
                     <textarea

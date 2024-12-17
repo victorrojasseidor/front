@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import LayoutProducts from '@/Components/LayoutProducts';
 import ImageSvg from '@/helpers/ImageSVG';
 import Link from 'next/link';
-import NavigationPages from '@/Components/NavigationPages';
 import { useAuth } from '@/Context/DataContext';
 import { useRouter } from 'next/navigation'; // Cambiado desde 'next/navigation'
 
@@ -26,18 +25,7 @@ const LayouReport = ({ defaultTab, children }) => {
 
   return (
     <LayoutProducts menu="Reporting">
-      <NavigationPages title={defaultTab === 0 ? t.Balance : t.Movement}>
-        <Link href="/reporting">
-          <ImageSvg name="Dashboard" />
-          <p>{t.Reporting}</p>
-        </Link>
-        <ImageSvg name="Navegación" />
-        {tabs.map((tab, index) => (
-          <Link href="#" key={index}>
-            <span onClick={() => handleTabClick(index, tab.path)}>{tab.title}</span>
-          </Link>
-        ))}
-      </NavigationPages>
+     
       <section className="layoutReporting">
         <div className="horizontalTabs">
           <div className="tab-header">

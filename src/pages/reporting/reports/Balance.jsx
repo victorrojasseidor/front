@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '@/Context/DataContext';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -48,6 +48,9 @@ const Balance = () => {
   const [draggedColumn, setDraggedColumn] = useState(null);
 
   const t = l.Reporting;
+
+  const tableContainerRef = useRef(null);
+
 
   useEffect(() => {
     getBalancesInitial();
@@ -369,7 +372,7 @@ const Balance = () => {
 
   return (
     <>
-      <div className="balance">
+      <div className="balance ">
         {/* <OrderTable /> */}
 
         {dataInitialSelect && (
@@ -487,15 +490,36 @@ const Balance = () => {
       {isLoading ? <Loading /> : ''}
 
       {balances && (
-        <div className="contaniner-tables">
+        <div className="contaniner-tables  ">
           <div className="boards">
-            <div className="box-search">
+            <div className="box-search ">
               <h3>{t.Balance} </h3>
+
               <button className="btn_black " onClick={exportToExcel}>
                 <ImageSvg name="Download" /> {t['Export to Excel']}
               </button>
             </div>
-            <div className="tableContainer">
+
+             {/* <div className="scrollWrapper">
+              <div className="scrollButtons" style={{ display: showScrollButtons ? 'flex' : 'none' }}>
+              
+
+                <div className="scrollButton left" onClick={() => scrollTable('left')}>
+           
+
+                  <ImageSvg name="Left" />
+                </div>
+
+                <div className="scrollButton right" onClick={() => scrollTable('right')}>
+              
+                  <ImageSvg name="Rigth" />
+                </div>
+              </div>
+            </div>  */}
+
+              <ScrollableTable  tableRef={tableContainerRef}/> 
+
+            <div className="tableContainer " ref={tableContainerRef}>
               <table className="dataTable Account">
                 <thead>
                   <tr>
@@ -586,8 +610,6 @@ const Balance = () => {
           </div>
         </div>
       )}
-
-      {/* <ScrollableTable /> */}
 
       <div>{requestError && <div className="errorMessage"> {requestError.message} </div>}</div>
     </>

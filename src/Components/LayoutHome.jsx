@@ -130,9 +130,9 @@ export default function LayoutHome({ children }) {
           <div className={`movil-options ${isOpenMobile ? 'openMovil' : ''}`}>
             {menuMovil?.map((menu) => (
               <li className="languaje-white list-options" key={menu.label}>
-                <Link href={menu.link} scroll={false}>
+                <Link href={menu.link} scroll={false} onClick={() => setIsOpenMobile(!isOpenMobile)}>
                   {' '}
-                  <a onClick={() => setIsOpenMobile(!isOpenMobile)}>{menu.label}</a>
+                  {menu.label}
                 </Link>
               </li>
             ))}

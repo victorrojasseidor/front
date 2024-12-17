@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import imgfree from '../../../public/img/contactanos.webp';
-
 import Image from 'next/image';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import { useAuth } from '@/Context/DataContext';
@@ -8,8 +7,6 @@ import { fetchConTokenPost } from '@/helpers/fetch';
 import Loading from '@/Components/Atoms/Loading';
 import LayoutProducts from '@/Components/LayoutProducts';
 import ImageSvg from '@/helpers/ImageSVG';
-import NavigationPages from '@/Components/NavigationPages';
-import Link from 'next/link';
 import Modal from '@/Components/Modal';
 
 function Support() {
@@ -73,19 +70,7 @@ function Support() {
 
   return (
     <LayoutProducts menu="Support">
-      <NavigationPages title={t.Support}>
-        <Link href="/product">
-          <ImageSvg name="Products" />
-          <p>{empresa?.razon_social_empresa}</p>
-        </Link>
-
-        <ImageSvg name="Navegación" />
-
-        <Link href="/support">{t.Support}</Link>
-      </NavigationPages>
-
       {isLoading && <Loading />}
-
       <div className="freetrial">
         <div className="freetrial_description">
           <h2> {t['Contact us']} </h2>

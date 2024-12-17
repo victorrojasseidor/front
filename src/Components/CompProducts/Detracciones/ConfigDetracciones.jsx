@@ -193,37 +193,7 @@ export default function ConfigDetracciones() {
         <div className="Tabsumenu-content">
           {activeTab === 0 && (
             <div className="container-status">
-              <div className="status-config">
-                <h3 className="title-Config"> {l.Download.State} </h3>
-                <ul>
-                  <li>
-                    <p>{dataCardProduct?.sName}</p>
-                    <p>:</p>
-
-                    <p>Detracciones </p>
-                  </li>
-                  <li>
-                    <p>{l.Download['Start service:']}</p>
-                    <p>:</p>
-                    <p> {formatDate(dataCardProduct?.sDateInit)}</p>
-                  </li>
-                  <li>
-                    <p>{l.Download['End service:']}</p>
-                    <p>:</p>
-                    <p> {formatDate(dataCardProduct?.sDateEnd)} </p>
-                  </li>
-                  <li>
-                    <p>{l.Download.Country} </p>
-                    <p>:</p>
-                    <p>{dataCardProduct?.sCountry}</p>
-                  </li>
-                  <li>
-                    <p>{l.Download.State} </p>
-                    <p>:</p>
-                    <p className="Active">{dataCardProduct?.sDescStatus}</p>
-                  </li>
-                </ul>
-              </div>
+        
 
               {isLoadingComponent && <LoadingComponent />}
 

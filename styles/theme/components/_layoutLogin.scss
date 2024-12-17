@@ -17,6 +17,7 @@
     }
     @include media(desktop) {
       width: 50%;
+      height: 100vh;
     }
   }
 
@@ -24,8 +25,8 @@
     background-image: url('../../../public/img/register.webp');
     background-repeat: no-repeat;
     background-size: cover;
-    height: 140vh;
-    // background-size: 200vh;
+    height: auto;
+
   }
 
   @include media(desktop) {
@@ -34,6 +35,7 @@
 
   @include media(extradesktop) {
     background-size: 250vh;
+    min-height: 120vh;
   }
 
   &_form {
@@ -208,59 +210,3 @@
 }
 
 
-
-//probar scroll table 
-
-.scrollWrapper {
-  display: flex;
-  align-items: center;
-  position: relative;
-  max-width: 100%;
-  overflow: hidden;
-
-  .tableContainer {
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    flex-grow: 1;
-    display: flex;
-
-    table {
-      width: max-content; // Permitir que la tabla crezca más allá del contenedor
-      border-collapse: collapse;
-
-      th,
-      td {
-        padding: 8px 12px;
-        text-align: left;
-        border: 1px solid #ccc;
-        white-space: nowrap;
-      }
-    }
-  }
-
-  .scrollButton {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-
-    &.left {
-      left: 8px;
-    }
-
-    &.right {
-      right: 8px;
-    }
-
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
-}

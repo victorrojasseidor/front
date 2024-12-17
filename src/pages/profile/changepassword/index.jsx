@@ -6,7 +6,6 @@ import { validateFormUpdatePassword } from '@/helpers/validateForms';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/Context/DataContext';
 import LayoutProducts from '@/Components/LayoutProducts';
-import NavigationPages from '@/Components/NavigationPages';
 import Loading from '@/Components/Atoms/Loading';
 import Modal from '@/Components/Modal';
 
@@ -85,14 +84,7 @@ export default function Changepassword() {
 
   return (
     <LayoutProducts menu="Profile">
-      <NavigationPages title="Profile">
-        <Link href="/profile">{t.Profile}</Link>
-        <ImageSvg name="Navegación" />
-
-        <Link href="#">{t['Update password']}</Link>
-      </NavigationPages>
-
-      <div className="profile">
+        <div className="profile">
         {isLoading && <Loading />}
 
         <div className="style-container">

@@ -6,7 +6,6 @@ import { fetchConTokenPost } from '@/helpers/fetch';
 import Loading from '@/Components/Atoms/Loading';
 import LayoutProducts from '@/Components/LayoutProducts';
 import ImageSvg from '@/helpers/ImageSVG';
-import NavigationPages from '@/Components/NavigationPages';
 import Link from 'next/link';
 import Modal from '@/Components/Modal';
 import FormIntegration from './FormIntegration';
@@ -74,15 +73,7 @@ function Integration() {
 
   return (
     <LayoutProducts menu="Integration">
-      <NavigationPages title={t['Setting up integrations']}>
-        <Link href="/product">
-          <ImageSvg name="Products" />
-        </Link>
-
-        <ImageSvg name="Navegación" />
-
-        <Link href="/integration">{t.Integration}</Link>
-      </NavigationPages>
+     
 
       {isLoading && <Loading />}
 

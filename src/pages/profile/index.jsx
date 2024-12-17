@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import LayoutProducts from '@/Components/LayoutProducts';
 import { useAuth } from '@/Context/DataContext';
-import NavigationPages from '@/Components/NavigationPages';
 import { useRouter } from 'next/navigation';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { countryOptions } from '@/helpers/contry';
@@ -137,10 +136,7 @@ export default function Profile() {
 
   return (
     <LayoutProducts menu="Profile">
-      <NavigationPages title={t.Profile}>
-        <Link href="/product">{t.Home}</Link>
-      </NavigationPages>
-
+    
       <div className="profile">
         {isLoading && <Loading />}
 

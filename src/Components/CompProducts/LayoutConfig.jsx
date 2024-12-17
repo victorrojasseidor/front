@@ -4,8 +4,8 @@ import FreeTrial from '@/Components/FreeTrial';
 import { useAuth } from '@/Context/DataContext';
 import Link from 'next/link';
 import ImageSvg from '@/helpers/ImageSVG';
-import NavigationPages from '../NavigationPages';
 import Apiconfiguration from '../Admi/Apiconfiguration';
+import { formatDate } from '@/helpers/report';
 
 export default function LayoutConfig({ id, iIdProdEnv, defaultTab, children, idEmpresa }) {
   const [product, setProduct] = useState(null);
@@ -70,18 +70,29 @@ export default function LayoutConfig({ id, iIdProdEnv, defaultTab, children, idE
 
   return (
     <LayoutProducts menu="Product">
-      <NavigationPages title={t['Digital employees']}>
-        <ImageSvg name="Products" />
-        <Link href="/product">
-          {t.Home}
-          <ImageSvg name="Navegación" />
-          <p>{idEmpresa && NameEmpresa(idEmpresa)}</p>
-        </Link>
+      <div className="idProduct-header">
+        <div>
+          <h3>{product?.sName}</h3>
+          <p>
+            <ImageSvg name="ReportExpenses" />{NameEmpresa(idEmpresa)}
+          </p>
+        </div>
 
-        <ImageSvg name="Navegación" />
+        <div className='status'>
+          <p>
+            <ImageSvg name="Time" /> {l.Download['Start service:']}: {formatDate(product?.sDateInit)}
+          </p>
+          <p>
+            <ImageSvg name="Time" /> {l.Download['End service:']}: {formatDate(product?.sDateEnd)}
+          </p>
 
-        <span>{product?.sName}</span>
-      </NavigationPages>
+          <p className="Active">
+            <ImageSvg name="Admin" />
+            {l.Download.State}: {product?.sDescStatus}
+          </p>
+        </div>
+      </div>
+
       {product && (
         <section className="idProduct">
           <div className="idProduct_container">
