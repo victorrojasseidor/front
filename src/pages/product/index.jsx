@@ -11,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import { fetchConTokenPost } from '@/helpers/fetch';
 import Counter from '@/Components/Atoms/Counter';
 
+
 export default function Products() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -218,6 +219,7 @@ export default function Products() {
       return 'IconSupplier';
     } else if (id === 9) {
       return 'IconImage';
+
     } else return 'IconCard';
   };
 
@@ -248,19 +250,19 @@ export default function Products() {
 
     if (status === 28 && dayLef >= 0) {
       return (
-        <button className="btn_secundary" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
+        <button className="btn_primary" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
           <span> </span> {t.Setup} <span> </span>
         </button>
       );
     } else if (status === 23 && dayLef >= 0) {
       return (
-        <button className="btn_secundary" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
+        <button className="btn_primary" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
           <span> </span> {t.Edit} <span> </span>
         </button>
       );
     } else if (status === 31) {
       return (
-        <button className="btn_secundary" onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
+        <button className="btn_primary" onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
           {t['Try free']}
         </button>
       );
@@ -269,7 +271,7 @@ export default function Products() {
     } else if (dayLef <= 0) {
       return (
         <>
-          <button className="btn_secundary" onClick={() => handleLink('https://www.innovativa.la/contacto')}>
+          <button className="btn_primary" onClick={() => handleLink('https://www.innovativa.la/contacto')}>
             {t['Contact technical support']}
           </button>
         </>
@@ -282,7 +284,13 @@ export default function Products() {
         </Link>
       );
     }
+
+
   };
+
+
+
+
 
   return (
     <LayoutProducts menu="Product">
@@ -384,8 +392,9 @@ export default function Products() {
           </button>
         </div> */}
 
+
         <div className=" products_filter-types horizontalTabs">
-          <div className="tab-header">
+          <div className='tab-header'>
             <button onClick={() => handleFilterType(null)} className={` ${selectedFilterType === null ? 'active' : ''}`}>
               <p> {t.All} </p>
             </button>
@@ -407,10 +416,19 @@ export default function Products() {
             </button>
             <input type="text" placeholder={t.Search} value={searchQuery} onChange={handleInputChange} />
           </div>
+
+
+
         </div>
 
+
+
         <div className="products_box-filterSearch">
-          <h3>Habilidades</h3>
+
+          <h3>
+            Habilidades
+          </h3>
+
 
           <div className="filterButtons">
             <button onClick={() => handleFilter(null)} className={`btn_filter ${selectedFilter === null ? 'active' : ''}`}>
@@ -435,26 +453,22 @@ export default function Products() {
             {searchResults.length > 0 &&
               searchResults.map((product) => (
                 <li key={product.iId} className={`card ${product.sCodeClasificacion === String('CLA_01') ? 'financy' : product.sCodeClasificacion === String('CLA_02') ? 'tecnology' : product.sCodeClasificacion === String('CLA_03') ? 'human' : ''}`}>
-                  <div className="box-img">
-                    <span className="card_type">
-                      {product.sClasificacion}
+                  <span className="card_type">
+                    {product.sClasificacion}
 
-                      {session?.sPerfilCode === 'ADMIN' && (
-                        <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}>
-                          <p className="admin">
-                            <ImageSvg name="Admin" />{' '}
-                          </p>
-                        </Link>
-                      )}
-                    </span>
-                  </div>
+                    {session?.sPerfilCode === 'ADMIN' && (
+                      <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}>
+                        {' '}
+                        <p className="admin">
+                          {' '}
+                          <ImageSvg name="Admin" />{' '}
+                        </p>{' '}
+                      </Link>
+                    )}
+                  </span>
 
                   <div className="card_name">
                     <h4> {product.sName}</h4>
-                  </div>
-
-                  <div className="status-box">
-                    <p>{product.sDescStatus}</p>
 
                     {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
                       <p className="dayLetf">
@@ -479,17 +493,23 @@ export default function Products() {
                   </div>
 
                   <div className="card_actions">
-                    <div className="type_icon">
-                      <ImageSvg name={imgProduct(product.iId)} />
+                    <div className="box-img">
+                      <div className="type_icon">
+                        <ImageSvg name={imgProduct(product.iId)} />
+                      </div>
                     </div>
 
-                    {product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28) ? (
-                      <button className="btn_secundary" onClick={() => handleLink('/reporting/tecnology/1')}>
-                        <span> {l.Reporting.Reporting} </span>
-                      </button>
-                    ) : (
-                      renderButtons(product)
-                    )}
+                    <div className="status-box">
+                      <p>{product.sDescStatus}</p>
+
+                      {product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28) ? (
+                        <button className="btn_primary" onClick={() => handleLink('/reporting/tecnology/1')}>
+                          <span> {l.Reporting.Reporting} </span>
+                        </button>
+                      ) : (
+                        renderButtons(product)
+                      )}
+                    </div>
                   </div>
                 </li>
               ))}
