@@ -374,7 +374,7 @@
   
           // grid-template-columns: repeat(2, 1fr); // 3 columnas de igual tamaño
 
-          grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 2fr));
+          grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 2fr));
 
         
   
@@ -382,7 +382,7 @@
 
       @include media(desktop) {
         // grid-template-columns: repeat(3, 1fr); // 3 columnas de igual tamaño
-        grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 3fr));
+        grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 4fr));
 
       }
 
