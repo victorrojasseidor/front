@@ -13,14 +13,6 @@
   @return hsl($color_h, $color_s, calc(#{$color_l} - #{$percentage}#{'%'}));
 }
 
-// - Función para iluminar un color con variables CSS en SCSS
-// @function hsl_l($numColor, $percentage) {
-//   $color_h: var(--color_#{$numColor}_H);
-//   $color_s: var(--color_#{$numColor}_S);
-//   $color_l: var(--color_#{$numColor}_L);
-//   @return hsl($color_h, $color_s, calc(#{$color_l} + #{$percentage}#{"%"}));
-// }
-
 @function hsl_l($colorName, $percentage) {
   $color: get-color($colorName); // Obtener el color usando la función get-color
   $color_h: hue($color); // Obtener el matiz del color
@@ -75,11 +67,6 @@
   gap: 2rem;
   // margin: 4rem;
   padding: 4rem 2rem;
-
-  // > * {
-  //   max-width: 100rem;
-  //   width: 100%; // para que tomen todo el ancho disponible hasta el máximo
-  // }
 
   @include media(tablet) {
     padding: 6rem 6rem;
@@ -156,7 +143,7 @@
     background-image: linear-gradient(to right, #8e2de2, #4a00e0);
     background-image: linear-gradient(to right, rgba(get-color(lilac_p3), 0.3), rgba(get-color(blue_p1), 0.4));
 
-    border-radius: brd(3);
+    border-radius: none;
     &:hover {
       background-image: linear-gradient(100deg, get-color(lilac_p3) 30%, get-color(blue_p1) 64%);
     }
@@ -167,13 +154,8 @@
   box-shadow: -1.83697e-16px 3px 10px rgba(get-color($color), 0.02);
 
   .card-type {
-
-   
-
-
     .type_icon {
       svg {
- 
         path {
           fill: darken(get-color($color), 40%);
           box-shadow: -1.83697e-16px 3px 10px rgba(get-color(white_s1), 0.12);
@@ -181,8 +163,6 @@
       }
     }
   }
-
-
 
   .report {
     background: linear-gradient(to left, rgba(get-color($color), 0.8), rgba(get-color($color), 0.9));
@@ -210,6 +190,4 @@
       }
     }
   }
-
- 
 }

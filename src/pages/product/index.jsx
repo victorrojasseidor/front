@@ -19,7 +19,6 @@ export default function Products() {
   const [selectedFilterType, setSelectedFilterType] = useState(null);
   const [product, setProduct] = useState({});
   const [requestError, setRequestError] = useState('');
-  // const [empresa, setEmpresa] = useState('')
   const [isLoading, setIsLoading] = useState(false);
   const [hiredProduct, setHiredProduct] = useState('0');
   const [clasTrans, setClasTrans] = useState('');
@@ -105,7 +104,6 @@ export default function Products() {
         setModalToken(true);
       } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
-        // setModalToken(true)
       } else {
         const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
         setRequestError(errorMessage);
@@ -139,7 +137,6 @@ export default function Products() {
     if (newValue) {
       // setEmpresa(newValue)
       const DataEmpresa = session?.oEmpresa.find((empres) => empres.razon_social_empresa === newValue.razon_social_empresa);
-
       const selectedEmpresa = {
         id_empresa: DataEmpresa.id_empresa,
         razon_social_empresa: DataEmpresa.razon_social_empresa,
@@ -252,30 +249,20 @@ export default function Products() {
 
     if (status === 28 && dayLef >= 0) {
       return (
-        <button className="btn_primary" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
-          <span> </span> {t.Setup} <span> </span>
-        </button>
+        <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
+          {t.Setup}
+        </ButtonGradient>
       );
     } else if (status === 23 && dayLef >= 0) {
       return (
-        // <button className="btn_primary" >
-        //   <span> </span> {t.Edit} <span> </span>
-        // </button>
-
         <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
-          {' '}
-          {t.Edit}{' '}
+          {t.Edit}
         </ButtonGradient>
       );
     } else if (status === 31) {
       return (
-        // <button className="btn_primary" onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
-        //   {t['Try free']}
-        // </button>
-
         <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
-          {' '}
-          {t['Try free']}{' '}
+          {t['Try free']}
         </ButtonGradient>
       );
     } else if (status === 27) {
@@ -283,18 +270,13 @@ export default function Products() {
     } else if (dayLef <= 0) {
       return (
         <>
-          {/* <button className="btn_primary" onClick={() => handleLink('https://www.innovativa.la/contacto')}>
-            {t['Contact technical support']}
-          </button> */}
-
           <Link href="https://www.innovativa.la/contacto">{t['Contact technical support']}</Link>
         </>
       );
     } else {
       return (
         <Link href="#">
-          {' '}
-          <p> </p>{' '}
+           <p> </p>
         </Link>
       );
     }
@@ -354,11 +336,9 @@ export default function Products() {
       <div className="products">
         <div className="products_empresa">
           <div className="box-empresa">
-            {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
             <Autocomplete
               value={empresa}
               onChange={handleCompanyInputChange}
-              // sx={{ minWidth: 370 }}
               sx={{
                 minWidth: 255,
                 '.MuiOutlinedInput-notchedOutline': { borderStyle: 'none' },
@@ -433,29 +413,33 @@ export default function Products() {
           </div>
         </div>
 
-        <div className="products_filter-types">
-          <button onClick={() => handleFilterType(null)} className={`btn_filter ${selectedFilterType === null ? 'active' : ''}`}>
-            <ImageSvg name="All" /> <p> {t.All} </p>
-          </button>
-          <button onClick={() => handleFilterType('CLA_01')} className={`btn_filter ${selectedFilterType === 'CLA_01' ? 'active' : ''}`}>
-            <ImageSvg name="Financy" /> <p>{t['Finance and accounting']} </p>
-          </button>
+        <div className="products_filter-types horizontalTabs">
+          <div className="tab-header">
+            <button onClick={() => handleFilterType(null)} className={` ${selectedFilterType === null ? 'active' : ''}`}>
+              <p> {t.All} </p>
+            </button>
+            <button onClick={() => handleFilterType('CLA_01')} className={` ${selectedFilterType === 'CLA_01' ? 'active' : ''}`}>
+              <p>{t['Finance and accounting']} </p>
+            </button>
 
-          <button onClick={() => handleFilterType('CLA_02')} className={`btn_filter ${selectedFilterType === 'CLA_02' ? 'active' : ''}`}>
-            <ImageSvg name="Tecnology" /> <p> {t.Technology}</p>
-          </button>
-          <button onClick={() => handleFilterType('CLA_03')} className={`btn_filter ${selectedFilterType === 'CLA_03' ? 'active' : ''}`}>
-            <ImageSvg name="Human" /> <p> {t['Human Resources']}</p>
-          </button>
-        </div>
+            <button onClick={() => handleFilterType('CLA_02')} className={` ${selectedFilterType === 'CLA_02' ? 'active' : ''}`}>
+              <p> {t.Technology}</p>
+            </button>
+            <button onClick={() => handleFilterType('CLA_03')} className={`${selectedFilterType === 'CLA_03' ? 'active' : ''}`}>
+              <p> {t['Human Resources']}</p>
+            </button>
+          </div>
 
-        <div className="products_box-filterSearch">
           <div className="searchButton">
             <button onClick={handleSearch}>
               <ImageSvg name="Search" />
             </button>
             <input type="text" placeholder={t.Search} value={searchQuery} onChange={handleInputChange} />
           </div>
+        </div>
+
+        <div className="products_box-filterSearch">
+          <h3>{l.home.Skills}</h3>
 
           <div className="filterButtons">
             <button onClick={() => handleFilter(null)} className={`btn_filter ${selectedFilter === null ? 'active' : ''}`}>

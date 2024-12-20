@@ -220,7 +220,7 @@
     "Corporation": "Corporación",
     "Companies": "Empresas",
     "Company profiles": "Perfiles de empresas",
-    "Digital employees": "Empleados Digitales",
+    "Digital employees": "Agentes digitales",
     "Cancel": "Cancelar",
     "Update password": "Cambiar contraseña",
     "Password": "Contraseña",
@@ -230,7 +230,7 @@
   },
   "header": {
     "Edit profile": "Editar perfil",
-    "Digital employees": "Empleados digitales",
+    "Digital employees": "Agentes digitales",
     "Products": "Productos",
     "Users": "Usuarios",
     "Notifications": "Notificaciones",
@@ -256,7 +256,7 @@
     "Captcha Solver": "Solucionador de captcha"
   },
   "Products": {
-    "Digital employees": "Empleados digitales",
+    "Digital employees": "Agentes digitales",
     "Welcome": "Bienvenido",
     "To company:": "Selecciona la empresa",
     "All": "Todos",
@@ -286,7 +286,7 @@
     "Contact technical support": "Contactar",
     "Permit expired ago": "Permiso expiró hace",
     "days": "días",
-    "Our digital employees work to improve your productivity": "Nuestros empleados digitales trabajan para mejorar tu productividad",
+    "Our digital employees work to improve your productivity": "Nuestros Agentes digitales trabajan para mejorar tu productividad",
     "working": "trabajando",
     "for you": "para ti",
     "Time saved": "Tiempo ahorrado",
@@ -303,7 +303,7 @@
   "Apiconfuguration": {
     "Service configuration status": "Estado de configuración del servicio",
     "Approve configuration request": "Aprobar solicitud de configuración",
-    "Digital employees": "Empleados digitales",
+    "Digital employees": "Agentes digitales",
     "Company": "Compañía",
     "Configuration": "Configuración",
     "State": "Estado",
@@ -344,8 +344,8 @@
     "Disabled": "Desactivado"
   },
   "Download": {
-    "Digital employees": "Empleados digitales",
-    "Status and emails": "Estado y correos electrónicos",
+    "Digital employees": "Agentes digitales",
+    "Status and emails": "Correos electrónicos",
     "Bank and Accounts": "Banco y cuentas",
     "Start service:": "Inicio servicio",
     "End service:": "Fin del servicio",
@@ -429,9 +429,10 @@
     "Select the currency": "Selecciona la moneda",
     "Account Alias": "Alias de la cuenta"
   },
+   
   "Currency": {
-    "Digital employees": "Empleados digitales",
-    "Status and emails": "Estado y correos electrónicos",
+    "Digital employees": "Agentes digitales",
+    "Status and emails": "Correos electrónicos",
     "Start service:": "Inicio servicio",
     "End service:": "Fin del servicio",
     "Currency Exchange rates automation": "Automatización de los tipos de cambio",
@@ -496,10 +497,10 @@
     "Day explication": "Días adicionales ajusta la fecha del tipo de cambio SBS según necesidad. Por ejemplo, si la fecha original es el 12/11/2023 y se añade 1 día, el resultado será el 13/11/2023, facilitando la obtención de información actualizada"
   },
   "Pattern": {
-    "Digital employees": "Empleados digitales",
+    "Digital employees": "Agentes digitales",
     "Start service:": "Iniciar servicio:",
     "End service:": "Finalizar servicio:",
-    "Status and emails": "Estado y correos electrónicos",
+    "Status and emails": "Correos electrónicos",
     "Enter one or more emails either separated by spaces, commas or semicolons": "Ingrese uno o más correos electrónicos, separados por espacios, comas o punto y coma",
     "Save and continue": "Guardar y continuar",
     "Save": "Guardar",
@@ -536,6 +537,7 @@
     "Result obtained from the SUNAT portal": "Resultado obtenido del portal de la SUNAT",
     "SUNAT patterns": "Padrones de SUNAT"
   },
+
 
   "Detractions": {
     "Credentials": "Credenciales",
@@ -575,7 +577,7 @@
     "Integration": "Integración",
     "Setting up integrations": "Configurar integraciones",
     "Delivery of information": "Entrega de información",
-    "Configure how you want to receive information from your digital employees reports": "Configura cómo deseas recibir información de los informes de tus empleados digitales",
+    "Configure how you want to receive information from your digital employees reports": "Configura cómo deseas recibir información de los informes de tus Agentes digitales",
     "Add": "Agregar",
     "Actions": "Acciones",
     "Add Configuration Information Delivery": "Agregar Configuración de Entrega de Información",
@@ -631,7 +633,7 @@
     "ARI Finance to": "Finanzas ARI para ",
     "Balance report": "Reporte de saldos",
     "Movement report": "Reporte de movimientos",
-    "Made by Digital Employes:": "Hecho por empleados digitales:",
+    "Made by Digital Employes:": "Hecho por Agentes digitales:",
     "Download the daily bank statement": "Descargar extracto bancario diario",
     "View reporting": "Ver reportes",
     "Balance": "Saldos",

@@ -347,6 +347,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));
       grid-gap: 2rem;
+      
 
       @include media(tablet) {
         display: flex;
@@ -374,6 +375,8 @@
         // grid-template-columns: repeat(4, 1fr); // 3 columnas de igual tamaño
         grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 4fr));
       }
+
+
     }
   }
 }
