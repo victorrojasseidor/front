@@ -307,11 +307,11 @@
 
 .status {
   &-active {
-    color: get-color(blue_p1);
+    color: get-color(grey2_s4);
   }
 
   &-disabled {
-    color: get-color(t3-red);
+    color: darken(get-color(t3-red), 20%);
   }
 }
 
@@ -332,7 +332,6 @@
     }
   }
 
-  .content {}
 }
 
 .subtitle {
@@ -441,15 +440,14 @@
   display: flex;
   width: 100%;
   gap: 2rem;
+  flex-direction: column;
+  align-items: center;
 
   .checkbox {
     display: flex;
     gap: 0.25rem;
     align-items: flex-end;
   }
-
-  flex-direction: column;
-  align-items: center;
 
   .repository {
     display: flex;
@@ -468,14 +466,6 @@
   display: inline-block;
   display: flex;
   gap: 1rem;
-
-  //  @include media(tablet) {
-  //   width: 60%;
-  //  }
-  //  @include media(desktop) {
-  //   min-width: 76%;
-
-  //  }
 }
 
 .noti {

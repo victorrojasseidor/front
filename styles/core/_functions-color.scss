@@ -154,10 +154,19 @@
   box-shadow: -1.83697e-16px 3px 10px rgba(get-color($color), 0.02);
 
   .card-type {
+    p{
+      // color: darken(get-color($color), 10%);
+      // background-color: rgba(get-color($color), 0.1);
+    }
+
     .type_icon {
+
       svg {
+       border-bottom: 2px solid rgba(get-color($color), 0.3);
+        padding: 0.25rem ;
+        // border-radius: brd(2);
         path {
-          fill: darken(get-color($color), 40%);
+          fill: darken(get-color($color), 70%);
           box-shadow: -1.83697e-16px 3px 10px rgba(get-color(white_s1), 0.12);
         }
       }

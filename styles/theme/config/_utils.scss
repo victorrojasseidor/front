@@ -566,6 +566,14 @@
     @include media(desktop) {
       border: 0.5px solid get-color(pink_s5) !important;
     }
+
+    svg{
+      path{
+        fill:rgba(get-color(grey2_s4), 1)
+      }
+    }
+
+
     // background-color: aqua;
   }
 }

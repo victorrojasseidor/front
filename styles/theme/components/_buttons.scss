@@ -390,7 +390,9 @@
   }
 
   &_green {
-    background-color: get-color(t5-green);
+    background-color: transparent;
+    color:get-color(black_p2);
+    text-decoration:underline;
     padding: 0.5rem;
     border-radius: brd(2);
     border-style: none;
@@ -403,9 +405,12 @@
   }
 
   &_red {
-    background-color: get-color(t3-red);
+    // background-color: get-color(t3-red);
     padding: 0.5rem;
-    color: get-color(white_s1);
+    // color: get-color(white_s1);
+    background-color: transparent;
+    color:get-color(t3-red);
+    text-decoration:underline;
     border-radius: brd(2);
     border-style: none;
     width: 9rem;

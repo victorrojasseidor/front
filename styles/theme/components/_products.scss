@@ -394,6 +394,7 @@
     font-size: smaller;
     font-weight: 300;
     color: rgba(get-color(grey2_s4), 1);
+    text-align: justify;
   }
 
   &-type {
@@ -428,12 +429,12 @@
     height: auto;
 
     @include media(tablet) {
-      height: 5.5rem;
+      height: 5rem;
     }
 
     h4 {
       color: get-color(t1-blue);
-      font-size: larger;
+      font-size: medium;
       font-weight: 600;
 
       &:focus {
@@ -444,7 +445,6 @@
     .status-box {
       display: flex;
       flex-direction: column;
-
       width: 100%;
       justify-content: space-between;
 
@@ -460,26 +460,22 @@
     .dayLetf {
       display: flex;
       justify-content: flex-start;
-      align-items: flex-start;
+      align-items: center;
       color: get-color(grey2_s4);
-      text-align: start;
+      text-align: center;
+
 
       svg {
         height: 0.85rem;
         display: inline-block;
-
+       
         path {
-          stroke: darken(get-color(t3-red), 10%);
+        stroke: darken(get-color(t3-red), 10%);
         }
       }
 
-      span {
-        font-size: smaller;
-        display: flex;
-        align-items: center;
-      }
-
       .expire {
+        background-color: rgba(get-color(t3-red), 10%);
         color: darken(get-color(t3-red), 20%);
       }
     }
@@ -507,6 +503,8 @@
     align-self: flex-end;
     align-items: center;
     display: flex;
+    justify-content: flex-start;
+
 
     @include media(tablet) {
       flex-direction: row;
@@ -536,6 +534,15 @@
     font-size: 0.85rem !important;
     padding: 0.5rem 1rem !important;
     text-size-adjust: 20%;
+  }
+
+  .filterButtons{
+    overflow-x: scroll;
+    @include media(tablet) {
+    overflow-x: hidden !important;
+    }
+
+
   }
 }
 

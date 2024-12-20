@@ -483,6 +483,7 @@
       border: 1px solid get-color(grey1_s3);
       width: 12rem;
       display: flex;
+      padding: 0.5rem;
       flex-direction: row;
       @include media(tablet) {
         width: auto;
