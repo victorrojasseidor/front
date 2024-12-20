@@ -164,22 +164,25 @@
 }
 
 @mixin cardStyleType($color) {
-  box-shadow: -1.83697e-16px 3px 10px rgba(get-color($color), 0.12);
+  box-shadow: -1.83697e-16px 3px 10px rgba(get-color($color), 0.02);
 
-  .card_type {
-    background-color: rgba(get-color($color), 0.025);
-    color: darken(get-color($color), 10%);
+  .card-type {
+
+   
+
+
+    .type_icon {
+      svg {
+ 
+        path {
+          fill: darken(get-color($color), 40%);
+          box-shadow: -1.83697e-16px 3px 10px rgba(get-color(white_s1), 0.12);
+        }
+      }
+    }
   }
 
-  .card_actions {
-    background: linear-gradient(to right, rgba(get-color($color), 0.6), rgba(get-color($color), 1));
 
-    // background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
-
-    background-size: 150% 200%;
-    -webkit-animation: gradientHome 15s ease infinite;
-    animation: gradientHome 5s ease infinite;
-  }
 
   .report {
     background: linear-gradient(to left, rgba(get-color($color), 0.8), rgba(get-color($color), 0.9));
@@ -208,14 +211,5 @@
     }
   }
 
-  .type_icon {
-    svg {
-      height: 8rem;
-
-      path {
-        fill: darken(get-color($color), 30%);
-        box-shadow: -1.83697e-16px 3px 10px rgba(get-color(white_s1), 0.12);
-      }
-    }
-  }
+ 
 }

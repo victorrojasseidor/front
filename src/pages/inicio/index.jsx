@@ -46,7 +46,6 @@ import { formatDate } from '@/helpers/report';
 import 'aos/dist/aos.css';
 import qs from 'qs';
 
-
 // Import Swiper React components
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -57,7 +56,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
 
 const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
   return (
@@ -73,14 +71,12 @@ const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
                 if (entry.isIntersecting) {
                   setIsImageInView(true);
                   setskillView(prod);
-                 
                 } else {
                   setIsImageInView(false);
-                 
                 }
               });
             },
-            { threshold: 0.5 } 
+            { threshold: 0.5 }
           );
 
           if (imageRef.current) {
@@ -121,11 +117,8 @@ export default function index() {
   const [isShowMore, setIsShowMore] = useState(false);
   const [dataInsigths, setDataInsigths] = useState(null);
 
-
   async function getDatastrapi() {
-
     const strapiURL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
-
 
     const query = qs.stringify(
       {
@@ -141,14 +134,12 @@ export default function index() {
       { encodeValuesOnly: true } // Opcional para codificar solo valores
     );
 
- 
-
-      // Hacemos la petición
-  const res = await fetch(`${strapiURL}/api/posts?${query}`, {
-    headers: {
-      // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`, // Si tienes token, descomenta esta línea
-    },
-  });
+    // Hacemos la petición
+    const res = await fetch(`${strapiURL}/api/posts?${query}`, {
+      headers: {
+        // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`, // Si tienes token, descomenta esta línea
+      },
+    });
     const data = await res.json();
 
     if (!data || !data.data) {
@@ -162,7 +153,6 @@ export default function index() {
     setDataInsigths(blogs);
   }
 
-  
   // Animaciones AOS
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -362,8 +352,6 @@ export default function index() {
 
   const logoClient = [adama, adeco, agrokasa, anglo, auna, pacasmayo, unacen, superm, tekno];
 
-  
-
   return (
     <LayoutHome>
       <section className="home-front" id="front">
@@ -454,7 +442,7 @@ export default function index() {
 
           <article className="box-images">
             <figure>
-              <Image className="image-one" src={ skillView? skillView.imageone:imgloading } width={200} height={200} alt="imageone" priority />
+              <Image className="image-one" src={skillView ? skillView.imageone : imgloading} width={200} height={200} alt="imageone" priority />
               <Image className={`image-two ${isImageInView ? 'in-view' : 'out-of-view'}`} src={skillView?.imagetwo} width={200} height={200} alt="example" />
             </figure>
           </article>
@@ -522,7 +510,7 @@ export default function index() {
                 <article key={post.id} className="insigths">
                   <figure className="insigths-image gradient">
                     <Image src={`${post?.image.url}`} width={40} height={40} alt={post?.title} />
-                    
+
                     <div className="title">
                       <span>{post?.type}</span>
                       <Link href={`/insigth/${post.documentId}`}>
@@ -579,44 +567,38 @@ export default function index() {
           <p>{t['They have discovered the benefits of automating their financial processes with ARI.']}</p>
         </div>
 
-        <article className="box-client" >
-
-      <Swiper
-        spaceBetween={20} // Espacio entre los logos
-    
-        slidesPerView={2} // Muestra cuatro logos a la vez
-        loop={true} // Activa el loop para que sea cíclico
-  loopFillGroupWithBlank={false} // Evita espacios en blanco al final del loop
-        centeredSlides={true}
-        autoplay={{
-          delay: 1000,
-          disableOnInteraction: true,
-        }}
-        // pagination={{
-        //   clickable: false,
-        // }}
-        // navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
-       
-        breakpoints={{
-          430: { slidesPerView: 2 },
-          768: { slidesPerView: 3 },
-          1024: { slidesPerView: 6 },
-        }}
-
-        className="mySwiper"
-        
-      >
-        {logoClient.map((logo, index) => (
-          <SwiperSlide key={index}>
-            <figure className="client-image">
-              <Image src={logo} width={100} height={100} alt="clients" />
-            </figure>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </article>
-
+        <article className="box-client">
+          <Swiper
+            spaceBetween={20} // Espacio entre los logos
+            slidesPerView={2} // Muestra cuatro logos a la vez
+            loop={true} // Activa el loop para que sea cíclico
+            loopFillGroupWithBlank={false} // Evita espacios en blanco al final del loop
+            centeredSlides={true}
+            autoplay={{
+              delay: 1000,
+              disableOnInteraction: true,
+            }}
+            // pagination={{
+            //   clickable: false,
+            // }}
+            // navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            breakpoints={{
+              430: { slidesPerView: 2 },
+              768: { slidesPerView: 3 },
+              1024: { slidesPerView: 6 },
+            }}
+            className="mySwiper"
+          >
+            {logoClient.map((logo, index) => (
+              <SwiperSlide key={index}>
+                <figure className="client-image">
+                  <Image src={logo} width={100} height={100} alt="clients" />
+                </figure>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </article>
       </section>
     </LayoutHome>
   );

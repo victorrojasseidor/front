@@ -10,7 +10,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { fetchConTokenPost } from '@/helpers/fetch';
 import Counter from '@/Components/Atoms/Counter';
-
+import ButtonGradient from '@/Components/Atoms/ButtonGradient';
 
 export default function Products() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -222,7 +222,6 @@ export default function Products() {
       return 'IconSupplier';
     } else if (id === 9) {
       return 'IconImage';
-
     } else return 'IconCard';
   };
 
@@ -259,24 +258,36 @@ export default function Products() {
       );
     } else if (status === 23 && dayLef >= 0) {
       return (
-        <button className="btn_primary" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
-          <span> </span> {t.Edit} <span> </span>
-        </button>
+        // <button className="btn_primary" >
+        //   <span> </span> {t.Edit} <span> </span>
+        // </button>
+
+        <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
+          {' '}
+          {t.Edit}{' '}
+        </ButtonGradient>
       );
     } else if (status === 31) {
       return (
-        <button className="btn_primary" onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
-          {t['Try free']}
-        </button>
+        // <button className="btn_primary" onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
+        //   {t['Try free']}
+        // </button>
+
+        <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
+          {' '}
+          {t['Try free']}{' '}
+        </ButtonGradient>
       );
     } else if (status === 27) {
       return <p />;
     } else if (dayLef <= 0) {
       return (
         <>
-          <button className="btn_primary" onClick={() => handleLink('https://www.innovativa.la/contacto')}>
+          {/* <button className="btn_primary" onClick={() => handleLink('https://www.innovativa.la/contacto')}>
             {t['Contact technical support']}
-          </button>
+          </button> */}
+
+          <Link href="https://www.innovativa.la/contacto">{t['Contact technical support']}</Link>
         </>
       );
     } else {
@@ -289,12 +300,59 @@ export default function Products() {
     }
   };
 
+  const getDisplayStyle = (filter, filterType) => {
+    return (selectedFilter === filter || !selectedFilter) && (selectedFilterType === filterType || !selectedFilterType) && searchQuery === '' ? 'flex' : 'none';
+  };
+
+  const dataOthers = [
+    {
+      id: 1,
+      category: 'Finance and accounting',
+      title: 'Utility Bill Registration',
+      status: 'Not hired',
+      link: 'https://www.innovativa.la/digitalemployee',
+      imgProductId: 3,
+    },
+    {
+      id: 2,
+      category: 'Finance and accounting',
+      title: 'Mass update of deduction records',
+      status: 'Not hired',
+      link: 'https://www.innovativa.la/digitalemployee',
+      imgProductId: 7,
+    },
+    {
+      id: 3,
+      category: 'Finance and accounting',
+      title: 'Supplier validation',
+      status: 'Not hired',
+      link: 'https://www.innovativa.la/digitalemployee',
+      imgProductId: 8,
+    },
+    {
+      id: 4,
+      category: 'Technology',
+      title: 'Image text extraction Service',
+      status: 'Not hired',
+      link: 'https://www.innovativa.la/digitalemployee',
+      imgProductId: 9,
+    },
+    {
+      id: 5,
+      category: 'Human Resources',
+      title: 'AFP validation',
+      status: 'Not hired',
+      link: 'https://www.innovativa.la/digitalemployee',
+      imgProductId: 5,
+    },
+  ];
+
   return (
     <LayoutProducts menu="Product">
       {!session && <Loading />}
 
       <div className="products">
-              <div className="products_empresa">
+        <div className="products_empresa">
           <div className="box-empresa">
             {/* Utiliza el componente Autocomplete en lugar del Select para el selector de empresas */}
             <Autocomplete
@@ -422,59 +480,58 @@ export default function Products() {
             {searchResults.length > 0 &&
               searchResults.map((product) => (
                 <li key={product.iId} className={`card ${product.sCodeClasificacion === String('CLA_01') ? 'financy' : product.sCodeClasificacion === String('CLA_02') ? 'tecnology' : product.sCodeClasificacion === String('CLA_03') ? 'human' : ''}`}>
-                  <span className="card_type">
-                    {product.sClasificacion}
+                  <div className="card-type">
+                    <div className="type_icon">
+                      <ImageSvg name={imgProduct(product.iId)} />
+                    </div>
 
                     {session?.sPerfilCode === 'ADMIN' && (
                       <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}>
-                        {' '}
                         <p className="admin">
-                          {' '}
-                          <ImageSvg name="Admin" />{' '}
-                        </p>{' '}
+                          <ImageSvg name="Admin" />
+                        </p>
                       </Link>
                     )}
-                  </span>
 
-                  <div className="card_name">
-                    <h4> {product.sName}</h4>
-
-                    {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
-                      <p className="dayLetf">
-                        {/* <ImageSvg name='Time' /> */}
-                        {calcularDiasRestantes(product.sDateEnd) >= 0 ? (
-                          <span style={{ color: '#7D86A2' }}>
-                            {' '}
-                            {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
-                          </span>
-                        ) : (
-                          <span className="" style={{ color: 'red' }}>
-                            {' '}
-                            {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
-                          </span>
-                        )}
-                      </p>
-                    ) : (
-                      <p className="dayLetf" style={{ color: 'white' }}>
-                        .......
-                      </p>
-                    )}
+                    <p>{product.sClasificacion}</p>
                   </div>
 
-                  <div className="card_actions">
-                    <div className="box-img">
-                      <div className="type_icon">
-                        <ImageSvg name={imgProduct(product.iId)} />
-                      </div>
-                    </div>
+                  <div className="card-name">
+                    <h4> {product.sName}</h4>
 
                     <div className="status-box">
-                      <p>{product.sDescStatus}</p>
+                      <p className={product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'status' : ''}>{product.sDescStatus}</p>
 
+                      {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
+                        <p className="dayLetf">
+                          {/* <ImageSvg name='Time' /> */}
+                          {calcularDiasRestantes(product.sDateEnd) >= 0 ? (
+                            <span style={{ color: '#7D86A2' }}>
+                              {' '}
+                              {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
+                            </span>
+                          ) : (
+                            <span className="expire">
+                              <ImageSvg name="Notification" />
+                              {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
+                            </span>
+                          )}
+                        </p>
+                      ) : (
+                        <p className="dayLetf" style={{ color: 'white' }}>
+                          .......
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="card-actions">
+                    <div className="box-actions">
                       {product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28) ? (
-                        <button className="btn_primary" onClick={() => handleLink('/reporting/tecnology/1')}>
-                          <span> {l.Reporting.Reporting} </span>
-                        </button>
+                        <ButtonGradient classButt="whiteButton" onClick={() => handleLink('/reporting/tecnology/1')}>
+                          {' '}
+                          {l.Reporting.Reporting}
+                        </ButtonGradient>
                       ) : (
                         renderButtons(product)
                       )}
@@ -485,159 +542,39 @@ export default function Products() {
 
             {/* productos añadidos por el momento */}
 
-            <li
-              className="card financy"
-              style={{
-                display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none',
-              }}
-            >
-              <span className="card_type">{t['Finance and accounting']}</span>
-
-              <div className="card_name">
-                <h4> {t['Utility Bill Registration']}</h4>
-
-                <p className="dayLetf">
-                  {/* <ImageSvg name='Time' /> */}
-                  {/* {t['Days left:']} .. */}
-                </p>
-              </div>
-
-              <div className="card_actions">
-                <div className="box-img">
+            {dataOthers.map((item) => (
+              <li key={item.id} className={`card ${item.category.toLowerCase().replace(/\s+/g, '')}`} style={{ display: getDisplayStyle(31, item.category === 'Finance and accounting' ? 'CLA_01' : item.category === 'Technology' ? 'CLA_02' : 'CLA_03') }}>
+                <div className="card-type">
                   <div className="type_icon">
-                    <ImageSvg name={imgProduct(3)} />
+                    <ImageSvg name={imgProduct(item.imgProductId)} />
+                  </div>
+
+                  <p> {t[item.category]} </p>
+                </div>
+
+                <div className="card-name">
+                  <h4>{t[item.title]}</h4>
+
+                  <div className="status-box">
+                    <p>{t[item.status]}</p>
+
+                    <p className="dayLetf">
+                      {/* <ImageSvg name='Time' /> */}
+                      {/* {t['Days left:']} .. */}
+                    </p>
                   </div>
                 </div>
 
-                <div className="status-box">
-                  <p> {t['Not hired']}</p>
-                  <Link href="https://www.innovativa.la/digitalemployee">{t['View more']}</Link>
-                </div>
-              </div>
-            </li>
-
-            <li
-              className="card financy"
-              style={{
-                display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none',
-              }}
-            >
-              <span className="card_type">{t['Finance and accounting']}</span>
-
-              <div className="card_name">
-                <h4> {t['Mass update of deduction records']}</h4>
-
-                <p className="dayLetf">
-                  {/* <ImageSvg name='Time' /> */}
-                  {/* {t['Days left:']} .. */}
-                </p>
-              </div>
-
-              <div className="card_actions">
-                <div className="box-img">
-                  <div className="type_icon">
-                    <ImageSvg name={imgProduct(7)} />
+                <div className="card-actions">
+                  <div className="box-actions">
+                    <Link href={item.link}>{t['View more']}</Link>
                   </div>
                 </div>
-
-                <div className="status-box">
-                  <p> {t['Not hired']}</p>
-                  <Link href="https://www.innovativa.la/digitalemployee">{t['View more']}</Link>
-                </div>
-              </div>
-            </li>
-
-            <li
-              className="card financy"
-              style={{
-                display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_01' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none',
-              }}
-            >
-              <span className="card_type">{t['Finance and accounting']}</span>
-
-              <div className="card_name">
-                <h4> {t['Supplier validation']}</h4>
-
-                <p className="dayLetf">
-                  {/* <ImageSvg name='Time' /> */}
-                  {/* {t['Days left:']} .. */}
-                </p>
-              </div>
-
-              <div className="card_actions">
-                <div className="box-img">
-                  <div className="type_icon">
-                    <ImageSvg name={imgProduct(8)} />
-                  </div>
-                </div>
-
-                <div className="status-box">
-                  <p> {t['Not hired']}</p>
-                  <Link href="https://www.innovativa.la/digitalemployee">{t['View more']}</Link>
-                </div>
-              </div>
-            </li>
-
-            <li
-              className="card tecnology"
-              style={{
-                display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_02' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none',
-              }}
-            >
-              <span className="card_type">{t.Technology}</span>
-
-              <div className="card_name">
-                <h4> {t['Image text extraction Service']}</h4>
-
-                <p className="dayLetf" />
-              </div>
-
-              <div className="card_actions">
-                <div className="box-img">
-                  <div className="type_icon">
-                    <ImageSvg name={imgProduct(9)} />
-                  </div>
-                </div>
-
-                <div className="status-box">
-                  <p> {t['Not hired']}</p>
-                  <Link href="https://www.innovativa.la/digitalemployee">{t['View more']}</Link>
-                </div>
-              </div>
-            </li>
-
-            <li
-              className="card human"
-              style={{
-                display: (selectedFilter === 31 || !selectedFilter) && (selectedFilterType === 'CLA_03' || !selectedFilterType) && searchQuery == '' ? 'flex' : 'none',
-              }}
-            >
-              <span className="card_type">{t['Human Resources']}</span>
-
-              <div className="card_name">
-                <h4> {t['AFP validation']}</h4>
-
-                <p className="dayLetf">
-                  {/* <ImageSvg name='Time' /> */}
-                  {/* {t['Days left:']} .. */}
-                </p>
-              </div>
-
-              <div className="card_actions">
-                <div className="box-img">
-                  <div className="type_icon">
-                    <ImageSvg name={imgProduct(5)} />
-                  </div>
-                </div>
-
-                <div className="status-box">
-                  <p> {t['Not hired']}</p>
-                  <Link href="https://www.innovativa.la/digitalemployee">{t['View more']}</Link>
-                </div>
-              </div>
-            </li>
+              </li>
+            ))}
           </ul>
         </div>
+
         {/* )
           : (
             <p>{t['No results found']}</p>

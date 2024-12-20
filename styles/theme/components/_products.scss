@@ -245,10 +245,9 @@
         // Animación para cambiar de imagen cada 3 segundos
         animation: changeImage 9s infinite;
 
-        img{
-          object-fit:contain;
+        img {
+          object-fit: contain;
         }
-        
       }
 
       @include media(desktop) {
@@ -273,12 +272,23 @@
   }
 
   &_filter-types {
-    padding: 0.5rem 0rem;
     display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 1rem;
-    @include scrollTeme;
+    flex-direction: column;
+
+    @include media(tablet) {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .tab-header {
+      width: auto;
+
+      p {
+        font-size: medium;
+        text-wrap: nowrap;
+      }
+    }
   }
 
   &_box-filterSearch {
@@ -304,10 +314,8 @@
       @include center-container;
       width: 100%;
       padding-bottom: 1rem;
-
       flex-direction: row;
       justify-content: flex-start;
-
       overflow-x: scroll;
       @include scrollTeme;
 
@@ -348,14 +356,23 @@
         flex-wrap: wrap;
         justify-content: space-evenly;
         width: 100%;
+
+        display: grid;
+        padding: auto;
+
+        // grid-template-columns: repeat(2, 1fr); // 3 columnas de igual tamaño
+
+        grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 2fr));
       }
 
       @include media(desktop) {
-        justify-content: flex-start;
+        // grid-template-columns: repeat(3, 1fr); // 3 columnas de igual tamaño
+        grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 3fr));
       }
 
       @include media(extradesktop) {
-        justify-content: flex-start;
+        // grid-template-columns: repeat(4, 1fr); // 3 columnas de igual tamaño
+        grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 4fr));
       }
     }
   }
@@ -365,47 +382,47 @@
   display: flex;
   background: get-color(white_s1);
   flex-direction: column;
-  min-width: 17rem;
-  height: 20rem;
   padding: 1em;
-  border-radius: brd(2);
-  gap: 1rem;
+  border-radius: brd(1);
+  gap: 0.5rem;
   position: relative;
 
-  @include media(tablet) {
-    width: 18rem;
-    gap: 0.5em;
-    padding: 1em 1.5em;
+  p {
+    font-size: smaller;
+    font-weight: 300;
+    color: rgba(get-color(grey2_s4), 1);
   }
 
-  @include media(desktop) {
-    width: 18rem;
-  }
-
-  @include media(extradesktop) {
-    width: 18rem;
-    gap: 1rem;
-  }
-
-  &_type {
+  &-type {
     display: flex;
-    align-items: center;
-    padding: 0.5rem;
-    font-size: 0.875rem;
-    justify-content: flex-start;
-    border-radius: brd(2);
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    height: min-content;
 
-    @include media(tablet) {
-      width: 75%;
+    p {
+      text-align: right;
+      text-wrap: wrap;
+    }
+
+    .type_icon {
+      display: flex;
+      align-items: flex-start;
+
+      svg {
+        height: 3rem;
+        width: 3rem;
+      }
     }
   }
 
-  &_name {
+  &-name {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
     justify-content: space-between;
-    gap: 0.25rem;
+    height: auto;
 
     @include media(tablet) {
       height: 5.5rem;
@@ -413,38 +430,54 @@
 
     h4 {
       color: get-color(t1-blue);
-      font-size: 1.2rem;
+      font-size: larger;
+      font-weight: 600;
 
       &:focus {
         background-color: get-color(bg-cles);
       }
     }
 
+    .status-box {
+      display: flex;
+      flex-direction: column;
+
+      width: 100%;
+      justify-content: space-between;
+
+      @include media(tablet) {
+        flex-direction: row;
+      }
+
+      .status {
+        color: rgba(get-color(blue_p1), 1);
+      }
+    }
+
     .dayLetf {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.8rem;
+      justify-content: flex-start;
+      align-items: flex-start;
       color: get-color(grey2_s4);
-      gap: 0.25rem;
+      text-align: start;
 
       svg {
-        color: get-color(grey2_s4);
-        font-size: 1rem;
+        height: 0.85rem;
         display: inline-block;
 
         path {
-          fill: get-color(grey2_s4);
+          stroke: darken(get-color(t3-red), 10%);
         }
       }
 
       span {
-        color: get-color(black_p2);
-        justify-content: center;
-        border-radius: brd(1);
-        display: inline-block;
-        font-size: 0.8rem;
-        text-align: center;
+        font-size: smaller;
+        display: flex;
+        align-items: center;
+      }
+
+      .expire {
+        color: darken(get-color(t3-red), 20%);
       }
     }
   }
@@ -464,72 +497,42 @@
     }
   }
 
-  &_actions {
-    height: 7.5rem;
-    padding: 0.5rem;
+  &-actions {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-self: flex-end;
+    align-items: center;
     display: flex;
 
-    flex-direction: row;
-    flex-wrap: nowrap;
-    border-radius: brd(2);
-    gap: 1rem;
+    @include media(tablet) {
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
 
-    @include center-container;
+    .box-actions {
+      height: auto;
 
-    .status-box {
+      @include media(tablet) {
+        height: 3rem;
+      }
+    }
+
+    a {
+      color: rgba(get-color(black_p2), 1);
+      align-self: center;
       display: flex;
-      justify-content: flex-start;
-
+      height: 100%;
       align-items: center;
-      flex-direction: column;
-      gap: 1rem;
-
-      color: get-color(white_s1);
-
-      a {
-        color: get-color(white_s1);
-        @include center-container;
-        text-align: center;
-        font-weight: 500;
-        padding: 0.25rem;
-      }
-
-      .btn_primary {
-        background-color: transparent;
-        border-style: none;
-        border: 1.5px solid get-color(white_s1);
-        box-shadow: none;
-        padding: 0.5rem;
-        margin-top: 0;
-        min-width: 6rem;
-      }
+      text-decoration:underline;
     }
+  }
 
-    .box-img {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .type_icon {
-      width: 100%;
-      @include center-container;
-      border-radius: brd(2);
-
-      padding: 0.5rem;
-      justify-content: center;
-
-      svg {
-        justify-content: center;
-        width: 4rem;
-        height: 4rem;
-
-        path {
-          fill: get-color(white_s1);
-        }
-      }
-    }
+  .gradientButton {
+    cursor: pointer !important;
+    font-size: 0.85rem !important;
+    padding: 0.5rem 1rem !important;
+    text-size-adjust: 20%;
   }
 }
 
@@ -568,7 +571,6 @@
     }
   }
 }
-
 
 .box-empresa {
   display: flex;
@@ -702,7 +704,6 @@
 }
 
 .slider {
-
   // Permite posicionar los elementos del slider
   @include media(mobile) {
     overflow: hidden; // Oculta los elementos que se desbordan del contenedor
@@ -747,7 +748,6 @@
       background-image: linear-gradient(to right, rgba(#000846, 0.5), rgba(#000846, 1), rgba(#000846, 0.8), rgba(get-color(t1-blue), 0.4));
 
       .report_data {
-
         article,
         p {
           color: rgba(get-color(grey1_s3), 0.7);
@@ -830,11 +830,8 @@
   }
 }
 
-
-
 // Definición de la animación
 @keyframes changeImage {
-
   0%,
   33% {
     background-image: url('../../../public/img/home-3.webp');
