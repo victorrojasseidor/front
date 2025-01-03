@@ -276,7 +276,7 @@ export default function Products() {
     } else {
       return (
         <Link href="#">
-           <p> </p>
+          <p> </p>
         </Link>
       );
     }
@@ -289,6 +289,7 @@ export default function Products() {
   const dataOthers = [
     {
       id: 1,
+      type: 'financy',
       category: 'Finance and accounting',
       title: 'Utility Bill Registration',
       status: 'Not hired',
@@ -297,6 +298,7 @@ export default function Products() {
     },
     {
       id: 2,
+      type: 'financy',
       category: 'Finance and accounting',
       title: 'Mass update of deduction records',
       status: 'Not hired',
@@ -305,6 +307,7 @@ export default function Products() {
     },
     {
       id: 3,
+      type: 'financy',
       category: 'Finance and accounting',
       title: 'Supplier validation',
       status: 'Not hired',
@@ -313,6 +316,7 @@ export default function Products() {
     },
     {
       id: 4,
+      type: 'tecnology',
       category: 'Technology',
       title: 'Image text extraction Service',
       status: 'Not hired',
@@ -321,6 +325,7 @@ export default function Products() {
     },
     {
       id: 5,
+      type: 'human',
       category: 'Human Resources',
       title: 'AFP validation',
       status: 'Not hired',
@@ -527,7 +532,7 @@ export default function Products() {
             {/* productos añadidos por el momento */}
 
             {dataOthers.map((item) => (
-              <li key={item.id} className={`card ${item.category.toLowerCase().replace(/\s+/g, '')}`} style={{ display: getDisplayStyle(31, item.category === 'Finance and accounting' ? 'CLA_01' : item.category === 'Technology' ? 'CLA_02' : 'CLA_03') }}>
+              <li key={item.id} className={`card ${item.type} `} style={{ display: getDisplayStyle(31, item.category === 'Finance and accounting' ? 'CLA_01' : item.category === 'Technology' ? 'CLA_02' : 'CLA_03') }}>
                 <div className="card-type">
                   <div className="type_icon">
                     <ImageSvg name={imgProduct(item.imgProductId)} />

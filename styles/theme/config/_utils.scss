@@ -467,7 +467,7 @@
 
     th:nth-child(1) {
       background-color: get-color(white_s1);
-      border-bottom: 2px solid get-color(blue_p1);
+      border-bottom: 2px solid get-color(grey1_s3);
       // border-right: 0.5px solid get-color(lilac_p3);
     }
 
@@ -496,7 +496,7 @@
       background-color: transparent;
       border-style: none;
       border-spacing: 8px;
-      cursor: pointer;
+      // cursor: pointer;
       overflow-x: auto;
 
       tr {

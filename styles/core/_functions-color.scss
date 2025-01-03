@@ -132,39 +132,70 @@
   }
 }
 
+// @mixin scrollTeme {
+//   /* Personalización de las barras de desplazamiento */
+//   &::-webkit-scrollbar {
+//     width: 0.4rem;
+//     height: 0.3rem;
+//   }
+
+//   &::-webkit-scrollbar-thumb {
+//     background-image: linear-gradient(to right, #8e2de2, #4a00e0);
+//     background-image: linear-gradient(to right, rgba(get-color(lilac_p3), 0.3), rgba(get-color(blue_p1), 0.4));
+//     background-image: linear-gradient(to right, rgba(get-color(grey2_s4), 0.5), rgba(get-color(forms_s6), 1));
+
+//     border-radius: none;
+//     &:hover {
+//       background-image: linear-gradient(100deg, get-color(lilac_p3) 30%, get-color(blue_p1) 64%);
+//     }
+//   }
+// }
+
+
 @mixin scrollTeme {
   /* Personalización de las barras de desplazamiento */
   &::-webkit-scrollbar {
-    width: 0.4rem;
-    height: 0.3rem;
+    width: 0.5rem;
+    height: 0.2rem;
+    opacity: 0; /* Inicialmente invisible */
+    transition: opacity 0.3s ease; /* Transición suave */
   }
 
   &::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(to right, #8e2de2, #4a00e0);
-    background-image: linear-gradient(to right, rgba(get-color(lilac_p3), 0.3), rgba(get-color(blue_p1), 0.4));
-
+    background-image: linear-gradient(to right, rgba(get-color(grey2_s4), 0.5), rgba(get-color(forms_s6), 1));
     border-radius: none;
+    transition: background-image 0.3s ease; /* Transición suave para el color */
+    
     &:hover {
       background-image: linear-gradient(100deg, get-color(lilac_p3) 30%, get-color(blue_p1) 64%);
     }
   }
+
+  /* Mostrar la barra de desplazamiento cuando el usuario haga hover sobre el componente */
+  &:hover {
+    &::-webkit-scrollbar {
+      opacity: 1; /* Se vuelve visible */
+    }
+  }
 }
+
+
+
 
 @mixin cardStyleType($color) {
   box-shadow: -1.83697e-16px 3px 10px rgba(get-color($color), 0.02);
 
   .card-type {
     p{
-      // color: darken(get-color($color), 10%);
+      color: darken(get-color($color), 1%);
       // background-color: rgba(get-color($color), 0.1);
     }
 
     .type_icon {
 
       svg {
-       border-bottom: 2px solid rgba(get-color($color), 0.3);
+       border-bottom: 2px solid rgba(get-color($color), 0.5);
         padding: 0.25rem ;
-        // border-radius: brd(2);
         path {
           fill: darken(get-color($color), 70%);
           box-shadow: -1.83697e-16px 3px 10px rgba(get-color(white_s1), 0.12);

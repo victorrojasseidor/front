@@ -298,6 +298,8 @@
     align-content: center;
     padding: 0.5em 0rem;
     gap: 1em;
+   
+
 
     @include media(tablet) {
       flex-direction: row;
@@ -313,17 +315,22 @@
     .filterButtons {
       @include center-container;
       width: 100%;
-      padding-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      gap:0.5rem;
       flex-direction: row;
       justify-content: flex-start;
       overflow-x: scroll;
+      align-items: flex-start;
       @include scrollTeme;
 
       @include media(tablet) {
         max-width: none;
         padding: none;
-        padding: 0rem 0.5rem;
         justify-content: flex-end;
+        align-items: center;
+        gap:1rem;
+        padding-bottom: 1rem;
+
       }
     }
 
@@ -353,13 +360,13 @@
         display: flex;
         justify-content: center;
         flex-direction: row;
-        gap: 1rem;
+        gap: 2rem;
         flex-wrap: wrap;
         justify-content: space-evenly;
         width: 100%;
-
         display: grid;
         padding: auto;
+        grid-gap: 2rem 2rem;
 
         // grid-template-columns: repeat(2, 1fr); // 3 columnas de igual tamaño
 
@@ -385,10 +392,20 @@
   display: flex;
   background: get-color(white_s1);
   flex-direction: column;
-  padding: 1em;
+  padding: 2em 1rem;
   border-radius: brd(1);
   gap: 0.5rem;
   position: relative;
+  border: 1px solid rgba(get-color(grey1_s3), 1);
+
+  @include media(tablet) {
+    border: none;
+    padding: 1rem;
+
+
+  }
+
+
 
   p {
     font-size: smaller;
@@ -429,7 +446,11 @@
     height: auto;
 
     @include media(tablet) {
-      height: 5rem;
+      height: 4.5rem;
+    }
+
+    @include media(desktop) {
+      height: 4rem;
     }
 
     h4 {
@@ -453,7 +474,8 @@
       }
 
       .status {
-        color: rgba(get-color(blue_p1), 1);
+        color: rgba(get-color(black_p2), 1);
+        font-weight: 400;
       }
     }
 
@@ -475,8 +497,8 @@
       }
 
       .expire {
-        background-color: rgba(get-color(t3-red), 10%);
-        color: darken(get-color(t3-red), 20%);
+        background-color: rgba(get-color(t3-red), 5%);
+        // color: darken(get-color(t3-red), 20%);
       }
     }
   }
@@ -484,8 +506,8 @@
   .admin {
     position: absolute;
     z-index: 1;
-    right: 0%;
-    top: 0%;
+    left: 0%;
+    bottom:  0%;
 
     @include center-container;
     padding: 0.5rem;
