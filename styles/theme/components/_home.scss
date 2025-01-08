@@ -288,17 +288,20 @@
     }
 
     .box-images {
-      flex: 2;
+     display: none;
+
+      @include media(tablet) {
+        top: 8rem;
+
+        flex: 2;
       position: sticky; // Mantiene la sección fija
-      top: 56%;
+      // top: 56%;
       display: flex;
       justify-content: center;
       align-items: center;
       width: 100%;
       height: 100%;
 
-      @include media(tablet) {
-        top: 8rem;
       }
 
       figure {
@@ -379,7 +382,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2rem;
+      gap: 8rem;
       width: 100%;
       overflow-y: auto;
       flex: 1.5;
@@ -397,15 +400,17 @@
 
     .process {
       display: flex;
-      justify-content: space-between;
-      flex-direction: row;
-      gap: 2rem;
-      overflow: hidden;
-      height: 83vh;
+      flex-direction:column;
+      gap: 1.5rem;
 
       @include media(tablet) {
+        justify-content: space-between;
+        flex-direction: row;
+        overflow: hidden;
         height: 100vh;
         gap: 2rem;
+     
+
       }
 
       .process-description {
@@ -454,6 +459,34 @@
           /* Aumenta el espaciado entre letras */
         }
       }
+    }
+
+    .procees-images-movil{
+      position: relative;
+      
+
+
+      .image-one{
+        position: relative;
+        width: 90vw;
+
+      }
+
+      .image-two{
+        position: absolute;
+        z-index: 2;
+        top:0%;
+        left: 10%;
+        width: 90%;
+        transition: transform 1s ease, opacity 1s ease;
+
+      }
+
+
+      @include media(tablet) {
+       display: none
+      }
+
     }
   }
 
@@ -1333,5 +1366,139 @@
 
   100% {
     transform: translateY(400px);
+  }
+}
+
+
+
+
+//animación para que el texto aparesca
+.letter-container {
+  position: relative;
+  margin-top: 1rem;
+  margin-bottom: 6rem;
+  max-width: 15rem;
+
+  @include media(tablet) {
+    margin-bottom: 10rem;
+    max-width: 30rem;
+  }
+
+  @include media(extradesktop) {
+    max-width: 20rem;
+  }
+}
+
+.letter {
+  position: absolute;
+  opacity: 0;
+  font-size: 2rem;
+  animation: fadeInOut 10s infinite;
+  /* Cambiamos la duración total de la animación a 10s */
+
+  @include media(tablet) {
+    font-size: 3.5rem;
+  }
+}
+
+.letter:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.letter:nth-child(2) {
+  animation-delay: 5s;
+  /* El segundo párrafo empieza después de que el primer párrafo termine su ciclo */
+}
+
+.background-colored {
+  background-image: linear-gradient(to right, get-color(blue_p1), #8d2de2dd, #2e0383);
+  background: linear-gradient(-45deg, get-color(blue_p1), get-color(t2-ligthBlue), #021820, #021f29, get-color(black_p2), #4d08e2, #1e0258);
+  background-size: 400% 400%;
+  -webkit-animation: gradientHome 15s ease infinite;
+  animation: gradientHome 15s ease infinite;
+}
+
+@keyframes fadeInOut {
+  0%,
+  50%,
+  100% {
+    opacity: 0;
+  }
+
+  10%,
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes gradientHome {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradientHome {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes wave {
+  0% {
+    box-shadow: 0 0 0 20px rgba(get-color(white_s1), 0.5), 0 0 0 40px rgba(get-color(lilac_p3), 0.7), 0 0 0 60px rgba(get-color(t2-ligthBlue), 0.8);
+  }
+
+  100% {
+    box-shadow: 0 0 0 60px rgba(get-color(blue_p1), 0.3), 0 0 0 40px rgba(get-color(t5-green), 0.7), 0 0 0 20px rgba(get-color(t5-green), 0.2);
+  }
+}
+
+@keyframes scrollImages {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0%);
+    /* Inicio: desplazar completamente fuera de la vista a la derecha */
+  }
+
+  100% {
+    -webkit-transform: translateX(calc(-200px * 8));
+    transform: translateX(calc(-200px * 8));
+    /* Fin: desplazar completamente fuera de la vista a la izquierda */
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(-360deg);
   }
 }
