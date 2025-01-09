@@ -99,6 +99,10 @@ const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
               </h3>
               <p>{prod.description}</p>
             </div>
+            <figure className="procees-images-movil">
+              <Image className="image-one" src={prod.imageone} width={200} height={200} alt="imageone" priority />
+              <Image className="image-two" src={prod.imagetwo} width={200} height={200} alt="example" data-aos="zoom-in" />
+            </figure>
           </div>
         );
       })}
