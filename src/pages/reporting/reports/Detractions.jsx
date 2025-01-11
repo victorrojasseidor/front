@@ -67,7 +67,6 @@ const Detracctions = () => {
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetReporteDetracciones', body, token);
-      console.log(body, { responseData });
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setDataDetracciones(data);

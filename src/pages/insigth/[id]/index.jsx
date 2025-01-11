@@ -79,7 +79,6 @@ export default function Index() {
     }
 
     const blog = data.data;
-    console.log({ blog });
     setcardInsights(blog[0]);
   }
 

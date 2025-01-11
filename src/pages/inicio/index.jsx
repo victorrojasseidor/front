@@ -153,7 +153,6 @@ export default function index() {
     }
 
     const blogs = data.data;
-    console.log(blogs);
     setDataInsigths(blogs);
   }
 

@@ -37,7 +37,6 @@ export default function Apiconfiguration({ nameEmpresa }) {
 
   const pStatus = product?.iCodeStatus;
 
-  console.log(product);
   async function getDataProduct() {
     setIsLoading(true);
     try {
@@ -295,7 +294,6 @@ export default function Apiconfiguration({ nameEmpresa }) {
     try {
       const token = session?.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarSftpTipoCambio', body, token);
-      console.log(body, 'sftp', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         // setHistorical(responseData.oResults);
         setUpdateSFT(true);

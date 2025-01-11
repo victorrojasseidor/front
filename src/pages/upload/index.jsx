@@ -67,7 +67,6 @@ const FileUploadForm = () => {
       }
 
       const data = await response.json();
-      console.log('Files uploaded successfully', data);
       resetForm();
       setFiles([]);
     } catch (error) {

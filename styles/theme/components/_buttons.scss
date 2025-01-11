@@ -420,7 +420,81 @@
       font-weight: 600;
     }
   }
+
+  &_types{
+    background-color: rgba(get-color(bg-cles), 1);
+    border-radius: brd(2);
+    border-style: none;
+    color: rgba(get-color(grey2_s4), 1);
+    padding: 0.5rem;
+    text-wrap: nowrap;
+    font-size:0.85rem;
+
+    @include media(tablet) {
+      font-size:0.95rem;
+    
+    }  
+
+
+
+
+   
+  
+  }
 }
+
+
+.activeTypes{
+  background-color: rgba(get-color(black_p2), 1);
+  color:rgba(get-color(white_s1), 1);
+
+  @include media(tablet) {
+
+  background-color: transparent;
+  color: rgba(get-color(black_p2), 1);
+  font-weight: 600;
+
+  // 
+   background-color: rgba(get-color(black_p2), 1);
+  color:rgba(get-color(white_s1), 1);
+
+  }
+  }
+
+
+.movilShowdow{
+
+
+  @include media(mobile) {
+    &::after{
+      position: absolute;
+      content: "";
+      width: 2rem;
+      height: 3rem;
+      right: -3%;
+      bottom:15%;
+      background: linear-gradient(to left,#fff 20%, rgba(255, 255, 255, 0) 80%);
+  
+    }
+  
+    &::before{
+      position: absolute;
+      content: "";
+      width: 0rem;
+      height: 3rem;
+      left: -3%;
+      bottom:15%;
+      background: linear-gradient(to right,#fff 20%, rgba(255, 255, 255, 0) 80%);
+  
+    }
+  
+  }
+
+  
+
+}
+
+
 
 //modificador para botones pequeños
 .small {
