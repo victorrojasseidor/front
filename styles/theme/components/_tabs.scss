@@ -92,6 +92,7 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     border-bottom: 1px solid rgba(get-color(forms_s6), 1);
+    
 
   
 
@@ -118,6 +119,8 @@
       padding-right: 0.5em;
       align-items: center;
       width: 100%;
+      padding: 0.5rem 0.5rem 0.5rem 0rem;
+
 
       @include media(tablet) {
         padding: 0.5rem 1rem;

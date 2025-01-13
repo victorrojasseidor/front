@@ -231,19 +231,31 @@ const LayoutProducts = ({ children, menu }) => {
                     <div className="box-name">
                       <div className="box-name_person">
                         <ImageSvg name="Person" />
+
                       </div>
+
+
                       <div className="box-name_name">
                         <p>
                           {session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company} - {session?.sPerfilCode === 'ADMIN' && 'Ari:v2'}
                         </p>
                         <span style={{ textTransform: 'capitalize' }}>{session?.sUserName} {session?.sLastName}</span>
                       </div>
+
+
+
+
                     </div>
 
                     <div className="languajes-box">
                       <Lang />
                     </div>
+
+
                   </div>
+
+
+
 
                   {menuMovil?.map((menu) => (
                     <li className="languaje-white list-options" key={menu.label}>
@@ -262,16 +274,19 @@ const LayoutProducts = ({ children, menu }) => {
                       )}
                     </li>
                   ))}
+
+
+                  <li className='signOut-movil'>
+                    <button onClick={() => handleLogout()}>
+                      <ImageSvg name="SignOut" />
+                      <h5>{t['Sign Out']}</h5>
+                    </button>
+                  </li>
+
                 </div>
               </div>
             </ul>
 
-            {/* <div className="titleMenu">
-              <div>
-                <h3>{titlePage}</h3>
-              </div>
-              <div className="company">{session?.jCompany.razon_social_company}</div>
-            </div> */}
 
 
           </div>
