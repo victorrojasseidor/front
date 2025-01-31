@@ -148,7 +148,6 @@ export default function ConfigDetracciones() {
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;
-        console.log('dataRes', dataRes);
         setDataDetracciones(dataRes);
         setIinitialEdit(dataRes.oDetracciones[0]);
 

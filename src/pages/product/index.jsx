@@ -366,11 +366,11 @@ export default function Products() {
             <p> {t['Our digital employees work to improve your productivity']}</p>
           </div>
 
-          <div className={`reporting-box slider ${clasTrans}`}>
+          <div className={`reporting-box  ${clasTrans}`}>
             <div className="report-content">
-              <div className="report blue">
+              <div className="report gradientAri">
                 <div className="report_icon  ">
-                  <ImageSvg name="ReportDigital" />
+                  <ImageSvg name="Products" />
                 </div>
 
                 <div className="report_data">
@@ -385,7 +385,7 @@ export default function Products() {
 
               <div className="liner" />
 
-              <div className="report green">
+              <div className="report gradientAri">
                 <div className="report_icon  ">
                   <ImageSvg name="ReportTime" />
                 </div>
@@ -401,7 +401,7 @@ export default function Products() {
               </div>
               <div className="liner" />
 
-              <div className="report red">
+              <div className="report gradientAri">
                 <div className="report_icon  ">
                   <ImageSvg name="ReportBussines" />
                 </div>
@@ -419,7 +419,7 @@ export default function Products() {
         </div>
 
         <div className="products_filter-types horizontalTabs">
-          <div className="tab-header">
+          <div className="tab-header movilShowdow">
             <button onClick={() => handleFilterType(null)} className={` ${selectedFilterType === null ? 'active' : ''}`}>
               <p> {t.All} </p>
             </button>
@@ -446,17 +446,17 @@ export default function Products() {
         <div className="products_box-filterSearch">
           <h3>{l.home.Skills}</h3>
 
-          <div className="filterButtons">
-            <button onClick={() => handleFilter(null)} className={`btn_filter ${selectedFilter === null ? 'active' : ''}`}>
+          <div className="filterButtons movilShowdow">
+            <button onClick={() => handleFilter(null)} className={`btn_types ${selectedFilter === null ? 'activeTypes' : ''}`}>
               {t.All}
             </button>
-            <button onClick={() => handleFilter(23)} className={`btn_filter ${selectedFilter === 23 ? 'active' : ''}`}>
+            <button onClick={() => handleFilter(23)} className={`btn_types ${selectedFilter === 23 ? 'activeTypes' : ''}`}>
               {t.Configured}
             </button>
-            <button onClick={() => handleFilter(25)} className={`btn_filter ${selectedFilter === 25 || selectedFilter === 27 || selectedFilter === 28 ? 'active' : ''}`}>
+            <button onClick={() => handleFilter(25)} className={`btn_types ${selectedFilter === 25 || selectedFilter === 27 || selectedFilter === 28 ? 'activeTypes' : ''}`}>
               {t.Pending}
             </button>
-            <button onClick={() => handleFilter(31)} className={`btn_filter ${selectedFilter === 31 ? 'active' : ''}`}>
+            <button onClick={() => handleFilter(31)} className={`btn_types ${selectedFilter === 31 ? 'activeTypes' : ''}`}>
               {t['Not hired']}
             </button>
           </div>

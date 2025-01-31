@@ -7,6 +7,7 @@ import ImageSvg from '@/helpers/ImageSVG';
 import Apiconfiguration from '../Admi/Apiconfiguration';
 import { formatDate } from '@/helpers/report';
 
+
 export default function LayoutConfig({ id, iIdProdEnv, defaultTab, children, idEmpresa }) {
   const [product, setProduct] = useState(null);
   const [activeTab, setActiveTab] = useState(defaultTab || 0);
@@ -70,7 +71,8 @@ export default function LayoutConfig({ id, iIdProdEnv, defaultTab, children, idE
 
   return (
     <LayoutProducts menu="Product">
-      <div className="idProduct-header">
+
+           <div className="idProduct-header">
         <div>
           <h3>{product?.sName}</h3>
           <p>

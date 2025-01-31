@@ -57,11 +57,12 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0rem 1rem;
     position: relative;
 
     @include media(desktop) {
       gap: 4rem;
+      padding: 0rem 1rem;
+
     }
 
     p {
@@ -130,34 +131,7 @@
         }
       }
 
-      // a,
-      // p,
-      // span,
-      // button {
-      //   color: get-color(grey2_s4);
-      //   display: flex;
-      //   justify-content: center;
-      //   align-items: center;
-      //   text-decoration: none;
-      //   font-style: normal;
-      //   font-size: 0.75rem;
-      //   color: inherit;
-      //   text-align: center;
-      //   line-height: 1rem;
-      //   cursor: pointer;
-
-      //   &:hover,
-      //   & :focus {
-      //     color: get-color(blue_p1);
-      //   }
-
-      //   .box-languajes {
-      //     display: flex;
-      //     justify-content: center;
-      //     flex-direction: row;
-      //     width: 100%;
-      //   }
-      // }
+    
     }
 
     &-close {
@@ -283,9 +257,38 @@
         }
       }
 
+
+     
+
+
    
     }
   }
+}
+
+
+.signOut-movil{
+  margin-top: 1rem;
+  border-top: 1px solid get-color(grey1_s3);
+  padding-top: 1rem;
+
+
+  width: 100%;
+  button{
+    border-style: none;
+    display: flex;
+    padding: 0.5rem;
+    gap:0.5rem;
+    background-color: rgba(get-color(forms_s6), 0.6);
+    border-radius: brd(1);
+  
+  }
+
+  h5{
+    font-weight: 400;
+    color:rgba(get-color(black_p2), 1)
+  }
+
 }
 
 .layoutProducts {
@@ -1187,10 +1190,7 @@ gap:2rem;
     flex-direction: column;
     gap: 0.25rem;
 
-    display: none;
-    @include media(tablet) {
-      display: block;
-    }
+   
 
     .navegation_title {
       display: flex;
@@ -1198,6 +1198,10 @@ gap:2rem;
       width: 100%;
       text-wrap: nowrap;
       font-size: 1rem;
+      display: none;
+      @include media(tablet) {
+        display: block;
+      }
     }
   }
 
