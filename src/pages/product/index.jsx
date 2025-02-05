@@ -349,7 +349,7 @@ export default function Products() {
               value={empresa}
               onChange={handleCompanyInputChange}
               sx={{
-                minWidth: '360px',
+                minWidth: 'auto',
                 '.MuiOutlinedInput-notchedOutline': { borderStyle: 'none' },
               }}
 
