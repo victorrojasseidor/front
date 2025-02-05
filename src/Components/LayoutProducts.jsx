@@ -121,7 +121,7 @@ const LayoutProducts = ({ children, menu }) => {
     },
     Profile: {
       label: t.Profile,
-      icon: 'Users',
+      icon: 'Profile',
       path: '/profile',
       submenus: [],
     },

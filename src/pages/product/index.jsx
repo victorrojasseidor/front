@@ -334,6 +334,10 @@ export default function Products() {
     },
   ];
 
+
+
+
+
   return (
     <LayoutProducts menu="Product">
       {!session && <Loading />}
@@ -345,9 +349,11 @@ export default function Products() {
               value={empresa}
               onChange={handleCompanyInputChange}
               sx={{
-                minWidth: 255,
+                minWidth: '360px',
                 '.MuiOutlinedInput-notchedOutline': { borderStyle: 'none' },
               }}
+
+             
               options={companyOptions}
               getOptionLabel={(option) => option.razon_social_empresa}
               renderInput={(params) => <TextField {...params} label={t['To company:']} />}

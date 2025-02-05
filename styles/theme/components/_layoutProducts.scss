@@ -356,11 +356,24 @@
           position: relative;
           font-size: small;
 
+          h5{
+            // font-size: 1rem;
+            display: flex;
+            font-weight: 300;
+          }
+
           svg {
-            width: 20px;
-            height: 20px;
+            width: auto;
+            height: 1rem;
+            width: 1rem;
+            display: flex;
+            align-items: flex-start;
+            // line-height: 125%;
+            padding: 0.2rem 0rem 0rem 0rem;
+         
 
             path {
+              height: 10px !important;
               fill: get-color(grey2_s4);
             }
           }

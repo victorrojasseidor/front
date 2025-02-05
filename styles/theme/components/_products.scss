@@ -226,6 +226,8 @@
 
         @include media(tablet) {
           color: get-color(grey2_s4);
+          color: rgba(get-color(white_s1), 0.5);
+
           align-items: flex-end;
           display: inline-block;
           flex-direction: row;
@@ -236,12 +238,13 @@
 
           @include media(tablet) {
             color: get-color(white_s1);
+
           }
         }
       }
 
       p {
-        color: get-color(grey2_s4);
+        color: rgba(get-color(white_s1), 0.5);
       }
 
       @include media(tablet) {
@@ -653,6 +656,8 @@
     @include media(tablet) {
       min-width: 22rem;
     }
+
+    
   }
 
   .css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
@@ -705,7 +710,6 @@
       position: relative;
       background-image: url('../../../public/icons/arrow.svg');
       background-size: contain;
-      /* Ajusta el tamaño del fondo para cubrir el contenedor */
       display: inline-block;
 
       path {
@@ -722,6 +726,7 @@
 
     @include media(tablet) {
       width: auto !important;
+      min-width: 17rem;
     }
   }
 
@@ -735,7 +740,8 @@
       background-color: get-color(white_s1);
 
       @include media(tablet) {
-        width: 20rem !important;
+        width: 100% !important;
+
       }
     }
   }

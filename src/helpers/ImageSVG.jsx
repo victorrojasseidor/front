@@ -676,11 +676,21 @@ const ImageSvg = ({ name }) => {
     // imgs svg
     Spain: <Image src={Iconspain} width={100} alt="Spain" />,
     EEUU: <Image src={Iconeeuu} width={100} alt="Spain" />,
-    Person: <Image src={IconPerson} width={100} alt="person" />,
+    Person: <Image src={IconPerson} width={100} alt="person" />
+    
+    
+    
+    ,
     Profile: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M8 8C10.21 8 12 6.21 12 4C12 1.79 10.21 0 8 0C5.79 0 4 1.79 4 4C4 6.21 5.79 8 8 8ZM8 10C5.33 10 0 11.34 0 14V15C0 15.55 0.45 16 1 16H15C15.55 16 16 15.55 16 15V14C16 11.34 10.67 10 8 10Z" fill="#A3AED0" />
-      </svg>
+      // <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      //   <path d="M8 8C10.21 8 12 6.21 12 4C12 1.79 10.21 0 8 0C5.79 0 4 1.79 4 4C4 6.21 5.79 8 8 8ZM8 10C5.33 10 0 11.34 0 14V15C0 15.55 0.45 16 1 16H15C15.55 16 16 15.55 16 15V14C16 11.34 10.67 10 8 10Z" fill="#A3AED0" />
+      // </svg>
+
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
+<path fill="#292D32" d="M14.19 0H5.81C2.17 0 0 2.17 0 5.81v8.38c0 2.81 1.29 4.74 3.56 5.47.66.23 1.42.34 2.25.34h8.38c.83 0 1.59-.11 2.25-.34C18.71 18.93 20 17 20 14.19V5.81C20 2.17 17.83 0 14.19 0Zm4.31 14.19c0 2.14-.84 3.49-2.53 4.05-.97-1.91-3.27-3.27-5.97-3.27-2.7 0-4.99 1.35-5.97 3.27h-.01c-1.67-.54-2.52-1.9-2.52-4.04V5.81c0-2.82 1.49-4.31 4.31-4.31h8.38c2.82 0 4.31 1.49 4.31 4.31v8.38Z"/>
+<path fill="#292D32" d="M10.002 6c-1.98 0-3.58 1.6-3.58 3.58s1.6 3.59 3.58 3.59 3.58-1.61 3.58-3.59c0-1.98-1.6-3.58-3.58-3.58Z"/>
+</svg>
+
     ),
 
     // reportings
