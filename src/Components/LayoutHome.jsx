@@ -71,7 +71,7 @@ export default function LayoutHome({ children }) {
     },
 
     {
-      label: 'Insigths',
+      label: 'Insights',
       link: '/#insights',
       submenus: [],
     },

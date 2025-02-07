@@ -156,7 +156,7 @@ export default function Index() {
 
       <section className="insigth">
         <section className="insigth-navigation">
-          <Link href="/#insights"> Insigths</Link>
+          <Link href="/#insights"> Insights </Link>
           <ImageSvg name="Navigation" />
           <span className="title--post"> {cardInsights?.title} </span>
         </section>
