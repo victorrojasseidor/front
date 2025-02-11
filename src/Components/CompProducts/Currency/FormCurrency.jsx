@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form } from 'formik';
-
 import { validateFormCurrency } from '@/helpers/validateForms';
 import ModalForm from '@/Components/Atoms/ModalForm';
 import { useAuth } from '@/Context/DataContext';
@@ -15,8 +14,8 @@ import RadioGroup from '@mui/material/RadioGroup';
 import { IconArrow } from '@/helpers/report';
 
 const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm, typeOfChange }) => {
-  const [selectedCountry, setSelectedCountry] = useState(initialVal?.id_pais || '');
-  const [selectedPortal, setSelectedPortal] = useState(initialVal?.id_fuente || '');
+  const [selectedCountry, setSelectedCountry] = useState(initialVal?.id_pais || '1');
+  const [selectedPortal, setSelectedPortal] = useState(initialVal?.id_fuente || '1');
   const [selectedCoinOrigin, setSelectedCoinOrigin] = useState(initialVal?.id_moneda_origen || '');
   const [selectedCoinDestiny, setSelectedCoinDestiny] = useState(initialVal?.id_moneda_destino || '');
   const [selectedDays, setSelectedDays] = useState(initialVal?.dias_adicional || '1');
@@ -24,7 +23,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
   const [registerDuplicate, setRegisterDuplicate] = useState(false);
 
-  const { l } = useAuth();
+  const { l,idCountry } = useAuth();
   const t = l.Currency;
 
   const formValues = {
@@ -341,7 +340,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
                 </button>
 
                 <button type="submit" className={`btn_primary small ${!isValid || registerDuplicate ? 'disabled' : ''}`} disabled={!isValid || registerDuplicate}>
-                  {initialVal ? 'Update' : 'Add'}
+                  {initialVal ? t.Update : t.Add}
                 </button>
               </div>
             </Form>

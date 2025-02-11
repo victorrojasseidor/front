@@ -46,7 +46,7 @@ export default function LayoutHome({ children }) {
 
   const menuData = [
     {
-      label: 'Insigths',
+      label: 'Insights',
       link: '/#insights',
       submenus: [],
     },
@@ -71,7 +71,7 @@ export default function LayoutHome({ children }) {
     },
 
     {
-      label: 'Insights',
+      label: 'Insights', 
       link: '/#insights',
       submenus: [],
     },

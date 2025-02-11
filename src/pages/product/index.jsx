@@ -380,7 +380,7 @@ export default function Products() {
                 </div>
 
                 <div className="report_data">
-                  <article>{t['Digital employees']}</article>
+                  <article>{l.home.Skills}</article>
                   <h2> {hiredProduct} </h2>
 
                   <p>
