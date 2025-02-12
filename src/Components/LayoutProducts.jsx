@@ -125,12 +125,12 @@ const LayoutProducts = ({ children, menu }) => {
       path: '/profile',
       submenus: [],
     },
-    chatbot: {
-      label: 'Chatbot',
-      icon: 'ChatBot',
-      path: 'https://seidor.mensajea.chat/',
-      submenus: [],
-    },
+    // chatbot: {
+    //   label: 'Chatbot',
+    //   icon: 'ChatBot',
+    //   path: 'https://seidor.mensajea.chat/',
+    //   submenus: [],
+    // },
 
     // Integration: {
     //   label: t.Integration,
