@@ -6,6 +6,14 @@
   align-items: flex-end;
   box-shadow: drop-shadow(0px 10px 60px rgba(226, 236, 249, 0.5));
 
+  
+  font-size: clamp(0.75rem, 0.5vw + 0.4rem, 1rem); // 12px a 16px
+
+  p,span, article{
+    font-size: clamp(0.75rem, 0.5vw + 0.4rem, 1rem); // 12px a 16px
+
+  }
+
   .report-content {
     width: auto;
     display: flex;
@@ -18,15 +26,14 @@
     z-index: 1;
 
     @include media(tablet) {
-      padding: 2rem 1rem;
-      // justify-content: flex-start;
+      padding: 1rem 1rem;
       justify-content: center;
       gap: 1rem;
     }
 
     @include media(desktop) {
       height: auto;
-      padding: 2rem;
+      padding: 1rem;
       justify-content: space-around;
       gap: 0rem;
     }
@@ -53,18 +60,18 @@
         @include center-container;
         align-items: center;
         justify-content: center;
-        width: 4.25rem;
-        height: 4.25rem;
+        width: 3.5rem;
+        height: 3.5rem;
 
         img {
           @include center-container;
-          width: 1.6rem;
+          width: 1.5rem;
           height: auto;
         }
 
         svg {
-          width: 1.8em;
-          height: 1.8em;
+          width: 1.5em;
+          height: 1.5em;
         }
       }
 
@@ -81,7 +88,7 @@
 
         p {
           color: get-color(t1-blue);
-          font-size: 1rem;
+          // font-size: 1rem;
         }
 
         svg {
@@ -313,7 +320,7 @@
       }
 
       p {
-        font-size: medium;
+        // font-size: medium;
         text-wrap: nowrap;
       }
     }

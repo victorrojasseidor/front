@@ -1,4 +1,4 @@
-const baseApiUrl = 'https://api.ariapp.ai/bpass/'; // master
+const baseApiUrl = 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/'   //dev
 
 const fetchNoTokenPost = async (endpoint, data, specifiedLocale) => {
   const locale = specifiedLocale || 'en';
