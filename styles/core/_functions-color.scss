@@ -122,7 +122,7 @@
 }
 
 @mixin container {
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   border-radius: brd(2);
   box-shadow: bsh(3);
   background-color: get-color(white_s1);
