@@ -401,7 +401,7 @@ export default function Products() {
                   <h2>{dataCabecera && dataCabecera.tiempo ? <Counter initialValue={0} finalValue={dataCabecera.tiempo} /> : dataCabecera?.tiempo} hrs</h2>
 
                   <p>
-                    <ImageSvg name="ArrowUp" /> <span> {dataCabecera?.porcentaje} % </span> {t['this month']}{' '}
+                    <ImageSvg name="ArrowUp" /> <span> {t['per day']} </span>  
                   </p>
                 </div>
               </div>

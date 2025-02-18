@@ -296,12 +296,14 @@
     "this month ": "this month ",
     "Bussines agility": " Bussines agility",
     "more": "more",
+    "per day":"per day",
     "Download account statements": "Download account statements",
     "AFP validation": "AFP validation",
     "Captcha Solving Service": "Captcha Solving Service",
     "Image text extraction Service": "Image text extraction Service",
     "Mass update of deduction records": "Mass update of deduction records",
     "Supplier validation": "Supplier validation"
+
   },
   "Apiconfuguration": {
     "Service configuration status": "Service configuration status",
