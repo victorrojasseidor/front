@@ -240,6 +240,11 @@
 
   .css-b1884d {
     margin: 0rem;
+    min-width: 100%;
+    @include media(tablet) {
+    
+      min-width: auto;    }
+
   }
 
   .css-fvipm8 {
