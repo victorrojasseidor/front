@@ -165,7 +165,8 @@
     "Other recommended articles": "Otros artículos recomendados",
     "Waiting articles": "Artículos en espera",
     "View more": "Ver más",
-    "View less": "Ver menos"
+    "View less": "Ver menos",
+    "Contact":"Contáctanos"
 
   },
   "update_password": {
@@ -572,7 +573,19 @@
     "Send": "Enviar",
     "Your satisfaction": "Tu satisfacción",
     "is our top": "es nuestra",
-    "priority": "prioridad"
+    "priority": "prioridad",
+    "Automate your back office": "Automatiza tu backoffice",
+    "today":"hoy",
+    "Contact us and discover how ARI can transform your back office.": "Contáctanos y descubre cómo ARI puede transformar tu backoffice.",
+    "Name": "Nombre",
+    "Last Name": "Apellidos",
+    "Email": "Email",
+    "Company": "Empresa",
+    "Phone": "Teléfono",
+    "Country": "País",
+    "By submitting the form, you authorize SEIDOR Innovativa Peru SAC to use your data to respond to inquiries.": "Al enviar el formulario, autorizas a SEIDOR Innovativa Peru SAC. a usar tus datos para responder consultas.",
+    "Send Request": "Enviar solicitud",
+    "Contact Us": "Contáctanos"
   },
   "Integration": {
     "Integration": "Integración",
@@ -795,7 +808,12 @@
     "Select destination currency": "Seleccionar moneda de destino",
     "Currency cannot be equeal": "Las monedas no pueden ser iguales",
     "Select a different currency": "Seleccionar una moneda diferente",
-    "This value is required": "Este valor es necesario"
+    "This value is required": "Este valor es necesario",
+    "Invalid email": "Correo electrónico inválido",
+    "Email is required": "El correo electrónico es obligatorio",
+    "Invalid phone number": "Número de teléfono inválido",
+    "Country is required": "El país es obligatorio",
+    "Message is required": "El mensaje es obligatorio"
   },
   "dev": "deven ingles",
   "buttonLenguaje": "Cambiar idioma"

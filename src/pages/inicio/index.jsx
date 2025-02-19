@@ -45,6 +45,7 @@ import AOS from 'aos';
 import { formatDate } from '@/helpers/report';
 import 'aos/dist/aos.css';
 import qs from 'qs';
+import Contact from '@/Components/Contact';
 
 // Import Swiper React components
 
@@ -501,7 +502,7 @@ export default function index() {
       </section>
 
       <section className="home-insigths" id="insights">
-        <div className="title-home" data-aos="fade-up">
+        <div className="title-home" data-aos="fade-right">
           <ButtonGradient>{t['INSIGHTS']}</ButtonGradient>
 
           <p className="">{t['Expert analysis, bold thinking, and data gathering for leaders who want to achieve the extraordinary.']}</p>
@@ -602,6 +603,29 @@ export default function index() {
             ))}
           </Swiper>
         </article>
+      </section>
+
+      <section className="home-contact" id="contact">
+   
+
+        <div className="title-home blacktext" data-aos="fade-up">
+          <h2 className="title gradient">
+         <span> {l.Support['Automate your back office']}</span> {l.Support['today']}
+          </h2>
+
+          <p>{l.Support['Contact us and discover how ARI can transform your back office.']} </p>
+
+      
+
+        </div>
+        <Contact />
+
+
+      
+      
+
+      
+
       </section>
     </LayoutHome>
   );

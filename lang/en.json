@@ -167,7 +167,8 @@
     "Other recommended articles": "Other recommended articles",
     "Waiting articles": "Waiting articles",
     "View more": "View more",
-    "View less": "View less"
+    "View less": "View less",
+    "Contact":"Contact"
   },
   "update_password": {
     "Update password": "Change password",
@@ -574,7 +575,20 @@
     "Send": "Enviar",
     "Your satisfaction": "Your satisfaction",
     "is our top": "is our top",
-    "priority": "priority"
+    "priority": "priority",
+    "Automate your back office": "Automate your back office",
+    "today":"today",
+    "Contact us and discover how ARI can transform your back office.": "Contact us and discover how ARI can transform your back office.",
+    "Name": "Name",
+    "Last Name": "Last Name",
+    "Email": "Email",
+    "Company": "Company",
+    "Phone": "Phone",
+    "Country": "Country",
+    "By submitting the form, you authorize SEIDOR Innovativa Peru SAC to use your data to respond to inquiries.": "By submitting the form, you authorize SEIDOR Innovativa Peru SAC to use your data to respond to inquiries.",
+    "Send Request": "Send Request",
+    "Contact Us": "Contact Us"
+
   },
   "Integration": {
     "Integration": "Integration",
@@ -800,6 +814,11 @@
     "Select destination currency": "Select destination currency",
     "Currency cannot be equeal": "Currency cannot be equeal",
     "Select a different currency": "Select a different currency",
-    "This value is required": "This value is required"
+    "This value is required": "This value is required",
+    "Invalid email": "Invalid email",
+    "Email is required": "Email is required",
+    "Invalid phone number": "Invalid phone number",
+    "Country is required": "Country is required",
+    "Message is required": "Message is required"
   }
 }

@@ -542,6 +542,20 @@
   /* Desactiva eventos de puntero */
 }
 
+.disabled-gradient{
+  .box-container-gradient {
+   cursor: not-allowed;
+   border-style: none;
+
+   button{
+
+
+
+   }
+  
+  }
+}
+
 .desactivo {
   opacity: 0.8;
   background-color: get-color(grey1_s3);
@@ -690,6 +704,13 @@ button:hover + .cloud {
 .whiteButton {
   background-color: get-color(white_s1) !important; /* Fondo del botón negro */
   color: get-color(black_p2) !important; /* Color del texto */
+  cursor: pointer !important;
+}
+
+.disabled-gd{
+  background-color: rgba(get-color(white_s1), 1) !important;
+  color: rgba(get-color(grey2_s4), 0.5) !important; /* Color del texto */
+  animation:none
 }
 
 /* Definición de la animación */

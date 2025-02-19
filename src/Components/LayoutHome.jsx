@@ -50,6 +50,15 @@ export default function LayoutHome({ children }) {
       link: '/#insights',
       submenus: [],
     },
+
+    {
+      label: t['Contact'],
+      link: '/#contact',
+      submenus: [],
+    },
+      
+
+
   ];
 
   const menuMovil = [
@@ -76,11 +85,12 @@ export default function LayoutHome({ children }) {
       submenus: [],
     },
 
-    // {
-    //   label: 'Clientes',
-    //   link: '/#client',
-    //   submenus: [],
-    // }
+    {
+      label: 'CONTACTO',
+      link: '/#contact',
+      submenus: [],
+    }
+      
   ];
 
   return (
@@ -114,7 +124,7 @@ export default function LayoutHome({ children }) {
           </li>
 
           <li>
-            <button className="btn_white white" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
+            <button className="btn_white white" onClick={() => router.push('/#contact')}>
               {t['Request demo']}
             </button>
           </li>
@@ -143,7 +153,7 @@ export default function LayoutHome({ children }) {
                 {t['Log in to ARI']}
               </button>
 
-              <button className="btn_white white" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
+              <button className="btn_white white" onClick={() => router.push('/#contact')}>
                 {t['Request demo']}
               </button>
 

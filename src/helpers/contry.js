@@ -49,6 +49,62 @@ const countryOptions = [
   { value: '+58', label: 'Venezuela (+58)' },
 ];
 
+
+const countryOptionContact = [
+  { id: 1, value: '+1', label: '🇺🇸 United States (+1)', country: 'United States' },
+  { id: 2, value: '+44', label: '🇬🇧 United Kingdom (+44)', country: 'United Kingdom' },
+  { id: 3, value: '+33', label: '🇫🇷 France (+33)', country: 'France' },
+  { id: 4, value: '+49', label: '🇩🇪 Germany (+49)', country: 'Germany' },
+  { id: 5, value: '+34', label: '🇪🇸 Spain (+34)', country: 'Spain' },
+  { id: 6, value: '+39', label: '🇮🇹 Italy (+39)', country: 'Italy' },
+  { id: 7, value: '+81', label: '🇯🇵 Japan (+81)', country: 'Japan' },
+  { id: 8, value: '+86', label: '🇨🇳 China (+86)', country: 'China' },
+  { id: 9, value: '+91', label: '🇮🇳 India (+91)', country: 'India' },
+  { id: 10, value: '+55', label: '🇧🇷 Brazil (+55)', country: 'Brazil' },
+  { id: 11, value: '+7', label: '🇷🇺 Russia (+7)', country: 'Russia' },
+  { id: 12, value: '+27', label: '🇿🇦 South Africa (+27)', country: 'South Africa' },
+  { id: 13, value: '+61', label: '🇦🇺 Australia (+61)', country: 'Australia' },
+  { id: 14, value: '+52', label: '🇲🇽 Mexico (+52)', country: 'Mexico' },
+  { id: 15, value: '+54', label: '🇦🇷 Argentina (+54)', country: 'Argentina' },
+  { id: 16, value: '+57', label: '🇨🇴 Colombia (+57)', country: 'Colombia' },
+  { id: 17, value: '+56', label: '🇨🇱 Chile (+56)', country: 'Chile' },
+  { id: 18, value: '+51', label: '🇵🇪 Peru (+51)', country: 'Peru' },
+  { id: 19, value: '+58', label: '🇻🇪 Venezuela (+58)', country: 'Venezuela' },
+  { id: 20, value: '+593', label: '🇪🇨 Ecuador (+593)', country: 'Ecuador' },
+  { id: 21, value: '+502', label: '🇬🇹 Guatemala (+502)', country: 'Guatemala' },
+  { id: 22, value: '+503', label: '🇸🇻 El Salvador (+503)', country: 'El Salvador' },
+  { id: 23, value: '+504', label: '🇭🇳 Honduras (+504)', country: 'Honduras' },
+  { id: 24, value: '+505', label: '🇳🇮 Nicaragua (+505)', country: 'Nicaragua' },
+  { id: 25, value: '+507', label: '🇵🇦 Panama (+507)', country: 'Panama' },
+  { id: 26, value: '+506', label: '🇨🇷 Costa Rica (+506)', country: 'Costa Rica' },
+  { id: 27, value: '+53', label: '🇨🇺 Cuba (+53)', country: 'Cuba' },
+  { id: 28, value: '+60', label: '🇲🇾 Malaysia (+60)', country: 'Malaysia' },
+  { id: 29, value: '+62', label: '🇮🇩 Indonesia (+62)', country: 'Indonesia' },
+  { id: 30, value: '+66', label: '🇹🇭 Thailand (+66)', country: 'Thailand' },
+  { id: 31, value: '+90', label: '🇹🇷 Turkey (+90)', country: 'Turkey' },
+  { id: 32, value: '+965', label: '🇰🇼 Kuwait (+965)', country: 'Kuwait' },
+  { id: 33, value: '+968', label: '🇴🇲 Oman (+968)', country: 'Oman' },
+  { id: 34, value: '+971', label: '🇦🇪 United Arab Emirates (+971)', country: 'United Arab Emirates' },
+  { id: 35, value: '+974', label: '🇶🇦 Qatar (+974)', country: 'Qatar' },
+  { id: 36, value: '+20', label: '🇪🇬 Egypt (+20)', country: 'Egypt' },
+  { id: 37, value: '+212', label: '🇲🇦 Morocco (+212)', country: 'Morocco' },
+  { id: 38, value: '+216', label: '🇹🇳 Tunisia (+216)', country: 'Tunisia' },
+  { id: 39, value: '+30', label: '🇬🇷 Greece (+30)', country: 'Greece' },
+  { id: 40, value: '+31', label: '🇳🇱 Netherlands (+31)', country: 'Netherlands' },
+  { id: 41, value: '+32', label: '🇧🇪 Belgium (+32)', country: 'Belgium' },
+  { id: 42, value: '+45', label: '🇩🇰 Denmark (+45)', country: 'Denmark' },
+  { id: 43, value: '+46', label: '🇸🇪 Sweden (+46)', country: 'Sweden' },
+  { id: 44, value: '+47', label: '🇳🇴 Norway (+47)', country: 'Norway' },
+  { id: 45, value: '+48', label: '🇵🇱 Poland (+48)', country: 'Poland' },
+  { id: 46, value: '+351', label: '🇵🇹 Portugal (+351)', country: 'Portugal' },
+  { id: 47, value: '+358', label: '🇫🇮 Finland (+358)', country: 'Finland' },
+  { id: 48, value: '+41', label: '🇨🇭 Switzerland (+41)', country: 'Switzerland' },
+  { id: 49, value: '+82', label: '🇰🇷 South Korea (+82)', country: 'South Korea' },
+  { id: 50, value: '+63', label: '🇵🇭 Philippines (+63)', country: 'Philippines' },
+  { id: 51, value: '+65', label: '🇸🇬 Singapore (+65)', country: 'Singapore' },
+];
+
+
 const countries = [
   { label: 'Perú', value: 'Perú' },
   { label: 'Argentina', value: 'Argentina' },
@@ -66,4 +122,4 @@ const countries = [
   { label: 'United States', value: 'United States' },
 ];
 
-export { countries, countryOptions };
+export { countries, countryOptions,countryOptionContact };

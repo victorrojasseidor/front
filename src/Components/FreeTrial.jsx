@@ -158,8 +158,6 @@ function FreeTrial({ nameProduct, iIdProd }) {
 
               <div className="input-box">
                 <textarea
-                  // value={email}
-                  // onChange={handleChange}
                   placeholder=""
                   rows={4}
                   cols={40}

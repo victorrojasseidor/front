@@ -234,10 +234,9 @@
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 1rem;
+  width: 100%;
 
-  // .css-i44wyl {
-  //   margin-top: 0.2rem;
-  // }
+ 
 
   .css-b1884d {
     margin: 0rem;
@@ -330,11 +329,7 @@
       padding-top: 0.5rem;
     }
 
-    // width: 12rem !important;
-
-    // @include media(tablet) {
-    //   width: auto;
-    // }
+  
   }
 
   .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select,
@@ -623,3 +618,18 @@
   width: 11rem;
   padding-right: 28px;
 }
+
+
+.input-box textarea {
+  min-width: 20ch;   // Ancho mínimo para evitar que sea muy pequeña
+  width: auto;       // Que se ajuste automáticamente
+  max-width: 100%;   // No sobrepasar el contenedor
+  overflow: hidden;  // Evita scroll horizontal
+  resize: none;      // Deshabilita ajuste manual
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  white-space: nowrap; // Mantiene el texto en una sola línea
+}
+
