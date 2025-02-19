@@ -30,7 +30,7 @@
       display: flex;
       align-content: center;
       border-radius: brd(1);
-      gap: 1em;
+      gap: 0.5em;
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -101,9 +101,9 @@
     width: 2.2rem;
     &:focus,
     &:hover {
-      border-color: get-color(lilac_p3);
+      border-color: get-color(black_p2);
       background-color: get-color(white_s1);
-      border: 1px solid get-color(lilac_p3);
+      border: 1px solid get-color(black_p2)
     }
   }
 }

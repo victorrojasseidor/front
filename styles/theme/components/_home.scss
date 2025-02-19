@@ -589,6 +589,7 @@
     }
 
     .title-home {
+
       h2,
       p {
         text-align: right;
@@ -667,9 +668,9 @@
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    padding-top: 3rem;
 
     @include media(tablet) {
+      padding-top: 3rem;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
@@ -681,6 +682,7 @@
 
     .title-home {
       flex: 1;
+
       h2,
       p {
         text-align: left;
@@ -688,33 +690,42 @@
     }
 
     .form-contact {
-
       flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      @include container;
+      padding: 1rem;
+      box-shadow: bsh(3);
+
       @include media(tablet) {
         flex: 1.2;
+        padding: 2rem;
       }
-      
-      @include container;
-      padding: 2rem;
-      box-shadow: bsh(3);
 
       .box-filter .css-1869usk-MuiFormControl-root {
         width: 100%;
       }
 
-      p {
-        padding: 1rem 0rem;
-        color: rgba(get-color(grey2_s4), 0.9);
-        font-size: clamp(0.75rem, 0.5vw + 0.4rem, 1rem); // 12px a 16px
-        font-style: normal;
-        font-weight: 400;
-        line-height: 100%;
-        text-wrap: wrap;
+      .contact-conditions {
+        p {
+          // padding: 0.5rem 0rem;
+          color: rgba(get-color(grey2_s4), 0.9);
+          font-size: clamp(0.75rem, 0.5vw + 0.4rem, 1rem); // 12px a 16px
+          font-style: normal;
+          font-weight: 400;
+          line-height: 100%;
+          text-wrap: wrap;
+          padding-bottom: 1rem;
+        }
       }
 
       .box-filter .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
       .box-filter .css-fvipm8 {
         width: 100% !important;
+
         @include media(tablet) {
           width: auto;
         }
@@ -723,6 +734,7 @@
       .box-phone {
         align-items: flex-start;
         width: 100%;
+
         @include media(tablet) {
           align-items: center;
         }
@@ -730,18 +742,22 @@
 
       .input-box {
         width: 100%;
+
+        input[name='phone'],
+        textarea {
+          height: 2.9em;
+        }
       }
 
       .container-send {
-        align-items: self-end;
-        align-items: flex-end;
         display: flex;
+        justify-content: center;
         width: 100%;
-      
       }
 
-
-      
+      .errorMessage {
+        font-size: 0.75rem;
+      }
     }
   }
 
@@ -1245,6 +1261,7 @@
 }
 
 .blacktext {
+
   h2,
   p {
     color: get-color(black_p2);
@@ -1322,6 +1339,7 @@
 }
 
 @keyframes fadeInOut {
+
   0%,
   50%,
   100% {
@@ -1456,6 +1474,7 @@
 }
 
 @keyframes fadeInOut {
+
   0%,
   50%,
   100% {
@@ -1539,5 +1558,3 @@
     transform: rotateY(-360deg);
   }
 }
-
-

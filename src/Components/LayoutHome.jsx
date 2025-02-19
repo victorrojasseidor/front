@@ -51,14 +51,7 @@ export default function LayoutHome({ children }) {
       submenus: [],
     },
 
-    {
-      label: t['Contact'],
-      link: '/#contact',
-      submenus: [],
-    },
-      
-
-
+    
   ];
 
   const menuMovil = [
@@ -85,11 +78,7 @@ export default function LayoutHome({ children }) {
       submenus: [],
     },
 
-    {
-      label: 'CONTACTO',
-      link: '/#contact',
-      submenus: [],
-    }
+   
       
   ];
 

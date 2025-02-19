@@ -3,12 +3,10 @@ import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '@/Context/DataContext';
 import { fetchNoTokenPost } from '@/helpers/fetch';
-
-import Loading from '@/Components/Atoms/Loading';
+import ImageSvg from '@/helpers/ImageSVG';
 import Modal from '@/Components/Modal';
 import { countryOptionContact } from '@/helpers/contry';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-
 import ButtonGradient from './Atoms/ButtonGradient';
 import LoadingComponent from './Atoms/LoadingComponent';
 
@@ -195,21 +193,10 @@ function Contact() {
               <p>{t['By submitting the form, you authorize SEIDOR Innovativa Peru SAC to use your data to respond to inquiries.']}</p>
             </div>
 
-            {/* <div className="containerButton">
-              <button className={`btn_primary ${values.message && values.name && values.message ? '' : 'disabled'}`} type="submit" disabled={!values.message || !values.name || !values.email}>
-                {t['Send']}
-              </button>
-            </div> */}
+         
 
             <div className="container-send">
-              {/* <ButtonGradient
-                style={{ visibility: values.message && values.name ? 'visible ' : 'hidden' }}
-                className="whiteButton"
-                type="submit"
-                disabled={!values.message || !values.name || !values.email}
-              >
-              {t['Send']}
-              </ButtonGradient> */}
+         
 
               <ButtonGradient classButt={` ${values.message && values.name ? 'whiteButton' : 'disabled-gd'}`} type="submit" disabled={!values.message || !values.name || !values.email}>
                 {t['Send']}
@@ -222,8 +209,11 @@ function Contact() {
       {isLoading && <LoadingComponent />}
       {confirm && (
         <Modal close={() => setConfirm(false)}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', width: '100%' }}>
-            <h1>{t['Your request was sent successfully']}</h1>
+          <div className='message'>
+           
+           <ImageSvg name='Check'/>
+
+            <h2>{t['Your request was sent successfully']}</h2>
             <p style={{ textAlign: 'center' }}>{t['We will contact you soon']}</p>
           </div>
         </Modal>
