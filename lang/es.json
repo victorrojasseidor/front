@@ -569,7 +569,7 @@
     "Phone Number": "Número de teléfono",
     "Message": "Mensaje",
     "Your request was sent successfully": "Su solicitud o mensaje fue enviada exitosamente",
-    "We will contact you soon": "Pronto nos pondremos en contacto contigo",
+    "We will contact you soon": "Nos pondremos en contacto contigo a la brevedad",
     "Send": "Enviar",
     "Your satisfaction": "Tu satisfacción",
     "is our top": "es nuestra",
@@ -585,7 +585,9 @@
     "Country": "País",
     "By submitting the form, you authorize SEIDOR Innovativa Peru SAC to use your data to respond to inquiries.": "Al enviar el formulario, autorizas a SEIDOR Innovativa Peru SAC. a usar tus datos para responder consultas.",
     "Send Request": "Enviar solicitud",
-    "Contact Us": "Contáctanos"
+    "Contact Us": "Contáctanos",
+    "We will contact you shortly":"Nos pondremos en contacto contigo a la brevedad"
+
   },
   "Integration": {
     "Integration": "Integración",

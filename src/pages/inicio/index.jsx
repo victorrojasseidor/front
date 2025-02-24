@@ -188,7 +188,7 @@ export default function index() {
           }
         });
       },
-      { threshold: 0.0001 } // Disparar la animación cuando el % de la sección sea visible
+      { threshold: 0.000005} // Disparar la animación cuando el % de la sección sea visible
     );
 
     const currentRef = counterSectionRef.current;
@@ -606,26 +606,14 @@ export default function index() {
       </section>
 
       <section className="home-contact" id="contact">
-   
-
         <div className="title-home blacktext" data-aos="fade-up">
           <h2 className="title gradient">
-         <span> {l.Support['Automate your back office']}</span> {l.Support['today']}
+            <span> {l.Support['Automate your back office']}</span> {l.Support['today']}
           </h2>
 
-          <p>{l.Support['Contact us and discover how ARI can transform your back office.']} </p>
-
-      
-
+          <p>{l.Support['We will contact you shortly']} </p>
         </div>
         <Contact />
-
-
-      
-      
-
-      
-
       </section>
     </LayoutHome>
   );

@@ -193,12 +193,8 @@ function Contact() {
               <p>{t['By submitting the form, you authorize SEIDOR Innovativa Peru SAC to use your data to respond to inquiries.']}</p>
             </div>
 
-         
-
-            <div className="container-send">
-         
-
-              <ButtonGradient classButt={` ${values.message && values.name ? 'whiteButton' : 'disabled-gd'}`} type="submit" disabled={!values.message || !values.name || !values.email}>
+            <div className= {`container-send  ${values.message && values.name ? '' : 'disabled-gd'}`}>
+              <ButtonGradient classButt="whiteButton" type="submit" disabled={!values.message || !values.name || !values.email}>
                 {t['Send']}
               </ButtonGradient>
             </div>
@@ -209,9 +205,8 @@ function Contact() {
       {isLoading && <LoadingComponent />}
       {confirm && (
         <Modal close={() => setConfirm(false)}>
-          <div className='message'>
-           
-           <ImageSvg name='Check'/>
+          <div className="message">
+            <ImageSvg name="Check" />
 
             <h2>{t['Your request was sent successfully']}</h2>
             <p style={{ textAlign: 'center' }}>{t['We will contact you soon']}</p>
