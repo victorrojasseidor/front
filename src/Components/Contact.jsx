@@ -62,7 +62,7 @@ function Contact() {
     try {
       setIsLoading(true);
       const responseData = await fetchNoTokenPost('BPasS/?Accion=ContactanosSmtp', body);
-
+      console.log(body, responseData)
       if (responseData.oAuditResponse?.iCode === 1) {
         setError(null);
         setConfirm(true);
@@ -70,7 +70,7 @@ function Contact() {
           setConfirm(false);
           resetForm();
           setFieldValue('message', ''); // Borra manualmente el mensaje
-        }, 3000);
+        }, 5000);
         // } else if (responseData.oAuditResponse?.iCode === 27) {
         //   setModalToken(true);
         // } else if (responseData.oAuditResponse?.iCode === 4) {
@@ -82,7 +82,7 @@ function Contact() {
         setError(errorMessage);
         setTimeout(() => {
           setError(null);
-        }, 1000);
+        }, 10000);
       }
     } catch (error) {
       setConfirm(false);

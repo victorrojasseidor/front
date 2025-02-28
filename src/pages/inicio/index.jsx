@@ -611,7 +611,7 @@ export default function index() {
             <span> {l.Support['Automate your back office']}</span> {l.Support['today']}
           </h2>
 
-          <p>{l.Support['We will contact you shortly']} </p>
+          <p>{l.Support['Contact us and discover how ARI can transform your back office.']} </p>
         </div>
         <Contact />
       </section>

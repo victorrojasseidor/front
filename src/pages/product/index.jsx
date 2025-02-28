@@ -270,8 +270,9 @@ export default function Products() {
     } else if (dayLef <= 0) {
       return (
         <>
-          <Link href="https://www.innovativa.la/contacto">{t['Contact technical support']}</Link>
+          <Link href="/#contact">{t['Contact technical support']}</Link>
         </>
+
       );
     } else {
       return (
@@ -293,7 +294,7 @@ export default function Products() {
       category: 'Finance and accounting',
       title: 'Utility Bill Registration',
       status: 'Not hired',
-      link: 'https://www.innovativa.la/digitalemployee',
+      link: '/#contact',
       imgProductId: 3,
     },
     {
@@ -302,7 +303,7 @@ export default function Products() {
       category: 'Finance and accounting',
       title: 'Mass update of deduction records',
       status: 'Not hired',
-      link: 'https://www.innovativa.la/digitalemployee',
+      link: '/#contact',
       imgProductId: 7,
     },
     {
@@ -311,7 +312,7 @@ export default function Products() {
       category: 'Finance and accounting',
       title: 'Supplier validation',
       status: 'Not hired',
-      link: 'https://www.innovativa.la/digitalemployee',
+      link: '/#contact',
       imgProductId: 8,
     },
     {
@@ -320,7 +321,7 @@ export default function Products() {
       category: 'Technology',
       title: 'Image text extraction Service',
       status: 'Not hired',
-      link: 'https://www.innovativa.la/digitalemployee',
+      link: '/#contact',
       imgProductId: 9,
     },
     {
@@ -329,7 +330,7 @@ export default function Products() {
       category: 'Human Resources',
       title: 'AFP validation',
       status: 'Not hired',
-      link: 'https://www.innovativa.la/digitalemployee',
+      link: '/#contact',
       imgProductId: 5,
     },
   ];
@@ -554,8 +555,7 @@ export default function Products() {
                     <p>{t[item.status]}</p>
 
                     <p className="dayLetf">
-                      {/* <ImageSvg name='Time' /> */}
-                      {/* {t['Days left:']} .. */}
+                
                     </p>
                   </div>
                 </div>

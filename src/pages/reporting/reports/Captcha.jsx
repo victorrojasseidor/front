@@ -17,7 +17,7 @@ import { fetchConTokenPost } from '@/helpers/fetch';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
+import ButtonGradient from '@/Components/Atoms/ButtonGradient';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import LineCaptcha from '@/Components/Grafics/LineCaptcha';
 
@@ -503,22 +503,15 @@ const Captcha = () => {
         <div className="box-tabs">
           <div className="horizontalTabs">
             <div className="captcha-tabs">
-              
-                <button
-                  className={`btn_types ${activeTab === 0 ? 'activeTypes' : ''}`}
-                  onClick={() => handleTabClick(0)}
-                ><ImageSvg name="Report" />
-                  {t['Monthly summary']} 
+              <button className={`btn_types ${activeTab === 0 ? 'activeTypes' : ''}`} onClick={() => handleTabClick(0)}>
+                <ImageSvg name="Report" />
+                {t['Monthly summary']}
+              </button>
 
-                </button>
-         
-
-           
-                <button className={`btn_types ${activeTab === 1 ? 'activeTypes' : ''}`} onClick={() => handleTabClick(1)}>
-                  <ImageSvg name="Report" />
-                  {t['Results per day']}  
-                </button>
-           
+              <button className={`btn_types ${activeTab === 1 ? 'activeTypes' : ''}`} onClick={() => handleTabClick(1)}>
+                <ImageSvg name="Report" />
+                {t['Results per day']}
+              </button>
             </div>
             <div className="tab-content">
               {activeTab === 0 && (
@@ -569,7 +562,7 @@ const Captcha = () => {
                           <p> {t['Results Obtained from Dates']} </p>
                         </div>
 
-                        <div className='content-headers'>
+                        <div className="content-headers">
                           <div className="tab-header">
                             <Link href="#">
                               <button className={activeTabSub === 0 ? 'active' : ''} onClick={() => handleTabClickSub(0)}>
@@ -580,31 +573,24 @@ const Captcha = () => {
                             <Link href="#">
                               <button className={activeTabSub === 1 ? 'active' : ''} onClick={() => handleTabClickSub(1)}>
                                 Grafics
-
-
                               </button>
-
-
                             </Link>
                           </div>
 
-
-
-                          <button className="btn_black " onClick={() => exportToExcel()}>
+                          {/* <button className="btn_black text " onClick={() => exportToExcel()}>
                             <ImageSvg name="Download" /> {t.Export}
-                          </button>
+                          </button> */}
+
+                                  <ButtonGradient classButt="whiteButton" onClick={() => exportToExcel()}>
+                                  <ImageSvg name="Download" /> {t.Export}
+
+                                    {t['WHY CHOOSE US']}
+                                    </ButtonGradient>
+                          
                         </div>
                       </div>
 
-
-
-
                       {componentFilters()}
-
-
-
-
-
 
                       <div className="tab-content">
                         {activeTabSub === 0 && (
@@ -697,8 +683,6 @@ const Captcha = () => {
                       </div>
                     </div>
                   </div>
-
-
                 </div>
               )}
             </div>
