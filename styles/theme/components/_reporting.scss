@@ -369,77 +369,39 @@
   flex-direction: column;
   gap: 2rem;
 
-  .reporting-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
+
+  &-tabs{
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap:1rem;
 
-    .box-filter .css-1869usk-MuiFormControl-root {
-      @include media(mobile) {
-        width: 100%;
-      }
-    }
-
-    .box-filter .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
-    .box-filter .css-fvipm8 {
-      width: 10rem;
-
-      @include media(tablet) {
-        width: 100%;
-      }
-    }
-
-    .report-content {
-      animation: unset;
-      flex-direction: column;
-      width: 100%;
-      align-items: flex-start;
-      gap: 1rem;
-
-      .report {
-        padding: 0rem;
-        border: none;
-      }
-
-      .report_icon {
-        width: auto;
-        height: auto;
-        padding: 0.8rem;
-
-        @include media(tablet) {
-          padding: 1.2rem;
-        }
-
-        svg {
-          width: auto;
-          height: auto;
-          @include media(tablet) {
-            width: 1.2rem;
-          }
-        }
-      }
-    }
   }
+
+ 
 
   &-summary {
     display: flex;
     width: 100%;
     gap: 1rem;
     justify-content: space-between;
-    height: max-content;
     flex-wrap: wrap;
+   
 
-    @include media(tablet) {
-      // flex-direction: column;
-    }
-    .reporting-box {
-      flex: 1;
-      @include media(tablet) {
-        flex: 0.7;
+    .report-content{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .report_resume{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-direction: row;
       }
     }
+
+
 
     .report-months {
       width: 100%;
@@ -466,29 +428,62 @@
     }
   }
 
-  &-filters {
-    @include container;
+
+  .content-headers{
+    display: flex;
     flex-direction: column;
+    justify-content:space-between;
+    gap:1rem;
+
+    @include media(tablet) {
+      flex-direction: row;
+    }
+
+    .tab-header{
+      border-bottom: none;
+      gap:1rem;
+
+      button{
+        padding-left: 0rem;
+        padding-right: 0rem;
+      }
+      
+    }
+
   }
 
-  .box-filters {
-    @include center-container;
-    padding-top: 1rem;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.5rem;
+  &-filters {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap:1rem;
+  }
 
-    .btn_filter {
-      border-radius: brd(2);
-      border: 1px solid get-color(grey1_s3);
-      width: 12rem;
-      display: flex;
-      padding: 0.5rem;
+  .box-filters, .date {
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    @include media(tablet) {
+      flex-wrap: nowrap;
       flex-direction: row;
-      @include media(tablet) {
-        width: auto;
-      }
-    }
+
+        }
+
+    // justify-content: space-between;
+
+   
+
+    // .btn_filter {
+    //   border-radius: brd(2);
+    //   border: 1px solid get-color(grey1_s3);
+    //   width: 12rem;
+    //   display: flex;
+    //   padding: 0.5rem;
+    //   flex-direction: row;
+    //   @include media(tablet) {
+    //     width: auto;
+    //   }
+    // }
 
     .active {
       background-color: get-color(blue_p1);
@@ -512,7 +507,7 @@
   }
 
   .grafics {
-    @include container;
+    // @include container;
     flex-direction: column;
 
     .rates-description {

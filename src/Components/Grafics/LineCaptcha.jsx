@@ -4,7 +4,7 @@ import 'chartjs-adapter-date-fns';
 import { useAuth } from '@/Context/DataContext';
 import ImageSvg from '@/helpers/ImageSVG';
 
-const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate }) => {
+const LineCaptcha = ({ captchaData, startDate, endDate }) => {
   const chartRef = useRef();
   const { l } = useAuth();
   const t = l.Captcha;
@@ -122,19 +122,15 @@ const LineCaptcha = ({ captchaData, exportToExcel, startDate, endDate }) => {
     <div>
       <div className="rates-description">
         <div>
-          <h3>{t['Captcha History']}</h3>
+          {/* <h3>{t['Captcha History']}</h3> */}
 
-          <p className="dates">
+          {/* <p className="dates">
             <ImageSvg name="Reporting" />
             {t['Results obtained by']} {startDate} {t.To} {endDate}
-          </p>
+          </p> */}
         </div>
 
-        <div>
-          <button className="btn_black " onClick={() => exportToExcel()}>
-            <ImageSvg name="Download" /> {t.Export}
-          </button>
-        </div>
+      
       </div>
 
       {captchaData.length > 0 && <canvas ref={chartRef} />}

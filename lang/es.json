@@ -762,6 +762,7 @@
     "Date start": "Fecha de inicio",
     "Date end": "Fecha fin",
     "Selected company": "Empresa seleccionada",
+    "Select the company":"Selecciona la empresa",
     "Captcha Solver": "Solucionador del Captcha",
     "Captcha solve report": "Reporte de solucionador del Captcha",
     "Captcha solver settings": "Configuración del Resolvedor de captchas",
@@ -775,7 +776,20 @@
     "Connected RPA - description": "RPA conectado - descripción",
     "Update": "Actualizar",
     "optional": "opcional",
-    "Cancel": "Cancelar"
+    "Cancel": "Cancelar",
+    "Hired connections": "Conexiones contratadas",
+    "Connections used": "Conexiones utilizadas",
+    "Last contract": "Último contrato",
+    "Monthly summary": "Resumen mensual",
+    "Results per day": "Resultados por día",
+    "Captcha report by day": "Reporte de Captcha por día",
+    "History by month": "Historial por mes",
+
+    "Contract": "Contrato",
+    "View graph": "Ver gráfico",
+    "Total connections consumed": "Total de conexiones consumidas",
+    "Total Captcha solved": "Total de Captchas resueltos"
+
   },
   "Modal": {
     "Your session is about to expire!": "¡Su sesión está a punto de caducar!",

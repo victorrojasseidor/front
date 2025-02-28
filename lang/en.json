@@ -767,6 +767,7 @@
     "Date start": "Date start",
     "Date end": "Date end",
     "Selected company": "Selected company",
+    "Select the company":"Select the company",
     "Captcha Solver": "Captcha Solver",
     "Captcha solve report": "Captcha solve report",
     "Captcha solver settings": "Captcha solver settings",
@@ -780,7 +781,20 @@
     "Connected RPA - description": "Connected RPA - description",
     "Update": "Update",
     "optional": "optional",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "Hired connections": "Hired connections",
+    "Connections used": "Connections used",
+    "Last contract": "Last contract",
+    "Monthly summary": "Monthly summary",
+    "Results per day": "Results per day",
+    "Captcha report by day": "Captcha report by day",
+    "History by month": "History by month",
+    "Contract": "Contract",
+    "View graph": "View graph",
+    "Total connections consumed": "Total connections consumed",
+    "Total Captcha solved": "Total Captcha solved"
+    
+
   },
   "Modal": {
     "Your session is about to expire!": "Your session is about to expire!",

@@ -178,7 +178,7 @@ function Tecnology() {
 
           <div className="reporting-box  reporting_dashboard">
             <div className="report-content">
-              <div className="report red">
+              <div className="report gradientAri">
                 <div className="report_icon  ">
                   <ImageSvg name="Bank" />
                 </div>
@@ -195,7 +195,7 @@ function Tecnology() {
 
               <div className="liner" />
 
-              <div className="report green ">
+              <div className="report gradientAri ">
                 <div className="report_icon  ">
                   <ImageSvg name="Account" />
                 </div>
@@ -204,14 +204,13 @@ function Tecnology() {
                   <article>{t['Total Accounts']}</article>
                   <h2>{dataInitialSelect?.iConfCuenta} </h2>
                   <p>
-                    {' '}
                     <ImageSvg name="ArrowUp" /> {t['for the companies']}{' '}
                   </p>
                 </div>
               </div>
               <div className="liner" />
 
-              <div className="report  blue">
+              <div className="report  gradientAri">
                 <div className="report_icon  ">
                   <ImageSvg name="IconTipo" />
                 </div>
