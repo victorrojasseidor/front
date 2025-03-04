@@ -376,7 +376,7 @@ const Captcha = () => {
               <div className="report_resume">
                 <div className="report gradientAri">
                   <div className="report_icon  ">
-                    <ImageSvg name="IconCaptcha" />
+                    <ImageSvg name="ReportConection" />
                   </div>
 
                   <div className="report_data">
@@ -386,7 +386,7 @@ const Captcha = () => {
                     <h3>60 ,000</h3>
 
                     <p>
-                      <ImageSvg name="Check" /> {t['Last contract']} {dataSumary?.fecha_until}{' '}
+                      <ImageSvg name="ArrowUp" /> {t['Last contract']} {dataSumary?.fecha_until}{' '}
                     </p>
                   </div>
                 </div>
@@ -402,7 +402,7 @@ const Captcha = () => {
                     {/* <h3> {dataSumary?.captcha_conexion_until_now} </h3> */}
                     <h3>24 ,000</h3>
                     <p>
-                      <ImageSvg name="Check" /> {t.To} {dataSumary?.fecha_until}
+                      <ImageSvg name="ArrowUp" /> {t.To} {dataSumary?.fecha_until}
                     </p>
                   </div>
                 </div>
@@ -519,7 +519,7 @@ const Captcha = () => {
                   <div className="contaniner-tables">
                     <div className="box-search">
                       <div>
-                        <h3> {t['Last Months']} </h3>
+                        <h3> {t['Monthly summary']} </h3>
                         <p> {t['Results of the Last Months']} </p>
                       </div>
                     </div>
@@ -577,15 +577,15 @@ const Captcha = () => {
                             </Link>
                           </div>
 
-                          {/* <button className="btn_black text " onClick={() => exportToExcel()}>
+                          <button className="btn_types" onClick={() => exportToExcel()}>
                             <ImageSvg name="Download" /> {t.Export}
-                          </button> */}
+                          </button>
 
-                                  <ButtonGradient classButt="whiteButton" onClick={() => exportToExcel()}>
+                                  {/* <ButtonGradient classButt="whiteButton" onClick={() => exportToExcel()}>
                                   <ImageSvg name="Download" /> {t.Export}
 
                                     {t['WHY CHOOSE US']}
-                                    </ButtonGradient>
+                                    </ButtonGradient> */}
                           
                         </div>
                       </div>

@@ -83,6 +83,7 @@
           color: get-color(white_s1);
         }
       }
+
     }
 
     &:focus {
@@ -305,9 +306,13 @@
     }
   }
 
+  
+
   .white {
     color: get-color(black_p2);
     background: get-color(white_s1);
+
+   
   }
 
   &_gradient {
@@ -396,6 +401,7 @@
     border-radius: brd(2);
     border-style: none;
     width: 9rem;
+    
 
     &:hover {
       padding: 0.5rem 0.6rem;
