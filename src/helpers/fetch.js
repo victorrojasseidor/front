@@ -28,22 +28,30 @@ const fetchNoTokenPost = async (endpoint, data, specifiedLocale) => {
   }
 };
 
-const fetchConTokenPost = async (endpoint, data, tok, specifiedLocale) => {
+const fetchConTokenPost = async (endpoint, data,tok, specifiedLocale) => {
   const locale = specifiedLocale || 'en'; // Usar el locale especificado o por defecto 'en'
   const url = `${baseApiUrl}${endpoint}`;
 
+  // sacar el token de localhost
+  const sessionLS =  localStorage.getItem('session');
+  const sessionLocal =JSON.parse(sessionLS)
+  const token = sessionLocal?.sToken
+  const TokJ = sessionLocal?.sTokenJ
+ 
   try {
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        stoken: `SSd=${tok}`,
+        stoken: `SSd=${token}`,
+        stokenjwt: TokJ,
         slanguage: locale,
         saplicacion: process.env.NEXT_PUBLIC_X_SAPLICACION,
         'x-api-key': process.env.NEXT_PUBLIC_X_API_KEY,
         'Content-Type': 'application/json',
       },
     });
+
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
