@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import ImageSvg from '@/helpers/ImageSVG';
 import Link from 'next/link';
 import logo from '../../public/img/logoGift.gif';
-
 import ari from '../../public/img/ari.webp';
 import Image from 'next/image';
 import Modal from './Modal';
@@ -10,6 +9,7 @@ import RefreshToken from './RefresToken';
 import { useRouter } from 'next/router';
 import { useAuth } from '@/Context/DataContext';
 import Lang from './Atoms/Lang';
+import ModalAccess from './ModalAccess';
 
 const LayoutProducts = ({ children, menu }) => {
   const [isOpenMobile, setIsOpenMobile] = useState(false);
@@ -23,11 +23,10 @@ const LayoutProducts = ({ children, menu }) => {
   });
   const [activeSubmenu, setActiveSubmenu] = useState('');
 
-  const { session, modalToken, logout, l, setSession, isLogout, setIsLogout, isMenuLateralOpen, setMenuLateralOpen } = useAuth();
+  const { session, modalToken, logout, l, setSession, isLogout, setIsLogout, isMenuLateralOpen, setMenuLateralOpen,modalDenied} = useAuth();
   const { asPath } = useRouter();
   const t = l.header;
   const router = useRouter();
-
 
   const toggleSubmenu = (menuItem) => {
     setSubmenuOpen((prevState) => ({
@@ -140,7 +139,6 @@ const LayoutProducts = ({ children, menu }) => {
     // },
   };
 
-
   const menuMovil = [
     // {
     //   label: 'Ari',
@@ -189,7 +187,6 @@ const LayoutProducts = ({ children, menu }) => {
 
             <div className="titlePage">
               <Link className="navegation" href={'/product'}>
-
                 {router.asPath == '/product' ? '' : <ImageSvg name="Return" />} {t.Home}
               </Link>
 
@@ -213,7 +210,9 @@ const LayoutProducts = ({ children, menu }) => {
                   {session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company} - {session?.sPerfilCode === 'ADMIN' && 'Ari:v2'}
                 </p>
 
-                <span style={{ textTransform: 'capitalize' }}>{session?.sUserName} {session?.sLastName}</span>
+                <span style={{ textTransform: 'capitalize' }}>
+                  {session?.sUserName} {session?.sLastName}
+                </span>
               </div>
             </div>
           </div>
@@ -231,31 +230,22 @@ const LayoutProducts = ({ children, menu }) => {
                     <div className="box-name">
                       <div className="box-name_person">
                         <ImageSvg name="Person" />
-
                       </div>
-
 
                       <div className="box-name_name">
                         <p>
                           {session?.sPerfilCode === 'ADMIN' ? session?.sPerfilCode : session?.jCompany.razon_social_company} - {session?.sPerfilCode === 'ADMIN' && 'Ari:v2'}
                         </p>
-                        <span style={{ textTransform: 'capitalize' }}>{session?.sUserName} {session?.sLastName}</span>
+                        <span style={{ textTransform: 'capitalize' }}>
+                          {session?.sUserName} {session?.sLastName}
+                        </span>
                       </div>
-
-
-
-
                     </div>
 
                     <div className="languajes-box">
                       <Lang />
                     </div>
-
-
                   </div>
-
-
-
 
                   {menuMovil?.map((menu) => (
                     <li className="languaje-white list-options" key={menu.label}>
@@ -275,20 +265,15 @@ const LayoutProducts = ({ children, menu }) => {
                     </li>
                   ))}
 
-
-                  <li className='signOut-movil'>
+                  <li className="signOut-movil">
                     <button onClick={() => handleLogout()}>
                       <ImageSvg name="SignOut" />
                       <h5>{t['Sign Out']}</h5>
                     </button>
                   </li>
-
                 </div>
               </div>
             </ul>
-
-
-
           </div>
         </div>
 
@@ -366,15 +351,13 @@ const LayoutProducts = ({ children, menu }) => {
           </section>
 
           <section className="menu_children">
-
-
-
             <section className={`children`} style={{ marginLeft: withMenu, width: `calc(100% - ${withMenu})` }}>
               {children}
             </section>
           </section>
 
           <div>{modalToken && session && <RefreshToken />}</div>
+          <div>{modalDenied && session && <ModalAccess />}</div>
 
           {isLogout && (
             <Modal close={() => setIsLogout(false)}>

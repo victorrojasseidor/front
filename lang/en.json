@@ -168,7 +168,7 @@
     "Waiting articles": "Waiting articles",
     "View more": "View more",
     "View less": "View less",
-    "Contact":"Contact"
+    "Contact": "Contact"
   },
   "update_password": {
     "Update password": "Change password",
@@ -297,14 +297,13 @@
     "this month ": "this month ",
     "Bussines agility": " Bussines agility",
     "more": "more",
-    "per day":"per day",
+    "per day": "per day",
     "Download account statements": "Download account statements",
     "AFP validation": "AFP validation",
     "Captcha Solving Service": "Captcha Solving Service",
     "Image text extraction Service": "Image text extraction Service",
     "Mass update of deduction records": "Mass update of deduction records",
     "Supplier validation": "Supplier validation"
-
   },
   "Apiconfuguration": {
     "Service configuration status": "Service configuration status",
@@ -577,7 +576,7 @@
     "is our top": "is our top",
     "priority": "priority",
     "Automate your back office": "Automate your back office",
-    "today":"today",
+    "today": "today",
     "Contact us and discover how ARI can transform your back office.": "Contact us and discover how ARI can transform your back office.",
     "Name": "Name",
     "Last Name": "Last Name",
@@ -588,8 +587,7 @@
     "By submitting the form, you authorize SEIDOR Innovativa Peru SAC to use your data to respond to inquiries.": "By submitting the form, you authorize SEIDOR Innovativa Peru SAC to use your data to respond to inquiries.",
     "Send Request": "Send Request",
     "Contact Us": "Contact Us",
-    "We will contact you shortly":"We will contact you shortly"
-
+    "We will contact you shortly": "We will contact you shortly"
   },
   "Integration": {
     "Integration": "Integration",
@@ -722,8 +720,6 @@
     "Deduction payment number": "Deduction payment number",
     "Detractions report": "Detractions report",
     "Detractions": "Detractions"
-
-
   },
   "Captcha": {
     "Captcha solved": "Captcha Solved",
@@ -767,7 +763,7 @@
     "Date start": "Date start",
     "Date end": "Date end",
     "Selected company": "Selected company",
-    "Select the company":"Select the company",
+    "Select the company": "Select the company",
     "Captcha Solver": "Captcha Solver",
     "Captcha solve report": "Captcha solve report",
     "Captcha solver settings": "Captcha solver settings",
@@ -793,13 +789,16 @@
     "View graph": "View graph",
     "Total connections consumed": "Total connections consumed",
     "Total Captcha solved": "Total Captcha solved"
-    
-
   },
   "Modal": {
     "Your session is about to expire!": "Your session is about to expire!",
     "Please confirm to refresh your token and continue": "Please confirm to refresh your token and continue",
-    "Confirm": "Confirm"
+    "Confirm": "Confirm",
+    "Return to Home":"Return to Home",
+    "Access denied":"Access denied",
+    "You do not have permission to view this page with this account":"You do not have permission to view this page with this account",
+    "If you wish to access this information, please log in with an authorized account":"If you wish to access this information, please log in with an authorized account"
+
   },
   "validation": {
     "Corporate email is required": "Corporate email is required",

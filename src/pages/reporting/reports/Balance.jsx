@@ -51,7 +51,6 @@ const Balance = () => {
 
   const tableContainerRef = useRef(null);
 
-
   useEffect(() => {
     getBalancesInitial();
   }, []);
@@ -500,7 +499,7 @@ const Balance = () => {
               </button>
             </div>
 
-             {/* <div className="scrollWrapper">
+            {/* <div className="scrollWrapper">
               <div className="scrollButtons" style={{ display: showScrollButtons ? 'flex' : 'none' }}>
               
 
@@ -517,7 +516,7 @@ const Balance = () => {
               </div>
             </div>  */}
 
-              <ScrollableTable  tableRef={tableContainerRef}/> 
+            <ScrollableTable tableRef={tableContainerRef} />
 
             <div className="tableContainer " ref={tableContainerRef}>
               <table className="dataTable Account">

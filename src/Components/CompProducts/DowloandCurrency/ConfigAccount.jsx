@@ -35,7 +35,7 @@ export default function ConfigAccount({ idbancoCredential, setGet, get, getBank,
       setModalToken(false);
       setRequestError(errorMessage);
       setTimeout(() => {
-        setRequestError(null); // Limpiar el mensaje después de 3 segundos
+        setRequestError(null); 
       }, 5000);
     }
   }

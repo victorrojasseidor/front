@@ -81,8 +81,6 @@ export default function ConfigCurrency() {
     };
 
 
-    console.log({body})
-
     try {
       const token = session.sToken;
 
@@ -238,9 +236,6 @@ export default function ConfigCurrency() {
         ],
       },
     };
-
-
-
 
     try {
       const token = session.sToken;

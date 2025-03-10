@@ -209,7 +209,7 @@ export default function EmailsForm({ dataEmails, setUpdateEmails, sProduct, get,
                     ?.slice(0, 6)
                     .map((email, index, arr) => (
                       <p key={email.id_correo_eb}>
-                        {email.correo} 
+                        {email.correo}
                         {index === arr.length - 1 ? '' : ','}{' '}
                       </p>
                     ))}

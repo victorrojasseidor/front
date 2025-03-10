@@ -73,8 +73,6 @@ function Integration() {
 
   return (
     <LayoutProducts menu="Integration">
-     
-
       {isLoading && <Loading />}
 
       <div className="integration">

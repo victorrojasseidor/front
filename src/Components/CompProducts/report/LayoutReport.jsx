@@ -25,7 +25,6 @@ const LayouReport = ({ defaultTab, children }) => {
 
   return (
     <LayoutProducts menu="Reporting">
-     
       <section className="layoutReporting">
         <div className="horizontalTabs">
           <div className="tab-header">

@@ -50,8 +50,6 @@ export default function LayoutHome({ children }) {
       link: '/#insights',
       submenus: [],
     },
-
-    
   ];
 
   const menuMovil = [
@@ -73,23 +71,19 @@ export default function LayoutHome({ children }) {
     },
 
     {
-      label: 'Insights', 
+      label: 'Insights',
       link: '/#insights',
       submenus: [],
     },
-
-   
-      
   ];
 
   return (
     <section className="home">
       <header className="home-nav">
         <ul className="logo-img">
-          <Link href='/#front'>
-          <Image src={LogoOscuro} width={100} height={100} alt="logooscuro" />
+          <Link href="/#front">
+            <Image src={LogoOscuro} width={100} height={100} alt="logooscuro" />
           </Link>
-      
         </ul>
 
         <ul className="nav-menu">

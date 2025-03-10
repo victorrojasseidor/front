@@ -100,9 +100,6 @@
     }
 
     .box-emails {
-
-
-
       &-show {
         display: flex;
         justify-content: center;
@@ -111,7 +108,6 @@
 
         gap: 1rem;
         width: 100%;
-
 
         .box-title {
           display: flex;
@@ -125,8 +121,6 @@
             justify-content: space-between;
             flex-wrap: wrap;
             height: 2rem;
-
-
 
             .btn_crud {
               border: 1px solid rgba(get-color(blue_p1), 0.3);
@@ -145,20 +139,14 @@
             flex-direction: row;
           }
 
-
-
           .list-emails {
             flex: 1;
 
-            p{
+            p {
               padding-right: 0.25rem;
-              color: rgba(get-color(grey2_s4), 0.7)
+              color: rgba(get-color(grey2_s4), 0.7);
             }
-          
-
           }
-
-          
 
           .cards {
             display: flex;
@@ -166,11 +154,7 @@
             align-items: flex-start;
             flex-wrap: wrap;
           }
-
         }
-
-
-
 
         .card--emails {
           border: 2px solid var(--s-2-pink, #efecff);
@@ -199,7 +183,6 @@
         justify-content: center;
         align-items: center;
         font-size: smaller;
-
 
         .box-update {
           padding: 1rem;
@@ -232,8 +215,6 @@
           }
         }
       }
-
-
     }
   }
 
@@ -244,7 +225,6 @@
     // width: 100%;
     gap: 0.5rem;
     text-align: center;
-
 
     span {
       font-size: medium;
@@ -275,7 +255,6 @@
       }
 
       li {
-
         background-color: get-color(bone_s2);
         color: get-color(black_p2);
 
@@ -331,7 +310,6 @@
       /* Espacio entre elementos */
     }
   }
-
 }
 
 .subtitle {

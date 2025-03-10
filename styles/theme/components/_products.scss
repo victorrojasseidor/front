@@ -6,12 +6,12 @@
   align-items: flex-end;
   box-shadow: drop-shadow(0px 10px 60px rgba(226, 236, 249, 0.5));
 
-  
   font-size: clamp(0.75rem, 0.5vw + 0.4rem, 1rem); // 12px a 16px
 
-  p,span, article{
+  p,
+  span,
+  article {
     font-size: clamp(0.75rem, 0.5vw + 0.4rem, 1rem); // 12px a 16px
-
   }
 
   .report-content {
@@ -245,7 +245,6 @@
 
           @include media(tablet) {
             color: get-color(white_s1);
-
           }
         }
       }
@@ -363,8 +362,7 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: flex-start;
-      overflow-x:scroll;
-
+      overflow-x: scroll;
 
       // @include scrollTeme;
 
@@ -376,8 +374,7 @@
         align-items: center;
         gap: 1rem;
         padding-bottom: 1rem;
-        overflow-x:auto;
-
+        overflow-x: auto;
       }
     }
 
@@ -593,7 +590,7 @@
     cursor: pointer !important;
     font-size: 0.85rem !important;
     padding: 0.5rem 1rem !important;
-    }
+  }
 
   .filterButtons {
     overflow-x: scroll;
@@ -662,8 +659,6 @@
     @include media(tablet) {
       min-width: 22rem;
     }
-
-    
   }
 
   .css-1yhyf2r-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input {
@@ -691,7 +686,6 @@
     padding: 0.35rem 0.5rem;
     background-color: get-color(white_s1);
     border: 1px solid rgba(get-color(blue_p1), 0.3);
-  
   }
 
   .css-154wcn3 {
@@ -742,8 +736,7 @@
       background-color: get-color(white_s1);
 
       @include media(tablet) {
-       min-width: 22rem;
-
+        min-width: 22rem;
       }
     }
   }
@@ -805,14 +798,14 @@
 }
 
 .style-transparent {
-  
   .report-content {
     background-color: transparent;
     box-shadow: none;
     padding: 0rem;
     transition: background-color 0.9s ease;
 
-    article,p{
+    article,
+    p {
       color: rgba(get-color(grey2_s4), 1);
 
       @include media(tablet) {

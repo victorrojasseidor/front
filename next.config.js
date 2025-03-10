@@ -1,5 +1,3 @@
-// module.exports = nextConfig
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -21,7 +19,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://cloud.uipath.com/demo_rch/DefaultTenant/odata/Jobs/UiPath.Server.Configuration.OData.StartJobs',
+            value: 'https://cloud.uipath.com',
           },
           {
             key: 'Access-Control-Allow-Methods',
@@ -38,7 +36,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://api.ariapp.ai/bpass/',
+            value: 'https://api.ariapp.ai',
           },
           {
             key: 'Access-Control-Allow-Methods',
@@ -46,7 +44,7 @@ const nextConfig = {
           },
           {
             key: 'Access-Control-Allow-Headers',
-            value: 'Content-Type, Authorization ,stokenjwt ',
+            value: 'Content-Type, Authorization, stokenjwt',
           },
         ],
       },

@@ -92,9 +92,6 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     border-bottom: 1px solid rgba(get-color(forms_s6), 1);
-    
-
-  
 
     @include media(tablet) {
       width: 100%;
@@ -120,7 +117,6 @@
       align-items: center;
       width: 100%;
       padding: 0.5rem 0.5rem 0.5rem 0rem;
-
 
       @include media(tablet) {
         padding: 0.5rem 1rem;
@@ -541,7 +537,7 @@
   justify-content: flex-start;
   align-items: center;
 
-  button{
+  button {
     background-color: transparent;
     border-style: none;
     text-align: center;

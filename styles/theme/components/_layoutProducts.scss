@@ -62,7 +62,6 @@
     @include media(desktop) {
       gap: 4rem;
       padding: 0rem 1rem;
-
     }
 
     p {
@@ -130,8 +129,6 @@
           stroke: get-color(grey2_s4);
         }
       }
-
-
     }
 
     &-close {
@@ -256,22 +253,14 @@
           background-image: linear-gradient(90deg, #d037d8, #6640ff 75%, #0ea4ca);
         }
       }
-
-
-
-
-
-
     }
   }
 }
-
 
 .signOut-movil {
   margin-top: 1rem;
   border-top: 1px solid get-color(grey1_s3);
   padding-top: 1rem;
-
 
   width: 100%;
 
@@ -282,14 +271,12 @@
     gap: 0.5rem;
     background-color: rgba(get-color(forms_s6), 0.6);
     border-radius: brd(1);
-
   }
 
   h5 {
     font-weight: 400;
-    color: rgba(get-color(black_p2), 1)
+    color: rgba(get-color(black_p2), 1);
   }
-
 }
 
 .layoutProducts {
@@ -604,9 +591,6 @@
     //       display: none;
     //     }
 
-
-
-
     //     .submenu {
     //       max-width: 1.1rem;
     //       padding: 1rem 0rem 0rem 0rem;
@@ -655,21 +639,12 @@
     //       }
     //     }
 
-
     //     .active {
     //       &::before {
     //         //  background-color: get-color(lilac_p3);
     //         right: -36px;
     //       }
     //     }
-
-
-
-
-
-
-
-
 
     //     .img-down {
     //       display: none;
@@ -732,8 +707,6 @@
 
           li {
             justify-content: center;
-
-
 
             h5 {
               display: none;
@@ -1180,7 +1153,6 @@
   border-bottom: 1px solid rgba(get-color(forms_s6), 0.5);
 
   .languajes-box {
-
     @include media(tablet) {
       width: 15%;
       display: flex;
@@ -1201,8 +1173,6 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-
-
 
     .navegation_title {
       display: flex;

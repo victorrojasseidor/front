@@ -166,8 +166,7 @@
     "Waiting articles": "Artículos en espera",
     "View more": "Ver más",
     "View less": "Ver menos",
-    "Contact":"Contáctanos"
-
+    "Contact": "Contáctanos"
   },
   "update_password": {
     "Update password": "Cambiar contraseña",
@@ -292,7 +291,7 @@
     "for you": "para ti",
     "Time saved": "Tiempo ahorrado",
     "this month": "este mes",
-    "per day":"al día",
+    "per day": "al día",
     "Bussines agility": "Agilidad empresarial",
     "more": "más",
     "Download account statements": "Descarga de estados de cuenta",
@@ -431,7 +430,7 @@
     "Select the currency": "Selecciona la moneda",
     "Account Alias": "Alias de la cuenta"
   },
-   
+
   "Currency": {
     "Digital employees": "Agentes digitales",
     "Status and emails": "Correos electrónicos",
@@ -540,7 +539,6 @@
     "SUNAT patterns": "Padrones de SUNAT"
   },
 
-
   "Detractions": {
     "Credentials": "Credenciales",
     "Credentials for entry to SUNAT": "Credenciales para ingresar a SUNAT",
@@ -575,7 +573,7 @@
     "is our top": "es nuestra",
     "priority": "prioridad",
     "Automate your back office": "Automatiza tu backoffice",
-    "today":"hoy",
+    "today": "hoy",
     "Contact us and discover how ARI can transform your back office.": "Contáctanos y descubre cómo ARI puede transformar tu backoffice.",
     "Name": "Nombre",
     "Last Name": "Apellidos",
@@ -586,8 +584,7 @@
     "By submitting the form, you authorize SEIDOR Innovativa Peru SAC to use your data to respond to inquiries.": "Al enviar el formulario, autorizas a SEIDOR Innovativa Peru SAC. a usar tus datos para responder consultas.",
     "Send Request": "Enviar solicitud",
     "Contact Us": "Contáctanos",
-    "We will contact you shortly":"Nos pondremos en contacto contigo a la brevedad"
-
+    "We will contact you shortly": "Nos pondremos en contacto contigo a la brevedad"
   },
   "Integration": {
     "Integration": "Integración",
@@ -712,13 +709,13 @@
     "Account Alias": "Alias de la cuenta",
     "Account Description": "Descripción de la cuenta",
     "Payment date": "Fecha de pago",
-  "Account type": "Tipo de cuenta",
-  "Number": "Número",
-  "File": "Archivo",
-  "Total amount": "Importe total",
-  "Deduction payment number": "Número de pago de detracción",
-  "Detractions report": "Reporte de detracciones",
-  "Detractions": "Detracciones"
+    "Account type": "Tipo de cuenta",
+    "Number": "Número",
+    "File": "Archivo",
+    "Total amount": "Importe total",
+    "Deduction payment number": "Número de pago de detracción",
+    "Detractions report": "Reporte de detracciones",
+    "Detractions": "Detracciones"
   },
   "Captcha": {
     "Captcha solved": "Captcha Resuelto",
@@ -762,7 +759,7 @@
     "Date start": "Fecha de inicio",
     "Date end": "Fecha fin",
     "Selected company": "Empresa seleccionada",
-    "Select the company":"Selecciona la empresa",
+    "Select the company": "Selecciona la empresa",
     "Captcha Solver": "Solucionador del Captcha",
     "Captcha solve report": "Reporte de solucionador del Captcha",
     "Captcha solver settings": "Configuración del Resolvedor de captchas",
@@ -789,12 +786,16 @@
     "View graph": "Ver gráfico",
     "Total connections consumed": "Total de conexiones consumidas",
     "Total Captcha solved": "Total de Captchas resueltos"
-
   },
   "Modal": {
     "Your session is about to expire!": "¡Su sesión está a punto de caducar!",
     "Please confirm to refresh your token and continue": "Confirma para actualizar tu token y continuar",
-    "Confirm": "Confirmar"
+    "Confirm": "Confirmar",
+    "Return to Home":"Ir a Inicio",
+    "Access denied":"Acceso denegado",
+    "You do not have permission to view this page with this account":"No tienes permiso para ver esta página con esta cuenta.",
+    "If you wish to access this information, please log in with an authorized account":"Si deseas acceder a esta información, inicia sesión con una cuenta autorizada"
+
   },
   "validation": {
     "Corporate email is required": "Se requiere correo electrónico corporativo",

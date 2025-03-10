@@ -13,7 +13,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import { exportToExcelFormat,  IconDate, IconArrow } from '@/helpers/report';
+import { exportToExcelFormat, IconDate, IconArrow } from '@/helpers/report';
 import ImageSvg from '@/helpers/ImageSVG';
 import { TextField } from '@mui/material';
 import Select from '@mui/material/Select';
@@ -96,7 +96,7 @@ const Detracctions = () => {
   }
 
   const hasAppliedFilters = () => {
-    return  selectedCompany !== '' || startDate !== dayjs().startOf('month').format('DD/MM/YYYY') || endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY');
+    return selectedCompany !== '' || startDate !== dayjs().startOf('month').format('DD/MM/YYYY') || endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY');
   };
 
   const handleClearFilters = () => {
@@ -108,7 +108,7 @@ const Detracctions = () => {
 
   const exportToExcel = () => {
     if (!dataDetracciones?.length) return;
-  
+
     const fileName = `Detracciones_report_${startDate}-hasta-${endDate}.xlsx`;
     const headers = [
       { header: 'Fecha Pago', key: 'fecha_pago', width: 20 },
@@ -116,24 +116,21 @@ const Detracctions = () => {
       { header: 'RUC', key: 'ruc_empresa', width: 20 },
       { header: 'Tipo Cuenta', key: 'tipo_cuenta', width: 20 },
       { header: 'Tipo Descarga', key: 'tipo_descarga', width: 20 },
-      
+
       { header: 'Número', key: 'numero', width: 15 },
       { header: 'Archivo', key: 'archivo', width: 20 },
       { header: 'Importe Total', key: 'importe_total', width: 20 },
       { header: 'Numero de pago de detracciones', key: 'numero_pago_detracciones', width: 20 },
-      
     ];
-  
-   
+
     const formattedData = dataDetracciones.map((row) => ({
       ...row,
-      fecha_pago: formatDate(row.fecha_pago) ,// Formato explícito para fecha_pago
-      numero_pago_detracciones:row.numero_pago_detracciones=="String/null"? null:row.numero_pago_detracciones.toString(), // Formato explícito para numero_pago_detracciones
+      fecha_pago: formatDate(row.fecha_pago), // Formato explícito para fecha_pago
+      numero_pago_detracciones: row.numero_pago_detracciones == 'String/null' ? null : row.numero_pago_detracciones.toString(), // Formato explícito para numero_pago_detracciones
     }));
-  
+
     exportToExcelFormat(formattedData, fileName, headers, (row) => row);
   };
-  
 
   return (
     <>
@@ -255,7 +252,7 @@ const Detracctions = () => {
                                 <td>{row.numero}</td>
                                 <td>{row.archivo}</td>
                                 <td>{row.importe_total}</td>
-                                <td> {row.numero_pago_detracciones=="String/null"?"-":row.numero_pago_detracciones}</td>
+                                <td> {row.numero_pago_detracciones == 'String/null' ? '-' : row.numero_pago_detracciones}</td>
                               </tr>
                             ))
                         ) : (

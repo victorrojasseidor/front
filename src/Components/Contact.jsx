@@ -62,7 +62,7 @@ function Contact() {
     try {
       setIsLoading(true);
       const responseData = await fetchNoTokenPost('BPasS/?Accion=ContactanosSmtp', body);
-      console.log(body, responseData)
+      console.log(body, responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setError(null);
         setConfirm(true);
@@ -193,7 +193,7 @@ function Contact() {
               <p>{t['By submitting the form, you authorize SEIDOR Innovativa Peru SAC to use your data to respond to inquiries.']}</p>
             </div>
 
-            <div className= {`container-send  ${values.message && values.name ? '' : 'disabled-gd'}`}>
+            <div className={`container-send  ${values.message && values.name ? '' : 'disabled-gd'}`}>
               <ButtonGradient classButt="whiteButton" type="submit" disabled={!values.message || !values.name || !values.email}>
                 {t['Send']}
               </ButtonGradient>

@@ -332,19 +332,18 @@ export default function Apiconfiguration({ nameEmpresa }) {
         <div className="Tabsumenu-header ">
           <button className={` ${activeTab === 0 ? 'activeST' : ''} ${true ? 'completeST' : ''}`} onClick={() => handleTabClick(0)}>
             <ImageSvg name="Check" />
-            <h4>   {t['Update status']} </h4>
+            <h4> {t['Update status']} </h4>
           </button>
 
           <button className={` ${activeTab === 1 ? 'activeST' : ''} ${true ? 'completeST' : ''}`} onClick={() => handleTabClick(1)}>
             <ImageSvg name="Check" />
-            <h4>  {t['Connections']}</h4>
+            <h4> {t['Connections']}</h4>
           </button>
         </div>
 
         <div className="Tabsumenu-content">
           {activeTab === 0 && (
             <div className="apiconfiguration">
-              
               <div className="admin">
                 {product?.iId === 4 && <CaptchaConfig />}
 
@@ -498,22 +497,15 @@ export default function Apiconfiguration({ nameEmpresa }) {
           {activeTab === 1 && (
             <div className="integration">
               <div>
-                <h3 className="sub">  {t['SFTP Integration for ERP']} </h3>
+                <h3 className="sub"> {t['SFTP Integration for ERP']} </h3>
 
-                <p className="description"> 
-
-                {t['By enabling this button, the integration with SFTP for the Exchange Rate service is activated, allowing the ERP team to access data from generated text files instead of APIs']} 
-                  </p>
+                <p className="description">{t['By enabling this button, the integration with SFTP for the Exchange Rate service is activated, allowing the ERP team to access data from generated text files instead of APIs']}</p>
               </div>
 
               {updateSFT && (
                 <div className="loadding-container">
                   <LoadingComponent />
-                  <p> 
-
-                  {t['Updating']}
-
-                  </p>
+                  <p>{t['Updating']}</p>
                 </div>
               )}
 

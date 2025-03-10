@@ -26,4 +26,3 @@ function Modal({ close, children }) {
 Modal.propTypes = {};
 
 export default Modal;
-

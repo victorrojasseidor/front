@@ -316,16 +316,14 @@
     gap: 2rem;
 
     .box-name {
-      padding-left: 1rem ;
-      justify-content:space-between;
+      padding-left: 1rem;
+      justify-content: space-between;
       border-left: none;
-     
 
       .box-img {
         @include center-container;
         flex-direction: column;
         gap: 0.5rem;
-        
 
         .img {
           @include center-container;

@@ -38,7 +38,7 @@ const Tecnology = () => {
 
   return (
     <LayoutProducts menu="Reporting">
-        <section className="layoutReporting">
+      <section className="layoutReporting">
         <div className="horizontalTabs">
           <div className="tab-header">
             {tabs.map((tab, index) => (

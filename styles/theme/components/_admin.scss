@@ -5,10 +5,9 @@
   flex-direction: column;
   width: 100%;
 
-  .Tabsumenu-content{
+  .Tabsumenu-content {
     padding-top: 0rem;
   }
-
 
   .state {
     color: get-color(blue_p1);
@@ -38,9 +37,6 @@
     }
   }
 
-  
-
-
   .admin {
     display: flex;
     flex-direction: row;
@@ -58,23 +54,22 @@
       align-items: flex-start;
 
       .reporting-box .report-content {
-        background-color: rgba(get-color(white_s1), 0.0);
+        background-color: rgba(get-color(white_s1), 0);
         box-shadow: none;
         height: fit-content;
-      
-        gap:1rem;
+
+        gap: 1rem;
         align-items: flex-start;
         align-self: center;
         height: 100%;
         justify-content: space-between;
-     
 
         @include media(desktop) {
           flex-wrap: nowrap;
         }
-      
-        .report{
-          padding: 1rem ;
+
+        .report {
+          padding: 1rem;
           border-radius: brd(2);
           box-shadow: bsh(3);
           flex-grow: 1;
@@ -88,7 +83,6 @@
         }
       }
 
-
       span {
         color: get-color(black_p2);
       }
@@ -98,7 +92,7 @@
       }
 
       .report-content {
-        padding: 0rem ;
+        padding: 0rem;
         .report_icon {
           max-width: 3rem;
           height: 3rem;
@@ -141,13 +135,9 @@
         .tableContainer th:nth-child(1),
         .tableContainer td:nth-child(1) {
           background-color: rgba(get-color(white_s1), 0.4);
-
         }
       }
-
     }
-
-
 
     .css-dmmspl-MuiFormGroup-root {
       display: flex;
@@ -158,34 +148,23 @@
       z-index: 99999999999;
     }
   }
-
-  
-  
-
-
 }
 
-
-
 .integration {
-
-  @include container; 
+  @include container;
   display: flex;
   flex-direction: column;
-  gap:2rem;
-  
+  gap: 2rem;
 
-  .loadding-container{
+  .loadding-container {
     display: flex;
 
     justify-content: center;
     flex-direction: column;
-    p{
+    p {
       width: 100%;
       text-align: center;
-      color: rgba(get-color(blue_p1), 0.9)
+      color: rgba(get-color(blue_p1), 0.9);
     }
   }
-
-  
 }

@@ -23,7 +23,7 @@ const FormCurrency = ({ onAgregar, initialVal, setIinitialEdit, dataTypeChange, 
 
   const [registerDuplicate, setRegisterDuplicate] = useState(false);
 
-  const { l,idCountry } = useAuth();
+  const { l, idCountry } = useAuth();
   const t = l.Currency;
 
   const formValues = {

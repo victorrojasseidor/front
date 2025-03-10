@@ -581,12 +581,11 @@ const Captcha = () => {
                             <ImageSvg name="Download" /> {t.Export}
                           </button>
 
-                                  {/* <ButtonGradient classButt="whiteButton" onClick={() => exportToExcel()}>
+                          {/* <ButtonGradient classButt="whiteButton" onClick={() => exportToExcel()}>
                                   <ImageSvg name="Download" /> {t.Export}
 
                                     {t['WHY CHOOSE US']}
                                     </ButtonGradient> */}
-                          
                         </div>
                       </div>
 

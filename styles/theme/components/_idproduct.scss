@@ -23,7 +23,6 @@
       display: flex;
       color: rgba(get-color(grey2_s4), 1);
       // align-items: center;
-
     }
 
     svg {
@@ -33,14 +32,11 @@
       margin-right: 0.25rem;
 
       path {
-        fill: rgba(get-color(grey2_s4), 1)
+        fill: rgba(get-color(grey2_s4), 1);
       }
-
     }
 
-
     .status {
-
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
@@ -50,14 +46,8 @@
 
       p {
         align-items: center;
-
       }
-
-
     }
-
-
-
   }
 }
 

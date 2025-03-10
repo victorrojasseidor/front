@@ -192,8 +192,6 @@ export default function ConfigDetracciones() {
         <div className="Tabsumenu-content">
           {activeTab === 0 && (
             <div className="container-status">
-        
-
               {isLoadingComponent && <LoadingComponent />}
 
               {requestError && <p className="error-message">{requestError}</p>}

@@ -4,15 +4,13 @@ import { useAuth } from '@/Context/DataContext';
 import ImageSvg from '@/helpers/ImageSVG';
 
 function RefreshToken() {
-  // const [setToken] = useState(null);
-
   const { session, setModalToken, modalToken, l, refresToken, logout } = useAuth();
   const t = l.Modal;
 
   const handleConfirmRefresh = async () => {
     try {
-      const respToken = await refresToken(session.sToken); // Llama a la función para refrescar el token
-
+      const respToken = await refresToken(session.sToken);
+      console.log({respToken})
       if (respToken.oAuditResponse.iCode == 1) {
         setModalToken(false); // Cierra el modal después de obtener el nuevo token
         window.location.reload(); // Refresca la página para que las demás peticiones vuelvan a funcionar con el nuevo token
@@ -21,8 +19,6 @@ function RefreshToken() {
       }
     } catch (error) {
       console.log('Error:', error);
-      // Maneja el error si ocurre algún problema al refrescar el token
-      // Puedes mostrar un mensaje de error al usuario, o tomar otras acciones apropiadas.
     }
   };
 
@@ -32,7 +28,6 @@ function RefreshToken() {
 
   return (
     <div>
-      {/* Renderiza el componente Modal solo cuando showModal es true */}
       {modalToken && (
         <Modal close={() => setModalToken(false)}>
           <div>
@@ -60,6 +55,4 @@ function RefreshToken() {
 
 export default RefreshToken;
 
-// nataliaespin
-// U2VydmljZVRva2VuLzIwMjMwNzMwMTkxMDAwMzY4MzIyMTcwLzQ4NjY0NDQyNTU1NA
-// U2VydmljZVRva2VuLzIwMjMwNzMwMTkxMDAwMzY4MzIyMTcwLzQ4NjY0NDQyNTU1NA
+

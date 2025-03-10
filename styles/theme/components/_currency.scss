@@ -98,17 +98,13 @@
   }
 
   &_configurations {
-
     .contentForm {
       width: 95vw;
       height: 90vh;
 
-
       @include media(desktop) {
         width: 90vw;
         height: auto;
-
-       
       }
 
       @include media(extradesktop) {
@@ -123,7 +119,7 @@
       }
 
       .MuiFormHelperText-root {
-        color: color-mix(in srgb, get-color(t3-red) 60%, black);//oscurecer el rojo
+        color: color-mix(in srgb, get-color(t3-red) 60%, black); //oscurecer el rojo
       }
     }
 

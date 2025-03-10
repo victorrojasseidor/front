@@ -3,7 +3,7 @@ import LayoutProducts from '@/Components/LayoutProducts';
 import ImageSvg from '@/helpers/ImageSVG';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; // Changed from 'next/navigation'
+import { useRouter } from 'next/navigation'; 
 import { useAuth } from '@/Context/DataContext';
 import Loading from '@/Components/Atoms/Loading';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -82,8 +82,6 @@ export default function Products() {
   }
 
 
-  console.log(session)
-
   async function ConsultaCabeceraEmpresa() {
     setIsLoading(true);
 
@@ -96,10 +94,9 @@ export default function Products() {
     };
 
     try {
-      const token = session?.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=ConsultaCabeceraEmpresa', body);
-      console.log("consultabecera" , body, responseData)
-     
+      console.log('consultabecera', body, responseData);
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setDataCabecera(data);
@@ -277,7 +274,6 @@ export default function Products() {
         <>
           <Link href="/#contact">{t['Contact technical support']}</Link>
         </>
-
       );
     } else {
       return (
@@ -340,10 +336,6 @@ export default function Products() {
     },
   ];
 
-
-
-
-
   return (
     <LayoutProducts menu="Product">
       {!session && <Loading />}
@@ -358,8 +350,6 @@ export default function Products() {
                 minWidth: 'auto',
                 '.MuiOutlinedInput-notchedOutline': { borderStyle: 'none' },
               }}
-
-             
               options={companyOptions}
               getOptionLabel={(option) => option.razon_social_empresa}
               renderInput={(params) => <TextField {...params} label={t['To company:']} />}
@@ -407,7 +397,7 @@ export default function Products() {
                   <h2>{dataCabecera && dataCabecera.tiempo ? <Counter initialValue={0} finalValue={dataCabecera.tiempo} /> : dataCabecera?.tiempo} hrs</h2>
 
                   <p>
-                    <ImageSvg name="ArrowUp" /> <span> {t['per day']} </span>  
+                    <ImageSvg name="ArrowUp" /> <span> {t['per day']} </span>
                   </p>
                 </div>
               </div>
@@ -559,9 +549,7 @@ export default function Products() {
                   <div className="status-box">
                     <p>{t[item.status]}</p>
 
-                    <p className="dayLetf">
-                
-                    </p>
+                    <p className="dayLetf"></p>
                   </div>
                 </div>
 

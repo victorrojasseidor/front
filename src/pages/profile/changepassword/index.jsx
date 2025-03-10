@@ -84,7 +84,7 @@ export default function Changepassword() {
 
   return (
     <LayoutProducts menu="Profile">
-        <div className="profile">
+      <div className="profile">
         {isLoading && <Loading />}
 
         <div className="style-container">

@@ -49,7 +49,6 @@ const countryOptions = [
   { value: '+58', label: 'Venezuela (+58)' },
 ];
 
-
 const countryOptionContact = [
   { id: 1, value: '+1', label: '🇺🇸 United States (+1)', country: 'United States' },
   { id: 2, value: '+44', label: '🇬🇧 United Kingdom (+44)', country: 'United Kingdom' },
@@ -104,7 +103,6 @@ const countryOptionContact = [
   { id: 51, value: '+65', label: '🇸🇬 Singapore (+65)', country: 'Singapore' },
 ];
 
-
 const countries = [
   { label: 'Perú', value: 'Perú' },
   { label: 'Argentina', value: 'Argentina' },
@@ -122,4 +120,4 @@ const countries = [
   { label: 'United States', value: 'United States' },
 ];
 
-export { countries, countryOptions,countryOptionContact };
+export { countries, countryOptions, countryOptionContact };

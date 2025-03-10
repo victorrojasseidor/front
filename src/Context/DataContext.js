@@ -19,6 +19,7 @@ export const DataContextProvider = ({ children }) => {
   const [session, setSession] = useState(null);
   const [isMenuLateralOpen, setMenuLateralOpen] = useState(true);
   const [modalToken, setModalToken] = useState(false);
+  const [modalDenied, setModalDenied] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
   const [dataProfileStart, setdataProfileStart] = useState(null);
@@ -132,6 +133,8 @@ export const DataContextProvider = ({ children }) => {
         isMenuLateralOpen,
         setMenuLateralOpen,
         updateLanguage,
+        setModalDenied,
+        modalDenied,
       }}
     >
       {children}

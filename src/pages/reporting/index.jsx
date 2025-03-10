@@ -129,7 +129,7 @@ function Tecnology() {
 
   return (
     <LayoutProducts menu="Reporting">
-        <section className="reporting">
+      <section className="reporting">
         <div className="reporting-head">
           <div className="reporting-menu">
             <h3> {t.Reporting} </h3>
@@ -169,10 +169,6 @@ function Tecnology() {
                   <h4> {l.Captcha['Captcha Solver']} </h4>
                 </div>
               </button>
-
-             
-
-
             </div>
           </div>
 

@@ -1,7 +1,6 @@
 import { DataContextProvider, useAuth } from '@/Context/DataContext';
 import React, { useEffect } from 'react';
 import logo from '../../../public/img/logoOscuro.webp';
-
 import Image from 'next/image';
 import ProgressRegister from '@/Components/progressRegister';
 import { useRouter } from 'next/navigation';

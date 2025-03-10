@@ -12,7 +12,6 @@ import compartir from '../../../../public/img/post/compartir.jpg';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import qs from 'qs';
 
-
 export default function Index() {
   const { l } = useAuth();
   const router = useRouter();
@@ -22,15 +21,12 @@ export default function Index() {
   const [posts, getpost] = useState([]);
   const [cardInsights, setcardInsights] = useState(null);
 
- 
   const strapiURL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
   async function getPostStrapi() {
-
-
     const query = qs.stringify(
       {
-        fields: ['id', 'title' ],
+        fields: ['id', 'title'],
         locale: 'es',
         sort: ['order:asc'],
         populate: {
@@ -42,13 +38,12 @@ export default function Index() {
       { encodeValuesOnly: true } // Opcional para codificar solo valores
     );
 
-          // Hacemos la petición
-  const res = await fetch(`${strapiURL}/api/posts?${query}`, {
-    headers: {
-      // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`, // Si tienes token, descomenta esta línea
-    },
-  });
-  
+    // Hacemos la petición
+    const res = await fetch(`${strapiURL}/api/posts?${query}`, {
+      headers: {
+        // Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`, // Si tienes token, descomenta esta línea
+      },
+    });
 
     const data = await res.json();
 
@@ -63,8 +58,6 @@ export default function Index() {
   }
 
   async function getDataCardInsights() {
-
-  
     const res = await fetch(`${strapiURL}/api/posts?locale=${router.locale === 'es' ? 'es' : 'en'}&filters[documentId]=${id}&populate=*`, {
       headers: {
         // Authorization: `Bearer  ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
@@ -122,7 +115,6 @@ export default function Index() {
       });
   };
 
-
   return (
     <LayoutHome>
       <Head>
@@ -156,7 +148,7 @@ export default function Index() {
 
       <section className="insigth">
         <section className="insigth-navigation">
-          <Link href="/#insights"> Insights   </Link>
+          <Link href="/#insights"> Insights </Link>
           <ImageSvg name="Navigation" />
           <span className="title--post"> {cardInsights?.title} </span>
         </section>
@@ -174,9 +166,7 @@ export default function Index() {
                 </div>
               </figure>
 
-              
               {cardInsights?.content && <BlocksRenderer content={cardInsights?.content} />}
-
             </div>
           ) : (
             <p> {t['Waiting articles']}</p>
@@ -188,8 +178,8 @@ export default function Index() {
               <Image src={autor} width={40} height={40} alt="AUTOR" />
 
               <div className="dates-autor">
-                <p> {cardInsights?.autor || "Menagen Murriagui Hananel"}</p>
-                <span>{cardInsights?.authorRole ||  "Innovativa Seidor CEO"}</span>
+                <p> {cardInsights?.autor || 'Menagen Murriagui Hananel'}</p>
+                <span>{cardInsights?.authorRole || 'Innovativa Seidor CEO'}</span>
               </div>
             </div>
 

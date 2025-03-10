@@ -136,7 +136,6 @@ export default function Profile() {
 
   return (
     <LayoutProducts menu="Profile">
-    
       <div className="profile">
         {isLoading && <Loading />}
 

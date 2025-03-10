@@ -39,15 +39,21 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
   const iId = router.query.iId;
   const idEmpresa = router.query.idEmpresa;
 
-  const { session, setModalToken, logout, l, idCountry, getProducts } = useAuth();
+  const { session, setModalToken, logout, l, idCountry, getProducts, setModalDenied } = useAuth();
 
   const t = l.Download;
 
   async function handleCommonCodes(response) {
+
     if (response.oAuditResponse?.iCode === 27) {
       setModalToken(true);
     } else if (response.oAuditResponse?.iCode === 4) {
       await logout();
+    } else if (response.oAuditResponse?.iCode === 403) {
+      setModalDenied(true);
+      setTimeout(() => {
+        setModalDenied(false);
+      }, 8000);
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in services ';
       console.log('error, ', errorMessage);
@@ -187,9 +193,11 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token);
-
+      console.log('body', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
+        setModalDenied(false);
+
         const dataRes = responseData.oResults;
         setData(dataRes);
         if (dataRes.oCorreoEB.length > 0) {
@@ -297,8 +305,6 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
         <div className="Tabsumenu-content">
           {activeTab === 0 && (
             <div className="container-status">
-             
-
               <EmailsForm dataEmails={data?.oCorreoEB} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 
               <div className="box-buttons">

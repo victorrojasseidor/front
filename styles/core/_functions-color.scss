@@ -151,7 +151,6 @@
 //   }
 // }
 
-
 @mixin scrollTeme {
   /* Personalización de las barras de desplazamiento */
   &::-webkit-scrollbar {
@@ -165,7 +164,7 @@
     background-image: linear-gradient(to right, rgba(get-color(grey2_s4), 0.5), rgba(get-color(forms_s6), 1));
     border-radius: none;
     transition: background-image 0.3s ease; /* Transición suave para el color */
-    
+
     &:hover {
       background-image: linear-gradient(100deg, get-color(lilac_p3) 30%, get-color(blue_p1) 64%);
     }
@@ -179,23 +178,19 @@
   }
 }
 
-
-
-
 @mixin cardStyleType($color) {
   box-shadow: -1.83697e-16px 3px 10px rgba(get-color($color), 0.02);
 
   .card-type {
-    p{
+    p {
       color: darken(get-color($color), 1%);
       // background-color: rgba(get-color($color), 0.1);
     }
 
     .type_icon {
-
       svg {
-       border-bottom: 2px solid rgba(get-color($color), 0.5);
-        padding: 0.25rem ;
+        border-bottom: 2px solid rgba(get-color($color), 0.5);
+        padding: 0.25rem;
         path {
           fill: darken(get-color($color), 70%);
           box-shadow: -1.83697e-16px 3px 10px rgba(get-color(white_s1), 0.12);

@@ -26,7 +26,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: auto;
-
   }
 
   @include media(desktop) {
@@ -78,15 +77,14 @@
           width: 100%;
 
           justify-content: flex-end;
-          
-          .container-dropdown{
+
+          .container-dropdown {
             background-color: get-color(bg-cles);
             box-shadow: bsh(3);
           }
 
-          svg{
-          
-            path{
+          svg {
+            path {
               fill: get-color(grey2_s4);
             }
           }
@@ -208,5 +206,3 @@
     }
   }
 }
-
-

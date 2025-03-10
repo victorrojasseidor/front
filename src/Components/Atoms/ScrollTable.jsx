@@ -1,10 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import ImageSvg from '@/helpers/ImageSVG';
 
-const ScrollableTable = ({tableRef}) => {
+const ScrollableTable = ({ tableRef }) => {
   const [showScrollButtons, setShowScrollButtons] = useState(false);
 
-  
   // Ref para el contenedor de la tabla
   const tableContainerRef = tableRef;
   // Función para verificar si hay desbordamiento

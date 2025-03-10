@@ -157,12 +157,7 @@ function FreeTrial({ nameProduct, iIdProd }) {
               </div>
 
               <div className="input-box">
-                <textarea
-                  placeholder=""
-                  rows={4}
-                  cols={40}
-                  style={{ height: 'auto', minHeight: '4rem' }}
-                />
+                <textarea placeholder="" rows={4} cols={40} style={{ height: 'auto', minHeight: '4rem' }} />
                 <label htmlFor="message"> {t.Message}</label>
                 <ErrorMessage className="errorMessage" name="message" component="div" />
               </div>

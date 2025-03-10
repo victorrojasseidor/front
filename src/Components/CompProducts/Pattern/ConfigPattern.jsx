@@ -215,8 +215,6 @@ export default function ConfigPattern() {
         <div className="Tabsumenu-content">
           {activeTab === 0 && (
             <div className="container-status">
-             
-
               <EmailsForm dataEmails={dataPadrones?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 
               <div className="box-buttons">

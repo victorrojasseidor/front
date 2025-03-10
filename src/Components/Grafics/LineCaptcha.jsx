@@ -129,8 +129,6 @@ const LineCaptcha = ({ captchaData, startDate, endDate }) => {
             {t['Results obtained by']} {startDate} {t.To} {endDate}
           </p> */}
         </div>
-
-      
       </div>
 
       {captchaData.length > 0 && <canvas ref={chartRef} />}

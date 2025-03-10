@@ -1,4 +1,4 @@
-const baseApiUrl =  'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/'   //dev
+const baseApiUrl = 'https://ewtf9yqpwc.execute-api.us-east-2.amazonaws.com/dev/'; //dev
 
 const fetchNoTokenPost = async (endpoint, data, specifiedLocale) => {
   const locale = specifiedLocale || 'en';
@@ -28,16 +28,16 @@ const fetchNoTokenPost = async (endpoint, data, specifiedLocale) => {
   }
 };
 
-const fetchConTokenPost = async (endpoint, data,tok, specifiedLocale) => {
+const fetchConTokenPost = async (endpoint, data, tok, specifiedLocale) => {
   const locale = specifiedLocale || 'en'; // Usar el locale especificado o por defecto 'en'
   const url = `${baseApiUrl}${endpoint}`;
 
   // sacar el token de localhost
-  const sessionLS =  localStorage.getItem('session');
-  const sessionLocal =JSON.parse(sessionLS)
-  const token = sessionLocal?.sToken
-  const TokJ = sessionLocal?.sTokenJ
- 
+  const sessionLS = localStorage.getItem('session');
+  const sessionLocal = JSON.parse(sessionLS);
+  const token = sessionLocal?.sToken;
+  const TokJ = sessionLocal?.sTokenJ;
+
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -52,6 +52,7 @@ const fetchConTokenPost = async (endpoint, data,tok, specifiedLocale) => {
       },
     });
 
+    console.log("reponse fecth", response.status)
 
     if (!response.ok) {
       throw new Error('Network response was not ok');

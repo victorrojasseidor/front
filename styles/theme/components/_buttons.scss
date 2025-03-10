@@ -83,7 +83,6 @@
           color: get-color(white_s1);
         }
       }
-
     }
 
     &:focus {
@@ -165,7 +164,6 @@
     @include media(tablet) {
       width: auto;
       flex-direction: row;
-
     }
 
     svg {
@@ -187,7 +185,6 @@
       justify-content: flex-start;
       align-items: flex-start;
       text-align: center;
-      
 
       @include media(desktop) {
         text-align: start;
@@ -306,13 +303,9 @@
     }
   }
 
-  
-
   .white {
     color: get-color(black_p2);
     background: get-color(white_s1);
-
-   
   }
 
   &_gradient {
@@ -395,13 +388,12 @@
 
   &_green {
     background-color: transparent;
-    color:get-color(black_p2);
-    text-decoration:underline;
+    color: get-color(black_p2);
+    text-decoration: underline;
     padding: 0.5rem;
     border-radius: brd(2);
     border-style: none;
     width: 9rem;
-    
 
     &:hover {
       padding: 0.5rem 0.6rem;
@@ -414,8 +406,8 @@
     padding: 0.5rem;
     // color: get-color(white_s1);
     background-color: transparent;
-    color:get-color(t3-red);
-    text-decoration:underline;
+    color: get-color(t3-red);
+    text-decoration: underline;
     border-radius: brd(2);
     border-style: none;
     width: 9rem;
@@ -426,91 +418,72 @@
     }
   }
 
-  &_types{
+  &_types {
     background-color: rgba(get-color(bg-cles), 1);
     border-radius: brd(1);
     border-style: none;
-    border:  1px solid rgba(get-color(grey2_s4), 0.2);
+    border: 1px solid rgba(get-color(grey2_s4), 0.2);
     color: rgba(get-color(grey2_s4), 0.75);
     padding: 0.5rem;
     text-wrap: nowrap;
-    font-size:0.85rem;
+    font-size: 0.85rem;
     display: flex;
-    gap:0.25rem;
+    gap: 0.25rem;
     justify-content: space-between;
     align-items: center;
 
     @include media(tablet) {
-      font-size:0.85rem;
-    
-    }  
+      font-size: 0.85rem;
+    }
 
     svg {
       path {
         fill: rgba(get-color(grey2_s4), 0.75);
       }
     }
-
-
-   
-  
   }
 }
 
-
-.activeTypes{
+.activeTypes {
   background-color: rgba(get-color(blue_p1), 1);
-  color:rgba(get-color(white_s1), 1);
+  color: rgba(get-color(white_s1), 1);
   border: none;
 
   @include media(tablet) {
- 
-   background-color: rgba(get-color(black_p2), 1);
-  color:rgba(get-color(white_s1), 1);
+    background-color: rgba(get-color(black_p2), 1);
+    color: rgba(get-color(white_s1), 1);
 
-  svg {
-    path {
-      fill: get-color(white_s1);
+    svg {
+      path {
+        fill: get-color(white_s1);
+      }
     }
   }
+}
 
-  }
-  }
-
-
-.movilShowdow{
-
-
+.movilShowdow {
   @include media(mobile) {
-    &::after{
+    &::after {
       position: absolute;
-      content: "";
+      content: '';
       width: 2rem;
       height: 3rem;
       right: -3%;
-      bottom:15%;
-      background: linear-gradient(to left,#fff 20%, rgba(255, 255, 255, 0) 80%);
-  
+      bottom: 15%;
+      background: linear-gradient(to left, #fff 20%, rgba(255, 255, 255, 0) 80%);
     }
-  
-    &::before{
+
+    &::before {
       position: absolute;
-      content: "";
+      content: '';
       width: 0rem;
       height: 3rem;
       left: -3%;
-      bottom:15%;
-      background: linear-gradient(to right,#fff 20%, rgba(255, 255, 255, 0) 80%);
-  
+      bottom: 15%;
+      background: linear-gradient(to right, #fff 20%, rgba(255, 255, 255, 0) 80%);
     }
-  
   }
-
-  
-
 }
-
-
 
 //modificador para botones pequeños
 .small {
@@ -558,13 +531,10 @@
   /* Desactiva eventos de puntero */
 }
 
-.disabled-gradient{
+.disabled-gradient {
   .box-container-gradient {
-   cursor: not-allowed;
-   border-style: none;
-
- 
-  
+    cursor: not-allowed;
+    border-style: none;
   }
 }
 
@@ -657,8 +627,6 @@ button:hover + .cloud {
   }
 }
 
-
-
 @keyframes colorGrad {
   0% {
     background-position: 50% 0%;
@@ -704,18 +672,14 @@ button:hover + .cloud {
   cursor: pointer !important;
 }
 
-.disabled-gd{
-
-
+.disabled-gd {
   .box-container-gradient {
     background-image: linear-gradient(90deg, #d1d1d1, #5777ea5b, #3db0f73d);
-
   }
 
-  .whiteButton{
+  .whiteButton {
     color: rgba(get-color(grey2_s4), 0.5) !important; /* Color del texto */
   }
-
 }
 
 /* Definición de la animación */

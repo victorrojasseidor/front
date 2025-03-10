@@ -152,7 +152,7 @@
 
         @include media(tablet) {
           flex-wrap: nowrap;
-         }
+        }
 
         p {
           color: get-color(grey2_s4);
@@ -179,16 +179,15 @@
           }
         }
 
-        .box-filter{
+        .box-filter {
           justify-content: flex-end;
-          gap:1rem;
+          gap: 1rem;
 
-          .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root, .css-fvipm8{
+          .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
+          .css-fvipm8 {
             min-width: 4rem !important;
           }
         }
-
-        
       }
 
       .grafics {
@@ -270,12 +269,7 @@
     font-size: 0.8rem;
     text-rendering: geometricPrecision;
   }
-
-
-
 }
-
-
 
 .container-filters {
   display: flex;
@@ -383,25 +377,16 @@
   flex-direction: column;
   gap: 2rem;
 
-
-
-
-
-  &-tabs{
+  &-tabs {
     width: 100%;
     display: flex;
     flex-direction: row;
-    gap:1rem;
-
+    gap: 1rem;
   }
 
-
-  .tab-content{
-min-height: max-content;
-
+  .tab-content {
+    min-height: max-content;
   }
-
- 
 
   &-summary {
     display: flex;
@@ -409,22 +394,19 @@ min-height: max-content;
     gap: 1rem;
     justify-content: space-between;
     flex-wrap: wrap;
-   
 
-    .report-content{
+    .report-content {
       width: 100%;
       display: flex;
       justify-content: space-between;
 
-      .report_resume{
+      .report_resume {
         display: flex;
         justify-content: flex-end;
         align-items: center;
         flex-direction: row;
       }
     }
-
-
 
     .report-months {
       width: 100%;
@@ -451,50 +433,45 @@ min-height: max-content;
     }
   }
 
-
-  .content-headers{
+  .content-headers {
     display: flex;
     flex-direction: column;
-    justify-content:space-between;
-    gap:1rem;
+    justify-content: space-between;
+    gap: 1rem;
 
     @include media(tablet) {
       flex-direction: row;
     }
 
-    .tab-header{
+    .tab-header {
       border-bottom: none;
-      gap:1rem;
+      gap: 1rem;
 
-      button{
+      button {
         padding-left: 0rem;
         padding-right: 0rem;
       }
-      
     }
-
   }
 
   &-filters {
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
-    gap:1rem;
+    gap: 1rem;
   }
 
-  .box-filters, .date {
+  .box-filters,
+  .date {
     flex-direction: column;
     flex-wrap: wrap;
 
     @include media(tablet) {
       flex-wrap: nowrap;
       flex-direction: row;
-
-        }
+    }
 
     // justify-content: space-between;
-
-   
 
     // .btn_filter {
     //   border-radius: brd(2);
@@ -552,26 +529,22 @@ min-height: max-content;
     }
   }
 
-  .btn_secundary{
-
+  .btn_secundary {
     padding: 0.5rem;
-    gap:0.25rem;
+    gap: 0.25rem;
 
     svg {
       path,
       polyline {
-     
-        fill:  get-color(blue_p1);
+        fill: get-color(blue_p1);
       }
     }
 
-    &:hover{
-
+    &:hover {
       svg {
         path,
         polyline {
-       
-          fill:  get-color(white_s1);
+          fill: get-color(white_s1);
         }
       }
     }
