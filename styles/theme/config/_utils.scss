@@ -624,8 +624,7 @@
 }
 
 .input-box textarea {
-  min-width: 20ch; // Ancho mínimo para evitar que sea muy pequeña
-  width: auto; // Que se ajuste automáticamente
+  // width: auto; // Que se ajuste automáticamente
   max-width: 100%; // No sobrepasar el contenedor
   overflow: hidden; // Evita scroll horizontal
   resize: none; // Deshabilita ajuste manual
@@ -634,4 +633,10 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   white-space: nowrap; // Mantiene el texto en una sola línea
+
+  @include media(tablet) {
+    min-width: 20ch; // Ancho mínimo para evitar que sea muy pequeña
+
+  }
+
 }

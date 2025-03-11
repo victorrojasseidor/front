@@ -42,9 +42,10 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
   const { session, setModalToken, logout, l, idCountry, getProducts, setModalDenied } = useAuth();
 
   const t = l.Download;
+  console.log(session);
 
+ 
   async function handleCommonCodes(response) {
-
     if (response.oAuditResponse?.iCode === 27) {
       setModalToken(true);
     } else if (response.oAuditResponse?.iCode === 4) {
@@ -53,6 +54,7 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
       setModalDenied(true);
       setTimeout(() => {
         setModalDenied(false);
+        router.push('/product');
       }, 8000);
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in services ';
@@ -69,7 +71,7 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
     setIsLoadingComponent(true);
     const body = {
       oResults: {
-        iIdEmpresa: idEmpresa,
+        iIdEmpresa: Number(idEmpresa),
         sName: values.name,
         iIdPais: idCountry,
         iBanco: values.bank.id,
@@ -129,7 +131,7 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
     setIsLoadingComponent(true);
     const body = {
       oResults: {
-        iIdEmpresa: idEmpresa,
+        iIdEmpresa: Number(idEmpresa),
         iIdCredencial: initialEdit?.id_credenciales || initialEdit?.id_credenciales_est,
         iIdBancoCredencial: initialEdit?.id_banco_credencial || initialEdit?.id_banco_credencial_est,
         sName: values.name,
@@ -191,13 +193,10 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
     };
 
     try {
-      const token = session.sToken;
-      const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token);
-      console.log('body', responseData);
+      const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         setModalDenied(false);
-
         const dataRes = responseData.oResults;
         setData(dataRes);
         if (dataRes.oCorreoEB.length > 0) {

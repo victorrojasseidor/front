@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import en from '../../lang/en.json';
 import es from '../../lang/es.json';
 import { useRouter } from 'next/router';
-import { fetchConTokenPost } from '@/helpers/fetch';
+import { fetchConTokenPost , refresTokenPost} from '@/helpers/fetch';
 import Loading from '@/Components/Atoms/Loading';
 
 const DataContext = createContext();
@@ -64,13 +64,13 @@ export const DataContextProvider = ({ children }) => {
     }
   };
 
-  const refresToken = async (token) => {
-    const bodyToken = {
+  const refresToken = async () => {
+    const data = {
       oResults: {},
     };
 
     try {
-      const resp = await fetchConTokenPost('General/?Accion=RefreshToken', bodyToken, token);
+      const resp = await refresTokenPost(data);
       return resp;
     } catch (error) {
       console.error('Error:', error);
@@ -81,7 +81,7 @@ export const DataContextProvider = ({ children }) => {
   const getProducts = async (idEmpresa, token, idCountry) => {
     const body = {
       oResults: {
-        iIdEmpresa: idEmpresa,
+        iIdEmpresa: Number(idEmpresa),
         iIdPais: idCountry,
       },
     };

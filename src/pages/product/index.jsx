@@ -89,7 +89,7 @@ export default function Products() {
 
     const body = {
       oResults: {
-        iIdEmpresa: idEmpresa,
+        iIdEmpresa: Number(idEmpresa),
       },
     };
 

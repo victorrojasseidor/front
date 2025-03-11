@@ -4,16 +4,16 @@ import { useAuth } from '@/Context/DataContext';
 import ImageSvg from '@/helpers/ImageSVG';
 
 function RefreshToken() {
-  const { session, setModalToken, modalToken, l, refresToken, logout } = useAuth();
+  const { setModalToken, modalToken, l, refresToken, logout } = useAuth();
   const t = l.Modal;
 
   const handleConfirmRefresh = async () => {
     try {
-      const respToken = await refresToken(session.sToken);
-      console.log({respToken})
+      const respToken = await refresToken();
+      console.log("oken", respToken)
       if (respToken.oAuditResponse.iCode == 1) {
-        setModalToken(false); // Cierra el modal después de obtener el nuevo token
-        window.location.reload(); // Refresca la página para que las demás peticiones vuelvan a funcionar con el nuevo token
+        setModalToken(false); 
+        window.location.reload(); 
       } else {
         setModalToken(true);
       }

@@ -52,7 +52,41 @@ const fetchConTokenPost = async (endpoint, data, tok, specifiedLocale) => {
       },
     });
 
-    console.log("reponse fecth", response.status)
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error('error', error);
+    throw error;
+  }
+};
+
+const refresTokenPost = async (data, specifiedLocale) => {
+  const locale = specifiedLocale || 'en';
+  const urlrefres="General/?Accion=RefreshToken";
+  const url = `${baseApiUrl}${urlrefres}`;
+
+  // sacar el token de localhost
+  const sessionLS = localStorage.getItem('session');
+  const sessionLocal = JSON.parse(sessionLS);
+  const token = sessionLocal?.sToken;
+ 
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        stoken: `SSd=${token}`,
+        slanguage: locale,
+        saplicacion: process.env.NEXT_PUBLIC_X_SAPLICACION,
+        'x-api-key': process.env.NEXT_PUBLIC_X_API_KEY,
+        'Content-Type': 'application/json',
+      },
+    });
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -98,4 +132,4 @@ const decodeText = async (valor) => {
   }
 };
 
-export { fetchNoTokenPost, fetchConTokenPost, decodeText };
+export { fetchNoTokenPost, fetchConTokenPost, decodeText, refresTokenPost };

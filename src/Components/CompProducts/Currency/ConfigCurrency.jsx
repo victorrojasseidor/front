@@ -40,7 +40,7 @@ export default function ConfigCurrency() {
   const iId = router.query.iId;
   const idEmpresa = router.query.idEmpresa;
 
-  const { session, setModalToken, logout, l, idCountry, getProducts } = useAuth();
+  const { session, setModalToken, logout, l, idCountry, getProducts, setModalDenied } = useAuth();
 
   const t = l.Currency;
 
@@ -49,6 +49,12 @@ export default function ConfigCurrency() {
       setModalToken(true);
     } else if (response.oAuditResponse?.iCode === 4) {
       await logout();
+     } else if (response.oAuditResponse?.iCode === 403) {
+        setModalDenied(true);
+        setTimeout(() => {
+          setModalDenied(false);
+          router.push('/product');
+        }, 8000);
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete ';
       console.log('error, ', errorMessage);

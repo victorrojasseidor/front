@@ -17,25 +17,32 @@ export default function ConfigAccount({ idbancoCredential, setGet, get, getBank,
   const [selectedRowToDelete, setSelectedRowToDelete] = useState(null);
   const [isLoadingComponent, setIsLoadingComponent] = useState(false);
   const [getAccounts, setGetAccounts] = useState(false);
-  const { session, setModalToken, logout, l, idCountry } = useAuth();
+  const { session, setModalToken, logout, l, idCountry, setModalDenied } = useAuth();
 
   const router = useRouter();
   const iIdProdEnv = router.query.iIdProdEnv;
 
   const t = l.Download;
 
+
   async function handleCommonCodes(response) {
     if (response.oAuditResponse?.iCode === 27) {
       setModalToken(true);
     } else if (response.oAuditResponse?.iCode === 4) {
       await logout();
+    } else if (response.oAuditResponse?.iCode === 403) {
+      setModalDenied(true);
+      setTimeout(() => {
+        setModalDenied(false);
+        router.push('/product');
+      }, 8000);
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in service';
       console.log('error, ', errorMessage);
       setModalToken(false);
       setRequestError(errorMessage);
       setTimeout(() => {
-        setRequestError(null); 
+        setRequestError(null);
       }, 5000);
     }
   }
@@ -58,7 +65,7 @@ export default function ConfigAccount({ idbancoCredential, setGet, get, getBank,
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token);
-
+      //  console.log("getestracto",responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setGet(!get);
         const data = responseData.oResults.oListBancoCredendicial;

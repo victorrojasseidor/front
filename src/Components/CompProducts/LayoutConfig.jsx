@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 export default function LayoutConfig({ id, iIdProdEnv, defaultTab, children, idEmpresa }) {
   const [product, setProduct] = useState(null);
   const [activeTab, setActiveTab] = useState(defaultTab || 0);
-  const { session, setModalToken, l, logout, idCountry, getProducts , setModalDenied, modalDenied,} = useAuth();
+  const { session, setModalToken, l, logout, idCountry, getProducts, setModalDenied, modalDenied } = useAuth();
   const t = l.Products;
   const router = useRouter();
 
@@ -34,23 +34,15 @@ export default function LayoutConfig({ id, iIdProdEnv, defaultTab, children, idE
       // Lógica para el tab 2
       // Si iCodeStatus es igual a un valor específico, se activa el tab 2
       setActiveTab(index);
-     
-
-
-
-     
     } else {
       setActiveTab(index);
     }
   };
 
-
-
   async function getDataProduct() {
     try {
       const token = session.sToken;
       const responseData = await getProducts(idEmpresa, token, idCountry);
-      console.log(responseData) 
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const data = responseData.oResults;
@@ -58,17 +50,13 @@ export default function LayoutConfig({ id, iIdProdEnv, defaultTab, children, idE
         setProduct(selectedProduct);
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true);
-      }  else if (responseData.oAuditResponse?.iCode === 403) {
+      } else if (responseData.oAuditResponse?.iCode === 403) {
         setModalDenied(true);
         setTimeout(() => {
-        
-          router.push('/login');
-        }, 5000);
-
-
-
-
-      }else if (responseData.oAuditResponse?.iCode === 4) {
+          setModalDenied(false);
+          router.push('/product');
+        }, 8000);
+      } else if (responseData.oAuditResponse?.iCode === 4) {
         await logout();
         // setModalToken(true)
       } else {
