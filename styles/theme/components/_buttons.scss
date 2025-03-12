@@ -431,6 +431,7 @@
     gap: 0.25rem;
     justify-content: space-between;
     align-items: center;
+    // text-wrap: wrap;
 
     @include media(tablet) {
       font-size: 0.85rem;
@@ -449,6 +450,13 @@
   color: rgba(get-color(white_s1), 1);
   border: none;
 
+  svg {
+    path {
+      fill: get-color(white_s1);
+     
+    }
+  }
+
   @include media(tablet) {
     background-color: rgba(get-color(black_p2), 1);
     color: rgba(get-color(white_s1), 1);
@@ -456,8 +464,10 @@
     svg {
       path {
         fill: get-color(white_s1);
+       
       }
     }
+
   }
 }
 

@@ -42,8 +42,6 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
   const { session, setModalToken, logout, l, idCountry, getProducts, setModalDenied } = useAuth();
 
   const t = l.Download;
-  console.log(session);
-
  
   async function handleCommonCodes(response) {
     if (response.oAuditResponse?.iCode === 27) {

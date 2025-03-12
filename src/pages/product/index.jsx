@@ -95,8 +95,6 @@ export default function Products() {
 
     try {
       const responseData = await fetchConTokenPost('BPasS/?Accion=ConsultaCabeceraEmpresa', body);
-      console.log('consultabecera', body, responseData);
-
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setDataCabecera(data);

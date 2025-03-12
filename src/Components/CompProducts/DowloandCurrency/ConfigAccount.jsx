@@ -65,7 +65,6 @@ export default function ConfigAccount({ idbancoCredential, setGet, get, getBank,
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${getBank}`, body, token);
-      //  console.log("getestracto",responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setGet(!get);
         const data = responseData.oResults.oListBancoCredendicial;

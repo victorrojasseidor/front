@@ -125,7 +125,6 @@ export default function Apiconfiguration({ nameEmpresa }) {
 
   const handleSFTP = (event) => {
     const selectValue = event.target.value;
-    console.log(selectValue);
     setStateSFTP(selectValue);
     if (selectValue == 'true') {
       setStateSFTP(true);

@@ -62,7 +62,6 @@ function Contact() {
     try {
       setIsLoading(true);
       const responseData = await fetchNoTokenPost('BPasS/?Accion=ContactanosSmtp', body);
-      console.log(body, responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setError(null);
         setConfirm(true);

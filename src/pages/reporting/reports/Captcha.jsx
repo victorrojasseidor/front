@@ -328,7 +328,7 @@ const Captcha = () => {
           </div>
         </div>
 
-        <div className="box-filter">
+        {/* <div className="box-filter">
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="contract-label">{t.Contract}</InputLabel>
             <Select labelId="contract-label" value={selectedContract} onChange={handleContractChange} IconComponent={IconArrow}>
@@ -341,9 +341,10 @@ const Captcha = () => {
                 </MenuItem>
               ))}
             </Select>
-            {/* <FormHelperText>{!selectedCompany && t['Select the company']}</FormHelperText> */}
+          
           </FormControl>
-        </div>
+        </div> */}
+        
       </div>
     );
   };
@@ -376,17 +377,16 @@ const Captcha = () => {
               <div className="report_resume">
                 <div className="report gradientAri">
                   <div className="report_icon  ">
-                    <ImageSvg name="ReportConection" />
+                    <ImageSvg name="IconCaptcha" />
                   </div>
 
                   <div className="report_data">
-                    <article>{t['Hired connections']}</article>
-                    {/* <h3> {dataSumary?.captcha_resolved_until_now} </h3> */}
-
-                    <h3>60 ,000</h3>
+                    <article>{t['Captcha solved']}</article>
+                    <h3> {dataSumary?.captcha_resolved_until_now} </h3>
 
                     <p>
-                      <ImageSvg name="ArrowUp" /> {t['Last contract']} {dataSumary?.fecha_until}{' '}
+                      {' '}
+                      <ImageSvg name="ArrowUp" /> {t.To} {dataSumary?.fecha_until}{' '}
                     </p>
                   </div>
                 </div>
@@ -397,12 +397,13 @@ const Captcha = () => {
                   </div>
 
                   <div className="report_data">
-                    <article>{t['Connections used']}</article>
+                    <article>{t.Connections}</article>
 
-                    {/* <h3> {dataSumary?.captcha_conexion_until_now} </h3> */}
-                    <h3>24 ,000</h3>
+                    <h3> {dataSumary?.captcha_conexion_until_now} </h3>
+
                     <p>
-                      <ImageSvg name="ArrowUp" /> {t.To} {dataSumary?.fecha_until}
+                      {' '}
+                      <ImageSvg name="ArrowUp" /> {t.To} {dataSumary?.fecha_until}{' '}
                     </p>
                   </div>
                 </div>
@@ -410,91 +411,7 @@ const Captcha = () => {
             </div>
           </div>
         </div>
-
-        {/* <div className="box-filters">
-          <button className={`btn_filter ${filterDate === 365 ? 'active' : ''}`} onClick={() => rangeDateSelect(365)}>
-          {t['Monthly summary']}
-          </button>
-
-          <button className={`btn_filter ${filterDate === 180 ? 'active' : ''}`} onClick={() => rangeDateSelect(180)}>
-          {t['Results per day']}
-          </button>
-
-
-        </div> */}
-
-        {/* <div className="captcha-filters">
-          <h3> {t['Filter Statistics']} </h3>
-          <p> {t['Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.']} </p>
-          <div className="box-filters">
-            <button className={`btn_filter ${filterDate === 365 ? 'active' : ''}`} onClick={() => rangeDateSelect(365)}>
-              {t.Last} 12 {t.Months}
-            </button>
-
-            <button className={`btn_filter ${filterDate === 180 ? 'active' : ''}`} onClick={() => rangeDateSelect(180)}>
-              {t.Last} 6 {t.Months}
-            </button>
-
-            <button className={`btn_filter ${filterDate === 30 ? 'active' : ''}`} onClick={() => rangeDateSelect(30)}>
-              {t.Last} 30 {t.Days}
-            </button>
-
-            <button className={`btn_filter ${filterDate === 7 ? 'active' : ''}`} onClick={() => rangeDateSelect(7)}>
-              {t.Last} 7 {t.Days}
-            </button>
-
-            <button className={`btn_filter ${filterDate === null ? 'active' : ''}`} onClick={() => setFilterDate(null)}>
-              {t['Other Dates']}
-
-              <ImageSvg name="Time" />
-            </button>
-          </div>
-
-          {!filterDate && (
-            <div className="box-filters">
-              <div className="date">
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    label={t.From}
-                    value={dayjs(startDate, 'YYYY-MM-DD')}
-                    slotProps={{
-                      textField: {
-                        helperText: t['Date start'],
-                      },
-                    }}
-                    onChange={handleStartDateChange}
-                    format="YYYY-MM-DD"
-                    components={{
-                      OpenPickerIcon: IconDate,
-                      CalendarIcon: IconDate,
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    label={t.To}
-                    value={dayjs(endDate, 'YYYY-MM-DD')}
-                    slotProps={{
-                      textField: {
-                        helperText: t['Date end'],
-                      },
-                    }}
-                    onChange={handleEndDateChange}
-                    format="YYYY-MM-DD"
-                    components={{
-                      OpenPickerIcon: IconDate,
-                      CalendarIcon: IconDate,
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </div>
-            </div>
-          )}
-
-        </div> */}
+      
 
         {requestError && <div className="errorMessage">{requestError.message || ' error service'}</div>}
 
@@ -525,7 +442,7 @@ const Captcha = () => {
                     </div>
 
                     <div className="boards">
-                      {componentFilters()}
+                      {/* {componentFilters()} */}
 
                       <div className="tableContainer">
                         <table className="dataTable">
