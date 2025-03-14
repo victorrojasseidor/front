@@ -9,15 +9,19 @@ import { useRouter } from 'next/router';
 import { formatDate } from '@/helpers/report';
 import Link from 'next/link';
 import compartir from '../../../../public/img/post/compartir.jpg';
+import share from '../../../../public/img/post/share.jpg';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import qs from 'qs';
 
 export default function Index() {
   const { l } = useAuth();
   const router = useRouter();
-  const { id } = router.query; // Aquí obtienes el ID de la URL dinámica
+  // const { id } = router.query;
+  const { idPost } = router.query;
+  let id = idPost;
+
   const t = l.home;
-  const [copied, setCopied] = useState(false); // Estado para mostrar si el link fue copiado
+  const [copied, setCopied] = useState(false);
   const [posts, getpost] = useState([]);
   const [cardInsights, setcardInsights] = useState(null);
 
@@ -118,32 +122,37 @@ export default function Index() {
   return (
     <LayoutHome>
       <Head>
+        {/* Título y descripción */}
         <title>{cardInsights?.title}</title>
-        <meta content={cardInsights?.title} property="og:title" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content={cardInsights?.description} />
-        <meta name="description" content="publicación de ari" />
-        <meta name="keywords" content={cardInsights?.keyboards} />
-        <meta name="keywords" content="Ingenieria artifical, IA" />
-        {/* Metadatos para Open Graph (LinkedIn, Facebook, etc.) */}
+        <meta name="description" content={cardInsights?.description || "Publicación de ARI"} />
+        <meta name="keywords" content={cardInsights?.keywords || "Inteligencia Artificial, IA"} />
+
+        {/* Metadatos Open Graph (WhatsApp, Instagram, Facebook, LinkedIn) */}
         <meta property="og:title" content={cardInsights?.title} />
         <meta property="og:description" content={cardInsights?.description} />
-        {/* <meta property="og:image" content={cardInsights?.attributes.image.data.attributes.url} /> */}
-        <meta property="og:image" name="image" content={`${window.location.origin}${compartir.src}`} />
-        <meta property="og:url" content={`${window.location.origin}/insigth/${cardInsights?.id}`} /> {/* URL del post */}
+
+        {/* Imagen de vista previa con fallback a Cloudinary */}
+        <meta property="og:image" content={cardInsights?.attributes?.image?.data?.attributes?.url || "https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg"} />
+        <meta property="og:image:secure_url" content={cardInsights?.attributes?.image?.data?.attributes?.url || "https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg"} />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* URL de la publicación */}
+        <meta property="og:url" content={`${window.location.origin}/insight/${cardInsights?.id}`} />
+        <meta property="og:site_name" content="ariapp.ai" />
         <meta property="og:type" content="article" />
-        <meta content="ariapp.ai" property="og:site_name" />
-        <meta content="website" property="og:type" />
-        <meta content="1200" property="og:image:width" />
-        <meta content="630" property="og:image:height" />
+
         {/* Metadatos para Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={cardInsights?.title} />
         <meta name="twitter:description" content={cardInsights?.description} />
-        <meta name="twitter:image" content={`${window.location.origin}${compartir.src}`} />
+        <meta name="twitter:image" content={cardInsights?.attributes?.image?.data?.attributes?.url || "https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg"} />
         <meta name="twitter:site" content="@seidor" />
+
         {/* URL canónica */}
-        <link rel="canonical" href={`${window.location.origin}/insigth/${cardInsights?.id}`} />
+        <link rel="canonical" href={`${window.location.origin}/insight/${cardInsights?.id}`} />
       </Head>
 
       <section className="insigth">
@@ -204,7 +213,10 @@ export default function Index() {
                 {posts &&
                   posts?.map((post) => (
                     <li key={post.id} className={post.documentId == id ? 'active-post' : ''}>
-                      <Link href={`/insigth/${post.documentId}`}>{post.title}</Link>
+                      <Link href={`/insigth/insigth?idPost=${post?.documentId}&title=${post?.title.trim().toLowerCase().replaceAll(" ", "-")}`}>
+                        {post?.title}
+                      </Link>
+
                     </li>
                   ))}
               </ul>
