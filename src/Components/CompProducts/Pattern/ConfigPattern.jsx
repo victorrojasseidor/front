@@ -41,6 +41,9 @@ export default function ConfigPattern() {
 
   const t = l.Pattern;
 
+  console.log(session)
+
+
   async function handleCommonCodes(response) {
     if (response.oAuditResponse?.iCode === 27) {
       setModalToken(true);
@@ -126,7 +129,6 @@ export default function ConfigPattern() {
         const data = responseData.oResults;
         const selectedProduct = data.find((p) => p.iId === parseInt(iId));
         setdataCardProduct(selectedProduct);
-        // setGet(!get)
       } else {
         await handleCommonCodes(responseData);
       }
@@ -141,15 +143,15 @@ export default function ConfigPattern() {
     setIsLoadingComponent(true);
     const body = {
       oResults: {
-        iIdPadrones: iIdProdEnv, // [1]
-        iIdPais: idCountry || dataCardProduct?.iCountry,
+        iIdPadrones: Number(iIdProdEnv), 
+        iIdPais: Number(idCountry) || dataCardProduct?.iCountry,
       },
     };
 
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetPadrones', body, token);
-
+     console.log({responseData})
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;

@@ -20,6 +20,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import ButtonGradient from '@/Components/Atoms/ButtonGradient';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import LineCaptcha from '@/Components/Grafics/LineCaptcha';
+import Alert from '@mui/material/Alert';
+
 
 const Captcha = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -359,7 +361,6 @@ const Captcha = () => {
                   <FormControl sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel id="company-label">{l.Reporting.Company}</InputLabel>
                     <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
-                  
                       {session?.oEmpresa.map((comp) => (
                         <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
                           <div> {comp.razon_social_empresa}</div>
@@ -370,6 +371,8 @@ const Captcha = () => {
                   </FormControl>
                 </div>
               </div>
+
+
 
               <div className="report_resume">
                 <div className="report gradientAri">
@@ -494,7 +497,8 @@ const Captcha = () => {
 
         </div> */}
 
-        {requestError && <div className="errorMessage">{requestError.message || ' error service'}</div>}
+        {requestError && <Stack sx={{ width: '50%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
+        </Stack>}
 
         {isLoading && <LoadingComponent />}
 
