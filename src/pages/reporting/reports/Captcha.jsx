@@ -359,9 +359,7 @@ const Captcha = () => {
                   <FormControl sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel id="company-label">{l.Reporting.Company}</InputLabel>
                     <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
-                      <MenuItem value="">
-                        <em>{l.Reporting['All Companys']}</em>
-                      </MenuItem>
+                  
                       {session?.oEmpresa.map((comp) => (
                         <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
                           <div> {comp.razon_social_empresa}</div>
