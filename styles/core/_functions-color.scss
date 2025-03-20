@@ -190,9 +190,9 @@
     .type_icon {
       svg {
         border-bottom: 2px solid rgba(get-color($color), 0.5);
-        padding: 0.25rem;
+        padding: 0.25rem 0rem;
         path {
-          fill: darken(get-color($color), 70%);
+          fill: darken(get-color($color), 40%);
           box-shadow: -1.83697e-16px 3px 10px rgba(get-color(white_s1), 0.12);
         }
       }

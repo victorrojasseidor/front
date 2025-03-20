@@ -141,8 +141,8 @@ export default function ConfigPattern() {
     setIsLoadingComponent(true);
     const body = {
       oResults: {
-        iIdPadrones: iIdProdEnv, // [1]
-        iIdPais: idCountry || dataCardProduct?.iCountry,
+        iIdPadrones: Number(iIdProdEnv), 
+        iIdPais: Number(idCountry) || dataCardProduct?.iCountry,
       },
     };
 
