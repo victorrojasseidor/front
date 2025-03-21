@@ -17,6 +17,7 @@ import { exportToExcelFormat, IconDate, IconArrow } from '@/helpers/report';
 import ImageSvg from '@/helpers/ImageSVG';
 import { TextField } from '@mui/material';
 import Select from '@mui/material/Select';
+import Alert from '@mui/material/Alert';
 
 const Detracctions = () => {
   const { session, setModalToken, logout, l, empresa } = useAuth();
@@ -137,7 +138,11 @@ const Detracctions = () => {
       <section className="reporting-detraccions">
         {isLoading && <LoadingComponent />}
 
-        {requestError && <div className="errorMessage"> {requestError.error}</div>}
+
+
+        {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
+        </Stack>}
+
         <div className="box-tabs">
           <div className="box-filter">
             <div className="box-search">

@@ -715,8 +715,9 @@ const Movement = () => {
         </div>
       )}
 
-      <div>{requestError && <div className="errorMessage"> {requestError.message} </div>}</div>
     
+      {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
+      </Stack>}
     
     </>
   );

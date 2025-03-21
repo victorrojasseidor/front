@@ -10,6 +10,8 @@ import Loading from '@/Components/Atoms/Loading';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import ConfigAccount from './ConfigAccount';
 import { formatDate } from '@/helpers/report';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 export default function ConfigDowland({ getBank, registerBank, updateBank, deleteBank, registerAccount, updateAccount, deleteAccount }) {
   const [initialEdit, setIinitialEdit] = useState(null);
@@ -299,7 +301,11 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
           </button>
         </div>
 
-        {requestError && <div className="errorMessage">{requestError}</div>}
+
+
+        {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
+        </Stack>}
+        
 
         <div className="Tabsumenu-content">
           {activeTab === 0 && (

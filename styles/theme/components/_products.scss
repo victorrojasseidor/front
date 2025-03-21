@@ -487,12 +487,13 @@
     }
 
     @include media(desktop) {
-      height: 4rem;
+      height: 3.8rem;
     }
 
     h4 {
-      color: get-color(t1-blue);
-      font-size: medium;
+      color: get-color(black_p2);
+      
+      font-size:medium;
       font-weight: 600;
 
       &:focus {
@@ -537,6 +538,33 @@
         // color: darken(get-color(t3-red), 20%);
       }
     }
+
+   
+
+
+
+  }
+
+  .css-1hdyuqk-MuiPaper-root-MuiAlert-root{
+    padding: 0.5rem 0.5rem ;
+    gap: 0rem;
+    align-self: flex-start;
+
+    .css-1ytlwq5-MuiAlert-icon{
+      font-size: 1.25rem;
+      padding: 0rem;
+      
+    }
+
+    .css-1pxa9xg-MuiAlert-message{
+      padding: 0rem;
+      align-items: center;
+      display: flex;
+      align-items: center;
+      font-size: small;
+      letter-spacing: -0.5px; /* Reduce la separación entre letras */
+    }
+    
   }
 
   .admin {
@@ -558,21 +586,29 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    align-self: flex-end;
     align-items: center;
     display: flex;
     justify-content: flex-start;
+    width: 100%;
+    align-items: flex-start;
+
 
     @include media(tablet) {
       flex-direction: row;
       flex-wrap: nowrap;
+      justify-content: flex-end;
+      justify-content: space-between;
+      gap:1rem;
     }
 
     .box-actions {
       height: auto;
+      align-self: flex-end;
+      width: auto;
 
       @include media(tablet) {
         height: 3rem;
+     
       }
     }
 

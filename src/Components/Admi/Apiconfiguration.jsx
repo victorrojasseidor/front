@@ -22,6 +22,8 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Select from '@mui/material/Select';
 import CaptchaConfig from './CaptchaConfig';
 import LoadingComponent from '../Atoms/LoadingComponent';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 export default function Apiconfiguration({ nameEmpresa }) {
   const { session, setModalToken, logout, l, idCountry, getProducts } = useAuth();
@@ -603,8 +605,10 @@ export default function Apiconfiguration({ nameEmpresa }) {
             )}
           </Modal>
         )}
+     
+        {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError|| requestError.message ||  ' error service'}</Alert>
+        </Stack>}
 
-        {requestError && <div className="requestError"> {requestError}</div>}
       </div>
     </>
   );

@@ -3,7 +3,7 @@ import LayoutProducts from '@/Components/LayoutProducts';
 import ImageSvg from '@/helpers/ImageSVG';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/Context/DataContext';
 import Loading from '@/Components/Atoms/Loading';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -11,6 +11,8 @@ import TextField from '@mui/material/TextField';
 import { fetchConTokenPost } from '@/helpers/fetch';
 import Counter from '@/Components/Atoms/Counter';
 import ButtonGradient from '@/Components/Atoms/ButtonGradient';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 export default function Products() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -493,8 +495,15 @@ export default function Products() {
                     <div className="status-box">
                       <p className={product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'status' : ''}>{product.sDescStatus}</p>
 
-                      {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
-                        <p className="dayLetf">
+                   
+
+                    </div>
+                  </div>
+
+                  <div className="card-actions">
+
+                  {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
+                        <p className="">
                           {/* <ImageSvg name='Time' /> */}
                           {calcularDiasRestantes(product.sDateEnd) >= 0 ? (
                             <span style={{ color: '#7D86A2' }}>
@@ -502,10 +511,25 @@ export default function Products() {
                               {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
                             </span>
                           ) : (
-                            <span className="expire">
-                              <ImageSvg name="Notification" />
+
+                            <Stack sx={{ width: '100%' }} spacing={0}> 
+                            
+                            <Alert severity="error">
                               {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
-                            </span>
+
+
+                            </Alert>
+
+
+                            </Stack>
+
+                            
+
+
+                            // <span className="expire">
+                            //   <ImageSvg name="Notification" />
+                            //   {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
+                            // </span>
                           )}
                         </p>
                       ) : (
@@ -513,14 +537,9 @@ export default function Products() {
                           .......
                         </p>
                       )}
-                    </div>
-                  </div>
-
-                  <div className="card-actions">
                     <div className="box-actions">
                       {product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28) ? (
                         <ButtonGradient classButt="whiteButton" onClick={() => handleLink('/reporting/tecnology/1')}>
-                          {' '}
                           {l.Reporting.Reporting}
                         </ButtonGradient>
                       ) : (
@@ -554,6 +573,10 @@ export default function Products() {
                 </div>
 
                 <div className="card-actions">
+                <p className="dayLetf" style={{ color: 'white' }}>
+                          .......
+                        </p>
+                        
                   <div className="box-actions">
                     <Link href={item.link}>{t['View more']}</Link>
                   </div>
@@ -569,7 +592,10 @@ export default function Products() {
             )} */}
       </div>
 
-      {requestError && <p className="errorMessage">{requestError.message}</p>}
+
+      {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
+      </Stack>}
+
     </LayoutProducts>
   );
 }

@@ -10,6 +10,8 @@ import { useAuth } from '@/Context/DataContext';
 import ImageSvg from '@/helpers/ImageSVG';
 import { IconArrow } from '@/helpers/report';
 import { Line } from 'react-chartjs-2';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 import { Chart as ChartJS, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 
@@ -355,7 +357,10 @@ export default function LineChart() {
         <Line data={midata} options={misoptions} />
       </div>
 
-      {requestError && <div className="errorMessage"> {requestError}</div>}
+      
+      {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
+      </Stack>}
+
     </div>
   );
 }

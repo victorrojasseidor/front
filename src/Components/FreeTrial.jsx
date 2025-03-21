@@ -8,6 +8,8 @@ import ImageSvg from '@/helpers/ImageSVG';
 import { useRouter } from 'next/router';
 import imgfree from '../../public/img/contactanos.webp';
 import LoadingComponent from './Atoms/LoadingComponent';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 function FreeTrial({ nameProduct, iIdProd }) {
   const [error, SetError] = useState(null);
@@ -201,7 +203,8 @@ function FreeTrial({ nameProduct, iIdProd }) {
         )}
       </div>
 
-      {requestError && <div className="errorMessage"> {requestError} </div>}
+      {requestError && <Stack sx={{ width: '50%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
+      </Stack>}
     </div>
   );
 }

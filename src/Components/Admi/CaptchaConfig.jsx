@@ -7,6 +7,8 @@ import { formatDate } from '@/helpers/report';
 import LoadingComponent from '../Atoms/LoadingComponent';
 import { fetchConTokenPost } from '@/helpers/fetch';
 import { validateCaptcha } from '@/helpers/validateForms';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 export default function CaptchaConfig() {
   const { session, setModalToken, logout, l, idCountry } = useAuth();
@@ -125,7 +127,9 @@ export default function CaptchaConfig() {
         <p className="description"> {t['Configure the captcha solver']} </p>
         {isLoading && <LoadingComponent />}
 
-        {requestError && <div className="requestError"> {requestError}</div>}
+        {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
+        </Stack>}
+
 
         <div className="reporting-box ">
           <div className="report-content">

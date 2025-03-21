@@ -8,6 +8,8 @@ import Modal from '@/Components/Modal';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import { formatDate } from '@/helpers/report';
 import FormPatters from './FormPatters';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 export default function ConfigPattern() {
   const [initialEdit, setIinitialEdit] = useState(null);
@@ -302,7 +304,10 @@ export default function ConfigPattern() {
                   {isLoadingComponent && <LoadingComponent />}
                 </div>
 
-                {requestError && <div className="errorMessage">{requestError}</div>}
+              
+                {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
+                </Stack>}
+
               </div>
 
               <div>
