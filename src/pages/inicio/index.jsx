@@ -493,7 +493,7 @@ export default function index() {
             <p>{t['Digital technologies, automation, and advanced artificial intelligence provide a great customer experience at an accessible price.']}</p>
 
             
-            <div style={{display:'flex', flexDirection:'row', justifyContent:'flex-end', gap:'1rem', width:'100%', alignItems:"flex-end"}}>
+            <div style={{display:'flex', flexDirection:'row', justifyContent:'flex-end', gap:'1rem', width:'100%', alignItems:"flex-end" , flexWrap:"wrap"}}>
             
           
             <ButtonGradient classButt="whiteButton" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
