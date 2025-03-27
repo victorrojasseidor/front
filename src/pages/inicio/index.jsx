@@ -46,6 +46,7 @@ import { formatDate } from '@/helpers/report';
 import 'aos/dist/aos.css';
 import qs from 'qs';
 import Contact from '@/Components/Contact';
+// import brochure from '../../../public/BROCHURE.pdf';
 
 // Import Swiper React components
 
@@ -112,6 +113,7 @@ const SkillsCard = ({ cardSkills, setIsImageInView, setskillView }) => {
 };
 
 export default function index() {
+
   const { l } = useAuth();
   const t = l.home;
   const router = useRouter();
@@ -121,6 +123,8 @@ export default function index() {
   const [skillView, setskillView] = useState(null);
   const [isShowMore, setIsShowMore] = useState(false);
   const [dataInsigths, setDataInsigths] = useState(null);
+
+  const pdfUrl = "/BROCHURE.pdf";
 
   async function getDatastrapi() {
     const strapiURL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
@@ -475,7 +479,7 @@ export default function index() {
         </div>
       </section>
 
-      <section className="home-simple">
+      <section className="home-simple" id="simple">
         <figure data-aos="fade-right">
           <Image src={simple} width={500} height={500} alt="img-simple" />
         </figure>
@@ -488,15 +492,39 @@ export default function index() {
 
             <p>{t['Digital technologies, automation, and advanced artificial intelligence provide a great customer experience at an accessible price.']}</p>
 
+            
+            <div style={{display:'flex', flexDirection:'row', justifyContent:'flex-end', gap:'1rem', width:'100%', alignItems:"flex-end"}}>
+            
+          
             <ButtonGradient classButt="whiteButton" onClick={() => router.push('https://www.seidor.com/es-pe/contacto')}>
               {t['REQUEST DEMO']}
-            </ButtonGradient>
+             
+            </ButtonGradient> 
+            
+            <a  className='btn_black' href={pdfUrl} download  >
+             
+             Brochure PDF
+             </a>
+             
+             
+             
+           
+
+            </div>
+         
+
+
+
+           
+
+
 
             <div className="simples-skills">
               <span>{t['FINANCE AND ACCOUNTING']}</span>
               <span>{t['HUMAN RESOURCES']}</span>
               <span>{t['TECHNOLOGY']}</span>
             </div>
+           
           </div>
         </div>
       </section>
@@ -511,48 +539,48 @@ export default function index() {
         <div className="box-insigths">
           {dataInsigths && dataInsigths.length > 0
             ? dataInsigths.slice(0, isShowMore ? dataInsigths.length : 6).map((post) => (
-                <article key={post.id} className="insigths">
-                  <figure className="insigths-image gradient">
-                    <Image src={`${post?.image.url}`} width={40} height={40} alt={post?.title} />
+              <article key={post.id} className="insigths">
+                <figure className="insigths-image gradient">
+                  <Image src={`${post?.image.url}`} width={40} height={40} alt={post?.title} />
 
-                    <div className="title">
-                      <span>{post?.type}</span>
-                      <Link href={`/insigth/${post.documentId}`}>
-                        <h3>{post?.title}</h3>
-                      </Link>
-                    </div>
-                  </figure>
-
-                  <div className="box-description">
-                    <div className="insigths-date">
-                      <span>{post.autor}</span>
-                      <span>{formatDate(post?.updatedAt)}</span>
-                    </div>
-                    <p className="insigths-description">{post?.description}</p>
+                  <div className="title">
+                    <span>{post?.type}</span>
+                    <Link href={`/insigth/${post.documentId}`}>
+                      <h3>{post?.title}</h3>
+                    </Link>
                   </div>
-                </article>
-              ))
+                </figure>
+
+                <div className="box-description">
+                  <div className="insigths-date">
+                    <span>{post.autor}</span>
+                    <span>{formatDate(post?.updatedAt)}</span>
+                  </div>
+                  <p className="insigths-description">{post?.description}</p>
+                </div>
+              </article>
+            ))
             : cardInsights.map((card, index) => (
-                <article key={index} className="insigths">
-                  <figure className="insigths-image gradient">
-                    <Image src={card.image} width={40} height={40} alt="insights" />
-                    <div className="title">
-                      <span>{card.type}</span>
-                      <Link href="">
-                        <h3>{card.title}</h3>
-                      </Link>
-                    </div>
-                  </figure>
-
-                  <div className="box-description">
-                    <div className="insigths-date">
-                      <span>{card.autor}</span>
-                      <span>{card.date}</span>
-                    </div>
-                    <p className="insigths-description">{card.description}</p>
+              <article key={index} className="insigths">
+                <figure className="insigths-image gradient">
+                  <Image src={card.image} width={40} height={40} alt="insights" />
+                  <div className="title">
+                    <span>{card.type}</span>
+                    <Link href="">
+                      <h3>{card.title}</h3>
+                    </Link>
                   </div>
-                </article>
-              ))}
+                </figure>
+
+                <div className="box-description">
+                  <div className="insigths-date">
+                    <span>{card.autor}</span>
+                    <span>{card.date}</span>
+                  </div>
+                  <p className="insigths-description">{card.description}</p>
+                </div>
+              </article>
+            ))}
         </div>
 
         {dataInsigths && (
