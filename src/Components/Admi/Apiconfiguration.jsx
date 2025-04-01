@@ -1,6 +1,6 @@
 import { useAuth } from '@/Context/DataContext';
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -48,7 +48,6 @@ export default function Apiconfiguration({ nameEmpresa }) {
         setModalToken(false);
         const data = responseData.oResults;
         const selectedProduct = data.find((p) => p.iId === parseInt(iId));
-
         setProduct(selectedProduct);
         setStateSFTP(selectedProduct?.bSftp);
       } else if (responseData.oAuditResponse?.iCode === 27) {
@@ -90,9 +89,9 @@ export default function Apiconfiguration({ nameEmpresa }) {
   const [message, setMessage] = useState(null);
   const [historical, setHistorical] = useState(null);
   const [service, setService] = useState(false);
-  const [stateSFTP, setStateSFTP] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [updateSFT, setUpdateSFT] = useState(false);
+  const [stateSFTP, setStateSFTP] = useState(false);
 
   const handleTabClick = (index) => {
     setActiveTab(index);
@@ -125,16 +124,8 @@ export default function Apiconfiguration({ nameEmpresa }) {
     setContractOther(selectValue);
   };
 
-  const handleSFTP = (event) => {
-    const selectValue = event.target.value;
-    console.log(selectValue);
-    setStateSFTP(selectValue);
-    if (selectValue == 'true') {
-      setStateSFTP(true);
-    } else {
-      setStateSFTP(false);
-    }
-  };
+
+
 
   useEffect(() => {
     if (pStatus == 31) {
@@ -152,9 +143,16 @@ export default function Apiconfiguration({ nameEmpresa }) {
     }
   }, [pStatus]);
 
-  useEffect(() => {
-    ActualizarSftpTipoCambio();
-  }, [stateSFTP]);
+
+
+  const handleSFTP = (event) => {
+    const newValue = event.target.value === "true"; // Convertir a booleano
+    setStateSFTP(newValue);
+
+    ActualizarSftpTipoCambio(newValue);
+  };
+
+
 
   const handleStartDateChange = (newValue) => {
     setStartDate(newValue.format('YYYY-MM-DDTHH:mm:ss.SSSZ'));
@@ -282,20 +280,22 @@ export default function Apiconfiguration({ nameEmpresa }) {
     return fechaFormateada;
   };
 
-  async function ActualizarSftpTipoCambio() {
+  async function ActualizarSftpTipoCambio(state) {
     setIsLoading(true);
 
     const body = {
       oResults: {
-        bSftp: stateSFTP,
+        bSftp: state,
         iIdEmpresa: Number(idEmpresa),
-        // oTipoCambio:1
+
       },
     };
 
     try {
       const token = session?.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarSftpTipoCambio', body, token);
+      console.log("sftp", body, responseData);
+
       if (responseData.oAuditResponse?.iCode === 1) {
         // setHistorical(responseData.oResults);
         setUpdateSFT(true);
@@ -511,13 +511,19 @@ export default function Apiconfiguration({ nameEmpresa }) {
                 </div>
               )}
 
-              <FormControl>
+              {iId == 2 ? <FormControl>
                 <RadioGroup row aria-labelledby="demo-form-control-label-placement" name="sftp" value={stateSFTP} onChange={handleSFTP}>
                   <FormControlLabel value={true} control={<Radio />} label={t.Enabled} />
-
                   <FormControlLabel value={false} control={<Radio />} label={t.Disabled} />
                 </RadioGroup>
-              </FormControl>
+              </FormControl> :
+
+                <Stack sx={{ width: '100' }} spacing={1}> <Alert severity="info">{'No está activo para esta habilidad '}</Alert>
+                </Stack>
+
+              }
+
+
             </div>
           )}
         </div>
@@ -605,8 +611,8 @@ export default function Apiconfiguration({ nameEmpresa }) {
             )}
           </Modal>
         )}
-     
-        {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError|| requestError.message ||  ' error service'}</Alert>
+
+        {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || requestError.message || ' error service'}</Alert>
         </Stack>}
 
       </div>

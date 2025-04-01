@@ -570,15 +570,20 @@
   .admin {
     position: absolute;
     z-index: 1;
-    left: 0%;
-    bottom: 0%;
-
-    @include center-container;
+    left: 3%;
+    bottom: 3%;
     padding: 0.5rem;
     transform: rotate(-90deg);
+    background-color: rgba(get-color(bg-cles), 1);
+    border-radius: brd(f);
+   
 
+   
     svg {
-      width: 2rem;
+      display: flex;
+      align-items: center;
+      width: 1.25rem;
+     
     }
   }
 
