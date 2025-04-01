@@ -18,6 +18,7 @@ import Loading from '@/Components/Atoms/Loading';
 import { IconArrow, IconDate } from '@/helpers/report';
 import { TextField } from '@mui/material';
 import ScrollableTable from '@/Components/Atoms/ScrollTable';
+import Alert from '@mui/material/Alert';
 
 const Movement = () => {
   const { session, setModalToken, logout, l } = useAuth();
@@ -714,7 +715,10 @@ const Movement = () => {
         </div>
       )}
 
-      <div>{requestError && <div className="errorMessage"> {requestError.message} </div>}</div>
+    
+      {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
+      </Stack>}
+    
     </>
   );
 };

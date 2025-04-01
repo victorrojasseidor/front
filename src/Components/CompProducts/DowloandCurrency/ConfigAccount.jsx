@@ -6,6 +6,8 @@ import ImageSvg from '@/helpers/ImageSVG';
 import Modal from '@/Components/Modal';
 import FormAccounts from '@/Components/CompProducts/DowloandCurrency/FormAccounts';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 export default function ConfigAccount({ idbancoCredential, setGet, get, getBank, registerAccount, updateAccount, deleteAccount }) {
   const [data, setData] = useState(null);
@@ -328,7 +330,9 @@ export default function ConfigAccount({ idbancoCredential, setGet, get, getBank,
               </div>
             )}
 
-            {requestError && <div className="errorMessage">{requestError.message || ' error service'}</div>}
+            {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
+        </Stack>}
+
 
             {isLoadingComponent && <LoadingComponent />}
           </div>

@@ -543,13 +543,14 @@ export default function index() {
                 <figure className="insigths-image gradient">
                   <Image src={`${post?.image.url}`} width={40} height={40} alt={post?.title} />
 
-                  <div className="title">
-                    <span>{post?.type}</span>
-                    <Link href={`/insigth/${post.documentId}`}>
-                      <h3>{post?.title}</h3>
-                    </Link>
-                  </div>
-                </figure>
+                    <div className="title">
+                      <span>{post?.type}</span>
+                      {/* <Link href={`/insigth/${post.documentId}`}> */}
+                      <Link href={` insigth/insigth?idPost=${post.documentId}&title=${post.title.trim().toLowerCase().replaceAll(" ", "-")}`}>
+                          <h3>{post?.title}</h3>
+                      </Link>
+                    </div>
+                  </figure>
 
                 <div className="box-description">
                   <div className="insigths-date">

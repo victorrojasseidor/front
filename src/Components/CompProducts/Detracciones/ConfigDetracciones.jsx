@@ -9,6 +9,8 @@ import Modal from '@/Components/Modal';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import { formatDate } from '@/helpers/report';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 // import FormPatters from './FormPatters';
 
 export default function ConfigDetracciones() {
@@ -201,7 +203,8 @@ export default function ConfigDetracciones() {
             <div className="container-status">
               {isLoadingComponent && <LoadingComponent />}
 
-              {requestError && <p className="error-message">{requestError}</p>}
+              {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
+              </Stack>}
 
               <EmailsForm dataEmails={dataDetracciones?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 

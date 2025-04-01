@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import { fetchConTokenPost } from '@/helpers/fetch';
 import { format, startOfMonth } from 'date-fns';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 function Tecnology() {
   const { session, setModalToken, logout, l } = useAuth();
@@ -228,7 +230,8 @@ function Tecnology() {
 
         {isLoading && <LoadingComponent />}
 
-        {requestError && <div className="errorMessage"> {requestError} </div>}
+            {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.message ||  requestError ||' error service'}</Alert>
+        </Stack>}
 
         <div className="reporting_rates">
           <div className="reporting_rates-exchange">

@@ -6,7 +6,8 @@ import { fetchConTokenPost } from '@/helpers/fetch';
 import { useRouter } from 'next/router';
 import Modal from '@/Components/Modal';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
-
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import { formatDate } from '@/helpers/report';
 import FormCurrency from './FormCurrency';
 
@@ -389,7 +390,11 @@ export default function ConfigCurrency() {
                   {isLoadingComponent && <LoadingComponent />}
                 </div>
 
-                {requestError && <div className="errorMessage">{requestError}</div>}
+               
+
+                {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
+        </Stack>}
+
               </div>
 
               <div>
@@ -502,7 +507,10 @@ export default function ConfigCurrency() {
                   {isLoadingComponent && <LoadingComponent />}
                 </div>
 
-                {requestError && <div className="errorMessage">{requestError}</div>}
+              
+                {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
+                </Stack>}
+
               </div>
 
               {dataTypeChange?.oDailyExchange.length > 0 && (
