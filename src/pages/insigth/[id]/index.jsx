@@ -19,13 +19,18 @@ export default function Index() {
   // const { id } = router.query;
   const { idPost } = router.query;
   let id = idPost;
-
   const t = l.home;
   const [copied, setCopied] = useState(false);
   const [posts, getpost] = useState([]);
   const [cardInsights, setcardInsights] = useState(null);
 
   const strapiURL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  const baseURL = window.location.origin;
+
+  const linkPost = (post) => {
+    const postLink = `${baseURL}/insigth/insigth?idPost=${post?.documentId}&title=${post?.title.trim().toLowerCase().replaceAll(' ', '-')}`;
+    return postLink;
+  };
 
   async function getPostStrapi() {
     const query = qs.stringify(
@@ -39,7 +44,7 @@ export default function Index() {
           },
         },
       },
-      { encodeValuesOnly: true } // Opcional para codificar solo valores
+      { encodeValuesOnly: true } 
     );
 
     // Hacemos la petición
@@ -85,10 +90,11 @@ export default function Index() {
   }, [id, router.locale]);
 
   const getShareLink = () => {
-    const baseURL = window.location.origin;
-    const postLink = `${baseURL}/insigth/insigth?idPost=${cardInsights?.documentId}&title=${cardInsights?.title.trim().toLowerCase().replaceAll(" ", "-")}`;                     
-    const title = cardInsights ? cardInsights.title : 'Título por defecto';
-    const summary = cardInsights ? cardInsights.description : 'Descripción por defecto';
+    // const baseURL = window.location.origin;
+    // const postLink = `${baseURL}/insigth/insigth?idPost=${cardInsights?.documentId}&title=${cardInsights?.title.trim().toLowerCase().replaceAll(" ", "-")}`;
+    const postLink = linkPost(cardInsights);
+    const title = cardInsights ? cardInsights.title : 'Ari agentes digitales';
+    const summary = cardInsights ? cardInsights.description : 'Finanzas Ari';
 
     const linkedinShareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(postLink)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(summary)}&source=${encodeURIComponent(strapiURL)}`;
     const twitterShareURL = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(postLink)}&via=yourTwitterHandle`;
@@ -103,7 +109,7 @@ export default function Index() {
   }, [cardInsights]);
 
   const copyLinkToClipboard = () => {
-    const currentUrl = window.location.href; // Obtiene la URL actual
+    const currentUrl = window.location.href; 
     navigator.clipboard
       .writeText(currentUrl) // Copia la URL actual al portapapeles
       .then(() => {
@@ -124,22 +130,22 @@ export default function Index() {
         {/* Título y descripción */}
         <title>{cardInsights?.title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content={cardInsights?.description || "Publicación de ARI"} />
-        <meta name="keywords" content={cardInsights?.keywords || "Inteligencia Artificial, IA"} />
+        <meta name="description" content={cardInsights?.description || 'Publicación de ARI'} />
+        <meta name="keywords" content={cardInsights?.keywords || 'Inteligencia Artificial, IA'} />
 
         {/* Metadatos Open Graph (WhatsApp, Instagram, Facebook, LinkedIn) */}
         <meta property="og:title" content={cardInsights?.title} />
         <meta property="og:description" content={cardInsights?.description} />
 
         {/* Imagen de vista previa con fallback a Cloudinary */}
-        <meta property="og:image" content={cardInsights?.attributes?.image?.data?.attributes?.url || "https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg"} />
-        <meta property="og:image:secure_url" content={cardInsights?.attributes?.image?.data?.attributes?.url || "https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg"} />
+        <meta property="og:image" content={cardInsights?.attributes?.image?.data?.attributes?.url || 'https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg'} />
+        <meta property="og:image:secure_url" content={cardInsights?.attributes?.image?.data?.attributes?.url || 'https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg'} />
         <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
         {/* URL de la publicación */}
-        <meta property="og:url" content={`${window.location.origin}/insigth/insigth?idPost=${cardInsights?.documentId}&title=${cardInsights?.title.trim().toLowerCase().replaceAll(" ", "-")}`} />
+        <meta property="og:url" content={linkPost(cardInsights)} />
         <meta property="og:site_name" content="ariapp.ai" />
         <meta property="og:type" content="article" />
 
@@ -147,11 +153,11 @@ export default function Index() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={cardInsights?.title} />
         <meta name="twitter:description" content={cardInsights?.description} />
-        <meta name="twitter:image" content={cardInsights?.attributes?.image?.data?.attributes?.url || "https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg"} />
+        <meta name="twitter:image" content={cardInsights?.attributes?.image?.data?.attributes?.url || 'https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg'} />
         <meta name="twitter:site" content="@seidor" />
 
         {/* URL canónica */}
-        <link rel="canonical" href={`${window.location.origin}/insigth/insigth?idPost=${cardInsights?.documentId}&title=${cardInsights?.title.trim().toLowerCase().replaceAll(" ", "-")}`} />
+        <link rel="canonical" href={linkPost(cardInsights)} />
       </Head>
 
       <section className="insigth">
@@ -212,10 +218,7 @@ export default function Index() {
                 {posts &&
                   posts?.map((post) => (
                     <li key={post.id} className={post.documentId == id ? 'active-post' : ''}>
-                      <Link href={`/insigth/insigth?idPost=${post?.documentId}&title=${post?.title.trim().toLowerCase().replaceAll(" ", "-")}`}>
-                        {post?.title}
-                      </Link>
-
+                      <Link href={linkPost(post)}>{post?.title}</Link>
                     </li>
                   ))}
               </ul>

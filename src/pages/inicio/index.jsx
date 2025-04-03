@@ -545,7 +545,6 @@ export default function index() {
 
                     <div className="title">
                       <span>{post?.type}</span>
-                      {/* <Link href={`/insigth/${post.documentId}`}> */}
                       <Link href={` insigth/insigth?idPost=${post.documentId}&title=${post.title.trim().toLowerCase().replaceAll(" ", "-")}`}>
                           <h3>{post?.title}</h3>
                       </Link>
