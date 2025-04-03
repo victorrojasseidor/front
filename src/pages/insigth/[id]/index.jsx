@@ -86,8 +86,7 @@ export default function Index() {
 
   const getShareLink = () => {
     const baseURL = window.location.origin;
-    const postLink = `${baseURL}/insigth/${cardInsights?.id}`; // Ajusta la ruta según sea necesario
-
+    const postLink = `${baseURL}/insigth/insigth?idPost=${cardInsights?.documentId}&title=${cardInsights?.title.trim().toLowerCase().replaceAll(" ", "-")}`;                     
     const title = cardInsights ? cardInsights.title : 'Título por defecto';
     const summary = cardInsights ? cardInsights.description : 'Descripción por defecto';
 
@@ -140,7 +139,7 @@ export default function Index() {
         <meta property="og:image:height" content="630" />
 
         {/* URL de la publicación */}
-        <meta property="og:url" content={`${window.location.origin}/insight/${cardInsights?.id}`} />
+        <meta property="og:url" content={`${window.location.origin}/insigth/insigth?idPost=${cardInsights?.documentId}&title=${cardInsights?.title.trim().toLowerCase().replaceAll(" ", "-")}`} />
         <meta property="og:site_name" content="ariapp.ai" />
         <meta property="og:type" content="article" />
 
@@ -152,7 +151,7 @@ export default function Index() {
         <meta name="twitter:site" content="@seidor" />
 
         {/* URL canónica */}
-        <link rel="canonical" href={`${window.location.origin}/insight/${cardInsights?.id}`} />
+        <link rel="canonical" href={`${window.location.origin}/insigth/insigth?idPost=${cardInsights?.documentId}&title=${cardInsights?.title.trim().toLowerCase().replaceAll(" ", "-")}`} />
       </Head>
 
       <section className="insigth">
