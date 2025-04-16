@@ -1,18 +1,28 @@
 import excel from 'exceljs';
 
-const formatDate = (date) => {
-  // Crear un objeto Date a partir de la fecha ISO y asegurarse de que esté en UTC
+const formatDate = (date, convert = false) => {
   const fechaObjeto = new Date(date);
 
-  // Obtener las partes de la fecha (mes, día y año)
-  const mes = (fechaObjeto.getUTCMonth() + 1).toString().padStart(2, '0'); // +1 porque los meses comienzan en 0
-  const dia = fechaObjeto.getUTCDate().toString().padStart(2, '0');
+  const dia = fechaObjeto.getUTCDate();
+  const mes = fechaObjeto.getUTCMonth(); // 0-11
   const año = fechaObjeto.getUTCFullYear();
 
-  // Formatear la fecha en el formato deseado (DD/MM/YYYY)
-  const fechaFormateada = `${dia}/${mes}/${año}`;
-  return fechaFormateada;
+  if (convert) {
+    const mesesCortos = [
+      'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+      'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+    ];
+
+    const nombreMes = mesesCortos[mes];
+    return `${nombreMes} ${dia}, ${año}`;
+  }
+
+  const diaStr = dia.toString().padStart(2, '0');
+  const mesStr = (mes + 1).toString().padStart(2, '0');
+  return `${diaStr}/${mesStr}/${año}`;
 };
+
+
 
 function exportToExcelFormat(data, fileName, headers, rowDatatrans) {
   if (data && data.length > 0) {
