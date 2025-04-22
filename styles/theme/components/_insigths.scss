@@ -5,14 +5,14 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
-  gap: 2rem;
-  // padding-top: 8rem;
+  gap: 1rem;
 
   .navegation {
     width: max-content;
     display: flex;
     margin-top: 1rem;
     margin-bottom: 1rem;
+
     a {
       color: rgba(get-color(grey2_s4), 1);
     }
@@ -91,7 +91,7 @@
         }
 
         .gradient {
-          background-color: rgba(get-color(black_p2), 1);
+          // background-color: rgba(get-color(black_p2), 1);
           padding: 0.25rem 0.5rem;
           border-radius: 0px 0px brd(1) brd(1);
           font-size: medium;
@@ -99,10 +99,13 @@
           align-items: center;
           gap: 0.25rem;
           margin-top: 0rem;
+          align-self: flex-end;
 
           svg {
+            background-color: rgba(get-color(black_p2), 0.7);
+            border-radius: brd(2);
             path {
-              fill: rgba(get-color(white_s1), 0.5);
+              fill: rgba(get-color(white_s1), 0.8);
             }
           }
         }
@@ -139,18 +142,73 @@
       justify-content: center;
       align-self: center;
       text-align: center;
+      font-style: none;
+      display: inline-block;
 
-      &::after {
-        position: absolute;
-        content: ' ';
-        background: rgba(get-color(grey1_s3), 0.9);
-        display: block;
-        width: 10rem;
-        bottom: -10%;
-        right: 40%;
-        height: 5px;
-        margin: 1.5em 0 0;
+      strong,
+      em {
+        position: relative;
+        display: inline-block;
+        width: auto;
+
+        &::after {
+          content: '';
+            position: absolute;
+            bottom: -1.75rem;
+            left: 0;
+            width: 0%;
+            height: 5rem;
+            margin-top: 1em;
+            background: url("data:image/svg+xml;utf8,%3Csvg viewBox='-10 0 320 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='rgba(208, 55, 216, 0.4)' /%3E%3Cstop offset='50%25' stop-color='rgba(102, 64, 255, 0.4)' /%3E%3Cstop offset='100%25' stop-color='rgba(14, 164, 202, 0.4)' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 40 Q75 30 150 40 T300 40' fill='none' stroke='url(%23grad)' stroke-width='10'  stroke-linecap='square' /%3E%3C/svg%3E")
+              no-repeat center;
+          // background: url("data:image/svg+xml;utf8,%3Csvg viewBox='-10 0 320 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='rgba(208, 55, 216, 0.4)' /%3E%3Cstop offset='50%25' stop-color='rgba(102, 64, 255, 0.4)' /%3E%3Cstop offset='100%25' stop-color='rgba(14, 164, 202, 0.4)' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 40 Q75 30 150 40 T300 40' fill='none' stroke='url(%23grad)' stroke-width='8' stroke-linecap='round' /%3E%3C/svg%3E") no-repeat center;
+            background-size: 100% 100%;
+            border-radius: 10px;
+            pointer-events: none;
+            z-index: -1;
+            animation: underlinePencil 2s ease-out forwards;
+
+          // content: '';
+          // position: absolute;
+          // bottom: 5%;
+          // left: 0;
+          // width: 0%; /* Inicialmente no se muestra */
+          // height: 5px; /* Alto del trazo */
+          // background: url('data:image/svg+xml;utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="20" height="10"%3E%3Cpath d="M0 10 Q10 5 20 0" stroke="blue" stroke-width="5" fill="transparent"/%3E%3C/svg%3E') no-repeat center;
+          // background-size: 100% 100%; /* El tamaño del fondo es el tamaño de la línea */
+          // transform: translateY(4px);
+          // pointer-events: none;
+          // z-index: -1;
+          // animation: underlinePencil 3s ease-out forwards;
+        
+        }
       }
+
+
+      //         content: '';
+      //   position: absolute;
+      //   bottom: -0.5rem;
+      //   right: 35%;
+      //   width: 16rem;
+      //   width: 100%; /* Esto hace que el subrayado sea proporcional al ancho del h2 */
+      //   width: 100%; /* Ancho de la línea proporcional al h2 (ajusta según necesidad) */
+
+      //  transform: translateX(35%); /* Ajusta el subrayado al centro */
+
+      //   height: 3rem;
+      //   margin-top: 1em;
+
+      //   // background: url("data:image/svg+xml;utf8,%3Csvg viewBox='0 0 300 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='rgba(208, 55, 216, 0.3)' /%3E%3Cstop offset='50%25' stop-color='rgba(102, 64, 255, 0.3)' /%3E%3Cstop offset='100%25' stop-color='rgba(14, 164, 202, 0.3)' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 30 Q75 10 150 30 T300 30' fill='none' stroke='url(%23grad)' stroke-width='10' stroke-linecap='round' /%3E%3C/svg%3E") no-repeat center;
+      //   // background: url("data:image/svg+xml;utf8,%3Csvg viewBox='-10 0 320 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='rgba(208, 55, 216, 0.4)' /%3E%3Cstop offset='50%25' stop-color='rgba(102, 64, 255, 0.4)' /%3E%3Cstop offset='100%25' stop-color='rgba(14, 164, 202, 0.4)' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 40 Q75 30 150 40 T300 40' fill='none' stroke='url(%23grad)' stroke-width='12' stroke-linecap='round' /%3E%3C/svg%3E") no-repeat center;
+      //   // background: url("data:image/svg+xml;utf8,%3Csvg viewBox='-10 0 320 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='rgba(208, 55, 216, 0.4)' /%3E%3Cstop offset='50%25' stop-color='rgba(102, 64, 255, 0.4)' /%3E%3Cstop offset='100%25' stop-color='rgba(14, 164, 202, 0.4)' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 40 Q75 30 150 40 T300 40' fill='none' stroke='url(%23grad)' stroke-width='12' stroke-linecap='round' /%3E%3C/svg%3E") no-repeat center;
+      //   background: url("data:image/svg+xml;utf8,%3Csvg viewBox='-10 0 320 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='rgba(208, 55, 216, 0.4)' /%3E%3Cstop offset='50%25' stop-color='rgba(102, 64, 255, 0.4)' /%3E%3Cstop offset='100%25' stop-color='rgba(14, 164, 202, 0.4)' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 40 Q75 30 150 40 T300 40' fill='none' stroke='url(%23grad)' stroke-width='10'  stroke-linecap='square' /%3E%3C/svg%3E") no-repeat center;
+
+      //   background-size: 100% 100%;
+      //   border-radius: 10px;
+      //   pointer-events: none;
+      //   z-index: -1;
+
+      //       }
     }
 
     a {
@@ -183,7 +241,8 @@
       margin-inline-start: 0px;
       margin-inline-end: 0px;
       unicode-bidi: isolate;
-      letter-spacing: 0.01em; /* o incluso 0 */
+      letter-spacing: 0.01em;
+      /* o incluso 0 */
     }
 
     img {
@@ -207,10 +266,13 @@
       position: relative;
       border: none;
       font-weight: 700;
-      font-style: italic;
+      font-style: oblique;
       line-height: 26px;
       padding: 0 0 0 40px;
-      margin: 35px 0 35px 130px;
+
+      @include media(desktop) {
+        margin: 35px 0 35px 130px;
+      }
 
       &::before {
         content: '“'; // O «
@@ -229,27 +291,33 @@
   &-suggestions {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    gap: 2rem;
 
-    @include media(tablet) {
+    gap: 1.5rem;
+    height: auto;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    @include media(desktop) {
       position: sticky;
-
-      height: 110vh;
+      height: 120vh;
       top: 1%;
+      flex: 1;
     }
 
     .box-autor {
       display: flex;
       flex-direction: row;
       gap: 0.5rem;
+      width: auto;
 
       img {
-        width: 5rem;
+        height: max-content;
         background-color: rgba(get-color(grey2_s4), 1);
         border-radius: brd(f);
-        height: 5rem;
-        filter: contrast(1);
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+        object-fit: fill;
+        width: 4.25rem;
       }
 
       .dates-autor {
@@ -435,4 +503,16 @@ p:nth-child(odd) {
 p:nth-child(even) {
   animation-delay: 0.8s;
   /* Retraso diferente para párrafos pares */
+}
+
+@keyframes underlinePencil {
+  0% {
+    width: 0%; /* Al principio está oculto */
+  }
+  50% {
+    width: 60%; /* La onda se extiende a la mitad */
+  }
+  100% {
+    width: 100%; /* La onda llena todo el ancho */
+  }
 }

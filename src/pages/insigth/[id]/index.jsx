@@ -177,7 +177,7 @@ export default function Index() {
        
           <div className='navegation'>
             <ImageSvg name="Return" />
-          <Link href="/#insights"> Volver atráz </Link>
+          <Link href="/#insights"> {t['Go back']}</Link>
           </div>
               
 
@@ -209,7 +209,7 @@ export default function Index() {
           <div className="insigth-suggestions">
             <div className="box-autor">
               {/* <Image src={cardInsights?.attributes?.imgAutor?.data ? cardInsights.attributes.imgAutor.data.attributes.url : autor} width={40} height={40} alt={cardInsights?.attributes?.autor} /> */}
-              <Image src={autor} width={40} height={40} alt="AUTOR" />
+              <Image src={autor} width={500} height={500} alt="AUTOR" />
 
               <div className="dates-autor">
                 <p> {cardInsights?.autor || 'Menagen Murriagui Hananel'}</p>
