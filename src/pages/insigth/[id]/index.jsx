@@ -12,6 +12,8 @@ import compartir from '../../../../public/img/post/compartir.jpg';
 import share from '../../../../public/img/post/share.jpg';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import qs from 'qs';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function Index() {
   const { l } = useAuth();
@@ -31,6 +33,21 @@ export default function Index() {
     const postLink = `${baseURL}/insigth/insigth?idPost=${post?.documentId}&title=${post?.title.trim().toLowerCase().replaceAll(' ', '-')}`;
     return postLink;
   };
+
+
+  
+  //animación aos
+    // Animaciones AOS
+    useEffect(() => {
+      if (typeof window !== 'undefined') {
+        AOS.init({
+          offset: -1, // Inicia la animación inmediatamente cuando la sección está visible
+          duration: 500, // Duración de las animaciones
+          // once: true, // Evitar que las animaciones se repitan
+          // easing: 'ease-out', // Añadir un suavizado en la animación
+        });
+      }
+    }, []);
 
   async function getPostStrapi() {
     const query = qs.stringify(
@@ -124,6 +141,7 @@ export default function Index() {
       });
   };
 
+
   return (
     <LayoutHome>
       <Head>
@@ -161,26 +179,33 @@ export default function Index() {
       </Head>
 
       <section className="insigth">
-        <section className="insigth-navigation">
-          <Link href="/#insights"> Insights </Link>
-          <ImageSvg name="Navigation" />
-          <span className="title--post"> {cardInsights?.title} </span>
-        </section>
+       
+          <div className='navegation'>
+            <ImageSvg name="Return" />
+          <Link href="/#insights"> {t['Go back']}</Link>
+          </div>
+              
 
         <section className="insigth-suggestions-posts">
           {cardInsights && Object.keys(cardInsights).length > 0 ? (
             <div className="insigth-post">
               <figure className="image--post">
                 <Image src={cardInsights?.image.url} width={400} height={300} alt={cardInsights?.title} priority />
-
                 <div className="box-title">
-                  <span>{cardInsights?.type}</span>
+                 <p className='gradient'>
+                 <ImageSvg name="Report" />
+                 <span>   {cardInsights?.type}</span>
+                  </p> 
                   <h1>{cardInsights?.title}</h1>
-                  <p>{cardInsights && formatDate(cardInsights?.updatedAt)}</p>
+                  <p className='date'>{cardInsights &&  formatDate(cardInsights?.updatedAt, true)}</p>
                 </div>
               </figure>
 
-              {cardInsights?.content && <BlocksRenderer content={cardInsights?.content} />}
+              <div className="articles" data-aos="fade-up" >
+                  {cardInsights?.content && <BlocksRenderer content={cardInsights?.content} />}
+              </div>
+              
+            
             </div>
           ) : (
             <p> {t['Waiting articles']}</p>
@@ -189,7 +214,7 @@ export default function Index() {
           <div className="insigth-suggestions">
             <div className="box-autor">
               {/* <Image src={cardInsights?.attributes?.imgAutor?.data ? cardInsights.attributes.imgAutor.data.attributes.url : autor} width={40} height={40} alt={cardInsights?.attributes?.autor} /> */}
-              <Image src={autor} width={40} height={40} alt="AUTOR" />
+              <Image src={autor} width={500} height={500} alt="AUTOR" />
 
               <div className="dates-autor">
                 <p> {cardInsights?.autor || 'Menagen Murriagui Hananel'}</p>

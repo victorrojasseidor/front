@@ -131,13 +131,14 @@ const LayoutProducts = ({ children, menu }) => {
     //   submenus: [],
     // },
 
-    // Integration: {
-    //   label: t.Integration,
-    //   icon: 'Integration',
-    //   path: '/integration',
+    // Support: {
+    //   label: t.Support,
+    //   icon: 'Support',
+    //   path: '/support',
     //   submenus: [],
     // },
   };
+  
 
   const menuMovil = [
     // {
@@ -170,6 +171,12 @@ const LayoutProducts = ({ children, menu }) => {
     {
       label: 'Chatbot',
       link: 'https://seidor.mensajea.chat/',
+      submenus: [],
+    },
+
+    {
+      label: t.Support,
+      link: '/support',
       submenus: [],
     },
   ];

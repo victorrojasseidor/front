@@ -36,7 +36,7 @@ export default function Inicio() {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         <meta name="google-site-verification" content="itaBlndKny_4x9v8etJviXHwNkS1MOoY2AaMq_li898" />
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
         {/* Canonical Link */}
         <link rel="canonical" href="https://www.ariapp.ai/" />
 
