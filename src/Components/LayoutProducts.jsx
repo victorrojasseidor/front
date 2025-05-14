@@ -131,12 +131,12 @@ const LayoutProducts = ({ children, menu }) => {
     //   submenus: [],
     // },
 
-    // Support: {
-    //   label: t.Support,
-    //   icon: 'Support',
-    //   path: '/support',
-    //   submenus: [],
-    // },
+    Support: {
+      label: t.Support,
+      icon: 'Support',
+      path: '/support/1',
+      submenus: [],
+    },
   };
   
 

@@ -500,24 +500,7 @@ const Balance = () => {
                 <ImageSvg name="Download" /> {t['Export to Excel']}
               </button>
             </div>
-
-            {/* <div className="scrollWrapper">
-              <div className="scrollButtons" style={{ display: showScrollButtons ? 'flex' : 'none' }}>
-              
-
-                <div className="scrollButton left" onClick={() => scrollTable('left')}>
-           
-
-                  <ImageSvg name="Left" />
-                </div>
-
-                <div className="scrollButton right" onClick={() => scrollTable('right')}>
-              
-                  <ImageSvg name="Rigth" />
-                </div>
-              </div>
-            </div>  */}
-
+          
             <ScrollableTable tableRef={tableContainerRef} />
 
             <div className="tableContainer " ref={tableContainerRef}>

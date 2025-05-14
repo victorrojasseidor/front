@@ -21,11 +21,14 @@ export default function Contract() {
   const { session, setModalToken, logout, l, empresa } = useAuth();
   const [requestError, setRequestError] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCompany, setSelectedCompany] = useState(session?.oEmpresa[0].id_empresa);
-  const [startDate, setStartDate] = useState(dayjs().startOf('month').format('DD/MM/YYYY'));
-  const [endDate, setEndDate] = useState(dayjs().subtract(1, 'day').format('DD/MM/YYYY'));
+  const [selectedCompany, setSelectedCompany] = useState('');
+  const [selectedEnterprise, setSelectedEnterprise] = useState('');
+  const [selectedState, setSelectedState] = useState('');
+  const [dataEnterprise, setDataEnterprise] = useState([]);
   const [apply, setApply] = useState(false);
+  const [datacontractFilter, setDataContractFilter] = useState(null);
   const [datacontract, setDataContract] = useState(null);
+  const [isLoadingComponent, setIsLoadingComponent] = useState(false);
 
   const t = l.Support;
 
@@ -33,29 +36,94 @@ export default function Contract() {
     setPage(value);
   };
 
-  const handleStartDateChange = (newValue) => {
-    setStartDate(newValue.format('DD/MM/YYYY'));
-  };
-
-  const handleEndDateChange = (newValue) => {
-    setEndDate(newValue.format('DD/MM/YYYY'));
-  };
-
   const handleCompanyChange = (event) => {
     const selectCompanyValue = event.target.value;
     setSelectedCompany(selectCompanyValue);
+    const selectedCompanyData = datacontractFilter?.oCompany.find((comp) => comp.id_company === Number(selectCompanyValue));
+    if (selectedCompanyData) {
+      setDataEnterprise(selectedCompanyData.oEmpresa);
+    } else {
+      setDataEnterprise([]);
+    }
   };
 
-  const hasAppliedFilters = () => {
-    return selectedCompany !== '' || startDate !== dayjs().startOf('month').format('DD/MM/YYYY') || endDate !== dayjs().subtract(1, 'day').format('DD/MM/YYYY');
+  const handleEnterpriseChange = (event) => {
+    const selectCompanyValue = event.target.value;
+    setSelectedEnterprise(selectCompanyValue);
+  };
+
+  const handleStateChange = (event) => {
+    const selectCompanyValue = event.target.value;
+    setSelectedState(selectCompanyValue);
   };
 
   const handleClearFilters = () => {
     setSelectedCompany('');
-    //   setStartDate(dayjs().startOf('month').format('DD/MM/YYYY'));
-    //   setEndDate(dayjs().subtract(1, 'day').format('DD/MM/YYYY'));
-    setApply(!apply);
+    setSelectedEnterprise('');
+    setSelectedState('');
   };
+
+  const hasAppliedFilters = () => {
+    return selectedCompany !== '' || selectedEnterprise !== '' || selectedState !== '';
+  };
+
+  async function handleCommonCodes(response) {
+    if (response.oAuditResponse?.iCode === 27) {
+      setModalToken(true);
+    } else if (response.oAuditResponse?.iCode === 4) {
+      await logout();
+    } else if (response.oAuditResponse?.iCode === 403) {
+      setModalDenied(true);
+      setTimeout(() => {
+        setModalDenied(false);
+        router.push('/product');
+      }, 8000);
+    } else {
+      const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete ';
+      console.log('errok, ', errorMessage);
+      setModalToken(false);
+      setRequestError(errorMessage);
+      setTimeout(() => {
+        setRequestError(null); // Limpiar el mensaje después de 3 segundos
+      }, 5000);
+    }
+  }
+
+  useEffect(() => {
+    if (session) {
+      getGetInitContrato();
+    }
+  }, []);
+
+  async function getGetInitContrato() {
+    setIsLoadingComponent(true);
+    const body = {
+      oResults: {
+        oIdCompany: [selectedCompany],
+        oIdEmpresa: [selectedEnterprise],
+        oIdEstado: [selectedState],
+      },
+    };
+
+    console.log('body', body);
+
+    try {
+      const token = session.sToken;
+      const responseData = await fetchConTokenPost('BPasS?Accion=GetInitContrato', body, token);
+      console.log('responseData', responseData);
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setModalToken(false);
+        const dataRes = responseData.oResults;
+        setDataContractFilter(dataRes);
+      } else {
+        await handleCommonCodes(responseData);
+      }
+    } catch (error) {
+      console.error('error', error);
+    } finally {
+      setIsLoadingComponent(false);
+    }
+  }
 
   return (
     <section className="contract">
@@ -70,57 +138,65 @@ export default function Contract() {
                 </div>
 
                 <div className="box-clear">
-                  <button className={`btn_primary small black  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => setApply(!apply)} disabled={!hasAppliedFilters()}>
+                  {/* <button className={`btn_primary small black  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => setApply(!apply)} disabled={!hasAppliedFilters()}>
                     {t['Create contract']}
-                  </button>
+                  </button> */}
                 </div>
               </div>
 
               <div className="box-filter">
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="company-label">{t.Company}</InputLabel>
+                  <InputLabel id="company-label">Compañía</InputLabel>
                   <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
                     <MenuItem value="">
+                      {/* <em>{l.Reporting['All Companys']}</em> */}
                       <em>{l.Reporting['All Companys']}</em>
                     </MenuItem>
-                    {session?.oEmpresa.map((comp) => (
-                      <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
-                        <div> {comp.razon_social_empresa}</div>
+                    {datacontractFilter?.oCompany.map((comp) => (
+                      <MenuItem key={Number(comp.ruc_company)} value={comp.id_company}>
+                        <div> {comp.razon_social_company}</div>
                       </MenuItem>
                     ))}
                   </Select>
-                  {/* <FormHelperText>{t['Selected company']}</FormHelperText> */}
                 </FormControl>
 
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                   <InputLabel id="company-label">{t.Enterprise}</InputLabel>
-                  <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
+                  <Select labelId="company-label" value={selectedEnterprise} onChange={handleEnterpriseChange} IconComponent={IconArrow}>
                     <MenuItem value="">
                       <em>{t.all}</em>
                     </MenuItem>
-                    {session?.oEmpresa.map((comp) => (
-                      <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
+                    {dataEnterprise?.map((comp) => (
+                      <MenuItem key={comp.razon_social_empresa} value={comp.id_empresa}>
                         <div> {comp.razon_social_empresa}</div>
                       </MenuItem>
                     ))}
                   </Select>
-                  {/* <FormHelperText>{t['Selected company']}</FormHelperText> */}
                 </FormControl>
 
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                   <InputLabel id="company-label">{t.Status}</InputLabel>
-                  <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
+                  <Select labelId="company-label" value={selectedState} onChange={handleStateChange} IconComponent={IconArrow}>
                     <MenuItem value="">
+                      {/* <em>Renovado</em> */}
                       <em>{t.All}</em>
                     </MenuItem>
-                    {session?.oEmpresa.map((comp) => (
-                      <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
-                        <div> {comp.razon_social_empresa}</div>
+                    {datacontractFilter?.oEstado.map((comp, index) => (
+                      <MenuItem key={comp.id_estado} value={comp.code_estado}>
+                        <div> {comp.descripcion_estado}</div>
                       </MenuItem>
                     ))}
                   </Select>
                   {/* <FormHelperText>{t['Selected company']}</FormHelperText> */}
                 </FormControl>
+                <div className="box-clear">
+                  <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => getGetInitContrato()} disabled={!hasAppliedFilters()}>
+                    {l.Reporting.Apply}
+                  </button>
+                  <button className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
+                    {l.Reporting.Clear}
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -140,27 +216,25 @@ export default function Contract() {
                   </thead>
                   <tbody className="rowTable">
                     {datacontract?.length > 0 ? (
-                      datacontract
-                        .slice((page - 1) * itemsPerPage, page * itemsPerPage) 
-                        .map((row) => (
-                          <tr key={row.id_detracciones_pago}>
-                            <td>{formatDate(row.fecha_pago)}</td>
-                            <td>{row.razon_social_empresa}</td>
-                            <td>{row.tipo_cuenta}</td>
-                            <td>{row.numero}</td>
-                            <td>{row.archivo}</td>
-                            <td>{row.importe_total}</td>
-                            <td> {row.numero_pago_detracciones == 'String/null' ? '-' : row.numero_pago_detracciones}</td>
-                            <td className="box-actions">
-                              <button className="btn_crud" onClick={() => handleEdit(row)}>
-                                <ImageSvg name="Edit" />{' '}
-                              </button>
-                              <button className="btn_crud" onClick={() => setSelectedRowToDelete(row)}>
-                                <ImageSvg name="Delete" />
-                              </button>
-                            </td>
-                          </tr>
-                        ))
+                      datacontract.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
+                        <tr key={row.id_detracciones_pago}>
+                          <td>{formatDate(row.fecha_pago)}</td>
+                          <td>{row.razon_social_empresa}</td>
+                          <td>{row.tipo_cuenta}</td>
+                          <td>{row.numero}</td>
+                          <td>{row.archivo}</td>
+                          <td>{row.importe_total}</td>
+                          <td> {row.numero_pago_detracciones == 'String/null' ? '-' : row.numero_pago_detracciones}</td>
+                          <td className="box-actions">
+                            <button className="btn_crud" onClick={() => handleEdit(row)}>
+                              <ImageSvg name="Edit" />{' '}
+                            </button>
+                            <button className="btn_crud" onClick={() => setSelectedRowToDelete(row)}>
+                              <ImageSvg name="Delete" />
+                            </button>
+                          </td>
+                        </tr>
+                      ))
                     ) : (
                       <tr>
                         <td colSpan="2">{l.Reporting['There is no data']}</td>
