@@ -620,11 +620,20 @@
     "Image text extraction service": "Servicio de Extracción de textos de imágenes",
     "AFP validation": "Validación de AFP",
     "Cancel": "Cancelar",
+    "Edit": "Editar",
+    "Add":"Agregar",
+    "Update": "Actualizar",
     "Save": "Guardar",
     "Enable": "Habilitar",
     "Start date": "Fecha inicio",
     "Apply to all": "Aplicar a todos",
-    "Captcha connections": "Conexiones captcha"
+    "Captcha connections": "Conexiones captcha",
+      "Contract status": "Estado del contrato",
+  "Edit contract": "Editar contrato",
+  "Add contract": "Agregar contrato",
+  "Contract start date":"Inicio del contrato",
+  "Contract end date":"Fin del contrato"
+
 
     
   },

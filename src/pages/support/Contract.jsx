@@ -16,6 +16,7 @@ import ImageSvg from '@/helpers/ImageSVG';
 import { TextField } from '@mui/material';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
+import FormContract from './FormContract';
 
 export default function Contract() {
   const { session, setModalToken, logout, l, empresa } = useAuth();
@@ -29,6 +30,7 @@ export default function Contract() {
   const [datacontractFilter, setDataContractFilter] = useState(null);
   const [datacontract, setDataContract] = useState(null);
   const [isLoadingComponent, setIsLoadingComponent] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const t = l.Support;
 
@@ -105,16 +107,53 @@ export default function Contract() {
       },
     };
 
-    console.log('body', body);
+    // console.log('body', body);
 
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=GetInitContrato', body, token);
-      console.log('responseData', responseData);
+      // console.log('responseData', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;
         setDataContractFilter(dataRes);
+      } else {
+        await handleCommonCodes(responseData);
+      }
+    } catch (error) {
+      console.error('error', error);
+    } finally {
+      setIsLoadingComponent(false);
+    }
+  }
+
+  async function PostCrearContrato(values) {
+    console.log(values);
+    setIsLoadingComponent(true);
+    const body = {
+      oResults: {
+        iIdEmpresa: values.iIdEmpresa,
+        sNumContrato: values.sNumContrato,
+        sReferencia: values.sReferencia,
+        sFechaInicio: values.sFechaInicio,
+        sFechaFin: values.sFechaFin,
+        iEstado: values.iEstado,
+        oIdProdEnv: values.oIdProdEnv,
+        oHabilidad: values.oHabilidad,
+        sFechaContractual: values.sFechaFin, //lo agrwguw poe mientras
+      },
+    };
+
+    console.log('body', body);
+
+    try {
+      const token = session.sToken;
+      const responseData = await fetchConTokenPost('BPasS?Accion=PostCrearContrato', body, token);
+      console.log('responseData', responseData);
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setModalToken(false);
+        const dataRes = responseData.oResults;
+        setDataContract(dataRes);
       } else {
         await handleCommonCodes(responseData);
       }
@@ -138,15 +177,19 @@ export default function Contract() {
                 </div>
 
                 <div className="box-clear">
-                  {/* <button className={`btn_primary small black  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => setApply(!apply)} disabled={!hasAppliedFilters()}>
+                  {/* <button className={`btn_primary small black  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => setApply(!apply)} disabled={!hasAppliedFilters()}>*/}
+
+                  <button className={`btn_primary small black  ${showForm ? 'desactivo' : ''}`} onClick={() => setShowForm(true)}>
                     {t['Create contract']}
-                  </button> */}
+                  </button>
+
+                  {showForm && <FormContract setShowForm={setShowForm} datacontractFilter={datacontractFilter} onAgregar={PostCrearContrato} />}
                 </div>
               </div>
 
               <div className="box-filter">
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="company-label">Compañía</InputLabel>
+                  <InputLabel id="company-label">{t.Company}</InputLabel>
                   <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
                     <MenuItem value="">
                       {/* <em>{l.Reporting['All Companys']}</em> */}

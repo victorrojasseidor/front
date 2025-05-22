@@ -625,9 +625,17 @@
     "AFP validation": "AFP validation",
     "Cancel": "Cancel",
     "Save": "Save",
+    "Update": "Update",
+    "Edit": "Edit",
+    "Add": "Add",
     "Enable": "Enable",
     "Apply to all": "Apply to all",
-    "Captcha connections": "Captcha connections"
+    "Captcha connections": "Captcha connections",
+    "Contract status": "Contract status",
+    "Edit contract": "Edit contract",
+    "Add contract": "Add contract",
+     "Contract start date":"Contract start",
+  "Contract end date":"Contract end"
             
   },
   "Integration": {
