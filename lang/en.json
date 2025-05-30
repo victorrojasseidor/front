@@ -623,6 +623,7 @@
     "Supplier validation": "Supplier validation",
     "Image text extraction service": "Image text extraction service",
     "AFP validation": "AFP validation",
+    "Contract": "Contract",
     "Cancel": "Cancel",
     "Save": "Save",
     "Update": "Update",
@@ -635,7 +636,13 @@
     "Edit contract": "Edit contract",
     "Add contract": "Add contract",
      "Contract start date":"Contract start",
-  "Contract end date":"Contract end"
+  "Contract end date":"Contract end",
+  "Select the skills needed for this contract": "Select the skills needed for this contract",
+  "Are you sure you want to delete this contract?": "Do you delete this contract",
+  "Delete contract": "Delete contract",
+  "YES":"YES",
+  "NO":"NO",
+  "Contract created successfully":"Contract created successfully"
             
   },
   "Integration": {

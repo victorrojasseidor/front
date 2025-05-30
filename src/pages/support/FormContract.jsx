@@ -26,26 +26,26 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Checkbox from '@mui/material/Checkbox';
+import { validateFormContract } from '@/helpers/validateForms';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+
 
 const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm, typeOfChange }) => {
-  // const [selectedCountry, setSelectedCountry] = useState(initialVal?.id_pais || '1');
-  // const [selectedPortal, setSelectedPortal] = useState(initialVal?.id_fuente || '1');
-  // const [selectedCoinOrigin, setSelectedCoinOrigin] = useState(initialVal?.id_moneda || '1');
 
   const [selectedDays, setSelectedDays] = useState(initialVal?.dias_adicional || '1');
-  const [valueState, setValueState] = useState(initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active');
+  const [valueState, setValueState] = useState(initialVal?.estado || '33');
   const [startDate, setStartDate] = useState(dayjs().subtract(0, 'day').format('DD/MM/YYYY'));
   const [endDate, setEndDate] = useState(dayjs().add(6, 'month').format('DD/MM/YYYY'));
   const { l, idCountry } = useAuth();
   const t = l.Support;
 
+
   const formValues = {
-    // country: parseInt(selectedCountry), // Usamos los valores iniciales si están disponibles
-    // fuente: parseInt(selectedPortal),
-    // coinOrigin: parseInt(selectedCoinOrigin),
-    // coinDestiny: parseInt(selectedCoinDestiny),
-    // days: parseInt(selectedDays),
-    // state: initialVal && initialVal.estado == '23' ? 'Active' : initialVal ? 'Disabled' : 'Active'
+    // numbercontract:"",
+    // Reference: "",
+
   };
 
   const [selectedCompany, setSelectedCompany] = useState('');
@@ -187,18 +187,31 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
   ];
   const [selectedSkills, setSelectedSkills] = useState(skillsList);
 
-  console.log('selectedSkills', selectedSkills);
+  const transfTosHabilidad = (obj) => {
+    const mapSkills = obj.map((skill) => {
+      return {
+        sNombreHabilidad: skill.name,
+        sNumero: skill.id,
+        sFechaInicio: skill.startDate,
+        sFechaFin: skill.endDate,
+        iMaxConexiones: skill.maxConnections,
+        is_activo: skill.enabled,
+        is_suspendido: false,
+
+      };
+    });
+    return mapSkills;
+  };
+
 
   return (
     <ModalForm
       close={() => {
         // setIinitialEdit(null);
         setShowForm(false);
-        // setSelectedCountry('');
-        // setSelectedPortal('');
-        // setSelectedCoinOrigin('');
-        // setSelectedCoinDestiny('');
-        // setSelectedDays('1');
+        setSelectedEnterprise('');
+        setSelectedCompany('');
+        setSelectedSkills(skillsList);
       }}
     >
       <div className="conten-form-Curency">
@@ -206,7 +219,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
 
         <Formik
           initialValues={formValues}
-          // validate={(values) => validateFormCurrency(values)}
+          validate={(values) => validateFormContract(values)}
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
               handleEditCurrency({
@@ -219,14 +232,14 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
               });
             } else {
               onAgregar({
-                iIdEmpresa: selectedCompany,
+                iIdEmpresa: selectedEnterprise,
                 sNumContrato: values.numbercontract,
                 sReferencia: values.Reference,
                 sFechaInicio: formatDate(startDate),
                 sFechaFin: formatDate(endDate),
                 iEstado: Number(valueState),
                 oIdProdEnv: [selectedEnterprise],
-                oHabilidad: [{ sHabilidad: 'prueba' }],
+                oHabilidad: transfTosHabilidad(selectedSkills),
               });
             }
             resetForm();
@@ -257,6 +270,10 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                               </MenuItem>
                             ))}
                           </Select>
+                          <FormHelperText>
+
+                            <ErrorMessage name="selectedCompany" component="span" className="errorMessage" />
+                          </FormHelperText>
                         </FormControl>
 
                         <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -271,6 +288,8 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                               </MenuItem>
                             ))}
                           </Select>
+                          <FormHelperText>                           <ErrorMessage name="selectedEnterprise" component="span" className="errorMessage" />
+                          </FormHelperText>
                         </FormControl>
                       </div>
 
@@ -281,12 +300,17 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                           <ErrorMessage name="numbercontract" component="span" className="errorMessage" />
                         </div>
 
+                      
                         <div className="input-box">
                           <Field type="text" name="Reference" placeholder=" " />
                           <label htmlFor="reference">{t.Reference}</label>
                           <ErrorMessage name="reference" component="span" className="errorMessage" />
                         </div>
+
+                       
                       </div>
+
+                 
                     </div>
                   </div>
 
@@ -355,7 +379,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                   </div>
 
                   <div className=" Skills and services">
-                    <p> seleccione los skills que se necesitan para este contrato y los tipos de captcha si este fuera necesario </p>
+                    <p> {t['Select the skills needed for this contract']}</p>
 
                     <div>
                       <div className="skills">
@@ -408,7 +432,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                           </Accordion>
                         ))}
                       </div>
-                    </div>                   
+                    </div>
                   </div>
                 </div>
               </div>
@@ -422,8 +446,6 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                     setSelectedSkills(skillsList);
                     setSelectedCompany('');
                     setSelectedEnterprise('');
-                    
-                    
                   }}
                 >
                   {t.Cancel}
@@ -431,8 +453,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
 
                 <button
                   type="submit"
-                  className="btn_primary small"
-                  // className={`btn_primary small ${!isValid ? 'disabled' : ''}`} disabled={!isValid}
+                  className={`btn_primary small ${!isValid || selectedCompany == '' || selectedEnterprise === '' ? 'disabled' : ''}`} disabled={!isValid}
                 >
                   {initialVal ? t.Update : t.Add}
                 </button>

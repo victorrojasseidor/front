@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/Context/DataContext';
-import Stack from '@mui/material/Stack';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import { fetchConTokenPost } from '@/helpers/fetch';
 import dayjs from 'dayjs';
@@ -17,26 +16,36 @@ import { TextField } from '@mui/material';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 import FormContract from './FormContract';
+import Modal from '@/Components/Modal';
+import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 export default function Contract() {
   const { session, setModalToken, logout, l, empresa } = useAuth();
   const [requestError, setRequestError] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedCompany, setSelectedCompany] = useState('');
-  const [selectedEnterprise, setSelectedEnterprise] = useState('');
-  const [selectedState, setSelectedState] = useState('');
+  const [selectedCompany, setSelectedCompany] = useState(null);
+  const [selectedEnterprise, setSelectedEnterprise] = useState(null);
+  const [selectedState, setSelectedState] = useState(null);
   const [dataEnterprise, setDataEnterprise] = useState([]);
-  const [apply, setApply] = useState(false);
   const [datacontractFilter, setDataContractFilter] = useState(null);
   const [datacontract, setDataContract] = useState(null);
   const [isLoadingComponent, setIsLoadingComponent] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [confirmation, setConfirmation] = useState(false);
+  const [confimationDelete, setConfirmationDelete] = useState(false);
+  const [dataAction, setDataAction] = useState(null);
+  const [itemsPerPage] = useState(32);
+  const [page, setPage] = useState(1);
 
   const t = l.Support;
 
   const handleChangePage = (event, value) => {
     setPage(value);
   };
+
+  console.log(dataAction, 'dataAction');
 
   const handleCompanyChange = (event) => {
     const selectCompanyValue = event.target.value;
@@ -45,7 +54,7 @@ export default function Contract() {
     if (selectedCompanyData) {
       setDataEnterprise(selectedCompanyData.oEmpresa);
     } else {
-      setDataEnterprise([]);
+      setDataEnterprise(null);
     }
   };
 
@@ -60,13 +69,14 @@ export default function Contract() {
   };
 
   const handleClearFilters = () => {
-    setSelectedCompany('');
-    setSelectedEnterprise('');
-    setSelectedState('');
+    setSelectedCompany(null);
+    setSelectedEnterprise(null);
+    setSelectedState(null);
+    setConfirmation(false);
   };
 
   const hasAppliedFilters = () => {
-    return selectedCompany !== '' || selectedEnterprise !== '' || selectedState !== '';
+    return selectedCompany !== null || selectedEnterprise !== null || selectedState !== null || confirmation;
   };
 
   async function handleCommonCodes(response) {
@@ -97,8 +107,17 @@ export default function Contract() {
     }
   }, []);
 
+  if (datacontractFilter == null) {
+    return (
+      <div className="loading">
+        <LoadingComponent />
+      </div>
+    );
+  }
+
   async function getGetInitContrato() {
     setIsLoadingComponent(true);
+    setConfirmation(false);
     const body = {
       oResults: {
         oIdCompany: [selectedCompany],
@@ -126,30 +145,20 @@ export default function Contract() {
       setIsLoadingComponent(false);
     }
   }
-
-  async function PostCrearContrato(values) {
-    console.log(values);
+  async function GetBuscarContrato() {
     setIsLoadingComponent(true);
     const body = {
       oResults: {
-        iIdEmpresa: values.iIdEmpresa,
-        sNumContrato: values.sNumContrato,
-        sReferencia: values.sReferencia,
-        sFechaInicio: values.sFechaInicio,
-        sFechaFin: values.sFechaFin,
-        iEstado: values.iEstado,
-        oIdProdEnv: values.oIdProdEnv,
-        oHabilidad: values.oHabilidad,
-        sFechaContractual: values.sFechaFin, //lo agrwguw poe mientras
+        oIdCompany: selectedCompany ? [selectedCompany] : [],
+        oIdEmpresa: selectedEnterprise ? [selectedEnterprise] : [],
+        oIdEstado: selectedState ? [selectedState] : [],
       },
     };
 
-    console.log('body', body);
-
     try {
       const token = session.sToken;
-      const responseData = await fetchConTokenPost('BPasS?Accion=PostCrearContrato', body, token);
-      console.log('responseData', responseData);
+      const responseData = await fetchConTokenPost('BPasS?Accion=GetBuscarContrato', body, token);
+      console.log('responseDatabuscarcontrato', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;
@@ -164,13 +173,108 @@ export default function Contract() {
     }
   }
 
+  async function PostCrearContrato(values) {
+    // console.log(values);
+    setIsLoadingComponent(true);
+    const body = {
+      oResults: {
+        iIdEmpresa: values.iIdEmpresa,
+        sNumContrato: values.sNumContrato,
+        sReferencia: values.sReferencia,
+        sFechaInicio: values.sFechaInicio,
+        sFechaFin: values.sFechaFin,
+        iEstado: values.iEstado,
+        oHabilidad: values.oHabilidad,
+        sFechaContractual: values.sFechaFin, //lo agrwguw poe mientras
+      },
+    };
+
+    console.log('bodypost', body);
+
+    try {
+      const token = session.sToken;
+      const responseData = await fetchConTokenPost('BPasS?Accion=PostCrearContrato', body, token);
+      console.log('responseData', responseData);
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setModalToken(false);
+        setShowForm(false);
+        setConfirmation(true);
+        setTimeout(() => {
+          setConfirmation(false);
+          getGetInitContrato();
+        }, 3000);
+      } else {
+        await handleCommonCodes(responseData);
+      }
+
+      if (responseData.oResults.respuesta == false) {
+        setConfirmation(false);
+        setRequestError(responseData.oResults.respuesta_desc);
+
+        setTimeout(() => {
+          setRequestError(null);
+        }, 5000);
+      }
+    } catch (error) {
+      console.error('error', error);
+    } finally {
+      setIsLoadingComponent(false);
+    }
+  }
+
+  async function EliminarContrato() {
+    setIsLoadingComponent(true);
+
+    const body = {
+      oResults: {
+        iIdContrato: Number(dataAction?.id_contrato),
+        oIdHabilidad: dataAction ? [dataAction.id_habilidad] : [],
+      },
+    };
+
+    try {
+      const token = session.sToken;
+      const responseData = await fetchConTokenPost('BPasS?Accion=EliminarContrato', body, token);
+      console.log('responseDataeliminar', responseData);
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setTimeout(() => {
+          setDataAction(null);
+          setConfirmationDelete(false);
+          getGetInitContrato();
+        }, 3000);
+      } else {
+        await handleCommonCodes(responseData);
+      }
+
+      if (responseData.oResults.respuesta == false) {
+        setConfirmation(false);
+        setRequestError(responseData.oResults.respuesta_desc);
+        setTimeout(() => {
+          setRequestError(null);
+        }, 5000);
+      }
+    } catch (error) {
+      console.error('error', error);
+    } finally {
+      setIsLoadingComponent(false);
+    }
+  }
+
   return (
     <section className="contract">
       <div className="tab-content ">
         <div className="tabOne">
           <div className="contaniner-tables ">
+            {requestError && (
+              <Stack sx={{ width: '100%' }} spacing={1}>
+                {' '}
+                <Alert severity="error">{requestError || ' error service'}</Alert>
+              </Stack>
+            )}
             <div>
               <div className="box-search">
+                {isLoadingComponent && <LoadingComponent />}
+
                 <div>
                   <h3> {t['Manage contracts']} </h3>
                   <p>{t['Set up and manage contracts']}</p>
@@ -191,10 +295,6 @@ export default function Contract() {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                   <InputLabel id="company-label">{t.Company}</InputLabel>
                   <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
-                    <MenuItem value="">
-                      {/* <em>{l.Reporting['All Companys']}</em> */}
-                      <em>{l.Reporting['All Companys']}</em>
-                    </MenuItem>
                     {datacontractFilter?.oCompany.map((comp) => (
                       <MenuItem key={Number(comp.ruc_company)} value={comp.id_company}>
                         <div> {comp.razon_social_company}</div>
@@ -206,9 +306,6 @@ export default function Contract() {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                   <InputLabel id="company-label">{t.Enterprise}</InputLabel>
                   <Select labelId="company-label" value={selectedEnterprise} onChange={handleEnterpriseChange} IconComponent={IconArrow}>
-                    <MenuItem value="">
-                      <em>{t.all}</em>
-                    </MenuItem>
                     {dataEnterprise?.map((comp) => (
                       <MenuItem key={comp.razon_social_empresa} value={comp.id_empresa}>
                         <div> {comp.razon_social_empresa}</div>
@@ -220,10 +317,6 @@ export default function Contract() {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                   <InputLabel id="company-label">{t.Status}</InputLabel>
                   <Select labelId="company-label" value={selectedState} onChange={handleStateChange} IconComponent={IconArrow}>
-                    <MenuItem value="">
-                      {/* <em>Renovado</em> */}
-                      <em>{t.All}</em>
-                    </MenuItem>
                     {datacontractFilter?.oEstado.map((comp, index) => (
                       <MenuItem key={comp.id_estado} value={comp.code_estado}>
                         <div> {comp.descripcion_estado}</div>
@@ -233,10 +326,10 @@ export default function Contract() {
                   {/* <FormHelperText>{t['Selected company']}</FormHelperText> */}
                 </FormControl>
                 <div className="box-clear">
-                  <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => getGetInitContrato()} disabled={!hasAppliedFilters()}>
+                  <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => GetBuscarContrato()} disabled={!hasAppliedFilters()}>
                     {l.Reporting.Apply}
                   </button>
-                  <button className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={handleClearFilters} disabled={!hasAppliedFilters()}>
+                  <button className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => handleClearFilters()} disabled={!hasAppliedFilters()}>
                     {l.Reporting.Clear}
                   </button>
                 </div>
@@ -259,20 +352,30 @@ export default function Contract() {
                   </thead>
                   <tbody className="rowTable">
                     {datacontract?.length > 0 ? (
-                      datacontract.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
-                        <tr key={row.id_detracciones_pago}>
-                          <td>{formatDate(row.fecha_pago)}</td>
-                          <td>{row.razon_social_empresa}</td>
-                          <td>{row.tipo_cuenta}</td>
-                          <td>{row.numero}</td>
-                          <td>{row.archivo}</td>
-                          <td>{row.importe_total}</td>
-                          <td> {row.numero_pago_detracciones == 'String/null' ? '-' : row.numero_pago_detracciones}</td>
+                      datacontract.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row, index) => (
+                        <tr key={'id_' + row.id_contrato_servicio}>
+                          <td>
+                            {' '}
+                            {row.id_contrato_servicio} - {row.secuencia}{' '}
+                          </td>
+                          <td>{row.razon_social}</td>
+
+                          <td>{formatDate(row.fecha_inicio)}</td>
+                          <td>{formatDate(row.fecha_fin)}</td>
+                          <td>{row.descripcion_estado}</td>
+                          <td>{row.is_suspendido == 0 ? '' : 'renovar '}</td>
+
                           <td className="box-actions">
-                            <button className="btn_crud" onClick={() => handleEdit(row)}>
-                              <ImageSvg name="Edit" />{' '}
+                            <button className="btn_crud" onClick={() => console.log(row)}>
+                              <ImageSvg name="Edit" />
                             </button>
-                            <button className="btn_crud" onClick={() => setSelectedRowToDelete(row)}>
+                            <button
+                              className="btn_crud"
+                              onClick={() => {
+                                setDataAction(row);
+                                setConfirmationDelete(true);
+                              }}
+                            >
                               <ImageSvg name="Delete" />
                             </button>
                           </td>
@@ -286,20 +389,53 @@ export default function Contract() {
                   </tbody>
                 </table>
               </div>
-              {/* <Stack spacing={2}>
-                                <div className="pagination">
-                                  <Typography>
-                                    {l.Reporting.Page} {page} {t.of} {Math.ceil(dataDetracciones?.length / itemsPerPage)}
-                                  </Typography>
-                                  <Pagination
-                                    count={Math.ceil(dataDetracciones?.length / itemsPerPage)} // Calculate the total number of pages
-                                    page={page}
-                                    onChange={handleChangePage}
-                                  />
-                                </div>
-                              </Stack> */}
+              <Stack spacing={2}>
+                <div className="pagination">
+                  <Typography>
+                    {l.Reporting.Page} {page} {l.Reporting.of} {Math.ceil(datacontract?.length / itemsPerPage)}
+                  </Typography>
+                  <Pagination count={Math.ceil(datacontract?.length / itemsPerPage)} page={page} onChange={handleChangePage} />
+                </div>
+              </Stack>
             </div>
+
+            {confimationDelete && (
+              <Modal
+                // open={confimationDelete}
+                onClose={() => {
+                  setDataAction(null);
+                  setConfirmationDelete(false);
+                }}
+              >
+                <ImageSvg name="Delete" />
+                <h2> {t['Delete contract']} </h2>
+                <span> "{dataAction.referencia} "</span>
+                <p>{t['Are you sure you want to delete this contract']} </p>
+                <div className="box-actions">
+                  <button className="btn_secundary small" onClick={() => EliminarContrato()}>
+                    {t.YES}
+                  </button>
+                  <button
+                    className="btn_primary small"
+                    onClick={() => {
+                      setConfirmationDelete(false);
+                      setDataAction(null);
+                    }}
+                  >
+                    {t.NO}
+                  </button>
+                </div>
+              </Modal>
+            )}
           </div>
+
+          {confirmation && (
+            <Modal open={confirmation} onClose={() => setConfirmation(false)}>
+              <ImageSvg name="Check" />
+              <h2> {t["Contract created successfully"]}</h2>
+             
+            </Modal>
+          )}
         </div>
       </div>
     </section>
