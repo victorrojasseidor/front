@@ -146,7 +146,7 @@
     "INSIGHTS": "INSIGHTS",
     "Skills": "Habilidades",
     "Follow us": "Síguenos",
-    "Go back":"Volver atrás",
+    "Go back": "Volver atrás",
     "Contact us": "Contáctanos",
     "Expert analysis, bold thinking, and data gathering for leaders who want to achieve the extraordinary.": "Análisis de expertos, pensamiento audaz y recopilación de datos para líderes que desean lograr lo extraordinario.",
     "OUR CLIENTS": "NUESTROS CLIENTES",
@@ -622,27 +622,24 @@
     "Contract": "Contrato",
     "Cancel": "Cancelar",
     "Edit": "Editar",
-    "Add":"Agregar",
+    "Add": "Agregar",
     "Update": "Actualizar",
     "Save": "Guardar",
     "Enable": "Habilitar",
     "Start date": "Fecha inicio",
     "Apply to all": "Aplicar a todos",
     "Captcha connections": "Conexiones captcha",
-      "Contract status": "Estado del contrato",
-  "Edit contract": "Editar contrato",
-  "Add contract": "Agregar contrato",
-  "Contract start date":"Inicio del contrato",
-  "Contract end date":"Fin del contrato",
-  "Select the skills needed for this contract":"Selecciona las habilidades necesarias para este contrato",
-  "Delete contract": "Eliminar contrato",
-  "Are you sure you want to delete this contract": "¿Deseas eliminar este contrato?",
-  "YES": "SÍ",
-  "NO": "NO",
-  "Contract created successfully": "Contrato creado exitosamente"
-
-
-    
+    "Contract status": "Estado del contrato",
+    "Edit contract": "Editar contrato",
+    "Add contract": "Agregar contrato",
+    "Contract start date": "Inicio del contrato",
+    "Contract end date": "Fin del contrato",
+    "Select the skills needed for this contract": "Selecciona las habilidades necesarias para este contrato",
+    "Delete contract": "Eliminar contrato",
+    "Are you sure you want to delete this contract": "¿Deseas eliminar este contrato?",
+    "YES": "SÍ",
+    "NO": "NO",
+    "Contract created successfully": "Contrato creado exitosamente"
   },
   "Integration": {
     "Integration": "Integración",
@@ -849,11 +846,10 @@
     "Your session is about to expire!": "¡Su sesión está a punto de caducar!",
     "Please confirm to refresh your token and continue": "Confirma para actualizar tu token y continuar",
     "Confirm": "Confirmar",
-    "Return to Home":"Ir a Inicio",
-    "Access denied":"Acceso denegado",
-    "You do not have permission to view this page with this account":"No tienes permiso para ver esta página con esta cuenta.",
-    "If you wish to access this information, please log in with an authorized account":"Si deseas acceder a esta información, inicia sesión con una cuenta autorizada"
-
+    "Return to Home": "Ir a Inicio",
+    "Access denied": "Acceso denegado",
+    "You do not have permission to view this page with this account": "No tienes permiso para ver esta página con esta cuenta.",
+    "If you wish to access this information, please log in with an authorized account": "Si deseas acceder a esta información, inicia sesión con una cuenta autorizada"
   },
   "validation": {
     "Corporate email is required": "Se requiere correo electrónico corporativo",

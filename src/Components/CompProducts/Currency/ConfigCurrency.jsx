@@ -50,12 +50,12 @@ export default function ConfigCurrency() {
       setModalToken(true);
     } else if (response.oAuditResponse?.iCode === 4) {
       await logout();
-     } else if (response.oAuditResponse?.iCode === 403) {
-        setModalDenied(true);
-        setTimeout(() => {
-          setModalDenied(false);
-          router.push('/product');
-        }, 8000);
+    } else if (response.oAuditResponse?.iCode === 403) {
+      setModalDenied(true);
+      setTimeout(() => {
+        setModalDenied(false);
+        router.push('/product');
+      }, 8000);
     } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete ';
       console.log('error, ', errorMessage);
@@ -86,7 +86,6 @@ export default function ConfigCurrency() {
         ],
       },
     };
-
 
     try {
       const token = session.sToken;
@@ -390,11 +389,12 @@ export default function ConfigCurrency() {
                   {isLoadingComponent && <LoadingComponent />}
                 </div>
 
-               
-
-                {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
-        </Stack>}
-
+                {requestError && (
+                  <Stack sx={{ width: '100%' }} spacing={1}>
+                    {' '}
+                    <Alert severity="error">{requestError || ' error service'}</Alert>
+                  </Stack>
+                )}
               </div>
 
               <div>
@@ -507,10 +507,12 @@ export default function ConfigCurrency() {
                   {isLoadingComponent && <LoadingComponent />}
                 </div>
 
-              
-                {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
-                </Stack>}
-
+                {requestError && (
+                  <Stack sx={{ width: '100%' }} spacing={1}>
+                    {' '}
+                    <Alert severity="error">{requestError || ' error service'}</Alert>
+                  </Stack>
+                )}
               </div>
 
               {dataTypeChange?.oDailyExchange.length > 0 && (

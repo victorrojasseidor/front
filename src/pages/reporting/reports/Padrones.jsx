@@ -8,7 +8,6 @@ import { fetchConTokenPost } from '@/helpers/fetch';
 import { formatDate } from '@/helpers/report';
 import Alert from '@mui/material/Alert';
 
-
 const Padrones = () => {
   const { session, setModalToken, logout, l } = useAuth();
   const [requestError, setRequestError] = useState();
@@ -18,8 +17,6 @@ const Padrones = () => {
   const [page, setPage] = useState(1);
 
   const t = l.Captcha;
-
-
 
   const handleChangePage = (event, value) => {
     setPage(value);
@@ -67,14 +64,17 @@ const Padrones = () => {
     }
   }
 
-
   return (
     <>
       <section className="">
         {isLoading && <LoadingComponent />}
 
-        {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.error || requestError.message || ' error service'}</Alert>
-        </Stack>}
+        {requestError && (
+          <Stack sx={{ width: '100%' }} spacing={1}>
+            {' '}
+            <Alert severity="error">{requestError.error || requestError.message || ' error service'}</Alert>
+          </Stack>
+        )}
 
         <div className="box-tabs">
           <div className="tab-content">

@@ -66,14 +66,13 @@ const fetchConTokenPost = async (endpoint, data, tok, specifiedLocale) => {
 
 const refresTokenPost = async (data, specifiedLocale) => {
   const locale = specifiedLocale || 'en';
-  const urlrefres="General/?Accion=RefreshToken";
+  const urlrefres = 'General/?Accion=RefreshToken';
   const url = `${baseApiUrl}${urlrefres}`;
 
   // sacar el token de localhost
   const sessionLS = localStorage.getItem('session');
   const sessionLocal = JSON.parse(sessionLS);
   const token = sessionLocal?.sToken;
- 
 
   try {
     const response = await fetch(url, {

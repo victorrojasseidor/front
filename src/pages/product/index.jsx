@@ -83,7 +83,6 @@ export default function Products() {
     }
   }
 
-
   async function ConsultaCabeceraEmpresa() {
     setIsLoading(true);
 
@@ -494,49 +493,36 @@ export default function Products() {
 
                     <div className="status-box">
                       <p className={product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'status' : ''}>{product.sDescStatus}</p>
-
-                   
-
                     </div>
                   </div>
 
                   <div className="card-actions">
-
-                  {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
-                        <p className="">
-                          {/* <ImageSvg name='Time' /> */}
-                          {calcularDiasRestantes(product.sDateEnd) >= 0 ? (
-                            <span style={{ color: '#7D86A2' }}>
-                              {' '}
-                              {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
-                            </span>
-                          ) : (
-
-                            <Stack sx={{ width: '100%' }} spacing={0}> 
-                            
+                    {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
+                      <p className="">
+                        {/* <ImageSvg name='Time' /> */}
+                        {calcularDiasRestantes(product.sDateEnd) >= 0 ? (
+                          <span style={{ color: '#7D86A2' }}>
+                            {' '}
+                            {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
+                          </span>
+                        ) : (
+                          <Stack sx={{ width: '100%' }} spacing={0}>
                             <Alert severity="error">
                               {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
-
-
                             </Alert>
+                          </Stack>
 
-
-                            </Stack>
-
-                            
-
-
-                            // <span className="expire">
-                            //   <ImageSvg name="Notification" />
-                            //   {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
-                            // </span>
-                          )}
-                        </p>
-                      ) : (
-                        <p className="dayLetf" style={{ color: 'white' }}>
-                          .......
-                        </p>
-                      )}
+                          // <span className="expire">
+                          //   <ImageSvg name="Notification" />
+                          //   {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
+                          // </span>
+                        )}
+                      </p>
+                    ) : (
+                      <p className="dayLetf" style={{ color: 'white' }}>
+                        .......
+                      </p>
+                    )}
                     <div className="box-actions">
                       {product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28) ? (
                         <ButtonGradient classButt="whiteButton" onClick={() => handleLink('/reporting/tecnology/1')}>
@@ -573,10 +559,10 @@ export default function Products() {
                 </div>
 
                 <div className="card-actions">
-                <p className="dayLetf" style={{ color: 'white' }}>
-                          .......
-                        </p>
-                        
+                  <p className="dayLetf" style={{ color: 'white' }}>
+                    .......
+                  </p>
+
                   <div className="box-actions">
                     <Link href={item.link}>{t['View more']}</Link>
                   </div>
@@ -592,10 +578,12 @@ export default function Products() {
             )} */}
       </div>
 
-
-      {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
-      </Stack>}
-
+      {requestError && (
+        <Stack sx={{ width: '100%' }} spacing={1}>
+          {' '}
+          <Alert severity="error">{requestError.message || ' error service'}</Alert>
+        </Stack>
+      )}
     </LayoutProducts>
   );
 }

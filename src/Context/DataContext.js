@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import en from '../../lang/en.json';
 import es from '../../lang/es.json';
 import { useRouter } from 'next/router';
-import { fetchConTokenPost , refresTokenPost} from '@/helpers/fetch';
+import { fetchConTokenPost, refresTokenPost } from '@/helpers/fetch';
 import Loading from '@/Components/Atoms/Loading';
 
 const DataContext = createContext();

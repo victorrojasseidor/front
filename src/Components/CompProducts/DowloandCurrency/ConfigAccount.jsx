@@ -26,7 +26,6 @@ export default function ConfigAccount({ idbancoCredential, setGet, get, getBank,
 
   const t = l.Download;
 
-
   async function handleCommonCodes(response) {
     if (response.oAuditResponse?.iCode === 27) {
       setModalToken(true);
@@ -331,9 +330,12 @@ export default function ConfigAccount({ idbancoCredential, setGet, get, getBank,
               </div>
             )}
 
-            {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
-        </Stack>}
-
+            {requestError && (
+              <Stack sx={{ width: '100%' }} spacing={1}>
+                {' '}
+                <Alert severity="error">{requestError.message || ' error service'}</Alert>
+              </Stack>
+            )}
 
             {isLoadingComponent && <LoadingComponent />}
           </div>

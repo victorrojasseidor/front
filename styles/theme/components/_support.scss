@@ -31,7 +31,6 @@
         padding: 0rem;
         gap: 1rem;
         align-items: center;
-    
 
         @include media(tablet) {
           flex-direction: row;
@@ -43,13 +42,9 @@
       }
     }
 
-
-   
-
     // .box-filter .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
     // .box-filter .css-fvipm8{
     //   width: 100%;
-
 
     //    @include media(tablet) {
     //        min-width: 14.4em;
@@ -61,7 +56,7 @@
 
     // }
 
-    .date{
+    .date {
       margin-top: 1rem;
     }
 
@@ -72,7 +67,6 @@
         justify-content: space-between;
         align-items: center;
         gap: 0.5rem;
-        
       }
 
       &-details {
@@ -81,7 +75,6 @@
         gap: 1rem;
         margin-top: 1rem;
       }
-      
     }
   }
 }

@@ -203,8 +203,12 @@ function FreeTrial({ nameProduct, iIdProd }) {
         )}
       </div>
 
-      {requestError && <Stack sx={{ width: '50%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
-      </Stack>}
+      {requestError && (
+        <Stack sx={{ width: '50%' }} spacing={1}>
+          {' '}
+          <Alert severity="error">{requestError.message || ' error service'}</Alert>
+        </Stack>
+      )}
     </div>
   );
 }

@@ -22,7 +22,6 @@ import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import LineCaptcha from '@/Components/Grafics/LineCaptcha';
 import Alert from '@mui/material/Alert';
 
-
 const Captcha = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [activeTabSub, setActiveTabSub] = useState(0);
@@ -372,8 +371,6 @@ const Captcha = () => {
                 </div>
               </div>
 
-
-
               <div className="report_resume">
                 <div className="report gradientAri">
                   <div className="report_icon  ">
@@ -497,8 +494,12 @@ const Captcha = () => {
 
         </div> */}
 
-        {requestError && <Stack sx={{ width: '50%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
-        </Stack>}
+        {requestError && (
+          <Stack sx={{ width: '50%' }} spacing={1}>
+            {' '}
+            <Alert severity="error">{requestError.message || ' error service'}</Alert>
+          </Stack>
+        )}
 
         {isLoading && <LoadingComponent />}
 

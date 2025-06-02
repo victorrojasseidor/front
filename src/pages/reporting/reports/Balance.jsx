@@ -21,7 +21,6 @@ import { TextField } from '@mui/material';
 import ScrollableTable from '@/Components/Atoms/ScrollTable';
 import Alert from '@mui/material/Alert';
 
-
 const Balance = () => {
   const { session, setModalToken, logout, l } = useAuth();
   const [startDate, setStartDate] = useState(dayjs().startOf('month').format('DD/MM/YYYY'));
@@ -500,7 +499,7 @@ const Balance = () => {
                 <ImageSvg name="Download" /> {t['Export to Excel']}
               </button>
             </div>
-          
+
             <ScrollableTable tableRef={tableContainerRef} />
 
             <div className="tableContainer " ref={tableContainerRef}>
@@ -595,10 +594,12 @@ const Balance = () => {
         </div>
       )}
 
-       
-      {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError.message || ' error service'}</Alert>
-      </Stack>}
-    
+      {requestError && (
+        <Stack sx={{ width: '100%' }} spacing={1}>
+          {' '}
+          <Alert severity="error">{requestError.message || ' error service'}</Alert>
+        </Stack>
+      )}
     </>
   );
 };

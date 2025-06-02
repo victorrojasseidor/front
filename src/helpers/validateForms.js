@@ -243,7 +243,7 @@ export const validateCaptcha = (values) => {
   return errors;
 };
 
-export const  validateFormContract = (values) => {
+export const validateFormContract = (values) => {
   const localeSpanish = window.location.href;
   const localeES = localeSpanish.includes('/es/');
   const l = localeES ? es : en;
@@ -254,8 +254,6 @@ export const  validateFormContract = (values) => {
   if (!values.numbercontract) {
     errors.numbercontract = t['This value is required'];
   }
-
-  
 
   return errors;
 };

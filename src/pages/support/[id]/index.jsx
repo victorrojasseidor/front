@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import { useAuth } from '@/Context/DataContext';
@@ -17,8 +17,8 @@ function Support() {
   const { session, empresa, setModalToken, logout, l } = useAuth();
   const [tabData, setTabData] = useState(null);
 
-   const router = useRouter();
-    const { id } = router.query;
+  const router = useRouter();
+  const { id } = router.query;
   const t = l.Support;
 
   // async function handleSubmit(values, { setSubmitting, resetForm }) {
@@ -72,40 +72,33 @@ function Support() {
   //   }
   // }
 
-  
+  const handleTabClick = (index, data) => {
+    router.push(data.path); // Usar la ruta de la pestaña en lugar del índice
+  };
 
+  useEffect(() => {
+    const activeTabFromId = tabs.filter((tab) => tab.idTab == id);
+    if (activeTabFromId.length > 0) {
+      setTabData(activeTabFromId[0]);
+    }
+  }, [id, router]);
 
-     const handleTabClick = (index, data) => {
-        router.push(data.path); // Usar la ruta de la pestaña en lugar del índice
-      };
-    
-      useEffect(() => {
-        const activeTabFromId = tabs.filter((tab) => tab.idTab == id);
-        if (activeTabFromId.length > 0) {
-          setTabData(activeTabFromId[0]);
-        }
-      }, [id, router]);
-
-
-    
-        const tabs = [
-          {
-            idTab: 1,
-            title:t.Contracts,
-            path: '/support/1',
-            component: <Contract />,
-            type: l.header['Finance and accounting'],
-          },
-          // {
-          //   idTab: 2,
-          //   title: t.Movement,
-          //   path: '/reporting/finance/2',
-          //   component: <Movement />,
-          //   type: l.header['Finance and accounting'],
-          // },
-          
-          
-        ];
+  const tabs = [
+    {
+      idTab: 1,
+      title: t.Contracts,
+      path: '/support/1',
+      component: <Contract />,
+      type: l.header['Finance and accounting'],
+    },
+    // {
+    //   idTab: 2,
+    //   title: t.Movement,
+    //   path: '/reporting/finance/2',
+    //   component: <Movement />,
+    //   type: l.header['Finance and accounting'],
+    // },
+  ];
 
   return (
     <LayoutProducts menu="Support">
@@ -123,7 +116,6 @@ function Support() {
           <div className="tab-content">{tabData?.component}</div>
         </div>
       </section>
-      
     </LayoutProducts>
   );
 }

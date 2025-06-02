@@ -45,7 +45,7 @@ export default function ConfigDetracciones() {
   const iId = router.query.iId;
   const idEmpresa = router.query.idEmpresa;
 
-  const { session, setModalToken, logout, l, idCountry, getProducts ,setModalDenied} = useAuth();
+  const { session, setModalToken, logout, l, idCountry, getProducts, setModalDenied } = useAuth();
 
   const t = l.Detractions;
 
@@ -60,8 +60,7 @@ export default function ConfigDetracciones() {
         setModalDenied(false);
         router.push('/product');
       }, 8000);
-  } 
-        else {
+    } else {
       const errorMessage = response.oAuditResponse ? response.oAuditResponse.sMessage : 'Error in delete ';
       console.log('errok, ', errorMessage);
       setModalToken(false);
@@ -203,8 +202,12 @@ export default function ConfigDetracciones() {
             <div className="container-status">
               {isLoadingComponent && <LoadingComponent />}
 
-              {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
-              </Stack>}
+              {requestError && (
+                <Stack sx={{ width: '100%' }} spacing={1}>
+                  {' '}
+                  <Alert severity="error">{requestError || ' error service'}</Alert>
+                </Stack>
+              )}
 
               <EmailsForm dataEmails={dataDetracciones?.oCorreo} setUpdateEmails={setUpdateEmails} sProduct={dataCardProduct?.sProd} get={get} setGet={setGet} />
 

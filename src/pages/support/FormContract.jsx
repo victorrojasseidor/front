@@ -30,10 +30,7 @@ import { validateFormContract } from '@/helpers/validateForms';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-
-
 const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm, typeOfChange }) => {
-
   const [selectedDays, setSelectedDays] = useState(initialVal?.dias_adicional || '1');
   const [valueState, setValueState] = useState(initialVal?.estado || '33');
   const [startDate, setStartDate] = useState(dayjs().subtract(0, 'day').format('DD/MM/YYYY'));
@@ -41,11 +38,9 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
   const { l, idCountry } = useAuth();
   const t = l.Support;
 
-
   const formValues = {
     // numbercontract:"",
     // Reference: "",
-
   };
 
   const [selectedCompany, setSelectedCompany] = useState('');
@@ -197,12 +192,10 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
         iMaxConexiones: skill.maxConnections,
         is_activo: skill.enabled,
         is_suspendido: false,
-
       };
     });
     return mapSkills;
   };
-
 
   return (
     <ModalForm
@@ -271,7 +264,6 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                             ))}
                           </Select>
                           <FormHelperText>
-
                             <ErrorMessage name="selectedCompany" component="span" className="errorMessage" />
                           </FormHelperText>
                         </FormControl>
@@ -288,7 +280,8 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                               </MenuItem>
                             ))}
                           </Select>
-                          <FormHelperText>                           <ErrorMessage name="selectedEnterprise" component="span" className="errorMessage" />
+                          <FormHelperText>
+                            <ErrorMessage name="selectedEnterprise" component="span" className="errorMessage" />
                           </FormHelperText>
                         </FormControl>
                       </div>
@@ -300,17 +293,12 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                           <ErrorMessage name="numbercontract" component="span" className="errorMessage" />
                         </div>
 
-                      
                         <div className="input-box">
                           <Field type="text" name="Reference" placeholder=" " />
                           <label htmlFor="reference">{t.Reference}</label>
                           <ErrorMessage name="reference" component="span" className="errorMessage" />
                         </div>
-
-                       
                       </div>
-
-                 
                     </div>
                   </div>
 
@@ -451,10 +439,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                   {t.Cancel}
                 </button>
 
-                <button
-                  type="submit"
-                  className={`btn_primary small ${!isValid || selectedCompany == '' || selectedEnterprise === '' ? 'disabled' : ''}`} disabled={!isValid}
-                >
+                <button type="submit" className={`btn_primary small ${!isValid || selectedCompany == '' || selectedEnterprise === '' ? 'disabled' : ''}`} disabled={!isValid}>
                   {initialVal ? t.Update : t.Add}
                 </button>
               </div>

@@ -29,20 +29,18 @@ export default function Index() {
 
   const strapiURL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
-
-  
   //animación aos
-    // Animaciones AOS
-    useEffect(() => {
-      if (typeof window !== 'undefined') {
-        AOS.init({
-          offset: -1, // Inicia la animación inmediatamente cuando la sección está visible
-          duration: 500, // Duración de las animaciones
-          // once: true, // Evitar que las animaciones se repitan
-          // easing: 'ease-out', // Añadir un suavizado en la animación
-        });
-      }
-    }, []);
+  // Animaciones AOS
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      AOS.init({
+        offset: -1, // Inicia la animación inmediatamente cuando la sección está visible
+        duration: 500, // Duración de las animaciones
+        // once: true, // Evitar que las animaciones se repitan
+        // easing: 'ease-out', // Añadir un suavizado en la animación
+      });
+    }
+  }, []);
 
   async function getPostStrapi() {
     const query = qs.stringify(
@@ -136,23 +134,22 @@ export default function Index() {
       });
   };
 
-
   return (
     <LayoutHome>
       <Head>
         {/* Título y descripción */}
         <title>{cardInsights?.title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content={cardInsights?.description || "Publicación de ARI"} />
-        <meta name="keywords" content={cardInsights?.keywords || "Inteligencia Artificial, IA"} />
+        <meta name="description" content={cardInsights?.description || 'Publicación de ARI'} />
+        <meta name="keywords" content={cardInsights?.keywords || 'Inteligencia Artificial, IA'} />
 
         {/* Metadatos Open Graph (WhatsApp, Instagram, Facebook, LinkedIn) */}
         <meta property="og:title" content={cardInsights?.title} />
         <meta property="og:description" content={cardInsights?.description} />
 
         {/* Imagen de vista previa con fallback a Cloudinary */}
-        <meta property="og:image" content={cardInsights?.attributes?.image?.data?.attributes?.url || "https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg"} />
-        <meta property="og:image:secure_url" content={cardInsights?.attributes?.image?.data?.attributes?.url || "https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg"} />
+        <meta property="og:image" content={cardInsights?.attributes?.image?.data?.attributes?.url || 'https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg'} />
+        <meta property="og:image:secure_url" content={cardInsights?.attributes?.image?.data?.attributes?.url || 'https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg'} />
         <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -166,7 +163,7 @@ export default function Index() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={cardInsights?.title} />
         <meta name="twitter:description" content={cardInsights?.description} />
-        <meta name="twitter:image" content={cardInsights?.attributes?.image?.data?.attributes?.url || "https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg"} />
+        <meta name="twitter:image" content={cardInsights?.attributes?.image?.data?.attributes?.url || 'https://res.cloudinary.com/diwel1yye/image/upload/v1700000000/share-default.jpg'} />
         <meta name="twitter:site" content="@seidor" />
 
         {/* URL canónica */}
@@ -174,12 +171,10 @@ export default function Index() {
       </Head>
 
       <section className="insigth">
-       
-          <div className='navegation'>
-            <ImageSvg name="Return" />
+        <div className="navegation">
+          <ImageSvg name="Return" />
           <Link href="/#insights"> {t['Go back']}</Link>
-          </div>
-              
+        </div>
 
         <section className="insigth-suggestions-posts">
           {cardInsights && Object.keys(cardInsights).length > 0 ? (
@@ -187,20 +182,18 @@ export default function Index() {
               <figure className="image--post">
                 <Image src={cardInsights?.image.url} width={400} height={300} alt={cardInsights?.title} priority />
                 <div className="box-title">
-                 <p className='gradient'>
-                 <ImageSvg name="Report" />
-                 <span>   {cardInsights?.type}</span>
-                  </p> 
+                  <p className="gradient">
+                    <ImageSvg name="Report" />
+                    <span> {cardInsights?.type}</span>
+                  </p>
                   <h1>{cardInsights?.title}</h1>
-                  <p className='date'>{cardInsights &&  formatDate(cardInsights?.updatedAt, true)}</p>
+                  <p className="date">{cardInsights && formatDate(cardInsights?.updatedAt, true)}</p>
                 </div>
               </figure>
 
-              <div className="articles" data-aos="fade-up" >
-                  {cardInsights?.content && <BlocksRenderer content={cardInsights?.content} />}
+              <div className="articles" data-aos="fade-up">
+                {cardInsights?.content && <BlocksRenderer content={cardInsights?.content} />}
               </div>
-              
-            
             </div>
           ) : (
             <p> {t['Waiting articles']}</p>
@@ -238,10 +231,7 @@ export default function Index() {
                 {posts &&
                   posts?.map((post) => (
                     <li key={post.id} className={post.documentId == id ? 'active-post' : ''}>
-                      <Link href={`/insigth/insigth?idPost=${post?.documentId}&title=${post?.title.trim().toLowerCase().replaceAll(" ", "-")}`}>
-                        {post?.title}
-                      </Link>
-
+                      <Link href={`/insigth/insigth?idPost=${post?.documentId}&title=${post?.title.trim().toLowerCase().replaceAll(' ', '-')}`}>{post?.title}</Link>
                     </li>
                   ))}
               </ul>

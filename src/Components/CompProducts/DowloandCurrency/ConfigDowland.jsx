@@ -46,7 +46,6 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
   const t = l.Download;
   console.log(session);
 
- 
   async function handleCommonCodes(response) {
     if (response.oAuditResponse?.iCode === 27) {
       setModalToken(true);
@@ -301,11 +300,12 @@ export default function ConfigDowland({ getBank, registerBank, updateBank, delet
           </button>
         </div>
 
-
-
-        {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
-        </Stack>}
-        
+        {requestError && (
+          <Stack sx={{ width: '100%' }} spacing={1}>
+            {' '}
+            <Alert severity="error">{requestError || ' error service'}</Alert>
+          </Stack>
+        )}
 
         <div className="Tabsumenu-content">
           {activeTab === 0 && (

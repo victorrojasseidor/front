@@ -43,8 +43,7 @@ export default function ConfigPattern() {
 
   const t = l.Pattern;
 
-  console.log(session)
-
+  console.log(session);
 
   async function handleCommonCodes(response) {
     if (response.oAuditResponse?.iCode === 27) {
@@ -145,7 +144,7 @@ export default function ConfigPattern() {
     setIsLoadingComponent(true);
     const body = {
       oResults: {
-        iIdPadrones: Number(iIdProdEnv), 
+        iIdPadrones: Number(iIdProdEnv),
         iIdPais: Number(idCountry) || dataCardProduct?.iCountry,
       },
     };
@@ -153,7 +152,7 @@ export default function ConfigPattern() {
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetPadrones', body, token);
-     console.log({responseData})
+      console.log({ responseData });
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;
@@ -304,10 +303,12 @@ export default function ConfigPattern() {
                   {isLoadingComponent && <LoadingComponent />}
                 </div>
 
-              
-                {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
-                </Stack>}
-
+                {requestError && (
+                  <Stack sx={{ width: '100%' }} spacing={1}>
+                    {' '}
+                    <Alert severity="error">{requestError || ' error service'}</Alert>
+                  </Stack>
+                )}
               </div>
 
               <div>

@@ -124,9 +124,6 @@ export default function Apiconfiguration({ nameEmpresa }) {
     setContractOther(selectValue);
   };
 
-
-
-
   useEffect(() => {
     if (pStatus == 31) {
       setValueState('NotHiredProducto');
@@ -143,16 +140,12 @@ export default function Apiconfiguration({ nameEmpresa }) {
     }
   }, [pStatus]);
 
-
-
   const handleSFTP = (event) => {
-    const newValue = event.target.value === "true"; // Convertir a booleano
+    const newValue = event.target.value === 'true'; // Convertir a booleano
     setStateSFTP(newValue);
 
     ActualizarSftpTipoCambio(newValue);
   };
-
-
 
   const handleStartDateChange = (newValue) => {
     setStartDate(newValue.format('YYYY-MM-DDTHH:mm:ss.SSSZ'));
@@ -287,14 +280,13 @@ export default function Apiconfiguration({ nameEmpresa }) {
       oResults: {
         bSftp: state,
         iIdEmpresa: Number(idEmpresa),
-
       },
     };
 
     try {
       const token = session?.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=ActualizarSftpTipoCambio', body, token);
-      console.log("sftp", body, responseData);
+      console.log('sftp', body, responseData);
 
       if (responseData.oAuditResponse?.iCode === 1) {
         // setHistorical(responseData.oResults);
@@ -511,19 +503,19 @@ export default function Apiconfiguration({ nameEmpresa }) {
                 </div>
               )}
 
-              {iId == 2 ? <FormControl>
-                <RadioGroup row aria-labelledby="demo-form-control-label-placement" name="sftp" value={stateSFTP} onChange={handleSFTP}>
-                  <FormControlLabel value={true} control={<Radio />} label={t.Enabled} />
-                  <FormControlLabel value={false} control={<Radio />} label={t.Disabled} />
-                </RadioGroup>
-              </FormControl> :
-
-                <Stack sx={{ width: '100' }} spacing={1}> <Alert severity="info">{'No está activo para esta habilidad '}</Alert>
+              {iId == 2 ? (
+                <FormControl>
+                  <RadioGroup row aria-labelledby="demo-form-control-label-placement" name="sftp" value={stateSFTP} onChange={handleSFTP}>
+                    <FormControlLabel value={true} control={<Radio />} label={t.Enabled} />
+                    <FormControlLabel value={false} control={<Radio />} label={t.Disabled} />
+                  </RadioGroup>
+                </FormControl>
+              ) : (
+                <Stack sx={{ width: '100' }} spacing={1}>
+                  {' '}
+                  <Alert severity="info">{'No está activo para esta habilidad '}</Alert>
                 </Stack>
-
-              }
-
-
+              )}
             </div>
           )}
         </div>
@@ -612,9 +604,12 @@ export default function Apiconfiguration({ nameEmpresa }) {
           </Modal>
         )}
 
-        {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || requestError.message || ' error service'}</Alert>
-        </Stack>}
-
+        {requestError && (
+          <Stack sx={{ width: '100%' }} spacing={1}>
+            {' '}
+            <Alert severity="error">{requestError || requestError.message || ' error service'}</Alert>
+          </Stack>
+        )}
       </div>
     </>
   );

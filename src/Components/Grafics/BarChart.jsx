@@ -357,10 +357,12 @@ export default function LineChart() {
         <Line data={midata} options={misoptions} />
       </div>
 
-      
-      {requestError && <Stack sx={{ width: '100%' }} spacing={1}> <Alert severity="error">{requestError || ' error service'}</Alert>
-      </Stack>}
-
+      {requestError && (
+        <Stack sx={{ width: '100%' }} spacing={1}>
+          {' '}
+          <Alert severity="error">{requestError || ' error service'}</Alert>
+        </Stack>
+      )}
     </div>
   );
 }

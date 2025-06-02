@@ -8,10 +8,7 @@ const formatDate = (date, convert = false) => {
   const año = fechaObjeto.getUTCFullYear();
 
   if (convert) {
-    const mesesCortos = [
-      'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-      'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
-    ];
+    const mesesCortos = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
     const nombreMes = mesesCortos[mes];
     return `${nombreMes} ${dia}, ${año}`;
@@ -21,8 +18,6 @@ const formatDate = (date, convert = false) => {
   const mesStr = (mes + 1).toString().padStart(2, '0');
   return `${diaStr}/${mesStr}/${año}`;
 };
-
-
 
 function exportToExcelFormat(data, fileName, headers, rowDatatrans) {
   if (data && data.length > 0) {

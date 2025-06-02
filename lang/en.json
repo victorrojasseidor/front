@@ -147,7 +147,7 @@
     "INSIGHTS": "INSIGHTS",
     "Skills": "Skills",
     "Follow us": "Follow us",
-    "Go back":"Go back",
+    "Go back": "Go back",
     "Contact us": "Contact us",
     "Expert analysis, bold thinking, and data gathering for leaders who want to achieve the extraordinary.": "Expert analysis, bold thinking, and data gathering for leaders who want to achieve the extraordinary.",
     "OUR CLIENTS": "OUR CLIENTS",
@@ -589,7 +589,7 @@
     "Send Request": "Send Request",
     "Contact Us": "Contact Us",
     "We will contact you shortly": "We will contact you shortly",
-     "Contracts": "Contracts",
+    "Contracts": "Contracts",
     "Manage contracts": "Manage contracts",
     "Set up and manage contracts": "Set up and manage contracts",
     "Enterprise": "Enterprise",
@@ -635,15 +635,14 @@
     "Contract status": "Contract status",
     "Edit contract": "Edit contract",
     "Add contract": "Add contract",
-     "Contract start date":"Contract start",
-  "Contract end date":"Contract end",
-  "Select the skills needed for this contract": "Select the skills needed for this contract",
-  "Are you sure you want to delete this contract?": "Do you delete this contract",
-  "Delete contract": "Delete contract",
-  "YES":"YES",
-  "NO":"NO",
-  "Contract created successfully":"Contract created successfully"
-            
+    "Contract start date": "Contract start",
+    "Contract end date": "Contract end",
+    "Select the skills needed for this contract": "Select the skills needed for this contract",
+    "Are you sure you want to delete this contract?": "Do you delete this contract",
+    "Delete contract": "Delete contract",
+    "YES": "YES",
+    "NO": "NO",
+    "Contract created successfully": "Contract created successfully"
   },
   "Integration": {
     "Integration": "Integration",
@@ -850,11 +849,10 @@
     "Your session is about to expire!": "Your session is about to expire!",
     "Please confirm to refresh your token and continue": "Please confirm to refresh your token and continue",
     "Confirm": "Confirm",
-    "Return to Home":"Return to Home",
-    "Access denied":"Access denied",
-    "You do not have permission to view this page with this account":"You do not have permission to view this page with this account",
-    "If you wish to access this information, please log in with an authorized account":"If you wish to access this information, please log in with an authorized account"
-
+    "Return to Home": "Return to Home",
+    "Access denied": "Access denied",
+    "You do not have permission to view this page with this account": "You do not have permission to view this page with this account",
+    "If you wish to access this information, please log in with an authorized account": "If you wish to access this information, please log in with an authorized account"
   },
   "validation": {
     "Corporate email is required": "Corporate email is required",

@@ -23,7 +23,7 @@ const LayoutProducts = ({ children, menu }) => {
   });
   const [activeSubmenu, setActiveSubmenu] = useState('');
 
-  const { session, modalToken, logout, l, setSession, isLogout, setIsLogout, isMenuLateralOpen, setMenuLateralOpen,modalDenied} = useAuth();
+  const { session, modalToken, logout, l, setSession, isLogout, setIsLogout, isMenuLateralOpen, setMenuLateralOpen, modalDenied } = useAuth();
   const { asPath } = useRouter();
   const t = l.header;
   const router = useRouter();
@@ -138,7 +138,6 @@ const LayoutProducts = ({ children, menu }) => {
       submenus: [],
     },
   };
-  
 
   const menuMovil = [
     // {

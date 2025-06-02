@@ -492,8 +492,8 @@
 
     h4 {
       color: get-color(black_p2);
-      
-      font-size:medium;
+
+      font-size: medium;
       font-weight: 600;
 
       &:focus {
@@ -538,25 +538,19 @@
         // color: darken(get-color(t3-red), 20%);
       }
     }
-
-   
-
-
-
   }
 
-  .css-1hdyuqk-MuiPaper-root-MuiAlert-root{
-    padding: 0.5rem 0.5rem ;
+  .css-1hdyuqk-MuiPaper-root-MuiAlert-root {
+    padding: 0.5rem 0.5rem;
     gap: 0rem;
     align-self: flex-start;
 
-    .css-1ytlwq5-MuiAlert-icon{
+    .css-1ytlwq5-MuiAlert-icon {
       font-size: 1.25rem;
       padding: 0rem;
-      
     }
 
-    .css-1pxa9xg-MuiAlert-message{
+    .css-1pxa9xg-MuiAlert-message {
       padding: 0rem;
       align-items: center;
       display: flex;
@@ -564,7 +558,6 @@
       font-size: small;
       letter-spacing: -0.5px; /* Reduce la separación entre letras */
     }
-    
   }
 
   .admin {
@@ -576,14 +569,11 @@
     transform: rotate(-90deg);
     background-color: rgba(get-color(bg-cles), 1);
     border-radius: brd(f);
-   
 
-   
     svg {
       display: flex;
       align-items: center;
       width: 1.25rem;
-     
     }
   }
 
@@ -597,13 +587,12 @@
     width: 100%;
     align-items: flex-start;
 
-
     @include media(tablet) {
       flex-direction: row;
       flex-wrap: nowrap;
       justify-content: flex-end;
       justify-content: space-between;
-      gap:1rem;
+      gap: 1rem;
     }
 
     .box-actions {
@@ -613,7 +602,6 @@
 
       @include media(tablet) {
         height: 3rem;
-     
       }
     }
 

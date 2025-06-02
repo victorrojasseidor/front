@@ -10,10 +10,10 @@ function RefreshToken() {
   const handleConfirmRefresh = async () => {
     try {
       const respToken = await refresToken();
-      console.log("oken", respToken)
+      console.log('oken', respToken);
       if (respToken.oAuditResponse.iCode == 1) {
-        setModalToken(false); 
-        window.location.reload(); 
+        setModalToken(false);
+        window.location.reload();
       } else {
         setModalToken(true);
       }
@@ -54,5 +54,3 @@ function RefreshToken() {
 }
 
 export default RefreshToken;
-
-

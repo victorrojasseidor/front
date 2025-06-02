@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/Context/DataContext';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import { fetchConTokenPost } from '@/helpers/fetch';
-import dayjs from 'dayjs';
 import { formatDate } from '@/helpers/report';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { exportToExcelFormat, IconDate, IconArrow } from '@/helpers/report';
 import ImageSvg from '@/helpers/ImageSVG';
-import { TextField } from '@mui/material';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
 import FormContract from './FormContract';
@@ -20,17 +15,17 @@ import Modal from '@/Components/Modal';
 import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { useRouter } from 'next/router';
 
 export default function Contract() {
-  const { session, setModalToken, logout, l, empresa } = useAuth();
+  const { session, setModalToken, empresa, setModalDenied, modalDenied, l, logout } = useAuth();
   const [requestError, setRequestError] = useState();
-  const [isLoading, setIsLoading] = useState(false);
   const [selectedCompany, setSelectedCompany] = useState(null);
   const [selectedEnterprise, setSelectedEnterprise] = useState(null);
   const [selectedState, setSelectedState] = useState(null);
   const [dataEnterprise, setDataEnterprise] = useState([]);
   const [datacontractFilter, setDataContractFilter] = useState(null);
-  const [datacontract, setDataContract] = useState(null);
+  const [datacontract, setDataContract] = useState([]);
   const [isLoadingComponent, setIsLoadingComponent] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
@@ -45,7 +40,9 @@ export default function Contract() {
     setPage(value);
   };
 
-  console.log(dataAction, 'dataAction');
+  const router = useRouter();
+
+  console.log({ datacontract });
 
   const handleCompanyChange = (event) => {
     const selectCompanyValue = event.target.value;
@@ -126,8 +123,6 @@ export default function Contract() {
       },
     };
 
-    // console.log('body', body);
-
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=GetInitContrato', body, token);
@@ -174,7 +169,6 @@ export default function Contract() {
   }
 
   async function PostCrearContrato(values) {
-    // console.log(values);
     setIsLoadingComponent(true);
     const body = {
       oResults: {
@@ -188,8 +182,6 @@ export default function Contract() {
         sFechaContractual: values.sFechaFin, //lo agrwguw poe mientras
       },
     };
-
-    console.log('bodypost', body);
 
     try {
       const token = session.sToken;
@@ -235,7 +227,7 @@ export default function Contract() {
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=EliminarContrato', body, token);
-      console.log('responseDataeliminar', responseData);
+      // console.log('responseDataeliminar', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setTimeout(() => {
           setDataAction(null);
@@ -267,7 +259,6 @@ export default function Contract() {
           <div className="contaniner-tables ">
             {requestError && (
               <Stack sx={{ width: '100%' }} spacing={1}>
-                {' '}
                 <Alert severity="error">{requestError || ' error service'}</Alert>
               </Stack>
             )}
@@ -317,6 +308,7 @@ export default function Contract() {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                   <InputLabel id="company-label">{t.Status}</InputLabel>
                   <Select labelId="company-label" value={selectedState} onChange={handleStateChange} IconComponent={IconArrow}>
+                    <MenuItem value=""> All </MenuItem>
                     {datacontractFilter?.oEstado.map((comp, index) => (
                       <MenuItem key={comp.id_estado} value={comp.code_estado}>
                         <div> {comp.descripcion_estado}</div>
@@ -355,8 +347,7 @@ export default function Contract() {
                       datacontract.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row, index) => (
                         <tr key={'id_' + row.id_contrato_servicio}>
                           <td>
-                            {' '}
-                            {row.id_contrato_servicio} - {row.secuencia}{' '}
+                            {row.id_contrato_servicio} - {row.referencia}
                           </td>
                           <td>{row.razon_social}</td>
 
@@ -432,8 +423,7 @@ export default function Contract() {
           {confirmation && (
             <Modal open={confirmation} onClose={() => setConfirmation(false)}>
               <ImageSvg name="Check" />
-              <h2> {t["Contract created successfully"]}</h2>
-             
+              <h2> {t['Contract created successfully']}</h2>
             </Modal>
           )}
         </div>
