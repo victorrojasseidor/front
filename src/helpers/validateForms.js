@@ -255,5 +255,9 @@ export const validateFormContract = (values) => {
     errors.numbercontract = t['This value is required'];
   }
 
+  if (!values.Reference) {
+    errors.Reference = t['This value is required'];
+  }
+
   return errors;
 };

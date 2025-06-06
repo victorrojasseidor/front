@@ -6,6 +6,7 @@ import { formatDate } from '@/helpers/report';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import { v4 as uuidv4 } from 'uuid';
 import { exportToExcelFormat, IconDate, IconArrow } from '@/helpers/report';
 import ImageSvg from '@/helpers/ImageSVG';
 import Select from '@mui/material/Select';
@@ -16,13 +17,15 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useRouter } from 'next/router';
+import dayjs from 'dayjs';
+import { object } from 'yup';
 
 export default function Contract() {
   const { session, setModalToken, empresa, setModalDenied, modalDenied, l, logout } = useAuth();
   const [requestError, setRequestError] = useState();
-  const [selectedCompany, setSelectedCompany] = useState(null);
-  const [selectedEnterprise, setSelectedEnterprise] = useState(null);
-  const [selectedState, setSelectedState] = useState(null);
+  const [selectedCompany, setSelectedCompany] = useState('');
+  const [selectedEnterprise, setSelectedEnterprise] = useState('');
+  const [selectedState, setSelectedState] = useState('');
   const [dataEnterprise, setDataEnterprise] = useState([]);
   const [datacontractFilter, setDataContractFilter] = useState(null);
   const [datacontract, setDataContract] = useState([]);
@@ -30,19 +33,18 @@ export default function Contract() {
   const [showForm, setShowForm] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
   const [confimationDelete, setConfirmationDelete] = useState(false);
-  const [dataAction, setDataAction] = useState(null);
+  const [dataAction, setDataAction] = useState([]);
   const [itemsPerPage] = useState(32);
   const [page, setPage] = useState(1);
 
   const t = l.Support;
+  //  const id = useId();
 
   const handleChangePage = (event, value) => {
     setPage(value);
   };
 
   const router = useRouter();
-
-  console.log({ datacontract });
 
   const handleCompanyChange = (event) => {
     const selectCompanyValue = event.target.value;
@@ -66,14 +68,14 @@ export default function Contract() {
   };
 
   const handleClearFilters = () => {
-    setSelectedCompany(null);
-    setSelectedEnterprise(null);
-    setSelectedState(null);
+    setSelectedCompany('');
+    setSelectedEnterprise('');
+    setSelectedState('');
     setConfirmation(false);
   };
 
   const hasAppliedFilters = () => {
-    return selectedCompany !== null || selectedEnterprise !== null || selectedState !== null || confirmation;
+    return selectedCompany !== '' || selectedEnterprise !== '' || selectedState !== '' || confirmation;
   };
 
   async function handleCommonCodes(response) {
@@ -93,7 +95,7 @@ export default function Contract() {
       setModalToken(false);
       setRequestError(errorMessage);
       setTimeout(() => {
-        setRequestError(null); // Limpiar el mensaje después de 3 segundos
+        setRequestError(null);
       }, 5000);
     }
   }
@@ -126,7 +128,6 @@ export default function Contract() {
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=GetInitContrato', body, token);
-      // console.log('responseData', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;
@@ -153,11 +154,12 @@ export default function Contract() {
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=GetBuscarContrato', body, token);
-      console.log('responseDatabuscarcontrato', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;
-        setDataContract(dataRes);
+        console.log('dataRes', dataRes);
+        const datatrasform = acumulatorTransform(dataRes);
+        setDataContract(datatrasform);
       } else {
         await handleCommonCodes(responseData);
       }
@@ -168,7 +170,13 @@ export default function Contract() {
     }
   }
 
+  const reduceEndDateByOneMonth = (date) => {
+    const newEndDate = dayjs(date, 'DD/MM/YYYY').subtract(1, 'month').format('DD/MM/YYYY');
+    return newEndDate;
+  };
+
   async function PostCrearContrato(values) {
+    console.log('values', values);
     setIsLoadingComponent(true);
     const body = {
       oResults: {
@@ -179,7 +187,7 @@ export default function Contract() {
         sFechaFin: values.sFechaFin,
         iEstado: values.iEstado,
         oHabilidad: values.oHabilidad,
-        sFechaContractual: values.sFechaFin, //lo agrwguw poe mientras
+        sFechaContractual: reduceEndDateByOneMonth(values.sFechaFin),
       },
     };
 
@@ -220,19 +228,23 @@ export default function Contract() {
     const body = {
       oResults: {
         iIdContrato: Number(dataAction?.id_contrato),
-        oIdHabilidad: dataAction ? [dataAction.id_habilidad] : [],
+        oIdHabilidad: dataAction ? arrayhability(dataAction) : [],
       },
     };
+
+    console.log('body eliminar', body);
 
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=EliminarContrato', body, token);
-      // console.log('responseDataeliminar', responseData);
+      console.log('responseDataeliminar', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setTimeout(() => {
           setDataAction(null);
           setConfirmationDelete(false);
           getGetInitContrato();
+
+
         }, 3000);
       } else {
         await handleCommonCodes(responseData);
@@ -243,14 +255,64 @@ export default function Contract() {
         setRequestError(responseData.oResults.respuesta_desc);
         setTimeout(() => {
           setRequestError(null);
+          setShowForm(false);
         }, 5000);
       }
     } catch (error) {
       console.error('error', error);
     } finally {
       setIsLoadingComponent(false);
+      GetBuscarContrato()
     }
   }
+
+  const acumulatorTransform = (datos) => {
+    const datoReduce = datos.reduce((acc, item) => {
+      const { id_contrato_servicio, id_contrato, id_habilidad, is_activo, is_suspendido, fecha_inicio, fecha_fin, referencia, descripcion_estado, razon_social, estado, ruc, id_company, id_empresa } = item;
+
+      //create a unique key for each contract
+      if (!acc[id_contrato]) {
+        acc[id_contrato] = {
+          id_contrato,
+
+          fecha_inicio,
+          fecha_fin,
+          referencia,
+          descripcion_estado,
+          razon_social,
+          estado,
+          ruc,
+          id_company,
+          id_empresa,
+          habilidad: [],
+        };
+      }
+
+      //push hability for each contract
+      acc[id_contrato].habilidad.push({
+        id_habilidad: id_habilidad,
+        is_activo: is_activo,
+        is_suspendido: is_suspendido,
+        id_contrato_servicio: id_contrato_servicio,
+      });
+      return acc;
+    }, {});
+
+    return Object.values(datoReduce);
+  };
+
+  const arrayhability = (dataSelect) => {
+    const habilidades = dataSelect.habilidad?.reduce((acc, item) => {
+      acc.push(item.id_habilidad);
+      return acc;
+    }, []);
+    return habilidades;
+
+  };
+
+
+  console.log('datacontract', datacontract);
+
 
   return (
     <section className="contract">
@@ -308,9 +370,9 @@ export default function Contract() {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                   <InputLabel id="company-label">{t.Status}</InputLabel>
                   <Select labelId="company-label" value={selectedState} onChange={handleStateChange} IconComponent={IconArrow}>
-                    <MenuItem value=""> All </MenuItem>
+                    <MenuItem value=""> {t.All} </MenuItem>
                     {datacontractFilter?.oEstado.map((comp, index) => (
-                      <MenuItem key={comp.id_estado} value={comp.code_estado}>
+                      <MenuItem key={uuidv4()} value={comp.code_estado}>
                         <div> {comp.descripcion_estado}</div>
                       </MenuItem>
                     ))}
@@ -321,7 +383,14 @@ export default function Contract() {
                   <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => GetBuscarContrato()} disabled={!hasAppliedFilters()}>
                     {l.Reporting.Apply}
                   </button>
-                  <button className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => handleClearFilters()} disabled={!hasAppliedFilters()}>
+                  <button
+                    className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`}
+                    onClick={() => {
+                      handleClearFilters();
+                      setDataContract([]);
+                    }}
+                    disabled={!hasAppliedFilters()}
+                  >
                     {l.Reporting.Clear}
                   </button>
                 </div>
@@ -329,7 +398,7 @@ export default function Contract() {
             </div>
 
             <div className="boards">
-              <div className="tableContainer">
+              <div className="tableContainer contract-table">
                 <table className="dataTable">
                   <thead>
                     <tr>
@@ -337,6 +406,7 @@ export default function Contract() {
                       <th> {t['Enterprise']} </th>
                       <th> {t['Start date']} </th>
                       <th> {t['End date']} </th>
+                      <th> {t['Skills']} </th>
                       <th> {t['Status']} </th>
                       <th> {t['Renew']} </th>
                       <th> {t['Actions']} </th>
@@ -345,16 +415,32 @@ export default function Contract() {
                   <tbody className="rowTable">
                     {datacontract?.length > 0 ? (
                       datacontract.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row, index) => (
-                        <tr key={'id_' + row.id_contrato_servicio}>
+                        <tr key={'id_' + row.id_contrato}>
                           <td>
-                            {row.id_contrato_servicio} - {row.referencia}
+                            {row.id_contrato} - {row.referencia}
                           </td>
                           <td>{row.razon_social}</td>
-
                           <td>{formatDate(row.fecha_inicio)}</td>
                           <td>{formatDate(row.fecha_fin)}</td>
-                          <td>{row.descripcion_estado}</td>
-                          <td>{row.is_suspendido == 0 ? '' : 'renovar '}</td>
+                          <td> {row.habilidad.map((item, index) => (
+                            <span key={index} className={item.is_activo == 1 ? 'habilidad' : 'habilidad suspendido'}>
+                              {item.id_habilidad} -
+                            </span>
+                          ))} </td>
+                          <td className={row.estado == 32 ? 'state-check' : ''}> {row.descripcion_estado}</td>
+                          {row.is_suspendido == 1 || row.estado === 35 ? (
+                            <td >
+
+                              <button className="btn_green" onClick={() => console.log(row)}>
+                                {t.Renew}
+                              </button>
+                            </td>
+                          ) : (
+                            <td>
+                              <span></span>
+
+                            </td>
+                          )}
 
                           <td className="box-actions">
                             <button className="btn_crud" onClick={() => console.log(row)}>

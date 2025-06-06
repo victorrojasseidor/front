@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import { validateFormCurrency } from '@/helpers/validateForms';
 import ModalForm from '@/Components/Atoms/ModalForm';
 import { useAuth } from '@/Context/DataContext';
@@ -16,12 +16,9 @@ import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Typography from '@mui/material/Typography';
-import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
 import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -29,12 +26,24 @@ import Checkbox from '@mui/material/Checkbox';
 import { validateFormContract } from '@/helpers/validateForms';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Modal from '@/Components/Modal';
+
+const FormikTextField = ({ name, label }) => {
+  const [field, meta] = useField(name);
+  const isError = meta.touched && Boolean(meta.error);
+
+  return <TextField {...field} fullWidth label={label} error={isError} helperText={isError ? meta.error : ''} variant="outlined" margin="normal" />;
+};
 
 const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm, typeOfChange }) => {
   const [selectedDays, setSelectedDays] = useState(initialVal?.dias_adicional || '1');
   const [valueState, setValueState] = useState(initialVal?.estado || '33');
   const [startDate, setStartDate] = useState(dayjs().subtract(0, 'day').format('DD/MM/YYYY'));
   const [endDate, setEndDate] = useState(dayjs().add(6, 'month').format('DD/MM/YYYY'));
+  const [applyrangestartdate, setApplyRangeStartDate] = useState(false);
+  const [applyrangeendate, setApplyRangeEndDate] = useState(false);
+  const [showAplyRange, setShowApplyRange] = useState(false);
+
   const { l, idCountry } = useAuth();
   const t = l.Support;
 
@@ -107,7 +116,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
       name: 'Download automated bank extracts',
       key: 'downloadBankExtracts',
       id: 1,
-      enabled: true,
+      enabled: false,
       startDate: '2025-08-14',
       endDate: '2025-08-14',
       maxConnections: null,
@@ -116,7 +125,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
       name: 'Exchange rate automation',
       key: 'exchangeRateAutomation',
       id: 2,
-      enabled: true,
+      enabled: false,
       startDate: '2025-08-14',
       endDate: '2025-08-14',
       maxConnections: null,
@@ -125,7 +134,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
       name: 'Download SUNAT tax status records',
       key: 'downloadSunatTaxStatus',
       id: 3,
-      enabled: true,
+      enabled: false,
       startDate: '2025-08-14',
       endDate: '2025-08-14',
     },
@@ -133,7 +142,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
       name: 'Captcha resolution service',
       key: 'captchaResolution',
       id: 4,
-      enabled: true,
+      enabled: false,
       startDate: '2025-08-14',
       endDate: '2025-08-14',
       maxConnections: 30000,
@@ -151,7 +160,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
       name: 'Download withholdings',
       key: 'downloadWithholdings',
       id: 6,
-      enabled: true,
+      enabled: false,
       startDate: '2025-08-14',
       endDate: '2025-08-14',
     },
@@ -241,11 +250,10 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
           {({ isValid, setFieldValue }) => (
             <Form className="form-Curency contract-form">
               <div className="contract-form-content">
-                <div className="">
+                <div className="content-filter">
                   <div className="content">
                     <div className="subtitle">
                       <h5 className="sub"> {t['Contract details']} </h5>
-                      {/* <p className="description">{t['Add the bank']}</p> */}
                     </div>
 
                     <div className="box-filter">
@@ -287,17 +295,10 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                       </div>
 
                       <div className="group">
-                        <div className="input-box">
-                          <Field type="text" name="numbercontract" placeholder=" " />
-                          <label htmlFor="numbercontract">{t['Contract number']}</label>
-                          <ErrorMessage name="numbercontract" component="span" className="errorMessage" />
-                        </div>
-
-                        <div className="input-box">
-                          <Field type="text" name="Reference" placeholder=" " />
-                          <label htmlFor="reference">{t.Reference}</label>
-                          <ErrorMessage name="reference" component="span" className="errorMessage" />
-                        </div>
+                        <Box sx={{ '& > :not(style)': { m: 1, width: '100%' } }}>
+                          <FormikTextField name="numbercontract" label={t['Contract number']} />
+                          <FormikTextField name="Reference" label={t.Reference} />
+                        </Box>
                       </div>
                     </div>
                   </div>
@@ -361,13 +362,19 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                   </div>
                 </div>
 
-                <div className="content">
+                <div className=" content content-skills">
                   <div className="subtitle">
                     <h5 className="sub"> {t['Skills and services']} </h5>
                   </div>
 
                   <div className=" Skills and services">
-                    <p> {t['Select the skills needed for this contract']}</p>
+                    <p>
+                      {' '}
+                      {t['Select the skills needed for this contract']}
+                      <button className="btn_green" onClick={() => setShowApplyRange(true)}>
+                        {t['Apply date range']}
+                      </button>
+                    </p>
 
                     <div>
                       <div className="skills">
@@ -410,9 +417,14 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
 
                                   {/* Campo adicional solo si aplica */}
                                   {skill.name.includes('Captcha') && (
-                                    <div>
-                                      <input type="number" value={skill.maxConnections || ''} onChange={(e) => handleMaxConnectionsChange(index, e.target.value)} placeholder="Max Connections" />
-                                    </div>
+                                    // <div>
+                                    //   <input type="number" value={skill.maxConnections || ''} onChange={(e) => handleMaxConnectionsChange(index, e.target.value)} placeholder="Max Connections" />
+
+                                    // </div>
+                                    <Box sx={{ '& > :not(style)': { m: 1, width: '100%' } }}>
+                                      {/* <FormikTextField name={`maxConnections-${skill.id}`} label={t['Captcha connections']} onChange={(e) => handleMaxConnectionsChange(index, e.target.value)}  /> */}
+                                      <TextField type="number" fullWidth label={t['Captcha connections']} value={skill.maxConnections || ''} onChange={(e) => handleMaxConnectionsChange(index, e.target.value)} placeholder={t['Max Connections']} variant="outlined" margin="normal" />
+                                    </Box>
                                   )}
                                 </div>
                               )}
@@ -447,6 +459,15 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
           )}
         </Formik>
       </div>
+
+      {showAplyRange && (
+        <Modal open={showAplyRange} close={() => setShowApplyRange(false)}>
+          <div className="apply-range-modal">
+            <h3>{t['Apply date range']}</h3>
+            {/* <p>{t['Do you want to apply the date range to all skills?']}</p> */}
+          </div>
+        </Modal>
+      )}
     </ModalForm>
   );
 };

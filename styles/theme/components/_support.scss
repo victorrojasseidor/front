@@ -1,9 +1,25 @@
 .contract {
+  .contaniner-tables {
+    .box-filter {
+      .css-1869usk-MuiFormControl-root {
+        width: auto !important;
+
+        @include media(desktop) {
+          width: 16.5rem;
+        }
+      }
+    }
+  }
+
   .contract-form {
     &-content {
       display: flex;
       flex-direction: column;
       gap: 2rem;
+
+      @include media(tablet) {
+        flex-direction: row;
+      }
 
       .content {
         padding: 0.5rem 0rem;
@@ -13,9 +29,22 @@
         }
       }
 
+
+    }
+
+    .content-filter {
+
       @include media(tablet) {
-        flex-direction: row;
+        flex: 1;
       }
+
+    }
+
+    .content-skills {
+      @include media(tablet) {
+        flex: 1.25;
+      }
+
     }
 
     .box-filter {
@@ -42,26 +71,13 @@
       }
     }
 
-    // .box-filter .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root,
-    // .box-filter .css-fvipm8{
-    //   width: 100%;
-
-    //    @include media(tablet) {
-    //        min-width: 14.4em;
-    //     }
-
-    //       @include media(destock) {
-    //        min-width: 14.6rem;
-    //     }
-
-    // }
-
     .date {
       margin-top: 1rem;
     }
 
     .skills {
       padding: 1rem 0rem;
+
       &-header {
         display: flex;
         justify-content: space-between;
@@ -77,4 +93,12 @@
       }
     }
   }
+}
+
+.btn-state {
+  background-color: aquamarine;
+}
+
+.state-check {
+  color: get-color(t5-green) !important;
 }
