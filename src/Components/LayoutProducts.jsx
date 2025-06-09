@@ -28,6 +28,8 @@ const LayoutProducts = ({ children, menu }) => {
   const t = l.header;
   const router = useRouter();
 
+  console.log(setSession)
+
   const toggleSubmenu = (menuItem) => {
     setSubmenuOpen((prevState) => ({
       ...prevState,
@@ -95,90 +97,77 @@ const LayoutProducts = ({ children, menu }) => {
     setTitlePage(menu === 'Product' ? t['Digital employees'] : t[menu]);
   }, [menu]);
 
-  const menuItems = {
-    Product: {
-      label: t['Digital employees'],
-      icon: 'Products',
-      path: '/product',
-
-      submenus: [
-        // { label: t.Home, path: '/product' }
-        // { label: t['Finance and accounting'], path: '/product/#' }
-        // { label: t.Technology, path: '/product/Tecnology' },
-        // { label: t['Human Resources'], path: '/product/Human' }
-      ],
-    },
-    Reporting: {
-      label: t.Reporting,
-      icon: 'Reporting',
-      path: '/reporting',
-      submenus: [
-        { label: t.All, path: '/reporting' },
-        { label: t['Finance and accounting'], path: '/reporting/finance/1' },
-        { label: t.Technology, path: '/reporting/tecnology/1' },
-      ],
-    },
-    Profile: {
-      label: t.Profile,
-      icon: 'Profile',
-      path: '/profile',
-      submenus: [],
-    },
-    // chatbot: {
-    //   label: 'Chatbot',
-    //   icon: 'ChatBot',
-    //   path: 'https://seidor.mensajea.chat/',
-    //   submenus: [],
-    // },
-
+const menuItems = {
+  Product: {
+    label: t['Digital employees'],
+    icon: 'Products',
+    path: '/product',
+    submenus: [
+      // { label: t.Home, path: '/product' },
+      // { label: t['Finance and accounting'], path: '/product/#' },
+      // { label: t.Technology, path: '/product/Tecnology' },
+      // { label: t['Human Resources'], path: '/product/Human' },
+    ],
+  },
+  Reporting: {
+    label: t.Reporting,
+    icon: 'Reporting',
+    path: '/reporting',
+    submenus: [
+      { label: t.All, path: '/reporting' },
+      { label: t['Finance and accounting'], path: '/reporting/finance/1' },
+      { label: t.Technology, path: '/reporting/tecnology/1' },
+    ],
+  },
+  Profile: {
+    label: t.Profile,
+    icon: 'Profile',
+    path: '/profile',
+    submenus: [],
+  },
+  ...(session?.sPerfilCode === 'ADMIN' && {
     Support: {
       label: t.Support,
       icon: 'Support',
       path: '/support/1',
       submenus: [],
     },
-  };
+  }),
+};
 
-  const menuMovil = [
-    // {
-    //   label: 'Ari',
-    //   link: '/#front',
-    //   submenus: [],
-    // },
-
-    {
-      label: t['Digital employees'],
-      link: '/product',
-      submenus: [],
-    },
-    {
-      label: t.Reporting,
-      link: '/reporting',
-      submenus: [
-        { label: t.All, link: '/reporting' },
-        { label: t['Finance and accounting'], link: '/reporting/finance/1' },
-        { label: t.Technology, link: '/reporting/tecnology/1' },
-      ],
-    },
-
-    {
-      label: t.Profile,
-      link: '/profile',
-      submenus: [],
-    },
-
-    {
-      label: 'Chatbot',
-      link: 'https://seidor.mensajea.chat/',
-      submenus: [],
-    },
-
-    {
-      label: t.Support,
-      link: '/support',
-      submenus: [],
-    },
-  ];
+const menuMovil = [
+  {
+    label: t['Digital employees'],
+    link: '/product',
+    submenus: [],
+  },
+  {
+    label: t.Reporting,
+    link: '/reporting',
+    submenus: [
+      { label: t.All, link: '/reporting' },
+      { label: t['Finance and accounting'], link: '/reporting/finance/1' },
+      { label: t.Technology, link: '/reporting/tecnology/1' },
+    ],
+  },
+  {
+    label: t.Profile,
+    link: '/profile',
+    submenus: [],
+  },
+  {
+    label: 'Chatbot',
+    link: 'https://seidor.mensajea.chat/',
+    submenus: [],
+  },
+  ...(session?.sPerfilCode === 'ADMIN'
+    ? [{
+        label: t.Support,
+        link: '/support',
+        submenus: [],
+      }]
+    : []),
+];
 
   return (
     <>
