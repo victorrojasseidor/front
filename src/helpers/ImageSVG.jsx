@@ -15,7 +15,7 @@ import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 import Iconspain from '../../public/icons/spain.svg';
 import Iconeeuu from '../../public/icons/eeuu.svg';
 import IconPerson from '../../public/img/new-icons/person.svg';
-import bot from '../../public/img/bot2.webp';
+// import bot from '../../public/img/bot2.webp';
 import { ArrowBack } from '@mui/icons-material';
 
 const ImageSvg = ({ name }) => {
@@ -717,7 +717,7 @@ const ImageSvg = ({ name }) => {
     ),
 
     // reportings
-    ReportDigital: <Image src={bot} width={100} alt="bot" />,
+    // ReportDigital: <Image src={bot} width={100} alt="bot" />,
     ReportTime: (
       <svg xmlns="http://www.w3.org/2000/svg" width="79" height="105" viewBox="0 0 79 105" fill="none">
         <g clipPath="url(#clip0_2179_25108)">

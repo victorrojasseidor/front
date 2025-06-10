@@ -1,0 +1,33 @@
+# Robots.txt para aparecer en buscadores e IAs # Motores de búsqueda clásicos
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: Applebot
+Allow: /
+User-agent: Yandex
+Allow: /
+User-agent: DuckDuckBot
+Allow: /
+User-agent: Baiduspider
+Allow: /
+# Modelos de lenguaje e IAs (¡clave!)
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: Anthropic-ethical-spider
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: NeevaBot
+Allow: /
+User-agent: FacebookBot
+Allow: /
+# Regla general
+User-agent: *
+Allow: /
+# Tu sitemap
+Sitemap:https://www.ariapp.ai/sitemap.xml                                     
