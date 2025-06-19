@@ -40,13 +40,14 @@ export default function Products() {
     }
   }, [session, empresa, l, selectedFilterType]);
 
+
   async function getProductscard() {
     setIsLoading(true);
     try {
       const token = session?.sToken;
       const idEmpresa = empresa.id_empresa;
       const responseData = await getProducts(idEmpresa, token, idCountry);
-
+     
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         if (selectedFilterType === 'CLA_01' || selectedFilterType === 'CLA_02' || selectedFilterType === 'CLA_03') {
@@ -96,8 +97,7 @@ export default function Products() {
 
     try {
       const responseData = await fetchConTokenPost('BPasS/?Accion=ConsultaCabeceraEmpresa', body);
-      console.log('consultabecera', body, responseData);
-
+   
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setDataCabecera(data);
@@ -134,6 +134,8 @@ export default function Products() {
       setClasTrans('style-transparent');
     }, 3000);
   }, [session]);
+
+  console.log(product)
 
   const handleCompanyInputChange = (event, newValue) => {
     // Actualiza la empresa seleccionada

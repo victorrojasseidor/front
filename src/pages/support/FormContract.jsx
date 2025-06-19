@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
-import { validateFormCurrency } from '@/helpers/validateForms';
 import ModalForm from '@/Components/Atoms/ModalForm';
 import { useAuth } from '@/Context/DataContext';
 import InputLabel from '@mui/material/InputLabel';
@@ -27,6 +26,7 @@ import { validateFormContract } from '@/helpers/validateForms';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Modal from '@/Components/Modal';
+import utc from 'dayjs/plugin/utc';
 
 const FormikTextField = ({ name, label }) => {
   const [field, meta] = useField(name);
@@ -35,42 +35,55 @@ const FormikTextField = ({ name, label }) => {
   return <TextField {...field} fullWidth label={label} error={isError} helperText={isError ? meta.error : ''} variant="outlined" margin="normal" />;
 };
 
-const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEdit, dataTypeChange, handleEditCurrency, setShowForm, typeOfChange }) => {
-  const [selectedDays, setSelectedDays] = useState(initialVal?.dias_adicional || '1');
+const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCurrency, setShowForm, setDataAction }) => {
+  dayjs.extend(utc);
+  const formatearFechaUTC = (fecha) => initialVal && dayjs.utc(fecha).format('DD/MM/YYYY');
+
   const [valueState, setValueState] = useState(initialVal?.estado || '33');
-  const [startDate, setStartDate] = useState(dayjs().subtract(0, 'day').format('DD/MM/YYYY'));
-  const [endDate, setEndDate] = useState(dayjs().add(6, 'month').format('DD/MM/YYYY'));
+  const [startDate, setStartDate] = useState(formatearFechaUTC(initialVal?.fecha_inicio) || dayjs().subtract(0, 'day').format('DD/MM/YYYY'));
+  const [endDate, setEndDate] = useState(formatearFechaUTC(initialVal?.fecha_fin) || dayjs().add(6, 'month').format('DD/MM/YYYY'));
   const [applyrangestartdate, setApplyRangeStartDate] = useState(false);
   const [applyrangeendate, setApplyRangeEndDate] = useState(false);
   const [showAplyRange, setShowApplyRange] = useState(false);
 
-  const { l, idCountry } = useAuth();
+  const { l } = useAuth();
   const t = l.Support;
 
+
   const formValues = {
-    // numbercontract:"",
-    // Reference: "",
+    numbercontract: initialVal?.id_contrato,
+    Reference: initialVal?.referencia,
   };
 
-  const [selectedCompany, setSelectedCompany] = useState('');
-  const [selectedEnterprise, setSelectedEnterprise] = useState('');
+
+  const [selectedCompany, setSelectedCompany] = useState(initialVal?.id_company || '');
+  const [selectedEnterprise, setSelectedEnterprise] = useState(initialVal?.id_empresa || '');
   const [dataEnterprise, setDataEnterprise] = useState([]);
 
-  // ✅ Cambiar estado del checkbox
+
+  useEffect(() => {
+    if (initialVal) {
+      const selectedCompanyData = datacontractFilter?.oCompany.find((comp) => comp.id_company === Number(initialVal?.id_company));
+      setDataEnterprise(selectedCompanyData ? selectedCompanyData.oEmpresa : []);
+    }
+  }, [initialVal]);
+
   const handleCheckboxChange = (index) => {
     const updated = [...selectedSkills];
     updated[index].enabled = !updated[index].enabled;
     setSelectedSkills(updated);
   };
 
-  // ✅ Cambiar fechas
+
   const handleDateChangeSkill = (index, field, value) => {
     const updated = [...selectedSkills];
     updated[index][field] = value ? value.format('YYYY-MM-DD') : null;
     setSelectedSkills(updated);
   };
 
-  // ✅ Cambiar conexiones máximas (solo si aplica)
+  console.log(initialVal)
+
+
   const handleMaxConnectionsChange = (index, value) => {
     const updated = [...selectedSkills];
     updated[index].maxConnections = value;
@@ -80,6 +93,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
   const handleCompanyChange = (event) => {
     const selectCompanyValue = event.target.value;
     setSelectedCompany(selectCompanyValue);
+
     const selectedCompanyData = datacontractFilter?.oCompany.find((comp) => comp.id_company === Number(selectCompanyValue));
     if (selectedCompanyData) {
       setDataEnterprise(selectedCompanyData.oEmpresa);
@@ -87,6 +101,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
       setDataEnterprise([]);
     }
   };
+
 
   const handleEnterpriseChange = (event) => {
     const selectCompanyValue = event.target.value;
@@ -97,7 +112,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
     setValueState(event.target.value);
   };
 
-  const formatDate = (originalDate) => {
+  const formatDateYYYYMMDD = (originalDate) => {
     const parsedDate = dayjs(originalDate, 'DD/MM/YYYY');
     const formattedDate = parsedDate.format('YYYY/MM/DD');
     return formattedDate;
@@ -111,62 +126,72 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
     setEndDate(newValue.format('DD/MM/YYYY'));
   };
 
+ const verificarIsActive = (code) => {
+  if (initialVal?.habilidad && Array.isArray(initialVal.habilidad)) {
+    const skill = initialVal.habilidad.find(skill => String(skill.codigo_habilidad) === String(code));
+    return skill?.is_activo === 1;
+  }
+  return false;
+};
+
+
+
   const skillsList = [
     {
       name: 'Download automated bank extracts',
-      key: 'downloadBankExtracts',
+      key: 'EXT_BANC',
       id: 1,
-      enabled: false,
+      enabled: verificarIsActive("EXT_BANC") ,
       startDate: '2025-08-14',
       endDate: '2025-08-14',
       maxConnections: null,
     },
     {
       name: 'Exchange rate automation',
-      key: 'exchangeRateAutomation',
+      key: 'TIP_CAMB',
       id: 2,
-      enabled: false,
+      enabled: verificarIsActive("TIP_CAMB"),
       startDate: '2025-08-14',
       endDate: '2025-08-14',
       maxConnections: null,
     },
     {
       name: 'Download SUNAT tax status records',
-      key: 'downloadSunatTaxStatus',
+      key: 'PADRONES',
       id: 3,
-      enabled: false,
+      enabled: verificarIsActive("PADRONES"),
       startDate: '2025-08-14',
       endDate: '2025-08-14',
     },
     {
       name: 'Captcha resolution service',
-      key: 'captchaResolution',
+      key: 'CAPTCHA',
       id: 4,
-      enabled: false,
+      enabled: verificarIsActive("CAPTCHA"),
       startDate: '2025-08-14',
       endDate: '2025-08-14',
       maxConnections: 30000,
     },
     {
       name: 'Download automated bank statements',
-      key: 'downloadBankStatements',
+      key: 'EST_BANC',
       id: 5,
-      enabled: false,
+      enabled: verificarIsActive('EST_BANC')|| false,
       startDate: null,
       endDate: null,
       maxConnections: null,
     },
     {
       name: 'Download withholdings',
-      key: 'downloadWithholdings',
+      key: 'DETRAC',
       id: 6,
-      enabled: false,
+      enabled: verificarIsActive('DETRAC')|| false,
       startDate: '2025-08-14',
       endDate: '2025-08-14',
     },
     {
       name: 'Supplier validation',
-      key: 'supplierValidation',
+      key: 'SV', //ejemplo
       id: 7,
       enabled: false,
       startDate: null,
@@ -174,7 +199,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
     },
     {
       name: 'Image text extraction service',
-      key: 'imageTextExtraction',
+      key: 'ITS', //ejemplo
       id: 8,
       enabled: false,
       startDate: null,
@@ -182,7 +207,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
     },
     {
       name: 'AFP validation',
-      key: 'afpValidation',
+      key: 'AFP',//ejemplo
       id: 9,
       enabled: false,
       startDate: null,
@@ -195,6 +220,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
     const mapSkills = obj.map((skill) => {
       return {
         sNombreHabilidad: skill.name,
+        sCodigoHabilidad: skill.key,
         sNumero: skill.id,
         sFechaInicio: skill.startDate,
         sFechaFin: skill.endDate,
@@ -206,13 +232,21 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
     return mapSkills;
   };
 
+
+   const arrayIdHability = (dataSelect) => {
+    const habilidades = dataSelect?.habilidad.map(arr => arr.id_habilidad)
+    return habilidades
+   }
+
+
+
   return (
     <ModalForm
       close={() => {
-        // setIinitialEdit(null);
         setShowForm(false);
         setSelectedEnterprise('');
         setSelectedCompany('');
+        setDataAction(null);
         setSelectedSkills(skillsList);
       }}
     >
@@ -225,23 +259,30 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
           onSubmit={(values, { resetForm }) => {
             if (initialVal) {
               handleEditCurrency({
-                // country: parseInt(selectedCountry), // Usamos los valores iniciales si están disponibles
-                // fuente: parseInt(selectedPortal),
-                // coinOrigin: parseInt(selectedCoinOrigin),
-                // coinDestiny: parseInt(selectedCoinDestiny),
-                // days: parseInt(selectedDays),
-                // state: valueState,
+                iIdEmpresa: selectedEnterprise,
+                sNumContrato: values.numbercontract,
+                sReferencia: values.Reference,
+                iIdContrato: initialVal.id_contrato,
+                sFechaInicio: formatDateYYYYMMDD(startDate),
+                sFechaFin: formatDateYYYYMMDD(endDate),
+                iEstado: Number(valueState),
+                oIdProdEnv: [selectedEnterprise],
+                oHabilidad: transfTosHabilidad(selectedSkills),
+                oIdHabilidadEliminar:arrayIdHability(initialVal),
+                bFlagSoloContrato:false
               });
             } else {
               onAgregar({
                 iIdEmpresa: selectedEnterprise,
                 sNumContrato: values.numbercontract,
                 sReferencia: values.Reference,
-                sFechaInicio: formatDate(startDate),
-                sFechaFin: formatDate(endDate),
+                sFechaInicio: formatDateYYYYMMDD(startDate),
+                sFechaFin: formatDateYYYYMMDD(endDate),
                 iEstado: Number(valueState),
                 oIdProdEnv: [selectedEnterprise],
                 oHabilidad: transfTosHabilidad(selectedSkills),
+
+
               });
             }
             resetForm();
@@ -445,6 +486,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, setIinitialEd
                     setShowForm(false);
                     setSelectedSkills(skillsList);
                     setSelectedCompany('');
+                    setDataAction(null);
                     setSelectedEnterprise('');
                   }}
                 >

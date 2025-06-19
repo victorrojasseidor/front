@@ -563,9 +563,9 @@
     border-bottom: none !important  ;
     height: fit-content;
 
-    @include media(desktop) {
-      border: 0.5px solid get-color(pink_s5) !important;
-    }
+    // @include media(desktop) {
+    //   border: 0.5px solid get-color(pink_s5) !important;
+    // }
 
     svg {
       path {

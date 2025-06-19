@@ -21,7 +21,7 @@ import dayjs from 'dayjs';
 import { object } from 'yup';
 
 export default function Contract() {
-  const { session, setModalToken, empresa, setModalDenied, modalDenied, l, logout } = useAuth();
+  const { session, setModalToken, setModalDenied, l, logout } = useAuth();
   const [requestError, setRequestError] = useState();
   const [selectedCompany, setSelectedCompany] = useState('');
   const [selectedEnterprise, setSelectedEnterprise] = useState('');
@@ -33,7 +33,7 @@ export default function Contract() {
   const [showForm, setShowForm] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
   const [confimationDelete, setConfirmationDelete] = useState(false);
-  const [dataAction, setDataAction] = useState([]);
+  const [dataAction, setDataAction] = useState(null);
   const [itemsPerPage] = useState(32);
   const [page, setPage] = useState(1);
 
@@ -171,12 +171,13 @@ export default function Contract() {
   }
 
   const reduceEndDateByOneMonth = (date) => {
-    const newEndDate = dayjs(date, 'DD/MM/YYYY').subtract(1, 'month').format('DD/MM/YYYY');
+    console.log(date);
+    const newEndDate = dayjs(date).subtract(1, 'month').format('DD/MM/YYYY');
+    console.log(newEndDate)
     return newEndDate;
   };
 
   async function PostCrearContrato(values) {
-    console.log('values', values);
     setIsLoadingComponent(true);
     const body = {
       oResults: {
@@ -194,7 +195,7 @@ export default function Contract() {
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=PostCrearContrato', body, token);
-      console.log('responseData', responseData);
+      // console.log('responseData', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         setShowForm(false);
@@ -202,6 +203,74 @@ export default function Contract() {
         setTimeout(() => {
           setConfirmation(false);
           getGetInitContrato();
+          setDataAction(null);
+          GetBuscarContrato();
+        }, 3000);
+      } else {
+        await handleCommonCodes(responseData);
+      }
+
+      if (responseData.oResults.respuesta == false) {
+        setConfirmation(false);
+        setRequestError(responseData.oResults.respuesta_desc);
+
+        setTimeout(() => {
+          setRequestError(null);
+        }, 5000);
+      }
+    } catch (error) {
+      console.error('error', error);
+    } finally {
+      setIsLoadingComponent(false);
+    }
+  }
+
+  async function ActualizarContrato(values) {
+    // console.log('values', values);
+    setIsLoadingComponent(true);
+
+    const stateFlag= values.bFlagSoloContrato;
+
+    const body = {
+      oResults: {
+        iIdEmpresa: values.iIdEmpresa,
+        iIdContrato: values.iIdContrato,
+        sNumContrato: values.sNumContrato,
+        sReferencia: values.sReferencia,
+        sFechaInicio: values.sFechaInicio,
+        sFechaFin: values.sFechaFin,
+        iEstado: values.iEstado,
+        sFechaContractual: reduceEndDateByOneMonth(values.sFechaFin),
+      },
+    };
+
+    console.log("stateFlag", stateFlag)
+
+    if (stateFlag === false) {
+      body.oResults.bFlagSoloContrato = false;
+      body.oResults.oIdHabilidadEliminar = values?.oIdHabilidadEliminar;
+      body.oResults.oHabilidad = values.oHabilidad;
+    } else {
+      body.oResults.bFlagSoloContrato = true;
+      body.oResults.oIdHabilidadEliminar = []
+    }
+
+    console.log(body)
+
+
+    try {
+      const token = session.sToken;
+      const responseData = await fetchConTokenPost('BPasS?Accion=ActualizarContrato', body, token);
+      console.log('editarcont', responseData);
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setModalToken(false);
+        setShowForm(false);
+        setConfirmation(true);
+        setTimeout(() => {
+          setConfirmation(false);
+          getGetInitContrato();
+          setDataAction(null);
+          GetBuscarContrato();
         }, 3000);
       } else {
         await handleCommonCodes(responseData);
@@ -232,19 +301,17 @@ export default function Contract() {
       },
     };
 
-    console.log('body eliminar', body);
+    // console.log('body eliminar', body);
 
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=EliminarContrato', body, token);
-      console.log('responseDataeliminar', responseData);
+      // console.log('responseDataeliminar', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setTimeout(() => {
           setDataAction(null);
           setConfirmationDelete(false);
           getGetInitContrato();
-
-
         }, 3000);
       } else {
         await handleCommonCodes(responseData);
@@ -262,19 +329,18 @@ export default function Contract() {
       console.error('error', error);
     } finally {
       setIsLoadingComponent(false);
-      GetBuscarContrato()
+      GetBuscarContrato();
     }
   }
 
   const acumulatorTransform = (datos) => {
     const datoReduce = datos.reduce((acc, item) => {
-      const { id_contrato_servicio, id_contrato, id_habilidad, is_activo, is_suspendido, fecha_inicio, fecha_fin, referencia, descripcion_estado, razon_social, estado, ruc, id_company, id_empresa } = item;
+      const { id_contrato_servicio, id_contrato, id_habilidad, nombre_habilidad, codigo_habilidad, is_activo, is_suspendido, fecha_inicio, fecha_fin, referencia, descripcion_estado, razon_social, estado, ruc, id_company, id_empresa } = item;
 
       //create a unique key for each contract
       if (!acc[id_contrato]) {
         acc[id_contrato] = {
           id_contrato,
-
           fecha_inicio,
           fecha_fin,
           referencia,
@@ -294,6 +360,8 @@ export default function Contract() {
         is_activo: is_activo,
         is_suspendido: is_suspendido,
         id_contrato_servicio: id_contrato_servicio,
+        nombre_habilidad: nombre_habilidad,
+        codigo_habilidad: codigo_habilidad,
       });
       return acc;
     }, {});
@@ -307,12 +375,7 @@ export default function Contract() {
       return acc;
     }, []);
     return habilidades;
-
   };
-
-
-  console.log('datacontract', datacontract);
-
 
   return (
     <section className="contract">
@@ -340,7 +403,7 @@ export default function Contract() {
                     {t['Create contract']}
                   </button>
 
-                  {showForm && <FormContract setShowForm={setShowForm} datacontractFilter={datacontractFilter} onAgregar={PostCrearContrato} />}
+                  {showForm && <FormContract setShowForm={setShowForm} datacontractFilter={datacontractFilter} onAgregar={PostCrearContrato} initialVal={dataAction} setDataAction={setDataAction}  handleEditCurrency={ActualizarContrato}/>}
                 </div>
               </div>
 
@@ -348,7 +411,9 @@ export default function Contract() {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                   <InputLabel id="company-label">{t.Company}</InputLabel>
                   <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
-                    {datacontractFilter?.oCompany.map((comp) => (
+                    
+                    <MenuItem value={0}> {t.All}</MenuItem>
+                      {datacontractFilter?.oCompany.map((comp) => (
                       <MenuItem key={Number(comp.ruc_company)} value={comp.id_company}>
                         <div> {comp.razon_social_company}</div>
                       </MenuItem>
@@ -422,15 +487,22 @@ export default function Contract() {
                           <td>{row.razon_social}</td>
                           <td>{formatDate(row.fecha_inicio)}</td>
                           <td>{formatDate(row.fecha_fin)}</td>
-                          <td> {row.habilidad.map((item, index) => (
-                            <span key={index} className={item.is_activo == 1 ? 'habilidad' : 'habilidad suspendido'}>
-                              {item.id_habilidad} -
-                            </span>
-                          ))} </td>
+                          <td>
+                            {row.habilidad.map(
+                              (item, index) =>
+                                item.is_activo == 1 && (
+                                  <span key={index} className={item.is_activo == 1 ? 'habilidad' : 'habilidad suspendido'}>
+                                    {item.codigo_habilidad}-
+                                  </span>
+                                )
+
+
+
+                            )}
+                          </td>
                           <td className={row.estado == 32 ? 'state-check' : ''}> {row.descripcion_estado}</td>
                           {row.is_suspendido == 1 || row.estado === 35 ? (
-                            <td >
-
+                            <td>
                               <button className="btn_green" onClick={() => console.log(row)}>
                                 {t.Renew}
                               </button>
@@ -438,12 +510,16 @@ export default function Contract() {
                           ) : (
                             <td>
                               <span></span>
-
                             </td>
                           )}
 
                           <td className="box-actions">
-                            <button className="btn_crud" onClick={() => console.log(row)}>
+                            <button
+                              className="btn_crud"
+                              onClick={() => {
+                                setDataAction(row), setShowForm(true);
+                              }}
+                            >
                               <ImageSvg name="Edit" />
                             </button>
                             <button
@@ -481,6 +557,7 @@ export default function Contract() {
                 // open={confimationDelete}
                 onClose={() => {
                   setDataAction(null);
+                  setShowForm(false)
                   setConfirmationDelete(false);
                 }}
               >

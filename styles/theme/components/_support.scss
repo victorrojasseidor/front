@@ -28,23 +28,18 @@
           margin-bottom: 0.5rem;
         }
       }
-
-
     }
 
     .content-filter {
-
       @include media(tablet) {
         flex: 1;
       }
-
     }
 
     .content-skills {
       @include media(tablet) {
         flex: 1.25;
       }
-
     }
 
     .box-filter {
