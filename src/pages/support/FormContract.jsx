@@ -75,7 +75,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     setSelectedSkills(updated);
   };
 
-  console.log(initialVal);
+
 
   const handleCompanyChange = (event) => {
     const selectCompanyValue = event.target.value;
@@ -237,6 +237,12 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     return habilidades;
   };
 
+  const checkIsActiveSkill = () => {
+    const skills = transfTosHabilidad(selectedSkills);
+    const verifyIsActive = skills.some((value) => value.is_activo === true);
+    return verifyIsActive;
+  };
+
   const isbFlagSoloContrato = () => {
     const objinitial = initialVal?.habilidad.map((value) => ({
       codigo_habilidad: value.codigo_habilidad,
@@ -262,7 +268,6 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
 
       for (let key in obj1) {
         if (obj1[key] !== obj2[key]) {
-          console.log(`⚠️ Diferencia en índice ${i}, campo "${key}": ${obj1[key]} !== ${obj2[key]}`);
           return false;
         }
       }
@@ -274,8 +279,6 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     const parsedDate = dayjs(date, 'DD/MM/YYYY');
     const newEndDate = parsedDate.subtract(1, 'month');
     const formattedDate = newEndDate.format('YYYY/MM/DD');
-    console.log('Fecha reducida en un mes:', formattedDate);
-
     return formattedDate;
   };
 
@@ -338,7 +341,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
 
                     <div className="box-filter">
                       <div className="group">
-                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl sx={{ m: 0, minWidth: 100 }}>
                           <InputLabel id="company-label">{t.Company}</InputLabel>
                           <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
                             <MenuItem value="">
@@ -356,7 +359,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                           </FormHelperText>
                         </FormControl>
 
-                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <FormControl sx={{ m: 0, minWidth: 120 }}>
                           <InputLabel id="company-label">{t.Enterprise}</InputLabel>
                           <Select labelId="company-label" value={selectedEnterprise} onChange={handleEnterpriseChange} IconComponent={IconArrow}>
                             <MenuItem value="">
@@ -375,7 +378,15 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                       </div>
 
                       <div className="group">
-                        <Box sx={{ '& > :not(style)': { m: 1, width: '100%' } }}>
+                        <Box
+                          sx={{
+                            width: 'auto',
+                            mx: 0,
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: 1,
+                          }}
+                        >
                           <FormikTextField name="numbercontract" label={t['Contract number']} />
                           <FormikTextField name="Reference" label={t.Reference} />
                         </Box>
@@ -448,10 +459,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                   </div>
 
                   <div className=" Skills and services">
-
-                    <p>
-                      {t['Select the skills needed for this contract']}
-                    </p>
+                    <p>{t['Select the skills needed for this contract']}</p>
 
                     {/* <p>
                       {' '}
@@ -527,7 +535,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                   {t.Cancel}
                 </button>
 
-                <button type="submit" className={`btn_primary small ${!isValid || selectedCompany == '' || selectedEnterprise === '' ? 'disabled' : ''}`} disabled={!isValid}>
+                <button type="submit" className={`btn_primary small ${!isValid || selectedCompany == '' || !checkIsActiveSkill() || selectedEnterprise === '' ? 'disabled' : ''}`} disabled={!isValid}>
                   {initialVal ? t.Update : t.Add}
                 </button>
               </div>

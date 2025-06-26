@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { v4 as uuidv4 } from 'uuid';
+import dayjs from 'dayjs';
 import { IconArrow } from '@/helpers/report';
 import ImageSvg from '@/helpers/ImageSVG';
 import Select from '@mui/material/Select';
@@ -17,6 +18,8 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useRouter } from 'next/router';
+import utc from 'dayjs/plugin/utc';
+
 
 export default function Contract() {
   const { session, setModalToken, setModalDenied, l, logout } = useAuth();
@@ -36,8 +39,8 @@ export default function Contract() {
   const [page, setPage] = useState(1);
 
   const t = l.Support;
-  //  const id = useId();
 
+  dayjs.extend(utc);
   const handleChangePage = (event, value) => {
     setPage(value);
   };
@@ -325,9 +328,12 @@ export default function Contract() {
     }
   }
 
+  // solo falta la logica de isuspende
+  
+
   const acumulatorTransform = (datos) => {
     const datoReduce = datos.reduce((acc, item) => {
-      const { id_contrato_servicio, id_contrato, secuencia, id_habilidad, fecha_inicio_habilidad, fecha_fin_habilidad, nombre_habilidad, codigo_habilidad, is_activo, is_suspendido, fecha_inicio, fecha_fin, referencia, descripcion_estado, razon_social, estado, ruc, id_company, id_empresa } = item;
+      const { id_contrato_servicio, id_contrato, secuencia, id_habilidad, fecha_contractual, fecha_inicio_habilidad, fecha_fin_habilidad, nombre_habilidad, codigo_habilidad, is_activo, is_suspendido, fecha_inicio, fecha_fin, referencia, descripcion_estado, razon_social, estado, ruc, id_company, id_empresa } = item;
 
       //create a unique key for each contract
       if (!acc[id_contrato]) {
@@ -342,6 +348,7 @@ export default function Contract() {
           estado,
           ruc,
           id_company,
+          fecha_contractual,
           id_empresa,
           habilidad: [],
         };
@@ -371,6 +378,14 @@ export default function Contract() {
     }, []);
     return habilidades;
   };
+
+  const checkDateToday = (date) => {
+    const inputDate = dayjs.utc(date);
+    const now = dayjs(); 
+    const isFutureDate = inputDate.isAfter(now);
+    return !isFutureDate;
+  };
+
 
   return (
     <section className="contract">
@@ -490,7 +505,7 @@ export default function Contract() {
                             )}
                           </td>
                           <td className={row.estado == 32 ? 'state-check' : ''}> {row.descripcion_estado}</td>
-                          {row.is_suspendido == 1 || row.estado === 35 ? (
+                          {row.is_suspendido == 1 || checkDateToday(row.fecha_contractual) || row.estado === 35 ? (
                             <td>
                               <button
                                 className="btn_green"
