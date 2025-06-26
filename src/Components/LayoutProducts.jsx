@@ -164,7 +164,7 @@ const LayoutProducts = ({ children, menu }) => {
       ? [
           {
             label: t.Support,
-            link: '/support',
+            link: '/support/1',
             submenus: [],
           },
         ]

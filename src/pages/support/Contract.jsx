@@ -7,7 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { v4 as uuidv4 } from 'uuid';
-import { exportToExcelFormat, IconDate, IconArrow } from '@/helpers/report';
+import { IconArrow } from '@/helpers/report';
 import ImageSvg from '@/helpers/ImageSVG';
 import Select from '@mui/material/Select';
 import Alert from '@mui/material/Alert';
@@ -17,8 +17,6 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useRouter } from 'next/router';
-import dayjs from 'dayjs';
-import { object } from 'yup';
 
 export default function Contract() {
   const { session, setModalToken, setModalDenied, l, logout } = useAuth();
@@ -157,7 +155,7 @@ export default function Contract() {
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;
-        console.log('dataRes', dataRes);
+        console.log('dataRes.....', dataRes);
         const datatrasform = acumulatorTransform(dataRes);
         setDataContract(datatrasform);
       } else {
@@ -170,13 +168,6 @@ export default function Contract() {
     }
   }
 
-  const reduceEndDateByOneMonth = (date) => {
-    console.log(date);
-    const newEndDate = dayjs(date).subtract(1, 'month').format('DD/MM/YYYY');
-    console.log(newEndDate)
-    return newEndDate;
-  };
-
   async function PostCrearContrato(values) {
     setIsLoadingComponent(true);
     const body = {
@@ -188,14 +179,15 @@ export default function Contract() {
         sFechaFin: values.sFechaFin,
         iEstado: values.iEstado,
         oHabilidad: values.oHabilidad,
-        sFechaContractual: reduceEndDateByOneMonth(values.sFechaFin),
+        sFechaContractual: values.sFechaContractual,
       },
     };
 
+    console.log('body', body);
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=PostCrearContrato', body, token);
-      // console.log('responseData', responseData);
+      console.log('responseData', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         setShowForm(false);
@@ -222,6 +214,7 @@ export default function Contract() {
       console.error('error', error);
     } finally {
       setIsLoadingComponent(false);
+      setDataAction(null);
     }
   }
 
@@ -229,7 +222,7 @@ export default function Contract() {
     // console.log('values', values);
     setIsLoadingComponent(true);
 
-    const stateFlag= values.bFlagSoloContrato;
+    const stateFlag = values.bFlagSoloContrato;
 
     const body = {
       oResults: {
@@ -240,23 +233,22 @@ export default function Contract() {
         sFechaInicio: values.sFechaInicio,
         sFechaFin: values.sFechaFin,
         iEstado: values.iEstado,
-        sFechaContractual: reduceEndDateByOneMonth(values.sFechaFin),
+        sFechaContractual: values.sFechaContractual,
       },
     };
 
-    console.log("stateFlag", stateFlag)
+    console.log('stateFlag', stateFlag);
 
     if (stateFlag === false) {
-      body.oResults.bFlagSoloContrato = false;
+      body.oResults.bFlagSoloContrato = false; //false edita habilidad, si es en true solo contrato
       body.oResults.oIdHabilidadEliminar = values?.oIdHabilidadEliminar;
       body.oResults.oHabilidad = values.oHabilidad;
     } else {
       body.oResults.bFlagSoloContrato = true;
-      body.oResults.oIdHabilidadEliminar = []
+      body.oResults.oIdHabilidadEliminar = [];
     }
 
-    console.log(body)
-
+    console.log(body);
 
     try {
       const token = session.sToken;
@@ -335,13 +327,14 @@ export default function Contract() {
 
   const acumulatorTransform = (datos) => {
     const datoReduce = datos.reduce((acc, item) => {
-      const { id_contrato_servicio, id_contrato, id_habilidad, nombre_habilidad, codigo_habilidad, is_activo, is_suspendido, fecha_inicio, fecha_fin, referencia, descripcion_estado, razon_social, estado, ruc, id_company, id_empresa } = item;
+      const { id_contrato_servicio, id_contrato, secuencia, id_habilidad, fecha_inicio_habilidad, fecha_fin_habilidad, nombre_habilidad, codigo_habilidad, is_activo, is_suspendido, fecha_inicio, fecha_fin, referencia, descripcion_estado, razon_social, estado, ruc, id_company, id_empresa } = item;
 
       //create a unique key for each contract
       if (!acc[id_contrato]) {
         acc[id_contrato] = {
           id_contrato,
           fecha_inicio,
+          secuencia,
           fecha_fin,
           referencia,
           descripcion_estado,
@@ -362,6 +355,8 @@ export default function Contract() {
         id_contrato_servicio: id_contrato_servicio,
         nombre_habilidad: nombre_habilidad,
         codigo_habilidad: codigo_habilidad,
+        fecha_inicio_habilidad: fecha_inicio_habilidad,
+        fecha_fin_habilidad: fecha_fin_habilidad,
       });
       return acc;
     }, {});
@@ -397,13 +392,11 @@ export default function Contract() {
                 </div>
 
                 <div className="box-clear">
-                  {/* <button className={`btn_primary small black  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => setApply(!apply)} disabled={!hasAppliedFilters()}>*/}
-
                   <button className={`btn_primary small black  ${showForm ? 'desactivo' : ''}`} onClick={() => setShowForm(true)}>
                     {t['Create contract']}
                   </button>
 
-                  {showForm && <FormContract setShowForm={setShowForm} datacontractFilter={datacontractFilter} onAgregar={PostCrearContrato} initialVal={dataAction} setDataAction={setDataAction}  handleEditCurrency={ActualizarContrato}/>}
+                  {showForm && <FormContract setShowForm={setShowForm} datacontractFilter={datacontractFilter} onAgregar={PostCrearContrato} initialVal={dataAction} setDataAction={setDataAction} handleEditCurrency={ActualizarContrato} />}
                 </div>
               </div>
 
@@ -411,9 +404,8 @@ export default function Contract() {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                   <InputLabel id="company-label">{t.Company}</InputLabel>
                   <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
-                    
                     <MenuItem value={0}> {t.All}</MenuItem>
-                      {datacontractFilter?.oCompany.map((comp) => (
+                    {datacontractFilter?.oCompany.map((comp) => (
                       <MenuItem key={Number(comp.ruc_company)} value={comp.id_company}>
                         <div> {comp.razon_social_company}</div>
                       </MenuItem>
@@ -436,7 +428,7 @@ export default function Contract() {
                   <InputLabel id="company-label">{t.Status}</InputLabel>
                   <Select labelId="company-label" value={selectedState} onChange={handleStateChange} IconComponent={IconArrow}>
                     <MenuItem value=""> {t.All} </MenuItem>
-                    {datacontractFilter?.oEstado.map((comp, index) => (
+                    {datacontractFilter?.oEstado.map((comp) => (
                       <MenuItem key={uuidv4()} value={comp.code_estado}>
                         <div> {comp.descripcion_estado}</div>
                       </MenuItem>
@@ -479,10 +471,10 @@ export default function Contract() {
                   </thead>
                   <tbody className="rowTable">
                     {datacontract?.length > 0 ? (
-                      datacontract.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row, index) => (
+                      datacontract.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
                         <tr key={'id_' + row.id_contrato}>
                           <td>
-                            {row.id_contrato} - {row.referencia}
+                            {row.secuencia} - {row.referencia}
                           </td>
                           <td>{row.razon_social}</td>
                           <td>{formatDate(row.fecha_inicio)}</td>
@@ -495,15 +487,18 @@ export default function Contract() {
                                     {item.codigo_habilidad}-
                                   </span>
                                 )
-
-
-
                             )}
                           </td>
                           <td className={row.estado == 32 ? 'state-check' : ''}> {row.descripcion_estado}</td>
                           {row.is_suspendido == 1 || row.estado === 35 ? (
                             <td>
-                              <button className="btn_green" onClick={() => console.log(row)}>
+                              <button
+                                className="btn_green"
+                                onClick={() => {
+                                  setDataAction(row);
+                                  setShowForm(true);
+                                }}
+                              >
                                 {t.Renew}
                               </button>
                             </td>
@@ -517,7 +512,8 @@ export default function Contract() {
                             <button
                               className="btn_crud"
                               onClick={() => {
-                                setDataAction(row), setShowForm(true);
+                                setDataAction(row);
+                                setShowForm(true);
                               }}
                             >
                               <ImageSvg name="Edit" />
@@ -557,13 +553,13 @@ export default function Contract() {
                 // open={confimationDelete}
                 onClose={() => {
                   setDataAction(null);
-                  setShowForm(false)
+                  setShowForm(false);
                   setConfirmationDelete(false);
                 }}
               >
                 <ImageSvg name="Delete" />
                 <h2> {t['Delete contract']} </h2>
-                <span> "{dataAction.referencia} "</span>
+                <span> {dataAction.referencia} </span>
                 <p>{t['Are you sure you want to delete this contract']} </p>
                 <div className="box-actions">
                   <button className="btn_secundary small" onClick={() => EliminarContrato()}>

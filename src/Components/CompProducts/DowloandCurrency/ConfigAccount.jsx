@@ -258,10 +258,10 @@ export default function ConfigAccount({ idbancoCredential, setGet, get, getBank,
                   <p>{t.Credentials} </p>
                   <p>:</p>
                   <p>
-                    <span>{data?.usuario}</span>
-                    <span>{data?.usuario_a}</span>
-                    <span>{data?.usuario_b}</span>
-                    <span>{data?.usuario_c}</span>
+                    <span>{data?.usuario}  {data?.usuario_a?"/":" "}</span>
+                    <span> {data?.usuario_a} {data?.usuario_b?"/":" "}</span>
+                    <span> {data?.usuario_b} {data?.usuario_c?"/":" "}</span>
+                    <span> {data?.usuario_c} </span>
                   </p>
                 </li>
               </ul>

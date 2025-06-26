@@ -8,6 +8,7 @@
   "eslint.alwaysShowStatus": true,
   "eslint.workingDirectories": ["./"],
   "eslint.lintTask.enable": true,
+  "files.eol": "\n",  
   "editor.renderControlCharacters": true, // Opcional: para mostrar caracteres de control como subrayado
   "editor.renderWhitespace": "all" // Opcional: para mostrar todos los espacios en blanco, también puede ayudar a identificar errores
 }

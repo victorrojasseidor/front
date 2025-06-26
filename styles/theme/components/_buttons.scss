@@ -390,10 +390,11 @@
     background-color: transparent;
     color: get-color(black_p2);
     text-decoration: underline;
-    padding: 0.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 0rem;
     border-radius: brd(2);
     border-style: none;
-    width: 9rem;
+    min-width: 5rem;
+    text-align: left;
 
     &:hover {
       padding: 0.5rem 0.6rem;

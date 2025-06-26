@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
+import { Formik, Form, ErrorMessage, useField } from 'formik';
 import ModalForm from '@/Components/Atoms/ModalForm';
 import { useAuth } from '@/Context/DataContext';
 import InputLabel from '@mui/material/InputLabel';
@@ -15,8 +15,6 @@ import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Stack from '@mui/material/Stack';
-import Alert from '@mui/material/Alert';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -49,17 +47,14 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
   const { l } = useAuth();
   const t = l.Support;
 
-
   const formValues = {
     numbercontract: initialVal?.id_contrato,
     Reference: initialVal?.referencia,
   };
 
-
   const [selectedCompany, setSelectedCompany] = useState(initialVal?.id_company || '');
   const [selectedEnterprise, setSelectedEnterprise] = useState(initialVal?.id_empresa || '');
   const [dataEnterprise, setDataEnterprise] = useState([]);
-
 
   useEffect(() => {
     if (initialVal) {
@@ -74,26 +69,17 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     setSelectedSkills(updated);
   };
 
-
   const handleDateChangeSkill = (index, field, value) => {
     const updated = [...selectedSkills];
-    updated[index][field] = value ? value.format('YYYY-MM-DD') : null;
+    updated[index][field] = value ? value.format('DD-MM-YYYY') : null;
     setSelectedSkills(updated);
   };
 
-  console.log(initialVal)
-
-
-  const handleMaxConnectionsChange = (index, value) => {
-    const updated = [...selectedSkills];
-    updated[index].maxConnections = value;
-    setSelectedSkills(updated);
-  };
+  console.log(initialVal);
 
   const handleCompanyChange = (event) => {
     const selectCompanyValue = event.target.value;
     setSelectedCompany(selectCompanyValue);
-
     const selectedCompanyData = datacontractFilter?.oCompany.find((comp) => comp.id_company === Number(selectCompanyValue));
     if (selectedCompanyData) {
       setDataEnterprise(selectedCompanyData.oEmpresa);
@@ -101,7 +87,6 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
       setDataEnterprise([]);
     }
   };
-
 
   const handleEnterpriseChange = (event) => {
     const selectCompanyValue = event.target.value;
@@ -126,93 +111,109 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     setEndDate(newValue.format('DD/MM/YYYY'));
   };
 
- const verificarIsActive = (code) => {
-  if (initialVal?.habilidad && Array.isArray(initialVal.habilidad)) {
-    const skill = initialVal.habilidad.find(skill => String(skill.codigo_habilidad) === String(code));
-    return skill?.is_activo === 1;
-  }
-  return false;
-};
+  const verificarIsActive = (code) => {
+    if (initialVal?.habilidad && Array.isArray(initialVal.habilidad)) {
+      const skill = initialVal.habilidad.find((skill) => String(skill.codigo_habilidad) === String(code));
+      return skill?.is_activo === 1;
+    }
+    return false;
+  };
 
+  const checkDateSkillStart = (code) => {
+    if (initialVal?.habilidad && Array.isArray(initialVal.habilidad)) {
+      const skill = initialVal.habilidad.find((skill) => String(skill.codigo_habilidad) === String(code));
+      return formatearFechaUTC(skill?.fecha_inicio_habilidad);
+    }
+    return dayjs(startDate, 'DD/MM/YYYY');
+  };
 
+  const checkDateSkillEnd = (code) => {
+    if (initialVal?.habilidad && Array.isArray(initialVal.habilidad)) {
+      const skill = initialVal.habilidad.find((skill) => String(skill.codigo_habilidad) === String(code));
+      return formatearFechaUTC(skill?.fecha_fin_habilidad);
+    }
+    return dayjs(endDate, 'DD/MM/YYYY');
+  };
 
-  const skillsList = [
+  let skillsList = [
     {
       name: 'Download automated bank extracts',
       key: 'EXT_BANC',
       id: 1,
-      enabled: verificarIsActive("EXT_BANC") ,
-      startDate: '2025-08-14',
-      endDate: '2025-08-14',
-      maxConnections: null,
+      enabled: verificarIsActive('EXT_BANC'),
+      startDate: checkDateSkillStart('EXT_BANC'),
+      endDate: checkDateSkillEnd('EXT_BANC'),
+      is_suspendido: false,
     },
     {
       name: 'Exchange rate automation',
       key: 'TIP_CAMB',
       id: 2,
-      enabled: verificarIsActive("TIP_CAMB"),
-      startDate: '2025-08-14',
-      endDate: '2025-08-14',
-      maxConnections: null,
+      enabled: verificarIsActive('TIP_CAMB'),
+      startDate: checkDateSkillStart('TIP_CAMB'),
+      endDate: checkDateSkillEnd('TIP_CAMB'),
+      is_suspendido: false,
     },
     {
       name: 'Download SUNAT tax status records',
       key: 'PADRONES',
       id: 3,
-      enabled: verificarIsActive("PADRONES"),
-      startDate: '2025-08-14',
-      endDate: '2025-08-14',
+      enabled: verificarIsActive('PADRONES'),
+      startDate: checkDateSkillStart('PADRONES'),
+      endDate: checkDateSkillEnd('PADRONES'),
+      is_suspendido: false,
     },
     {
       name: 'Captcha resolution service',
       key: 'CAPTCHA',
       id: 4,
-      enabled: verificarIsActive("CAPTCHA"),
-      startDate: '2025-08-14',
-      endDate: '2025-08-14',
-      maxConnections: 30000,
+      enabled: verificarIsActive('CAPTCHA'),
+      startDate: checkDateSkillStart('CAPTCHA'),
+      endDate: checkDateSkillEnd('CAPTCHA'),
+      is_suspendido: false,
     },
     {
       name: 'Download automated bank statements',
       key: 'EST_BANC',
       id: 5,
-      enabled: verificarIsActive('EST_BANC')|| false,
-      startDate: null,
-      endDate: null,
-      maxConnections: null,
+      enabled: verificarIsActive('EST_BANC'),
+      startDate: checkDateSkillStart('EST_BANC'),
+      endDate: checkDateSkillEnd('EST_BANC'),
+      is_suspendido: false,
     },
     {
       name: 'Download withholdings',
       key: 'DETRAC',
       id: 6,
-      enabled: verificarIsActive('DETRAC')|| false,
-      startDate: '2025-08-14',
-      endDate: '2025-08-14',
+      enabled: verificarIsActive('DETRAC'),
+      startDate: checkDateSkillStart('DETRAC'),
+      endDate: checkDateSkillEnd('DETRAC'),
+      is_suspendido: false,
     },
-    {
-      name: 'Supplier validation',
-      key: 'SV', //ejemplo
-      id: 7,
-      enabled: false,
-      startDate: null,
-      endDate: null,
-    },
-    {
-      name: 'Image text extraction service',
-      key: 'ITS', //ejemplo
-      id: 8,
-      enabled: false,
-      startDate: null,
-      endDate: null,
-    },
-    {
-      name: 'AFP validation',
-      key: 'AFP',//ejemplo
-      id: 9,
-      enabled: false,
-      startDate: null,
-      endDate: null,
-    },
+    // {
+    //   name: 'Supplier validation',
+    //   key: 'SV', //ejemplo
+    //   id: 7,
+    //   enabled: false,
+    //   startDate: null,
+    //   endDate: null,
+    // },
+    // {
+    //   name: 'Image text extraction service',
+    //   key: 'ITS', //ejemplo
+    //   id: 8,
+    //   enabled: false,
+    //   startDate: null,
+    //   endDate: null,
+    // },
+    // {
+    //   name: 'AFP validation',
+    //   key: 'AFP', //ejemplo
+    //   id: 9,
+    //   enabled: false,
+    //   startDate: null,
+    //   endDate: null,
+    // },
   ];
   const [selectedSkills, setSelectedSkills] = useState(skillsList);
 
@@ -222,9 +223,8 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
         sNombreHabilidad: skill.name,
         sCodigoHabilidad: skill.key,
         sNumero: skill.id,
-        sFechaInicio: skill.startDate,
-        sFechaFin: skill.endDate,
-        iMaxConexiones: skill.maxConnections,
+        sFechaInicio: formatDateYYYYMMDD(skill.startDate),
+        sFechaFin: formatDateYYYYMMDD(skill.endDate),
         is_activo: skill.enabled,
         is_suspendido: false,
       };
@@ -232,13 +232,52 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     return mapSkills;
   };
 
+  const arrayIdHability = (dataSelect) => {
+    const habilidades = dataSelect?.habilidad.map((arr) => arr.id_habilidad);
+    return habilidades;
+  };
 
-   const arrayIdHability = (dataSelect) => {
-    const habilidades = dataSelect?.habilidad.map(arr => arr.id_habilidad)
-    return habilidades
-   }
+  const isbFlagSoloContrato = () => {
+    const objinitial = initialVal?.habilidad.map((value) => ({
+      codigo_habilidad: value.codigo_habilidad,
+      fecha_inicio_habilidad: formatearFechaUTC(value.fecha_inicio_habilidad),
+      fecha_fin_habilidad: formatearFechaUTC(value.fecha_fin_habilidad),
+      is_suspendido: value.is_suspendido == 1,
+      is_activo: value.is_activo == 1,
+    }));
 
+    const objSkill = selectedSkills?.map((value) => ({
+      codigo_habilidad: value.key,
+      fecha_inicio_habilidad: value.startDate,
+      fecha_fin_habilidad: value.endDate,
+      is_suspendido: value.is_suspendido,
+      is_activo: value.enabled,
+    }));
 
+    if (objinitial?.length !== objSkill.length) return false;
+
+    for (let i = 0; i < objinitial?.length; i++) {
+      const obj1 = objinitial[i];
+      const obj2 = objSkill[i];
+
+      for (let key in obj1) {
+        if (obj1[key] !== obj2[key]) {
+          console.log(`⚠️ Diferencia en índice ${i}, campo "${key}": ${obj1[key]} !== ${obj2[key]}`);
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+
+  const reduceEndDateByOneMonth = (date) => {
+    const parsedDate = dayjs(date, 'DD/MM/YYYY');
+    const newEndDate = parsedDate.subtract(1, 'month');
+    const formattedDate = newEndDate.format('YYYY/MM/DD');
+    console.log('Fecha reducida en un mes:', formattedDate);
+
+    return formattedDate;
+  };
 
   return (
     <ModalForm
@@ -265,11 +304,12 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                 iIdContrato: initialVal.id_contrato,
                 sFechaInicio: formatDateYYYYMMDD(startDate),
                 sFechaFin: formatDateYYYYMMDD(endDate),
+                sFechaContractual: reduceEndDateByOneMonth(endDate),
                 iEstado: Number(valueState),
                 oIdProdEnv: [selectedEnterprise],
                 oHabilidad: transfTosHabilidad(selectedSkills),
-                oIdHabilidadEliminar:arrayIdHability(initialVal),
-                bFlagSoloContrato:false
+                oIdHabilidadEliminar: arrayIdHability(initialVal),
+                bFlagSoloContrato: isbFlagSoloContrato(),
               });
             } else {
               onAgregar({
@@ -281,8 +321,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                 iEstado: Number(valueState),
                 oIdProdEnv: [selectedEnterprise],
                 oHabilidad: transfTosHabilidad(selectedSkills),
-
-
+                sFechaContractual: reduceEndDateByOneMonth(endDate),
               });
             }
             resetForm();
@@ -409,13 +448,18 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                   </div>
 
                   <div className=" Skills and services">
+
                     <p>
-                      {' '}
                       {t['Select the skills needed for this contract']}
+                    </p>
+
+                    {/* <p>
+                      {' '}
+                    
                       <button className="btn_green" onClick={() => setShowApplyRange(true)}>
                         {t['Apply date range']}
                       </button>
-                    </p>
+                    </p> */}
 
                     <div>
                       <div className="skills">
@@ -434,7 +478,8 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                       <DatePicker
                                         label="Start Date"
-                                        value={skill.startDate ? dayjs(skill.startDate) : null}
+                                        format="DD/MM/YYYY"
+                                        value={dayjs(skill?.startDate, 'DD/MM/YYYY')}
                                         components={{
                                           OpenPickerIcon: IconDate,
                                           CalendarIcon: IconDate,
@@ -446,27 +491,16 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                                       <DatePicker
                                         label="End Date"
+                                        format="DD/MM/YYYY"
                                         components={{
                                           OpenPickerIcon: IconDate,
                                           CalendarIcon: IconDate,
                                         }}
-                                        value={skill.endDate ? dayjs(skill.endDate) : null}
+                                        value={dayjs(skill?.endDate, 'DD/MM/YYYY')}
                                         onChange={(newValue) => handleDateChangeSkill(index, 'endDate', newValue)}
                                       />
                                     </LocalizationProvider>
                                   </div>
-
-                                  {/* Campo adicional solo si aplica */}
-                                  {skill.name.includes('Captcha') && (
-                                    // <div>
-                                    //   <input type="number" value={skill.maxConnections || ''} onChange={(e) => handleMaxConnectionsChange(index, e.target.value)} placeholder="Max Connections" />
-
-                                    // </div>
-                                    <Box sx={{ '& > :not(style)': { m: 1, width: '100%' } }}>
-                                      {/* <FormikTextField name={`maxConnections-${skill.id}`} label={t['Captcha connections']} onChange={(e) => handleMaxConnectionsChange(index, e.target.value)}  /> */}
-                                      <TextField type="number" fullWidth label={t['Captcha connections']} value={skill.maxConnections || ''} onChange={(e) => handleMaxConnectionsChange(index, e.target.value)} placeholder={t['Max Connections']} variant="outlined" margin="normal" />
-                                    </Box>
-                                  )}
                                 </div>
                               )}
                             </AccordionDetails>
