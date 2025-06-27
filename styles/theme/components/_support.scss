@@ -1,11 +1,9 @@
 .contract {
-
-  .content-filter{
-  
+  .content-filter {
     width: 100%;
     box-sizing: border-box;
-     overflow-x: auto; 
   }
+
   .contaniner-tables {
     .box-filter {
       .css-1869usk-MuiFormControl-root {
@@ -22,10 +20,11 @@
     &-content {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 1rem;
 
       @include media(tablet) {
         flex-direction: row;
+        gap: 2rem;
       }
 
       .content {
@@ -53,15 +52,26 @@
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       align-items: flex-start;
-      gap: 1rem;
+      gap: 0rem;
 
       .group {
         display: flex;
         padding: 0rem;
         gap: 1rem;
         align-items: center;
+        flex-direction: column;
+
+        @include media(tablet) {
+          flex-direction: row;
+        }
+      }
+
+      .css-pf9p51 {
+        display: flex;
+
+        flex-direction: column;
 
         @include media(tablet) {
           flex-direction: row;
@@ -75,6 +85,23 @@
 
     .date {
       margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      flex-direction: column;
+
+      @include media(tablet) {
+        flex-direction: row;
+      }
+    }
+
+    .date .css-1u3bzj6-MuiFormControl-root-MuiTextField-root,
+    .date .css-i44wyl {
+      width: auto !important;
+
+      @include media(tablet) {
+        flex: 1;
+      }
     }
 
     .skills {

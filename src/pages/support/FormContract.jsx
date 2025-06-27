@@ -359,7 +359,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                           </FormHelperText>
                         </FormControl>
 
-                        <FormControl sx={{ m: 0, minWidth: 120 }}>
+                        <FormControl sx={{ m: 0, minWidth: 100 }}>
                           <InputLabel id="company-label">{t.Enterprise}</InputLabel>
                           <Select labelId="company-label" value={selectedEnterprise} onChange={handleEnterpriseChange} IconComponent={IconArrow}>
                             <MenuItem value="">
@@ -411,7 +411,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                       <h5 className="sub"> {t['Dates']} </h5>
                     </div>
 
-                    <div className="date ">
+                    <div className="date">
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={t['Contract start date']}
