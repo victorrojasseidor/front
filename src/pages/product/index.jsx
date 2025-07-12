@@ -40,14 +40,13 @@ export default function Products() {
     }
   }, [session, empresa, l, selectedFilterType]);
 
-
   async function getProductscard() {
     setIsLoading(true);
     try {
       const token = session?.sToken;
       const idEmpresa = empresa.id_empresa;
       const responseData = await getProducts(idEmpresa, token, idCountry);
-     
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         if (selectedFilterType === 'CLA_01' || selectedFilterType === 'CLA_02' || selectedFilterType === 'CLA_03') {
@@ -97,7 +96,7 @@ export default function Products() {
 
     try {
       const responseData = await fetchConTokenPost('BPasS/?Accion=ConsultaCabeceraEmpresa', body);
-   
+
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setDataCabecera(data);
@@ -135,7 +134,7 @@ export default function Products() {
     }, 3000);
   }, [session]);
 
-  console.log(product)
+  console.log(product);
 
   const handleCompanyInputChange = (event, newValue) => {
     // Actualiza la empresa seleccionada
@@ -247,10 +246,14 @@ export default function Products() {
     router.push(ruta);
   };
 
-  const renderButtons = (data) => {
+  const renderButtons = (data, dataDark) => {
     const dayLef = parseInt(calcularDiasRestantes(data.sDateEnd), 10);
 
     const status = data.iCodeStatus;
+
+    if (dataDark) {
+      return <Link href="/#contact">{t['Contact technical support']}</Link>;
+    }
 
     if (status === 28 && dayLef >= 0) {
       return (
@@ -294,50 +297,143 @@ export default function Products() {
   const dataOthers = [
     {
       id: 1,
+      sCodeClasificacion: 'CLA_01',
+      iCodeStatus: 31,
+      sDescStatus: 'Not hired',
       type: 'financy',
-      category: 'Finance and accounting',
-      title: 'Utility Bill Registration',
+      sClasificacion: 'Finance and accounting',
+      sName: 'Utility Bill Registration',
       status: 'Not hired',
       link: '/#contact',
-      imgProductId: 3,
+      iId: 3,
+      sDateEnd: '2024-12-31T23:59:59.999Z',
     },
     {
       id: 2,
       type: 'financy',
-      category: 'Finance and accounting',
-      title: 'Mass update of deduction records',
+      sCodeClasificacion: 'CLA_01',
+      iCodeStatus: 31,
+      sDescStatus: 'Not hired',
+      sClasificacion: 'Finance and accounting',
+      sName: 'Mass update of deduction records',
       status: 'Not hired',
       link: '/#contact',
-      imgProductId: 7,
+      iId: 7,
     },
     {
       id: 3,
       type: 'financy',
-      category: 'Finance and accounting',
-      title: 'Supplier validation',
+      sCodeClasificacion: 'CLA_01',
+      iCodeStatus: 31,
+      sDescStatus: 'Not hired',
+      sClasificacion: 'Finance and accounting',
+      sName: 'Supplier validation',
       status: 'Not hired',
       link: '/#contact',
-      imgProductId: 8,
+      iId: 8,
     },
     {
       id: 4,
       type: 'tecnology',
-      category: 'Technology',
-      title: 'Image text extraction Service',
+      sCodeClasificacion: 'CLA_02',
+      iCodeStatus: 31,
+      sDescStatus: 'Not hired',
+      sClasificacion: 'Technology',
+      sName: 'Image text extraction Service',
       status: 'Not hired',
       link: '/#contact',
-      imgProductId: 9,
+      iId: 9,
     },
     {
       id: 5,
       type: 'human',
-      category: 'Human Resources',
-      title: 'AFP validation',
+      sCodeClasificacion: 'CLA_03',
+      iCodeStatus: 31,
+      sDescStatus: 'Not hired',
+      sClasificacion: 'Human Resources',
+      sName: 'AFP validation',
       status: 'Not hired',
       link: '/#contact',
-      imgProductId: 5,
+      iId: 5,
     },
   ];
+
+  const productCard = (dataCard, dataDark) => {
+    const statusDataDark = dataDark;
+
+    return (
+      <>
+        {dataCard.length > 0 &&
+          dataCard.map((product) => (
+            <li key={product.iId} className={`card ${product.sCodeClasificacion === String('CLA_01') ? 'financy' : product.sCodeClasificacion === String('CLA_02') ? 'tecnology' : product.sCodeClasificacion === String('CLA_03') ? 'human' : ''}`} style={{ display: getDisplayStyle(product.iCodeStatus, product.sCodeClasificacion) }}>
+              <div className="card-type">
+                <div className="type_icon">
+                  <ImageSvg name={imgProduct(product.iId)} />
+                </div>
+
+                {session?.sPerfilCode === 'ADMIN' && (
+                  <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}>
+                    <p className="admin">
+                      <ImageSvg name="Admin" />
+                    </p>
+                  </Link>
+                )}
+
+                <p>{product.sClasificacion}</p>
+              </div>
+
+              <div className="card-name">
+                <h4> {product.sName}</h4>
+
+                <div className="status-box">
+                  <p className={product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'status' : ''}>{product.sDescStatus}</p>
+                </div>
+
+                {product?.jContrato && (
+                  <p>
+                    contrato:
+                    {product?.jContrato.descripcion_estado}
+                  </p>
+                )}
+              </div>
+
+              <div className="card-actions">
+                {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
+                  <p className="">
+                    {/* <ImageSvg name='Time' /> */}
+                    {calcularDiasRestantes(product.sDateEnd) >= 0 ? (
+                      <span style={{ color: '#7D86A2' }}>
+                        {' '}
+                        {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
+                      </span>
+                    ) : (
+                      <Stack sx={{ width: '100%' }} spacing={0}>
+                        <Alert severity="error">
+                          {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
+                        </Alert>
+                      </Stack>
+                    )}
+                  </p>
+                ) : (
+                  <p className="dayLetf" style={{ color: 'white' }}>
+                    .......
+                  </p>
+                )}
+                <div className="box-actions">
+                  {product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28) ? (
+                    <ButtonGradient classButt="whiteButton" onClick={() => handleLink('/reporting/tecnology/1')}>
+                      {l.Reporting.Reporting}
+                    </ButtonGradient>
+                  ) : (
+                    renderButtons(product, statusDataDark)
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+      </>
+    );
+  };
 
   return (
     <LayoutProducts menu="Product">
@@ -471,76 +567,11 @@ export default function Products() {
 
         <div className="products_cards">
           <ul>
-            {searchResults.length > 0 &&
-              searchResults.map((product) => (
-                <li key={product.iId} className={`card ${product.sCodeClasificacion === String('CLA_01') ? 'financy' : product.sCodeClasificacion === String('CLA_02') ? 'tecnology' : product.sCodeClasificacion === String('CLA_03') ? 'human' : ''}`}>
-                  <div className="card-type">
-                    <div className="type_icon">
-                      <ImageSvg name={imgProduct(product.iId)} />
-                    </div>
-
-                    {session?.sPerfilCode === 'ADMIN' && (
-                      <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}>
-                        <p className="admin">
-                          <ImageSvg name="Admin" />
-                        </p>
-                      </Link>
-                    )}
-
-                    <p>{product.sClasificacion}</p>
-                  </div>
-
-                  <div className="card-name">
-                    <h4> {product.sName}</h4>
-
-                    <div className="status-box">
-                      <p className={product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'status' : ''}>{product.sDescStatus}</p>
-                    </div>
-                  </div>
-
-                  <div className="card-actions">
-                    {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
-                      <p className="">
-                        {/* <ImageSvg name='Time' /> */}
-                        {calcularDiasRestantes(product.sDateEnd) >= 0 ? (
-                          <span style={{ color: '#7D86A2' }}>
-                            {' '}
-                            {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
-                          </span>
-                        ) : (
-                          <Stack sx={{ width: '100%' }} spacing={0}>
-                            <Alert severity="error">
-                              {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
-                            </Alert>
-                          </Stack>
-
-                          // <span className="expire">
-                          //   <ImageSvg name="Notification" />
-                          //   {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
-                          // </span>
-                        )}
-                      </p>
-                    ) : (
-                      <p className="dayLetf" style={{ color: 'white' }}>
-                        .......
-                      </p>
-                    )}
-                    <div className="box-actions">
-                      {product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28) ? (
-                        <ButtonGradient classButt="whiteButton" onClick={() => handleLink('/reporting/tecnology/1')}>
-                          {l.Reporting.Reporting}
-                        </ButtonGradient>
-                      ) : (
-                        renderButtons(product)
-                      )}
-                    </div>
-                  </div>
-                </li>
-              ))}
+            {searchResults && productCard(searchResults)}
 
             {/* productos añadidos por el momento */}
 
-            {dataOthers.map((item) => (
+            {/* {dataOthers.map((item) => (
               <li key={item.id} className={`card ${item.type} `} style={{ display: getDisplayStyle(31, item.category === 'Finance and accounting' ? 'CLA_01' : item.category === 'Technology' ? 'CLA_02' : 'CLA_03') }}>
                 <div className="card-type">
                   <div className="type_icon">
@@ -570,7 +601,9 @@ export default function Products() {
                   </div>
                 </div>
               </li>
-            ))}
+            ))} */}
+
+            {productCard(dataOthers, true)}
           </ul>
         </div>
 
