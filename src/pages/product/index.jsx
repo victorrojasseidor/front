@@ -257,19 +257,19 @@ export default function Products() {
 
     if (status === 28 && dayLef >= 0) {
       return (
-        <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
+        <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa?.id_empresa}`)}>
           {t.Setup}
         </ButtonGradient>
       );
     } else if (status === 23 && dayLef >= 0) {
       return (
-        <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
+        <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=configuration&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa?.id_empresa}`)}>
           {t.Edit}
         </ButtonGradient>
       );
     } else if (status === 31) {
       return (
-        <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa.id_empresa}`)}>
+        <ButtonGradient classButt="whiteButton" onClick={() => handleLink(`/product/product?type=freetrial&iIdProdEnv=${data.iIdProdEnv}&iId=${data.iId}&pStatus=${data.iCodeStatus}&idEmpresa=${empresa?.id_empresa}`)}>
           {t['Try free']}
         </ButtonGradient>
       );
@@ -366,59 +366,65 @@ export default function Products() {
         {dataCard.length > 0 &&
           dataCard.map((product) => (
             <li key={product.iId} className={`card ${product.sCodeClasificacion === String('CLA_01') ? 'financy' : product.sCodeClasificacion === String('CLA_02') ? 'tecnology' : product.sCodeClasificacion === String('CLA_03') ? 'human' : ''}`} style={{ display: getDisplayStyle(product.iCodeStatus, product.sCodeClasificacion) }}>
-              <div className="card-type">
-                <div className="type_icon">
+              <div className="card-image">
+                <div className="image_icon">
                   <ImageSvg name={imgProduct(product.iId)} />
                 </div>
 
                 {session?.sPerfilCode === 'ADMIN' && (
-                  <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa.id_empresa}`}>
+                  <Link href={`/product/product?type=apiconfiguration&iIdProdEnv=${product.iIdProdEnv}&iId=${product.iId}&pStatus=${product.iCodeStatus}&idEmpresa=${empresa?.id_empresa}`}>
                     <p className="admin">
                       <ImageSvg name="Admin" />
                     </p>
                   </Link>
                 )}
-
-                <p>{product.sClasificacion}</p>
               </div>
 
               <div className="card-name">
                 <h4> {product.sName}</h4>
 
-                <div className="status-box">
-                  <p className={product.iCodeStatus === 23 || product.iCodeStatus === 28 ? 'status' : ''}>{product.sDescStatus}</p>
-                </div>
+                <div className={product.iCodeStatus === 23 ? 'configured' : product.iCodeStatus === 28 ? 'status' : 'status-check'}>
+                  <ImageSvg name="Check" />
 
-                {product?.jContrato && (
-                  <p>
-                    contrato:
-                    {product?.jContrato.descripcion_estado}
-                  </p>
-                )}
+                  <p> {product.sDescStatus}</p>
+                </div>
               </div>
 
-              <div className="card-actions">
+              <div className="card-body">
+                <div className="contract">
+                  <p> {product.sClasificacion}</p>
+
+                  {product?.jContrato ? (
+                    <span>
+                      {l.Support.Contract} {product?.jContrato.descripcion_estado}
+                    </span>
+                  ) : (
+                    <span>&nbsp;</span>
+                  )}
+                </div>
+
                 {product.iCodeStatus === 23 || product.iCodeStatus === 28 ? (
                   <p className="">
-                    {/* <ImageSvg name='Time' /> */}
                     {calcularDiasRestantes(product.sDateEnd) >= 0 ? (
-                      <span style={{ color: '#7D86A2' }}>
-                        {' '}
-                        {t['Days left:']} {calcularDiasRestantes(product.sDateEnd)}
-                      </span>
+                      <>
+                        <span className="text-expired">Vigente</span> por {calcularDiasRestantes(product.sDateEnd)} dias
+                      </>
                     ) : (
                       <Stack sx={{ width: '100%' }} spacing={0}>
-                        <Alert severity="error">
+                        <Alert severity="warning">
                           {t['Permit expired ago']} {-1 * calcularDiasRestantes(product.sDateEnd)} {t.days}{' '}
                         </Alert>
                       </Stack>
                     )}
                   </p>
                 ) : (
-                  <p className="dayLetf" style={{ color: 'white' }}>
+                  <p className="dayLeft" style={{ color: 'white' }}>
                     .......
                   </p>
                 )}
+              </div>
+
+              <div className="card-actions">
                 <div className="box-actions">
                   {product.iId == 4 && (product.iCodeStatus === 23 || product.iCodeStatus === 28) ? (
                     <ButtonGradient classButt="whiteButton" onClick={() => handleLink('/reporting/tecnology/1')}>

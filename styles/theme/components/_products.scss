@@ -392,7 +392,7 @@
     justify-content: flex-start;
     gap: 1em;
     width: auto;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
 
     ul {
       display: grid;
@@ -435,7 +435,6 @@
   flex-direction: column;
   padding: 2em 1rem;
   border-radius: brd(1);
-  gap: 0.5rem;
   position: relative;
   border: 1px solid rgba(get-color(grey1_s3), 1);
 
@@ -444,28 +443,24 @@
     padding: 1rem;
   }
 
-  p {
-    font-size: smaller;
-    font-weight: 300;
-    color: rgba(get-color(grey2_s4), 1);
-    text-align: justify;
-  }
+  // p {
+  //   font-size: smaller;
+  //   font-weight: 300;
+  //   color: rgba(get-color(grey2_s4), 1);
+  //   text-align: justify;
+  // }
 
-  &-type {
+  &-image {
     display: flex;
     align-items: flex-start;
     flex-direction: row;
     justify-content: space-between;
     height: min-content;
-
-    p {
-      text-align: right;
-      text-wrap: wrap;
-    }
-
-    .type_icon {
+    .image_icon {
       display: flex;
       align-items: flex-start;
+      border-radius: brd(1);
+      padding: 0.75rem;
 
       svg {
         height: 3rem;
@@ -479,7 +474,8 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    justify-content: space-between;
+    gap: 0.25rem;
+    justify-content: flex-start;
     height: auto;
 
     @include media(tablet) {
@@ -487,55 +483,57 @@
     }
 
     @include media(desktop) {
-      height: 3.8rem;
+      height: 4rem;
+    }
+
+    .status,
+    .status-check,
+    .configured {
+      font-weight: 400;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      font-size: smaller;
+      gap: 0.25rem;
+      align-self: flex-start;
+      color: rgba(get-color(black_p2), 0.5);
+
+      svg {
+        display: flex;
+        align-items: flex-end;
+        margin-top: 0.075rem;
+
+        path {
+          fill: rgba(get-color(black_p2), 0.5);
+        }
+      }
+    }
+
+    .status {
+      color: rgba(get-color(black_p2), 1);
+      svg {
+        path {
+          fill: rgba(get-color(black_p2), 1);
+        }
+      }
+    }
+
+    .configured {
+      color: rgba(get-color(t1-blue), 1);
+      svg {
+        path {
+          fill: rgba(get-color(t5-green), 1);
+        }
+      }
     }
 
     h4 {
       color: get-color(black_p2);
-
-      font-size: medium;
+      font-size: large;
       font-weight: 600;
 
       &:focus {
         background-color: get-color(bg-cles);
-      }
-    }
-
-    .status-box {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      justify-content: space-between;
-
-      @include media(tablet) {
-        flex-direction: row;
-      }
-
-      .status {
-        color: rgba(get-color(black_p2), 1);
-        font-weight: 400;
-      }
-    }
-
-    .dayLetf {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      color: get-color(grey2_s4);
-      text-align: center;
-
-      svg {
-        height: 0.85rem;
-        display: inline-block;
-
-        path {
-          stroke: darken(get-color(t3-red), 10%);
-        }
-      }
-
-      .expire {
-        background-color: rgba(get-color(t3-red), 5%);
-        // color: darken(get-color(t3-red), 20%);
       }
     }
   }
@@ -563,7 +561,7 @@
   .admin {
     position: absolute;
     z-index: 1;
-    left: 3%;
+    right: 3%;
     bottom: 3%;
     padding: 0.5rem;
     transform: rotate(-90deg);
@@ -574,6 +572,33 @@
       display: flex;
       align-items: center;
       width: 1.25rem;
+    }
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.5rem 0rem;
+
+    p,span{
+      font-size: smaller;
+      font-weight: 300;
+      color: rgba(get-color(grey2_s4), 1);
+      text-align: justify;
+      text-align: start;
+      letter-spacing: -0.1px; /* o -0.03em */
+    }
+
+    span {
+      color: rgba(get-color(black_p2), 1);
+    }
+
+    .text-expired {
+      color: get-color(blue_p1);
+      font-size: small !important;
+      font-weight: 300;
     }
   }
 
@@ -790,6 +815,18 @@
 
 .human {
   @include cardStyleType(t5-green);
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: 52% 48%;
+  }
+  100% {
+    background-position: 50% 50%;
+  }
 }
 
 .slider {

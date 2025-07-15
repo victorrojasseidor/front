@@ -709,6 +709,10 @@ const ImageSvg = ({ name }) => {
     Spain: <Image src={Iconspain} width={100} alt="Spain" />,
     EEUU: <Image src={Iconeeuu} width={100} alt="Spain" />,
     Person: <Image src={IconPerson} width={100} alt="person" />,
+    Status:(<svg xmlns="http://www.w3.org/2000/svg" width="14" height="24" fill="none" viewBox="0 0 14 24">
+  <path fill="#030712" d="M10.094 5.625C12.375 7.719 14 11.156 14 12.813 14 16.78 10.844 20 7 20c-3.875 0-7-3.219-7-7.188C0 10.563 2.156 6.875 5.25 4 6.438 5.125 7.5 6.313 8.344 7.5a16.38 16.38 0 0 1 1.75-1.875ZM9.5 16.25c1.531-1.063 1.875-3.156 1.031-4.781-.094-.188-.219-.406-.344-.625l-1.843 2.094S5.469 9.25 5.25 9C3.75 10.844 3 11.906 3 13.094 3 15.53 4.813 17 7.063 17c.906 0 1.75-.281 2.437-.75Z"/>
+</svg>
+),
 
     Profile: (
       // <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
