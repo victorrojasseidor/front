@@ -24,18 +24,38 @@ import CaptchaConfig from './CaptchaConfig';
 import LoadingComponent from '../Atoms/LoadingComponent';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import utc from 'dayjs/plugin/utc';
+
 
 export default function Apiconfiguration({ nameEmpresa }) {
   const { session, setModalToken, logout, l, idCountry, getProducts } = useAuth();
   const [product, setProduct] = useState(null);
   const [selectContract, setSelectContract] = useState('other');
-  const [contracOther, setContractOther] = useState('');
+  const [contracOther, setContractOther] = useState('');  
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [requestError, setRequestError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [valueState, setValueState] = useState(null);
+  const [stateInitial, setStateInitial] = useState(null);
+  const [modalConfirmed, setModalConfirmed] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [historical, setHistorical] = useState(null);
+  const [service, setService] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const [updateSFT, setUpdateSFT] = useState(false);
+  const [stateSFTP, setStateSFTP] = useState(false);
+  const [get, setGet] = useState(false);
+
+  // const [dateInitContract, setDateInitContract] = useState(null);
 
   const router = useRouter();
   const iId = router.query.iId;
   const idEmpresa = router.query.idEmpresa;
 
   const t = l.Apiconfuguration;
+    dayjs.extend(utc);
+
 
   const pStatus = product?.iCodeStatus;
 
@@ -72,39 +92,31 @@ export default function Apiconfiguration({ nameEmpresa }) {
     }
   }
 
-  const parsedStartDate = dayjs(product?.sDateInit, {
+ 
+
+  const parsedStartDate = dayjs.utc(product?.jContrato.fecha_inicio_habilidad, {
     format: 'YYYY-MM-DDTHH:mm:ss.SSSZ',
   });
-  const parsedEndDate = dayjs(product?.sDateEnd, {
+  const parsedEndDate = dayjs.utc(product?.jContrato.fecha_fin_habilidad, {
     format: 'YYYY-MM-DDTHH:mm:ss.SSSZ',
   });
 
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-  const [requestError, setRequestError] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [valueState, setValueState] = useState(null);
-  const [stateInitial, setStateInitial] = useState(null);
-  const [modalConfirmed, setModalConfirmed] = useState(false);
-  const [message, setMessage] = useState(null);
-  const [historical, setHistorical] = useState(null);
-  const [service, setService] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
-  const [updateSFT, setUpdateSFT] = useState(false);
-  const [stateSFTP, setStateSFTP] = useState(false);
 
   const handleTabClick = (index) => {
     setActiveTab(index);
   };
   useEffect(() => {
     getDataProduct();
-  }, [pStatus, valueState, modalConfirmed, startDate, endDate, service]);
+    // GetInitProductoHabilidad();
+  }, [get]);
 
   useEffect(() => {
     if (product) {
       GetHistoricoProducto();
     }
-  }, [product, modalConfirmed]);
+  }, [product, get]);
+
+  console.log(product);
 
   const handleChangeState = (event) => {
     setValueState(event.target.value);
@@ -204,7 +216,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
         sProd: product?.sProd,
         iIdProdEnv: product?.iIdProdEnv,
         sMessage: message || 'sin mensaje',
-        sContrato: selectContract == 'other' ? contracOther : selectContract || 'Contrato no definido',
+        sContrato: product?.jContrato.id_contrato_servicio,
         iIdEmpresa: Number(idEmpresa),
       },
     };
@@ -218,7 +230,6 @@ export default function Apiconfiguration({ nameEmpresa }) {
       body.oResults.sTitle = 'Admin';
       body.oResults.sPhoneNumber = session?.sPhone;
       body.oResults.sFechaInit = startDate || product?.sDateInit;
-      body.oResults.sCorreo = session?.sCorreo;
       body.oResults.sFechaEnd = endDate || product?.sDateEnd;
     }
 
@@ -226,14 +237,16 @@ export default function Apiconfiguration({ nameEmpresa }) {
       const token = session?.sToken;
 
       const responseData = await fetchConTokenPost(`BPasS/?Accion=${valueState}`, body, token);
+      console.log("piii", body ,  responseData);
+      
       if (responseData.oAuditResponse?.iCode === 1) {
-        // setModalFreeTrial(false)
+       
         setModalConfirmed(false);
         setEndDate(null);
         setStartDate(null);
         setMessage(null);
         setContractOther('');
-
+        setGet(!get);
         setModalToken(false);
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true);
@@ -255,7 +268,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
         setRequestError(null);
       }, 5000);
     } finally {
-      setIsLoading(false); // Ocultar señal de carga
+      setIsLoading(false); 
     }
   }
 
@@ -291,6 +304,7 @@ export default function Apiconfiguration({ nameEmpresa }) {
       if (responseData.oAuditResponse?.iCode === 1) {
         // setHistorical(responseData.oResults);
         setUpdateSFT(true);
+        setGet(!get);
         setTimeout(() => {
           setService(!service);
           setUpdateSFT(false);

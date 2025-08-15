@@ -16,6 +16,9 @@
     }
   }
 
+ 
+  
+
   .contract-form {
     &-content {
       display: flex;
@@ -109,9 +112,24 @@
 
       &-header {
         display: flex;
-        justify-content: space-between;
+        justify-content:flex-start;
         align-items: center;
-        gap: 0.5rem;
+        gap: 1rem;
+        width: 100%;
+        align-self: flex-start;
+        label{
+          width: 50%;
+          text-align: left;
+          display: flex;
+          align-items: flex-start;
+          
+
+        }
+
+        .date-range{
+          color: rgba(get-color(grey2_s4),0.6);
+          font-size: smaller;
+        }
       }
 
       &-details {

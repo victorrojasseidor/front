@@ -25,6 +25,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Modal from '@/Components/Modal';
 import utc from 'dayjs/plugin/utc';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 const FormikTextField = ({ name, label }) => {
   const [field, meta] = useField(name);
@@ -33,13 +35,13 @@ const FormikTextField = ({ name, label }) => {
   return <TextField {...field} fullWidth label={label} error={isError} helperText={isError ? meta.error : ''} variant="outlined" margin="normal" />;
 };
 
-const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCurrency, setShowForm, setDataAction }) => {
+const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCurrency, setShowForm, setDataAction, reniew, setReniew }) => {
   dayjs.extend(utc);
   const formatearFechaUTC = (fecha) => initialVal && dayjs.utc(fecha).format('DD/MM/YYYY');
 
   const [valueState, setValueState] = useState(initialVal?.estado || '33');
   const [startDate, setStartDate] = useState(formatearFechaUTC(initialVal?.fecha_inicio) || dayjs().subtract(0, 'day').format('DD/MM/YYYY'));
-  const [endDate, setEndDate] = useState(formatearFechaUTC(initialVal?.fecha_fin) || dayjs().add(6, 'month').format('DD/MM/YYYY'));
+  const [endDate, setEndDate] = useState(formatearFechaUTC(initialVal?.fecha_fin) || dayjs().add(12, 'month').format('DD/MM/YYYY'));
   const [applyrangestartdate, setApplyRangeStartDate] = useState(false);
   const [applyrangeendate, setApplyRangeEndDate] = useState(false);
   const [showAplyRange, setShowApplyRange] = useState(false);
@@ -51,6 +53,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     numbercontract: initialVal?.id_contrato,
     Reference: initialVal?.referencia,
   };
+
 
   const [selectedCompany, setSelectedCompany] = useState(initialVal?.id_company || '');
   const [selectedEnterprise, setSelectedEnterprise] = useState(initialVal?.id_empresa || '');
@@ -74,8 +77,6 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     updated[index][field] = value ? value.format('DD-MM-YYYY') : null;
     setSelectedSkills(updated);
   };
-
-
 
   const handleCompanyChange = (event) => {
     const selectCompanyValue = event.target.value;
@@ -282,245 +283,63 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     return formattedDate;
   };
 
+
+  const someDateReniew = () => {
+    const firstDate = formatearFechaUTC(initialVal?.fecha_fin);
+    const endDateReniew = endDate;
+    console.log(firstDate, endDateReniew);
+    const validatedate = firstDate == endDateReniew;
+    return validatedate
+  }
+
+
+
   return (
-    <ModalForm
-      close={() => {
-        setShowForm(false);
-        setSelectedEnterprise('');
-        setSelectedCompany('');
-        setDataAction(null);
-        setSelectedSkills(skillsList);
-      }}
-    >
-      <div className="conten-form-Curency">
-        <h2 className="box">{initialVal ? t['Edit contract'] : t['Add contract']}</h2>
-
-        <Formik
-          initialValues={formValues}
-          validate={(values) => validateFormContract(values)}
-          onSubmit={(values, { resetForm }) => {
-            if (initialVal) {
-              handleEditCurrency({
-                iIdEmpresa: selectedEnterprise,
-                sNumContrato: values.numbercontract,
-                sReferencia: values.Reference,
-                iIdContrato: initialVal.id_contrato,
-                sFechaInicio: formatDateYYYYMMDD(startDate),
-                sFechaFin: formatDateYYYYMMDD(endDate),
-                sFechaContractual: reduceEndDateByOneMonth(endDate),
-                iEstado: Number(valueState),
-                oIdProdEnv: [selectedEnterprise],
-                oHabilidad: transfTosHabilidad(selectedSkills),
-                oIdHabilidadEliminar: arrayIdHability(initialVal),
-                bFlagSoloContrato: isbFlagSoloContrato(),
-              });
-            } else {
-              onAgregar({
-                iIdEmpresa: selectedEnterprise,
-                sNumContrato: values.numbercontract,
-                sReferencia: values.Reference,
-                sFechaInicio: formatDateYYYYMMDD(startDate),
-                sFechaFin: formatDateYYYYMMDD(endDate),
-                iEstado: Number(valueState),
-                oIdProdEnv: [selectedEnterprise],
-                oHabilidad: transfTosHabilidad(selectedSkills),
-                sFechaContractual: reduceEndDateByOneMonth(endDate),
-              });
-            }
-            resetForm();
-          }}
-        >
-          {({ isValid, setFieldValue }) => (
-            <Form className="form-Curency contract-form">
-              <div className="contract-form-content">
-                <div className="content-filter">
-                  <div className="content">
-                    <div className="subtitle">
-                      <h5 className="sub"> {t['Contract details']} </h5>
-                    </div>
-
-                    <div className="box-filter">
-                      <div className="group">
-                        <FormControl sx={{ m: 0, minWidth: 100 }}>
-                          <InputLabel id="company-label">{t.Company}</InputLabel>
-                          <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
-                            <MenuItem value="">
-                              {/* <em>{l.Reporting['All Companys']}</em> */}
-                              <em>{l.Reporting['All Companys']}</em>
-                            </MenuItem>
-                            {datacontractFilter?.oCompany.map((comp) => (
-                              <MenuItem key={Number(comp.ruc_company)} value={comp.id_company}>
-                                <div> {comp.razon_social_company}</div>
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          <FormHelperText>
-                            <ErrorMessage name="selectedCompany" component="span" className="errorMessage" />
-                          </FormHelperText>
-                        </FormControl>
-
-                        <FormControl sx={{ m: 0, minWidth: 100 }}>
-                          <InputLabel id="company-label">{t.Enterprise}</InputLabel>
-                          <Select labelId="company-label" value={selectedEnterprise} onChange={handleEnterpriseChange} IconComponent={IconArrow}>
-                            <MenuItem value="">
-                              <em>{t.all}</em>
-                            </MenuItem>
-                            {dataEnterprise?.map((comp) => (
-                              <MenuItem key={comp.razon_social_empresa} value={comp.id_empresa}>
-                                <div> {comp.razon_social_empresa}</div>
-                              </MenuItem>
-                            ))}
-                          </Select>
-                          <FormHelperText>
-                            <ErrorMessage name="selectedEnterprise" component="span" className="errorMessage" />
-                          </FormHelperText>
-                        </FormControl>
-                      </div>
-
-                      <div className="group">
-                        <Box
-                          sx={{
-                            width: 'auto',
-                            mx: 0,
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: 1,
-                          }}
-                        >
-                          <FormikTextField name="numbercontract" label={t['Contract number']} />
-                          <FormikTextField name="Reference" label={t.Reference} />
-                        </Box>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="content">
-                    <div className="subtitle">
-                      <h5 className="sub"> {t['Contract status']} </h5>
-                    </div>
-                    <FormControl>
-                      <RadioGroup row aria-labelledby="demo-form-control-label-placement" name="position" value={valueState} onChange={handleChangeState}>
-                        {datacontractFilter?.oEstado.map((state) => (
-                          <FormControlLabel key={state.id_estado} value={state.id_estado} control={<Radio />} label={state.descripcion_estado} />
-                        ))}
-                      </RadioGroup>
-                    </FormControl>
-                  </div>
-                  <div className="content">
-                    <div className="subtitle">
-                      <h5 className="sub"> {t['Dates']} </h5>
-                    </div>
-
-                    <div className="date">
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          label={t['Contract start date']}
-                          value={dayjs(startDate, 'DD/MM/YYYY')}
-                          slotProps={{
-                            textField: {
-                              // helperText: t['Date start']
-                            },
-                          }}
-                          onChange={handleStartDateChange}
-                          format="DD/MM/YYYY"
-                          components={{
-                            OpenPickerIcon: IconDate,
-                            CalendarIcon: IconDate,
-                          }}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </LocalizationProvider>
-
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          label={t['Contract end date']}
-                          value={dayjs(endDate, 'DD/MM/YYYY')}
-                          slotProps={{
-                            textField: {
-                              // helperText: t['Date end']
-                            },
-                          }}
-                          onChange={handleEndDateChange}
-                          format="DD/MM/YYYY"
-                          components={{
-                            OpenPickerIcon: IconDate,
-                            CalendarIcon: IconDate,
-                          }}
-                          renderInput={(params) => <TextField {...params} />}
-                        />
-                      </LocalizationProvider>
-                    </div>
-                  </div>
-                </div>
-
-                <div className=" content content-skills">
-                  <div className="subtitle">
-                    <h5 className="sub"> {t['Skills and services']} </h5>
-                  </div>
-
-                  <div className=" Skills and services">
-                    <p>{t['Select the skills needed for this contract']}</p>
-
-                    {/* <p>
-                      {' '}
-                    
-                      <button className="btn_green" onClick={() => setShowApplyRange(true)}>
-                        {t['Apply date range']}
-                      </button>
-                    </p> */}
-
-                    <div>
-                      <div className="skills">
-                        {selectedSkills.map((skill, index) => (
-                          <Accordion key={skill.key}>
-                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                              <div className="skills-header">
-                                <Checkbox checked={skill.enabled} onChange={() => handleCheckboxChange(index)} inputProps={{ 'aria-label': 'controlled' }} size="small" />
-                                <label>{t[skill.name]}</label>
-                              </div>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                              {skill.enabled && (
-                                <div className="box-filter ">
-                                  <div className="group">
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                      <DatePicker
-                                        label="Start Date"
-                                        format="DD/MM/YYYY"
-                                        value={dayjs(skill?.startDate, 'DD/MM/YYYY')}
-                                        components={{
-                                          OpenPickerIcon: IconDate,
-                                          CalendarIcon: IconDate,
-                                        }}
-                                        onChange={(newValue) => handleDateChangeSkill(index, 'startDate', newValue)}
-                                      />
-                                    </LocalizationProvider>
-
-                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                      <DatePicker
-                                        label="End Date"
-                                        format="DD/MM/YYYY"
-                                        components={{
-                                          OpenPickerIcon: IconDate,
-                                          CalendarIcon: IconDate,
-                                        }}
-                                        value={dayjs(skill?.endDate, 'DD/MM/YYYY')}
-                                        onChange={(newValue) => handleDateChangeSkill(index, 'endDate', newValue)}
-                                      />
-                                    </LocalizationProvider>
-                                  </div>
-                                </div>
-                              )}
-                            </AccordionDetails>
-                          </Accordion>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+    <section className="contaniner-tables">
+      <Formik
+        initialValues={formValues}
+        validate={(values) => validateFormContract(values)}
+        onSubmit={(values, { resetForm }) => {
+          if (initialVal) {
+            handleEditCurrency({
+              iIdEmpresa: selectedEnterprise,
+              sNumContrato: values.numbercontract,
+              sReferencia: values.Reference,
+              iIdContrato: initialVal.id_contrato,
+              sFechaInicio: formatDateYYYYMMDD(startDate),
+              sFechaFin: formatDateYYYYMMDD(endDate),
+              sFechaContractual: reduceEndDateByOneMonth(endDate),
+              iEstado: Number(valueState),
+              oIdProdEnv: [selectedEnterprise],
+              oHabilidad: transfTosHabilidad(selectedSkills),
+              oIdHabilidadEliminar: arrayIdHability(initialVal),
+              bFlagSoloContrato: isbFlagSoloContrato(),
+            });
+          } else {
+            onAgregar({
+              iIdEmpresa: selectedEnterprise,
+              sNumContrato: values.numbercontract,
+              sReferencia: values.Reference,
+              sFechaInicio: formatDateYYYYMMDD(startDate),
+              sFechaFin: formatDateYYYYMMDD(endDate),
+              iEstado: Number(valueState),
+              oIdProdEnv: [selectedEnterprise],
+              oHabilidad: transfTosHabilidad(selectedSkills),
+              sFechaContractual: formatDateYYYYMMDD(endDate),
+            });
+          }
+          resetForm();
+        }}
+      >
+        {({ isValid, setFieldValue }) => (
+          <Form className="form-Curency contract-form">
+            <div className="box-search">
+              <div>
+                <h3> {initialVal ? reniew ? t['Renew contract'] : t['Edit contract'] : t['Add contract']} </h3>
+                <p>{t['Set up and manage contracts']}</p>
               </div>
 
-              <div className="submit-box">
+              <div className="box-clear">
                 <button
                   type="submit"
                   className="btn_secundary small"
@@ -530,6 +349,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                     setSelectedCompany('');
                     setDataAction(null);
                     setSelectedEnterprise('');
+                    setReniew(false);
                   }}
                 >
                   {t.Cancel}
@@ -539,10 +359,233 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                   {initialVal ? t.Update : t.Add}
                 </button>
               </div>
-            </Form>
-          )}
-        </Formik>
-      </div>
+            </div>
+            <div className="contract-form-content">
+              <div className="content-filter">
+                <div className="content">
+                  <div className="subtitle">
+                    <h4 className="sub"> {t['Contract details']} </h4>
+                  </div>
+
+                  <div className="box-filter">
+                    <div className="group">
+                      <FormControl sx={{ m: 0, minWidth: 100 }}>
+                        <InputLabel id="company-label">{t.Company}</InputLabel>
+                        <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow} disabled={initialVal ? true : false}>
+                          <MenuItem value="">
+                            {/* <em>{l.Reporting['All Companys']}</em> */}
+                            <em>{l.Reporting['All Companys']}</em>
+                          </MenuItem>
+                          {datacontractFilter?.oCompany.map((comp) => (
+                            <MenuItem key={Number(comp.ruc_company)} value={comp.id_company}>
+                              <div> {comp.razon_social_company}</div>
+                            </MenuItem>
+                          ))}
+                        </Select>
+                        <FormHelperText>
+                          <ErrorMessage name="selectedCompany" component="span" className="errorMessage" />
+                        </FormHelperText>
+                      </FormControl>
+
+                      <FormControl sx={{ m: 0, minWidth: 100 }}>
+                        <InputLabel id="company-label">{t.Enterprise}</InputLabel>
+                        <Select labelId="company-label" value={selectedEnterprise} onChange={handleEnterpriseChange} IconComponent={IconArrow} disabled={initialVal ? true : false}>
+                          <MenuItem value="">
+                            <em>{t.all}</em>
+                          </MenuItem>
+                          {dataEnterprise?.map((comp) => (
+                            <MenuItem key={comp.razon_social_empresa} value={comp.id_empresa}>
+                              <div> {comp.razon_social_empresa}</div>
+                            </MenuItem>
+                          ))}
+                        </Select>
+                        <FormHelperText>
+                          <ErrorMessage name="selectedEnterprise" component="span" className="errorMessage" />
+                        </FormHelperText>
+                      </FormControl>
+                    </div>
+
+                    <div className="group">
+                      <Box
+                        sx={{
+                          width: 'auto',
+                          mx: 0,
+                          display: 'flex',
+                          flexDirection: 'row',
+                          gap: 1,
+                        }}
+                      >
+                        <FormikTextField name="numbercontract" label={t['Contract number']} />
+                        <FormikTextField name="Reference" label={t.Reference} />
+                      </Box>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="content">
+                  <div className="subtitle">
+                    <h4 className="sub"> {t['Contract status']} </h4>
+                  </div>
+                  <FormControl>
+                    <RadioGroup row aria-labelledby="demo-form-control-label-placement" name="position" value={reniew ? 36 : valueState} onChange={handleChangeState}>
+                      {datacontractFilter?.oEstado.map((state) => (
+                        <FormControlLabel key={state.id_estado} value={state.id_estado} control={<Radio disabled={reniew ? true : false} />} label={state.descripcion_estado} />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                </div>
+                <div className="content">
+                  <div className="subtitle">
+                    <h5 className="sub"> {t['Dates']} </h5>
+                  </div>
+
+                  <div className="date">
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label={t['Contract start date']}
+                        value={dayjs(startDate, 'DD/MM/YYYY')}
+                        slotProps={{
+                          textField: {
+                            // helperText: t['Date start']
+                          },
+                        }}
+                        onChange={handleStartDateChange}
+                        format="DD/MM/YYYY"
+                        components={{
+                          OpenPickerIcon: IconDate,
+                          CalendarIcon: IconDate,
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label={t['Contract end date']}
+                        value={dayjs(endDate, 'DD/MM/YYYY')}
+                        slotProps={{
+                          textField: {
+                            // helperText: t['Date end']
+                          },
+                        }}
+                        onChange={handleEndDateChange}
+                        format="DD/MM/YYYY"
+                        components={{
+                          OpenPickerIcon: IconDate,
+                          CalendarIcon: IconDate,
+                        }}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider>
+                  </div>
+
+                  {
+                    reniew &&  someDateReniew() && (
+                        <Stack sx={{ width: '100%' , marginTop: 2 }} spacing={1} >
+                          <Alert severity="warning"> Las fechas están sin editar </Alert>
+                        </Stack>
+                      )
+                  }
+                </div>
+              </div>
+
+              <div className=" content content-skills">
+                <div className="subtitle">
+                  <h5 className="sub"> {t['Skills and services']} </h5>
+                </div>
+
+                <div className=" Skills and services">
+                  <p>{t['Select the skills needed for this contract']}</p>
+
+                  {/* <p>
+                      {' '}
+                    
+                      <button className="btn_green" onClick={() => setShowApplyRange(true)}>
+                        {t['Apply date range']}
+                      </button>
+                    </p> */}
+
+                  <div>
+                    <div className="skills">
+                      {selectedSkills.map((skill, index) => (
+                        <Accordion key={skill.key}>
+                          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                            <div className="skills-header">
+                              <Checkbox checked={skill.enabled} onChange={() => handleCheckboxChange(index)} inputProps={{ 'aria-label': 'controlled' }} size="small" />
+                              <label>{t[skill.name]}</label>
+                              <span className="date-range">
+                                {skill.enabled && (
+                                  <>
+                                    {dayjs(skill?.startDate, 'DD/MM/YYYY').format('DD/MM/YYYY')} - {dayjs(skill?.endDate, 'DD/MM/YYYY').format('DD/MM/YYYY')}
+                                  </>
+                                )}
+                              </span>
+                            </div>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            {skill.enabled && (
+                              <div className="box-filter ">
+                                <div className="group">
+                                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                      label={t['Start date']}
+                                      format="DD/MM/YYYY"
+                                      value={dayjs(skill?.startDate, 'DD/MM/YYYY')}
+                                      components={{
+                                        OpenPickerIcon: IconDate,
+                                        CalendarIcon: IconDate,
+                                      }}
+                                      onChange={(newValue) => handleDateChangeSkill(index, 'startDate', newValue)}
+                                    />
+                                  </LocalizationProvider>
+
+                                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DatePicker
+                                      label={t['Deadline']}
+                                      format="DD/MM/YYYY"
+                                      components={{
+                                        OpenPickerIcon: IconDate,
+                                        CalendarIcon: IconDate,
+                                      }}
+                                      value={dayjs(skill?.endDate, 'DD/MM/YYYY')}
+                                      onChange={(newValue) => handleDateChangeSkill(index, 'endDate', newValue)}
+                                    />
+                                  </LocalizationProvider>
+                                </div>
+                              </div>
+                            )}
+                          </AccordionDetails>
+                        </Accordion>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="submit-box">
+              <button
+                type="submit"
+                className="btn_secundary small"
+                onClick={() => {
+                  setShowForm(false);
+                  setSelectedSkills(skillsList);
+                  setSelectedCompany('');
+                  setDataAction(null);
+                  setSelectedEnterprise('');
+                  setReniew(false);
+                }}
+              >
+                {t.Cancel}
+              </button>
+
+              <button type="submit" className={`btn_primary small ${!isValid || selectedCompany == '' || !checkIsActiveSkill() || selectedEnterprise === '' ? 'disabled' : ''}`} disabled={!isValid}>
+                {initialVal ? t.Update : t.Add}
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
 
       {showAplyRange && (
         <Modal open={showAplyRange} close={() => setShowApplyRange(false)}>
@@ -552,7 +595,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
           </div>
         </Modal>
       )}
-    </ModalForm>
+    </section>
   );
 };
 

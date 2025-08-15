@@ -407,7 +407,7 @@ export default function Products() {
                   <p className="">
                     {calcularDiasRestantes(product.sDateEnd) >= 0 ? (
                       <>
-                        <span className="text-expired">Vigente</span> por {calcularDiasRestantes(product.sDateEnd)} dias
+                        <span className="text-expired">{t.Valid}</span> {t.for} {calcularDiasRestantes(product.sDateEnd)} {t.days}
                       </>
                     ) : (
                       <Stack sx={{ width: '100%' }} spacing={0}>

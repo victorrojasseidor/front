@@ -20,7 +20,6 @@ import Stack from '@mui/material/Stack';
 import { useRouter } from 'next/router';
 import utc from 'dayjs/plugin/utc';
 
-
 export default function Contract() {
   const { session, setModalToken, setModalDenied, l, logout } = useAuth();
   const [requestError, setRequestError] = useState();
@@ -35,7 +34,9 @@ export default function Contract() {
   const [confirmation, setConfirmation] = useState(false);
   const [confimationDelete, setConfirmationDelete] = useState(false);
   const [dataAction, setDataAction] = useState(null);
+  const [textConfimation, setTextConfirmation] = useState('');
   const [itemsPerPage] = useState(32);
+  const [reniew, setReniew] = useState(false);
   const [page, setPage] = useState(1);
 
   const t = l.Support;
@@ -115,6 +116,7 @@ export default function Contract() {
     );
   }
 
+
   async function getGetInitContrato() {
     setIsLoadingComponent(true);
     setConfirmation(false);
@@ -186,15 +188,14 @@ export default function Contract() {
       },
     };
 
-    console.log('body', body);
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=PostCrearContrato', body, token);
-      console.log('responseData', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         setShowForm(false);
         setConfirmation(true);
+        setTextConfirmation(t['Contract created successfully']);
         setTimeout(() => {
           setConfirmation(false);
           getGetInitContrato();
@@ -222,11 +223,8 @@ export default function Contract() {
   }
 
   async function ActualizarContrato(values) {
-    // console.log('values', values);
     setIsLoadingComponent(true);
-
     const stateFlag = values.bFlagSoloContrato;
-
     const body = {
       oResults: {
         iIdEmpresa: values.iIdEmpresa,
@@ -240,7 +238,6 @@ export default function Contract() {
       },
     };
 
-    console.log('stateFlag', stateFlag);
 
     if (stateFlag === false) {
       body.oResults.bFlagSoloContrato = false; //false edita habilidad, si es en true solo contrato
@@ -261,6 +258,7 @@ export default function Contract() {
         setModalToken(false);
         setShowForm(false);
         setConfirmation(true);
+        setTextConfirmation(t['Successfully updated']);
         setTimeout(() => {
           setConfirmation(false);
           getGetInitContrato();
@@ -329,7 +327,6 @@ export default function Contract() {
   }
 
   // solo falta la logica de isuspende
-  
 
   const acumulatorTransform = (datos) => {
     const datoReduce = datos.reduce((acc, item) => {
@@ -381,227 +378,234 @@ export default function Contract() {
 
   const checkDateToday = (date) => {
     const inputDate = dayjs.utc(date);
-    const now = dayjs(); 
+    const now = dayjs();
     const isFutureDate = inputDate.isAfter(now);
     return !isFutureDate;
   };
 
-
   return (
     <section className="contract">
       <div className="tab-content ">
-        <div className="tabOne">
-          <div className="contaniner-tables ">
-            {requestError && (
-              <Stack sx={{ width: '100%' }} spacing={1}>
-                <Alert severity="error">{requestError || ' error service'}</Alert>
-              </Stack>
-            )}
-            <div>
-              <div className="box-search">
-                {isLoadingComponent && <LoadingComponent />}
+        {showForm ? (
+          <FormContract setShowForm={setShowForm} datacontractFilter={datacontractFilter} onAgregar={PostCrearContrato} initialVal={dataAction} setDataAction={setDataAction} handleEditCurrency={ActualizarContrato} reniew={reniew} setReniew={setReniew} />
+        ) : (
+          <div className="tabOne">
+            <div className="contaniner-tables ">
+              {requestError && (
+                <Stack sx={{ width: '100%' }} spacing={1}>
+                  <Alert severity="error">{requestError || ' error service'}</Alert>
+                </Stack>
+              )}
+              <div>
+                <div className="box-search">
+                  {isLoadingComponent && <LoadingComponent />}
 
-                <div>
-                  <h3> {t['Manage contracts']} </h3>
-                  <p>{t['Set up and manage contracts']}</p>
+                  <div>
+                    <h3> {t['Manage contracts']} </h3>
+                    <p>{t['Set up and manage contracts']}</p>
+                  </div>
+
+                  <div className="box-clear">
+                    <button className={`btn_primary small black  ${showForm ? 'desactivo' : ''}`} onClick={() => setShowForm(true)}>
+                      {t['Create contract']}
+                    </button>
+                  </div>
                 </div>
 
-                <div className="box-clear">
-                  <button className={`btn_primary small black  ${showForm ? 'desactivo' : ''}`} onClick={() => setShowForm(true)}>
-                    {t['Create contract']}
-                  </button>
+                <div className="box-filter">
+                  <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="company-label">{t.Company}</InputLabel>
+                    <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
+                      <MenuItem value={0}> {t.All}</MenuItem>
+                      {datacontractFilter?.oCompany.map((comp) => (
+                        <MenuItem key={Number(comp.ruc_company)} value={comp.id_company}>
+                          <div> {comp.razon_social_company}</div>
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
 
-                  {showForm && <FormContract setShowForm={setShowForm} datacontractFilter={datacontractFilter} onAgregar={PostCrearContrato} initialVal={dataAction} setDataAction={setDataAction} handleEditCurrency={ActualizarContrato} />}
+                  <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="company-label">{t.Enterprise}</InputLabel>
+                    <Select labelId="company-label" value={selectedEnterprise} onChange={handleEnterpriseChange} IconComponent={IconArrow}>
+                      {dataEnterprise?.map((comp) => (
+                        <MenuItem key={comp.razon_social_empresa} value={comp.id_empresa}>
+                          <div> {comp.razon_social_empresa}</div>
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+
+                  <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="company-label">{t.Status}</InputLabel>
+                    <Select labelId="company-label" value={selectedState} onChange={handleStateChange} IconComponent={IconArrow}>
+                      <MenuItem value=""> {t.All} </MenuItem>
+                      {datacontractFilter?.oEstado.map((comp) => (
+                        <MenuItem key={uuidv4()} value={comp.code_estado}>
+                          <div> {comp.descripcion_estado}</div>
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    {/* <FormHelperText>{t['Selected company']}</FormHelperText> */}
+                  </FormControl>
+                  <div className="box-clear">
+                    <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => GetBuscarContrato()} disabled={!hasAppliedFilters()}>
+                      {l.Reporting.Apply}
+                    </button>
+                    <button
+                      className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`}
+                      onClick={() => {
+                        handleClearFilters();
+                        setDataContract([]);
+                      }}
+                      disabled={!hasAppliedFilters()}
+                    >
+                      {l.Reporting.Clear}
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div className="box-filter">
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="company-label">{t.Company}</InputLabel>
-                  <Select labelId="company-label" value={selectedCompany} onChange={handleCompanyChange} IconComponent={IconArrow}>
-                    <MenuItem value={0}> {t.All}</MenuItem>
-                    {datacontractFilter?.oCompany.map((comp) => (
-                      <MenuItem key={Number(comp.ruc_company)} value={comp.id_company}>
-                        <div> {comp.razon_social_company}</div>
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="company-label">{t.Enterprise}</InputLabel>
-                  <Select labelId="company-label" value={selectedEnterprise} onChange={handleEnterpriseChange} IconComponent={IconArrow}>
-                    {dataEnterprise?.map((comp) => (
-                      <MenuItem key={comp.razon_social_empresa} value={comp.id_empresa}>
-                        <div> {comp.razon_social_empresa}</div>
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-
-                <FormControl sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="company-label">{t.Status}</InputLabel>
-                  <Select labelId="company-label" value={selectedState} onChange={handleStateChange} IconComponent={IconArrow}>
-                    <MenuItem value=""> {t.All} </MenuItem>
-                    {datacontractFilter?.oEstado.map((comp) => (
-                      <MenuItem key={uuidv4()} value={comp.code_estado}>
-                        <div> {comp.descripcion_estado}</div>
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  {/* <FormHelperText>{t['Selected company']}</FormHelperText> */}
-                </FormControl>
-                <div className="box-clear">
-                  <button className={`btn_primary small  ${hasAppliedFilters() ? '' : 'desactivo'}`} onClick={() => GetBuscarContrato()} disabled={!hasAppliedFilters()}>
-                    {l.Reporting.Apply}
-                  </button>
-                  <button
-                    className={`btn_secundary small ${hasAppliedFilters() ? '' : 'desactivo'}`}
-                    onClick={() => {
-                      handleClearFilters();
-                      setDataContract([]);
-                    }}
-                    disabled={!hasAppliedFilters()}
-                  >
-                    {l.Reporting.Clear}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="boards">
-              <div className="tableContainer contract-table">
-                <table className="dataTable">
-                  <thead>
-                    <tr>
-                      <th> {t['Contract']} </th>
-                      <th> {t['Enterprise']} </th>
-                      <th> {t['Start date']} </th>
-                      <th> {t['End date']} </th>
-                      <th> {t['Skills']} </th>
-                      <th> {t['Status']} </th>
-                      <th> {t['Renew']} </th>
-                      <th> {t['Actions']} </th>
-                    </tr>
-                  </thead>
-                  <tbody className="rowTable">
-                    {datacontract?.length > 0 ? (
-                      datacontract.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
-                        <tr key={'id_' + row.id_contrato}>
-                          <td>
-                            {row.secuencia} - {row.referencia}
-                          </td>
-                          <td>{row.razon_social}</td>
-                          <td>{formatDate(row.fecha_inicio)}</td>
-                          <td>{formatDate(row.fecha_fin)}</td>
-                          <td>
-                            {row.habilidad.map(
-                              (item, index) =>
-                                item.is_activo == 1 && (
-                                  <span key={index} className={item.is_activo == 1 ? 'habilidad' : 'habilidad suspendido'}>
-                                    {item.codigo_habilidad}-
-                                  </span>
-                                )
-                            )}
-                          </td>
-                          <td className={row.estado == 32 ? 'state-check' : ''}> {row.descripcion_estado}</td>
-                          {row.is_suspendido == 1 || checkDateToday(row.fecha_contractual) || row.estado === 35 ? (
+              <div className="boards">
+                <div className="tableContainer contract-table">
+                  <table className="dataTable">
+                    <thead>
+                      <tr>
+                        <th> {t['Contract']} </th>
+                        <th> {t['Enterprise']} </th>
+                        <th> {t['Start date']} </th>
+                        <th> {t['End date']} </th>
+                        <th> {t['Skills']} </th>
+                        <th> {t['Status']} </th>
+                        <th> {t['Renew']} </th>
+                        <th> {t['Actions']} </th>
+                      </tr>
+                    </thead>
+                    <tbody className="rowTable">
+                      {datacontract?.length > 0 ? (
+                        datacontract.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((row) => (
+                          <tr key={'id_' + row.id_contrato}>
                             <td>
+                              {row.secuencia} - {row.referencia}
+                            </td>
+                            <td>{row.razon_social}</td>
+                            <td>{formatDate(row.fecha_inicio)}</td>
+                            <td>{formatDate(row.fecha_fin)}</td>
+                            <td>
+                              {row.habilidad.map(
+                                (item, index) =>
+                                  item.is_activo == 1 && (
+                                    <span key={index} className={item.is_activo == 1 ? 'habilidad' : 'habilidad suspendido'}>
+                                      {item.codigo_habilidad}-
+                                    </span>
+                                  )
+                              )}
+                            </td>
+                            <td className={row.estado == 32 ? 'state-check' : ''}> {row.descripcion_estado}</td>
+                            {row.is_suspendido == 1 || checkDateToday(row.fecha_contractual) || row.estado === 35 ? (
+                              <td>
+                                {   row.estado !== 36 && <button
+                                    className="btn_green"
+                                    onClick={() => {
+                                      setDataAction(row);
+                                      setReniew(true);
+                                      setShowForm(true);
+                                    }}
+                                  >
+                                    {t.Renew}
+                                  </button>
+                                }
+
+                              </td>
+                            ) : (
+                              <td>
+                                <span></span>
+                              </td>
+                            )}
+
+                            <td className="box-actions">
                               <button
-                                className="btn_green"
+                                className="btn_crud"
                                 onClick={() => {
                                   setDataAction(row);
                                   setShowForm(true);
                                 }}
                               >
-                                {t.Renew}
+                                <ImageSvg name="Edit" />
+                              </button>
+                              <button
+                                className="btn_crud"
+                                onClick={() => {
+                                  setDataAction(row);
+                                  setConfirmationDelete(true);
+                                }}
+                              >
+                                <ImageSvg name="Delete" />
                               </button>
                             </td>
-                          ) : (
-                            <td>
-                              <span></span>
-                            </td>
-                          )}
-
-                          <td className="box-actions">
-                            <button
-                              className="btn_crud"
-                              onClick={() => {
-                                setDataAction(row);
-                                setShowForm(true);
-                              }}
-                            >
-                              <ImageSvg name="Edit" />
-                            </button>
-                            <button
-                              className="btn_crud"
-                              onClick={() => {
-                                setDataAction(row);
-                                setConfirmationDelete(true);
-                              }}
-                            >
-                              <ImageSvg name="Delete" />
-                            </button>
-                          </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="2">{l.Reporting['There is no data']}</td>
                         </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan="2">{l.Reporting['There is no data']}</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-              <Stack spacing={2}>
-                <div className="pagination">
-                  <Typography>
-                    {l.Reporting.Page} {page} {l.Reporting.of} {Math.ceil(datacontract?.length / itemsPerPage)}
-                  </Typography>
-                  <Pagination count={Math.ceil(datacontract?.length / itemsPerPage)} page={page} onChange={handleChangePage} />
+                      )}
+                    </tbody>
+                  </table>
                 </div>
-              </Stack>
+                <Stack spacing={2}>
+                  <div className="pagination">
+                    <Typography>
+                      {l.Reporting.Page} {page} {l.Reporting.of} {Math.ceil(datacontract?.length / itemsPerPage)}
+                    </Typography>
+                    <Pagination count={Math.ceil(datacontract?.length / itemsPerPage)} page={page} onChange={handleChangePage} />
+                  </div>
+                </Stack>
+              </div>
+
+              {confimationDelete && (
+                <Modal
+                  // open={confimationDelete}
+                  onClose={() => {
+                    setDataAction(null);
+                    setShowForm(false);
+                    setConfirmationDelete(false);
+                  }}
+                >
+                  <ImageSvg name="Delete" />
+                  <h2> {t['Delete contract']} </h2>
+                  <span> {dataAction.referencia} </span>
+                  <p>{t['Are you sure you want to delete this contract']} </p>
+                  <div className="box-actions">
+                    <button className="btn_secundary small" onClick={() => EliminarContrato()}>
+                      {t.YES}
+                    </button>
+                    <button
+                      className="btn_primary small"
+                      onClick={() => {
+                        setConfirmationDelete(false);
+                        setDataAction(null);
+                      }}
+                    >
+                      {t.NO}
+                    </button>
+                  </div>
+                </Modal>
+              )}
             </div>
 
-            {confimationDelete && (
-              <Modal
-                // open={confimationDelete}
-                onClose={() => {
-                  setDataAction(null);
-                  setShowForm(false);
-                  setConfirmationDelete(false);
-                }}
-              >
-                <ImageSvg name="Delete" />
-                <h2> {t['Delete contract']} </h2>
-                <span> {dataAction.referencia} </span>
-                <p>{t['Are you sure you want to delete this contract']} </p>
-                <div className="box-actions">
-                  <button className="btn_secundary small" onClick={() => EliminarContrato()}>
-                    {t.YES}
-                  </button>
-                  <button
-                    className="btn_primary small"
-                    onClick={() => {
-                      setConfirmationDelete(false);
-                      setDataAction(null);
-                    }}
-                  >
-                    {t.NO}
-                  </button>
-                </div>
+            {confirmation && (
+              <Modal open={confirmation} onClose={() => setConfirmation(false)}>
+                <ImageSvg name="Check" />
+                <h2>{textConfimation}</h2>
+                <p>{dataAction?.referencia}</p>
               </Modal>
             )}
           </div>
-
-          {confirmation && (
-            <Modal open={confirmation} onClose={() => setConfirmation(false)}>
-              <ImageSvg name="Check" />
-              <h2> {t['Contract created successfully']}</h2>
-            </Modal>
-          )}
-        </div>
+        )}
       </div>
+
+      {/* {showForm && <FormContract setShowForm={setShowForm} datacontractFilter={datacontractFilter} onAgregar={PostCrearContrato} initialVal={dataAction} setDataAction={setDataAction} handleEditCurrency={ActualizarContrato} />} */}
     </section>
   );
 }
