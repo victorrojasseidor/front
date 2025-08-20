@@ -27,7 +27,6 @@ export default function Products() {
   const [dataCabecera, setDataCabecera] = useState(null);
   const { session, setModalToken, logout, l, empresa, setEmpresa, idCountry, getProducts } = useAuth();
 
-  // Nuevo estado para opciones de búsqueda de empresas
   const [companyOptions, setCompanyOptions] = useState([]);
 
   const t = l.Products;
@@ -46,12 +45,10 @@ export default function Products() {
       const token = session?.sToken;
       const idEmpresa = empresa.id_empresa;
       const responseData = await getProducts(idEmpresa, token, idCountry);
-
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         if (selectedFilterType === 'CLA_01' || selectedFilterType === 'CLA_02' || selectedFilterType === 'CLA_03') {
           const filtertypeProduct = data.filter((product) => product.sCodeClasificacion === String(selectedFilterType));
-
           setProduct(filtertypeProduct);
         } else {
           setProduct(data);
@@ -134,8 +131,6 @@ export default function Products() {
     }, 3000);
   }, [session]);
 
-  console.log(product);
-
   const handleCompanyInputChange = (event, newValue) => {
     // Actualiza la empresa seleccionada
     if (newValue) {
@@ -179,6 +174,7 @@ export default function Products() {
 
       if (searchQuery) {
         results = results.filter((product) => product.sName.toLowerCase().includes(searchQuery.toLowerCase()));
+        console.log('results', results);
       }
 
       setSearchResults(results);
@@ -291,7 +287,7 @@ export default function Products() {
   };
 
   const getDisplayStyle = (filter, filterType) => {
-    return (selectedFilter === filter || !selectedFilter) && (selectedFilterType === filterType || !selectedFilterType) && searchQuery === '' ? 'flex' : 'none';
+    return (selectedFilter === filter || !selectedFilter) && (selectedFilterType === filterType || !selectedFilterType)? 'flex' : 'none';
   };
 
   const dataOthers = [
@@ -299,11 +295,11 @@ export default function Products() {
       id: 1,
       sCodeClasificacion: 'CLA_01',
       iCodeStatus: 31,
-      sDescStatus: 'Not hired',
+      sDescStatus: t['Not hired'],
       type: 'financy',
-      sClasificacion: 'Finance and accounting',
-      sName: 'Utility Bill Registration',
-      status: 'Not hired',
+      sClasificacion: t['Finance and accounting'],
+      sName: t['Utility Bill Registration'],
+      status: t['Not hired'],
       link: '/#contact',
       iId: 3,
       sDateEnd: '2024-12-31T23:59:59.999Z',
@@ -313,10 +309,10 @@ export default function Products() {
       type: 'financy',
       sCodeClasificacion: 'CLA_01',
       iCodeStatus: 31,
-      sDescStatus: 'Not hired',
-      sClasificacion: 'Finance and accounting',
-      sName: 'Mass update of deduction records',
-      status: 'Not hired',
+      sDescStatus: t['Not hired'],
+      sClasificacion: t['Finance and accounting'],
+      sName: t['Mass update of deduction records'],
+      status: t['Not hired'],
       link: '/#contact',
       iId: 7,
     },
@@ -325,10 +321,10 @@ export default function Products() {
       type: 'financy',
       sCodeClasificacion: 'CLA_01',
       iCodeStatus: 31,
-      sDescStatus: 'Not hired',
-      sClasificacion: 'Finance and accounting',
-      sName: 'Supplier validation',
-      status: 'Not hired',
+      sDescStatus: t['Not hired'],
+      sClasificacion: t['Finance and accounting'],
+      sName: t['Supplier validation'],
+      status: t['Not hired'],
       link: '/#contact',
       iId: 8,
     },
@@ -337,10 +333,10 @@ export default function Products() {
       type: 'tecnology',
       sCodeClasificacion: 'CLA_02',
       iCodeStatus: 31,
-      sDescStatus: 'Not hired',
-      sClasificacion: 'Technology',
-      sName: 'Image text extraction Service',
-      status: 'Not hired',
+      sDescStatus: t['Not hired'],
+      sClasificacion: t['Technology'],
+      sName: t['Image text extraction Service'],
+      status: t['Not hired'],
       link: '/#contact',
       iId: 9,
     },
@@ -350,21 +346,21 @@ export default function Products() {
       sCodeClasificacion: 'CLA_03',
       iCodeStatus: 31,
       sDescStatus: 'Not hired',
-      sClasificacion: 'Human Resources',
-      sName: 'AFP validation',
-      status: 'Not hired',
+      sClasificacion: t['Human Resources'],
+      sName: t['AFP validation'],
+      status: t['Not hired'],
       link: '/#contact',
       iId: 5,
     },
   ];
 
-  const productCard = (dataCard, dataDark) => {
-    const statusDataDark = dataDark;
-
+  const ProductCard = ({dataCard, isDataDark}) => {
+    let statusDataDark = isDataDark ;
+    let dataCardFiltered = dataCard;
     return (
       <>
-        {dataCard.length > 0 &&
-          dataCard.map((product) => (
+        {dataCardFiltered.length > 0 &&
+          dataCardFiltered.map((product) => (
             <li key={product.iId} className={`card ${product.sCodeClasificacion === String('CLA_01') ? 'financy' : product.sCodeClasificacion === String('CLA_02') ? 'tecnology' : product.sCodeClasificacion === String('CLA_03') ? 'human' : ''}`} style={{ display: getDisplayStyle(product.iCodeStatus, product.sCodeClasificacion) }}>
               <div className="card-image">
                 <div className="image_icon">
@@ -573,50 +569,22 @@ export default function Products() {
 
         <div className="products_cards">
           <ul>
-            {searchResults && productCard(searchResults)}
+            {searchResults.length>0 && 
+            <ProductCard dataCard={searchResults} isDataDark={false} />}
 
-            {/* productos añadidos por el momento */}
+            {/* productos añadidos por el momento */} 
 
-            {/* {dataOthers.map((item) => (
-              <li key={item.id} className={`card ${item.type} `} style={{ display: getDisplayStyle(31, item.category === 'Finance and accounting' ? 'CLA_01' : item.category === 'Technology' ? 'CLA_02' : 'CLA_03') }}>
-                <div className="card-type">
-                  <div className="type_icon">
-                    <ImageSvg name={imgProduct(item.imgProductId)} />
-                  </div>
+          {!searchQuery && (
+  <ProductCard dataCard={dataOthers} isDataDark />
+)}
 
-                  <p> {t[item.category]} </p>
-                </div>
-
-                <div className="card-name">
-                  <h4>{t[item.title]}</h4>
-
-                  <div className="status-box">
-                    <p>{t[item.status]}</p>
-
-                    <p className="dayLetf"></p>
-                  </div>
-                </div>
-
-                <div className="card-actions">
-                  <p className="dayLetf" style={{ color: 'white' }}>
-                    .......
-                  </p>
-
-                  <div className="box-actions">
-                    <Link href={item.link}>{t['View more']}</Link>
-                  </div>
-                </div>
-              </li>
-            ))} */}
-
-            {productCard(dataOthers, true)}
           </ul>
         </div>
 
-        {/* )
-          : (
-            <p>{t['No results found']}</p>
-            )} */}
+        {/* {searchResults.length<=0 && (
+          <p>{t['No results found']}</p>
+        )} */}
+
       </div>
 
       {requestError && (

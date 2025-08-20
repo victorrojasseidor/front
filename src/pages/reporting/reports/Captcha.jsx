@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { FormHelperText } from '@mui/material';
 import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField'; // Importa TextField aquí
+import TextField from '@mui/material/TextField'; 
 import { fetchConTokenPost } from '@/helpers/fetch';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -26,7 +26,7 @@ const Captcha = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [activeTabSub, setActiveTabSub] = useState(0);
 
-  const { session, setModalToken, logout, l, idCountry, empresa } = useAuth();
+  const { session, setModalToken, logout, l, idCountry, empresa ,getProducts} = useAuth();
   const [page, setPage] = useState(1);
   const [selectedCompany, setSelectedCompany] = useState(empresa?.id_empresa || session?.oEmpresa[0].id_empresa);
   const [dataSumary, setDataSumary] = useState(null);
@@ -40,6 +40,7 @@ const Captcha = () => {
   const [requestError, setRequestError] = useState();
   const t = l.Captcha;
   const [selectedContract, setSelectedContract] = useState(empresa?.id_empresa || session?.oEmpresa[0].id_empresa);
+
 
   const months = [l.Reporting.January, l.Reporting.February, l.Reporting.March, l.Reporting.April, l.Reporting.May, l.Reporting.June, l.Reporting.July, l.Reporting.August, l.Reporting.September, l.Reporting.October, l.Reporting.November, l.Reporting.December];
 
@@ -67,6 +68,8 @@ const Captcha = () => {
 
     setFilterDate(duration);
   };
+
+  console.log('selectedCompany', selectedCompany);
 
   const handleStartDateChange = (newValue) => {
     setStartDate(newValue.format('YYYY-MM-DD'));
@@ -105,6 +108,7 @@ const Captcha = () => {
 
   useEffect(() => {
     GetCabeceraCaptcha();
+    getDataProduct();
   }, [selectedCompany]);
 
   useEffect(() => {
@@ -128,7 +132,7 @@ const Captcha = () => {
       const token = session.sToken;
 
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetCabeceraCaptcha', body, token);
-
+      console.log('GetCabeceraCaptcha', responseData);  
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
 
@@ -204,6 +208,42 @@ const Captcha = () => {
       }, 1000);
     } finally {
       setIsLoading(false); // Ocultar señal de carga
+    }
+  }
+
+
+  async function getDataProduct() {
+    setIsLoading(true);
+    try {
+      const token = session?.sToken;
+      const idEmpresa = empresa?.id_empresa;
+
+      const responseData = await getProducts(selectedCompany  , token, idCountry);
+      console.log("responseProductscaptcha", responseData);
+      if (responseData.oAuditResponse?.iCode === 1) {
+        setModalToken(false);
+        const data = responseData.oResults;
+        const selectedProduct = data.find((p) => p.sProd === "CAPTCHA");
+        setSelectedContract(selectedProduct.jContrato);
+      } else if (responseData.oAuditResponse?.iCode === 27) {
+        setModalToken(true);
+      } else if (responseData.oAuditResponse?.iCode === 4) {
+        await logout();
+      } else {
+        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
+        setRequestError(errorMessage);
+        setTimeout(() => {
+          setRequestError(null);
+        }, 1000);
+      }
+    } catch (error) {
+      console.error('error', error);
+      setRequestError(error);
+      setTimeout(() => {
+        setRequestError(null);
+      }, 1000);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -336,7 +376,7 @@ const Captcha = () => {
               <MenuItem value="">
                 <em>{t['Contract']}</em>
               </MenuItem>
-              {session?.oEmpresa.map((comp) => (
+              {selectedContract.map((comp) => (
                 <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
                   <div> {comp.razon_social_empresa}</div>
                 </MenuItem>
