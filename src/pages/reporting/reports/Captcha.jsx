@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import { FormHelperText } from '@mui/material';
 import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField'; 
+import TextField from '@mui/material/TextField';
 import { fetchConTokenPost } from '@/helpers/fetch';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -21,12 +21,12 @@ import ButtonGradient from '@/Components/Atoms/ButtonGradient';
 import LoadingComponent from '@/Components/Atoms/LoadingComponent';
 import LineCaptcha from '@/Components/Grafics/LineCaptcha';
 import Alert from '@mui/material/Alert';
+import utc from 'dayjs/plugin/utc';
 
 const Captcha = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [activeTabSub, setActiveTabSub] = useState(0);
-
-  const { session, setModalToken, logout, l, idCountry, empresa ,getProducts} = useAuth();
+  const { session, setModalToken, logout, l, idCountry, empresa, getProducts } = useAuth();
   const [page, setPage] = useState(1);
   const [selectedCompany, setSelectedCompany] = useState(empresa?.id_empresa || session?.oEmpresa[0].id_empresa);
   const [dataSumary, setDataSumary] = useState(null);
@@ -39,8 +39,8 @@ const Captcha = () => {
   const [endDate, setEndDate] = useState(dayjs().format('YYYY-MM-DD'));
   const [requestError, setRequestError] = useState();
   const t = l.Captcha;
-  const [selectedContract, setSelectedContract] = useState(empresa?.id_empresa || session?.oEmpresa[0].id_empresa);
-
+  const [selectedContract, setSelectedContract] = useState("");
+  const [contract, setContract] = useState([]);
 
   const months = [l.Reporting.January, l.Reporting.February, l.Reporting.March, l.Reporting.April, l.Reporting.May, l.Reporting.June, l.Reporting.July, l.Reporting.August, l.Reporting.September, l.Reporting.October, l.Reporting.November, l.Reporting.December];
 
@@ -69,7 +69,6 @@ const Captcha = () => {
     setFilterDate(duration);
   };
 
-  console.log('selectedCompany', selectedCompany);
 
   const handleStartDateChange = (newValue) => {
     setStartDate(newValue.format('YYYY-MM-DD'));
@@ -91,6 +90,7 @@ const Captcha = () => {
     setPage(value);
   };
   const handleCompanyChange = (event) => {
+    setContract([]);
     const selectCompanyValue = event.target.value;
     setSelectedCompany(selectCompanyValue);
   };
@@ -108,12 +108,11 @@ const Captcha = () => {
 
   useEffect(() => {
     GetCabeceraCaptcha();
-    getDataProduct();
-  }, [selectedCompany]);
+    }, [selectedCompany]);
 
   useEffect(() => {
     GetDetalleCaptcha();
-  }, [selectedCompany, startDate, endDate]);
+  }, [selectedCompany, startDate, endDate, selectedContract]);
 
   async function GetCabeceraCaptcha() {
     setIsLoading(true);
@@ -130,19 +129,18 @@ const Captcha = () => {
 
     try {
       const token = session.sToken;
-
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetCabeceraCaptcha', body, token);
-      console.log('GetCabeceraCaptcha', responseData);  
+      console.log('cabecera', body ,  responseData);
+      
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
-
         const dataOrder = orderDataByDateSumary(data);
-        setDataSumary(dataOrder);
-
+         setDataSumary(dataOrder);
+        const contractCaptcha = data.oDataContrato.filter((item) => item.codigo_habilidad === "CAPTCHA");
+        setContract(contractCaptcha);       
         setModalToken(false);
         setRequestError(null);
         setPage(1);
-        // orderDataByDate('fecha', true)
       } else if (responseData.oAuditResponse?.iCode === 27) {
         setModalToken(true);
       } else if (responseData.oAuditResponse?.iCode === 4) {
@@ -161,7 +159,7 @@ const Captcha = () => {
         setRequestError(null);
       }, 1000);
     } finally {
-      setIsLoading(false); // Ocultar señal de carga
+      setIsLoading(false);
     }
   }
 
@@ -173,13 +171,14 @@ const Captcha = () => {
         sFechaDesde: startDate,
         sFechaHasta: endDate,
         iIdEmpresa: selectedCompany || [],
+        id_contrato_servicio: selectedContract?.id_contrato_servicio || 0,
       },
     };
 
     try {
       const token = session.sToken;
-
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetDetalleCaptcha', body, token);
+      console.log('getdetallecaptcha', body ,  responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setIsDateSorted(true);
@@ -212,40 +211,6 @@ const Captcha = () => {
   }
 
 
-  async function getDataProduct() {
-    setIsLoading(true);
-    try {
-      const token = session?.sToken;
-      const idEmpresa = empresa?.id_empresa;
-
-      const responseData = await getProducts(selectedCompany  , token, idCountry);
-      console.log("responseProductscaptcha", responseData);
-      if (responseData.oAuditResponse?.iCode === 1) {
-        setModalToken(false);
-        const data = responseData.oResults;
-        const selectedProduct = data.find((p) => p.sProd === "CAPTCHA");
-        setSelectedContract(selectedProduct.jContrato);
-      } else if (responseData.oAuditResponse?.iCode === 27) {
-        setModalToken(true);
-      } else if (responseData.oAuditResponse?.iCode === 4) {
-        await logout();
-      } else {
-        const errorMessage = responseData.oAuditResponse ? responseData.oAuditResponse.sMessage : 'Error in sending the form';
-        setRequestError(errorMessage);
-        setTimeout(() => {
-          setRequestError(null);
-        }, 1000);
-      }
-    } catch (error) {
-      console.error('error', error);
-      setRequestError(error);
-      setTimeout(() => {
-        setRequestError(null);
-      }, 1000);
-    } finally {
-      setIsLoading(false);
-    }
-  }
 
   function orderDataByDateSumary(data) {
     // Función para convertir fechas en formato "MM-YYYY" a "YYYY-MM-DD" para facilitar la comparación
@@ -261,6 +226,10 @@ const Captcha = () => {
 
     return data;
   }
+
+  
+
+  dayjs.extend(utc);
 
   const orderDataByDate = () => {
     // Alterna el estado de ordenación
@@ -370,24 +339,31 @@ const Captcha = () => {
         </div>
 
         <div className="box-filter">
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          {
+            contract.length > 0 && <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="contract-label">{t.Contract}</InputLabel>
+         
             <Select labelId="contract-label" value={selectedContract} onChange={handleContractChange} IconComponent={IconArrow}>
-              <MenuItem value="">
+              {/* <MenuItem value="">
                 <em>{t['Contract']}</em>
-              </MenuItem>
-              {selectedContract.map((comp) => (
-                <MenuItem key={comp.id_empresa} value={comp.id_empresa}>
-                  <div> {comp.razon_social_empresa}</div>
+              </MenuItem> */}
+              {contract?.map((comp) => (
+                <MenuItem key={comp.id_contrato_servicio} value={comp.id_contrato_servicio}>
+                  <div> {comp.referencia}</div>
                 </MenuItem>
               ))}
+
             </Select>
             {/* <FormHelperText>{!selectedCompany && t['Select the company']}</FormHelperText> */}
           </FormControl>
+          }
+          
         </div>
       </div>
     );
   };
+
+  console.log("dataSumary",dataSumary);
 
   return (
     <>
@@ -419,12 +395,13 @@ const Captcha = () => {
 
                   <div className="report_data">
                     <article>{t['Hired connections']}</article>
-                    {/* <h3> {dataSumary?.captcha_resolved_until_now} </h3> */}
 
-                    <h3>60 ,000</h3>
+                    <h3>{dataSumary?.captcha_resolved_until_now_contract}</h3>
 
                     <p>
-                      <ImageSvg name="ArrowUp" /> {t['Last contract']} {dataSumary?.fecha_until}{' '}
+                      <ImageSvg name="ArrowUp" /> {t['Last contract']} {
+                       contract[0]?.fecha_inicio_habilidad ? dayjs(contract[0]?.fecha_inicio_habilidad).format('DD-MM-YYYY') : '---'
+                      }
                     </p>
                   </div>
                 </div>
@@ -437,10 +414,9 @@ const Captcha = () => {
                   <div className="report_data">
                     <article>{t['Connections used']}</article>
 
-                    {/* <h3> {dataSumary?.captcha_conexion_until_now} </h3> */}
-                    <h3>24 ,000</h3>
+                    <h3>{dataSumary?.captcha_conexion_until_now_contract}</h3>
                     <p>
-                      <ImageSvg name="ArrowUp" /> {t.To} {dataSumary?.fecha_until}
+                      <ImageSvg name="ArrowUp" /> {t.To} {dayjs().format('DD-MM-YYYY')}
                     </p>
                   </div>
                 </div>
@@ -449,90 +425,6 @@ const Captcha = () => {
           </div>
         </div>
 
-        {/* <div className="box-filters">
-          <button className={`btn_filter ${filterDate === 365 ? 'active' : ''}`} onClick={() => rangeDateSelect(365)}>
-          {t['Monthly summary']}
-          </button>
-
-          <button className={`btn_filter ${filterDate === 180 ? 'active' : ''}`} onClick={() => rangeDateSelect(180)}>
-          {t['Results per day']}
-          </button>
-
-
-        </div> */}
-
-        {/* <div className="captcha-filters">
-          <h3> {t['Filter Statistics']} </h3>
-          <p> {t['Filter the Desired Reports and Graphs, and if you want to see the complete information, use the export option.']} </p>
-          <div className="box-filters">
-            <button className={`btn_filter ${filterDate === 365 ? 'active' : ''}`} onClick={() => rangeDateSelect(365)}>
-              {t.Last} 12 {t.Months}
-            </button>
-
-            <button className={`btn_filter ${filterDate === 180 ? 'active' : ''}`} onClick={() => rangeDateSelect(180)}>
-              {t.Last} 6 {t.Months}
-            </button>
-
-            <button className={`btn_filter ${filterDate === 30 ? 'active' : ''}`} onClick={() => rangeDateSelect(30)}>
-              {t.Last} 30 {t.Days}
-            </button>
-
-            <button className={`btn_filter ${filterDate === 7 ? 'active' : ''}`} onClick={() => rangeDateSelect(7)}>
-              {t.Last} 7 {t.Days}
-            </button>
-
-            <button className={`btn_filter ${filterDate === null ? 'active' : ''}`} onClick={() => setFilterDate(null)}>
-              {t['Other Dates']}
-
-              <ImageSvg name="Time" />
-            </button>
-          </div>
-
-          {!filterDate && (
-            <div className="box-filters">
-              <div className="date">
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    label={t.From}
-                    value={dayjs(startDate, 'YYYY-MM-DD')}
-                    slotProps={{
-                      textField: {
-                        helperText: t['Date start'],
-                      },
-                    }}
-                    onChange={handleStartDateChange}
-                    format="YYYY-MM-DD"
-                    components={{
-                      OpenPickerIcon: IconDate,
-                      CalendarIcon: IconDate,
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    label={t.To}
-                    value={dayjs(endDate, 'YYYY-MM-DD')}
-                    slotProps={{
-                      textField: {
-                        helperText: t['Date end'],
-                      },
-                    }}
-                    onChange={handleEndDateChange}
-                    format="YYYY-MM-DD"
-                    components={{
-                      OpenPickerIcon: IconDate,
-                      CalendarIcon: IconDate,
-                    }}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </LocalizationProvider>
-              </div>
-            </div>
-          )}
-
-        </div> */}
 
         {requestError && (
           <Stack sx={{ width: '50%' }} spacing={1}>
@@ -568,9 +460,7 @@ const Captcha = () => {
                     </div>
 
                     <div className="boards">
-                      {componentFilters()}
-
-                      <div className="tableContainer">
+                        <div className="tableContainer">
                         <table className="dataTable">
                           <thead>
                             <tr>
@@ -690,7 +580,16 @@ const Captcha = () => {
                               </Stack>
                             </div>
 
-                            <div className="reporting-box">
+                          
+                          </>
+                        )}
+                        {activeTabSub === 1 && (
+                          <div className="grafics">
+                            <LineCaptcha captchaData={dataCaptcha} startDate={startDate} endDate={endDate} />
+                          </div>
+                        )}
+
+                          <div className="reporting-box">
                               <div className="report-content" style={{ paddingLeft: '0rem' }}>
                                 <div className="report gradientAri">
                                   <div className="report_icon  ">
@@ -715,13 +614,6 @@ const Captcha = () => {
                                 </div>
                               </div>
                             </div>
-                          </>
-                        )}
-                        {activeTabSub === 1 && (
-                          <div className="grafics">
-                            <LineCaptcha captchaData={dataCaptcha} startDate={startDate} endDate={endDate} />
-                          </div>
-                        )}
                       </div>
                     </div>
                   </div>
