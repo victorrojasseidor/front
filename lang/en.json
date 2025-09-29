@@ -648,7 +648,8 @@
     "Delete contract": "Delete contract",
     "YES": "YES",
     "NO": "NO",
-    "Contract created successfully": "Contract created successfully"
+    "Contract created successfully": "Contract created successfully",
+    "Complete the captcha configuration in apiconfiguration": "Complete the captcha configuration in apiconfiguration"
   },
   "Integration": {
     "Integration": "Integration",

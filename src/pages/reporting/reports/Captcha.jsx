@@ -39,7 +39,7 @@ const Captcha = () => {
   const [endDate, setEndDate] = useState(dayjs().format('YYYY-MM-DD'));
   const [requestError, setRequestError] = useState();
   const t = l.Captcha;
-  const [selectedContract, setSelectedContract] = useState("");
+  const [selectedContract, setSelectedContract] = useState('');
   const [contract, setContract] = useState([]);
 
   const months = [l.Reporting.January, l.Reporting.February, l.Reporting.March, l.Reporting.April, l.Reporting.May, l.Reporting.June, l.Reporting.July, l.Reporting.August, l.Reporting.September, l.Reporting.October, l.Reporting.November, l.Reporting.December];
@@ -130,13 +130,11 @@ const Captcha = () => {
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetCabeceraCaptcha', body, token);
-      console.log('cabecera', body ,  responseData);
-      
-      if (responseData.oAuditResponse?.iCode === 1) {
+        if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         const dataOrder = orderDataByDateSumary(data);
          setDataSumary(dataOrder);
-        const contractCaptcha = data.oDataContrato.filter((item) => item.codigo_habilidad === "CAPTCHA");
+        const contractCaptcha = data.oData.filter((item) => item.codigo_habilidad === "CAPTCHA");
         setContract(contractCaptcha);       
         setModalToken(false);
         setRequestError(null);
@@ -178,7 +176,6 @@ const Captcha = () => {
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS/?Accion=GetDetalleCaptcha', body, token);
-      console.log('getdetallecaptcha', body ,  responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         const data = responseData.oResults;
         setIsDateSorted(true);
@@ -293,6 +290,8 @@ const Captcha = () => {
     }
   };
 
+  console.log(dataSumary)
+
   const componentFilters = () => {
     return (
       <div className="captcha-filters">
@@ -363,7 +362,6 @@ const Captcha = () => {
     );
   };
 
-  console.log("dataSumary",dataSumary);
 
   return (
     <>
@@ -399,9 +397,11 @@ const Captcha = () => {
                     <h3>{dataSumary?.captcha_resolved_until_now_contract}</h3>
 
                     <p>
-                      <ImageSvg name="ArrowUp" /> {t['Last contract']} {
-                       contract[0]?.fecha_inicio_habilidad ? dayjs(contract[0]?.fecha_inicio_habilidad).format('DD-MM-YYYY') : '---'
+                      <ImageSvg name="ArrowUp" /> {t['Last contract']} 
+                         : {'  '}
+                      {  dataSumary?.data_summary.length > 0 ? dataSumary.data_summary[0]?.referencia : '---'
                       }
+                      
                     </p>
                   </div>
                 </div>
@@ -414,9 +414,9 @@ const Captcha = () => {
                   <div className="report_data">
                     <article>{t['Connections used']}</article>
 
-                    <h3>{dataSumary?.captcha_conexion_until_now_contract}</h3>
+                    <h3>{dataSumary?.captcha_conexion_until_now}</h3>
                     <p>
-                      <ImageSvg name="ArrowUp" /> {t.To} {dayjs().format('DD-MM-YYYY')}
+                      <ImageSvg name="ArrowUp" /> {t.To} {dataSumary?.fecha_until}
                     </p>
                   </div>
                 </div>
@@ -475,6 +475,7 @@ const Captcha = () => {
                               <tr key={row.id_data}>
                                 <td>{transformMonthsFormat(row.fecha)}</td>
                                 <td>{row.captcha_resolved}</td>
+                                {/* <td>{row.secuencia}</td> */}
                                 <td>{row.captcha_conexion}</td>
                               </tr>
                             ))}

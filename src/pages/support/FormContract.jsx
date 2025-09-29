@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, ErrorMessage, useField } from 'formik';
-import ModalForm from '@/Components/Atoms/ModalForm';
 import { useAuth } from '@/Context/DataContext';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -42,8 +41,6 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
   const [valueState, setValueState] = useState(initialVal?.estado || '33');
   const [startDate, setStartDate] = useState(formatearFechaUTC(initialVal?.fecha_inicio) || dayjs().subtract(0, 'day').format('DD/MM/YYYY'));
   const [endDate, setEndDate] = useState(formatearFechaUTC(initialVal?.fecha_fin) || dayjs().add(12, 'month').format('DD/MM/YYYY'));
-  const [applyrangestartdate, setApplyRangeStartDate] = useState(false);
-  const [applyrangeendate, setApplyRangeEndDate] = useState(false);
   const [showAplyRange, setShowApplyRange] = useState(false);
 
   const { l } = useAuth();
@@ -53,7 +50,6 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     numbercontract: initialVal?.id_contrato,
     Reference: initialVal?.referencia,
   };
-
 
   const [selectedCompany, setSelectedCompany] = useState(initialVal?.id_company || '');
   const [selectedEnterprise, setSelectedEnterprise] = useState(initialVal?.id_empresa || '');
@@ -283,16 +279,18 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
     return formattedDate;
   };
 
-
   const someDateReniew = () => {
     const firstDate = formatearFechaUTC(initialVal?.fecha_fin);
     const endDateReniew = endDate;
-    console.log(firstDate, endDateReniew);
     const validatedate = firstDate == endDateReniew;
-    return validatedate
-  }
+    return validatedate;
+  };
 
-
+  const findActiveCaptcha = () => {
+    const findCaptcha = selectedSkills.filter((pro) => pro.key == 'CAPTCHA');
+    const isActive = findCaptcha.some((pro) => pro.enabled);
+    return isActive;
+  };
 
   return (
     <section className="contaniner-tables">
@@ -335,7 +333,7 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
           <Form className="form-Curency contract-form">
             <div className="box-search">
               <div>
-                <h3> {initialVal ? reniew ? t['Renew contract'] : t['Edit contract'] : t['Add contract']} </h3>
+                <h3> {initialVal ? (reniew ? t['Renew contract'] : t['Edit contract']) : t['Add contract']} </h3>
                 <p>{t['Set up and manage contracts']}</p>
               </div>
 
@@ -479,13 +477,11 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                     </LocalizationProvider>
                   </div>
 
-                  {
-                    reniew &&  someDateReniew() && (
-                        <Stack sx={{ width: '100%' , marginTop: 2 }} spacing={1} >
-                          <Alert severity="warning"> Las fechas están sin editar </Alert>
-                        </Stack>
-                      )
-                  }
+                  {reniew && someDateReniew() && (
+                    <Stack sx={{ width: '100%', marginTop: 2 }} spacing={1}>
+                      <Alert severity="warning"> Las fechas están sin editar </Alert>
+                    </Stack>
+                  )}
                 </div>
               </div>
 
@@ -558,6 +554,11 @@ const FormContract = ({ onAgregar, initialVal, datacontractFilter, handleEditCur
                         </Accordion>
                       ))}
                     </div>
+                    {findActiveCaptcha() && (
+                      <Stack sx={{ width: '100%', marginTop: 2 }} spacing={1}>
+                        <Alert severity="info"> {t['Complete the captcha configuration in apiconfiguration']} </Alert>
+                      </Stack>
+                    )}
                   </div>
                 </div>
               </div>

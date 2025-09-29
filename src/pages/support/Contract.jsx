@@ -160,7 +160,6 @@ export default function Contract() {
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         const dataRes = responseData.oResults;
-        console.log('dataRes.....', dataRes);
         const datatrasform = acumulatorTransform(dataRes);
         setDataContract(datatrasform);
       } else {
@@ -248,12 +247,9 @@ export default function Contract() {
       body.oResults.oIdHabilidadEliminar = [];
     }
 
-    console.log(body);
-
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=ActualizarContrato', body, token);
-      console.log('editarcont', responseData);
       if (responseData.oAuditResponse?.iCode === 1) {
         setModalToken(false);
         setShowForm(false);
@@ -294,13 +290,11 @@ export default function Contract() {
       },
     };
 
-    // console.log('body eliminar', body);
 
     try {
       const token = session.sToken;
       const responseData = await fetchConTokenPost('BPasS?Accion=EliminarContrato', body, token);
-      // console.log('responseDataeliminar', responseData);
-      if (responseData.oAuditResponse?.iCode === 1) {
+        if (responseData.oAuditResponse?.iCode === 1) {
         setTimeout(() => {
           setDataAction(null);
           setConfirmationDelete(false);
