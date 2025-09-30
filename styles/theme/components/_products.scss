@@ -403,7 +403,6 @@
         display: flex;
         justify-content: center;
         flex-direction: row;
-        gap: 2rem;
         flex-wrap: wrap;
         justify-content: space-evenly;
         width: 100%;
@@ -417,13 +416,14 @@
       }
 
       @include media(desktop) {
-        // grid-template-columns: repeat(3, 1fr); // 3 columnas de igual tamaño
-        grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 3fr));
+        grid-gap: 2rem 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 3fr));
+
       }
 
       @include media(extradesktop) {
-        // grid-template-columns: repeat(4, 1fr); // 3 columnas de igual tamaño
-        grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 4fr));
+          grid-gap: 2rem 2rem;
+          grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 4fr));
       }
     }
   }
@@ -483,6 +483,10 @@
     }
 
     @include media(desktop) {
+      height: 4.75rem;
+    }
+
+     @include media(extradesktop) {
       height: 4rem;
     }
 
@@ -530,10 +534,18 @@
     h4 {
       color: get-color(black_p2);
       font-size: large;
-      font-weight: 600;
+      font-weight: 600;     
 
       &:focus {
         background-color: get-color(bg-cles);
+      }
+
+      @include media(desktop) {
+        font-size: medium;
+        line-height: 120%;
+     }
+      @include media(extradesktop) {
+        font-size: large;
       }
     }
   }
@@ -589,6 +601,18 @@
       text-align: justify;
       text-align: start;
       letter-spacing: -0.1px; /* o -0.03em */
+
+      @include media(desktop) {
+      font-size:12px;
+       line-height: 110%;
+      }
+
+      @include media(extradesktop) {
+        font-size: smaller;
+         line-height: 120%;
+      }
+
+      
     }
 
     span {
@@ -597,7 +621,7 @@
 
     .text-expired {
       color: get-color(blue_p1);
-      font-size: small !important;
+      font-size:  12px !important;
       font-weight: 300;
     }
   }
