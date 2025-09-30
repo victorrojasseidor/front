@@ -238,6 +238,7 @@ export default function Contract() {
     };
 
 
+
     if (stateFlag === false) {
       body.oResults.bFlagSoloContrato = false; //false edita habilidad, si es en true solo contrato
       body.oResults.oIdHabilidadEliminar = values?.oIdHabilidadEliminar;
@@ -320,7 +321,9 @@ export default function Contract() {
     }
   }
 
-  // solo falta la logica de isuspende
+  // solo falta la logica de isuspendido
+  console.log('despliegue');
+
 
   const acumulatorTransform = (datos) => {
     const datoReduce = datos.reduce((acc, item) => {
